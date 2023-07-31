@@ -103,18 +103,22 @@
 
 
 
-  <meta name="description" content="思考并回答以下问题：  总结一下，这章作者最主要想表达什么观点？">
+  <meta name="description" content="思考并回答以下问题：">
 <meta name="keywords" content="Gin">
 <meta property="og:type" content="article">
 <meta property="og:title" content="13-掌握分布式系统">
 <meta property="og:url" content="http://yoursite.com/2023/07/04/13-掌握分布式系统/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
-<meta property="og:description" content="思考并回答以下问题：  总结一下，这章作者最主要想表达什么观点？">
+<meta property="og:description" content="思考并回答以下问题：">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2023-07-04T02:52:10.814Z">
+<meta property="og:image" content="http://yoursite.com/2023/07/04/13-掌握分布式系统/1.png">
+<meta property="og:image" content="http://yoursite.com/2023/07/04/13-掌握分布式系统/2.png">
+<meta property="og:image" content="http://yoursite.com/2023/07/04/13-掌握分布式系统/3.png">
+<meta property="og:updated_time" content="2023-07-28T06:14:20.919Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="13-掌握分布式系统">
-<meta name="twitter:description" content="思考并回答以下问题：  总结一下，这章作者最主要想表达什么观点？">
+<meta name="twitter:description" content="思考并回答以下问题：">
+<meta name="twitter:image" content="http://yoursite.com/2023/07/04/13-掌握分布式系统/1.png">
 
 
 
@@ -426,12 +430,24 @@
                 
               
 
-              <time title="创建时间：2023-07-04 10:49:16 / 修改时间：10:52:10" itemprop="dateCreated datePublished" datetime="2023-07-04T10:49:16+08:00">2023-07-04</time>
+              <time title="创建时间：2023-07-04 10:49:16" itemprop="dateCreated datePublished" datetime="2023-07-04T10:49:16+08:00">2023-07-04</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2023-07-28 14:14:20" itemprop="dateModified" datetime="2023-07-28T14:14:20+08:00">2023-07-28</time>
               
             
           </span>
@@ -477,7 +493,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">34</span>
+                <span title="本文字数">3.1k</span>
               
 
               
@@ -491,7 +507,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">3 分钟</span>
               
             </div>
           
@@ -512,10 +528,39 @@
 
       
         <p>思考并回答以下问题：</p>
-<ul>
-<li>总结一下，这章作者最主要想表达什么观点？</li>
-</ul>
 <a id="more"></a>
+<h1 id="实验介绍"><a href="#实验介绍" class="headerlink" title="实验介绍"></a><span style="color:#339AFF;">实验介绍</span></h1><p>本次实验将介绍分布式系统，这对于我们了解大型网络应用是如何扩展非常有帮助。分布式系统是由多个服务器组成的系统，服务器之间相互关联，一起协同完成任务。在如今云计算流行的时代，分布式系统对于构建大型可扩展的网络应用是比较重要的。本次实验涉及一些后端应用的进阶知识，我们只需要了解一些相关的基础知识而不需要实际操作。</p>
+<p><strong>知识点</strong> </p>
+<ul>
+<li>CAP理论</li>
+<li>负载均衡</li>
+<li>主从模式</li>
+<li>微服务理论依据</li>
+<li>微服务框架</li>
+</ul>
+<h1 id="CAP理论"><a href="#CAP理论" class="headerlink" title="CAP理论"></a><span style="color:#339AFF;">CAP理论</span></h1><p>CAP理论是一个分布式系统的理论基础，它指出在一个分布式系统中，三个因素，即<strong>一致性</strong>（Consistency）、<strong>可用性</strong>（Availability）和<strong>分区容错性</strong>（Partition Tolerance），不可能同时满足。</p>
+<p>一致性指的是系统的所有节点在同一时间具有相同的数据副本，即所有节点在执行操作时能够保证数据一致。可用性指的是系统能够在任何时间点提供服务，即系统的响应时间和可靠性要高。分区容错性指的是系统能够容忍任何节点之间的通信故障，即在系统中任何节点与其他节点失去联系时，系统仍能够继续工作。由于网络通信的不可靠性，任何分布式系统都必须考虑分区容错性。因此，CAP理论认为在发生网络分区的情况下，分布式系统只能同时满足一致性和可用性中的其中一个。而实际上，分区容错性，是分布式系统的必要因素，因为如果如果不保证分区容错性，分布式系统就失去了意义。CAP理论的平衡关系如下图。</p>
+<img src="/2023/07/04/13-掌握分布式系统/1.png">
+<p>当系统在正常情况下时，可以同时满足一致性和可用性（CA），但在分区（P）发生时，系统必须选择放弃一致性（C）或可用性（A）中的一个，以保证系统的正常运行。不同的分布式系统可以根据实际需求选择不同的权衡策略来满足CAP理论。例如，一些分布式数据库系统，例如银行交易数据库，在网络分区发生时会优先保证一致性（C），而放弃一些可用性（A）；而其他系统，例如电商网站，则会优先保证可用性（A），而放弃一些一致性（C），即所谓的最终一致性。</p>
+<h1 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a><span style="color:#339AFF;">负载均衡</span></h1><p>负载均衡（Load Balancing）是指将工作负载（如用户请求、网络流量等）平均地分配到多个计算资源（如服务器、存储系统等）上，以提高系统的可用性、可扩展性和性能。负载均衡通常通过硬件负载均衡器或软件、负载均衡器来、CDN来实现负载均衡。当网络流量较大时，通常需要通过负载均衡来将网络流量进行分流，否则可能导致服务器单点故障或者宕机。因此，在网络系统中使用负载均衡可以让系统的稳定性得到提升。下图是负载均衡的一个示意图。</p>
+<img src="/2023/07/04/13-掌握分布式系统/2.png">
+<p>对于常规的负载均衡需求，软件负载均衡器就可以足够满足要求。软件负载均衡通常可以通过Nginx、Apache、HAProxy来实现，这些软件都是开源免费的。</p>
+<h1 id="主从模式"><a href="#主从模式" class="headerlink" title="主从模式"></a><span style="color:#339AFF;">主从模式</span></h1><p>主从复制是一种常见的分布式系统设计模式，通常用于数据库系统中。在主从复制中，存在一个主节点（Master）和多个从节点（Slaves）。主节点接收并处理所有的写操作，然后将这些写操作的数据同步到从节点上。从节点只负责读取数据，不接受写操作。</p>
+<p>主从复制的主要目的是提高系统的可用性和读写性能。由于主节点处理所有的写操作，所以主节点可以通过集中管理来确保数据的一致性和完整性。同时，从节点可以承担大部分的读操作，从而分担主节点的压力，提高整个系统的读写性能。在主从复制中，通常采用异步复制的方式来进行数据同步，从节点之间的数据同步存在一定的延迟。因此，在使用主从复制时需要注意数据的一致性和可靠性问题。另外，在主节点宕机或者发生故障时，需要采取相应的容错机制来保证系统的可用性。</p>
+<h1 id="微服务理论依据"><a href="#微服务理论依据" class="headerlink" title="微服务理论依据"></a><span style="color:#339AFF;">微服务理论依据</span></h1><p>微服务的理论依据主要来源于领域驱动设计（Domain-Driven Design，DDD）和服务导向架构（Service-Oriented Architecture，SOA）。</p>
+<p>领域驱动设计（DDD）强调将软件系统的设计与业务领域的理解相结合，通过划分领域和子域来组织软件系统，使系统具有更好的可维护性、可扩展性和可理解性。微服务架构将这种思想进一步扩展到了服务级别，通过将应用程序拆分成一组小型、独立的服务，每个服务都对应着一个领域或子域，使得系统能够更加贴近业务需求，更容易理解和维护。</p>
+<p>服务导向架构（SOA）则强调将软件系统划分为一组松散耦合的服务，每个服务都提供特定的功能或服务，通过服务之间的协作来实现系统的整体功能。微服务架构进一步强调了服务的独立性和自治性，使得每个服务都可以独立开发、部署和扩展，从而使得系统更加灵活和可靠。</p>
+<p>传统的软件开发架构是单体应用，但单体应用的问题在于，随着代码量的不断增加，模块的不断扩充，整个软件应用的复杂度也在不断增加。而且复杂度的增加通常来说是指数级的，这也意味着，单体应用架构在演进到一定阶段的时候，如果增加功能，将涉及到很多模块，导致开发瓶颈出现。而微服务架构就是为了来解决这个问题，其本质就是“高内聚，低耦合”。单体应用架构与微服务架构的示意图如下。</p>
+<img src="/2023/07/04/13-掌握分布式系统/3.png">
+<p>这样每个服务都运行在自己的进程中，并通过轻量级的通信机制（如HTTP API）相互通信，形成一个松散耦合的系统。每个服务既可以运行在同一台服务器上，也可以运行在不同的服务器上，而且可以弹性扩容，在灵活性和健壮性上做了平衡，对于构建大型复杂的应用来说很有帮助。</p>
+<h1 id="微服务框架"><a href="#微服务框架" class="headerlink" title="微服务框架"></a><span style="color:#339AFF;">微服务框架</span></h1><p><strong>Consul</strong></p>
+<p>Consul是一种分布式系统的服务发现和配置管理工具。Consul提供了服务发现、健康检查、键值存储、多数据中心等功能，可以帮助构建和管理微服务架构。Consul由多个代理节点和客户端组成，代理节点负责管理和维护服务注册表、健康检查和故障转移等，客户端则通过代理节点发现和访问服务。Consul支持多种服务发现机制，包括DNS查询、HTTP接口和gRPC接口等，可以与多种语言和框架集成。</p>
+<p><strong>Go Micro</strong></p>
+<p>Go Micro是一个基于Go语言的微服务框架。它提供了服务发现、负载均衡、消息传递、API网关等微服务必备的功能，可以帮助开发者快速构建和管理微服务架构。Go Micro基于gRPC协议和Protobuf数据格式，可以提供高性能、低延迟的服务通信。它支持多种服务发现机制，包括Consul、Etcd、Kubernetes等，可以与多种语言和框架集成。</p>
+<p>以下是Go Micro注册到Consul的代码示例。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"github.com/micro/go-micro/v2"</span></span><br><span class="line">    <span class="string">"github.com/micro/go-micro/v2/registry"</span></span><br><span class="line">    <span class="string">"github.com/micro/go-micro/v2/registry/consul"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 创建 Consul 注册中心</span></span><br><span class="line">    reg := consul.NewRegistry(</span><br><span class="line">        registry.Addrs(<span class="string">"localhost:8500"</span>),</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建服务</span></span><br><span class="line">    srv := micro.NewService(</span><br><span class="line">        micro.Name(<span class="string">"example"</span>),</span><br><span class="line">        micro.Registry(reg),</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 注册服务</span></span><br><span class="line">    srv.Init()</span><br><span class="line">    srv.Run()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="实验总结"><a href="#实验总结" class="headerlink" title="实验总结"></a><span style="color:#339AFF;">实验总结</span></h1><p>本实验介绍了分布式系统的一些相关概念，包括CAP理论、负载均衡、主从模式和微服务。在处理大型复杂计算问题、或者需要高可用性的应用程序时，我们通常会使用分布式系统。本次实验的内容可以帮助我们了解分布式系统的基础知识。</p>
+
       
     </div>
 
@@ -607,8 +652,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1042,6 +1096,23 @@
       </div>
 
       
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实验介绍"><span class="nav-number">1.</span> <span class="nav-text">实验介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CAP理论"><span class="nav-number">2.</span> <span class="nav-text">CAP理论</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#负载均衡"><span class="nav-number">3.</span> <span class="nav-text">负载均衡</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主从模式"><span class="nav-number">4.</span> <span class="nav-text">主从模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#微服务理论依据"><span class="nav-number">5.</span> <span class="nav-text">微服务理论依据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#微服务框架"><span class="nav-number">6.</span> <span class="nav-text">微服务框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验总结"><span class="nav-number">7.</span> <span class="nav-text">实验总结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
 
       
 
@@ -1070,7 +1141,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">8.9m</span>
+    <span title="站点总字数">9m</span>
   
 
   
@@ -1081,7 +1152,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">135:21</span>
+    <span title="站点阅读时长">136:05</span>
   
 </div>
 

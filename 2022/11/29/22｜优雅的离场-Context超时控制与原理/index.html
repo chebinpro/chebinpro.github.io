@@ -113,7 +113,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2022/11/29/22｜优雅的离场-Context超时控制与原理/1.jpg">
 <meta property="og:image" content="http://yoursite.com/2022/11/29/22｜优雅的离场-Context超时控制与原理/2.jpg">
-<meta property="og:updated_time" content="2022-11-30T05:42:07.687Z">
+<meta property="og:updated_time" content="2023-07-31T02:19:46.035Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="22｜优雅的离场：Context超时控制与原理">
 <meta name="twitter:description" content="思考并回答以下问题：">
@@ -446,7 +446,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2022-11-30 13:42:07" itemprop="dateModified" datetime="2022-11-30T13:42:07+08:00">2022-11-30</time>
+                <time title="修改时间：2023-07-31 10:19:46" itemprop="dateModified" datetime="2023-07-31T10:19:46+08:00">2023-07-31</time>
               
             
           </span>
@@ -588,11 +588,12 @@
 <h1 id="Context底层原理"><a href="#Context底层原理" class="headerlink" title="Context底层原理"></a><span style="color:#339AFF;">Context底层原理</span></h1><p>了解了Context的价值和最佳实践，我们再来简单看一下它的底层原理。Context在很大程度上利用了通道的一个特性：通道在close时，会通知所有监听它的协程。每个派生出的子Context都会创建一个新的退出通道，这样，只要组织好Context之间的关系，就可以实现继承链上退出信号的传递。如图所示的三个协程中，关闭通道A会连带关闭调用链上的通道B，通道B会关闭通道C。</p>
 <img src="/2022/11/29/22｜优雅的离场-Context超时控制与原理/2.jpg">
 <p>前面我们说，Context.Background函数和Context.TODO函数会生成一个根Context。要使用context的退出功能，需要调用WithCancel或WithTimeout，派生出一个新的结构Context。WithCancel底层对应的结构为cancelCtx，WithTimeout底层对应的结构为timerCtx，timerCtx包装了cancelCtx，并存储了超时时间。代码如下所示。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> cancelCtx <span class="keyword">struct</span> &#123;</span><br><span class="line">    Context</span><br><span class="line"></span><br><span class="line">    mu       sync.Mutex   </span><br><span class="line">    done     atomic.Value  </span><br><span class="line">    children <span class="keyword">map</span>[canceler]<span class="keyword">struct</span>&#123;&#125; </span><br><span class="line">    err      error</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> timerCtx <span class="keyword">struct</span> &#123;</span><br><span class="line">    cancelCtx</span><br><span class="line">    timer *time.Timer </span><br><span class="line"></span><br><span class="line">    deadline time.Time</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>cancelCtx第一个字段保留了父Context的信息。children字段则保存了当前Context派生的子Context的信息，每个Context都会有一个单独的done通道。而WithDeadline函数会先判断父Context设置的超时时间是否比当前Context的超时时间短。如果是，那么子协程会随着父Context的退出而退出，没有必要再设置定时器。当我们使用了标准库中默认的Context实现时，propagateCancel函数会将子Context加入父协程的children哈希表中，并开启一个定时器。当定时器到期时，会调用cancel方法关闭通道，级联关闭当前Context派生的子Context，并取消与父Context的绑定关系。这种特性就产生了调用链上连锁的退出反应。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *cancelCtx)</span> <span class="title">cancel</span><span class="params">(removeFromParent <span class="keyword">bool</span>, err error)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// 关闭当前通道</span></span><br><span class="line">    <span class="built_in">close</span>(d)</span><br><span class="line">    <span class="comment">// 级联关闭当前context派生的子context</span></span><br><span class="line">    <span class="keyword">for</span> child := <span class="keyword">range</span> c.children &#123;</span><br><span class="line">        child.cancel(<span class="literal">false</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">    c.children = <span class="literal">nil</span></span><br><span class="line">    c.mu.Unlock()</span><br><span class="line">    <span class="comment">// 从父context中能够删除当前context关联</span></span><br><span class="line">    <span class="keyword">if</span> removeFromParent &#123;</span><br><span class="line">        removeChild(c.Context, c)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><span style="color:#339AFF;">总结</span></h1><p>好了，这节课就讲到这里，我们总结一下。这节课，我们介绍了如何用Context安全而优雅地完成协程的退出。Context是使用频率非常高的函数，它不仅为我们规范了处理协程退出的风格，而且它的一些特性，诸如并发安全、级联退出、携带上下文信息都比较好用。</p>
+<p>cancelCtx第一个字段保留了父Context的信息。children字段则保存了当前Context派生的子Context的信息，每个Context都会有一个单独的done通道。</p>
+<p>而WithDeadline函数会先判断父Context设置的超时时间是否比当前Context的超时时间短。如果是，那么子协程会随着父Context的退出而退出，没有必要再设置定时器。</p>
+<p>当我们使用了标准库中默认的Context实现时，propagateCancel函数会将子Context加入父协程的children哈希表中，并开启一个定时器。当定时器到期时，会调用cancel方法关闭通道，级联关闭当前Context派生的子Context，并取消与父Context的绑定关系。这种特性就产生了调用链上连锁的退出反应。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *cancelCtx)</span> <span class="title">cancel</span><span class="params">(removeFromParent <span class="keyword">bool</span>, err error)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// 关闭当前通道</span></span><br><span class="line">    <span class="built_in">close</span>(d)</span><br><span class="line">    <span class="comment">// 级联关闭当前context派生的子context</span></span><br><span class="line">    <span class="keyword">for</span> child := <span class="keyword">range</span> c.children &#123;</span><br><span class="line">        child.cancel(<span class="literal">false</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">    c.children = <span class="literal">nil</span></span><br><span class="line">    c.mu.Unlock()</span><br><span class="line">    <span class="comment">// 从父context中能够删除当前context关联</span></span><br><span class="line">    <span class="keyword">if</span> removeFromParent &#123;</span><br><span class="line">        removeChild(c.Context, c)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><span style="color:#339AFF;">总结</span></h1><p>这节课，我们介绍了如何用Context安全而优雅地完成协程的退出。Context是使用频率非常高的函数，它不仅为我们规范了处理协程退出的风格，而且它的一些特性，诸如并发安全、级联退出、携带上下文信息都比较好用。</p>
 <p>自从Context出现之后，许多的包都相继完成了改造，开始在API的第一个参数中传递Context，特别是涉及到需要跨服务调用的场景时。在Go网络处理中，我们可以设置很多超时时间来控制请求退出，这背后是离不开标准库对Context的巧妙使用的。</p>
-<h1 id="课后题"><a href="#课后题" class="headerlink" title="课后题"></a><span style="color:#339AFF;">课后题</span></h1><p>最后，我也给你留一道思考题。</p>
-<p>Go HTTP标准库中其实有多种类型的超时，你知道有哪些吗？</p>
+<h1 id="课后题"><a href="#课后题" class="headerlink" title="课后题"></a><span style="color:#339AFF;">课后题</span></h1><p>Go HTTP标准库中其实有多种类型的超时，你知道有哪些吗？</p>
 
       
     </div>
@@ -1174,7 +1175,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">8.9m</span>
+    <span title="站点总字数">9m</span>
   
 
   
@@ -1185,7 +1186,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">135:21</span>
+    <span title="站点阅读时长">136:05</span>
   
 </div>
 
