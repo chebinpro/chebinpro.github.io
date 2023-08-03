@@ -117,7 +117,7 @@
 <meta property="og:image" content="http://yoursite.com/2022/11/19/18｜依赖管理：Go-Module-用法与原理/4.webp">
 <meta property="og:image" content="http://yoursite.com/2022/11/19/18｜依赖管理：Go-Module-用法与原理/5.webp">
 <meta property="og:image" content="http://yoursite.com/2022/11/19/18｜依赖管理：Go-Module-用法与原理/6.webp">
-<meta property="og:updated_time" content="2023-07-27T06:28:29.878Z">
+<meta property="og:updated_time" content="2023-08-03T03:32:25.926Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="18 ｜ 依赖管理：Go Module用法与原理">
 <meta name="twitter:description" content="思考并回答以下问题：">
@@ -450,7 +450,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2023-07-27 14:28:29" itemprop="dateModified" datetime="2023-07-27T14:28:29+08:00">2023-07-27</time>
+                <time title="修改时间：2023-08-03 11:32:25" itemprop="dateModified" datetime="2023-08-03T11:32:25+08:00">2023-08-03</time>
               
             
           </span>
@@ -496,7 +496,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">11k</span>
+                <span title="本文字数">12k</span>
               
 
               
@@ -510,7 +510,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">10 分钟</span>
+                <span title="阅读时长">11 分钟</span>
               
             </div>
           
@@ -532,7 +532,6 @@
       
         <p>思考并回答以下问题：</p>
 <a id="more"></a>
-<p>由于项目一开始就需要涉及到依赖的管理，因此在下一节课正式书写项目代码前，我们先来看一看和依赖管理的一些重要知识。</p>
 <p>我们知道，一个大型程序会引入大量必要的第三方库，这就让这个程序形成了复杂的依赖关系网络。这种复杂性可能引发一系列问题，例如<strong>依赖过多、多重依赖、依赖冲突、依赖回圈等</strong>。因此，需要有专门的工具对程序的依赖进行管理。</p>
 <p>Go语言中的依赖管理经历了长时间的演进过程。在Go 1.5之前，Go官方通过GOPATH对依赖进行管理。但是由于GOPATH存在诸多问题，社区和官方尝试了诸多新的依赖管理工具，中间出现的Godep、Glide、Vendor等工具都不如人意，最终笑到最后的是在Go 1.11后引入，并在Go 1.13之后成为Go依赖管理主流的Go Modules。</p>
 <p>让我们先来看看GOPATH和它的不足之处。</p>
@@ -622,16 +621,24 @@
 <p>那如果删除刚刚为模块B添加的代码，又会发生什么呢？Go会将项目锁定到模块D的版本v1.0.2中。这是因为降级到版本v1.0.1将是一个更大的更改，而Go知道版本v1.0.2可以正常运行并且稳定，因此版本v1.0.2仍然是“最新版本”。</p>
 <p>这是在不同情境下，我们预测最小版本选择原理会产生的结果。到底对不对呢？我们来验证一下。我们以github.com/dreamerjackson/mydiv为例，其v1.0.1与v1.0.2版本的代码如下：</p>
 <p>接着模块B（github.com/dreamerjackson/minidiv）引用了模块D（github.com/dreamerjackson/mydiv）v1.0.1版本。</p>
-<p>最后，我们把当前的项目叫做模块Now，直接依赖模块Dv1.0.2，同时依赖模块B，其代码如下：</p>
-<p>当前的依赖关系如下：</p>
-<p>关键时刻到了，我们需要验证当前项目是不是如我们所料选择了模块Dv1.0.2。验证方式有两种。第一种是直接运行，查看项目采用了哪一个版本的代码。</p>
-<p>通过上面这段代码可以看出，输出的结果全部是我们在模块Dv1.0.2中定义的代码。第二种方式是使用golist指令，得到的也是一样的结果：</p>
-<p>第三种方式，我们可以使用“golist-m-uall”指令查看直接和间接模块的当前和最新版本。</p>
-<p>更新模块更新模块可以使用goget指令，goget指令有不少的参数可供选择。使用下面的命令，可以更新项目中所有的依赖模块为最新版本。（注意，除非你了解项目的所有细节，否则不要直接将所有模块调整到最新版本。）</p>
-<p>解释一下，这里的-v表示提供详细输出，-t表示会连带着下载指定模块中的测试包，-u表示将指定模块更新到最新版本，./…表明在整个源代码树中执行这些操作。我们再次查看当前引用的版本，会发现模块github.com/dreamerjackson/mydiv已经被强制更新到了最新的v1.0.3版本。</p>
-<p>重置依赖关系如果不满意所选的模块和版本，我们可以通过删除go.mod、go.sum中的依赖关系并再次运行gomodtidy来重置版本。当项目还不太成熟时，这是一种选择。</p>
-<p>语义版本（SemanticVersioning）</p>
-<p>为了标识一个模块的快照，Go Modules使用了语义版本来管理模块。每个语义版本都采用vMAJOR.MINOR.PATCH的形式，我们简单介绍下各字段的含义。</p>
+<p>最后，我们把当前的项目叫做模块Now，直接依赖模块Dv1.0.2，同时依赖模块B，其代码如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    div <span class="string">"github.com/dreamerjackson/minidiv"</span></span><br><span class="line">    <span class="string">"github.com/dreamerjackson/mydiv"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    _,err1:= mydiv.Div(<span class="number">4</span>,<span class="number">0</span>)</span><br><span class="line">    _,err2 := div.Div(<span class="number">4</span>,<span class="number">0</span>)</span><br><span class="line">    fmt.Println(err1,err2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当前的依赖关系如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">当前模块 --&gt; 模块D v1.0.2</span><br><span class="line">当前模块 --&gt; 模块B --&gt; 模块D v1.0.1</span><br></pre></td></tr></table></figure></p>
+<p>关键时刻到了，我们需要验证当前项目是不是如我们所料选择了模块Dv1.0.2。</p>
+<p>验证方式有两种。第一种是直接运行，查看项目采用了哪一个版本的代码。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> go run main.go</span></span><br><span class="line">v1.0.2 b can't = 0 v1.0.2 b can't = 0</span><br></pre></td></tr></table></figure></p>
+<p>通过上面这段代码可以看出，输出的结果全部是我们在模块Dv1.0.2中定义的代码。</p>
+<p>第二种方式是使用golist指令，得到的也是一样的结果：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~/mathlib » go list -m all | grep mydiv</span><br><span class="line">github.com/dreamerjackson/mydiv v1.0.2</span><br></pre></td></tr></table></figure></p>
+<p>第三种方式，我们可以使用“golist-m-uall”指令查看直接和间接模块的当前和最新版本。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">~/mathlib » go list -m -u all | column -t                                                                               </span><br><span class="line">go: finding github.com/dreamerjackson/minidiv latest</span><br><span class="line">github.com/dreamerjackson/mathlib</span><br><span class="line">github.com/dreamerjackson/minidiv  v0.0.0-20200305104752-fcd15cf402bb</span><br><span class="line">github.com/dreamerjackson/mydiv    v1.0.2                              [v1.0.3]</span><br><span class="line">github.com/pkg/errors              v0.9.1</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>更新模块</li>
+</ul>
+<p>更新模块可以使用goget指令，goget指令有不少的参数可供选择。使用下面的命令，可以更新项目中所有的依赖模块为最新版本。（注意，除非你了解项目的所有细节，否则不要直接将所有模块调整到最新版本。）<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~/mathlib » go get -u -t -v ./...                                              </span><br><span class="line">go: finding github.com/dreamerjackson/minidiv latest</span><br><span class="line">go: downloading github.com/dreamerjackson/mydiv v1.0.3</span><br><span class="line">go: extracting github.com/dreamerjackson/mydiv v1.0.3</span><br></pre></td></tr></table></figure></p>
+<p>解释一下，这里的-v表示提供详细输出，-t表示会连带着下载指定模块中的测试包，-u表示将指定模块更新到最新版本，./…表明在整个源代码树中执行这些操作。</p>
+<p>我们再次查看当前引用的版本，会发现模块github.com/dreamerjackson/mydiv已经被强制更新到了最新的v1.0.3版本。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~/mathlib » go list -m all | grep mydiv</span><br><span class="line">github.com/dreamerjackson/mydiv v1.0.3</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>重置依赖关系</li>
+</ul>
+<p>如果不满意所选的模块和版本，我们可以通过删除go.mod、go.sum中的依赖关系并再次运行gomodtidy来重置版本。当项目还不太成熟时，这是一种选择。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> rm go.*</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> go mod init &lt;module name&gt;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> go mod tidy</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="语义版本（Semantic-Versioning）"><a href="#语义版本（Semantic-Versioning）" class="headerlink" title="语义版本（Semantic Versioning）"></a>语义版本（Semantic Versioning）</h1><p>为了标识一个模块的快照，Go Modules使用了语义版本来管理模块。每个语义版本都采用vMAJOR.MINOR.PATCH的形式，我们简单介绍下各字段的含义。</p>
 <ul>
 <li>v：所有版本号都以v开头。</li>
 <li>MAJOR：主版本号。意味着有大的版本更新，一般会导致API和之前版本不兼容。</li>
@@ -641,29 +648,29 @@
 <p>如果两个版本具有相同的主版本号，那么预期更高版本则可以向后兼容较低版本。但是，如果两个版本的主版本号不同，那么它们之间就没有预期的兼容关系。因此，我们在上面的实例中可以看到，Go判断v1.0.3与v1.0.1是兼容的，是因为他们有相同的主版本号1。如果我们将版本升级到了v2.0.0，则会被看作出现了重大更新，兼容关系不再成立。</p>
 <p>下面这张图展示了Go处理版本更新的方法。my/thing/v2标识的是特定模块的语义主版本2。版本1是my/thing，模块路径中没有明确的版本。但是，当用户引入主要版本2或更大版本时，必须在模块名称后添加版本，以区别于版本1和其他主要版本，所以版本2为my/thing/v2，版本3为my/thing/v3，依此类推。</p>
 <img src="/2022/11/19/18｜依赖管理：Go-Module-用法与原理/6.webp">
-<p>v2版本假设模块A引入了模块B和模块C，模块B引入了模块Dv1.0.0，模块C引入了模块Dv2.0.0。如下所示：</p>
-<p>由于v1和v2模块的路径不相同，所以他们是互不干扰的两个模块，可以共存。下面我用实例来验证一下。首先给github.com/dreamerjackson/mydiv打一个v2.0.0的tag，其代码如下，在v2.0.0中简单修改了返回的错误文字。</p>
-<p>同时，我们需要修改v2模块的路径名：</p>
-<p>接着在mathlib模块中书写代码如下：</p>
-<p>现在的依赖路径可以表示为：mathlib—&gt;依赖mydivv2mathlib—&gt;依赖minidiv—&gt;依赖mydivv1运行代码，可以看到两段代码是共存的。</p>
-<p>最后，我们接着执行golist，进一步确认模块v1与v2是共存的，验证成功～</p>
-<p>伪版本当我们引入了一个没有用语义版本管理的模块，或者我们希望用某一个特殊的commit快照进行测试时，导入模块的版本会是伪版本，例如：v0.0.0-20191109021931-daa7c04131f5就是一个伪版本。伪版本包含了3个部分：基本版本前缀：通常为vX.0.0或vX.Y.Z-0。vX.Y.Z-0表明该commit快照派生自某一个语义版本，vX.0.0表明该commit快照找不到派生的语义版本；时间戳：格式为“yyyymmddhhmmss”，它是创建commit的UTC时间；最后是长度为12的commit号。我们在Go代码库的设计中，应该严格遵守语义版本的规范，尽可能保证代码具有向后兼容性。我在实践中看到过很多依赖库由于代码不兼容带来了许多问题，v1与v2版本如果同时存在也会增加理解的成本，这些都是我们要尽量避免的。</p>
-<p>总结我们这节课就讲到这里。这节课，我们简单梳理了一下Go语言的依赖管理进程。在Go1.5之前，Go官方主要使用GOPATH管理依赖，但是由于GOPATH存在很多问题，在后续的版本中，GOPATH逐渐式微。Go1.13之后，Go Modules成为了Go项目依赖管理的主流方式。Go Modules提供了脱离GOPATH管理Go代码的方式。同时提供了代码捆绑、版本控制、依赖管理的功能，供全球开发人员使用、构建、下载、授权、验证、获取、缓存和重用模块。Go Modules让世界各地的开发者能够始终得到完全相同的代码，而不管它被构建了多少次，从何处获取及由谁获取。</p>
-<h1 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a><span style="color:#339AFF;">写在最后</span></h1><p>最近，我们收到了一些同学对于一门实战课程还未看到代码的困惑，这里我统一做一个回复。</p>
-<p>我们的这个专栏，内容比较庞大。想要交付给大家的不只是一个实战项目，更会介绍为什么要这样去写代码。所以在专栏的前期，我做了一些铺垫。回顾一下目前为止的知识：</p>
+<h2 id="v2版本"><a href="#v2版本" class="headerlink" title="v2版本"></a>v2版本</h2><p>假设模块A引入了模块B和模块C，模块B引入了模块Dv1.0.0，模块C引入了模块Dv2.0.0。如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A --&gt; 模块B --&gt; 模块D v1.0.0</span><br><span class="line">A --&gt; 模块C --&gt; 模块D v2.0.0</span><br></pre></td></tr></table></figure></p>
+<p>由于v1和v2模块的路径不相同，所以他们是互不干扰的两个模块，可以共存。</p>
+<p>下面我用实例来验证一下。首先给github.com/dreamerjackson/mydiv打一个v2.0.0的tag，其代码如下，在v2.0.0中简单修改了返回的错误文字。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> mydiv</span><br><span class="line"><span class="keyword">import</span> <span class="string">"github.com/pkg/errors"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Div</span><span class="params">(a <span class="keyword">int</span>,b <span class="keyword">int</span>)</span> <span class="params">(<span class="keyword">int</span>,error)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> b==<span class="number">0</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>,errors.Errorf(<span class="string">"v2.0.0 b can't = 0"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a/b,<span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>同时，我们需要修改v2模块的路径名：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">module github.com/dreamerjackson/mydiv/v2</span><br></pre></td></tr></table></figure></p>
+<p>接着在mathlib模块中书写代码如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    div <span class="string">"github.com/dreamerjackson/minidiv"</span></span><br><span class="line">    mydiv <span class="string">"github.com/dreamerjackson/mydiv/v2"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    _,err1:= mydiv.Div(<span class="number">4</span>,<span class="number">0</span>)</span><br><span class="line">    _,err2 := div.Div(<span class="number">4</span>,<span class="number">0</span>)</span><br><span class="line">    fmt.Println(err1,err2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>现在的依赖路径可以表示为：</p>
 <ul>
-<li>1-3讲，我们回顾了Go的基础知识，也看到了一条完整的进阶学习路线；</li>
-<li>4-5讲，我们介绍了整个大型项目的流程，看到了大型企业项目流程的全貌；</li>
-<li>6-7讲，我们介绍了爬虫的内涵，还聊了一个重要的话题，为什么Go适合爬虫网络项目？</li>
-<li>8-13讲，我介绍了系统设计的三个主要问题，高性能、微服务、分布式，以此推导出了14讲的内容，也就是项目的功能、设计架构以及为什么要这样去设计；</li>
-<li>紧接着，我们来到了Worker开发篇，在15讲，我介绍了项目的编程规范，这是我们从会写代码到写好代码，从单兵作战到团队协作需要遵守的原则与规范；</li>
-<li>16-17讲，我们看到了爬虫的核心，一次网络爬取的流程。如果你把7、16、17结合起来看，你就能回答一个重要的问题，知道Go语言的HTTP请求流程是怎样的，以及Go为什么适合开发网络服务，同时，我们后面的开发也依赖于这样的知识；</li>
-<li>18讲，也就是这一讲，我详细论述了依赖管理，因为一个项目一开始就需要它。</li>
-<li>下一讲，我会开始书写项目的第一行代码。</li>
+<li>mathlib—&gt;依赖mydivv2</li>
+<li>mathlib—&gt;依赖minidiv—&gt;依赖mydivv1</li>
 </ul>
-<p>可以看到，我想打造的这个专栏拥有一条比较全面、完整的逻辑链，前面这些篇幅都是围绕着整个项目展开的。我的教育理念和课程设计可能并不能满足每个人的需求，但是相信很快你会看到自己想要看到的内容。这些前期的知识，后面回过头来看，也许别有一番滋味。</p>
-<p>在未来，我们也会在不违背课程设计初衷的前提下做更多实战侧的调整。也期待过段时间，还能够看到你们的反馈。</p>
-<h1 id="课后题"><a href="#课后题" class="headerlink" title="课后题"></a><span style="color:#339AFF;">课后题</span></h1><p>最后，我也给你留一道思考题。你认为应该如何解决Go项目常常遇到的循环依赖问题？</p>
+<p>运行代码，可以看到两段代码是共存的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v2.0.0 b can&apos;t = 0 ：： v1.0.1 b can&apos;t = 0</span><br></pre></td></tr></table></figure></p>
+<p>最后，我们接着执行golist，进一步确认模块v1与v2是共存的，验证成功～<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~/mathlib(master*) » go list -m all | grep mydiv</span><br><span class="line">github.com/dreamerjackson/mydiv v1.0.1</span><br><span class="line">github.com/dreamerjackson/mydiv/v2 v2.0.1</span><br></pre></td></tr></table></figure></p>
+<h1 id="伪版本"><a href="#伪版本" class="headerlink" title="伪版本"></a>伪版本</h1><p>当我们引入了一个没有用语义版本管理的模块，或者我们希望用某一个特殊的commit快照进行测试时，导入模块的版本会是伪版本，例如：v0.0.0-20191109021931-daa7c04131f5就是一个伪版本。伪版本包含了3个部分：</p>
+<ul>
+<li>基本版本前缀：通常为vX.0.0或vX.Y.Z-0。vX.Y.Z-0表明该commit快照派生自某一个语义版本，vX.0.0表明该commit快照找不到派生的语义版本；</li>
+<li>时间戳：格式为“yyyymmddhhmmss”，它是创建commit的UTC时间；</li>
+<li>最后是长度为12的commit号。</li>
+</ul>
+<p>我们在Go代码库的设计中，应该严格遵守语义版本的规范，尽可能保证代码具有向后兼容性。我在实践中看到过很多依赖库由于代码不兼容带来了许多问题，v1与v2版本如果同时存在也会增加理解的成本，这些都是我们要尽量避免的。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这节课，我们简单梳理了一下Go语言的依赖管理进程。在Go 1.5之前，Go官方主要使用GOPATH管理依赖，但是由于GOPATH存在很多问题，在后续的版本中，GOPATH逐渐式微。Go 1.13之后，Go Modules成为了Go项目依赖管理的主流方式。</p>
+<p>Go Modules提供了脱离GOPATH管理Go代码的方式。同时提供了代码捆绑、版本控制、依赖管理的功能，供全球开发人员使用、构建、下载、授权、验证、获取、缓存和重用模块。Go Modules让世界各地的开发者能够始终得到完全相同的代码，而不管它被构建了多少次，从何处获取及由谁获取。</p>
+<p>如果你把7、16、17结合起来看，你就能回答一个重要的问题，知道Go语言的HTTP请求流程是怎样的，以及Go为什么适合开发网络服务。</p>
+<h1 id="课后题"><a href="#课后题" class="headerlink" title="课后题"></a><span style="color:#339AFF;">课后题</span></h1><p>你认为应该如何解决Go项目常常遇到的循环依赖问题？</p>
 
       
     </div>
@@ -783,7 +790,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1140</span>
+                    <span class="site-state-item-count">1143</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1168,6 +1175,14 @@
                 
                 
                   <li>
+                    <a href="/2023/08/02/特别放送｜回头看：如何更好地组织代码？/" title="特别放送｜回头看：如何更好地组织代码？" target="_blank">特别放送｜回头看：如何更好地组织代码？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/08/02/特别放送｜Go泛型：用法、原理与最佳实践/" title="特别放送｜Go泛型：用法、原理与最佳实践" target="_blank">特别放送｜Go泛型：用法、原理与最佳实践</a>
+                  </li>
+                
+                  <li>
                     <a href="/2023/07/19/zero-admin-3/" title="zero-admin-3" target="_blank">zero-admin-3</a>
                   </li>
                 
@@ -1177,14 +1192,6 @@
                 
                   <li>
                     <a href="/2023/07/19/zero-admin-1/" title="zero-admin-1" target="_blank">zero-admin-1</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/Day7-服务发现与注册中心/" title="Day7 服务发现与注册中心" target="_blank">Day7 服务发现与注册中心</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/Day6-负载均衡/" title="Day6 负载均衡" target="_blank">Day6 负载均衡</a>
                   </li>
                 
               </ul>
@@ -1210,7 +1217,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GOPATH"><span class="nav-number">1.</span> <span class="nav-text">GOPATH</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是GOPATH？"><span class="nav-number">1.1.</span> <span class="nav-text">什么是GOPATH？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GOPATH的落幕与依赖管理的历史"><span class="nav-number">1.2.</span> <span class="nav-text">GOPATH的落幕与依赖管理的历史</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Go-Modules"><span class="nav-number">2.</span> <span class="nav-text">Go Modules</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#import路径问题"><span class="nav-number">2.1.</span> <span class="nav-text">import路径问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码捆绑和版本控制问题"><span class="nav-number">2.2.</span> <span class="nav-text">代码捆绑和版本控制问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Go-Modules实践"><span class="nav-number">2.3.</span> <span class="nav-text">Go Modules实践</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#写在最后"><span class="nav-number">3.</span> <span class="nav-text">写在最后</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课后题"><span class="nav-number">4.</span> <span class="nav-text">课后题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GOPATH"><span class="nav-number">1.</span> <span class="nav-text">GOPATH</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是GOPATH？"><span class="nav-number">1.1.</span> <span class="nav-text">什么是GOPATH？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GOPATH的落幕与依赖管理的历史"><span class="nav-number">1.2.</span> <span class="nav-text">GOPATH的落幕与依赖管理的历史</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Go-Modules"><span class="nav-number">2.</span> <span class="nav-text">Go Modules</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#import路径问题"><span class="nav-number">2.1.</span> <span class="nav-text">import路径问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码捆绑和版本控制问题"><span class="nav-number">2.2.</span> <span class="nav-text">代码捆绑和版本控制问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Go-Modules实践"><span class="nav-number">2.3.</span> <span class="nav-text">Go Modules实践</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#语义版本（Semantic-Versioning）"><span class="nav-number">3.</span> <span class="nav-text">语义版本（Semantic Versioning）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#v2版本"><span class="nav-number">3.1.</span> <span class="nav-text">v2版本</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#伪版本"><span class="nav-number">4.</span> <span class="nav-text">伪版本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课后题"><span class="nav-number">6.</span> <span class="nav-text">课后题</span></a></li></ol></div>
             
 
           </div>
@@ -1245,7 +1252,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9m</span>
+    <span title="站点总字数">9.1m</span>
   
 
   
@@ -1256,7 +1263,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">136:05</span>
+    <span title="站点阅读时长">138:13</span>
   
 </div>
 

@@ -111,7 +111,7 @@
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2023-07-16T00:58:04.386Z">
+<meta property="og:updated_time" content="2023-08-01T08:36:23.711Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="6-日志">
 <meta name="twitter:description" content="思考并回答以下问题：">
@@ -443,7 +443,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2023-07-16 08:58:04" itemprop="dateModified" datetime="2023-07-16T08:58:04+08:00">2023-07-16</time>
+                <time title="修改时间：2023-08-01 16:36:23" itemprop="dateModified" datetime="2023-08-01T16:36:23+08:00">2023-08-01</time>
               
             
           </span>
@@ -489,7 +489,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">6.1k</span>
+                <span title="本文字数">6.4k</span>
               
 
               
@@ -541,17 +541,70 @@
 <p>执行程序。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go run main.go</span><br></pre></td></tr></table></figure></p>
 <p>运行结果会显示在控制台中，因为默认的适配器为<code>logs.AdapterConsole</code>，所以main函数中第一行代码是可有可无的。</p>
 <p>默认适配器日志运行结果</p>
-<p>logs.SetLogger(logs.AdapterConsole)设置日志适配器。</p>
-<p>设置不同的适配器<br>Beego内置了AdapterConsole、AdapterFile、AdapterMultiFile、AdapterConn、AdapterMail、AdapterEs适配器，一般情况下是足够用了。</p>
-<p>AdapterConsole:logs.SetLogger(logs.AdapterConsole,{“level”:1,”color”:true})<br>level：输出的日志级别。<br>color：是否开启打印日志彩色打印。<br>AdapterFile:logs.SetLogger(logs.AdapterFile,{“filename”:”test.log”})<br>filename：保存的文件名。<br>maxlines：每个文件保存的最大行数，默认值1000000。<br>maxsize：每个文件保存的最大尺寸，默认值是1&lt;&lt;28,256MB。<br>daily：是否按照每天logrotate，默认是true。<br>maxdays：文件最多保存多少天，默认保存7天。<br>rotate：是否开启logrotate，默认是true。<br>level：日志保存的时候的级别，默认是Trace级别。<br>perm：日志文件权限。<br>AdapterMultiFile:logs.SetLogger(logs.AdapterMultiFile,{“filename”:”test.log”,”separate”:[“emergency”,”alert”,”critical”,”error”,”warning”,”notice”,”info”,”debug”]})<br>filename：保存的文件名。<br>maxlines：每个文件保存的最大行数，默认值1000000。<br>maxsize：每个文件保存的最大尺寸，默认值是1&lt;&lt;28,//256MB。<br>daily：是否按照每天logrotate，默认是true。<br>maxdays：文件最多保存多少天，默认保存7天。<br>rotate：是否开启logrotate，默认是true。<br>level：日志保存的时候的级别，默认是Trace级别。<br>perm：日志文件权限。<br>separate：需要单独写入文件的日志级别,设置后命名类似test.error.log。<br>AdapterConn:logs.SetLogger(logs.AdapterConn,{“net”:”tcp”,”addr”:”:7020”})<br>reconnectOnMsg：是否每次链接都重新打开链接，默认是false。<br>reconnect：是否自动重新链接地址，默认是false。<br>net：发开网络链接的方式，可以使用tcp、unix、udp等。<br>addr：网络链接的地址。<br>level：日志保存的时候的级别，默认是Trace级别。<br>AdapterMail:logs.SetLogger(logs.AdapterMail,{“username”:”beegotest@gmail.com”,”password”:”xxxxxxxx”,”host”:”smtp.gmail.com:587”,”sendTos”:[“xiemengjun@gmail.com”]})<br>username:smtp验证的用户名。<br>password:smtp验证密码。<br>host:发送的邮箱地址。<br>sendTos:邮件需要发送的人，支持多个。<br>subject:发送邮件的标题，默认是Diagnosticmessagefromserver。<br>level:日志发送的级别，默认是Trace级别。<br>AdapterEs:logs.SetLogger(logs.AdapterEs,{“dsn”:”<a href="http://localhost:9200/&quot;,&quot;level&quot;:1}" target="_blank" rel="noopener">http://localhost:9200/&quot;,&quot;level&quot;:1}</a>)<br>dsn:ElasticSearch连接信息。<br>level:日志级别。<br>自定义格式日志<br>自定义格式，需要实现接口。</p>
+<ul>
+<li>logs.SetLogger(logs.AdapterConsole)设置日志适配器。</li>
+</ul>
+<h1 id="设置不同的适配器"><a href="#设置不同的适配器" class="headerlink" title="设置不同的适配器"></a>设置不同的适配器</h1><p>Beego内置了AdapterConsole、AdapterFile、AdapterMultiFile、AdapterConn、AdapterMail、AdapterEs适配器，一般情况下是足够用了。</p>
+<ul>
+<li>AdapterConsole:logs.SetLogger(logs.AdapterConsole,{“level”:1,”color”:true})<ul>
+<li>level：输出的日志级别。</li>
+<li>color：是否开启打印日志彩色打印。</li>
+</ul>
+</li>
+<li>AdapterFile:logs.SetLogger(logs.AdapterFile,{“filename”:”test.log”})<ul>
+<li>filename：保存的文件名。</li>
+<li>maxlines：每个文件保存的最大行数，默认值1000000。</li>
+<li>maxsize：每个文件保存的最大尺寸，默认值是1&lt;&lt;28,256MB。</li>
+<li>daily：是否按照每天logrotate，默认是true。</li>
+<li>maxdays：文件最多保存多少天，默认保存7天。</li>
+<li>rotate：是否开启logrotate，默认是true。</li>
+<li>level：日志保存的时候的级别，默认是Trace级别。</li>
+<li>perm：日志文件权限。</li>
+</ul>
+</li>
+<li><code>AdapterMultiFile:logs.SetLogger(logs.AdapterMultiFile,{&quot;filename&quot;:&quot;test.log&quot;,&quot;separate&quot;:[&quot;emergency&quot;,&quot;alert&quot;,&quot;critical&quot;,&quot;error&quot;,&quot;warning&quot;,&quot;notice&quot;,&quot;info&quot;,&quot;debug&quot;]})</code><ul>
+<li>filename：保存的文件名。</li>
+<li>maxlines：每个文件保存的最大行数，默认值1000000。</li>
+<li>maxsize：每个文件保存的最大尺寸，默认值是1&lt;&lt;28,//256MB。</li>
+<li>daily：是否按照每天logrotate，默认是true。</li>
+<li>maxdays：文件最多保存多少天，默认保存7天。</li>
+<li>rotate：是否开启logrotate，默认是true。</li>
+<li>level：日志保存的时候的级别，默认是Trace级别。</li>
+<li>perm：日志文件权限。</li>
+<li>separate：需要单独写入文件的日志级别,设置后命名类似test.error.log。</li>
+</ul>
+</li>
+<li>AdapterConn:logs.SetLogger(logs.AdapterConn,{“net”:”tcp”,”addr”:”:7020”})<ul>
+<li>reconnectOnMsg：是否每次链接都重新打开链接，默认是false。</li>
+<li>reconnect：是否自动重新链接地址，默认是false。</li>
+<li>net：发开网络链接的方式，可以使用tcp、unix、udp等。</li>
+<li>addr：网络链接的地址。</li>
+<li>level：日志保存的时候的级别，默认是Trace级别。</li>
+</ul>
+</li>
+<li>AdapterMail:logs.SetLogger(logs.AdapterMail,{“username”:”beegotest@gmail.com”,”password”:”xxxxxxxx”,”host”:”smtp.gmail.com:587”,”sendTos”:[“xiemengjun@gmail.com”]})<ul>
+<li>username:smtp验证的用户名。</li>
+<li>password:smtp验证密码。</li>
+<li>host:发送的邮箱地址。</li>
+<li>sendTos:邮件需要发送的人，支持多个。</li>
+<li>subject:发送邮件的标题，默认是Diagnosticmessagefromserver。</li>
+<li>level:日志发送的级别，默认是Trace级别。</li>
+</ul>
+</li>
+<li>AdapterEs:logs.SetLogger(logs.AdapterEs,{“dsn”:”<a href="http://localhost:9200/&quot;,&quot;level&quot;:1}" target="_blank" rel="noopener">http://localhost:9200/&quot;,&quot;level&quot;:1}</a>)<ul>
+<li>dsn:ElasticSearch连接信息。</li>
+<li>level:日志级别。</li>
+</ul>
+</li>
+</ul>
+<h1 id="自定义格式日志"><a href="#自定义格式日志" class="headerlink" title="自定义格式日志"></a>自定义格式日志</h1><p>自定义格式，需要实现接口。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> LogFormatter <span class="keyword">interface</span> &#123;</span><br><span class="line">    Format(lm *LogMsg) <span class="keyword">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>自定义格式例子。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line">    <span class="string">"github.com/beego/beego/v2/core/logs"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> MyLogFormatter <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(l *MyLogFormatter)</span> <span class="title">Format</span><span class="params">(lm *logs.LogMsg)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> fmt.Sprintf(lm.Msg, lm.Args...)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    logs.RegisterFormatter(<span class="string">"my"</span>, &amp;MyLogFormatter&#123;&#125;)</span><br><span class="line">    logs.SetGlobalFormatter(<span class="string">"my"</span>)</span><br><span class="line"></span><br><span class="line">    logs.Debug(<span class="string">"my book is bought in the year of "</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">    logs.Critical(<span class="string">"oh,crash"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li><code>logs.RegisterFormatter</code>注册格式化工具。</li>
 <li><code>logs.SetGlobalFormatter</code>设置所有适配器都使用这种格式。</li>
 </ul>
 <p>运行，查看结果。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home/project/<span class="built_in">log</span>/beego</span><br><span class="line">go run main.go</span><br></pre></td></tr></table></figure></p>
-<p>自定义适配器</p>
-<p>虽然Beego已经内置了非常多的适配器，但万一满足不了需求，还是可以自定义适配器。接下来，我们来自定义一个Redis的适配器。</p>
+<h1 id="自定义适配器"><a href="#自定义适配器" class="headerlink" title="自定义适配器"></a>自定义适配器</h1><p>虽然Beego已经内置了非常多的适配器，但万一满足不了需求，还是可以自定义适配器。接下来，我们来自定义一个Redis的适配器。</p>
 <p>先启动redis-server，如果你使用的是蓝桥云课的实验环境，执行如下命令。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-server&amp; <span class="comment">#&amp;表示在后台运行程序</span></span><br></pre></td></tr></table></figure></p>
 <p>启动redis</p>
 <p>安装goredis扩展。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get github.com/redis/go-redis/v9</span><br></pre></td></tr></table></figure></p>
@@ -689,7 +742,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1140</span>
+                    <span class="site-state-item-count">1143</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1074,6 +1127,14 @@
                 
                 
                   <li>
+                    <a href="/2023/08/02/特别放送｜回头看：如何更好地组织代码？/" title="特别放送｜回头看：如何更好地组织代码？" target="_blank">特别放送｜回头看：如何更好地组织代码？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/08/02/特别放送｜Go泛型：用法、原理与最佳实践/" title="特别放送｜Go泛型：用法、原理与最佳实践" target="_blank">特别放送｜Go泛型：用法、原理与最佳实践</a>
+                  </li>
+                
+                  <li>
                     <a href="/2023/07/19/zero-admin-3/" title="zero-admin-3" target="_blank">zero-admin-3</a>
                   </li>
                 
@@ -1083,14 +1144,6 @@
                 
                   <li>
                     <a href="/2023/07/19/zero-admin-1/" title="zero-admin-1" target="_blank">zero-admin-1</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/Day7-服务发现与注册中心/" title="Day7 服务发现与注册中心" target="_blank">Day7 服务发现与注册中心</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/Day6-负载均衡/" title="Day6 负载均衡" target="_blank">Day6 负载均衡</a>
                   </li>
                 
               </ul>
@@ -1116,7 +1169,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实验介绍"><span class="nav-number">1.</span> <span class="nav-text">实验介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#日志使用"><span class="nav-number">2.</span> <span class="nav-text">日志使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验总结"><span class="nav-number">3.</span> <span class="nav-text">实验总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实验介绍"><span class="nav-number">1.</span> <span class="nav-text">实验介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#日志使用"><span class="nav-number">2.</span> <span class="nav-text">日志使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置不同的适配器"><span class="nav-number">3.</span> <span class="nav-text">设置不同的适配器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义格式日志"><span class="nav-number">4.</span> <span class="nav-text">自定义格式日志</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义适配器"><span class="nav-number">5.</span> <span class="nav-text">自定义适配器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验总结"><span class="nav-number">6.</span> <span class="nav-text">实验总结</span></a></li></ol></div>
             
 
           </div>
@@ -1151,7 +1204,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9m</span>
+    <span title="站点总字数">9.1m</span>
   
 
   
@@ -1162,7 +1215,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">136:05</span>
+    <span title="站点阅读时长">138:13</span>
   
 </div>
 

@@ -103,22 +103,22 @@
 
 
 
-  <meta name="description" content="思考并回答以下问题：">
+  <meta name="description" content="思考并回答以下问题：  如果要从本机向镜像拷贝文件，就必须把这些文件放到一个专门的目录，然后在docker build里指定“构建上下文”到这个目录才行。 RUN指令实际上就是Shell编程。 .dockerignore文件在“构建上下文”目录里是什么作用？">
 <meta name="keywords" content="Kubernetes入门实战课">
 <meta property="og:type" content="article">
 <meta property="og:title" content="04 ｜ 创建容器镜像：如何编写正确、高效的Dockerfile">
 <meta property="og:url" content="http://yoursite.com/2022/09/12/04｜创建容器镜像：如何编写正确、高效的Dockerfile/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
-<meta property="og:description" content="思考并回答以下问题：">
+<meta property="og:description" content="思考并回答以下问题：  如果要从本机向镜像拷贝文件，就必须把这些文件放到一个专门的目录，然后在docker build里指定“构建上下文”到这个目录才行。 RUN指令实际上就是Shell编程。 .dockerignore文件在“构建上下文”目录里是什么作用？">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/04｜创建容器镜像：如何编写正确、高效的Dockerfile/1.webp">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/04｜创建容器镜像：如何编写正确、高效的Dockerfile/2.webp">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/04｜创建容器镜像：如何编写正确、高效的Dockerfile/3.webp">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/04｜创建容器镜像：如何编写正确、高效的Dockerfile/4.webp">
-<meta property="og:updated_time" content="2022-09-16T01:35:01.303Z">
+<meta property="og:updated_time" content="2023-08-03T02:31:04.312Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="04 ｜ 创建容器镜像：如何编写正确、高效的Dockerfile">
-<meta name="twitter:description" content="思考并回答以下问题：">
+<meta name="twitter:description" content="思考并回答以下问题：  如果要从本机向镜像拷贝文件，就必须把这些文件放到一个专门的目录，然后在docker build里指定“构建上下文”到这个目录才行。 RUN指令实际上就是Shell编程。 .dockerignore文件在“构建上下文”目录里是什么作用？">
 <meta name="twitter:image" content="http://yoursite.com/2022/09/12/04｜创建容器镜像：如何编写正确、高效的Dockerfile/1.webp">
 
 
@@ -448,7 +448,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2022-09-16 09:35:01" itemprop="dateModified" datetime="2022-09-16T09:35:01+08:00">2022-09-16</time>
+                <time title="修改时间：2023-08-03 10:31:04" itemprop="dateModified" datetime="2023-08-03T10:31:04+08:00">2023-08-03</time>
               
             
           </span>
@@ -494,7 +494,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">6.5k</span>
+                <span title="本文字数">6.6k</span>
               
 
               
@@ -529,6 +529,11 @@
 
       
         <p>思考并回答以下问题：</p>
+<ul>
+<li>如果要从本机向镜像拷贝文件，就必须把这些文件放到一个专门的目录，然后在<code>docker build</code>里指定“构建上下文”到这个目录才行。</li>
+<li>RUN指令实际上就是Shell编程。</li>
+<li>.dockerignore文件在“构建上下文”目录里是什么作用？</li>
+</ul>
 <a id="more"></a>
 <p>上一次的课程里我们一起学习了容器化的应用，也就是被打包成镜像的应用程序，然后再用各种Docker命令来运行、管理它们。</p>
 <p>那么这又会带来一个疑问：这些镜像是怎么创建出来的？我们能不能够制作属于自己的镜像呢？</p>
@@ -559,16 +564,16 @@
 <p>接下来，你就会看到Docker会逐行地读取并执行Dockerfile里的指令，依次创建镜像层，再生成完整的镜像。</p>
 <p>新的镜像暂时还没有名字（用<code>docker images</code>会看到是<code>&lt;none&gt;</code>），但我们可以直接使用“IMAGE ID”来查看或者运行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker inspect b61</span><br><span class="line">docker run b61</span><br></pre></td></tr></table></figure></p>
 <h1 id="怎样编写正确、高效的Dockerfile"><a href="#怎样编写正确、高效的Dockerfile" class="headerlink" title="怎样编写正确、高效的Dockerfile"></a><span style="color:#339AFF;">怎样编写正确、高效的Dockerfile</span></h1><p>大概了解了Dockerfile之后，我再来讲讲编写Dockerfile的一些常用指令和最佳实践，帮你在今后的工作中把它写好、用好。</p>
-<p>首先因为构建镜像的第一条指令必须是FROM，所以基础镜像的选择非常关键。如果关注的是镜像的安全和大小，那么一般会选择Alpine；如果关注的是应用的运行稳定性，那么可能会选择Ubuntu、Debian、CentOS。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FROM alpine:3.15                <span class="comment"># 选择Alpine镜像</span></span><br><span class="line">FROM ubuntu:bionic              <span class="comment"># 选择Ubuntu镜像</span></span><br></pre></td></tr></table></figure></p>
+<p>首先因为构建镜像的第一条指令必须是FROM，所以基础镜像的选择非常关键。如果关注的是镜像的安全和大小，那么一般会选择Alpine；如果关注的是应用的运行稳定性，那么可能会选择Ubuntu、Debian、CentOS。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">FROM alpine:3.15   <span class="comment"># 选择Alpine镜像</span></span><br><span class="line">FROM ubuntu:bionic <span class="comment"># 选择Ubuntu镜像</span></span><br></pre></td></tr></table></figure></p>
 <p>我们在本机上开发测试时会产生一些源码、配置等文件，需要打包进镜像里，这时可以使用COPY命令，它的用法和Linux的cp差不多，不过拷贝的源文件必须是“<strong>构建上下文</strong>”路径里的，不能随意指定文件。也就是说，如果要从本机向镜像拷贝文件，就必须把这些文件放到一个专门的目录，然后在<code>docker build</code>里指定“构建上下文”到这个目录才行。</p>
-<p>这里有两个COPY命令示例，你可以看一下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">COPY ./a.txt  /tmp/a.txt    <span class="comment"># 把构建上下文里的a.txt拷贝到镜像的/tmp目录</span></span><br><span class="line">COPY /etc/hosts  /tmp       <span class="comment"># 错误！不能使用构建上下文之外的文件</span></span><br></pre></td></tr></table></figure></p>
+<p>这里有两个COPY命令示例，你可以看一下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">COPY ./a.txt  /tmp/a.txt <span class="comment"># 把构建上下文里的a.txt拷贝到镜像的/tmp目录</span></span><br><span class="line">COPY /etc/hosts  /tmp    <span class="comment"># 错误！不能使用构建上下文之外的文件</span></span><br></pre></td></tr></table></figure></p>
 <p>接下来要说的就是Dockerfile里最重要的一个指令RUN，它可以执行任意的Shell命令，比如更新系统、安装应用、下载文件、创建目录、编译程序等等，实现任意的镜像构建步骤，非常灵活。</p>
 <p>RUN通常会是Dockerfile里最复杂的指令，会包含很多的Shell命令，但Dockerfile里一条指令只能是一行，所以有的RUN指令会在每行的末尾使用续行符\，命令之间也会用&amp;&amp;来连接，这样保证在逻辑上是一行，就像下面这样：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">RUN apt-get update \</span><br><span class="line">    &amp;&amp; apt-get install -y \</span><br><span class="line">        build-essential \</span><br><span class="line">        curl \</span><br><span class="line">        make \</span><br><span class="line">        unzip \</span><br><span class="line">    &amp;&amp; <span class="built_in">cd</span> /tmp \</span><br><span class="line">    &amp;&amp; curl -fSL xxx.tar.gz -o xxx.tar.gz\</span><br><span class="line">    &amp;&amp; tar xzf xxx.tar.gz \</span><br><span class="line">    &amp;&amp; <span class="built_in">cd</span> xxx \</span><br><span class="line">    &amp;&amp; ./config \</span><br><span class="line">    &amp;&amp; make \</span><br><span class="line">    &amp;&amp; make clean</span><br></pre></td></tr></table></figure></p>
-<p>有的时候在Dockerfile里写这种超长的RUN指令很不美观，而且一旦写错了，每次调试都要重新构建也很麻烦，所以你可以采用一种变通的技巧：<strong>把这些Shell命令集中到一个脚本文件里，用COPY命令拷贝进去再用RUN来执行</strong>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">COPY setup.sh  /tmp/                <span class="comment"># 拷贝脚本到/tmp目录</span></span><br><span class="line"></span><br><span class="line">RUN <span class="built_in">cd</span> /tmp &amp;&amp; chmod +x setup.sh \  <span class="comment"># 添加执行权限</span></span><br><span class="line">    &amp;&amp; ./setup.sh &amp;&amp; rm setup.sh    <span class="comment"># 运行脚本然后再删除</span></span><br></pre></td></tr></table></figure></p>
+<p>有的时候在Dockerfile里写这种超长的RUN指令很不美观，而且一旦写错了，每次调试都要重新构建也很麻烦，所以你可以采用一种变通的技巧：<strong>把这些Shell命令集中到一个脚本文件里，用COPY命令拷贝进去再用RUN来执行</strong>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">COPY setup.sh  /tmp/                <span class="comment"># 拷贝脚本到/tmp目录</span></span><br><span class="line"></span><br><span class="line">RUN <span class="built_in">cd</span> /tmp &amp;&amp; chmod +x setup.sh \  <span class="comment"># 添加执行权限</span></span><br><span class="line">    &amp;&amp; ./setup.sh &amp;&amp; rm setup.sh    <span class="comment"># 运行脚本然后再删除</span></span><br></pre></td></tr></table></figure></p>
 <p>RUN指令实际上就是Shell编程，如果你对它有所了解，就应该知道它有变量的概念，可以实现参数化运行，这在Dockerfile里也可以做到，需要使用两个指令ARG和ENV。</p>
 <p><strong>它们区别在于ARG创建的变量只在镜像构建过程中可见，容器运行时不可见，而ENV创建的变量不仅能够在构建镜像的过程中使用，在容器运行时也能够以环境变量的形式被应用程序使用</strong>。</p>
 <p>下面是一个简单的例子，使用ARG定义了基础镜像的名字（可以用在“FROM”指令里），使用ENV定义了两个环境变量：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ARG IMAGE_BASE=<span class="string">"node"</span></span><br><span class="line">ARG IMAGE_TAG=<span class="string">"alpine"</span></span><br><span class="line"></span><br><span class="line">ENV PATH=<span class="variable">$PATH</span>:/tmp</span><br><span class="line">ENV DEBUG=OFF</span><br></pre></td></tr></table></figure></p>
-<p>还有一个重要的指令是EXPOSE，它用来声明容器对外服务的端口号，对现在基于Node.js、Tomcat、Nginx、Go等开发的微服务系统来说非常有用：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">EXPOSE 443           <span class="comment"># 默认是tcp协议</span></span><br><span class="line">EXPOSE 53/udp        <span class="comment"># 可以指定udp协议</span></span><br></pre></td></tr></table></figure></p>
+<p>还有一个重要的指令是EXPOSE，它用来声明容器对外服务的端口号，对现在基于Node.js、Tomcat、Nginx、Go等开发的微服务系统来说非常有用：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">EXPOSE 443    <span class="comment"># 默认是tcp协议</span></span><br><span class="line">EXPOSE 53/udp <span class="comment"># 可以指定udp协议</span></span><br></pre></td></tr></table></figure></p>
 <p>讲了这些Dockerfile指令之后，我还要特别强调一下，因为每个指令都会生成一个镜像层，所以Dockerfile里最好不要滥用指令，尽量精简合并，否则太多的层会导致镜像臃肿不堪。</p>
 <h1 id="docker-build是怎么工作的"><a href="#docker-build是怎么工作的" class="headerlink" title="docker build是怎么工作的"></a><span style="color:#339AFF;">docker build是怎么工作的</span></h1><p>Dockerfile必须要经过<code>docker build</code>才能生效，所以我们再来看看<code>docker build</code>的详细用法。</p>
 <p>刚才在构建镜像的时候，你是否对“构建上下文”这个词感到有些困惑呢？它到底是什么含义呢？</p>
@@ -581,7 +586,7 @@
 <p>下面是一个简单的示例，表示不打包上传后缀是“swp”“sh”的文件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># docker ignore</span></span><br><span class="line">*.swp</span><br><span class="line">*.sh</span><br></pre></td></tr></table></figure></p>
 <p>另外关于Dockerfile，一般应该在命令行里使用<code>-f</code>来显式指定。但如果省略这个参数，<code>docker build</code>就会在当前目录下找名字是Dockerfile的文件。所以，如果只有一个构建目标的话，文件直接叫“Dockerfile”是最省事的。</p>
 <p>现在我们使用<code>docker build</code>应该就没什么难点了，不过构建出来的镜像只有“IMAGE ID”没有名字，不是很方便。</p>
-<p>为此你可以加上一个<code>-t</code>参数，也就是指定镜像的标签（tag），这样Docker就会在构建完成后自动给镜像添加名字。当然，名字必须要符合上节课里的命名规范，用:分隔名字和标签，如果不提供标签默认就是“latest”。</p>
+<p>为此你可以加上一个<code>-t</code>参数，也就是指定镜像的标签（tag），这样Docker就会在构建完成后自动给镜像添加名字。当然，名字必须要符合上节课里的命名规范，用<code>:</code>分隔名字和标签，如果不提供标签默认就是“latest”。</p>
 <h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a><span style="color:#339AFF;">小结</span></h1><p>好了，今天我们一起学习了容器镜像的内部结构，重点理解<strong>容器镜像是由多个只读的Layer构成的，同一个Layer可以被不同的镜像共享</strong>，减少了存储和传输的成本。</p>
 <p>如何编写Dockerfile内容稍微多一点，我再简单做个小结：</p>
 <p>1，创建镜像需要编写Dockerfile，写清楚创建镜像的步骤，每个指令都会生成一个Layer。</p>
@@ -593,7 +598,9 @@
 <h1 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a><span style="color:#339AFF;">课下作业</span></h1><p>最后是课下作业时间，这里有一个完整的Dockerfile示例，你可以尝试着去解释一下它的含义，然后再自己构建一下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Dockerfile</span></span><br><span class="line"><span class="comment"># docker build -t ngx-app .</span></span><br><span class="line"><span class="comment"># docker build -t ngx-app:1.0 .</span></span><br><span class="line"></span><br><span class="line">ARG IMAGE_BASE=<span class="string">"nginx"</span></span><br><span class="line">ARG IMAGE_TAG=<span class="string">"1.21-alpine"</span></span><br><span class="line"></span><br><span class="line">FROM <span class="variable">$&#123;IMAGE_BASE&#125;</span>:<span class="variable">$&#123;IMAGE_TAG&#125;</span></span><br><span class="line"></span><br><span class="line">COPY ./default.conf /etc/nginx/conf.d/</span><br><span class="line"></span><br><span class="line">RUN <span class="built_in">cd</span> /usr/share/nginx/html \</span><br><span class="line">    &amp;&amp; <span class="built_in">echo</span> <span class="string">"hello nginx"</span> &gt; a.txt</span><br><span class="line"></span><br><span class="line">EXPOSE 8081 8082 8083</span><br></pre></td></tr></table></figure></p>
 <p>当然还有两个思考题：</p>
 <p>1，镜像里的层都是只读不可修改的，但容器运行的时候经常会写入数据，这个冲突应该怎么解决呢？（答案在本期找）</p>
+<blockquote>
 <p>docker在挂载镜像文件的时候除了镜像文件的只读层，还会挂载一个“可读写层”，在容器运行时，它以copy-on-write的方式，记录容器中的“写”操作；</p>
+</blockquote>
 <p>2，你能再列举一下镜像的分层结构带来了哪些好处吗？</p>
 <ul>
 <li>镜像分层的好处在于可以减少制作成本，从而迅速迭代，它使得我们能以一种增量的方式对现有已经存在的镜像做改造，而不是每一次都从0开始重复制作，降低了技术人员之间的操作成本；</li>
@@ -718,7 +725,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1140</span>
+                    <span class="site-state-item-count">1143</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1103,6 +1110,14 @@
                 
                 
                   <li>
+                    <a href="/2023/08/02/特别放送｜回头看：如何更好地组织代码？/" title="特别放送｜回头看：如何更好地组织代码？" target="_blank">特别放送｜回头看：如何更好地组织代码？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/08/02/特别放送｜Go泛型：用法、原理与最佳实践/" title="特别放送｜Go泛型：用法、原理与最佳实践" target="_blank">特别放送｜Go泛型：用法、原理与最佳实践</a>
+                  </li>
+                
+                  <li>
                     <a href="/2023/07/19/zero-admin-3/" title="zero-admin-3" target="_blank">zero-admin-3</a>
                   </li>
                 
@@ -1112,14 +1127,6 @@
                 
                   <li>
                     <a href="/2023/07/19/zero-admin-1/" title="zero-admin-1" target="_blank">zero-admin-1</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/Day7-服务发现与注册中心/" title="Day7 服务发现与注册中心" target="_blank">Day7 服务发现与注册中心</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/Day6-负载均衡/" title="Day6 负载均衡" target="_blank">Day6 负载均衡</a>
                   </li>
                 
               </ul>
@@ -1180,7 +1187,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9m</span>
+    <span title="站点总字数">9.1m</span>
   
 
   
@@ -1191,7 +1198,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">136:05</span>
+    <span title="站点阅读时长">138:13</span>
   
 </div>
 

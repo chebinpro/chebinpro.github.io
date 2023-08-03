@@ -114,7 +114,7 @@
 <meta property="og:image" content="http://yoursite.com/2023/07/04/8-数据库集成实践/1.png">
 <meta property="og:image" content="http://yoursite.com/2023/07/04/8-数据库集成实践/2.png">
 <meta property="og:image" content="http://yoursite.com/2023/07/04/8-数据库集成实践/3.png">
-<meta property="og:updated_time" content="2023-07-17T08:13:03.804Z">
+<meta property="og:updated_time" content="2023-08-03T02:35:44.019Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="8-数据库集成实践">
 <meta name="twitter:description" content="思考并回答以下问题：">
@@ -447,7 +447,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2023-07-17 16:13:03" itemprop="dateModified" datetime="2023-07-17T16:13:03+08:00">2023-07-17</time>
+                <time title="修改时间：2023-08-03 10:35:44" itemprop="dateModified" datetime="2023-08-03T10:35:44+08:00">2023-08-03</time>
               
             
           </span>
@@ -565,7 +565,7 @@
 <p>在Gin框架中，Redis可以作为我们的数据库缓存，特别是应用访问量特别大的时候，我们需要将数据放在内存里以供快速获取数据，从而避免大量磁盘查询而导致IO过高最终应用崩溃的问题。</p>
 <p>同样，我们这里给出获取产品控制器getProduct的基于Redis缓存的实现。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取产品</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getProduct</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">    <span class="comment">// 解析参数ID</span></span><br><span class="line">    id, err := strconv.Atoi(c.Param(<span class="string">"id"</span>))</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        c.JSON(http.StatusBadRequest, gin.H&#123;<span class="string">"error"</span>: <span class="string">"invalid product ID"</span>&#125;)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取缓存数据</span></span><br><span class="line">    val, err := db.RedisClient.Get(context.Background(), strconv.Itoa(id)).Result()</span><br><span class="line">    <span class="keyword">if</span> err == <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="comment">// 解析缓存结果</span></span><br><span class="line">        <span class="keyword">var</span> product models.Product</span><br><span class="line">        <span class="keyword">if</span> err := json.Unmarshal([]<span class="keyword">byte</span>(val), &amp;product); err != <span class="literal">nil</span> &#123;</span><br><span class="line">            c.JSON(http.StatusInternalServerError, gin.H&#123;<span class="string">"error"</span>: err.Error()&#125;)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 返回缓存数据</span></span><br><span class="line">        c.JSON(http.StatusOK, product)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 执行查询</span></span><br><span class="line">    row := db.MysqlDb.QueryRow(<span class="string">"SELECT * FROM "</span>+productTable+<span class="string">" WHERE id=?"</span>, id)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 解析结果</span></span><br><span class="line">    <span class="keyword">var</span> product models.Product</span><br><span class="line">    err = row.Scan(&amp;product.Id, &amp;product.Name)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> err == sql.ErrNoRows &#123;</span><br><span class="line">            c.JSON(http.StatusNotFound, gin.H&#123;<span class="string">"error"</span>: <span class="string">"product not found"</span>&#125;)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        c.JSON(http.StatusInternalServerError, gin.H&#123;<span class="string">"error"</span>: err.Error()&#125;)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 保存缓存数据</span></span><br><span class="line">    data, err := json.Marshal(product)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        c.JSON(http.StatusInternalServerError, gin.H&#123;<span class="string">"error"</span>: err.Error()&#125;)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    _, err = db.RedisClient.Set(context.Background(), strconv.Itoa(id), <span class="keyword">string</span>(data), <span class="number">0</span>).Result()</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        c.JSON(http.StatusInternalServerError, gin.H&#123;<span class="string">"error"</span>: err.Error()&#125;)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 返回结果</span></span><br><span class="line">    c.JSON(http.StatusOK, product)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>在这里，我们在执行SQL之前先获取Redis缓存中的产品数据，如果能获取到，直接返回给客户端；否则，再执行数据库查询，获取结果后保存在Redis缓存中，供下一次查询使用。这样，我们就在Gin框架中实现了一个简单的基于Redis的缓存系统。</p>
-<h1 id="ORM"><a href="#ORM" class="headerlink" title="ORM"></a><span style="color:#339AFF;">ORM</span></h1><p>ORM是“Object-Relational Mapping”的缩写，即对象关系映射，是一种将关系型数据库与面向对象编程语言之间的数据转换工具。它提供了一种将数据库中的数据映射到程序中的对象的方法，使得开发人员可以通过操作对象来操作数据库，而不需要直接使用SQL语句。ORM框架的主要目标是简化应用程序开发过程，提高开发效率和可维护性。</p>
+<h1 id="ORM"><a href="#ORM" class="headerlink" title="ORM"></a><span style="color:#339AFF;">ORM</span></h1><p>ORM是“Object-Relational Mapping”的缩写，即对象关系映射，是一种关系型数据库与面向对象编程语言之间的数据转换工具。它提供了一种将数据库中的数据映射到程序中的对象的方法，使得开发人员可以通过操作对象来操作数据库，而不需要直接使用SQL语句。ORM框架的主要目标是简化应用程序开发过程，提高开发效率和可维护性。</p>
 <p>在Gin框架中，我们同样可以用ORM来操作数据库。这里用<a href="https://gorm.io/" target="_blank" rel="noopener">GORM</a>为例，介绍如何使用GORM来完成增删改查。GORM是一个基于Go语言的ORM库，它支持多种关系型数据库，包括MySQL、PostgreSQL、SQLite、Microsoft SQL Server等。GORM提供了一个简单易用的API，使得开发人员可以轻松地进行数据库操作。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"gorm.io/driver/mysql"</span></span><br><span class="line">    <span class="string">"gorm.io/gorm"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;</span><br><span class="line">    gorm.Model</span><br><span class="line">    Name  <span class="keyword">string</span></span><br><span class="line">    Email <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 连接数据库</span></span><br><span class="line">    dsn := <span class="string">"root:password@tcp(127.0.0.1:3306)/test_db?charset=utf8mb4&amp;parseTime=True&amp;loc=Local"</span></span><br><span class="line">    db, err := gorm.Open(mysql.Open(dsn), &amp;gorm.Config&#123;&#125;)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="built_in">panic</span>(<span class="string">"failed to connect database"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 自动迁移</span></span><br><span class="line">    db.AutoMigrate(&amp;User&#123;&#125;)</span><br><span class="line">    <span class="comment">// 插入数据</span></span><br><span class="line">    db.Create(&amp;User&#123;Name: <span class="string">"Alice"</span>, Email: <span class="string">"alice@example.com"</span>&#125;)</span><br><span class="line">    <span class="comment">// 查询数据</span></span><br><span class="line">    <span class="keyword">var</span> user User</span><br><span class="line">    db.First(&amp;user, <span class="string">"name = ?"</span>, <span class="string">"Alice"</span>)</span><br><span class="line">    fmt.Println(user)</span><br><span class="line">    <span class="comment">// 更新数据</span></span><br><span class="line">    db.Model(&amp;user).Update(<span class="string">"Email"</span>, <span class="string">"new_email@example.com"</span>)</span><br><span class="line">    <span class="comment">// 删除数据</span></span><br><span class="line">    db.Delete(&amp;user)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>可以看到，在这里我们用user作为实例直接操作数据库，这样比直接写SQL要方便很多。</p>
 <h1 id="实验总结"><a href="#实验总结" class="headerlink" title="实验总结"></a><span style="color:#339AFF;">实验总结</span></h1><p>本次实验主要讲解了如何在Gin框架中操作数据库，包括主流数据库MongoDB、MySQL、Redis等。数据库集成是网络应用中非常重要的逻辑，任何业务数据都需要通过数据库来进行存储、查询和通信，因此掌握数据库集成对我们开发网络应用是非常有帮助的。</p>
@@ -688,7 +688,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1140</span>
+                    <span class="site-state-item-count">1143</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1073,6 +1073,14 @@
                 
                 
                   <li>
+                    <a href="/2023/08/02/特别放送｜回头看：如何更好地组织代码？/" title="特别放送｜回头看：如何更好地组织代码？" target="_blank">特别放送｜回头看：如何更好地组织代码？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/08/02/特别放送｜Go泛型：用法、原理与最佳实践/" title="特别放送｜Go泛型：用法、原理与最佳实践" target="_blank">特别放送｜Go泛型：用法、原理与最佳实践</a>
+                  </li>
+                
+                  <li>
                     <a href="/2023/07/19/zero-admin-3/" title="zero-admin-3" target="_blank">zero-admin-3</a>
                   </li>
                 
@@ -1082,14 +1090,6 @@
                 
                   <li>
                     <a href="/2023/07/19/zero-admin-1/" title="zero-admin-1" target="_blank">zero-admin-1</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/Day7-服务发现与注册中心/" title="Day7 服务发现与注册中心" target="_blank">Day7 服务发现与注册中心</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/Day6-负载均衡/" title="Day6 负载均衡" target="_blank">Day6 负载均衡</a>
                   </li>
                 
               </ul>
@@ -1150,7 +1150,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9m</span>
+    <span title="站点总字数">9.1m</span>
   
 
   
@@ -1161,7 +1161,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">136:05</span>
+    <span title="站点阅读时长">138:13</span>
   
 </div>
 

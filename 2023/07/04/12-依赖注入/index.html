@@ -111,7 +111,7 @@
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2023-07-04T03:19:34.370Z">
+<meta property="og:updated_time" content="2023-08-01T10:24:00.707Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="12-依赖注入">
 <meta name="twitter:description" content="思考并回答以下问题：">
@@ -426,12 +426,24 @@
                 
               
 
-              <time title="创建时间：2023-07-04 11:17:49 / 修改时间：11:19:34" itemprop="dateCreated datePublished" datetime="2023-07-04T11:17:49+08:00">2023-07-04</time>
+              <time title="创建时间：2023-07-04 11:17:49" itemprop="dateCreated datePublished" datetime="2023-07-04T11:17:49+08:00">2023-07-04</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2023-08-01 18:24:00" itemprop="dateModified" datetime="2023-08-01T18:24:00+08:00">2023-08-01</time>
               
             
           </span>
@@ -477,7 +489,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">11</span>
+                <span title="本文字数">3.9k</span>
               
 
               
@@ -491,7 +503,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">4 分钟</span>
               
             </div>
           
@@ -513,6 +525,52 @@
       
         <p>思考并回答以下问题：</p>
 <a id="more"></a>
+<h1 id="实验介绍"><a href="#实验介绍" class="headerlink" title="实验介绍"></a>实验介绍</h1><p>介绍在依赖注入的原理，以及在Go中如何进行依赖注入，常用的依赖注入库。</p>
+<p><strong>知识点</strong></p>
+<ul>
+<li>依赖注入原理</li>
+<li>依赖注入模式</li>
+<li>反射</li>
+<li>依赖注入常用库</li>
+</ul>
+<h1 id="依赖注入与控制反转"><a href="#依赖注入与控制反转" class="headerlink" title="依赖注入与控制反转"></a>依赖注入与控制反转</h1><p>一般情况下，对函数的调用是主动行为，我们需要清楚地知道函数名称，参数类型等。而控制反转就是变主动为被动，我们只需要配置好映射，就可以让库来替我们完成函数的调用或结构体的初始化。这种行为称之为“控制反转”。“控制反转”就是一种编程思想，与具体的实现无关，而依赖注入是这种编程思想的具体实现。</p>
+<p>接下来我们介绍Go的一个依赖注入库，并通过简单的示例来体会它的用法。在蓝桥云课实验环境控制台输入以下命令创建一个新项目。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd /home/project</span><br><span class="line">mkdir di</span><br><span class="line">cd di</span><br><span class="line">go mod init di</span><br><span class="line">touch main.go</span><br><span class="line">go get -u github.com/codegangsta/inject</span><br></pre></td></tr></table></figure></p>
+<p>打开main.go，输入下面代码。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line">    <span class="string">"github.com/codegangsta/inject"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> &#123;</span><br><span class="line">    Age  <span class="keyword">int</span>    <span class="string">`inject`</span></span><br><span class="line">    Name <span class="keyword">string</span> <span class="string">`inject`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Student <span class="keyword">struct</span> &#123;</span><br><span class="line">    Person <span class="string">`inject`</span></span><br><span class="line">    School <span class="keyword">string</span> <span class="string">`inject`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    i := inject.New()</span><br><span class="line">    a := Person&#123;&#125;</span><br><span class="line">    s := Student&#123;&#125;</span><br><span class="line"></span><br><span class="line">    i.Map(<span class="number">20</span>)</span><br><span class="line">    i.Map(<span class="string">"church"</span>)</span><br><span class="line">    i.Apply(&amp;a)</span><br><span class="line"></span><br><span class="line">    i.Map(a)</span><br><span class="line">    i.Map(<span class="string">"双鸭山职业技术学院"</span>)</span><br><span class="line">    i.Apply(&amp;s)</span><br><span class="line"></span><br><span class="line">    fmt.Printf(<span class="string">"%v\r\n"</span>, &amp;s)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>inject.New初始化依赖注入库。</li>
+<li>i.Map设置类型值。</li>
+<li>i.Apply把设置好的值应用在结构体上。</li>
+</ul>
+<p>执行，结果符合预期。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go run main.go</span><br></pre></td></tr></table></figure></p>
+<h1 id="Go中的反射"><a href="#Go中的反射" class="headerlink" title="Go中的反射"></a>Go中的反射</h1><p>要讲清楚依赖注入的实现原理，就不得不先了解Go中反射的基本API。</p>
+<p>打开main.go，输入以下代码。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"reflect"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> &#123;</span><br><span class="line">    Age  <span class="keyword">int</span>    <span class="string">`inject`</span></span><br><span class="line">    Name <span class="keyword">string</span> <span class="string">`inject`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    p := &amp;Person&#123;</span><br><span class="line">        Age:  <span class="number">20</span>,</span><br><span class="line">        Name: <span class="string">"church"</span>,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    r := reflect.ValueOf(p)</span><br><span class="line"></span><br><span class="line">    fmt.Println(<span class="string">"r.Kind() == %v"</span>, r.Kind())</span><br><span class="line">    fmt.Println(<span class="string">"r.Type() == %v"</span>, r.Type())</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> r.Kind() == reflect.Ptr &#123;</span><br><span class="line">        r = r.Elem()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    t := r.Type()</span><br><span class="line"></span><br><span class="line">    fmt.Println(<span class="string">"r.Kind() == %v"</span>, r.Kind())</span><br><span class="line">    fmt.Println(<span class="string">"r.Type() == %v"</span>, r.Type())</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; t.NumField(); i++ &#123;</span><br><span class="line">        f := r.Field(i)</span><br><span class="line"></span><br><span class="line">        fmt.Println(<span class="string">"f.Kind() == %v"</span>, f.Kind())</span><br><span class="line">        fmt.Println(<span class="string">"f.Type() == %v"</span>, f.Type())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>要注意的是，r.Kind和r.Type的区别在于，如果是标量那返回结果一样。如果不是，比如说r.Kind返回的是reflect.Ptr，那r.Type返回的就是具体的指针类型。以上述代码为例，r.Kind返回的是reflect.Ptr，但r.Type返回的是<code>*main.Person</code>。</p>
+</blockquote>
+<ul>
+<li>r.Kind获取种类。</li>
+<li>r.Type获取类型。</li>
+<li>r.Elem返回指针指向的具体值。</li>
+<li>r.Field返回字段的反射结构体，用于操作字段。</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go run main.go</span><br></pre></td></tr></table></figure>
+<h1 id="依赖注入实现原理"><a href="#依赖注入实现原理" class="headerlink" title="依赖注入实现原理"></a>依赖注入实现原理</h1><p>让我们来深入研究Inject库的代码实现。</p>
+<p>非常简单，初始化一个Map类型用于存放值，通过Map和MapTo设置值，再调用Apply和Invoke从Map里面获取值并通过反射API设置结构体各字段值或调用函数。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">New</span><span class="params">()</span> <span class="title">Injector</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &amp;injector&#123;</span><br><span class="line">        values: <span class="built_in">make</span>(<span class="keyword">map</span>[reflect.Type]reflect.Value),</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>New函数非常简单，初始化一个Map。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(i *injector)</span> <span class="title">Map</span><span class="params">(val <span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">TypeMapper</span></span> &#123;</span><br><span class="line">    i.values[reflect.TypeOf(val)] = reflect.ValueOf(val)</span><br><span class="line">    <span class="keyword">return</span> i</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(i *injector)</span> <span class="title">MapTo</span><span class="params">(val <span class="keyword">interface</span>&#123;&#125;, ifacePtr <span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">TypeMapper</span></span> &#123;</span><br><span class="line">    i.values[InterfaceOf(ifacePtr)] = reflect.ValueOf(val)</span><br><span class="line">    <span class="keyword">return</span> i</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>Map函数把给定的参数值绑定到参数类型上。</li>
+<li>MapTo函数基本上和Map一样，MapTo用于把结构体绑定到某个接口上。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(inj *injector)</span> <span class="title">Apply</span><span class="params">(val <span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    <span class="comment">//获取实参的值</span></span><br><span class="line">    v := reflect.ValueOf(val)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//如果实参类型为指针，获取实际的值</span></span><br><span class="line">    <span class="keyword">for</span> v.Kind() == reflect.Ptr &#123;</span><br><span class="line">        v = v.Elem()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//如果实参的实际类型不是结构体，返回</span></span><br><span class="line">    <span class="keyword">if</span> v.Kind() != reflect.Struct &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span> <span class="comment">// Should not panic here ?</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//获取实参的变量类型</span></span><br><span class="line">    t := v.Type()</span><br><span class="line"></span><br><span class="line">    <span class="comment">//遍历实参结构体</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; v.NumField(); i++ &#123;</span><br><span class="line">        f := v.Field(i)</span><br><span class="line">        structField := t.Field(i)</span><br><span class="line">        <span class="comment">//如果该字段可写，并且设置了 `inject` 标签</span></span><br><span class="line">        <span class="keyword">if</span> f.CanSet() &amp;&amp; (structField.Tag == <span class="string">"inject"</span> || structField.Tag.Get(<span class="string">"inject"</span>) != <span class="string">""</span>) &#123;</span><br><span class="line">            <span class="comment">//从Map中拿出值并设置</span></span><br><span class="line">            ft := f.Type()</span><br><span class="line">            v := inj.Get(ft)</span><br><span class="line">            <span class="keyword">if</span> !v.IsValid() &#123;</span><br><span class="line">                <span class="keyword">return</span> fmt.Errorf(<span class="string">"Value not found for type %v"</span>, ft)</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            f.Set(v)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>v.NumField返回实参的字段个数。</li>
+<li>v.Field获取实参的字段结构体。</li>
+<li>t.Field获取实参类型的字段结构体。</li>
+<li>f.CanSet判断该字段是否可被设置。</li>
+</ul>
+<h1 id="实验总结"><a href="#实验总结" class="headerlink" title="实验总结"></a>实验总结</h1><p>本次实验介绍了Go反射API的使用，依赖注入及控制反转的基本概念，并介绍一个第三方库Inject的基本使用及实现原理，深入剖析了其源码。在这里，我留了一个Invoke函数没有去分析，读者朋友可以通过学习以上知识来尝试分析。学有余力的朋友，可以来尝试分析这个Inject库的缺点，并加以改进。</p>
+
       
     </div>
 
@@ -604,8 +662,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -622,7 +689,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1140</span>
+                    <span class="site-state-item-count">1143</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1007,6 +1074,14 @@
                 
                 
                   <li>
+                    <a href="/2023/08/02/特别放送｜回头看：如何更好地组织代码？/" title="特别放送｜回头看：如何更好地组织代码？" target="_blank">特别放送｜回头看：如何更好地组织代码？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/08/02/特别放送｜Go泛型：用法、原理与最佳实践/" title="特别放送｜Go泛型：用法、原理与最佳实践" target="_blank">特别放送｜Go泛型：用法、原理与最佳实践</a>
+                  </li>
+                
+                  <li>
                     <a href="/2023/07/19/zero-admin-3/" title="zero-admin-3" target="_blank">zero-admin-3</a>
                   </li>
                 
@@ -1016,14 +1091,6 @@
                 
                   <li>
                     <a href="/2023/07/19/zero-admin-1/" title="zero-admin-1" target="_blank">zero-admin-1</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/Day7-服务发现与注册中心/" title="Day7 服务发现与注册中心" target="_blank">Day7 服务发现与注册中心</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/Day6-负载均衡/" title="Day6 负载均衡" target="_blank">Day6 负载均衡</a>
                   </li>
                 
               </ul>
@@ -1038,6 +1105,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实验介绍"><span class="nav-number">1.</span> <span class="nav-text">实验介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#依赖注入与控制反转"><span class="nav-number">2.</span> <span class="nav-text">依赖注入与控制反转</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Go中的反射"><span class="nav-number">3.</span> <span class="nav-text">Go中的反射</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#依赖注入实现原理"><span class="nav-number">4.</span> <span class="nav-text">依赖注入实现原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实验总结"><span class="nav-number">5.</span> <span class="nav-text">实验总结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -1067,7 +1151,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9m</span>
+    <span title="站点总字数">9.1m</span>
   
 
   
@@ -1078,7 +1162,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">136:05</span>
+    <span title="站点阅读时长">138:13</span>
   
 </div>
 
