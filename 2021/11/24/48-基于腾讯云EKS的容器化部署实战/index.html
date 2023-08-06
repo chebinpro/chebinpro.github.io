@@ -106,7 +106,7 @@
   <meta name="description" content="思考并回答以下问题：">
 <meta name="keywords" content="Go语言项目开发实战">
 <meta property="og:type" content="article">
-<meta property="og:title" content="48｜基于腾讯云EKS的容器化部署实战">
+<meta property="og:title" content="48｜IAM容器化部署实战">
 <meta property="og:url" content="http://yoursite.com/2021/11/24/48-基于腾讯云EKS的容器化部署实战/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
@@ -115,10 +115,17 @@
 <meta property="og:image" content="http://yoursite.com/2021/11/24/48-基于腾讯云EKS的容器化部署实战/2.webp">
 <meta property="og:image" content="http://yoursite.com/2021/11/24/48-基于腾讯云EKS的容器化部署实战/3.webp">
 <meta property="og:image" content="http://yoursite.com/2021/11/24/48-基于腾讯云EKS的容器化部署实战/4.webp">
+<meta property="og:image" content="http://yoursite.com/2021/11/24/48-基于腾讯云EKS的容器化部署实战/5.webp">
+<meta property="og:image" content="http://yoursite.com/2021/11/24/48-基于腾讯云EKS的容器化部署实战/6.webp">
+<meta property="og:image" content="http://yoursite.com/2021/11/24/48-基于腾讯云EKS的容器化部署实战/7.webp">
+<meta property="og:image" content="http://yoursite.com/2021/11/24/48-基于腾讯云EKS的容器化部署实战/8.webp">
+<meta property="og:image" content="http://yoursite.com/2021/11/24/48-基于腾讯云EKS的容器化部署实战/9.webp">
+<meta property="og:image" content="http://yoursite.com/2021/11/24/48-基于腾讯云EKS的容器化部署实战/10.webp">
+<meta property="og:image" content="http://yoursite.com/2021/11/24/48-基于腾讯云EKS的容器化部署实战/11.webp">
 <meta property="og:image" content="http://yoursite.com/2021/11/24/48-基于腾讯云EKS的容器化部署实战/1.webp">
-<meta property="og:updated_time" content="2023-01-28T06:22:25.075Z">
+<meta property="og:updated_time" content="2023-08-04T04:37:41.267Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="48｜基于腾讯云EKS的容器化部署实战">
+<meta name="twitter:title" content="48｜IAM容器化部署实战">
 <meta name="twitter:description" content="思考并回答以下问题：">
 <meta name="twitter:image" content="http://yoursite.com/2021/11/24/48-基于腾讯云EKS的容器化部署实战/1.webp">
 
@@ -137,7 +144,7 @@
   };
 </script>
 
-  <title>48｜基于腾讯云EKS的容器化部署实战 | 车斌的技术博客</title>
+  <title>48｜IAM容器化部署实战 | 车斌的技术博客</title>
   
 
 
@@ -403,7 +410,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">48｜基于腾讯云EKS的容器化部署实战
+          <h1 class="post-title" itemprop="name headline">48｜IAM容器化部署实战
 
               
             
@@ -449,7 +456,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2023-01-28 14:22:25" itemprop="dateModified" datetime="2023-01-28T14:22:25+08:00">2023-01-28</time>
+                <time title="修改时间：2023-08-04 12:37:41" itemprop="dateModified" datetime="2023-08-04T12:37:41+08:00">2023-08-04</time>
               
             
           </span>
@@ -509,7 +516,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">13 分钟</span>
+                <span title="阅读时长">14 分钟</span>
               
             </div>
           
@@ -607,21 +614,78 @@
 <h2 id="准备一个Kubernetes集群"><a href="#准备一个Kubernetes集群" class="headerlink" title="准备一个Kubernetes集群"></a><span style="color:#00ACC1;">准备一个Kubernetes集群</span></h2><p>安装完Docker之后，我们还需要一个Kubernetes集群，来调度docker容器。安装Kubernetes集群极其复杂，这里选择一种最简单的方式来准备一个Kubernetes集群：购买一个腾讯云弹性集群（EKS）。</p>
 <p>如果你想自己搭建Kubernetes集群，这里建议你购买3台腾讯云CVM机器，并参照<a href="https://github.com/opsnull/follow-me-install-kubernetes-cluster" target="_blank" rel="noopener">follow-me-install-kubernetes-cluster</a>教程来一步步搭建Kubernetes集群，CVM机器建议的最小配置如下：</p>
 <img src="/2021/11/24/48-基于腾讯云EKS的容器化部署实战/4.webp">
-<p>EKS简介我先简单介绍一下EKS是什么。EKS（ElasticKubernetesService）即腾讯云弹性容器服务，是腾讯云容器服务推出的无须用户购买节点即可部署工作负载的服务模式。它完全兼容原生的Kubernetes，支持使用原生方式创建及管理资源，按照容器真实的资源使用量计费。弹性容器服务EKS还扩展支持腾讯云的存储及网络等产品，同时确保用户容器的安全隔离，开箱即用。EKS费用那它是如何收费呢？EKS是全托管的ServerlessKubernetes服务，不会收取托管的Master、etcd等资源的费用。弹性集群内运行的工作负载采用后付费的按量计费模式，费用根据实际配置的资源量按使用时间计算。也就是说：Kubernetes集群本身是免费的，只有运行工作负载，消耗节点资源时收费。</p>
-<p>EKS有3种计费模式：预留券、按量计费、竞价模式，这里我建议选择按量计费。按量计费，支持按秒计费，按小时结算，随时购买随时释放，从专栏学习的角度来说，费用是最低的。EKS会根据工作负载申请的CPU、内存数值以及工作负载的运行时间来核算费用，具体定价，你可以参考：定价|弹性容器服务。这里我通过例子来说明一下费用问题，IAM应用会部署4个Deployment，每个Deployment一个副本：iam-apiserver：IAMRESTAPI服务，提供用户、密钥、策略资源的CURD功能的API接口。iam-authz-server：IAM资源授权服务，对外提供资源授权接口。iam-pump：IAM数据清洗服务，从Redis中获取授权日志，处理后保存在MongoDB中。iamctl：IAM应用的测试服务，登陆iamctlPod可以执行iamctl命令和smoke测试脚本，完成对IAM应用的运维和测试。</p>
-<p>上述4个Deployment中的Pod配置均为0.25核、512Mi内存。这里，我们根据EKS的费用计算公式费用=相关计费项配置×资源单位时间价格×运行时间计算IAM部署一天的费用：</p>
-<p>也就是按最低配置部署IAM应用，运行一天的费用是4.8元（一瓶水的钱，就能学到如何将IAM应用部署在Kubernetes平台上，很值！）。你可能想这个计算公式里每个数值都代表什么呢？我来解释一下，其中：(4x1)：KubernetesPod总个数（一共是4个Deployment，每个Pod1个副本）。0.25x0.12：连续运行1小时的CPU配置费用。0.5x0.05：连续运行1小时的内存配置费用。24：24小时，也即一天。这里需要注意，为了帮助你节省费用，上述配置都是最低配置。在实际生产环境中，建议的配置如下：</p>
-<p>因为iam-pump组件是有状态的，并且目前没有实现抢占机制，所以副本数需要设置为1。另外，Intel按量计费的配置费用见下图：</p>
-<p>在这里有个很重要的事情提醒你：学完本节课，销毁这些Deployment，避免被继续扣费。建议腾讯云账户余额不要超过50元。申请EKS集群了解了EKS以及费用相关的问题，接下来我们看看如何申请EKS集群。你可以通过以下5步来申请EKS集群。在正式申请前，请先确保腾讯云账户有大于10元的账户余额，否则在创建和使用EKS集群的过程中可能会因为费用不足而报错。创建腾讯云弹性集群具体步骤如下：首先，登录容器服务控制台，选择左侧导航栏中的【弹性集群】。然后，在页面上方选择需创建弹性集群的地域，并单击【新建】。在“创建弹性集群”页面，根据以下提示设置集群信息。如下图所示：</p>
-<p>页面中各选择项的意思，我来给你解释一下：集群名称：创建的弹性集群名称，不超过60个字符。Kubernetes版本：弹性集群支持1.12以上的多个Kubernetes版本选择，建议选择最新的版本。所在地域：建议你根据所在地理位置选择靠近的地域，可降低访问延迟，提高下载速度。集群网络：已创建的弹性集群VPC网络，你可以选择私有网络中的子网用于弹性集群的容器网络，详情请见私有网络（VPC）。容器网络：为集群内容器分配在容器网络地址范围内的IP地址。弹性集群的Pod会直接占用VPC子网IP，请尽量选择IP数量充足且与其他产品使用无冲突的子网。ServiceCIDR：集群的ClusterIPService默认分配在所选VPC子网中，请尽量选择IP数量充足且与其他产品使用无冲突的子网。集群描述：创建集群的相关信息，该信息将显示在“集群信息”页面。设置完成后，单击【完成】即可开始创建，可在“弹性集群”列表页面查看集群的创建进度。</p>
+<h1 id="EKS简介"><a href="#EKS简介" class="headerlink" title="EKS简介"></a>EKS简介</h1><p>我先简单介绍一下EKS是什么。EKS（ElasticKubernetesService）即腾讯云弹性容器服务，是腾讯云容器服务推出的无须用户购买节点即可部署工作负载的服务模式。它完全兼容原生的Kubernetes，支持使用原生方式创建及管理资源，按照容器真实的资源使用量计费。弹性容器服务EKS还扩展支持腾讯云的存储及网络等产品，同时确保用户容器的安全隔离，开箱即用。</p>
+<h1 id="EKS费用"><a href="#EKS费用" class="headerlink" title="EKS费用"></a>EKS费用</h1><p>那它是如何收费呢？EKS是全托管的ServerlessKubernetes服务，不会收取托管的Master、etcd等资源的费用。弹性集群内运行的工作负载采用后付费的按量计费模式，费用根据实际配置的资源量按使用时间计算。也就是说：Kubernetes集群本身是免费的，只有运行工作负载，消耗节点资源时收费。</p>
+<p>EKS有3种计费模式：预留券、按量计费、竞价模式，这里我建议选择按量计费。按量计费，支持按秒计费，按小时结算，随时购买随时释放，从专栏学习的角度来说，费用是最低的。EKS会根据工作负载申请的CPU、内存数值以及工作负载的运行时间来核算费用，具体定价，你可以参考：定价|弹性容器服务。</p>
+<p>这里我通过例子来说明一下费用问题，IAM应用会部署4个Deployment，每个Deployment一个副本：</p>
+<ul>
+<li>iam-apiserver：IAMRESTAPI服务，提供用户、密钥、策略资源的CURD功能的API接口。</li>
+<li>iam-authz-server：IAM资源授权服务，对外提供资源授权接口。</li>
+<li>iam-pump：IAM数据清洗服务，从Redis中获取授权日志，处理后保存在MongoDB中。</li>
+<li>iamctl：IAM应用的测试服务，登陆iamctlPod可以执行iamctl命令和smoke测试脚本，完成对IAM应用的运维和测试。</li>
+</ul>
+<p>上述4个Deployment中的Pod配置均为0.25核、512Mi内存。</p>
+<p>这里，我们根据EKS的费用计算公式费用=相关计费项配置×资源单位时间价格×运行时间计算IAM部署一天的费用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">总费用 = (4 x 1) x (0.25 x 0.12 + 0.5 x 0.05) x 24 = 4.8 元</span><br></pre></td></tr></table></figure></p>
+<p>也就是按最低配置部署IAM应用，运行一天的费用是4.8元（一瓶水的钱，就能学到如何将IAM应用部署在Kubernetes平台上，很值！）。你可能想这个计算公式里每个数值都代表什么呢？我来解释一下，其中：</p>
+<ul>
+<li>(4x1)：KubernetesPod总个数（一共是4个Deployment，每个Pod1个副本）。</li>
+<li>0.25x0.12：连续运行1小时的CPU配置费用。</li>
+<li>0.5x0.05：连续运行1小时的内存配置费用。</li>
+<li>24：24小时，也即一天。</li>
+</ul>
+<p>这里需要注意，为了帮助你节省费用，上述配置都是最低配置。在实际生产环境中，建议的配置如下：</p>
+<img src="/2021/11/24/48-基于腾讯云EKS的容器化部署实战/5.webp">
+<p>因为iam-pump组件是有状态的，并且目前没有实现抢占机制，所以副本数需要设置为1。</p>
+<p>另外，Intel按量计费的配置费用见下图：</p>
+<img src="/2021/11/24/48-基于腾讯云EKS的容器化部署实战/6.webp">
+<p>在这里有个很重要的事情提醒你：学完本节课，销毁这些Deployment，避免被继续扣费。建议腾讯云账户余额不要超过50元。</p>
+<h1 id="申请EKS集群"><a href="#申请EKS集群" class="headerlink" title="申请EKS集群"></a>申请EKS集群</h1><p>了解了EKS以及费用相关的问题，接下来我们看看如何申请EKS集群。你可以通过以下5步来申请EKS集群。在正式申请前，请先确保腾讯云账户有大于10元的账户余额，否则在创建和使用EKS集群的过程中可能会因为费用不足而报错。</p>
+<p>1，创建腾讯云弹性集群</p>
+<p>具体步骤如下：</p>
+<p>首先，登录容器服务控制台，选择左侧导航栏中的【弹性集群】。然后，在页面上方选择需创建弹性集群的地域，并单击【新建】。在“创建弹性集群”页面，根据以下提示设置集群信息。如下图所示：</p>
+<img src="/2021/11/24/48-基于腾讯云EKS的容器化部署实战/7.webp">
+<p>页面中各选择项的意思，我来给你解释一下：</p>
+<ul>
+<li>集群名称：创建的弹性集群名称，不超过60个字符。</li>
+<li>Kubernetes版本：弹性集群支持1.12以上的多个Kubernetes版本选择，建议选择最新的版本。</li>
+<li>所在地域：建议你根据所在地理位置选择靠近的地域，可降低访问延迟，提高下载速度。</li>
+<li>集群网络：已创建的弹性集群VPC网络，你可以选择私有网络中的子网用于弹性集群的容器网络，详情请见私有网络（VPC）。</li>
+<li>容器网络：为集群内容器分配在容器网络地址范围内的IP地址。弹性集群的Pod会直接占用VPC子网IP，请尽量选择IP数量充足且与其他产品使用无冲突的子网。</li>
+<li>ServiceCIDR：集群的ClusterIPService默认分配在所选VPC子网中，请尽量选择IP数量充足且与其他产品使用无冲突的子网。</li>
+<li>集群描述：创建集群的相关信息，该信息将显示在“集群信息”页面。</li>
+</ul>
+<p>设置完成后，单击【完成】即可开始创建，可在“弹性集群”列表页面查看集群的创建进度。</p>
 <p>等待弹性集群创建完成，创建完成后的弹性集群页面如下图所示：</p>
-<p>我们创建的弹性集群ID为cls-dc6sdos4。开启外网访问如果想访问EKS集群，需要先开启EKS的外网访问能力，开启方法如下：登录容器服务控制台-&gt;选择左侧导航栏中的【弹性集群】-&gt;进入cls-dc6sdos4集群的详情页中-&gt;选择【基本信息】-&gt;点击【外网访问】按钮。如下图所示：</p>
+<img src="/2021/11/24/48-基于腾讯云EKS的容器化部署实战/8.webp">
+<p>我们创建的弹性集群ID为cls-dc6sdos4。</p>
+<p>2，开启外网访问</p>
+<p>如果想访问EKS集群，需要先开启EKS的外网访问能力，开启方法如下：</p>
+<p>登录容器服务控制台-&gt;选择左侧导航栏中的【弹性集群】-&gt;进入cls-dc6sdos4集群的详情页中-&gt;选择【基本信息】-&gt;点击【外网访问】按钮。如下图所示：</p>
+<img src="/2021/11/24/48-基于腾讯云EKS的容器化部署实战/9.webp">
 <p>这里要注意，开启外网访问时，为了安全，需要设置允许访问kube-apiserver的IP段。为了避免不必要的错误，外网访问地址我们设置为0.0.0.0/0。如下图所示：</p>
-<p>注意，只有测试时才可这么设置为0.0.0.0/0，如果是生产环境，建议严格限制可以访问kube-apiserver的来源IP。安装kubectl命令行工具如果要访问EKS（标准的Kubernetes集群），比较高效的方式是通过Kubernetes提供的命令行工具kubectl来访问。所以，还需要安装kubectl工具。安装方式如下：</p>
-<p>具体可参考安装和设置kubectl。你可以通过以下命令来配置kubectl的bash自动补全：</p>
-<p>下载并安装kubeconfig安装完kubectl工具之后，需要配置kubectl所读取的配置文件。这里注意，在上一步，我们开启了外网访问，开启后EKS会生成一个kubeconfig配置（kubeconfig即为kubectl的配置文件）。我们可以从页面下载并安装。在弹性集群的基本信息页面，点击【复制】按钮，复制kubeconfig文件内容，如下图所示：</p>
-<p>复制后，将粘贴板的内容保存在$HOME/.kube/config文件中。需要先执行mkdir-p$HOME/.kube创建.kube目录，再将粘贴版中的内容写到config文件中。你可以通过以下命令，来测试kubectl工具是否成功安装和配置：</p>
-<p>如果输出了Kubernetes的eklet节点，并且节点状态为Ready，说明Kubernetes集群运行正常，并且kubectl安装和配置正确。EKS集群开通集群内服务访问外网能力因为IAM应用中的数据库：MariaDB、Redis、MongoDB可能需要通过外网访问，所以还需要开通EKS中Pod访问外网的能力。EKS支持通过配置NAT网关和路由表来实现集群内服务访问外网。具体开启步骤，需要你查看腾讯云官方文档：通过NAT网关访问外网。在开通过程中有以下两点需要你注意：在创建指向NAT网关的路由表步骤中，目的端要选择：0.0.0.0/0。在关联子网至路由表步骤中，只关联创建EKS集群时选择的子网。</p>
+<img src="/2021/11/24/48-基于腾讯云EKS的容器化部署实战/10.webp">
+<p>注意，只有测试时才可这么设置为0.0.0.0/0，如果是生产环境，建议严格限制可以访问kube-apiserver的来源IP。</p>
+<p>3，安装kubectl命令行工具</p>
+<p>如果要访问EKS（标准的Kubernetes集群），比较高效的方式是通过Kubernetes提供的命令行工具kubectl来访问。所以，还需要安装kubectl工具。</p>
+<p>安装方式如下：</p>
+<p>具体可参考安装和设置kubectl。</p>
+<p>你可以通过以下命令来配置kubectl的bash自动补全：</p>
+<p>4，下载并安装kubeconfig</p>
+<p>安装完kubectl工具之后，需要配置kubectl所读取的配置文件。</p>
+<p>这里注意，在上一步，我们开启了外网访问，开启后EKS会生成一个kubeconfig配置（kubeconfig即为kubectl的配置文件）。我们可以从页面下载并安装。</p>
+<p>在弹性集群的基本信息页面，点击【复制】按钮，复制kubeconfig文件内容，如下图所示：</p>
+<img src="/2021/11/24/48-基于腾讯云EKS的容器化部署实战/11.webp">
+<p>复制后，将粘贴板的内容保存在$HOME/.kube/config文件中。需要先执行mkdir-p$HOME/.kube创建.kube目录，再将粘贴版中的内容写到config文件中。</p>
+<p>你可以通过以下命令，来测试kubectl工具是否成功安装和配置：</p>
+<p>如果输出了Kubernetes的eklet节点，并且节点状态为Ready，说明Kubernetes集群运行正常，并且kubectl安装和配置正确。</p>
+<p>5，EKS集群开通集群内服务访问外网能力</p>
+<p>因为IAM应用中的数据库：MariaDB、Redis、MongoDB可能需要通过外网访问，所以还需要开通EKS中Pod访问外网的能力。</p>
+<p>EKS支持通过配置NAT网关和路由表来实现集群内服务访问外网。具体开启步骤，需要你查看腾讯云官方文档：通过NAT网关访问外网。</p>
+<p>在开通过程中有以下两点需要你注意：</p>
+<ul>
+<li>在创建指向NAT网关的路由表步骤中，目的端要选择：0.0.0.0/0。</li>
+<li>在关联子网至路由表步骤中，只关联创建EKS集群时选择的子网。</li>
+</ul>
 <p>如果你的数据库需要通过外网访问，这里一定要确保EKS集群成功开通集群内服务访问外网能力，否则部署IAM应用时会因为访问不了数据库而失败。</p>
 <h1 id="安装IAM应用"><a href="#安装IAM应用" class="headerlink" title="安装IAM应用"></a><span style="color:#339AFF;">安装IAM应用</span></h1><p>上面，我们开通了镜像仓库、安装了Docker引擎、安装和配置了Kubernetes集群，那么接下来，我们就来看下如何将IAM应用部署到Kubernetes集群中。</p>
 <p>假设IAM项目仓库根目录路径为$IAM_ROOT，具体安装步骤如下：</p>
@@ -709,8 +773,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/11/24/47-如何编写Kubernetes资源定义文件？/" rel="next" title="47|如何编写Kubernetes资源定义文件？">
-                <i class="fa fa-chevron-left"></i> 47|如何编写Kubernetes资源定义文件？
+              <a href="/2021/11/24/47-如何编写Kubernetes资源定义文件？/" rel="next" title="47丨如何编写Kubernetes资源定义文件？">
+                <i class="fa fa-chevron-left"></i> 47丨如何编写Kubernetes资源定义文件？
               </a>
             
           </div>
@@ -1219,7 +1283,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#开通腾讯云容器服务镜像仓库"><span class="nav-number">1.1.</span> <span class="nav-text">开通腾讯云容器服务镜像仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Docker"><span class="nav-number">1.2.</span> <span class="nav-text">安装Docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备一个Kubernetes集群"><span class="nav-number">1.3.</span> <span class="nav-text">准备一个Kubernetes集群</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装IAM应用"><span class="nav-number">2.</span> <span class="nav-text">安装IAM应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试IAM应用"><span class="nav-number">3.</span> <span class="nav-text">测试IAM应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#销毁EKS集群及其资源"><span class="nav-number">4.</span> <span class="nav-text">销毁EKS集群及其资源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课后练习"><span class="nav-number">6.</span> <span class="nav-text">课后练习</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#准备工作"><span class="nav-number">1.</span> <span class="nav-text">准备工作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#开通腾讯云容器服务镜像仓库"><span class="nav-number">1.1.</span> <span class="nav-text">开通腾讯云容器服务镜像仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Docker"><span class="nav-number">1.2.</span> <span class="nav-text">安装Docker</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#准备一个Kubernetes集群"><span class="nav-number">1.3.</span> <span class="nav-text">准备一个Kubernetes集群</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EKS简介"><span class="nav-number">2.</span> <span class="nav-text">EKS简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EKS费用"><span class="nav-number">3.</span> <span class="nav-text">EKS费用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#申请EKS集群"><span class="nav-number">4.</span> <span class="nav-text">申请EKS集群</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装IAM应用"><span class="nav-number">5.</span> <span class="nav-text">安装IAM应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试IAM应用"><span class="nav-number">6.</span> <span class="nav-text">测试IAM应用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#销毁EKS集群及其资源"><span class="nav-number">7.</span> <span class="nav-text">销毁EKS集群及其资源</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课后练习"><span class="nav-number">9.</span> <span class="nav-text">课后练习</span></a></li></ol></div>
             
 
           </div>
@@ -1254,7 +1318,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.1m</span>
+    <span title="站点总字数">9.2m</span>
   
 
   
@@ -1265,7 +1329,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">138:13</span>
+    <span title="站点阅读时长">139:13</span>
   
 </div>
 
