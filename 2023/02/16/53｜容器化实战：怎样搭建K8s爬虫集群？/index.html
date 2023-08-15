@@ -1,0 +1,1756 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="思考并回答以下问题：">
+<meta name="keywords" content="Go进阶·分布式爬虫实战">
+<meta property="og:type" content="article">
+<meta property="og:title" content="53｜容器化实战：怎样搭建K8s爬虫集群？">
+<meta property="og:url" content="http://yoursite.com/2023/02/16/53｜容器化实战：怎样搭建K8s爬虫集群？/index.html">
+<meta property="og:site_name" content="车斌的技术博客">
+<meta property="og:description" content="思考并回答以下问题：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2023/02/16/53｜容器化实战：怎样搭建K8s爬虫集群？/1.png">
+<meta property="og:image" content="http://yoursite.com/2023/02/16/53｜容器化实战：怎样搭建K8s爬虫集群？/2.png">
+<meta property="og:updated_time" content="2023-08-03T02:53:27.137Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="53｜容器化实战：怎样搭建K8s爬虫集群？">
+<meta name="twitter:description" content="思考并回答以下问题：">
+<meta name="twitter:image" content="http://yoursite.com/2023/02/16/53｜容器化实战：怎样搭建K8s爬虫集群？/1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2023/02/16/53｜容器化实战：怎样搭建K8s爬虫集群？/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>53｜容器化实战：怎样搭建K8s爬虫集群？ | 车斌的技术博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">车斌的技术博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">放弃会成为一种习惯</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/02/16/53｜容器化实战：怎样搭建K8s爬虫集群？/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CheBin">
+      <meta itemprop="description" content="看视频才能学会，看文字学不会的">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="车斌的技术博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">53｜容器化实战：怎样搭建K8s爬虫集群？
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2023-02-16 16:11:21" itemprop="dateCreated datePublished" datetime="2023-02-16T16:11:21+08:00">2023-02-16</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2023-08-03 10:53:27" itemprop="dateModified" datetime="2023-08-03T10:53:27+08:00">2023-08-03</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">17k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">16 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>思考并回答以下问题：</p>
+<a id="more"></a>
+<p>上节课，我们介绍了Kubernetes架构和相关的原理。这节课让我们更进一步，将爬虫项目相关的微服务部署到Kubernetes中。</p>
+<h1 id="安装Kubernetes集群"><a href="#安装Kubernetes集群" class="headerlink" title="安装Kubernetes集群"></a><span style="color:#339AFF;">安装Kubernetes集群</span></h1><p>首先，我们需要准备好Kubernetes的集群。部署Kubernetes集群的方式有很多种，典型的方式有下面几种：</p>
+<ul>
+<li>Play with Kubernetes(PWK)</li>
+<li>Docker Desktop</li>
+<li>云厂商的k8s服务，例如Google Kubernetes Engine(GKE)</li>
+<li>kops</li>
+<li>kubeadm</li>
+<li>k3s</li>
+<li>k3d</li>
+</ul>
+<p>其中，<a href="https://labs.play-with-k8s.com" target="_blank" rel="noopener">PWK</a>是试验性质的免费的Kubernetes集群，只要有Docker或者Github账号就可以在浏览器上一键生成Kubernetes集群。但是它有诸多限制，例如一次只能使用4个小时，并且有扩展性和性能等问题。所以PWK一般只用于教学或者试验。</p>
+<p>之前，我们在Windows和Mac中用Docker Desktop安装包来安装了Docker，其实利用最新的Docker Desktop，我们还可以在本地生成Kubernetes集群。使用Docker Desktop生成Kubernetes集群非常简单，我们只需要点击Docker的鲸鱼图标，并且在Preferences中勾选EnableKubernetes，然后点击下方的Apply&amp;restart就可以创建我们的Kubernetes集群了。</p>
+<img src="/2023/02/16/53｜容器化实战：怎样搭建K8s爬虫集群？/1.png">
+<p>最后，Docker Desktop还提供了切换Kubernetes Context的能力，我们点击docker-desktop，这样我们通过kubectl发送的命令就会传到Docker Desktop构建的Kubernetes集群中。</p>
+<img src="/2023/02/16/53｜容器化实战：怎样搭建K8s爬虫集群？/2.png">
+<p>上面的这个界面操作和下面的命令行操作在功能上是相同的。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">» kubectl config use-context docker-desktop </span><br><span class="line">Switched to context "docker-desktop".</span><br></pre></td></tr></table></figure></p>
+<p>接着，我们执行<code>kubectl get nodes</code>可以看到当前集群为单节点的集群，版本为v1.25.2。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">» kubectl get nodes </span><br><span class="line">NAME             STATUS   ROLES           AGE   VERSION</span><br><span class="line">docker-desktop   Ready    control-plane   25d   v1.25.2</span><br></pre></td></tr></table></figure></p>
+<p>Docker Desktop生成的Kubernetes集群可以用于开发测试，但是它不能模拟多节点的Kubernetes集群。</p>
+<p>在一些生产环境中，我们可能需要手动部署多节点的Kubernetes集群。例如我们要以Kubernetes为基座为某企业部署一套人脸识别系统，这时我们可以使用<a href="https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/" target="_blank" rel="noopener">kubeadm</a>工具来安装Kubernetes集群。</p>
+<p>kubeadm是Kubernetes 1.4版本引入的命令行工具，它致力于简化集群的安装过程。如果要更精细地调整Kubernetes各组件服务的参数和安全设置，还可以用Kubernetes二进制文件的方式进行部署。kubeadm和二进制文件的安装方式你可以查看官方文档和《kubernetes权威指南》。</p>
+<p>在另一些生产环境中，例如在私有云的场景下，如果为了应对高峰期而购入机器，容易导致机器闲置，带来资源浪费，这时我们可以借助云厂商的Kubernetes服务（Google GKE，Microsoft AKS，Amazon EKS，腾讯云，阿里云）搭建Kubernetes集群。以<a href="https://cloud.google.com/kubernetes-engine" target="_blank" rel="noopener">GKE</a>为例，GKE是运行在谷歌云平台上的Kubernetes托管服务，它可以为我们快速部署和管理生产级的Kubernetes集群。要注意的是，部署在云厂商的Kubernetes集群一般都是需要付费的。</p>
+<p>k3s是轻量级的Kubernetes集群，它通过删除Kubernetes中不必要的第三方存储驱动，删除与云厂商交互的代码，将Kubernetes组件合并到了不到100MB的二进制文件中去运行，这就减少了二进制文件与内存占用的大小。这个方案适用于物联网等对资源吃紧的环境，也可以用于CI及开发环境。</p>
+<p>而k3d是一个社区驱动的项目，它对k3s进行了封装，从而可以在Docker中创建单节点或多节点的Kubernetes集群。使用k3d，我们用一行指令就可以创建Kubernetes集群。这节课，我们就用k3d搭建多节点、轻量级的Kubernetes集群，实现开发与测试的目的。</p>
+<h1 id="安装k3d"><a href="#安装k3d" class="headerlink" title="安装k3d"></a><span style="color:#339AFF;">安装k3d</span></h1><p>k3d的安装方式比较简单，可以执行如下的脚本完成。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash</span><br></pre></td></tr></table></figure></p>
+<p>如果想安装k3d的指定版本，可以使用下面的指令。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | TAG=v5.4.6 bash</span><br></pre></td></tr></table></figure></p>
+<p>在Mac中，还可以使用brew进行安装，如下所示。其他的安装方式你可以查看<a href="https://k3d.io/v5.4.6/" target="_blank" rel="noopener">官方文档</a>。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install k3d</span><br></pre></td></tr></table></figure></p>
+<p>安装完成后，执行<code>k3d version</code>可以查看k3d的版本信息和k3d依赖的k3s的版本。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">» k3d version</span><br><span class="line">k3d version v5.4.6</span><br><span class="line">k3s version v1.24.4-k3s1 (default)</span><br></pre></td></tr></table></figure></p>
+<p>k3d的使用方法我推荐你阅读它的<a href="https://k3d.io/v5.4.6/" target="_blank" rel="noopener">官方文档</a>和k3d维护的一个交互式的<a href="https://github.com/k3d-io/k3d-demo" target="_blank" rel="noopener">demo项目</a>。这个demo项目可以完成从集群的创建到销毁，从Pod的创建到销毁的完整链路。你可以下载k3d-demo项目的代码，然后<code>make demo</code>，跟着它的提示一步步去学习。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/k3d-io/k3d-demo</span><br><span class="line">make demo</span><br></pre></td></tr></table></figure></p>
+<p>下面让我们来看看如何借助k3d搭建Kubernetes集群。</p>
+<p>首先执行<code>k3d cluster create</code>命令，创建Kubernetes集群。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">» k3d cluster create demo --api-port 6550 --servers 1 --c 3 --port 8080:80@loadbalancer --wait</span><br><span class="line">INFO[0000] portmapping '8080:80' targets the loadbalancer: defaulting to [servers:*:proxy agents:*:proxy]</span><br><span class="line">INFO[0000] Prep: Network</span><br><span class="line">INFO[0000] Created network 'k3d-demo'</span><br><span class="line">INFO[0000] Created image volume k3d-demo-images</span><br><span class="line">INFO[0000] Starting new tools node...</span><br><span class="line">INFO[0000] Starting Node 'k3d-demo-tools'</span><br><span class="line">INFO[0007] Creating node 'k3d-demo-server-0'</span><br><span class="line">INFO[0007] Creating node 'k3d-demo-agent-0'</span><br><span class="line">INFO[0007] Creating node 'k3d-demo-agent-1'</span><br><span class="line">INFO[0007] Creating node 'k3d-demo-agent-2'</span><br><span class="line">INFO[0007] Creating LoadBalancer 'k3d-demo-serverlb'</span><br><span class="line">INFO[0007] Using the k3d-tools node to gather environment information</span><br><span class="line">INFO[0007] Starting new tools node...</span><br><span class="line">INFO[0007] Starting Node 'k3d-demo-tools'</span><br><span class="line">INFO[0009] Starting cluster 'demo'</span><br><span class="line">INFO[0009] Starting servers...</span><br><span class="line">INFO[0009] Starting Node 'k3d-demo-server-0'</span><br><span class="line">INFO[0013] Starting agents...</span><br><span class="line">INFO[0014] Starting Node 'k3d-demo-agent-2'</span><br><span class="line">INFO[0014] Starting Node 'k3d-demo-agent-1'</span><br><span class="line">INFO[0014] Starting Node 'k3d-demo-agent-0'</span><br><span class="line">INFO[0019] Starting helpers...</span><br><span class="line">INFO[0019] Starting Node 'k3d-demo-serverlb'</span><br><span class="line">INFO[0026] Injecting records for hostAliases (incl. host.k3d.internal) and for 6 network members into CoreDNS configmap...</span><br><span class="line">INFO[0028] Cluster 'demo' created successfully!</span><br></pre></td></tr></table></figure></p>
+<p>其中，运行参数api-port用于指定Kubernetes API server对外暴露的端口。servers用于指定master node的数量。agents用于指定worker node的数量。port用于指定宿主机端口到Kubernetes集群的映射。后面我们会看到，当我们访问宿主机8080端口时，实际上会被转发到集群的80端口。wait参数表示等待k3s集群准备就绪后指令才会返回。</p>
+<p>创建好Kubernetes集群后，执行<code>k3d cluster list</code>可以看到当前创建好的demo集群信息。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">» k3d cluster list  </span><br><span class="line">NAME   SERVERS   AGENTS   LOADBALANCER</span><br><span class="line">demo   1/1       3/3      true</span><br></pre></td></tr></table></figure></p>
+<p>要让kubectl客户端能够访问到我们刚创建好的Kubernetes集群，需要使用下面的指令，把当前集群的配置信息合并到kubeconfig文件中，然后切换Kubernetes Context，使kubectl能够访问到新建的集群。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">k3d kubeconfig merge demo --kubeconfig-merge-default --kubeconfig-switch-context</span><br></pre></td></tr></table></figure></p>
+<p>接下来，输入<code>kubectl get nodes</code>，可以看到当前集群的Master Node与Worker Node。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">» kubectl get nodes</span><br><span class="line">NAME                STATUS   ROLES                  AGE     VERSION</span><br><span class="line">k3d-demo-server-0   Ready    control-plane,master   2m36s   v1.24.4+k3s1</span><br><span class="line">k3d-demo-agent-1    Ready    &lt;none&gt;                 2m31s   v1.24.4+k3s1</span><br><span class="line">k3d-demo-agent-0    Ready    &lt;none&gt;                 2m31s   v1.24.4+k3s1</span><br><span class="line">k3d-demo-agent-2    Ready    &lt;none&gt;                 2m31s   v1.24.4+k3s1</span><br></pre></td></tr></table></figure></p>
+<h1 id="部署Worker-Deployment"><a href="#部署Worker-Deployment" class="headerlink" title="部署Worker Deployment"></a><span style="color:#339AFF;">部署Worker Deployment</span></h1><p>创建好集群之后，我们要想办法将当前的爬虫项目部署到Kubernetes集群中。首先让我们书写一个crawl-worker.yaml文件，用它来创建Deployment资源，管理我们的容器crawl-worker。描述文件如下。<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">crawler-deployment</span></span><br><span class="line"><span class="attr">  labels:</span></span><br><span class="line"><span class="attr">    app:</span> <span class="string">crawl-worker</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  replicas:</span> <span class="number">3</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line"><span class="attr">    matchLabels:</span></span><br><span class="line"><span class="attr">      app:</span> <span class="string">crawl-worker</span></span><br><span class="line"><span class="attr">  template:</span></span><br><span class="line"><span class="attr">    metadata:</span></span><br><span class="line"><span class="attr">      labels:</span></span><br><span class="line"><span class="attr">        app:</span> <span class="string">crawl-worker</span></span><br><span class="line"><span class="attr">    spec:</span></span><br><span class="line"><span class="attr">      containers:</span></span><br><span class="line"><span class="attr">      - name:</span> <span class="string">crawl-worker</span></span><br><span class="line"><span class="attr">        image:</span> <span class="attr">crawler:local</span></span><br><span class="line"><span class="attr">        command:</span></span><br><span class="line"><span class="bullet">          -</span> <span class="string">sh</span></span><br><span class="line"><span class="bullet">          -</span> <span class="bullet">-c</span></span><br><span class="line"><span class="bullet">          -</span> <span class="string">"./crawler worker --podip=$&#123;MY_POD_IP&#125;"</span></span><br><span class="line"><span class="attr">        ports:</span></span><br><span class="line"><span class="attr">        - containerPort:</span> <span class="number">8080</span></span><br><span class="line"><span class="attr">        env:</span></span><br><span class="line"><span class="attr">          - name:</span> <span class="string">MY_POD_IP</span></span><br><span class="line"><span class="attr">            valueFrom:</span></span><br><span class="line"><span class="attr">              fieldRef:</span></span><br><span class="line"><span class="attr">                fieldPath:</span> <span class="string">status.podIP</span></span><br></pre></td></tr></table></figure></p>
+<p>下面我们来挨个解释一下文件中的信息。</p>
+<ul>
+<li>apiVersion：定义创建对象时使用的Kubernetes API的版本。apiVersion的一般形式为<code>&lt;GROUP_NAME&gt;/&lt;VERSION&gt;</code>。在这里，Deployment的API group为app，版本为v1。而Pod对象由于位于特殊的核心组，可以省略掉<code>&lt;GROUP_NAME&gt;</code>。apiVersion的设计有助于Kubernetes对不同的资源进行单独的管理，也有助于开发者创建Kubernetes中实验性质的资源进行测试。</li>
+<li>kind表示当前资源的类型，在这里我们定义的是Deployment对象。之前我们提到过，Deployment在Pod之上增加了自动扩容、自动修复和滚动更新等功能。</li>
+<li>metadata.name：定义deployment的名字。</li>
+<li>metadata.labels：给Deployment的标签。</li>
+<li>spec：代表对象的期望状态。</li>
+<li>spec.replicas：代表创建和管理的Pod的数量。</li>
+<li>spec.selector：定义了Deployment Controller要管理哪些Pod。这里定义的通常是标签匹配的Pod，满足该标签的Pod会被纳入到Deployment Controller中去管理。</li>
+<li>spec.template.metadata：定义了Pod的属性，在上例中，定义了标签属性crawl-worker。</li>
+<li>spec.template.spec.containers：定义了Pod中的容器属性。</li>
+<li>spec.template.spec.containers.name：定义了容器的名字。</li>
+<li>spec.template.spec.containers.image：定义了容器的镜像。</li>
+<li>spec.template.spec.containers.command：定义了容器的启动命令。注意，启动参数中的${MY_POD_IP}是从环境变量中获取的MY_POD_IP对应的值。</li>
+<li>spec.template.spec.container.ports：描述服务暴露的端口信息，方便开发者更好地理解服务，没有实际的作用。</li>
+<li>spec.template.spec.container.env：定义容器的环境变量。在这里，我们定义了一个环境变量MY_POD_IP，并且传递了一个特殊的值，即Pod的IP。并将该环境变量的值传递到了运行参数当中。</li>
+</ul>
+<p>这里我将Pod的IP传入到程序中有一个妙处。我们之前在程序运行时手动传入了Worker的ID，这在开发环境中是没有问题的。但是在生产环境中，我们希望Worker能够动态扩容，这时就不能手动地指定ID了。我们需要让程序在启动后自动生成一个ID，并且这个ID在分布式节点中是唯一的。</p>
+<p>一些同学可能会想到把时间当作唯一的ID，例如使用<code>time.Now().UnixNano()</code>来获取Unix时间戳。但是，程序获取到的时间仍然可能是重复的，虽然概率很小。另一些同学可能会想到利用MySQL的自增主键或者借助etcd等分布式组件来得到分布式ID。这当然是一种解决办法，不过却依赖了额外的外部服务。在这里，我选择了一种更为巧妙的方法，即借助Kubernetes中Pod的IP不重复的特性，将Pod的IP传递到程序中，借助唯一的PodIP生成唯一的ID。代码如下所示。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">WorkerCmd.Flags().StringVar(</span><br><span class="line">    &amp;podIP, <span class="string">"podip"</span>, <span class="string">""</span>, <span class="string">"set worker id"</span>)</span><br><span class="line"></span><br><span class="line">WorkerCmd.Flags().StringVar(</span><br><span class="line">    &amp;workerID, <span class="string">"id"</span>, <span class="string">""</span>, <span class="string">"set worker id"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> podIP <span class="keyword">string</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> workerID == <span class="string">""</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> podIP != <span class="string">""</span> &#123;</span><br><span class="line">        ip := generator.GetIDbyIP(podIP)</span><br><span class="line">        workerID = strconv.Itoa(<span class="keyword">int</span>(ip))</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        workerID = fmt.Sprintf(<span class="string">"%d"</span>, time.Now().UnixNano())</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// generator/generator.go</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">GetIDbyIP</span><span class="params">(ip <span class="keyword">string</span>)</span> <span class="title">uint32</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> id <span class="keyword">uint32</span></span><br><span class="line">    binary.Read(bytes.NewBuffer(net.ParseIP(ip).To4()), binary.BigEndian, &amp;id)</span><br><span class="line">    <span class="keyword">return</span> id</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>现在workerID的默认值为空，如果没有传递id flag，也没有传递podip flag，这一般是线下开发场景，我们直接使用Unix时间戳来生成ID。如果没有传递id flag，但传递了podip flag，我们则要利用Pod IP的唯一性生成ID。</p>
+<p>准备好程序代码之后，让我们生成Worker的镜像，并打上镜像tag：crawler:local。要注意的是，这里我们并没有和之前一样将镜像变为crawler:latest。这是因为对于crawler:latest的镜像，Kubernetes会在DockerHub中默认拉取最新的镜像，这会导致镜像拉取失败，这里我们希望Kubernetes使用本地缓存的镜像。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker image build -t crawler:local .</span><br></pre></td></tr></table></figure></p>
+<p>接着，将镜像导入到k3d集群中。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">k3d image import crawler:local -c demo</span><br></pre></td></tr></table></figure></p>
+<p>准备好镜像之后，我们就可以创建Kubernetes中的Deployment资源，用它管理我们的Worker节点了。具体步骤是，执行kubectlapply，告诉Kubernetes我们希望创建的Deployment资源的信息。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f crawl-worker.yaml</span><br></pre></td></tr></table></figure></p>
+<p>接下来，输入<code>kubectl get po</code>，查看default namespace中Pod的信息。可以看到，Kubernetes已经为我们创建了3个Pod。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">» kubectl get po</span><br><span class="line">NAME                                  READY   STATUS    RESTARTS   AGE</span><br><span class="line">crawler-deployment-6744cc644b-2mm9r   1/1     Running   0          88s</span><br><span class="line">crawler-deployment-6744cc644b-bgjqc   1/1     Running   0          88s</span><br><span class="line">crawler-deployment-6744cc644b-84t9g   1/1     Running   0          88s</span><br></pre></td></tr></table></figure></p>
+<p>使用<code>kubectl logs</code>打印出某一个Pod的日志，可以看到Worker节点已经正常地运行了。</p>
+<p>还要注意的是，当前Worker节点的启动依赖于MySQL和etcd这两个组件。和之前一样，我们是先将这两个组件在宿主机中Docker启动的，后续这两个组件可以部署到Kubernetes集群中。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">» kubectl logs -f crawler-deployment-6744cc644b-2mm9r  </span><br><span class="line">&#123;"level":"INFO","ts":"2022-12-24T07:50:09.301Z","caller":"worker/worker.go:101","msg":"log init end"&#125;</span><br><span class="line">&#123;"level":"INFO","ts":"2022-12-24T07:50:09.301Z","caller":"worker/worker.go:109","msg":"proxy list: [&lt;http://192.168.0.105:8888&gt; &lt;http://192.168.0.105:8888&gt;] timeout: 3000"&#125;</span><br><span class="line">&#123;"level":"DEBUG","ts":"2022-12-24T07:50:09.311Z","caller":"worker/worker.go:152","msg":"grpc server config,&#123;RegistryAddress::2379 RegisterTTL:60 RegisterInterval:15 Name:go.micro.server.worker ClientTimeOut:10&#125;"&#125;</span><br><span class="line">&#123;"level":"DEBUG","ts":"2022-12-24T07:50:09.313Z","caller":"worker/worker.go:223","msg":"start http server listening on :8080 proxy to grpc server;:9090"&#125;</span><br><span class="line">2022-12-24 07:50:09  file=worker/worker.go:196 level=info Starting [service] go.micro.server.worker</span><br><span class="line">2022-12-24 07:50:09  file=v4@v4.9.0/service.go:96 level=info Server [grpc] Listening on [::]:9090</span><br><span class="line">2022-12-24 07:50:09  file=grpc@v1.2.0/grpc.go:913 level=info Registry [etcd] Registering node: go.micro.server.worker-1</span><br></pre></td></tr></table></figure></p>
+<p>现在让我们来尝试从外部访问一下Worker节点。</p>
+<p>由于网络存在隔离性，当前要想从外部访问Worker节点还没有那么容易。但是我们之前讲过，Pod之间是可以通过IP相互连接的，所以我们打算通过一个Pod容器访问Worker节点。由于当前我们生成的crawler容器内没有内置网络请求工具，所以在这里我们用<code>kubectl run</code>启动一个带有curl工具的镜像curlimages/curl，并命名为mycurlpod。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl run mycurlpod --image=curlimages/curl -i --tty -- sh</span><br></pre></td></tr></table></figure></p>
+<p>如下，我们仍然使用<code>kubectl get pod</code>查看当前WorkerPod的IP地址，<code>-o wide</code>可以帮助我们得到更详细的Pod信息。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">» kubectl get pod -o wide</span><br><span class="line">NAME                                  READY   STATUS    RESTARTS   AGE   IP           NODE               NOMINATED NODE   READINESS GATES</span><br><span class="line">crawler-deployment-6744cc644b-2mm9r   1/1     Running   0          40m   10.42.4.9    k3d-new-agent-1    &lt;none&gt;           &lt;none&gt;</span><br><span class="line">crawler-deployment-6744cc644b-bgjqc   1/1     Running   0          40m   10.42.5.10   k3d-new-agent-0    &lt;none&gt;           &lt;none&gt;</span><br><span class="line">crawler-deployment-6744cc644b-84t9g   1/1     Running   0          40m   10.42.3.6    k3d-demo-agent-2   &lt;none&gt;           &lt;none&gt;</span><br><span class="line">mycurlpod                             1/1     Running   0          26m   10.42.4.10   k3d-new-agent-1    &lt;none&gt;           &lt;none&gt;</span><br></pre></td></tr></table></figure></p>
+<p>接着进入到mycurlpod中，利用Worker节点的Pod IP地址进行访问，成功返回预期数据。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">» curl -H "content-type: application/json" -d '&#123;"name": "john"&#125;' http://10.42.4.9:8080/greeter/hello</span><br><span class="line">&#123;"greeting":"Hello "&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="部署Worker-Service"><a href="#部署Worker-Service" class="headerlink" title="部署Worker Service"></a><span style="color:#339AFF;">部署Worker Service</span></h1><p>不过到这里还不能放松警惕。我们上节课说过，Pod的IP会随时发生变化，为了有稳定的IP来访问我们的Worker与Master，我们要创建一个文件crawl-worker-service.yaml，用它来描述Service资源。Service默认的类型为ClusterIP，该类型的ServiceIP只能够在集群内部访问。</p>
+<p>描述Service资源与之前描述Deployment资源非常类似。</p>
+<ul>
+<li>kind:Service：指的是当前的Kubernetes资源类型为Service。</li>
+<li>apiVersion:v1：代表apiVersion的版本是v1，由于Service是核心类型，因此省略掉了APIGROUP的命名前缀。metadata.name：当前Service的名字。</li>
+<li>metadata.labels：当前Service的标签。</li>
+<li>spec.selector：选择器，表示当前Service管理哪些后台服务，只有标签为app:crawl-worker的Pod才会受到该Service的管理，这些Pod就是我们的Worker节点。</li>
+<li>spec.ports.port：当前Service监听的端口号。例如。port:8080指的是当前Service会监听8080端口。默认情况下，当外部访问该Service的8080端口时，会将请求转发给后端服务相同的端口。</li>
+<li>spec.ports.port.name：描述了当前Service端口规则的名字。</li>
+</ul>
+<p>接下来使用<code>kubectl apply</code>创建Service资源，并使用<code>kubectl get service</code>得到Service的Cluster-IP地址。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">» kubectl  apply -f crawl-worker-service.yaml</span><br><span class="line">» kubectl get service </span><br><span class="line">NAME           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE</span><br><span class="line">crawl-worker   ClusterIP   10.43.245.115    &lt;none&gt;        8080/TCP,9090/TCP   13m</span><br></pre></td></tr></table></figure></p>
+<p>同样，在包含curl工具的mycurlpod中，访问Service暴露的ClusterIP，这时请求会负载均衡到后端任意一个Worker节点中。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> curl -H <span class="string">"content-type: application/json"</span> -d <span class="string">'&#123;"name": "john"&#125;'</span> http://10.43.245.115:8080/greeter/hello</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="部署Master-Deployment"><a href="#部署Master-Deployment" class="headerlink" title="部署Master Deployment"></a><span style="color:#339AFF;">部署Master Deployment</span></h1><p>Master节点的部署和Worker节点的部署非常类似。如下所示，创建crawler-master.yaml文件，描述Deployment资源的信息。这里和WorkerDeployment不同的主要是相关的名字和程序启动的命令。<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">crawler-master-deployment</span></span><br><span class="line"><span class="attr">  labels:</span></span><br><span class="line"><span class="attr">    app:</span> <span class="string">crawl-master</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  replicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line"><span class="attr">    matchLabels:</span></span><br><span class="line"><span class="attr">      app:</span> <span class="string">crawl-master</span></span><br><span class="line"><span class="attr">  template:</span></span><br><span class="line"><span class="attr">    metadata:</span></span><br><span class="line"><span class="attr">      labels:</span></span><br><span class="line"><span class="attr">        app:</span> <span class="string">crawl-master</span></span><br><span class="line"><span class="attr">    spec:</span></span><br><span class="line"><span class="attr">      containers:</span></span><br><span class="line"><span class="attr">      - name:</span> <span class="string">crawl-master</span></span><br><span class="line"><span class="attr">        image:</span> <span class="attr">crawler:local</span></span><br><span class="line"><span class="attr">        command:</span></span><br><span class="line"><span class="bullet">          -</span> <span class="string">sh</span></span><br><span class="line"><span class="bullet">          -</span> <span class="bullet">-c</span></span><br><span class="line"><span class="bullet">          -</span> <span class="string">"./crawler master --podip=$&#123;MY_POD_IP&#125;"</span></span><br><span class="line"><span class="attr">        ports:</span></span><br><span class="line"><span class="attr">        - containerPort:</span> <span class="number">8081</span></span><br><span class="line"><span class="attr">        env:</span></span><br><span class="line"><span class="attr">        - name:</span> <span class="string">MY_POD_IP</span></span><br><span class="line"><span class="attr">          valueFrom:</span></span><br><span class="line"><span class="attr">            fieldRef:</span></span><br><span class="line"><span class="attr">              fieldPath:</span> <span class="string">status.podIP</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="部署Master-Service"><a href="#部署Master-Service" class="headerlink" title="部署Master Service"></a><span style="color:#339AFF;">部署Master Service</span></h1><p>同样地，为了能够用固定地IP访问Master，我们需要创建Master Service。新建crawl-master-service.yaml文件，如下所示，port指的是Service监听的端口80，这是默认的HTTP端口，而targetPort指的是转发到后端服务器的端口，也就是Master服务的HTTP端口8081。<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">crawl-master</span></span><br><span class="line"><span class="attr">  labels:</span></span><br><span class="line"><span class="attr">    app:</span> <span class="string">crawl-master</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line"><span class="attr">    app:</span> <span class="string">crawl-master</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">NodePort</span></span><br><span class="line"><span class="attr">  ports:</span></span><br><span class="line"><span class="attr">  - port:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">    targetPort:</span> <span class="number">8081</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">http</span></span><br><span class="line"><span class="attr">  - port:</span> <span class="number">9091</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">grpc</span></span><br></pre></td></tr></table></figure></p>
+<p>接下来，我们还是利用<code>kubectl apply</code>创建Master Service。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">» kubectl  apply -f crawl-master-service.yaml</span><br></pre></td></tr></table></figure></p>
+<p>现在我们就可以和Worker一样，利用Service访问Masrer暴露的接口了。</p>
+<h1 id="创建Ingress"><a href="#创建Ingress" class="headerlink" title="创建Ingress"></a><span style="color:#339AFF;">创建Ingress</span></h1><p>下面让我们更进一步，尝试在宿主机中访问集群的Master服务。由于资源具有隔离性，之前我们一直都是在集群内从一个Pod中去访问另一个Pod。现在我们希望在集群外部使用HTTP访问Master服务。要实现这个目标，可以使用Ingress资源。</p>
+<p>具体做法是，创建ingress.yaml，在ingress.yaml文件中书写相关的HTTP路由规则，根据不同的域名和URL将请求路由到后端不同的Service中。<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Ingress</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">crawler-ingress</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  rules:</span></span><br><span class="line"><span class="attr">    - http:</span></span><br><span class="line"><span class="attr">        paths:</span></span><br><span class="line"><span class="attr">          - path:</span> <span class="string">/</span></span><br><span class="line"><span class="attr">            pathType:</span> <span class="string">Prefix</span></span><br><span class="line"><span class="attr">            backend:</span></span><br><span class="line"><span class="attr">              service:</span></span><br><span class="line"><span class="attr">                name:</span> <span class="string">crawl-master</span></span><br><span class="line"><span class="attr">                port:</span></span><br><span class="line"><span class="attr">                  number:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure></p>
+<p>spec.http.paths中描述了Ingress的路由规则，我们对应上面这个例子解读一下。</p>
+<ul>
+<li>spec.http.paths.path表示URL匹配的路径。</li>
+<li>spec.http.paths.pathType表示URL匹配的类型为前缀匹配。</li>
+<li>spec.http.paths.backend.service.name表示路由到后端的Service的名字。</li>
+<li>spec.http.paths.backend.service.port表示路由到后端的Service的端口。</li>
+</ul>
+<p>其实要使用Ingress的功能，光是定义ingress.yaml中的路由规则是不行的，我们还需要IngressController控制器来实现这些路由规则的逻辑。但是和Kubernetes中内置的Controller不同，IngressController是可以灵活选择的，比较有名的IngressController包括Nginx、Kong等。如果你想使用这些IngressController，需要单独安装。</p>
+<p>好在，k3d默认为我们内置了traefikIngressController，这样我们就不需要再额外安装了。只要创建Ingress资源，就可以直接访问它了。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">» kubectl  apply -f ingress.yaml</span><br></pre></td></tr></table></figure></p>
+<p>下一步，我们在宿主机中访问集群。在这里我们访问的是8080端口，因为我在创建集群时指定了端口的映射，所以当前8080端口的请求会转发到集群的80端口中。然后根据Ingress指定的规则，请求会被转发到后端的Master Service当中。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">» curl -H "content-type: application/json" -d '&#123;"id":"zjx","name": "douban_book_list"&#125;' http://127.0.0.1:8080/crawler/resource</span><br></pre></td></tr></table></figure></p>
+<p>此外，Ingress还可以设置规则，让不同的域名走不同的域名规则，这里就不再赘述了。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">» curl -H "content-type: application/json" -d '&#123;"id":"zjx","name": "douban_book_list"&#125;' http://zjx.vx1131052403.com:8080/crawler/resource</span><br></pre></td></tr></table></figure></p>
+<h1 id="创建ConfigMap"><a href="#创建ConfigMap" class="headerlink" title="创建ConfigMap"></a><span style="color:#339AFF;">创建ConfigMap</span></h1><p>到这一步，我们的配置文件都是打包在镜像中的，如果想要修改程序的启动参数会非常麻烦。因此，我们可以借助Kubernetes中的ConfigMap资源，将配置挂载到容器当中，这样我们就可以更灵活地修改配置文件，而不必每一次都打包新的镜像了。</p>
+<p>具体做法如下。我们创建一个ConfigMap资源，把它放到默认的namespace中。在Data下，对应地输入文件名config.toml和文件内容。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: ConfigMap</span><br><span class="line">metadata:</span><br><span class="line">  name: crawler-config</span><br><span class="line">  namespace: default</span><br><span class="line">data:</span><br><span class="line">  config.toml: |-</span><br><span class="line">    logLevel = "debug"</span><br><span class="line">    </span><br><span class="line"><span class="section">    [fetcher]</span></span><br><span class="line">    timeout = 3000</span><br><span class="line">    proxy = ["http://192.168.0.105:8888", "http://192.168.0.105:8888"]</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line"><span class="section">    [storage]</span></span><br><span class="line">    sqlURL = "root:123456@tcp(192.168.0.105:3326)/crawler?charset=utf8"</span><br><span class="line">    </span><br><span class="line"><span class="section">    [GRPCServer]</span></span><br><span class="line">    HTTPListenAddress = ":8080"</span><br><span class="line">    GRPCListenAddress = ":9090"</span><br><span class="line">    ID = "1"</span><br><span class="line">    RegistryAddress = "192.168.0.105:2379"</span><br><span class="line">    RegisterTTL = 60</span><br><span class="line">    RegisterInterval = 15</span><br><span class="line">    ClientTimeOut   = 10</span><br><span class="line">    Name = "go.micro.server.worker"</span><br><span class="line">    </span><br><span class="line"><span class="section">    [MasterServer]</span></span><br><span class="line">    RegistryAddress = "192.168.0.105:2379"</span><br><span class="line">    RegisterTTL = 60</span><br><span class="line">    RegisterInterval = 15</span><br><span class="line">    ClientTimeOut   = 10</span><br><span class="line">    Name = "go.micro.server.master"</span><br></pre></td></tr></table></figure></p>
+<p>然后，修改crawler-master.yaml文件，将ConfigMap挂载到容器中。<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">crawler-master-deployment</span></span><br><span class="line"><span class="attr">  labels:</span></span><br><span class="line"><span class="attr">    app:</span> <span class="string">crawl-master</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  replicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line"><span class="attr">    matchLabels:</span></span><br><span class="line"><span class="attr">      app:</span> <span class="string">crawl-master</span></span><br><span class="line"><span class="attr">  template:</span></span><br><span class="line"><span class="attr">    metadata:</span></span><br><span class="line"><span class="attr">      labels:</span></span><br><span class="line"><span class="attr">        app:</span> <span class="string">crawl-master</span></span><br><span class="line"><span class="attr">    spec:</span></span><br><span class="line"><span class="attr">      containers:</span></span><br><span class="line"><span class="attr">      - name:</span> <span class="string">crawl-master</span></span><br><span class="line"><span class="attr">        image:</span> <span class="attr">crawler:local</span></span><br><span class="line"><span class="attr">        command:</span></span><br><span class="line"><span class="bullet">          -</span> <span class="string">sh</span></span><br><span class="line"><span class="bullet">          -</span> <span class="bullet">-c</span></span><br><span class="line"><span class="bullet">          -</span> <span class="string">"./crawler master --podip=$&#123;MY_POD_IP&#125;  --config=/app/config/config.toml"</span></span><br><span class="line"><span class="attr">        ports:</span></span><br><span class="line"><span class="attr">        - containerPort:</span> <span class="number">8081</span></span><br><span class="line"><span class="attr">        env:</span></span><br><span class="line"><span class="attr">        - name:</span> <span class="string">MY_POD_IP</span></span><br><span class="line"><span class="attr">          valueFrom:</span></span><br><span class="line"><span class="attr">            fieldRef:</span></span><br><span class="line"><span class="attr">              fieldPath:</span> <span class="string">status.podIP</span></span><br><span class="line"><span class="attr">        volumeMounts:</span></span><br><span class="line"><span class="attr">        - name:</span> <span class="string">crawler-config</span></span><br><span class="line"><span class="attr">          mountPath:</span> <span class="string">/app/config/</span></span><br><span class="line"><span class="attr">      volumes:</span></span><br><span class="line"><span class="attr">      - name:</span> <span class="string">crawler-config</span></span><br><span class="line"><span class="attr">        configMap:</span></span><br><span class="line"><span class="attr">          name:</span> <span class="string">crawler-config</span></span><br></pre></td></tr></table></figure></p>
+<p>在这个例子中，spec.template.spec.volumes创建了一个存储卷crawler-config，它的内容来自于名为crawler-config的ConfigMap。接着，spec.template.spec.containers.volumeMounts表示将该存储卷挂载到容器的/app/config目录下，这样程序就能够顺利使用ConfigMap中的配置文件了。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><span style="color:#339AFF;">总结</span></h1><p>这节课，我们学习了如何安装Kubernetes集群，然后使用k3d工具搭建起了轻量级的Kubernetes集群，从而在开发环境中模拟了多节点的Kubernetes集群。</p>
+<p>我们还书写了核心的YAML描述文件，创建了Kubernetes中的资源，包括Deployment、Pod、Service、Ingress、ConfigMap等，将我们的爬虫项目部署到了Kubernetes中。</p>
+<p>如果你是第一次接触这些Kubernetes描述文件，可能会觉得非常繁琐，但是熟悉之后就会变得简单了。创建了这些资源之后，剩下服务的扩容、维护就可以交给强大的Kubernetes来管理了。</p>
+<p>（这节课中的YAML文件在<a href="https://github.com/dreamerjackson/crawler" target="_blank" rel="noopener">最新代码分支</a>的Kubernetes文件夹中。）</p>
+<h1 id="课后题"><a href="#课后题" class="headerlink" title="课后题"></a><span style="color:#339AFF;">课后题</span></h1><p>我们这节课书写的YAML文件中的资源对象，都是Kubernetes中定义好的资源类型。那么我们可不可以创建一个自定义的类型，自己去控制它的生命周期呢？</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Go进阶·分布式爬虫实战/" rel="tag"># Go进阶·分布式爬虫实战</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/02/16/52-容器海洋中的舵手：Kubernetes工作机制/" rel="next" title="52｜容器海洋中的舵手：Kubernetes工作机制">
+                <i class="fa fa-chevron-left"></i> 52｜容器海洋中的舵手：Kubernetes工作机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/02/22/开篇词｜高并发系统，技术实力的试金石/" rel="prev" title="开篇词｜高并发系统，技术实力的试金石">
+                开篇词｜高并发系统，技术实力的试金石 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+            
+              <p class="site-author-name" itemprop="name">CheBin</p>
+              <div class="site-description motion-element" itemprop="description">看视频才能学会，看文字学不会的</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">1109</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">79</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history fa-" aria-hidden="true"></i>
+                近期文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li>
+                    <a href="/2023/08/02/特别放送｜回头看：如何更好地组织代码？/" title="特别放送｜回头看：如何更好地组织代码？" target="_blank">特别放送｜回头看：如何更好地组织代码？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/08/02/特别放送｜Go泛型：用法、原理与最佳实践/" title="特别放送｜Go泛型：用法、原理与最佳实践" target="_blank">特别放送｜Go泛型：用法、原理与最佳实践</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/07/19/zero-admin-3/" title="zero-admin-3" target="_blank">zero-admin-3</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/07/19/zero-admin-2/" title="zero-admin-2" target="_blank">zero-admin-2</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/07/19/zero-admin-1/" title="zero-admin-1" target="_blank">zero-admin-1</a>
+                  </li>
+                
+              </ul>
+            </div>
+        
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Kubernetes集群"><span class="nav-number">1.</span> <span class="nav-text">安装Kubernetes集群</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装k3d"><span class="nav-number">2.</span> <span class="nav-text">安装k3d</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署Worker-Deployment"><span class="nav-number">3.</span> <span class="nav-text">部署Worker Deployment</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署Worker-Service"><span class="nav-number">4.</span> <span class="nav-text">部署Worker Service</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署Master-Deployment"><span class="nav-number">5.</span> <span class="nav-text">部署Master Deployment</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部署Master-Service"><span class="nav-number">6.</span> <span class="nav-text">部署Master Service</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建Ingress"><span class="nav-number">7.</span> <span class="nav-text">创建Ingress</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建ConfigMap"><span class="nav-number">8.</span> <span class="nav-text">创建ConfigMap</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课后题"><span class="nav-number">10.</span> <span class="nav-text">课后题</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2023</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CheBin</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">8.6m</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">130:41</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>
