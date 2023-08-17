@@ -106,7 +106,7 @@
   <meta name="description" content="思考并回答以下问题：  容器技术是动态的容器、静态的镜像和远端的仓库这三者的组合。怎么理解？ 容器，就是一个特殊的隔离环境，它能够让进程只看到这个环境里的有限信息，不能对外界环境施加影响。为什么需要创建这样的一个隔离环境，直接让进程在系统里运行不好吗？ 虚拟化是计算机界的一门传统技术，例如虚拟CPU、虚拟内存、虚拟磁盘、虚拟网卡等等，其目的是资源共享，提高资源利用率。怎么理解？">
 <meta name="keywords" content="Kubernetes入门实战课">
 <meta property="og:type" content="article">
-<meta property="og:title" content="02 ｜ 被隔离的进程：一起来看看容器的本质">
+<meta property="og:title" content="02丨被隔离的进程：一起来看看容器的本质">
 <meta property="og:url" content="http://yoursite.com/2022/09/12/02｜被隔离的进程：一起来看看容器的本质/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：  容器技术是动态的容器、静态的镜像和远端的仓库这三者的组合。怎么理解？ 容器，就是一个特殊的隔离环境，它能够让进程只看到这个环境里的有限信息，不能对外界环境施加影响。为什么需要创建这样的一个隔离环境，直接让进程在系统里运行不好吗？ 虚拟化是计算机界的一门传统技术，例如虚拟CPU、虚拟内存、虚拟磁盘、虚拟网卡等等，其目的是资源共享，提高资源利用率。怎么理解？">
@@ -116,9 +116,9 @@
 <meta property="og:image" content="http://yoursite.com/2022/09/12/02｜被隔离的进程：一起来看看容器的本质/3.webp">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/02｜被隔离的进程：一起来看看容器的本质/4.webp">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/02｜被隔离的进程：一起来看看容器的本质/5.webp">
-<meta property="og:updated_time" content="2022-09-15T03:55:29.149Z">
+<meta property="og:updated_time" content="2023-08-16T01:25:30.184Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="02 ｜ 被隔离的进程：一起来看看容器的本质">
+<meta name="twitter:title" content="02丨被隔离的进程：一起来看看容器的本质">
 <meta name="twitter:description" content="思考并回答以下问题：  容器技术是动态的容器、静态的镜像和远端的仓库这三者的组合。怎么理解？ 容器，就是一个特殊的隔离环境，它能够让进程只看到这个环境里的有限信息，不能对外界环境施加影响。为什么需要创建这样的一个隔离环境，直接让进程在系统里运行不好吗？ 虚拟化是计算机界的一门传统技术，例如虚拟CPU、虚拟内存、虚拟磁盘、虚拟网卡等等，其目的是资源共享，提高资源利用率。怎么理解？">
 <meta name="twitter:image" content="http://yoursite.com/2022/09/12/02｜被隔离的进程：一起来看看容器的本质/1.webp">
 
@@ -137,7 +137,7 @@
   };
 </script>
 
-  <title>02 ｜ 被隔离的进程：一起来看看容器的本质 | 车斌的技术博客</title>
+  <title>02丨被隔离的进程：一起来看看容器的本质 | 车斌的技术博客</title>
   
 
 
@@ -403,7 +403,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">02 ｜ 被隔离的进程：一起来看看容器的本质
+          <h1 class="post-title" itemprop="name headline">02丨被隔离的进程：一起来看看容器的本质
 
               
             
@@ -449,7 +449,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2022-09-15 11:55:29" itemprop="dateModified" datetime="2022-09-15T11:55:29+08:00">2022-09-15</time>
+                <time title="修改时间：2023-08-16 09:25:30" itemprop="dateModified" datetime="2023-08-16T09:25:30+08:00">2023-08-16</time>
               
             
           </span>
@@ -495,7 +495,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">4.8k</span>
+                <span title="本文字数">4.3k</span>
               
 
               
@@ -552,11 +552,10 @@
 <p>就像这张截图里所显示的，在容器里查看系统信息，会发现已经不再是外面的Ubuntu系统了，而是变成了Alpine Linux 3.15，使用<code>ps</code>命令也只会看到一个完全“干净”的运行环境，除了Shell（即sh）没有其他的进程存在。</p>
 <p>也就是说，在容器内部是一个全新的Alpine操作系统，在这里运行的应用程序完全看不到外面的Ubuntu系统，两个系统被互相“隔离”了，就像是一个“世外桃源”。</p>
 <p>我们还可以再拉取一个Ubuntu 18.04的镜像，用同样的方式进入容器内部，然后执行<code>apt update</code>、<code>apt install</code>等命令来看看：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker pull ubuntu:18.04</span><br><span class="line">docker run -it ubuntu:18.04 sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下面的命令都是在容器内执行</span></span><br><span class="line">cat /etc/os-release</span><br><span class="line">apt update</span><br><span class="line">apt install -y wget redis</span><br><span class="line">redis-server &amp;</span><br></pre></td></tr></table></figure></p>
-<p>这里我就不截图了，具体的结果留给你课下去实际操作体会。可以看到的是，容器里是另一个完整的Ubuntu 18.04系统，我们可以在这个“世外桃源”做任意的事情，比如安装应用、运行Redis服务等。但无论我们在容器里做什么，都不会影响外面的Ubuntu系统（当然不是绝对的）。</p>
+<p>可以看到的是，容器里是另一个完整的Ubuntu 18.04系统，我们可以在这个“世外桃源”做任意的事情，比如安装应用、运行Redis服务等。但无论我们在容器里做什么，都不会影响外面的Ubuntu系统（当然不是绝对的）。</p>
 <p>到这里，我们就可以得到一个初步的结论：<strong>容器，就是一个特殊的隔离环境，它能够让进程只看到这个环境里的有限信息，不能对外界环境施加影响</strong>。</p>
 <p>那么，很自然地，我们会产生另外一个问题：为什么需要创建这样的一个隔离环境，直接让进程在系统里运行不好吗？</p>
-<h1 id="为什么要隔离"><a href="#为什么要隔离" class="headerlink" title="为什么要隔离"></a><span style="color:#339AFF;">为什么要隔离</span></h1><p>相信因为这两年疫情，你对“隔离”这个词不会感觉到太陌生。为了防止疫情蔓延，我们需要建立方舱、定点医院，把患病人群控制在特定的区域内，更进一步还会实施封闭小区、关停商场等行动。虽然这些措施带来了一些不便，但都是为了整个社会更大范围的正常运转。</p>
-<p>同样的，在计算机世界里的隔离也是出于同样的考虑，也就是<strong>系统安全</strong>。</p>
+<h1 id="为什么要隔离"><a href="#为什么要隔离" class="headerlink" title="为什么要隔离"></a><span style="color:#339AFF;">为什么要隔离</span></h1><p><strong>系统安全</strong>。</p>
 <p>对于Linux操作系统来说，一个不受任何限制的应用程序是十分危险的。这个进程能够看到系统里所有的文件、所有的进程、所有的网络流量，访问内存里的任何数据，那么恶意程序很容易就会把系统搞瘫痪，正常程序也可能会因为无意的Bug导致信息泄漏或者其他安全事故。虽然Linux提供了用户权限控制，能够限制进程只访问某些资源，但这个机制还是比较薄弱的，和真正的“隔离”需求相差得很远。</p>
 <p>而现在，<strong>使用容器技术，我们就可以让应用程序运行在一个有严密防护的“沙盒”（Sandbox）环境之内</strong>，就好像是把进程请进了“隔离酒店”，它可以在这个环境里自由活动，但绝不允许“越界”，从而保证了容器外系统的安全。</p>
 <img src="/2022/09/12/02｜被隔离的进程：一起来看看容器的本质/3.webp">
@@ -574,22 +573,18 @@
 <p>我们再来看<strong>容器（即图中的Docker），它直接利用了下层的计算机硬件和操作系统</strong>，因为比虚拟机少了一层，所以自然就会节约CPU和内存，显得非常轻量级，能够更高效地利用硬件资源。不过，因为多个容器共用操作系统内核，应用程序的隔离程度就没有虚拟机那么高了。</p>
 <p>运行效率，可以说是容器相比于虚拟机最大的优势，在这个对比图中就可以看到，同样的系统资源，虚拟机只能跑3个应用，其他的资源都用来支持虚拟机运行了，而容器则能够把这部分资源释放出来，同时运行6个应用。</p>
 <img src="/2022/09/12/02｜被隔离的进程：一起来看看容器的本质/5.webp">
-<p>当然，这个对比图只是一个形象的展示，不是严谨的数值比较，不过我们还可以用手里现有的VirtualBox/VMware虚拟机与Docker容器做个简单对比。</p>
 <p>一个普通的Ubuntu虚拟机安装完成之后，体积都是GB级别的，再安装一些应用很容易就会上到10GB，启动的时间通常需要几分钟，我们的电脑上同时运行十来个虚拟机可能就是极限了。而一个Ubuntu镜像大小则只有几十MB，启动起来更是非常快，基本上不超过一秒钟，同时跑上百个容器也毫无问题。</p>
 <p>不过，虚拟机和容器这两种技术也不是互相排斥的，它们完全可以结合起来使用，就像我们的课程里一样，用虚拟机实现与宿主机的强隔离，然后在虚拟机里使用Docker容器来快速运行应用程序。</p>
 <h1 id="隔离是怎么实现的"><a href="#隔离是怎么实现的" class="headerlink" title="隔离是怎么实现的"></a><span style="color:#339AFF;">隔离是怎么实现的</span></h1><p>我们知道虚拟机使用的是Hypervisor（KVM、Xen等），那么，容器是怎么实现和下层计算机硬件和操作系统交互的呢？为什么它会具有高效轻便的隔离特性呢？</p>
 <p>其实奥秘就在于Linux操作系统内核之中，为资源隔离提供了三种技术：<strong>namespace、cgroup、chroot</strong>，虽然这三种技术的初衷并不是为了实现容器，但它们三个结合在一起就会发生奇妙的“化学反应”。</p>
-<p>namespace是2002年从Linux 2.4.19开始出现的，和编程语言里的namespace有点类似，它可以创建出独立的文件系统、主机名、进程号、网络等资源空间，相当于给进程盖了一间小板房，这样就实现了系统全局资源和进程局部资源的隔离。</p>
-<p>cgroup是2008年从Linux 2.6.24开始出现的，它的全称是Linux Control Group，用来实现对进程的CPU、内存等资源的优先级和配额限制，相当于给进程的小板房加了一个天花板。</p>
-<p>chroot（现在使用pivot_root）的历史则要比前面的namespace、cgroup要古老得多，早在1979年的UNIX V7就已经出现了，它可以更改进程的根目录，也就是限制访问文件系统，相当于给进程的小板房铺上了地砖。</p>
-<p>你看，综合运用这三种技术，一个四四方方、具有完善的隔离特性的容器就此出现了，进程就可以搬进这个小房间，过它的“快乐生活”了。我觉得用鲁迅先生的一句诗来描述这个情景最为恰当：<strong>躲进小楼成一统，管他冬夏与春秋</strong>。</p>
-<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a><span style="color:#339AFF;">小结</span></h1><p>好了，今天我们一起学习了容器技术中最关键的概念：动态的容器，再简单小结一下课程的要点：</p>
-<p>1，容器就是操作系统里一个特殊的“沙盒”环境，里面运行的进程只能看到受限的信息，与外部系统实现了隔离。</p>
+<p>namespace和编程语言里的namespace有点类似，它可以创建出独立的文件系统、主机名、进程号、网络等资源空间，相当于给进程盖了一间小板房，这样就实现了系统全局资源和进程局部资源的隔离。</p>
+<p>cgroup的全称是Linux Control Group，用来实现对进程的CPU、内存等资源的优先级和配额限制，相当于给进程的小板房加了一个天花板。</p>
+<p>chroot（现在使用pivot_root）可以更改进程的根目录，也就是限制访问文件系统，相当于给进程的小板房铺上了地砖。</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a><span style="color:#339AFF;">小结</span></h1><p>1，容器就是操作系统里一个特殊的“沙盒”环境，里面运行的进程只能看到受限的信息，与外部系统实现了隔离。</p>
 <p>2，容器隔离的目的是为了系统安全，限制了进程能够访问的各种资源。</p>
 <p>3，相比虚拟机技术，容器更加轻巧、更加高效，消耗的系统资源非常少，在云计算时代极具优势。</p>
 <p>4，容器的基本实现技术是Linux系统里的namespace、cgroup、chroot。</p>
-<h1 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a><span style="color:#339AFF;">课下作业</span></h1><p>最后是课下作业时间，给你留两个思考题：</p>
-<p>1，你能够对比现实中的集装箱，说出容器技术更多的优点吗？</p>
+<h1 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a><span style="color:#339AFF;">课下作业</span></h1><p>1，你能够对比现实中的集装箱，说出容器技术更多的优点吗？</p>
 <p>集装箱在码头装船的时候，只要我的船只是匹配集装箱标准的船，就能无缝的装载集装箱，同样容器也是一种标准，我的船（组件）符合这种标准，我就能和容器无缝链接；比如docker-compose和后面的kubernetes，我只需要实现我的容器接口来对接容器就可以了；</p>
 <p>2，有一种说法：容器就是轻量级的虚拟机，你认为这种说法正确吗？</p>
 <p>容器和虚拟机有着本质的区别，虚拟机是虚拟出一套软硬件系统环境，我们的应用跑在虚拟机中，可以大致看作是跑在一个独立的服务器中，而容器只是一个进程，他们存在本质上的区别；如果硬要说他们的相同点，那么只是在隔离性这个广义的角度上，他们所做的事情是类似的。</p>
@@ -629,8 +624,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/09/12/01｜初识容器：万事开头难/" rel="next" title="01 ｜ 初识容器：万事开头难">
-                <i class="fa fa-chevron-left"></i> 01 ｜ 初识容器：万事开头难
+              <a href="/2022/09/12/01｜初识容器：万事开头难/" rel="next" title="01丨初识容器：万事开头难">
+                <i class="fa fa-chevron-left"></i> 01丨初识容器：万事开头难
               </a>
             
           </div>
@@ -639,8 +634,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/09/12/03｜容器化的应用：会了这些你就是Docker高手/" rel="prev" title="03 ｜ 容器化的应用：会了这些你就是Docker高手">
-                03 ｜ 容器化的应用：会了这些你就是Docker高手 <i class="fa fa-chevron-right"></i>
+              <a href="/2022/09/12/03｜容器化的应用：会了这些你就是Docker高手/" rel="prev" title="03丨容器化的应用：会了这些你就是Docker高手">
+                03丨容器化的应用：会了这些你就是Docker高手 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -712,7 +707,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1109</span>
+                    <span class="site-state-item-count">1113</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1097,23 +1092,23 @@
                 
                 
                   <li>
+                    <a href="/2023/08/17/玉米加速下跌，看涨情绪急速回落，玉米要危险了？/" title="玉米加速下跌，看涨情绪急速回落，玉米要危险了？" target="_blank">玉米加速下跌，看涨情绪急速回落，玉米要危险了？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/08/16/谈谈Kong-Ingress-Controller/" title="谈谈Kong Ingress Controller" target="_blank">谈谈Kong Ingress Controller</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/08/15/docker-compose：单机环境下的容器编排工具/" title="docker-compose：单机环境下的容器编排工具" target="_blank">docker-compose：单机环境下的容器编排工具</a>
+                  </li>
+                
+                  <li>
                     <a href="/2023/08/02/特别放送｜回头看：如何更好地组织代码？/" title="特别放送｜回头看：如何更好地组织代码？" target="_blank">特别放送｜回头看：如何更好地组织代码？</a>
                   </li>
                 
                   <li>
                     <a href="/2023/08/02/特别放送｜Go泛型：用法、原理与最佳实践/" title="特别放送｜Go泛型：用法、原理与最佳实践" target="_blank">特别放送｜Go泛型：用法、原理与最佳实践</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/zero-admin-3/" title="zero-admin-3" target="_blank">zero-admin-3</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/zero-admin-2/" title="zero-admin-2" target="_blank">zero-admin-2</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/zero-admin-1/" title="zero-admin-1" target="_blank">zero-admin-1</a>
                   </li>
                 
               </ul>
@@ -1185,7 +1180,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">130:41</span>
+    <span title="站点阅读时长">130:49</span>
   
 </div>
 

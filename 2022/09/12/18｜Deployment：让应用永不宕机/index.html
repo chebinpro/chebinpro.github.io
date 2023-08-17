@@ -106,7 +106,7 @@
   <meta name="description" content="思考并回答以下问题：">
 <meta name="keywords" content="Kubernetes入门实战课">
 <meta property="og:type" content="article">
-<meta property="og:title" content="18 ｜ Deployment：让应用永不宕机">
+<meta property="og:title" content="18丨Deployment：让应用永不宕机">
 <meta property="og:url" content="http://yoursite.com/2022/09/12/18｜Deployment：让应用永不宕机/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
@@ -118,9 +118,9 @@
 <meta property="og:image" content="http://yoursite.com/2022/09/12/18｜Deployment：让应用永不宕机/5.webp">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/18｜Deployment：让应用永不宕机/6.webp">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/18｜Deployment：让应用永不宕机/7.webp">
-<meta property="og:updated_time" content="2022-10-14T09:41:32.577Z">
+<meta property="og:updated_time" content="2023-08-16T01:24:47.328Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="18 ｜ Deployment：让应用永不宕机">
+<meta name="twitter:title" content="18丨Deployment：让应用永不宕机">
 <meta name="twitter:description" content="思考并回答以下问题：">
 <meta name="twitter:image" content="http://yoursite.com/2022/09/12/18｜Deployment：让应用永不宕机/1.webp">
 
@@ -139,7 +139,7 @@
   };
 </script>
 
-  <title>18 ｜ Deployment：让应用永不宕机 | 车斌的技术博客</title>
+  <title>18丨Deployment：让应用永不宕机 | 车斌的技术博客</title>
   
 
 
@@ -405,7 +405,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">18 ｜ Deployment：让应用永不宕机
+          <h1 class="post-title" itemprop="name headline">18丨Deployment：让应用永不宕机
 
               
             
@@ -451,7 +451,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2022-10-14 17:41:32" itemprop="dateModified" datetime="2022-10-14T17:41:32+08:00">2022-10-14</time>
+                <time title="修改时间：2023-08-16 09:24:47" itemprop="dateModified" datetime="2023-08-16T09:24:47+08:00">2023-08-16</time>
               
             
           </span>
@@ -497,7 +497,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">6.4k</span>
+                <span title="本文字数">6.3k</span>
               
 
               
@@ -569,7 +569,7 @@
 <p>所以我还是画了一张图，用不同的颜色来区分DeploymentYAML里的字段，并且用虚线特别标记了matchLabels和labels之间的联系，希望能够帮助你理解Deployment与被它管理的Pod的组合关系。</p>
 <img src="/2022/09/12/18｜Deployment：让应用永不宕机/1.webp">
 <h1 id="如何使用kubectl操作Deployment"><a href="#如何使用kubectl操作Deployment" class="headerlink" title="如何使用kubectl操作Deployment"></a><span style="color:#339AFF;">如何使用kubectl操作Deployment</span></h1><p>把Deployment的YAML写好之后，我们就可以用kubectlapply来创建对象了：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f deploy.yml</span><br></pre></td></tr></table></figure></p>
-<p>要查看Deployment的状态，仍然是用kubectlget命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get deploy</span><br></pre></td></tr></table></figure></p>
+<p>要查看Deployment的状态，仍然是用<code>kubectl get</code>命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get deploy</span><br></pre></td></tr></table></figure></p>
 <img src="/2022/09/12/18｜Deployment：让应用永不宕机/2.webp">
 <p>它显示的信息都很重要：</p>
 <ul>
@@ -578,11 +578,11 @@
 <li>AVAILABLE要比READY、UP-TO-DATE更进一步，不仅要求已经运行，还必须是健康状态，能够正常对外提供服务，它才是我们最关心的Deployment指标。</li>
 <li>最后一个AGE就简单了，表示Deployment从创建到现在所经过的时间，也就是运行的时间。</li>
 </ul>
-<p>因为Deployment管理的是Pod，我们最终用的也是Pod，所以还需要用kubectlgetpod命令来看看Pod的状态：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pod</span><br></pre></td></tr></table></figure></p>
+<p>因为Deployment管理的是Pod，我们最终用的也是Pod，所以还需要用<code>kubectl get pod</code>命令来看看Pod的状态：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pod</span><br></pre></td></tr></table></figure></p>
 <img src="/2022/09/12/18｜Deployment：让应用永不宕机/3.webp">
 <p>从截图里你可以看到，被Deployment管理的Pod自动带上了名字，命名的规则是Deployment的名字加上两串随机数（其实是Pod模板的Hash值）。</p>
 <p>好，到现在对象创建成功，Deployment和Pod的状态也都没问题，可以正常服务，我们是时候检验一下Deployment部署的效果了，看看是否如前面所说的，Deployment部署的应用真的可以做到“永不宕机”？</p>
-<p>来尝试一下吧，让我们用kubectldelete删除一个Pod，模拟一下Pod发生故障的情景：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl delete pod ngx-dep-6796688696-jm6tt</span><br></pre></td></tr></table></figure></p>
+<p>来尝试一下吧，让我们用<code>kubectl delete</code>删除一个Pod，模拟一下Pod发生故障的情景：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl delete pod ngx-dep-6796688696-jm6tt</span><br></pre></td></tr></table></figure></p>
 <p>然后再查看Pod的状态：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pod</span><br></pre></td></tr></table></figure></p>
 <img src="/2022/09/12/18｜Deployment：让应用永不宕机/4.webp">
 <p>你就会“惊喜”地发现，被删除的Pod确实是消失了，但Kubernetes在Deployment的管理之下，很快又创建出了一个新的Pod，保证了应用实例的数量始终是我们在YAML里定义的数量。</p>
@@ -597,7 +597,6 @@
 <p>看两个例子，第一条命令找出“app”标签是nginx的所有Pod，第二条命令找出“app”标签是ngx、nginx、ngx-dep的所有Pod：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pod -l app=nginx</span><br><span class="line">kubectl get pod -l <span class="string">'app in (ngx, nginx, ngx-dep)'</span></span><br></pre></td></tr></table></figure></p>
 <img src="/2022/09/12/18｜Deployment：让应用永不宕机/6.webp">
 <h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a><span style="color:#339AFF;">小结</span></h1><p>好了，今天我们学习了Kubernetes里的一个重要的对象：Deployment，它表示的是在线业务，和Job/CronJob的结构类似，也包装了Pod对象，通过添加额外的控制功能实现了应用永不宕机，你也可以再对比一下第13讲来加深对它的理解。</p>
-<p>我再简单小结一下今天的内容：</p>
 <p>1，Pod只能管理容器，不能管理自身，所以就出现了Deployment，由它来管理Pod。</p>
 <p>2，Deployment里有三个关键字段，其中的template和Job一样，定义了要运行的Pod模板。</p>
 <p>3，replicas字段定义了Pod的“期望数量”，Kubernetes会自动维护Pod数量到正常水平。</p>
@@ -605,8 +604,7 @@
 <p>5，创建Deployment使用命令kubectlapply，应用的扩容、缩容使用命令kubectlscale。</p>
 <p>学了Deployment这个API对象，我们今后就不应该再使用“裸Pod”了。即使我们只运行一个Pod，也要以Deployment的方式来创建它，虽然它的replicas字段值是1，但Deployment会保证应用永远在线。</p>
 <p>另外，作为Kubernetes里最常用的对象，Deployment的本事还不止这些，它还支持滚动更新、版本回退，自动伸缩等高级功能，这些在“高级篇”里我们再详细学习。</p>
-<h1 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a><span style="color:#339AFF;">课下作业</span></h1><p>最后是课下作业时间，给你留两个思考题：</p>
-<p>1，如果把Deployment里的replicas字段设置成0会有什么效果？有什么意义呢？</p>
+<h1 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a><span style="color:#339AFF;">课下作业</span></h1><p>1，如果把Deployment里的replicas字段设置成0会有什么效果？有什么意义呢？</p>
 <p>2，你觉得Deployment能够应用在哪些场景里？有没有什么缺点或者不足呢？</p>
 <img src="/2022/09/12/18｜Deployment：让应用永不宕机/7.webp">
       
@@ -644,8 +642,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/09/12/17｜更真实的云原生：实际搭建多节点的Kubernetes集群/" rel="next" title="17 ｜ 更真实的云原生：实际搭建多节点的Kubernetes集群">
-                <i class="fa fa-chevron-left"></i> 17 ｜ 更真实的云原生：实际搭建多节点的Kubernetes集群
+              <a href="/2022/09/12/17｜更真实的云原生：实际搭建多节点的Kubernetes集群/" rel="next" title="17丨更真实的云原生：实际搭建多节点的Kubernetes集群">
+                <i class="fa fa-chevron-left"></i> 17丨更真实的云原生：实际搭建多节点的Kubernetes集群
               </a>
             
           </div>
@@ -654,8 +652,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/09/12/19｜Daemonset：忠实可靠的看门狗/" rel="prev" title="19 ｜ Daemonset：忠实可靠的看门狗">
-                19 ｜ Daemonset：忠实可靠的看门狗 <i class="fa fa-chevron-right"></i>
+              <a href="/2022/09/12/19｜Daemonset：忠实可靠的看门狗/" rel="prev" title="19丨Daemonset：忠实可靠的看门狗">
+                19丨Daemonset：忠实可靠的看门狗 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -727,7 +725,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1109</span>
+                    <span class="site-state-item-count">1113</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1112,23 +1110,23 @@
                 
                 
                   <li>
+                    <a href="/2023/08/17/玉米加速下跌，看涨情绪急速回落，玉米要危险了？/" title="玉米加速下跌，看涨情绪急速回落，玉米要危险了？" target="_blank">玉米加速下跌，看涨情绪急速回落，玉米要危险了？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/08/16/谈谈Kong-Ingress-Controller/" title="谈谈Kong Ingress Controller" target="_blank">谈谈Kong Ingress Controller</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/08/15/docker-compose：单机环境下的容器编排工具/" title="docker-compose：单机环境下的容器编排工具" target="_blank">docker-compose：单机环境下的容器编排工具</a>
+                  </li>
+                
+                  <li>
                     <a href="/2023/08/02/特别放送｜回头看：如何更好地组织代码？/" title="特别放送｜回头看：如何更好地组织代码？" target="_blank">特别放送｜回头看：如何更好地组织代码？</a>
                   </li>
                 
                   <li>
                     <a href="/2023/08/02/特别放送｜Go泛型：用法、原理与最佳实践/" title="特别放送｜Go泛型：用法、原理与最佳实践" target="_blank">特别放送｜Go泛型：用法、原理与最佳实践</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/zero-admin-3/" title="zero-admin-3" target="_blank">zero-admin-3</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/zero-admin-2/" title="zero-admin-2" target="_blank">zero-admin-2</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/zero-admin-1/" title="zero-admin-1" target="_blank">zero-admin-1</a>
                   </li>
                 
               </ul>
@@ -1200,7 +1198,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">130:41</span>
+    <span title="站点阅读时长">130:49</span>
   
 </div>
 

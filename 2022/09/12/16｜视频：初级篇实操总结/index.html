@@ -106,14 +106,14 @@
   <meta name="description" content="思考并回答以下问题：">
 <meta name="keywords" content="Kubernetes入门实战课">
 <meta property="og:type" content="article">
-<meta property="og:title" content="16 ｜ 视频：初级篇实操总结">
+<meta property="og:title" content="16丨视频：初级篇实操总结">
 <meta property="og:url" content="http://yoursite.com/2022/09/12/16｜视频：初级篇实操总结/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-09-21T06:41:45.504Z">
+<meta property="og:updated_time" content="2023-08-16T06:28:01.948Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="16 ｜ 视频：初级篇实操总结">
+<meta name="twitter:title" content="16丨视频：初级篇实操总结">
 <meta name="twitter:description" content="思考并回答以下问题：">
 
 
@@ -131,7 +131,7 @@
   };
 </script>
 
-  <title>16 ｜ 视频：初级篇实操总结 | 车斌的技术博客</title>
+  <title>16丨视频：初级篇实操总结 | 车斌的技术博客</title>
   
 
 
@@ -397,7 +397,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">16 ｜ 视频：初级篇实操总结
+          <h1 class="post-title" itemprop="name headline">16丨视频：初级篇实操总结
 
               
             
@@ -443,7 +443,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2022-09-21 14:41:45" itemprop="dateModified" datetime="2022-09-21T14:41:45+08:00">2022-09-21</time>
+                <time title="修改时间：2023-08-16 14:28:01" itemprop="dateModified" datetime="2023-08-16T14:28:01+08:00">2023-08-16</time>
               
             
           </span>
@@ -489,7 +489,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">4.7k</span>
+                <span title="本文字数">4.9k</span>
               
 
               
@@ -525,15 +525,84 @@
       
         <p>思考并回答以下问题：</p>
 <a id="more"></a>
-<p>学完了前面的7节文字+音频的课程之后，今天又是一节视频课程，对“初级篇”里Kubernetes知识做一个回顾与总结，同样还是注重实际操作的演示，而不会讲解理论知识。首先我们会启动本机环境里的minikube，登录虚拟节点看看apiserver、etcd、scheduler等组件，然后使用命令行工具kubectl操作Kubernetes，创建Pod、Job、CronJob、ConfigMap、Secret等API对象。接下来我们视频上见。一.minikube环境</p>
-<p>视频操作要点：我们从minikube环境开始，安装的过程就不演示了，我假设你已经按照第9讲里的步骤成功下载了minikube和kubectl的二进制文件。先看一下minikube的版本号：minikubeversion显示的是当前的最新版本1.25.2，再看一下它的状态：minikubestatus可以看到Kubernetes的组件都没有启动，集群处于停止状态。现在让我们用minikubestart启动minikube集群：</p>
-<p>稍等一小会，看看它提示里的表情符号，一个本地的微型Kubernetes集群就创建好了。从提示信息里可以看到，这个Kubernetes集群的版本是v1.23.3，运行在Docker20.10.12上。现在我们再看一下minikube的状态：minikubestatus可以看到Kubernetes的核心组件kubelet、apiserver都是运行状态了。命令minikubenodelist可以查看这个微型集群的节点列表：minikubenodelist默认情况下，minikube只会创建一个节点，这里显示它的IP地址是“192.168.49.2”。我们可以使用命令minikubessh直接登录到这个节点，是虚拟机里的一个虚拟机，在里面可以执行任意的Linux操作：uname-a#显示是Ubuntu操作系统dockerversion#这个节点里也跑了一个docker，但其实是复用了宿主机的dockerdockerps#能够看到节点里以容器形式运行的Kubernetes进程，比如pause、scheduler等等exit看完了minikube集群的状态，让我们用kubectl来操作Kubernetes，首先是看版本号：kubectlversion显示版本是1.23.3。用kubectlgetpod看看当前集群里运行的运行应用，会发现是空的。让我们用run命令运行一个NginxPod：kubectlrunngx—image=nginx:alpine这个时候我们再查看Pod，kubectlgetpod就会看到有一个Pod运行了。这个Nginxpod属于default名字空间，而apiserver等核心组件是在kube-system名字空间，你可以用-n参数查看在kube-system里运行的Pod：</p>
-<p>可以看到apiserver、etcd、scheduler、controllermanager、coredns、kube-proxy等组件都是以Pod的形式在这里运行。二.用kubectl操作API对象Sorry,yourbrowserdoesn’tsupportembeddedvideos.00:00/02:421.0x2.0x1.5x1.25x1.0x0.75x0.5x音量网页全屏全屏00:00视频操作要点：下面我们把注意力集中在kubectl操作KubernetesAPI对象上。先来查看当前Kubernetes版本支持的所有api对象，命令是kubectlapi-resources：kubectlapi-resources它的输出信息很多，你可以看到Pod的简写是po、apiversion是v1、CronJob的简写是cj、apiversion是batch/v1，这些信息在我们编写YAML描述文件的时候非常有用。再来看另一个常用的命令kubectlexplain，它能够给出api对象字段的详细信息，比如查看Pod：kubectlexplainpodkubectlexplainpod.metadatakubectlexplainpod.speckubectlexplainpod.spec.containers有了这个随手可得的文档，我们在编写YAML文件的时候就不会不知所措了。创建YAML样板要用到两个特殊参数“—dry-run=client”和“-oyaml”，我把它定义成一个环境变量：</p>
-<p>然后我们再创建一个Pod的YAML：kubectlrunngx—image=nginx:alpine$out&gt;pod.yml用vi编辑这个文件，删除不需要的字段，一个YAML描述文件形式的API对象就创建好了。三.Pod对象Sorry,yourbrowserdoesn’tsupportembeddedvideos.00:00/01:591.0x2.0x1.5x1.25x1.0x0.75x0.5x音量网页全屏全屏00:00视频操作要点：我们来看一个已经编辑好的Nginxpod对象，里面定义了名字是ngx-pod，有两个标签env和owner，spec里的containers定义了Pod里只有一个容器，镜像是nginx:alpine，对外的端口是80。现在就可以使用命令kubectlapply创建这个Pod，再用kubectlgetpod来查看状态：kubectlapply-fngx-pod.ymlkubectlgetpod命令kubectllogs会输出Nginx的运行日志：kubectllogsngx-pod我们还可以用kubectlexec进入Pod里的容器，注意要有—：kubectlexec-itngx-pod—shnginx-vuname-aexit最后我们用kubectldelete删除这个Pod：kubectldelete-fngx-pod.yml四.离线业务对象Job、CronJob</p>
-<p>视频操作要点：看完了Pod的基本操作之后，我们来看离线业务的对象Job和CronJob。首先要用kubectlcreate创建一个Job样板文件：kubectlcreatejobecho-job—image=busybox$out把它保存编辑之后，我们就得到了一个Job对象，用vi看一下。这个Job非常简单，执行echo命令，输出helloworld。注意它的restartPolicy是OnFailure，表示失败后要原地重启容器。现在来创建Job对象，用的命令还是kubectlapply：kubectlapply-fjob.yml创建之后用kubectlgetjob、kubectlgetpod来分别查看Job和Pod的状态，使用命令kubectllogs来获取Pod的运行结果：kubectlgetjobkubectlgetpodkubectllogsecho-job-l52l7CronJob同样也可以自动生成样板文件：kubectlcreatecjecho-cj—image=busybox—schedule=””$outvicronjob.ymlCronJob对象里要注意的是，它使用jobTemplate又定义了一个Job，然后在字段schedule里使用cron语法定义了定时运行的规则，这里就是每分钟运行一次。CronJob的用法和Job几乎是一样的，用apply命令创建后就可以用get来查看作业的运行状态：</p>
-<p>最后让我们用delete命令删除这两个API对象：kubectldelete-fjob.ymlkubectldelete-fcronjob.yml五.配置信息对象ConfigMap和SecretSorry,yourbrowserdoesn’tsupportembeddedvideos.00:00/05:511.0x2.0x1.5x1.25x1.0x0.75x0.5x音量网页全屏全屏00:00视频操作要点：下面我来演示Kubernetes里的配置信息对象ConfigMap和secret。还是老办法，先用kubectlcreate创建ConfigMap的样板文件，不过要命令后面多加一个参数—from-literal，从字面值生成一些数据：kubectlcreatecminfo—from-literal=k=v$outSecret也是同样的创建方式，注意命令形式与ConfigMap略有不同，要用generic表示一般的机密信息：kubectlcreatesecretgenericuser—from-literal=name=root$out我们来看看已经编辑好的YAML文件:vicm.yml这里定义了4个配置项，注意ConfigMap要求必须是字符串，所以最好用引号引起来，避免解释成数字导致错误。visecret.ymlSecret里定义了3个配置项，由于做了base64编码，不能直接看到原值，不过我们可以在命令行里用工具base64-d解码，比如看用户名：echocm9vdA==|base64-d现在让我们创建这两个对象：kubectlapply-fcm.ymlkubectlapply-fsecret.yml然后查看这些对象的状态：</p>
-<p>ConfigMap是明文显示：kubectlgetsecretkubectldescribesecretuser而Secret的类型是Opaque，不透明的，不能直接看到。接下来我们把这些配置信息以存储卷的形式注入Pod，需要在Pod里加入“volumes”和“volumeMounts”字段：vivol-pod.yml在这份YAML里，我为ConfigMap和Secret定义了两个volume，分别是cm-vol和sec-vol，然后在volumeMounts里把它们挂载到了tmp目录。用kubectlapply命令创建之后，我们还是用kubectlexec进入Pod，看看配置信息被加载成了什么形式：</p>
-<p>六.在Kubernetes里搭建WordPressSorry,yourbrowserdoesn’tsupportembeddedvideos.00:00/02:391.0x2.0x1.5x1.25x1.0x0.75x0.5x音量网页全屏全屏00:00视频操作要点：最后我们在Kubernetes里搭建WordPress，这些YAML文件都已经准备好了，只需要逐个用apply命令创建就可以。首先是MariaDB数据库：kubectlapply-fmariadb-pod.ymlkubectlgetpod-owide需要看它的IP地址，这里是172.17.0.？，然后我们修改WordPressYAML，环境变量host改成MariaDB的地址，然后再创建WordPressPod：kubectlapply-fwp-pod.ymlkubectlgetpod-owide现在这两个Pod都已经正常运行了，我们需要把WordPress的端口暴露出来，用的是kubectlport-forward命令：kubectlport-forwardwp-pod8080:80&amp;然后我们用Docker运行Nginx容器，代理这个端口：./wp_proxy.shdockerps现在我们打开Mac上的Safari浏览器，输入虚拟机的IP地址“<a href="http://192.168.10.208”，就可以看到WordPress的安装界面了。" target="_blank" rel="noopener">http://192.168.10.208”，就可以看到WordPress的安装界面了。</a></p>
+<p>首先我们会启动本机环境里的minikube，登录虚拟节点看看apiserver、etcd、scheduler等组件，然后使用命令行工具kubectl操作Kubernetes，创建Pod、Job、CronJob、ConfigMap、Secret等API对象。</p>
+<h1 id="minikube环境"><a href="#minikube环境" class="headerlink" title="minikube环境"></a><span style="color:#339AFF;">minikube环境</span></h1><iframe height="288" width="510" src="https://media001.geekbang.org/customerTrans/7e27d07d27d407ebcc195a0e78395f55/22d0d4d8-182403ae05f-0000-0000-01d-dbacd.mp4" allowfullscreen="true" frameborder="no" framespacing="0" border="0" scrolling="no"></iframe>
+
+<p>视频操作要点：</p>
+<p>我们从minikube环境开始，安装的过程就不演示了，我假设你已经按照<a href="/2022/09/12/09｜走近云原生：如何在本机搭建小巧完备的Kubernetes环境/" title="第9讲">第9讲</a>里的步骤成功下载了minikube和kubectl的二进制文件。</p>
+<p>先看一下minikube的版本号：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minikube version</span><br></pre></td></tr></table></figure></p>
+<p>显示的是当前的最新版本1.25.2，再看一下它的状态：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minikube status</span><br></pre></td></tr></table></figure></p>
+<p>可以看到Kubernetes的组件都没有启动，集群处于停止状态。</p>
+<p>现在让我们用<code>minikube start</code>启动minikube集群：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minikube start --kubernetes-version=v1.23.3</span><br></pre></td></tr></table></figure></p>
+<p>稍等一小会，看看它提示里的表情符号，一个本地的微型Kubernetes集群就创建好了。从提示信息里可以看到，这个Kubernetes集群的版本是v1.23.3，运行在Docker 20.10.12上。</p>
+<p>现在我们再看一下minikube的状态：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minikube status</span><br></pre></td></tr></table></figure></p>
+<p>可以看到Kubernetes的核心组件kubelet、apiserver都是运行状态了。</p>
+<p>命令<code>minikube node list</code>可以查看这个微型集群的节点列表：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minikube node list</span><br></pre></td></tr></table></figure></p>
+<p>默认情况下，minikube只会创建一个节点，这里显示它的IP地址是“192.168.49.2”。</p>
+<p>我们可以使用命令<code>minikube ssh</code>直接登录到这个节点，是虚拟机里的一个虚拟机，在里面可以执行任意的Linux操作：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">uname -a  #显示是Ubuntu操作系统</span><br><span class="line">docker version #这个节点里也跑了一个docker，但其实是复用了宿主机的docker</span><br><span class="line">docker ps    #能够看到节点里以容器形式运行的Kubernetes进程，比如pause、scheduler等等</span><br><span class="line">exit</span><br></pre></td></tr></table></figure></p>
+<p>看完了minikube集群的状态，让我们用kubectl来操作Kubernetes，首先是看版本号：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl version</span><br></pre></td></tr></table></figure></p>
+<p>显示版本是1.23.3。用<code>kubectl get pod</code>看看当前集群里运行的运行应用，会发现是空的。</p>
+<p>让我们用run命令运行一个NginxPod：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl run ngx --image=nginx:alpine</span><br></pre></td></tr></table></figure></p>
+<p>这个时候我们再查看Pod，<code>kubectl get pod</code>就会看到有一个Pod运行了。</p>
+<p>这个Nginxpod属于default名字空间，而apiserver等核心组件是在kube-system名字空间，你可以用<code>-n</code>参数查看在kube-system里运行的Pod：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pod -n kube-system</span><br></pre></td></tr></table></figure></p>
+<p>可以看到apiserver、etcd、scheduler、controllermanager、coredns、kube-proxy等组件都是以Pod的形式在这里运行。</p>
+<h1 id="用kubectl操作API对象"><a href="#用kubectl操作API对象" class="headerlink" title="用kubectl操作API对象"></a><span style="color:#339AFF;">用kubectl操作API对象</span></h1><iframe height="288" width="510" src="https://media001.geekbang.org/customerTrans/7e27d07d27d407ebcc195a0e78395f55/f620f7b-181b8be45bb-0000-0000-01d-dbacd.mp4" allowfullscreen="true" frameborder="no" framespacing="0" border="0" scrolling="no"></iframe>
+
+
+<p>视频操作要点：</p>
+<p>下面我们把注意力集中在kubectl操作Kubernetes API对象上。</p>
+<p>先来查看当前Kubernetes版本支持的所有api对象，命令是<code>kubectl api-resources</code>：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl api-resources</span><br></pre></td></tr></table></figure></p>
+<p>它的输出信息很多，你可以看到Pod的简写是po、apiversion是v1、CronJob的简写是cj、apiversion是batch/v1，这些信息在我们编写YAML描述文件的时候非常有用。</p>
+<p>再来看另一个常用的命令<code>kubectl explain</code>，它能够给出api对象字段的详细信息，比如查看Pod：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubectl explain pod</span><br><span class="line">kubectl explain pod.metadata</span><br><span class="line">kubectl explain pod.spec</span><br><span class="line">kubectl explain pod.spec.containers</span><br></pre></td></tr></table></figure></p>
+<p>有了这个随手可得的文档，我们在编写YAML文件的时候就不会不知所措了。</p>
+<p>创建YAML样板要用到两个特殊参数“<code>--dry-run=client</code>”和“<code>-o yaml</code>”，我把它定义成一个环境变量：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export out="--dry-run=client -o yaml"</span><br></pre></td></tr></table></figure></p>
+<p>然后我们再创建一个Pod的YAML：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl run ngx --image=nginx:alpine $out &gt; pod.yml</span><br></pre></td></tr></table></figure></p>
+<p>用vi编辑这个文件，删除不需要的字段，一个YAML描述文件形式的API对象就创建好了。</p>
+<h1 id="Pod对象"><a href="#Pod对象" class="headerlink" title="Pod对象"></a><span style="color:#339AFF;">Pod对象</span></h1><iframe height="288" width="510" src="https://media001.geekbang.org/customerTrans/7e27d07d27d407ebcc195a0e78395f55/4cb608fe-181b8be430b-0000-0000-01d-dbacd.mp4" allowfullscreen="true" frameborder="no" framespacing="0" border="0" scrolling="no"></iframe>
+
+<p>视频操作要点：</p>
+<p>我们来看一个已经编辑好的Nginx pod对象，里面定义了名字是ngx-pod，有两个标签env和owner，spec里的containers定义了Pod里只有一个容器，镜像是nginx:alpine，对外的端口是80。</p>
+<p>现在就可以使用命令<code>kubectl apply</code>创建这个Pod，再用<code>kubectl get pod</code>来查看状态：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f ngx-pod.yml</span><br><span class="line">kubectl get pod</span><br></pre></td></tr></table></figure></p>
+<p>命令<code>kubectl logs</code>会输出Nginx的运行日志：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl logs ngx-pod</span><br></pre></td></tr></table></figure></p>
+<p>我们还可以用<code>kubectl exec</code>进入Pod里的容器，注意要有<code>--</code>：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubectl exec -it ngx-pod -- sh</span><br><span class="line">nginx -v</span><br><span class="line">uname -a</span><br><span class="line">exit</span><br></pre></td></tr></table></figure></p>
+<p>最后我们用<code>kubectl delete</code>删除这个Pod：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl delete -f ngx-pod.yml</span><br></pre></td></tr></table></figure></p>
+<h1 id="离线业务对象Job、CronJob"><a href="#离线业务对象Job、CronJob" class="headerlink" title="离线业务对象Job、CronJob"></a><span style="color:#339AFF;">离线业务对象Job、CronJob</span></h1><iframe height="288" width="510" src="https://media001.geekbang.org/customerTrans/7e27d07d27d407ebcc195a0e78395f55/1d3d2044-181b8be3fe0-0000-0000-01d-dbacd.mp4" allowfullscreen="true" frameborder="no" framespacing="0" border="0" scrolling="no"></iframe>
+
+<p>视频操作要点：</p>
+<p>看完了Pod的基本操作之后，我们来看离线业务的对象Job和CronJob。</p>
+<p>首先要用<code>kubectl create</code>创建一个Job样板文件：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create job echo-job --image=busybox $out</span><br></pre></td></tr></table></figure></p>
+<p>把它保存编辑之后，我们就得到了一个Job对象，用vi看一下。这个Job非常简单，执行echo命令，输出hello world。注意它的restartPolicy是OnFailure，表示失败后要原地重启容器。</p>
+<p>现在来创建Job对象，用的命令还是<code>kubectl apply</code>：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f job.yml</span><br></pre></td></tr></table></figure></p>
+<p>创建之后用<code>kubectl get job</code>、<code>kubectl get pod</code>来分别查看Job和Pod的状态，使用命令<code>kubectl logs</code>来获取Pod的运行结果：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl get job</span><br><span class="line">kubectl get pod</span><br><span class="line">kubectl logs echo-job-l52l7</span><br></pre></td></tr></table></figure></p>
+<p>CronJob同样也可以自动生成样板文件：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl create cj echo-cj --image=busybox --schedule="" $out</span><br><span class="line">vi cronjob.yml</span><br></pre></td></tr></table></figure></p>
+<p>CronJob对象里要注意的是，它使用jobTemplate又定义了一个Job，然后在字段schedule里使用cron语法定义了定时运行的规则，这里就是每分钟运行一次。</p>
+<p>CronJob的用法和Job几乎是一样的，用apply命令创建后就可以用get来查看作业的运行状态：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f cronjob.yml</span><br><span class="line">kubectl get cj</span><br><span class="line">kubectl get pod</span><br></pre></td></tr></table></figure></p>
+<p>最后让我们用delete命令删除这两个API对象：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl delete -f job.yml</span><br><span class="line">kubectl delete -f cronjob.yml</span><br></pre></td></tr></table></figure></p>
+<h1 id="配置信息对象ConfigMap和Secret"><a href="#配置信息对象ConfigMap和Secret" class="headerlink" title="配置信息对象ConfigMap和Secret"></a><span style="color:#339AFF;">配置信息对象ConfigMap和Secret</span></h1><iframe height="288" width="510" src="https://media001.geekbang.org/customerTrans/7e27d07d27d407ebcc195a0e78395f55/5d50af62-182403adbf9-0000-0000-01d-dbacd.mp4" allowfullscreen="true" frameborder="no" framespacing="0" border="0" scrolling="no"></iframe>
+
+<p>视频操作要点：</p>
+<p>下面我来演示Kubernetes里的配置信息对象ConfigMap和secret。</p>
+<p>还是老办法，先用<code>kubectl create</code>创建ConfigMap的样板文件，不过要命令后面多加一个参数<code>--from-literal</code>，从字面值生成一些数据：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create cm info --from-literal=k=v $out</span><br></pre></td></tr></table></figure></p>
+<p>Secret也是同样的创建方式，注意命令形式与ConfigMap略有不同，要用generic表示一般的机密信息：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create secret generic user --from-literal=name=root $out</span><br></pre></td></tr></table></figure></p>
+<p>我们来看看已经编辑好的YAML文件：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi cm.yml</span><br></pre></td></tr></table></figure></p>
+<p>这里定义了4个配置项，注意ConfigMap要求必须是字符串，所以最好用引号引起来，避免解释成数字导致错误。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi secret.yml</span><br></pre></td></tr></table></figure></p>
+<p>Secret里定义了3个配置项，由于做了base64编码，不能直接看到原值，不过我们可以在命令行里用工具<code>base64 -d</code>解码，比如看用户名：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo cm9vdA== | base64 -d</span><br></pre></td></tr></table></figure></p>
+<p>现在让我们创建这两个对象：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f cm.yml</span><br><span class="line">kubectl apply  -f secret.yml</span><br></pre></td></tr></table></figure></p>
+<p>然后查看这些对象的状态：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl get cm</span><br><span class="line">kubectl describe cm info</span><br></pre></td></tr></table></figure></p>
+<p>ConfigMap是明文显示：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl get secret</span><br><span class="line">kubectl describe secret user</span><br></pre></td></tr></table></figure></p>
+<p>而Secret的类型是Opaque，不透明的，不能直接看到。</p>
+<p>接下来我们把这些配置信息以存储卷的形式注入Pod，需要在Pod里加入“volumes”和“volumeMounts”字段：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi vol-pod.yml</span><br></pre></td></tr></table></figure></p>
+<p>在这份YAML里，我为ConfigMap和Secret定义了两个volume，分别是cm-vol和sec-vol，然后在volumeMounts里把它们挂载到了tmp目录。</p>
+<p>用<code>kubectl apply</code>命令创建之后，我们还是用<code>kubectl exec</code>进入Pod，看看配置信息被加载成了什么形式：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f vol-pod.yml</span><br><span class="line">kubectl get pod</span><br><span class="line">kubectl exec -it vol-pod -- sh</span><br><span class="line"></span><br><span class="line">cd /tmp</span><br><span class="line">ls              #加载成两个目录</span><br><span class="line">cd cm-items/</span><br><span class="line">cat greeting</span><br><span class="line">cd ..</span><br><span class="line">cd sec-items/</span><br><span class="line">cat pwd        #已经被base64解码</span><br></pre></td></tr></table></figure></p>
+<h1 id="在Kubernetes里搭建WordPress"><a href="#在Kubernetes里搭建WordPress" class="headerlink" title="在Kubernetes里搭建WordPress"></a><span style="color:#339AFF;">在Kubernetes里搭建WordPress</span></h1><iframe height="288" width="510" src="https://media001.geekbang.org/customerTrans/7e27d07d27d407ebcc195a0e78395f55/2c632123-181b8be36f6-0000-0000-01d-dbacd.mp4" allowfullscreen="true" frameborder="no" framespacing="0" border="0" scrolling="no"></iframe>
+
+<p>视频操作要点：</p>
+<p>最后我们在Kubernetes里搭建WordPress，这些YAML文件都已经准备好了，只需要逐个用apply命令创建就可以。</p>
+<p>首先是MariaDB数据库：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f mariadb-pod.yml</span><br><span class="line">kubectl get pod -o wide</span><br></pre></td></tr></table></figure></p>
+<p>需要看它的IP地址，这里是<code>172.17.0.？</code>，然后我们修改WordPress YAML，环境变量host改成MariaDB的地址，然后再创建WordPress Pod：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f wp-pod.yml</span><br><span class="line">kubectl get pod -o wide</span><br></pre></td></tr></table></figure></p>
+<p>现在这两个Pod都已经正常运行了，我们需要把WordPress的端口暴露出来，用的是<code>kubectl port-forward</code>命令：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl port-forward wp-pod 8080:80 &amp;</span><br></pre></td></tr></table></figure></p>
+<p>然后我们用Docker运行Nginx容器，代理这个端口：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./wp_proxy.sh</span><br><span class="line">docker ps</span><br></pre></td></tr></table></figure></p>
+<p>现在我们打开Mac上的Safari浏览器，输入虚拟机的IP地址“<code>http://192.168.10.208</code>”，就可以看到WordPress的安装界面了。</p>
 
       
     </div>
@@ -570,8 +639,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/09/12/15｜实战演练：玩转Kubernetes（1）/" rel="next" title="15 ｜ 实战演练：玩转Kubernetes（1）">
-                <i class="fa fa-chevron-left"></i> 15 ｜ 实战演练：玩转Kubernetes（1）
+              <a href="/2022/09/12/15｜实战演练：玩转Kubernetes（1）/" rel="next" title="15丨实战演练：玩转Kubernetes（1）">
+                <i class="fa fa-chevron-left"></i> 15丨实战演练：玩转Kubernetes（1）
               </a>
             
           </div>
@@ -580,8 +649,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/09/12/17｜更真实的云原生：实际搭建多节点的Kubernetes集群/" rel="prev" title="17 ｜ 更真实的云原生：实际搭建多节点的Kubernetes集群">
-                17 ｜ 更真实的云原生：实际搭建多节点的Kubernetes集群 <i class="fa fa-chevron-right"></i>
+              <a href="/2022/09/12/17｜更真实的云原生：实际搭建多节点的Kubernetes集群/" rel="prev" title="17丨更真实的云原生：实际搭建多节点的Kubernetes集群">
+                17丨更真实的云原生：实际搭建多节点的Kubernetes集群 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -626,8 +695,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -644,7 +722,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1109</span>
+                    <span class="site-state-item-count">1113</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1029,23 +1107,23 @@
                 
                 
                   <li>
+                    <a href="/2023/08/17/玉米加速下跌，看涨情绪急速回落，玉米要危险了？/" title="玉米加速下跌，看涨情绪急速回落，玉米要危险了？" target="_blank">玉米加速下跌，看涨情绪急速回落，玉米要危险了？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/08/16/谈谈Kong-Ingress-Controller/" title="谈谈Kong Ingress Controller" target="_blank">谈谈Kong Ingress Controller</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/08/15/docker-compose：单机环境下的容器编排工具/" title="docker-compose：单机环境下的容器编排工具" target="_blank">docker-compose：单机环境下的容器编排工具</a>
+                  </li>
+                
+                  <li>
                     <a href="/2023/08/02/特别放送｜回头看：如何更好地组织代码？/" title="特别放送｜回头看：如何更好地组织代码？" target="_blank">特别放送｜回头看：如何更好地组织代码？</a>
                   </li>
                 
                   <li>
                     <a href="/2023/08/02/特别放送｜Go泛型：用法、原理与最佳实践/" title="特别放送｜Go泛型：用法、原理与最佳实践" target="_blank">特别放送｜Go泛型：用法、原理与最佳实践</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/zero-admin-3/" title="zero-admin-3" target="_blank">zero-admin-3</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/zero-admin-2/" title="zero-admin-2" target="_blank">zero-admin-2</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/zero-admin-1/" title="zero-admin-1" target="_blank">zero-admin-1</a>
                   </li>
                 
               </ul>
@@ -1060,6 +1138,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#minikube环境"><span class="nav-number">1.</span> <span class="nav-text">minikube环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用kubectl操作API对象"><span class="nav-number">2.</span> <span class="nav-text">用kubectl操作API对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Pod对象"><span class="nav-number">3.</span> <span class="nav-text">Pod对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#离线业务对象Job、CronJob"><span class="nav-number">4.</span> <span class="nav-text">离线业务对象Job、CronJob</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置信息对象ConfigMap和Secret"><span class="nav-number">5.</span> <span class="nav-text">配置信息对象ConfigMap和Secret</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在Kubernetes里搭建WordPress"><span class="nav-number">6.</span> <span class="nav-text">在Kubernetes里搭建WordPress</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -1100,7 +1195,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">130:41</span>
+    <span title="站点阅读时长">130:49</span>
   
 </div>
 

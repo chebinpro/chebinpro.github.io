@@ -106,7 +106,7 @@
   <meta name="description" content="思考并回答以下问题：">
 <meta name="keywords" content="Kubernetes入门实战课">
 <meta property="og:type" content="article">
-<meta property="og:title" content="19 ｜ Daemonset：忠实可靠的看门狗">
+<meta property="og:title" content="19丨Daemonset：忠实可靠的看门狗">
 <meta property="og:url" content="http://yoursite.com/2022/09/12/19｜Daemonset：忠实可靠的看门狗/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
@@ -120,9 +120,9 @@
 <meta property="og:image" content="http://yoursite.com/2022/09/12/19｜Daemonset：忠实可靠的看门狗/7.webp">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/19｜Daemonset：忠实可靠的看门狗/8.webp">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/19｜Daemonset：忠实可靠的看门狗/9.webp">
-<meta property="og:updated_time" content="2023-01-28T14:48:00.390Z">
+<meta property="og:updated_time" content="2023-08-16T01:24:44.193Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="19 ｜ Daemonset：忠实可靠的看门狗">
+<meta name="twitter:title" content="19丨Daemonset：忠实可靠的看门狗">
 <meta name="twitter:description" content="思考并回答以下问题：">
 <meta name="twitter:image" content="http://yoursite.com/2022/09/12/19｜Daemonset：忠实可靠的看门狗/1.webp">
 
@@ -141,7 +141,7 @@
   };
 </script>
 
-  <title>19 ｜ Daemonset：忠实可靠的看门狗 | 车斌的技术博客</title>
+  <title>19丨Daemonset：忠实可靠的看门狗 | 车斌的技术博客</title>
   
 
 
@@ -407,7 +407,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">19 ｜ Daemonset：忠实可靠的看门狗
+          <h1 class="post-title" itemprop="name headline">19丨Daemonset：忠实可靠的看门狗
 
               
             
@@ -453,7 +453,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2023-01-28 22:48:00" itemprop="dateModified" datetime="2023-01-28T22:48:00+08:00">2023-01-28</time>
+                <time title="修改时间：2023-08-16 09:24:44" itemprop="dateModified" datetime="2023-08-16T09:24:44+08:00">2023-08-16</time>
               
             
           </span>
@@ -563,8 +563,8 @@
 <p>也就是说，DaemonSet仅仅是在Pod的部署调度策略上和Deployment不同，其他的都是相同的，某种程度上我们也可以把DaemonSet看做是Deployment的一个特例。</p>
 <p>我还是把YAML描述文件画了一张图，好让你看清楚与Deployment的差异：</p>
 <img src="/2022/09/12/19｜Daemonset：忠实可靠的看门狗/2.webp">
-<p>了解到这些区别，现在，我们就可以用变通的方法来创建DaemonSet的YAML样板了，你只需要用kubectlcreate先创建出一个Deployment对象，然后把kind改成DaemonSet，再删除spec.replicas就行了，比如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> out=<span class="string">"--dry-run=client -o yaml"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># change "kind" to DaemonSet</span></span><br><span class="line">kubectl create deploy redis-ds --image=redis:5-alpine <span class="variable">$out</span></span><br></pre></td></tr></table></figure></p>
-<h1 id="如何在Kubernetes里使用DaemonSet"><a href="#如何在Kubernetes里使用DaemonSet" class="headerlink" title="如何在Kubernetes里使用DaemonSet"></a><span style="color:#339AFF;">如何在Kubernetes里使用DaemonSet</span></h1><p>现在，让我们执行命令kubectlapply，把YAML发送给Kubernetes，让它创建DaemonSet对象，再用<code>kubectl get</code>查看对象的状态：</p>
+<p>了解到这些区别，现在，我们就可以用变通的方法来创建DaemonSet的YAML样板了，你只需要用<code>kubectl create</code>先创建出一个Deployment对象，然后把kind改成DaemonSet，再删除spec.replicas就行了，比如：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> out=<span class="string">"--dry-run=client -o yaml"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># change "kind" to DaemonSet</span></span><br><span class="line">kubectl create deploy redis-ds --image=redis:5-alpine <span class="variable">$out</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="如何在Kubernetes里使用DaemonSet"><a href="#如何在Kubernetes里使用DaemonSet" class="headerlink" title="如何在Kubernetes里使用DaemonSet"></a><span style="color:#339AFF;">如何在Kubernetes里使用DaemonSet</span></h1><p>现在，让我们执行命令<code>kubectl apply</code>，把YAML发送给Kubernetes，让它创建DaemonSet对象，再用<code>kubectl get</code>查看对象的状态：</p>
 <img src="/2022/09/12/19｜Daemonset：忠实可靠的看门狗/3.webp">
 <p>看这张截图，虽然我们没有指定DaemonSet里Pod要运行的数量，但它自己就会去查找集群里的节点，在节点里创建Pod。因为我们的实验环境里有一个Master一个Worker，而Master默认是不跑应用的，所以DaemonSet就只生成了一个Pod，运行在了“worker”节点上。</p>
 <p>暂停一下，你发现这里有什么不对劲了吗？</p>
@@ -605,13 +605,11 @@
 <p>你可以看到，Kubernetes的4个核心组件apiserver、etcd、scheduler、controller-manager原来都以静态Pod的形式存在的，这也是为什么它们能够先于Kubernetes集群启动的原因。</p>
 <p>如果你有一些DaemonSet无法满足的特殊的需求，可以考虑使用静态Pod，编写一个YAML文件放到这个目录里，节点的kubelet会定期检查目录里的文件，发现变化就会调用容器运行时创建或者删除静态Pod。</p>
 <h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a><span style="color:#339AFF;">小结</span></h1><p>好了，今天我们学习了Kubernetes里部署应用程序的另一种方式：DaemonSet，它与Deployment很类似，差别只在于Pod的调度策略，适用于在系统里运行节点的“守护进程”。</p>
-<p>简单小结一下今天的内容：</p>
 <p>1，DaemonSet的目标是为集群里的每个节点部署唯一的Pod，常用于监控、日志等业务。</p>
 <p>2，DaemonSet的YAML描述与Deployment非常接近，只是没有replicas字段。</p>
 <p>3，“污点”和“容忍度”是与DaemonSet相关的两个重要概念，分别从属于Node和Pod，共同决定了Pod的调度策略。</p>
 <p>4，静态Pod也可以实现和DaemonSet同样的效果，但它不受Kubernetes控制，必须在节点上纯手动部署，应当慎用。</p>
-<h1 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a><span style="color:#339AFF;">课下作业</span></h1><p>最后是课下作业时间，给你留两个思考题：</p>
-<p>1，你觉得DaemonSet和Deployment在用法上还有哪些不同？它们分别适用于哪些场景？</p>
+<h1 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a><span style="color:#339AFF;">课下作业</span></h1><p>1，你觉得DaemonSet和Deployment在用法上还有哪些不同？它们分别适用于哪些场景？</p>
 <p>2，你觉得在Kubernetes里应该如何用好“污点”和“容忍度”这两个概念？</p>
 <img src="/2022/09/12/19｜Daemonset：忠实可靠的看门狗/9.webp">
       
@@ -649,8 +647,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/09/12/18｜Deployment：让应用永不宕机/" rel="next" title="18 ｜ Deployment：让应用永不宕机">
-                <i class="fa fa-chevron-left"></i> 18 ｜ Deployment：让应用永不宕机
+              <a href="/2022/09/12/18｜Deployment：让应用永不宕机/" rel="next" title="18丨Deployment：让应用永不宕机">
+                <i class="fa fa-chevron-left"></i> 18丨Deployment：让应用永不宕机
               </a>
             
           </div>
@@ -659,8 +657,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/09/12/20｜Service：微服务架构的应对之道/" rel="prev" title="20 ｜ Service：微服务架构的应对之道">
-                20 ｜ Service：微服务架构的应对之道 <i class="fa fa-chevron-right"></i>
+              <a href="/2022/09/12/20｜Service：微服务架构的应对之道/" rel="prev" title="20丨Service：微服务架构的应对之道">
+                20丨Service：微服务架构的应对之道 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -732,7 +730,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1109</span>
+                    <span class="site-state-item-count">1113</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1117,23 +1115,23 @@
                 
                 
                   <li>
+                    <a href="/2023/08/17/玉米加速下跌，看涨情绪急速回落，玉米要危险了？/" title="玉米加速下跌，看涨情绪急速回落，玉米要危险了？" target="_blank">玉米加速下跌，看涨情绪急速回落，玉米要危险了？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/08/16/谈谈Kong-Ingress-Controller/" title="谈谈Kong Ingress Controller" target="_blank">谈谈Kong Ingress Controller</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/08/15/docker-compose：单机环境下的容器编排工具/" title="docker-compose：单机环境下的容器编排工具" target="_blank">docker-compose：单机环境下的容器编排工具</a>
+                  </li>
+                
+                  <li>
                     <a href="/2023/08/02/特别放送｜回头看：如何更好地组织代码？/" title="特别放送｜回头看：如何更好地组织代码？" target="_blank">特别放送｜回头看：如何更好地组织代码？</a>
                   </li>
                 
                   <li>
                     <a href="/2023/08/02/特别放送｜Go泛型：用法、原理与最佳实践/" title="特别放送｜Go泛型：用法、原理与最佳实践" target="_blank">特别放送｜Go泛型：用法、原理与最佳实践</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/zero-admin-3/" title="zero-admin-3" target="_blank">zero-admin-3</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/zero-admin-2/" title="zero-admin-2" target="_blank">zero-admin-2</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/zero-admin-1/" title="zero-admin-1" target="_blank">zero-admin-1</a>
                   </li>
                 
               </ul>
@@ -1205,7 +1203,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">130:41</span>
+    <span title="站点阅读时长">130:49</span>
   
 </div>
 

@@ -106,7 +106,7 @@
   <meta name="description" content="思考并回答以下问题：  容器是什么？容器是软件，是应用，是进程。服务器是什么？服务器是硬件，是CPU、内存、硬盘、网卡。那么，既可以管理软件，也可以管理硬件，这样的东西应该是什么？这就是一个操作系统（Operating System）！从某种角度来看，Kubernetes可以说是一个集群级别的操作系统，主要功能就是资源管理和作业调度。但Kubernetes不是运行在单机上管理单台计算资源和进程，而">
 <meta name="keywords" content="Kubernetes入门实战课">
 <meta property="og:type" content="article">
-<meta property="og:title" content="10 ｜ 自动化的运维管理：探究Kubernetes工作机制的奥秘">
+<meta property="og:title" content="10丨自动化的运维管理：探究Kubernetes工作机制的奥秘">
 <meta property="og:url" content="http://yoursite.com/2022/09/12/10｜自动化的运维管理：探究Kubernetes工作机制的奥秘/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：  容器是什么？容器是软件，是应用，是进程。服务器是什么？服务器是硬件，是CPU、内存、硬盘、网卡。那么，既可以管理软件，也可以管理硬件，这样的东西应该是什么？这就是一个操作系统（Operating System）！从某种角度来看，Kubernetes可以说是一个集群级别的操作系统，主要功能就是资源管理和作业调度。但Kubernetes不是运行在单机上管理单台计算资源和进程，而">
@@ -123,9 +123,9 @@
 <meta property="og:image" content="http://yoursite.com/2022/09/12/10｜自动化的运维管理：探究Kubernetes工作机制的奥秘/10.png">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/10｜自动化的运维管理：探究Kubernetes工作机制的奥秘/11.jpg">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/10｜自动化的运维管理：探究Kubernetes工作机制的奥秘/12.jpg">
-<meta property="og:updated_time" content="2022-10-18T08:50:01.138Z">
+<meta property="og:updated_time" content="2023-08-16T08:16:01.200Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="10 ｜ 自动化的运维管理：探究Kubernetes工作机制的奥秘">
+<meta name="twitter:title" content="10丨自动化的运维管理：探究Kubernetes工作机制的奥秘">
 <meta name="twitter:description" content="思考并回答以下问题：  容器是什么？容器是软件，是应用，是进程。服务器是什么？服务器是硬件，是CPU、内存、硬盘、网卡。那么，既可以管理软件，也可以管理硬件，这样的东西应该是什么？这就是一个操作系统（Operating System）！从某种角度来看，Kubernetes可以说是一个集群级别的操作系统，主要功能就是资源管理和作业调度。但Kubernetes不是运行在单机上管理单台计算资源和进程，而">
 <meta name="twitter:image" content="http://yoursite.com/2022/09/12/10｜自动化的运维管理：探究Kubernetes工作机制的奥秘/1.png">
 
@@ -144,7 +144,7 @@
   };
 </script>
 
-  <title>10 ｜ 自动化的运维管理：探究Kubernetes工作机制的奥秘 | 车斌的技术博客</title>
+  <title>10丨自动化的运维管理：探究Kubernetes工作机制的奥秘 | 车斌的技术博客</title>
   
 
 
@@ -410,7 +410,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">10 ｜ 自动化的运维管理：探究Kubernetes工作机制的奥秘
+          <h1 class="post-title" itemprop="name headline">10丨自动化的运维管理：探究Kubernetes工作机制的奥秘
 
               
             
@@ -456,7 +456,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2022-10-18 16:50:01" itemprop="dateModified" datetime="2022-10-18T16:50:01+08:00">2022-10-18</time>
+                <time title="修改时间：2023-08-16 16:16:01" itemprop="dateModified" datetime="2023-08-16T16:16:01+08:00">2023-08-16</time>
               
             
           </span>
@@ -502,7 +502,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">6.4k</span>
+                <span title="本文字数">5.9k</span>
               
 
               
@@ -516,7 +516,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">6 分钟</span>
+                <span title="阅读时长">5 分钟</span>
               
             </div>
           
@@ -547,12 +547,10 @@
 <li>apiserver是联络员，etcd是配置管理员，scheduler是部署人员，controller-manager是监控运维人员。怎么理解？</li>
 <li><code>kubectl get pod -n kube-system</code>是干嘛用的？</li>
 <li>kubelet是Node上的一个“小管家”，kube-proxy是专职的“小邮差”，container-runtime是真正干活的“苦力”。怎么理解？</li>
+<li>kubelet和kubectl有什么区别？</li>
 </ul>
 <a id="more"></a>
-<p>在上一次课里，我们看到容器技术只实现了应用的打包分发，到运维真正落地实施的时候仍然会遇到很多困难，所以就需要用容器编排技术来解决这些问题，而Kubernetes是这个领域的唯一霸主，已经成为了“事实标准”。</p>
-<p>那么，Kubernetes凭什么能担当这样的领军重任呢？难道仅仅因为它是由Google主导开发的吗？</p>
-<p>今天我就带你一起来看看Kubernetes的内部架构和工作机制，了解它能够傲视群雄的秘密所在。</p>
-<h1 id="云计算时代的操作系统"><a href="#云计算时代的操作系统" class="headerlink" title="云计算时代的操作系统"></a><span style="color:#339AFF;">云计算时代的操作系统</span></h1><p>前面我曾经说过，Kubernetes是一个<strong>生产级别的容器编排平台和集群管理系统</strong>，能够创建、调度容器，监控、管理服务器。</p>
+<h1 id="云计算时代的操作系统"><a href="#云计算时代的操作系统" class="headerlink" title="云计算时代的操作系统"></a><span style="color:#339AFF;">云计算时代的操作系统</span></h1><p>Kubernetes是一个<strong>生产级别的容器编排平台和集群管理系统</strong>，能够创建、调度容器，监控、管理服务器。</p>
 <p>容器是什么？容器是软件，是应用，是进程。服务器是什么？服务器是硬件，是CPU、内存、硬盘、网卡。那么，既可以管理软件，也可以管理硬件，这样的东西应该是什么？</p>
 <p>你也许会脱口而出：这就是一个操作系统（Operating System）！</p>
 <p>没错，从某种角度来看，Kubernetes可以说是一个集群级别的操作系统，主要功能就是资源管理和作业调度。但Kubernetes不是运行在单机上管理单台计算资源和进程，而是运行在多台服务器上管理几百几千台的计算资源，以及在这些资源上运行的上万上百万的进程，规模要大得多。</p>
@@ -564,8 +562,9 @@
 <h1 id="Kubernetes的基本架构"><a href="#Kubernetes的基本架构" class="headerlink" title="Kubernetes的基本架构"></a><span style="color:#339AFF;">Kubernetes的基本架构</span></h1><p>操作系统的一个重要功能就是抽象，从繁琐的底层事务中抽象出一些简洁的概念，然后基于这些概念去管理系统资源。</p>
 <p>Kubernetes也是这样，它的管理目标是大规模的集群和应用，必须要能够把系统抽象到足够高的层次，分解出一些松耦合的对象，才能简化系统模型，减轻用户的心智负担。</p>
 <p>所以，Kubernetes扮演的角色就如同一个“大师级别”的系统管理员，具有丰富的集群运维经验，独创了自己的一套工作方式，不需要太多的外部干预，就能够自主实现原先许多复杂的管理工作。</p>
-<p>下面我们就来看看这位资深管理员的“内功心法”。</p>
-<p>Kubernetes官网上有一张架构图，但我觉得不是太清晰、重点不突出，所以另外找了一份。虽然这张图有点“老”，但对于我们初学Kubernetes还是比较合适的。</p>
+<blockquote>
+<p>架构图</p>
+</blockquote>
 <img src="/2022/09/12/10｜自动化的运维管理：探究Kubernetes工作机制的奥秘/1.png">
 <p>Kubernetes采用了现今流行的“<strong>控制面</strong>/<strong>数据面</strong>”（Control Plane/Data Plane）架构，集群里的计算机被称为“<strong>节点</strong>”（Node），可以是实机也可以是虚机，少量的节点用作控制面来执行集群的管理维护工作，其他的大部分节点都被划归数据面，用来跑业务应用。</p>
 <p>控制面的节点在Kubernetes里叫做<strong>Master Node</strong>，一般简称为<strong>Master</strong>，它是整个集群里最重要的部分，可以说是Kubernetes的大脑和心脏。</p>
@@ -620,17 +619,16 @@
 <p>Dashboard就是仪表盘，为Kubernetes提供了一个图形化的操作界面，非常直观友好，虽然大多数Kubernetes工作都是使用命令行kubectl，但有的时候在Dashboard上查看信息也是挺方便的。</p>
 <p>你只要在minikube环境里执行一条简单的命令，就可以自动用浏览器打开Dashboard页面，而且还支持中文：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">minikube dashboard</span><br></pre></td></tr></table></figure></p>
 <img src="/2022/09/12/10｜自动化的运维管理：探究Kubernetes工作机制的奥秘/10.png">
-<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a><span style="color:#339AFF;">小结</span></h1><p>好了，今天我们一起来研究了Kubernetes的内部架构和工作机制，可以看到它的功能非常完善，实现了大部分常见的运维管理工作，而且是全自动化的，能够节约大量的人力成本。</p>
-<p>由于Kubernetes的抽象程度比较高，有很多陌生的新术语，不太好理解，所以我画了一张思维导图，你可以对照着再加深理解。</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a><span style="color:#339AFF;">小结</span></h1><blockquote>
+<p>思维导图</p>
+</blockquote>
 <img src="/2022/09/12/10｜自动化的运维管理：探究Kubernetes工作机制的奥秘/11.jpg">
-<p>最后小结一下今天的要点：</p>
 <p>1，Kubernetes能够在集群级别管理应用和服务器，可以认为是一种集群操作系统。它使用“控制面/数据面”的基本架构，Master节点实现管理控制功能，Worker节点运行具体业务。</p>
 <p>2，Kubernetes由很多模块组成，可分为核心的组件和选配的插件两类。</p>
 <p>3，Master里有4个组件，分别是apiserver、etcd、scheduler、controller-manager。</p>
 <p>4，Node里有3个组件，分别是kubelet、kube-proxy、container-runtime。</p>
 <p>5，通常必备的插件有DNS和Dashboard。</p>
-<h1 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a><span style="color:#339AFF;">课下作业</span></h1><p>最后是课下作业时间，给你留两个思考题：</p>
-<p>1，你觉得Kubernetes算得上是一种操作系统吗？和真正的操作系统相比有什么差异？</p>
+<h1 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a><span style="color:#339AFF;">课下作业</span></h1><p>1，你觉得Kubernetes算得上是一种操作系统吗？和真正的操作系统相比有什么差异？</p>
 <p>2，说说你理解的Kubernetes组件的作用，你觉得哪几个最重要？</p>
 <img src="/2022/09/12/10｜自动化的运维管理：探究Kubernetes工作机制的奥秘/12.jpg">
       
@@ -668,8 +666,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/09/12/09｜走近云原生：如何在本机搭建小巧完备的Kubernetes环境/" rel="next" title="09 ｜ 走近云原生：如何在本机搭建小巧完备的Kubernetes环境">
-                <i class="fa fa-chevron-left"></i> 09 ｜ 走近云原生：如何在本机搭建小巧完备的Kubernetes环境
+              <a href="/2022/09/12/09｜走近云原生：如何在本机搭建小巧完备的Kubernetes环境/" rel="next" title="09丨走近云原生：如何在本机搭建小巧完备的Kubernetes环境">
+                <i class="fa fa-chevron-left"></i> 09丨走近云原生：如何在本机搭建小巧完备的Kubernetes环境
               </a>
             
           </div>
@@ -678,8 +676,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/09/12/11｜YAML：Kubernetes世界里的通用语/" rel="prev" title="11 ｜ YAML：Kubernetes世界里的通用语">
-                11 ｜ YAML：Kubernetes世界里的通用语 <i class="fa fa-chevron-right"></i>
+              <a href="/2022/09/12/Kubernetes“弃用Docker”是怎么回事？/" rel="prev" title="Kubernetes“弃用Docker”是怎么回事？">
+                Kubernetes“弃用Docker”是怎么回事？ <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -751,7 +749,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1109</span>
+                    <span class="site-state-item-count">1113</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1136,23 +1134,23 @@
                 
                 
                   <li>
+                    <a href="/2023/08/17/玉米加速下跌，看涨情绪急速回落，玉米要危险了？/" title="玉米加速下跌，看涨情绪急速回落，玉米要危险了？" target="_blank">玉米加速下跌，看涨情绪急速回落，玉米要危险了？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/08/16/谈谈Kong-Ingress-Controller/" title="谈谈Kong Ingress Controller" target="_blank">谈谈Kong Ingress Controller</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/08/15/docker-compose：单机环境下的容器编排工具/" title="docker-compose：单机环境下的容器编排工具" target="_blank">docker-compose：单机环境下的容器编排工具</a>
+                  </li>
+                
+                  <li>
                     <a href="/2023/08/02/特别放送｜回头看：如何更好地组织代码？/" title="特别放送｜回头看：如何更好地组织代码？" target="_blank">特别放送｜回头看：如何更好地组织代码？</a>
                   </li>
                 
                   <li>
                     <a href="/2023/08/02/特别放送｜Go泛型：用法、原理与最佳实践/" title="特别放送｜Go泛型：用法、原理与最佳实践" target="_blank">特别放送｜Go泛型：用法、原理与最佳实践</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/zero-admin-3/" title="zero-admin-3" target="_blank">zero-admin-3</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/zero-admin-2/" title="zero-admin-2" target="_blank">zero-admin-2</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/zero-admin-1/" title="zero-admin-1" target="_blank">zero-admin-1</a>
                   </li>
                 
               </ul>
@@ -1224,7 +1222,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">130:41</span>
+    <span title="站点阅读时长">130:49</span>
   
 </div>
 

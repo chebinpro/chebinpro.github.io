@@ -106,7 +106,7 @@
   <meta name="description" content="思考并回答以下问题：  Kubernetes会给Service分配一个静态IP地址，然后它再去自动管理、维护后面动态变化的Pod集合，当客户端访问Service，它就根据某种策略，把流量转发给后面的某个Pod。怎么理解？">
 <meta name="keywords" content="Kubernetes入门实战课">
 <meta property="og:type" content="article">
-<meta property="og:title" content="20 ｜ Service：微服务架构的应对之道">
+<meta property="og:title" content="20丨Service：微服务架构的应对之道">
 <meta property="og:url" content="http://yoursite.com/2022/09/12/20｜Service：微服务架构的应对之道/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：  Kubernetes会给Service分配一个静态IP地址，然后它再去自动管理、维护后面动态变化的Pod集合，当客户端访问Service，它就根据某种策略，把流量转发给后面的某个Pod。怎么理解？">
@@ -125,9 +125,9 @@
 <meta property="og:image" content="http://yoursite.com/2022/09/12/20｜Service：微服务架构的应对之道/12.webp">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/20｜Service：微服务架构的应对之道/13.webp">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/20｜Service：微服务架构的应对之道/14.webp">
-<meta property="og:updated_time" content="2022-10-17T08:34:03.680Z">
+<meta property="og:updated_time" content="2023-08-16T01:24:40.932Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="20 ｜ Service：微服务架构的应对之道">
+<meta name="twitter:title" content="20丨Service：微服务架构的应对之道">
 <meta name="twitter:description" content="思考并回答以下问题：  Kubernetes会给Service分配一个静态IP地址，然后它再去自动管理、维护后面动态变化的Pod集合，当客户端访问Service，它就根据某种策略，把流量转发给后面的某个Pod。怎么理解？">
 <meta name="twitter:image" content="http://yoursite.com/2022/09/12/20｜Service：微服务架构的应对之道/1.webp">
 
@@ -146,7 +146,7 @@
   };
 </script>
 
-  <title>20 ｜ Service：微服务架构的应对之道 | 车斌的技术博客</title>
+  <title>20丨Service：微服务架构的应对之道 | 车斌的技术博客</title>
   
 
 
@@ -412,7 +412,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">20 ｜ Service：微服务架构的应对之道
+          <h1 class="post-title" itemprop="name headline">20丨Service：微服务架构的应对之道
 
               
             
@@ -458,7 +458,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2022-10-17 16:34:03" itemprop="dateModified" datetime="2022-10-17T16:34:03+08:00">2022-10-17</time>
+                <time title="修改时间：2023-08-16 09:24:40" itemprop="dateModified" datetime="2023-08-16T09:24:40+08:00">2023-08-16</time>
               
             
           </span>
@@ -632,14 +632,12 @@
 <p>第三个缺点，它要求向外界暴露节点的IP地址，这在很多时候是不可行的，为了安全还需要在集群外再搭一个反向代理，增加了方案的复杂度。</p>
 <p>虽然有这些缺点，但NodePort仍然是Kubernetes对外提供服务的一种简单易行的方式，在其他更好的方式出现之前，我们也只能使用它。</p>
 <h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a><span style="color:#339AFF;">小结</span></h1><p>好了，今天我们学习了Service对象，它实现了负载均衡和服务发现技术，是Kubernetes应对微服务、服务网格等现代流行应用架构的解决方案。</p>
-<p>我再小结一下今天的要点：</p>
 <p>1，Pod的生命周期很短暂，会不停地创建销毁，所以就需要用Service来实现负载均衡，它由Kubernetes分配固定的IP地址，能够屏蔽后端的Pod变化。</p>
 <p>2，Service对象使用与Deployment、DaemonSet相同的“selector”字段，选择要代理的后端Pod，是松耦合关系。</p>
 <p>3，基于DNS插件，我们能够以域名的方式访问Service，比静态IP地址更方便。</p>
 <p>4，名字空间是Kubernetes用来隔离对象的一种方式，实现了逻辑上的对象分组，Service的域名里就包含了名字空间限定。</p>
 <p>5，Service的默认类型是“ClusterIP”，只能在集群内部访问，如果改成“NodePort”，就会在节点上开启一个随机端口号，让外界也能够访问内部的服务。</p>
-<h1 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a><span style="color:#339AFF;">课下作业</span></h1><p>最后是课下作业时间，给你留两个思考题：</p>
-<p>1，为什么Service的IP地址是静态且虚拟的？出于什么目的，有什么好处？</p>
+<h1 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a><span style="color:#339AFF;">课下作业</span></h1><p>1，为什么Service的IP地址是静态且虚拟的？出于什么目的，有什么好处？</p>
 <p>2，你了解负载均衡技术吗？它都有哪些算法，Service会用哪种呢？</p>
 <img src="/2022/09/12/20｜Service：微服务架构的应对之道/14.webp">
       
@@ -677,8 +675,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/09/12/19｜Daemonset：忠实可靠的看门狗/" rel="next" title="19 ｜ Daemonset：忠实可靠的看门狗">
-                <i class="fa fa-chevron-left"></i> 19 ｜ Daemonset：忠实可靠的看门狗
+              <a href="/2022/09/12/19｜Daemonset：忠实可靠的看门狗/" rel="next" title="19丨Daemonset：忠实可靠的看门狗">
+                <i class="fa fa-chevron-left"></i> 19丨Daemonset：忠实可靠的看门狗
               </a>
             
           </div>
@@ -687,8 +685,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/09/12/21｜Ingress：集群进出流量的总管/" rel="prev" title="21 ｜ Ingress：集群进出流量的总管">
-                21 ｜ Ingress：集群进出流量的总管 <i class="fa fa-chevron-right"></i>
+              <a href="/2022/09/12/21｜Ingress：集群进出流量的总管/" rel="prev" title="21丨Ingress：集群进出流量的总管">
+                21丨Ingress：集群进出流量的总管 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -760,7 +758,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1109</span>
+                    <span class="site-state-item-count">1113</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1145,23 +1143,23 @@
                 
                 
                   <li>
+                    <a href="/2023/08/17/玉米加速下跌，看涨情绪急速回落，玉米要危险了？/" title="玉米加速下跌，看涨情绪急速回落，玉米要危险了？" target="_blank">玉米加速下跌，看涨情绪急速回落，玉米要危险了？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/08/16/谈谈Kong-Ingress-Controller/" title="谈谈Kong Ingress Controller" target="_blank">谈谈Kong Ingress Controller</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/08/15/docker-compose：单机环境下的容器编排工具/" title="docker-compose：单机环境下的容器编排工具" target="_blank">docker-compose：单机环境下的容器编排工具</a>
+                  </li>
+                
+                  <li>
                     <a href="/2023/08/02/特别放送｜回头看：如何更好地组织代码？/" title="特别放送｜回头看：如何更好地组织代码？" target="_blank">特别放送｜回头看：如何更好地组织代码？</a>
                   </li>
                 
                   <li>
                     <a href="/2023/08/02/特别放送｜Go泛型：用法、原理与最佳实践/" title="特别放送｜Go泛型：用法、原理与最佳实践" target="_blank">特别放送｜Go泛型：用法、原理与最佳实践</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/zero-admin-3/" title="zero-admin-3" target="_blank">zero-admin-3</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/zero-admin-2/" title="zero-admin-2" target="_blank">zero-admin-2</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/zero-admin-1/" title="zero-admin-1" target="_blank">zero-admin-1</a>
                   </li>
                 
               </ul>
@@ -1233,7 +1231,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">130:41</span>
+    <span title="站点阅读时长">130:49</span>
   
 </div>
 

@@ -106,7 +106,7 @@
   <meta name="description" content="思考并回答以下问题：">
 <meta name="keywords" content="Kubernetes入门实战课">
 <meta property="og:type" content="article">
-<meta property="og:title" content="21 ｜ Ingress：集群进出流量的总管">
+<meta property="og:title" content="21丨Ingress：集群进出流量的总管">
 <meta property="og:url" content="http://yoursite.com/2022/09/12/21｜Ingress：集群进出流量的总管/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
@@ -123,9 +123,9 @@
 <meta property="og:image" content="http://yoursite.com/2022/09/12/21｜Ingress：集群进出流量的总管/10.webp">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/21｜Ingress：集群进出流量的总管/11.webp">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/21｜Ingress：集群进出流量的总管/12.webp">
-<meta property="og:updated_time" content="2022-10-17T09:58:03.647Z">
+<meta property="og:updated_time" content="2023-08-16T01:24:37.753Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="21 ｜ Ingress：集群进出流量的总管">
+<meta name="twitter:title" content="21丨Ingress：集群进出流量的总管">
 <meta name="twitter:description" content="思考并回答以下问题：">
 <meta name="twitter:image" content="http://yoursite.com/2022/09/12/21｜Ingress：集群进出流量的总管/1.webp">
 
@@ -144,7 +144,7 @@
   };
 </script>
 
-  <title>21 ｜ Ingress：集群进出流量的总管 | 车斌的技术博客</title>
+  <title>21丨Ingress：集群进出流量的总管 | 车斌的技术博客</title>
   
 
 
@@ -410,7 +410,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">21 ｜ Ingress：集群进出流量的总管
+          <h1 class="post-title" itemprop="name headline">21丨Ingress：集群进出流量的总管
 
               
             
@@ -456,7 +456,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2022-10-17 17:58:03" itemprop="dateModified" datetime="2022-10-17T17:58:03+08:00">2022-10-17</time>
+                <time title="修改时间：2023-08-16 09:24:37" itemprop="dateModified" datetime="2023-08-16T09:24:37+08:00">2023-08-16</time>
               
             
           </span>
@@ -502,7 +502,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">8.7k</span>
+                <span title="本文字数">8.6k</span>
               
 
               
@@ -578,7 +578,7 @@
 <p>这些Ingress和IngressController彼此独立，不会发生冲突，所以上面的那些问题也就随着IngressClass的引入迎刃而解了。</p>
 <h1 id="如何使用YAML描述Ingress-IngressClass"><a href="#如何使用YAML描述Ingress-IngressClass" class="headerlink" title="如何使用YAML描述Ingress/IngressClass"></a><span style="color:#339AFF;">如何使用YAML描述Ingress/IngressClass</span></h1><p>我们花了比较多的篇幅学习Ingress、IngressController、IngressClass这三个对象，全是理论，你可能觉得学得有点累。但这也是没办法的事情，毕竟现实的业务就是这么复杂，而且这个设计架构也是社区经过长期讨论后达成的一致结论，是我们目前能获得的最佳解决方案。</p>
 <p>好，了解了这三个概念之后，我们就可以来看看如何为它们编写YAML描述文件了。</p>
-<p>和之前学习Deployment、Service对象一样，首先应当用命令kubectlapi-resources查看它们的基本信息，输出列在这里了：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kubectl api-resources</span><br><span class="line"></span><br><span class="line">NAME          SHORTNAMES   APIVERSION           NAMESPACED   KIND</span><br><span class="line">ingresses       ing          networking.k8s.io/v1   <span class="literal">true</span>         Ingress</span><br><span class="line">ingressclasses               networking.k8s.io/v1   <span class="literal">false</span>        IngressClass</span><br></pre></td></tr></table></figure></p>
+<p>和之前学习Deployment、Service对象一样，首先应当用命令<code>kubectl api-resources</code>查看它们的基本信息，输出列在这里了：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kubectl api-resources</span><br><span class="line"></span><br><span class="line">NAME          SHORTNAMES   APIVERSION           NAMESPACED   KIND</span><br><span class="line">ingresses       ing          networking.k8s.io/v1   <span class="literal">true</span>         Ingress</span><br><span class="line">ingressclasses               networking.k8s.io/v1   <span class="literal">false</span>        IngressClass</span><br></pre></td></tr></table></figure></p>
 <p>你可以看到，Ingress和IngressClass的apiVersion都是“networking.k8s.io/v1”，而且Ingress有一个简写“ing”，但IngressController怎么找不到呢？</p>
 <p>这是因为IngressController和其他两个对象不太一样，它不只是描述文件，是一个要实际干活、处理流量的应用程序，而应用程序在Kubernetes里早就有对象来管理了，那就是Deployment和DaemonSet，所以我们只需要再学习Ingress和IngressClass的的用法就可以了。</p>
 <p>先看Ingress。</p>
@@ -598,7 +598,7 @@
 <p>Ingress和Service、IngressClass的关系我也画成了一张图，方便你参考：</p>
 <img src="/2022/09/12/21｜Ingress：集群进出流量的总管/5.webp">
 <h1 id="如何在Kubernetes里使用Ingress-IngressClass"><a href="#如何在Kubernetes里使用Ingress-IngressClass" class="headerlink" title="如何在Kubernetes里使用Ingress/IngressClass"></a><span style="color:#339AFF;">如何在Kubernetes里使用Ingress/IngressClass</span></h1><p>因为IngressClass很小，所以我把它与Ingress合成了一个YAML文件，让我们用kubectlapply创建这两个对象：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f ingress.yml</span><br></pre></td></tr></table></figure></p>
-<p>然后我们用kubectlget来查看对象的状态：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl get ingressclass</span><br><span class="line">kubectl get ing</span><br></pre></td></tr></table></figure></p>
+<p>然后我们用<code>kubectl get</code>来查看对象的状态：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl get ingressclass</span><br><span class="line">kubectl get ing</span><br></pre></td></tr></table></figure></p>
 <img src="/2022/09/12/21｜Ingress：集群进出流量的总管/6.webp">
 <p>命令<code>kubectl describe</code>可以看到更详细的Ingress信息：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe ing ngx-ing</span><br></pre></td></tr></table></figure></p>
 <img src="/2022/09/12/21｜Ingress：集群进出流量的总管/7.webp">
@@ -630,16 +630,14 @@
 <p>你可以修改/etc/hosts来手工添加域名解析，也可以使用—resolve参数，指定域名的解析规则，比如在这里我就把“ngx.test”强制解析到“127.0.0.1”，也就是被kubectlport-forward转发的本地地址：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --resolve ngx.test:8080:127.0.0.1 http://ngx.test:8080</span><br></pre></td></tr></table></figure></p>
 <img src="/2022/09/12/21｜Ingress：集群进出流量的总管/11.webp">
 <p>把这个访问结果和上一节课里的Service对比一下，你会发现最终效果是一样的，都是把请求转发到了集群内部的Pod，但Ingress的路由规则不再是IP地址，而是HTTP协议里的域名、URI等要素。</p>
-<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a><span style="color:#339AFF;">小结</span></h1><p>好了，今天就讲到这里，我们学习了Kubernetes里七层的反向代理和负载均衡对象，包括Ingress、IngressController、IngressClass，它们联合起来管理了集群的进出流量，是集群入口的总管。</p>
-<p>小结一下今天的主要内容：</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a><span style="color:#339AFF;">小结</span></h1><p>我们学习了Kubernetes里七层的反向代理和负载均衡对象，包括Ingress、IngressController、IngressClass，它们联合起来管理了集群的进出流量，是集群入口的总管。</p>
 <p>1，Service是四层负载均衡，能力有限，所以就出现了Ingress，它基于HTTP/HTTPS协议定义路由规则。</p>
 <p>2，Ingress只是规则的集合，自身不具备流量管理能力，需要IngressController应用Ingress规则才能真正发挥作用。</p>
 <p>3，IngressClass解耦了Ingress和IngressController，我们应当使用IngressClass来管理Ingress资源。</p>
 <p>4，最流行的IngressController是NginxIngressController，它基于经典反向代理软件Nginx。</p>
 <p>再补充一点，目前的Kubernetes流量管理功能主要集中在IngressController上，已经远不止于管理“入口流量”了，它还能管理“出口流量”，也就是egress，甚至还可以管理集群内部服务之间的“东西向流量”。</p>
 <p>此外，IngressController通常还有很多的其他功能，比如TLS终止、网络应用防火墙、限流限速、流量拆分、身份认证、访问控制等等，完全可以认为它是一个全功能的反向代理或者网关，感兴趣的话你可以找找这方面的资料。</p>
-<h1 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a><span style="color:#339AFF;">课下作业</span></h1><p>最后是课下作业时间，给你留两个思考题：</p>
-<p>1，四层负载均衡（Service）与七层负载均衡（Ingress）有哪些异同点？</p>
+<h1 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a><span style="color:#339AFF;">课下作业</span></h1><p>1，四层负载均衡（Service）与七层负载均衡（Ingress）有哪些异同点？</p>
 <p>2，你认为IngressController作为集群的流量入口还应该做哪些事情？</p>
 <img src="/2022/09/12/21｜Ingress：集群进出流量的总管/12.webp">
       
@@ -677,8 +675,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/09/12/20｜Service：微服务架构的应对之道/" rel="next" title="20 ｜ Service：微服务架构的应对之道">
-                <i class="fa fa-chevron-left"></i> 20 ｜ Service：微服务架构的应对之道
+              <a href="/2022/09/12/20｜Service：微服务架构的应对之道/" rel="next" title="20丨Service：微服务架构的应对之道">
+                <i class="fa fa-chevron-left"></i> 20丨Service：微服务架构的应对之道
               </a>
             
           </div>
@@ -687,8 +685,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/09/12/22｜实战演练：玩转Kubernetes（2）/" rel="prev" title="22 ｜ 实战演练：玩转Kubernetes（2）">
-                22 ｜ 实战演练：玩转Kubernetes（2） <i class="fa fa-chevron-right"></i>
+              <a href="/2022/09/12/22｜实战演练：玩转Kubernetes（2）/" rel="prev" title="22丨实战演练：玩转Kubernetes（2）">
+                22丨实战演练：玩转Kubernetes（2） <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -760,7 +758,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1109</span>
+                    <span class="site-state-item-count">1113</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1145,23 +1143,23 @@
                 
                 
                   <li>
+                    <a href="/2023/08/17/玉米加速下跌，看涨情绪急速回落，玉米要危险了？/" title="玉米加速下跌，看涨情绪急速回落，玉米要危险了？" target="_blank">玉米加速下跌，看涨情绪急速回落，玉米要危险了？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/08/16/谈谈Kong-Ingress-Controller/" title="谈谈Kong Ingress Controller" target="_blank">谈谈Kong Ingress Controller</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/08/15/docker-compose：单机环境下的容器编排工具/" title="docker-compose：单机环境下的容器编排工具" target="_blank">docker-compose：单机环境下的容器编排工具</a>
+                  </li>
+                
+                  <li>
                     <a href="/2023/08/02/特别放送｜回头看：如何更好地组织代码？/" title="特别放送｜回头看：如何更好地组织代码？" target="_blank">特别放送｜回头看：如何更好地组织代码？</a>
                   </li>
                 
                   <li>
                     <a href="/2023/08/02/特别放送｜Go泛型：用法、原理与最佳实践/" title="特别放送｜Go泛型：用法、原理与最佳实践" target="_blank">特别放送｜Go泛型：用法、原理与最佳实践</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/zero-admin-3/" title="zero-admin-3" target="_blank">zero-admin-3</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/zero-admin-2/" title="zero-admin-2" target="_blank">zero-admin-2</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/07/19/zero-admin-1/" title="zero-admin-1" target="_blank">zero-admin-1</a>
                   </li>
                 
               </ul>
@@ -1233,7 +1231,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">130:41</span>
+    <span title="站点阅读时长">130:49</span>
   
 </div>
 
