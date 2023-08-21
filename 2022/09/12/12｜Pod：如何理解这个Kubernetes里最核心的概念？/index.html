@@ -120,7 +120,7 @@
 <meta property="og:image" content="http://yoursite.com/2022/09/12/12｜Pod：如何理解这个Kubernetes里最核心的概念？/7.webp">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/12｜Pod：如何理解这个Kubernetes里最核心的概念？/8.webp">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/12｜Pod：如何理解这个Kubernetes里最核心的概念？/9.webp">
-<meta property="og:updated_time" content="2023-08-16T01:25:11.482Z">
+<meta property="og:updated_time" content="2023-08-17T05:40:24.588Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="12丨Pod：如何理解这个Kubernetes里最核心的概念？">
 <meta name="twitter:description" content="思考并回答以下问题：  因为很少有应用是完全独立运行的，经常需要几个进程互相协作才能完成任务。Pod和这些有什么关系？">
@@ -453,7 +453,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2023-08-16 09:25:11" itemprop="dateModified" datetime="2023-08-16T09:25:11+08:00">2023-08-16</time>
+                <time title="修改时间：2023-08-17 13:40:24" itemprop="dateModified" datetime="2023-08-17T13:40:24+08:00">2023-08-17</time>
               
             
           </span>
@@ -549,7 +549,7 @@
 <p>那么把这些应用都放在一个容器里运行可不可以呢？</p>
 <p>当然可以，但这并不是一种好的做法。因为容器的理念是对应用的独立封装，它里面就应该是一个进程、一个应用，如果里面有多个应用，不仅违背了容器的初衷，也会让容器更难以管理。</p>
 <p><strong>为了解决这样多应用联合运行的问题，同时还要不破坏容器的隔离，就需要在容器外面再建立一个“收纳舱”</strong>，让多个容器既保持相对独立，又能够小范围共享网络、存储等资源，而且永远是“绑在一起”的状态。</p>
-<p>所以，Pod的概念也就呼之欲出了，容器正是“豆荚”里那些小小的“豌豆”，你可以在Pod的YAML里看到，“spec.containers”字段其实是一个数组，里面允许定义多个容器。</p>
+<p>所以，Pod的概念也就呼之欲出了，容器正是“豆荚”里那些小小的“豌豆”，你可以在Pod的YAML里看到，“<code>spec.containers</code>”字段其实是一个数组，里面允许定义多个容器。</p>
 <p>如果再拿之前讲过的“小板房”来比喻的话，Pod就是由客厅、卧室、厨房等预制房间拼装成的一个齐全的生活环境，不仅同样具备易于拆装易于搬迁的优点，而且要比单独的“一居室”功能强大得多，能够让进程“住”得更舒服。</p>
 <h1 id="为什么Pod是Kubernetes的核心对象"><a href="#为什么Pod是Kubernetes的核心对象" class="headerlink" title="为什么Pod是Kubernetes的核心对象"></a><span style="color:#339AFF;">为什么Pod是Kubernetes的核心对象</span></h1><p>因为Pod是对容器的“打包”，里面的容器是一个整体，总是能够一起调度、一起运行，绝不会出现分离的情况，而且Pod属于Kubernetes，可以在不触碰下层容器的情况下任意定制修改。所以有了Pod这个抽象概念，Kubernetes在集群级别上管理应用就会“得心应手”了。</p>
 <p>Kubernetes让Pod去编排处理容器，然后把Pod作为应用调度部署的最小单位，Pod也因此成为了Kubernetes世界里的“原子”（当然这个“原子”内部是有结构的，不是铁板一块），基于Pod就可以构建出更多更复杂的业务形态了。</p>
@@ -730,7 +730,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1113</span>
+                    <span class="site-state-item-count">1115</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1084,7 +1084,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">79</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1115,23 +1119,23 @@
                 
                 
                   <li>
-                    <a href="/2023/08/17/玉米加速下跌，看涨情绪急速回落，玉米要危险了？/" title="玉米加速下跌，看涨情绪急速回落，玉米要危险了？" target="_blank">玉米加速下跌，看涨情绪急速回落，玉米要危险了？</a>
+                    <a href="/2023/08/21/第7章-Kubernetes配置管理/" title="第7章 Kubernetes配置管理" target="_blank">第7章 Kubernetes配置管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/16/谈谈Kong-Ingress-Controller/" title="谈谈Kong Ingress Controller" target="_blank">谈谈Kong Ingress Controller</a>
+                    <a href="/2023/08/21/第5章-Kubernetes调度基础/" title="第5章 Kubernetes调度基础" target="_blank">第5章 Kubernetes调度基础</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/15/docker-compose：单机环境下的容器编排工具/" title="docker-compose：单机环境下的容器编排工具" target="_blank">docker-compose：单机环境下的容器编排工具</a>
+                    <a href="/2023/08/21/第4章-Kubernetes的基础概念/" title="第4章 Kubernetes的基础概念" target="_blank">第4章 Kubernetes的基础概念</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/02/特别放送｜回头看：如何更好地组织代码？/" title="特别放送｜回头看：如何更好地组织代码？" target="_blank">特别放送｜回头看：如何更好地组织代码？</a>
+                    <a href="/2023/08/20/第1章-Kubernetes入门/" title="第1章 Kubernetes入门" target="_blank">第1章 Kubernetes入门</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/02/特别放送｜Go泛型：用法、原理与最佳实践/" title="特别放送｜Go泛型：用法、原理与最佳实践" target="_blank">特别放送｜Go泛型：用法、原理与最佳实践</a>
+                    <a href="/2023/08/20/第3章-Docker基础/" title="第3章 Docker基础" target="_blank">第3章 Docker基础</a>
                   </li>
                 
               </ul>
@@ -1203,7 +1207,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">130:49</span>
+    <span title="站点阅读时长">130:59</span>
   
 </div>
 

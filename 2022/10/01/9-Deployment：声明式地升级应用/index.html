@@ -124,7 +124,7 @@
 <meta property="og:image" content="http://yoursite.com/2022/10/01/9-Deployment：声明式地升级应用/11.png">
 <meta property="og:image" content="http://yoursite.com/2022/10/01/9-Deployment：声明式地升级应用/12.png">
 <meta property="og:image" content="http://yoursite.com/2022/10/01/9-Deployment：声明式地升级应用/14.png">
-<meta property="og:updated_time" content="2022-10-08T02:53:41.734Z">
+<meta property="og:updated_time" content="2023-08-19T06:09:44.638Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="9-Deployment：声明式地升级应用">
 <meta name="twitter:description" content="思考并回答以下问题：">
@@ -457,7 +457,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2022-10-08 10:53:41" itemprop="dateModified" datetime="2022-10-08T10:53:41+08:00">2022-10-08</time>
+                <time title="修改时间：2023-08-19 14:09:44" itemprop="dateModified" datetime="2023-08-19T14:09:44+08:00">2023-08-19</time>
               
             
           </span>
@@ -599,13 +599,25 @@
 <blockquote>
 <p>代码清单9.2 单YAML文件同时包含一个RC和一个Service：kubia-rc<br>and-service-v1.yaml</p>
 </blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>这个YAML定义了一个名为kubia-v1的ReplicationController和一个名为kubia的Service。将此YAML发布到Kubernetes之后，三个v1pod和负载均衡器都会开始工作。如下面的代码清单所示，可以通过查找服务的外部IP并使用curl命令来访问服务。</p>
 <blockquote>
 <p>代码清单9.3 查找到ServiceIP并使用Curh循环调用服务接口</p>
 </blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>注意如果使用Minikube或者其他不支持LoadBalancer的Kubernetes集群，需要使用Service的节点端口方式来访问你的应用。在第5章中有提到这一点。</p>
-<h2 id="使用kubectl来执行滚动式升级"><a href="#使用kubectl来执行滚动式升级" class="headerlink" title="使用kubectl来执行滚动式升级"></a>使用kubectl来执行滚动式升级</h2><p>接下来创建v2版本的应用，修改之前的应用程序，使得其请求返回“Thisisv2”:<br>response.end(“Thisisv2runninginpod”+os.hostname()+”\n”);<br>这个新的镜像已经推到了DockerHub的luksa/kubia：v2中，所以不需要自己从头构建这个镜像。<br>使用同样的Tag推送更新过后的镜像<br>虽然在开发过程中经常推送修改后的应用到同一个镜像tag，但是这种做法并不可取。如果修改了latest的tag的话是可行的，但如果使用一个不同的tag名（比如是vl而不是lastest），等计算节点拉取过镜像之后，便会将镜像存储在节点上。如果使用该镜像启动新的pod，便不会重新拉取镜像（至少这是默认的拉取镜像策略）。<br>这也意味着，如果将对更改过后的镜像推到相同的tag，会导致镜像不被重新拉取。如果一个新的pod被调度到同一个节点上，Kubelet直接使用旧的镜像版本来启动pod。另一方面，没有运行过旧版本的节，点将拉取并运行新镜像，因此最后可能有两个不同版本的pod同时运行。为了确保这种情况不会发生，需要将容器的imagePullPolicy属性设置为Always。</p>
-<p>另外默认的imagePullPolicy策略也依赖于镜像的tag.如果容器使用latest的tag（显式指定或者不指定），则imagePullPolicy默认为Always，但是如果容器指定了其他标记，则策略默认为IfNotPresent。<br>当使用非latest的tag时，如果对镜像进行更改而不更改tag，则需要正确设置imagePullPolicy。当然最好使用一个新的tag来更新镜像。<br>保持curl循环运行的状态下打开另一个终端，开始启动滚动升级。你将运行kubectlrolling-update命令来执行升级操作。指定需要替换的ReplicationController，以及为新的ReplicationController指定一个名称，并指定你想要替换的新镜像。下面的代码清单显示了滚动升级的完整命令。<br>代码清单9.4使用kubectl开始ReplicationController的滚动升级<br>$kubectlrolling-updatekubia-vlkubia-v2—image=luksa/kubia:v2<br>Createdkubia-v2<br>Scalingupkubia-v2from0to3，scalingdownkubia-v1from3to0(keep3<br>podsavailable,don’texceed4pods)<br>使用kubiav2版本应用来替换运行着kubia-v1的ReplicationController，将新的复制控制器命名为kubia-v2，并使用luksa/kubia：v2作为容器镜像。<br>当你运行该命令时，一个名为kubia-v2的新ReplicationController会立即被创建。此时系统的状态如图9.5所示。</p>
+<h2 id="使用kubectl来执行滚动式升级"><a href="#使用kubectl来执行滚动式升级" class="headerlink" title="使用kubectl来执行滚动式升级"></a>使用kubectl来执行滚动式升级</h2><p>接下来创建v2版本的应用，修改之前的应用程序，使得其请求返回“Thisisv2”:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response.end("Thisisv2runninginpod"+os.hostname()+"\n");</span><br></pre></td></tr></table></figure></p>
+<p>这个新的镜像已经推到了DockerHub的luksa/kubia：v2中，所以不需要自己从头构建这个镜像。</p>
+<p>使用同样的Tag推送更新过后的镜像</p>
+<p>虽然在开发过程中经常推送修改后的应用到同一个镜像tag，但是这种做法并不可取。如果修改了latest的tag的话是可行的，但如果使用一个不同的tag名（比如是vl而不是lastest），等计算节点拉取过镜像之后，便会将镜像存储在节点上。如果使用该镜像启动新的pod，便不会重新拉取镜像（至少这是默认的拉取镜像策略）。<br>这也意味着，如果将对更改过后的镜像推到相同的tag，会导致镜像不被重新拉取。如果一个新的pod被调度到同一个节点上，Kubelet直接使用旧的镜像版本来启动pod。另一方面，没有运行过旧版本的节，点将拉取并运行新镜像，因此最后可能有两个不同版本的pod同时运行。为了确保这种情况不会发生，需要将容器的imagePullPolicy属性设置为Always。</p>
+<p>另外默认的imagePullPolicy策略也依赖于镜像的tag.如果容器使用latest的tag（显式指定或者不指定），则imagePullPolicy默认为Always，但是如果容器指定了其他标记，则策略默认为IfNotPresent。</p>
+<p>当使用非latest的tag时，如果对镜像进行更改而不更改tag，则需要正确设置imagePullPolicy。当然最好使用一个新的tag来更新镜像。</p>
+<p>保持curl循环运行的状态下打开另一个终端，开始启动滚动升级。你将运行kubectlrolling-update命令来执行升级操作。指定需要替换的ReplicationController，以及为新的ReplicationController指定一个名称，并指定你想要替换的新镜像。下面的代码清单显示了滚动升级的完整命令。</p>
+<blockquote>
+<p>代码清单9.4 使用kubectl开始ReplicationController的滚动升级</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">kubectlrolling-updatekubia-vlkubia-v2--image=luksa/kubia:v2</span></span><br><span class="line">Createdkubia-v2</span><br><span class="line">Scalingupkubia-v2from0to3，scalingdownkubia-v1from3to0(keep3</span><br><span class="line">podsavailable,don'texceed4pods)</span><br></pre></td></tr></table></figure>
+<p>使用kubiav2版本应用来替换运行着kubia-v1的ReplicationController，将新的复制控制器命名为kubia-v2，并使用luksa/kubia：v2作为容器镜像。<br>当你运行该命令时，一个名为kubia-v2的新ReplicationController会立即被创建。此时系统的状态如图9.5所示。</p>
 <blockquote>
 <p>图9.5 开始滚动升级之后的系统状态</p>
 </blockquote>
@@ -614,21 +626,37 @@
 <blockquote>
 <p>代码清单9.5 滚动升级过程中创建的新的ReplicationController描述</p>
 </blockquote>
-<p>了解滚动升级前kubectl所执行的操作<br>kubectl通过复制kubia-v1的ReplicationController并在其pod模板中改变镜像版本。如果仔细观察控制器的标签选择器，会发现它也被做了修改。它不仅包含一个简单的app=kubia标签，而且还包含一个额外的deployment标签，为了由这个ReplicationController管理，pod必须具备这个标签。<br>你可能已经知道，需要尽可能避免使用新的和旧的ReplicationController来管理同一组pod。但是即使新创建的pod添加了除额外的deployment标签以外，还有app=kubia标签，这是否也意味着它们会被第一个ReplicationController的选择器选中？因为它的标签内也含有ap=kubia.<br>其实在滚动升级过程中，第一个ReplicationController的选择器也会被修改：$kubectldescriberckubia-v1<br>Nane:kubia-vI<br>Namespace.default<br>Namespace:derault<br>Image(s):luksa/kubia:v1<br>selector:app=kubia,deployment=3ddd307978b502a5b975ed4045ae4964-orig<br>但这是不是意味着第一个控制器现在选择不到pod呢？因为之前由它创建的三个pod只包含app=kubia标签。事实并不是这样，因为在修改ReplicationController的选择器之前，kubectl修改了当前pod的标签：<br>$kubectlgetpo—show-labels<br>prnnvcmnmro.<br>READYSTATUSRESTARTSAGELABELS<br>kubia-vl-m33mv1/1Running02mapp=kubia,deployment=3ddd…<br>kubia-vl-nmzw91/1Running(<br>2mapp=kubia,deployment=3ddd…<br>kubia-wi.catav1/1Runnina<br>2mapp=kubia,deplovment=3ddd…<br>Running<br>app=Kub1a<br>如果觉得上述内容描述得太过复杂，请看图9.6，其中显示了pod、标签、两个Replicationcontroller，以及它们的pod标签选择器。<br>kubectl在开始伸缩服务前，都会这么做。设想手动执行滚动升级，并且在升级过程中出现了问题，这可能使ReplicationController删除所有正在为生产级别的用户提供服务的pod！</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>了解滚动升级前kubectl所执行的操作</p>
+<p>kubectl通过复制kubia-v1的ReplicationController并在其pod模板中改变镜像版本。如果仔细观察控制器的标签选择器，会发现它也被做了修改。它不仅包含一个简单的app=kubia标签，而且还包含一个额外的deployment标签，为了由这个ReplicationController管理，pod必须具备这个标签。</p>
+<p>你可能已经知道，需要尽可能避免使用新的和旧的ReplicationController来管理同一组pod。但是即使新创建的pod添加了除额外的deployment标签以外，还有app=kubia标签，这是否也意味着它们会被第一个ReplicationController的选择器选中？因为它的标签内也含有ap=kubia.</p>
+<p>其实在滚动升级过程中，第一个ReplicationController的选择器也会被修改：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">kubectldescriberckubia-v1</span></span><br><span class="line">Nane:kubia-vI</span><br><span class="line">Namespace.default</span><br><span class="line">Namespace:derault</span><br><span class="line">Image(s):luksa/kubia:v1</span><br><span class="line">selector:app=kubia,deployment=3ddd307978b502a5b975ed4045ae4964-orig</span><br></pre></td></tr></table></figure></p>
+<p>但这是不是意味着第一个控制器现在选择不到pod呢？因为之前由它创建的三个pod只包含app=kubia标签。事实并不是这样，因为在修改ReplicationController的选择器之前，kubectl修改了当前pod的标签：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">kubectlgetpo--show-labels</span></span><br><span class="line">prnnvcmnmro.</span><br><span class="line">READYSTATUSRESTARTSAGELABELS</span><br><span class="line">kubia-vl-m33mv1/1Running02mapp=kubia,deployment=3ddd...</span><br><span class="line">kubia-vl-nmzw91/1Running(</span><br><span class="line">2mapp=kubia,deployment=3ddd...</span><br><span class="line">kubia-wi.catav1/1Runnina</span><br><span class="line">2mapp=kubia,deplovment=3ddd...</span><br><span class="line">Running</span><br><span class="line">app=Kub1a</span><br></pre></td></tr></table></figure></p>
+<p>如果觉得上述内容描述得太过复杂，请看图9.6，其中显示了pod、标签、两个Replicationcontroller，以及它们的pod标签选择器。</p>
+<p>kubectl在开始伸缩服务前，都会这么做。设想手动执行滚动升级，并且在升级过程中出现了问题，这可能使ReplicationController删除所有正在为生产级别的用户提供服务的pod！</p>
 <blockquote>
 <p>图9.6 滚动升级后新旧ReplicationController以及pod的详细状态</p>
 </blockquote>
 <img src="/2022/10/01/9-Deployment：声明式地升级应用/6.png">
-<p>通过伸缩两个ReplicationController将旧pod替换成新的pod<br>设置完所有这些之后，kubectl开始替换pod。首先将新的Controller扩展为1，新的Controller因此创建第-一个v2pod，然后kubectl将旧的ReplicationController缩小l。以下两行代码是kubectl输出的：<br>Scalingkubia-v2upto1<br>Scalingkubia-vldownto2<br>由于Service针对的只是所有带有app=kubia标签的pod，所以应该可以看到一每进行几次循环访问，就将curl请求的流量切换到新的v2pod：</p>
+<p>通过伸缩两个ReplicationController将旧pod替换成新的pod<br>设置完所有这些之后，kubectl开始替换pod。首先将新的Controller扩展为1，新的Controller因此创建第-一个v2pod，然后kubectl将旧的ReplicationController缩小l。以下两行代码是kubectl输出的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Scalingkubia-v2upto1</span><br><span class="line">Scalingkubia-vldownto2</span><br></pre></td></tr></table></figure></p>
+<p>由于Service针对的只是所有带有app=kubia标签的pod，所以应该可以看到一每进行几次循环访问，就将curl请求的流量切换到新的v2pod：</p>
 <blockquote>
 <p>图9.7 在升级过程中Service将请求同时切换到新旧版本的pod</p>
 </blockquote>
 <img src="/2022/10/01/9-Deployment：声明式地升级应用/8.png">
-<p>9.2使用ReplicationContoller实现自动的滚动升级<br>265<br>随着kubectl继续滚动升级，开始看到越来越多的请求被切换到v2pod。因为在升级过程中，v1pod不断被删除，并被替换为运行新镜像的pod。最终，最初的ReplicationController被伸缩到0，导致最后一个v1pod被删除，也意味着服务现在只通过v2pod提供。此时，kubectl将删除原始的ReplicationController完成升级过程，如下面的代码清单所示。</p>
+<p>随着kubectl继续滚动升级，开始看到越来越多的请求被切换到v2pod。因为在升级过程中，v1pod不断被删除，并被替换为运行新镜像的pod。最终，最初的ReplicationController被伸缩到0，导致最后一个v1pod被删除，也意味着服务现在只通过v2pod提供。此时，kubectl将删除原始的ReplicationController完成升级过程，如下面的代码清单所示。</p>
 <blockquote>
 <p>代码清单9.6 kubectl执行滚动升级的最终步骤</p>
 </blockquote>
-<p>现在只剩下kubia-v2的ReplicationController和三个v2pod。在整个升级过程中，每次发出的请求都有相应的响应，通过-次滚动升级，服务-直保持可用状态。9.2.3为什么kubectlrolling-update已经过时<br>在本节的开头，提到了-种比通过kubectlrolling-update更好的方式进行升级。那这个过程有什么不合理的地方呢？<br>首先，这个过程会直接修改创建的对象。直接更新pod和ReplicationController的标签并不符合之前创建时的预期。还有更重要的一点是，kubectl只是执行滚动升级过程中所有这些步骤的客户端。<br>当触发滚动更新时，可以使用—v选项打开详细的日志并能看到这一点：<br>$kubectlrolling-updatekubia-v1kubia-v2—image=luksa/kubia:v2—v6<br>提示使用—v6选项会提高日志级别使得所有kubectl发起的到API服务器的请求都会被输出。<br>使用这个选项，kubectl会输出所有发送至KubernetesAPI服务器的HTTP请求。你会看到一个PUT请求：<br>/api/v1/namespaces/default/replicationcontrollers/kubia-v1<br>它是表示kubia-v1ReplicationController资源的RESTfulURL。这些请求减少了ReplicationController的副本数，这表明伸缩的请求是由kubectl客户端执行的，而不是由Kubernetesmaster执行的。</p>
+<p>现在只剩下kubia-v2的ReplicationController和三个v2pod。在整个升级过程中，每次发出的请求都有相应的响应，通过-次滚动升级，服务-直保持可用状态。</p>
+<h2 id="为什么kubectlrolling-update已经过时"><a href="#为什么kubectlrolling-update已经过时" class="headerlink" title="为什么kubectlrolling-update已经过时"></a>为什么kubectlrolling-update已经过时</h2><p>在本节的开头，提到了-种比通过kubectlrolling-update更好的方式进行升级。那这个过程有什么不合理的地方呢？</p>
+<p>首先，这个过程会直接修改创建的对象。直接更新pod和ReplicationController的标签并不符合之前创建时的预期。还有更重要的一点是，kubectl只是执行滚动升级过程中所有这些步骤的客户端。</p>
+<p>当触发滚动更新时，可以使用—v选项打开详细的日志并能看到这一点：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">kubectlrolling-updatekubia-v1kubia-v2--image=luksa/kubia:v2--v6</span></span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>提示 使用—v6选项会提高日志级别使得所有kubectl发起的到API服务器的请求都会被输出。</p>
+</blockquote>
+<p>使用这个选项，kubectl会输出所有发送至KubernetesAPI服务器的HTTP请求。你会看到一个PUT请求：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/api/v1/namespaces/default/replicationcontrollers/kubia-v1</span><br></pre></td></tr></table></figure></p>
+<p>它是表示kubia-v1ReplicationController资源的RESTfulURL。这些请求减少了ReplicationController的副本数，这表明伸缩的请求是由kubectl客户端执行的，而不是由Kubernetesmaster执行的。</p>
 <blockquote>
 <p>提示 使用详细日志模式运行其他kubectl命令，将会看到kubectl和API服务器之前的更多通信细节。</p>
 </blockquote>
@@ -691,13 +719,19 @@
 <p>图9.9 为Deployment内的pod模板指定新的镜像</p>
 </blockquote>
 <img src="/2022/10/01/9-Deployment：声明式地升级应用/9.png">
-<p>修改Deployment或其他资源的不同方式<br>在本书中已经了解了几种不同的修改对象方式，现在把它们列在一起来重新回顾一下。</p>
+<p>修改Deployment或其他资源的不同方式</p>
+<p>在本书中已经了解了几种不同的修改对象方式，现在把它们列在一起来重新回顾一下。</p>
 <blockquote>
 <p>表9.1 在Kubernetes中修改资源</p>
 </blockquote>
 <p>这些方式在操作Deployment资源时效果都是一样的。它们无非就是修改Deployment的规格定义，修改后会触发滚动升级过程。<br>如果循环执行了curl命令，将看到一开始请求只是切换到vlpod；然后越来越多的请求切换到v2pod中，最后所有的vlpod都被删除，请求全部切换到v2.pod。这和kubectl的滚动更新过程非常相似。</p>
 <p>Deployment的优点</p>
-<p>回顾一下刚才的过程，通过更改Deployment资源中的pod模板，应用程序已经被升级为一个更新的版本一仅仅通过更改一个字段而已！<br>这个升级过程是由运行在Kubernetes上的一个控制器处理和完成的，而不再是运行kubectlrolling-update命令，它的升级是由kubectl客户端执行的。让Kubernetes的控制器接管使得整个升级过程变得更加简单可靠。<br>注意如果Deployment中的pod模板引用了一个ConfigMap（或Secret），那么更改ConfigMap资源本身将不会触发升级操作。如果真的需要修改应用程序的配置并想触发更新的话，可以通过创建一个新的ConfigMap并修改pod模板引用新的ConfigMap。<br>Deployment背后完成的整个升级过程和执行kubectlrolling-update命令非常相似。一个新的ReplicaSet会被创建然后慢慢扩容，同时之前版本的Replicaset会慢慢缩容至0（初始状态和最终状态如图9.10所示）。</p>
+<p>回顾一下刚才的过程，通过更改Deployment资源中的pod模板，应用程序已经被升级为一个更新的版本一仅仅通过更改一个字段而已！</p>
+<p>这个升级过程是由运行在Kubernetes上的一个控制器处理和完成的，而不再是运行kubectlrolling-update命令，它的升级是由kubectl客户端执行的。让Kubernetes的控制器接管使得整个升级过程变得更加简单可靠。</p>
+<blockquote>
+<p>注意 如果Deployment中的pod模板引用了一个ConfigMap（或Secret），那么更改ConfigMap资源本身将不会触发升级操作。如果真的需要修改应用程序的配置并想触发更新的话，可以通过创建一个新的ConfigMap并修改pod模板引用新的ConfigMap。</p>
+</blockquote>
+<p>Deployment背后完成的整个升级过程和执行kubectlrolling-update命令非常相似。一个新的ReplicaSet会被创建然后慢慢扩容，同时之前版本的Replicaset会慢慢缩容至0（初始状态和最终状态如图9.10所示）。</p>
 <blockquote>
 <p>图9.10 滚动升级开始和结束时Deployment状态</p>
 </blockquote>
@@ -707,9 +741,22 @@
 <p>因为并没有直接创建ReplicaSet，所以这里的ReplicaSet本身并不需要用户去关心和维护。所有操作都是在Deployment资源上完成的，底层的ReplicaSet只是实现的细节。和处理与维护多个ReplicationController相比，管理单个Deployment对象要容易得多。</p>
 <p>尽管这种差异在滚动升级中可能不太明显，但是如果在滚动升级过程中出错或遇到问题，就可以明显看出两种方案的差异。下面来模拟一个错误。</p>
 <h2 id="回滚Deployment"><a href="#回滚Deployment" class="headerlink" title="回滚Deployment"></a>回滚Deployment</h2><p>现阶段，应用使用v2版本的镜像运行，接下来会先准备v3版本的镜像。创建√本的应用程序</p>
-<p>在v3版本中，将引入一个bug，使你的应用程序只能正确地处理前四个请求。第五个请求之后的所有请求将返回一个内部服务器错误（HTTP状态代码500）。你将通过在处理程序函数的开头添加if语句来模拟这个bug。下面的代码清单显示了修改后的代码，所有需要更改的地方都用粗体显示。<br>代码清单9.8v3版本的应用（运行出错版本）：</p>
-<p>回滚升级<br>不能让你的用户感知到升级导致的内部服务器错误，因此需要快速处理。在9.3.6节中，你将看到如何自动停止出错版本的滚动升级，但是现在先看一下如何手动停止。比较好的是，Deployment可以非常容易地回滚到先前部署的版本，它可以让Kubernetes取消最后一次部署的Deployment：<br>$kubectlrolloutundodeploymentkubia<br>deployment”kubia”rolledback<br>Deployment会被回滚到上一个版本。<br>提示undo命令也可以在滚动升级过程中运行，并直接停止滚动升级。在升级过程中已创建的pod会被删除并被老版本的pod替代。<br>显示Deployment的滚动升级历史<br>回滚升级之所以可以这么快地完成，是因为Deployment始终保持着升级的版本历史记录。之后也会看到，历史版本号会被保存在ReplicaSet中。滚动升级成功后，<br>9.3使用Deployment声明式地升级应用<br>275<br>老版本的ReplicaSet也不会被删掉，这也使得回滚操作可以回滚到任何一个历史版本，而不仅仅是上一个版本。可以使用kubectlrollouthistory来显示升级的版本：</p>
-<p>还记得创建Deployment时的—record参数吗？如果不给定这个参数，版本历史中的CHANGE-CAUSE这一栏会为空。这也会使用户很难辨别每次的版本做了哪些修改。<br>回滚到一个特定的Deployment版本<br>通过在undo命令中指定一个特定的版本号，便可以回滚到那个特定的版本。例如，如果想回滚到第一个版本，可以执行下述命令：<br>$kubectlrolloutundodeploymentkubia—to-revision=1<br>还记得第一次修改Deployment时留下的ReplicaSet吗？这个ReplicaSet便表示Deployment的第一次修改版本。由Deployment创建的所有ReplicaSet表示完整的修改版本历史，如图9.11所示。每个ReplicaSet都用特定的版本号来保存Deployment的完整信息，所以不应该手动删除ReplicaSet。如果这么做便会丢失Deployment的历史版本记录而导致无法回滚。</p>
+<p>在v3版本中，将引入一个bug，使你的应用程序只能正确地处理前四个请求。第五个请求之后的所有请求将返回一个内部服务器错误（HTTP状态代码500）。你将通过在处理程序函数的开头添加if语句来模拟这个bug。下面的代码清单显示了修改后的代码，所有需要更改的地方都用粗体显示。</p>
+<blockquote>
+<p>代码清单9.8 v3版本的应用（运行出错版本）：</p>
+</blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>回滚升级</p>
+<p>不能让你的用户感知到升级导致的内部服务器错误，因此需要快速处理。在9.3.6节中，你将看到如何自动停止出错版本的滚动升级，但是现在先看一下如何手动停止。比较好的是，Deployment可以非常容易地回滚到先前部署的版本，它可以让Kubernetes取消最后一次部署的Deployment：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">kubectlrolloutundodeploymentkubia</span></span><br><span class="line">deployment"kubia"rolledback</span><br></pre></td></tr></table></figure></p>
+<p>Deployment会被回滚到上一个版本。</p>
+<blockquote>
+<p>提示 undo命令也可以在滚动升级过程中运行，并直接停止滚动升级。在升级过程中已创建的pod会被删除并被老版本的pod替代。</p>
+</blockquote>
+<p>显示Deployment的滚动升级历史</p>
+<p>回滚升级之所以可以这么快地完成，是因为Deployment始终保持着升级的版本历史记录。之后也会看到，历史版本号会被保存在ReplicaSet中。滚动升级成功后，老版本的ReplicaSet也不会被删掉，这也使得回滚操作可以回滚到任何一个历史版本，而不仅仅是上一个版本。可以使用kubectlrollouthistory来显示升级的版本：</p>
+<p>还记得创建Deployment时的—record参数吗？如果不给定这个参数，版本历史中的CHANGE-CAUSE这一栏会为空。这也会使用户很难辨别每次的版本做了哪些修改。<br>回滚到一个特定的Deployment版本</p>
+<p>通过在undo命令中指定一个特定的版本号，便可以回滚到那个特定的版本。例如，如果想回滚到第一个版本，可以执行下述命令：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">kubectlrolloutundodeploymentkubia--to-revision=1</span></span><br></pre></td></tr></table></figure></p>
+<p>还记得第一次修改Deployment时留下的ReplicaSet吗？这个ReplicaSet便表示Deployment的第一次修改版本。由Deployment创建的所有ReplicaSet表示完整的修改版本历史，如图9.11所示。每个ReplicaSet都用特定的版本号来保存Deployment的完整信息，所以不应该手动删除ReplicaSet。如果这么做便会丢失Deployment的历史版本记录而导致无法回滚。</p>
 <blockquote>
 <p>图9.11 Deployment的ReplicaSet也保存版本历史</p>
 </blockquote>
@@ -724,6 +771,7 @@
 <blockquote>
 <p>代码清单9.10 为rollingUpdate策略指定参数</p>
 </blockquote>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>由于在之前场景中，设置的期望副本数为3，上述的两个属性都设置为25%，maxSurge允许最多pod数量达到4，同时maxUnavailable不允许出现任何不可用的pod（也就是说三个pod必须一直处于可运行状态），如图9.12所示。</p>
 <blockquote>
 <p>图9.12 Deployment滚动升级时的三个副本数和默认maxSurge、maxUnavailable配置</p>
@@ -732,7 +780,8 @@
 <p>了解maxUnavailable属性</p>
 <p>extensions/vlbetal版本的Deployment使用不一样的默认值，maxSurge和maxUnavailable会被设置为1，而不是25%。对于三个副本的情况，max-Surge还是和之前一样，但是maxUnavailable是不一样的（是1而不是0），这使得滚动升级的过程稍有不同，如图9.13所示。</p>
 <p>在这种情况下，一个副本处于不可用状态，如果期望副本数为3，则只需要两个副本处于可用状态。这就是为什么上述滚动升级过程中会立即删除一个pod并创建两个新的pod。这确保了两个pod是可用的并且不超过pod允许的最大数量（在这种情况下，最大数量是4，三个加上maxSurges的一个。一旦两个新的pod可用状态，剩下的两个旧的pod就会被删除了。</p>
-<p>这里相对有点难以理解，主要是maxUnavailable这个属性，它表示最大不可用pod数量。但是如果仔细查看前一个图的第二列，即使maxUnavailable被设置为1，可以看到两个pod处于不可用的状态。<br>重要的是要知道maxUnavailable是相对于期望副本数而言的。如果replica的数量设置为3，maxUnavailable设置为1则更新过程中必须保持至少两个（3-1）pod始终处于可用状态，而不可用pod数量可以超过一个。</p>
+<p>这里相对有点难以理解，主要是maxUnavailable这个属性，它表示最大不可用pod数量。但是如果仔细查看前一个图的第二列，即使maxUnavailable被设置为1，可以看到两个pod处于不可用的状态。</p>
+<p>重要的是要知道maxUnavailable是相对于期望副本数而言的。如果replica的数量设置为3，maxUnavailable设置为1则更新过程中必须保持至少两个（3-1）pod始终处于可用状态，而不可用pod数量可以超过一个。</p>
 <h2 id="暂停滚动升级"><a href="#暂停滚动升级" class="headerlink" title="暂停滚动升级"></a>暂停滚动升级</h2><p>在经历了v3版本应用的糟糕体验之后，假设你现在已经修复了这个错误，并推送了第四个版本的镜像。但是你还是有点担心像之前那样将其滚动升级到所有的pod上。你需要的是在现有的v2pod之外运行一个v4pod，并查看一小部分用户请求的处理情况。如果一旦确定符合预期，就可以用新的pod替换所有旧的pod。</p>
 <p>可以通过直接运行一个额外的pod或通过一个额外的Deployment、ReplicationController或ReplicaSet来实现上述的需求。但是通过Deployment自身的一个选项，便可以让部署过程暂停，方便用户在继续完成滚动升级之前来验证新的版本的行为是否都符合预期。</p>
 <p>暂停滚动升级</p>
@@ -891,7 +940,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1113</span>
+                    <span class="site-state-item-count">1115</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1245,7 +1294,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">79</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1276,23 +1329,23 @@
                 
                 
                   <li>
-                    <a href="/2023/08/17/玉米加速下跌，看涨情绪急速回落，玉米要危险了？/" title="玉米加速下跌，看涨情绪急速回落，玉米要危险了？" target="_blank">玉米加速下跌，看涨情绪急速回落，玉米要危险了？</a>
+                    <a href="/2023/08/21/第7章-Kubernetes配置管理/" title="第7章 Kubernetes配置管理" target="_blank">第7章 Kubernetes配置管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/16/谈谈Kong-Ingress-Controller/" title="谈谈Kong Ingress Controller" target="_blank">谈谈Kong Ingress Controller</a>
+                    <a href="/2023/08/21/第5章-Kubernetes调度基础/" title="第5章 Kubernetes调度基础" target="_blank">第5章 Kubernetes调度基础</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/15/docker-compose：单机环境下的容器编排工具/" title="docker-compose：单机环境下的容器编排工具" target="_blank">docker-compose：单机环境下的容器编排工具</a>
+                    <a href="/2023/08/21/第4章-Kubernetes的基础概念/" title="第4章 Kubernetes的基础概念" target="_blank">第4章 Kubernetes的基础概念</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/02/特别放送｜回头看：如何更好地组织代码？/" title="特别放送｜回头看：如何更好地组织代码？" target="_blank">特别放送｜回头看：如何更好地组织代码？</a>
+                    <a href="/2023/08/20/第1章-Kubernetes入门/" title="第1章 Kubernetes入门" target="_blank">第1章 Kubernetes入门</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/02/特别放送｜Go泛型：用法、原理与最佳实践/" title="特别放送｜Go泛型：用法、原理与最佳实践" target="_blank">特别放送｜Go泛型：用法、原理与最佳实践</a>
+                    <a href="/2023/08/20/第3章-Docker基础/" title="第3章 Docker基础" target="_blank">第3章 Docker基础</a>
                   </li>
                 
               </ul>
@@ -1318,7 +1371,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#更新运行在pod内的应用程序"><span class="nav-number">1.</span> <span class="nav-text">更新运行在pod内的应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#删除旧版本pod，使用新版本pod替换"><span class="nav-number">1.1.</span> <span class="nav-text">删除旧版本pod，使用新版本pod替换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#先创建新pod再删除旧版本pod"><span class="nav-number">1.2.</span> <span class="nav-text">先创建新pod再删除旧版本pod</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用ReplicationController实现自动的滚动升级"><span class="nav-number">2.</span> <span class="nav-text">使用ReplicationController实现自动的滚动升级</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#运行第一个版本的应用"><span class="nav-number">2.1.</span> <span class="nav-text">运行第一个版本的应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用kubectl来执行滚动式升级"><span class="nav-number">2.2.</span> <span class="nav-text">使用kubectl来执行滚动式升级</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Deployment声明式地升级应用"><span class="nav-number">3.</span> <span class="nav-text">使用Deployment声明式地升级应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建一个Deployment"><span class="nav-number">3.1.</span> <span class="nav-text">创建一个Deployment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#升级Deployment"><span class="nav-number">3.2.</span> <span class="nav-text">升级Deployment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回滚Deployment"><span class="nav-number">3.3.</span> <span class="nav-text">回滚Deployment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#控制滚动升级速率"><span class="nav-number">3.4.</span> <span class="nav-text">控制滚动升级速率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#暂停滚动升级"><span class="nav-number">3.5.</span> <span class="nav-text">暂停滚动升级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阻止出错版本的滚动升级"><span class="nav-number">3.6.</span> <span class="nav-text">阻止出错版本的滚动升级</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本章小结"><span class="nav-number">4.</span> <span class="nav-text">本章小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#更新运行在pod内的应用程序"><span class="nav-number">1.</span> <span class="nav-text">更新运行在pod内的应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#删除旧版本pod，使用新版本pod替换"><span class="nav-number">1.1.</span> <span class="nav-text">删除旧版本pod，使用新版本pod替换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#先创建新pod再删除旧版本pod"><span class="nav-number">1.2.</span> <span class="nav-text">先创建新pod再删除旧版本pod</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用ReplicationController实现自动的滚动升级"><span class="nav-number">2.</span> <span class="nav-text">使用ReplicationController实现自动的滚动升级</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#运行第一个版本的应用"><span class="nav-number">2.1.</span> <span class="nav-text">运行第一个版本的应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用kubectl来执行滚动式升级"><span class="nav-number">2.2.</span> <span class="nav-text">使用kubectl来执行滚动式升级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么kubectlrolling-update已经过时"><span class="nav-number">2.3.</span> <span class="nav-text">为什么kubectlrolling-update已经过时</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Deployment声明式地升级应用"><span class="nav-number">3.</span> <span class="nav-text">使用Deployment声明式地升级应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建一个Deployment"><span class="nav-number">3.1.</span> <span class="nav-text">创建一个Deployment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#升级Deployment"><span class="nav-number">3.2.</span> <span class="nav-text">升级Deployment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回滚Deployment"><span class="nav-number">3.3.</span> <span class="nav-text">回滚Deployment</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#控制滚动升级速率"><span class="nav-number">3.4.</span> <span class="nav-text">控制滚动升级速率</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#暂停滚动升级"><span class="nav-number">3.5.</span> <span class="nav-text">暂停滚动升级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#阻止出错版本的滚动升级"><span class="nav-number">3.6.</span> <span class="nav-text">阻止出错版本的滚动升级</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本章小结"><span class="nav-number">4.</span> <span class="nav-text">本章小结</span></a></li></ol></div>
             
 
           </div>
@@ -1364,7 +1417,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">130:49</span>
+    <span title="站点阅读时长">130:59</span>
   
 </div>
 

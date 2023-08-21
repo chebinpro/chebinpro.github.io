@@ -111,7 +111,7 @@
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2023-08-16T07:27:40.691Z">
+<meta property="og:updated_time" content="2023-08-17T02:26:07.201Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="33丨视频：高级篇实操总结">
 <meta name="twitter:description" content="思考并回答以下问题：">
@@ -443,7 +443,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2023-08-16 15:27:40" itemprop="dateModified" datetime="2023-08-16T15:27:40+08:00">2023-08-16</time>
+                <time title="修改时间：2023-08-17 10:26:07" itemprop="dateModified" datetime="2023-08-17T10:26:07+08:00">2023-08-17</time>
               
             
           </span>
@@ -529,7 +529,7 @@
 <p>掌握了这些知识，现在的你再回想一下三个月前学习第一节课的时候，有没有发现其实Kubernetes也没有当初自己想象得那么高深莫测呢？</p>
 <p>今天也是我们课程的最后一节正课，还是会用视频的形式，把“高级篇”里的一些重要的部分都实际演示出来，结合前面的文字和图片，你可以再次加深对Kubernetes的印象。</p>
 <p>接下来就一起开始我们的学习吧。</p>
-<h1 id="PV和PVC"><a href="#PV和PVC" class="headerlink" title="PV和PVC"></a>PV和PVC</h1><iframe height="288" width="510" src="https://media001.geekbang.org/customerTrans/7e27d07d27d407ebcc195a0e78395f55/683ab0a-182d8d6ed12-0000-0000-01d-dbacd.mp4" allowfullscreen="true" frameborder="no" framespacing="0" border="0" scrolling="no"></iframe>
+<h1 id="PV和PVC"><a href="#PV和PVC" class="headerlink" title="PV和PVC"></a><span style="color:#339AFF;">PV和PVC</span></h1><iframe height="288" width="510" src="https://media001.geekbang.org/customerTrans/7e27d07d27d407ebcc195a0e78395f55/683ab0a-182d8d6ed12-0000-0000-01d-dbacd.mp4" allowfullscreen="true" frameborder="no" framespacing="0" border="0" scrolling="no"></iframe>
 
 <p>我们先来创建一个本地存储卷，也就是PV。</p>
 <p>在Master和Worker节点的“/tmp”目录里，先建立一个“host-10m-pv”的目录，表示一个只有10MB容量的存储设备：</p>
@@ -564,7 +564,7 @@
 <p>然后我们登录worker节点，看一下PV对应的目录“/tmp/host-10m-pv”：</p>
 <p>cd/tmp/host-10m-pvlscata.txt</p>
 <p>输出的内容刚好就是我们在容器里生成的数据，这就说明Pod的数据确实已经持久化到了PV定义的存储设备上。</p>
-<h1 id="NFS网络存储卷"><a href="#NFS网络存储卷" class="headerlink" title="NFS网络存储卷"></a>NFS网络存储卷</h1><iframe height="288" width="510" src="https://media001.geekbang.org/customerTrans/7e27d07d27d407ebcc195a0e78395f55/23d6c8e4-182d8d6e994-0000-0000-01d-dbacd.mp4" allowfullscreen="true" frameborder="no" framespacing="0" border="0" scrolling="no"></iframe>
+<h1 id="NFS网络存储卷"><a href="#NFS网络存储卷" class="headerlink" title="NFS网络存储卷"></a><span style="color:#339AFF;">NFS网络存储卷</span></h1><iframe height="288" width="510" src="https://media001.geekbang.org/customerTrans/7e27d07d27d407ebcc195a0e78395f55/23d6c8e4-182d8d6e994-0000-0000-01d-dbacd.mp4" allowfullscreen="true" frameborder="no" framespacing="0" border="0" scrolling="no"></iframe>
 
 <p>下面我们来看看在Kubernetes里使用NFS网络存储卷的用法。</p>
 <p>NFS服务器和客户端、还有NFSProvisioner的安装过程我就略过了，你可以对照着第25讲一步步来。</p>
@@ -584,7 +584,7 @@
 <p>echoaaa&gt;a.txt</p>
 <p>然后我们再用kubectlexec进入Pod，看看它里面的“/tmp”目录：</p>
 <p>会发现NFS磁盘上的文件也出现在了容器里，也就是说共享了网络存储卷。</p>
-<h1 id="创建使用NFS的对象"><a href="#创建使用NFS的对象" class="headerlink" title="创建使用NFS的对象"></a>创建使用NFS的对象</h1><iframe height="288" width="510" src="https://media001.geekbang.org/customerTrans/7e27d07d27d407ebcc195a0e78395f55/6f173f6-182d8d6e5e6-0000-0000-01d-dbacd.mp4" type="\" video\ mp4\"" allowfullscreen="true" frameborder="no" framespacing="0" border="0" scrolling="no"></iframe>
+<h1 id="创建使用NFS的对象"><a href="#创建使用NFS的对象" class="headerlink" title="创建使用NFS的对象"></a><span style="color:#339AFF;">创建使用NFS的对象</span></h1><iframe height="288" width="510" src="https://media001.geekbang.org/customerTrans/7e27d07d27d407ebcc195a0e78395f55/6f173f6-182d8d6e5e6-0000-0000-01d-dbacd.mp4" type="\" video\ mp4\"" allowfullscreen="true" frameborder="no" framespacing="0" border="0" scrolling="no"></iframe>
 
 <p>掌握了PV、PVC、NFS的用法之后，我们就可以来实验StatefulSet的用法了，创建一个使用NFS存储的对象。</p>
 <p>看一下StatefulSet对象的YAML描述文件：</p>
@@ -613,7 +613,7 @@
 <p>然后删除这个Pod：</p>
 <p>StatefulSet会监控Pod的运行情况，发现数量不对会重新拉起这个Pod。我们再用Redis客户端登录去检查一下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectlexec-itredis-pv-sts-0--redis-cligetagetbkeys*</span><br></pre></td></tr></table></figure></p>
 <p>就可以看到，Pod挂载了原来的存储卷，自动恢复了之前添加的Key-Value数据。</p>
-<h1 id="滚动更新"><a href="#滚动更新" class="headerlink" title="滚动更新"></a>滚动更新</h1><iframe height="288" width="510" src="https://media001.geekbang.org/customerTrans/7e27d07d27d407ebcc195a0e78395f55/49dbd75c-182d8d6e1a0-0000-0000-01d-dbacd.mp4" allowfullscreen="true" frameborder="no" framespacing="0" border="0" scrolling="no"></iframe>
+<h1 id="滚动更新"><a href="#滚动更新" class="headerlink" title="滚动更新"></a><span style="color:#339AFF;">滚动更新</span></h1><iframe height="288" width="510" src="https://media001.geekbang.org/customerTrans/7e27d07d27d407ebcc195a0e78395f55/49dbd75c-182d8d6e1a0-0000-0000-01d-dbacd.mp4" allowfullscreen="true" frameborder="no" framespacing="0" border="0" scrolling="no"></iframe>
 
 <p>现在我们来学习一下Kubernetes里滚动更新的用法。</p>
 <p>这里有一个V1版本的Nginx应用：</p>
@@ -638,7 +638,7 @@
 <p>再来看更新历史kubectlrollouthistory，会发现又变成了最初的版本，用curl发请求试一下：</p>
 <p>curl192.168.10.210:30080</p>
 <p>Nginx又恢复成了第一版的1.21.6，我们的版本回退也就成功了。</p>
-<h1 id="水平伸缩"><a href="#水平伸缩" class="headerlink" title="水平伸缩"></a>水平伸缩</h1><iframe height="288" width="510" src="https://media001.geekbang.org/customerTrans/7e27d07d27d407ebcc195a0e78395f55/15e6f6b9-182d8d6de0e-0000-0000-01d-dbacd.mp4" allowfullscreen="true" frameborder="no" framespacing="0" border="0" scrolling="no"></iframe>
+<h1 id="水平伸缩"><a href="#水平伸缩" class="headerlink" title="水平伸缩"></a><span style="color:#339AFF;">水平伸缩</span></h1><iframe height="288" width="510" src="https://media001.geekbang.org/customerTrans/7e27d07d27d407ebcc195a0e78395f55/15e6f6b9-182d8d6de0e-0000-0000-01d-dbacd.mp4" allowfullscreen="true" frameborder="no" framespacing="0" border="0" scrolling="no"></iframe>
 
 <p>接下来看Kubernetes的水平自动伸缩功能，也就是对象“HorizontalPodAutoscaler”。</p>
 <p>水平自动伸缩功能要求必须有MetricsServer插件，它的安装过程我就不演示了，来直接看看它的运行状态，使用kubectlgetpod：</p>
@@ -655,7 +655,7 @@
 <p>kubectlruntest-it—image=httpd:alpine—sh</p>
 <p>向Nginx发送一百万个请求，持续30秒，再用kubectlgethpa来观察HorizontalPodAutoscaler的运行状况：</p>
 <p>你可以看到HPA会通过MetricsServer不断地监测Pod的CPU使用率，超过设定值就开始扩容，一直到数量上限。</p>
-<h1 id="Prometheus"><a href="#Prometheus" class="headerlink" title="Prometheus"></a>Prometheus</h1><iframe height="288" width="510" src="https://media001.geekbang.org/customerTrans/7e27d07d27d407ebcc195a0e78395f55/5d1801d-182d8d815cc-0000-0000-01d-dbacd.mp4" allowfullscreen="true" frameborder="no" framespacing="0" border="0" scrolling="no"></iframe>
+<h1 id="Prometheus"><a href="#Prometheus" class="headerlink" title="Prometheus"></a><span style="color:#339AFF;">Prometheus</span></h1><iframe height="288" width="510" src="https://media001.geekbang.org/customerTrans/7e27d07d27d407ebcc195a0e78395f55/5d1801d-182d8d815cc-0000-0000-01d-dbacd.mp4" allowfullscreen="true" frameborder="no" framespacing="0" border="0" scrolling="no"></iframe>
 
 <p>我们来看看CNCF的二号项目Prometheus。</p>
 <p>首先从GitHub上下载它的源码包，最新的版本是0.11，然后解压缩得到部署所需的YAML文件。</p>
@@ -671,7 +671,7 @@
 <p>可以在这个查询框里任意选择指标，或者使用PromQL编辑表达式，生成可视化图表，比如“node_memory_Active_bytes”这个指标，就当前正在使用的内存容量。</p>
 <p>再来看Grafana，访问节点的端口“30030”，就会出来Grafana的登录界面，默认的用户名和密码都是“admin”。</p>
 <p>Grafana内部预置了很多仪表盘，我们可以在菜单栏的“Dashboards-Browse”里随意挑选，比如选择“Kubernetes/ComputeResources/Namespace(Pods)”这个仪表盘。</p>
-<h1 id="Dashboard"><a href="#Dashboard" class="headerlink" title="Dashboard"></a>Dashboard</h1><iframe height="288" width="510" src="https://media001.geekbang.org/customerTrans/7e27d07d27d407ebcc195a0e78395f55/46098897-182d8d80fc2-0000-0000-01d-dbacd.mp4" allowfullscreen="true" frameborder="no" framespacing="0" border="0" scrolling="no"></iframe>
+<h1 id="Dashboard"><a href="#Dashboard" class="headerlink" title="Dashboard"></a><span style="color:#339AFF;">Dashboard</span></h1><iframe height="288" width="510" src="https://media001.geekbang.org/customerTrans/7e27d07d27d407ebcc195a0e78395f55/46098897-182d8d80fc2-0000-0000-01d-dbacd.mp4" allowfullscreen="true" frameborder="no" framespacing="0" border="0" scrolling="no"></iframe>
 
 <p>现在我们来在Kubernetes集群里部署仪表盘插件Dashboard。</p>
 <p>这里使用的是2.6.0版，只有一个YAML文件，来大概看一下：</p>
@@ -740,8 +740,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/09/13/开篇词-打通“容器技术”的任督二脉/" rel="prev" title="开篇词 | 打通“容器技术”的任督二脉">
-                开篇词 | 打通“容器技术”的任督二脉 <i class="fa fa-chevron-right"></i>
+              <a href="/2022/09/13/05-白话容器基础（一）：从进程说开去/" rel="prev" title="05 | 白话容器基础（一）：从进程说开去">
+                05 | 白话容器基础（一）：从进程说开去 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -813,7 +813,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1113</span>
+                    <span class="site-state-item-count">1115</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1167,7 +1167,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">79</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1198,23 +1202,23 @@
                 
                 
                   <li>
-                    <a href="/2023/08/17/玉米加速下跌，看涨情绪急速回落，玉米要危险了？/" title="玉米加速下跌，看涨情绪急速回落，玉米要危险了？" target="_blank">玉米加速下跌，看涨情绪急速回落，玉米要危险了？</a>
+                    <a href="/2023/08/21/第7章-Kubernetes配置管理/" title="第7章 Kubernetes配置管理" target="_blank">第7章 Kubernetes配置管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/16/谈谈Kong-Ingress-Controller/" title="谈谈Kong Ingress Controller" target="_blank">谈谈Kong Ingress Controller</a>
+                    <a href="/2023/08/21/第5章-Kubernetes调度基础/" title="第5章 Kubernetes调度基础" target="_blank">第5章 Kubernetes调度基础</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/15/docker-compose：单机环境下的容器编排工具/" title="docker-compose：单机环境下的容器编排工具" target="_blank">docker-compose：单机环境下的容器编排工具</a>
+                    <a href="/2023/08/21/第4章-Kubernetes的基础概念/" title="第4章 Kubernetes的基础概念" target="_blank">第4章 Kubernetes的基础概念</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/02/特别放送｜回头看：如何更好地组织代码？/" title="特别放送｜回头看：如何更好地组织代码？" target="_blank">特别放送｜回头看：如何更好地组织代码？</a>
+                    <a href="/2023/08/20/第1章-Kubernetes入门/" title="第1章 Kubernetes入门" target="_blank">第1章 Kubernetes入门</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/02/特别放送｜Go泛型：用法、原理与最佳实践/" title="特别放送｜Go泛型：用法、原理与最佳实践" target="_blank">特别放送｜Go泛型：用法、原理与最佳实践</a>
+                    <a href="/2023/08/20/第3章-Docker基础/" title="第3章 Docker基础" target="_blank">第3章 Docker基础</a>
                   </li>
                 
               </ul>
@@ -1286,7 +1290,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">130:49</span>
+    <span title="站点阅读时长">130:59</span>
   
 </div>
 
