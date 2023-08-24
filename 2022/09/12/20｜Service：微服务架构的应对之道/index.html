@@ -125,7 +125,7 @@
 <meta property="og:image" content="http://yoursite.com/2022/09/12/20｜Service：微服务架构的应对之道/12.webp">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/20｜Service：微服务架构的应对之道/13.webp">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/20｜Service：微服务架构的应对之道/14.webp">
-<meta property="og:updated_time" content="2023-08-16T01:24:40.932Z">
+<meta property="og:updated_time" content="2023-08-21T14:12:06.845Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="20丨Service：微服务架构的应对之道">
 <meta name="twitter:description" content="思考并回答以下问题：  Kubernetes会给Service分配一个静态IP地址，然后它再去自动管理、维护后面动态变化的Pod集合，当客户端访问Service，它就根据某种策略，把流量转发给后面的某个Pod。怎么理解？">
@@ -458,7 +458,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2023-08-16 09:24:40" itemprop="dateModified" datetime="2023-08-16T09:24:40+08:00">2023-08-16</time>
+                <time title="修改时间：2023-08-21 22:12:06" itemprop="dateModified" datetime="2023-08-21T22:12:06+08:00">2023-08-21</time>
               
             
           </span>
@@ -575,20 +575,20 @@
 <img src="/2022/09/12/20｜Service：微服务架构的应对之道/2.webp">
 <h1 id="如何在Kubernetes里使用Service"><a href="#如何在Kubernetes里使用Service" class="headerlink" title="如何在Kubernetes里使用Service"></a><span style="color:#339AFF;">如何在Kubernetes里使用Service</span></h1><p>在使用YAML创建Service对象之前，让我们先对第18讲里的Deployment做一点改造，方便观察Service的效果。</p>
 <p>首先，我们创建一个ConfigMap，定义一个Nginx的配置片段，它会输出服务器的地址、主机名、请求的URI等基本信息：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">kind: ConfigMap</span><br><span class="line">metadata:</span><br><span class="line">  name: ngx-conf</span><br><span class="line"></span><br><span class="line">data:</span><br><span class="line">  default.conf: |</span><br><span class="line">    server &#123;</span><br><span class="line">      listen 80;</span><br><span class="line">      location / &#123;</span><br><span class="line">        default_type text/plain;</span><br><span class="line">        <span class="built_in">return</span> 200</span><br><span class="line">          <span class="string">'srv : $server_addr:$server_port\nhost: $hostname\nuri : $request_method $host $request_uri\ndate: $time_iso8601\n'</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure></p>
-<p>然后我们在Deployment的“template.volumes”里定义存储卷，再用“volumeMounts”把配置文件加载进Nginx容器里：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: ngx-dep</span><br><span class="line"></span><br><span class="line">spec:</span><br><span class="line">  replicas: 2</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: ngx-dep</span><br><span class="line"></span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: ngx-dep</span><br><span class="line">    spec:</span><br><span class="line">      volumes:</span><br><span class="line">      - name: ngx-conf-vol</span><br><span class="line">        configMap:</span><br><span class="line">          name: ngx-conf</span><br><span class="line"></span><br><span class="line">      containers:</span><br><span class="line">      - image: nginx:alpine</span><br><span class="line">        name: nginx</span><br><span class="line">        ports:</span><br><span class="line">        - containerPort: 80</span><br><span class="line"></span><br><span class="line">        volumeMounts:</span><br><span class="line">        - mountPath: /etc/nginx/conf.d</span><br><span class="line">          name: ngx-conf-vol</span><br></pre></td></tr></table></figure></p>
+<p>然后我们在Deployment的“<code>template.volumes</code>”里定义存储卷，再用“volumeMounts”把配置文件加载进Nginx容器里：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">apiVersion: apps/v1</span><br><span class="line">kind: Deployment</span><br><span class="line">metadata:</span><br><span class="line">  name: ngx-dep</span><br><span class="line"></span><br><span class="line">spec:</span><br><span class="line">  replicas: 2</span><br><span class="line">  selector:</span><br><span class="line">    matchLabels:</span><br><span class="line">      app: ngx-dep</span><br><span class="line"></span><br><span class="line">  template:</span><br><span class="line">    metadata:</span><br><span class="line">      labels:</span><br><span class="line">        app: ngx-dep</span><br><span class="line">    spec:</span><br><span class="line">      volumes:</span><br><span class="line">      - name: ngx-conf-vol</span><br><span class="line">        configMap:</span><br><span class="line">          name: ngx-conf</span><br><span class="line"></span><br><span class="line">      containers:</span><br><span class="line">      - image: nginx:alpine</span><br><span class="line">        name: nginx</span><br><span class="line">        ports:</span><br><span class="line">        - containerPort: 80</span><br><span class="line"></span><br><span class="line">        volumeMounts:</span><br><span class="line">        - mountPath: /etc/nginx/conf.d</span><br><span class="line">          name: ngx-conf-vol</span><br></pre></td></tr></table></figure></p>
 <p>这两处修改用到了第14讲里的知识，如果你还没有熟练掌握，可以回去复习一下。</p>
-<p>部署这个Deployment之后，我们就可以创建Service对象了，用的还是kubectlapply：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f svc.yml</span><br></pre></td></tr></table></figure></p>
-<p>创建之后，用命令kubectlget就可以看到它的状态：</p>
+<p>部署这个Deployment之后，我们就可以创建Service对象了，用的还是<code>kubectl apply</code>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f svc.yml</span><br></pre></td></tr></table></figure></p>
+<p>创建之后，用命令<code>kubectl get</code>就可以看到它的状态：</p>
 <img src="/2022/09/12/20｜Service：微服务架构的应对之道/3.webp">
 <p>你可以看到，Kubernetes为Service对象自动分配了一个IP地址“10.96.240.115”，这个地址段是独立于Pod地址段的（比如第17讲里的10.10.xx.xx）。而且Service对象的IP地址还有一个特点，它是一个“虚地址”，不存在实体，只能用来转发流量。</p>
-<p>想要看Service代理了哪些后端的Pod，你可以用kubectldescribe命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe svc ngx-svc</span><br></pre></td></tr></table></figure></p>
+<p>想要看Service代理了哪些后端的Pod，你可以用<code>kubectl describe</code>命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe svc ngx-svc</span><br></pre></td></tr></table></figure></p>
 <img src="/2022/09/12/20｜Service：微服务架构的应对之道/4.webp">
 <p>截图里显示Service对象管理了两个endpoint，分别是“10.10.0.232:80”和“10.10.1.86:80”，初步判断与Service、Deployment的定义相符，那么这两个IP地址是不是NginxPod的实际地址呢？</p>
-<p>我们还是用kubectlgetpod来看一下，加上参数-owide：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pod -o wide</span><br></pre></td></tr></table></figure></p>
+<p>我们还是用<code>kubectl get pod</code>来看一下，加上参数<code>-o wide</code>：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pod -o wide</span><br></pre></td></tr></table></figure></p>
 <img src="/2022/09/12/20｜Service：微服务架构的应对之道/5.webp">
 <p>把Pod的地址与Service的信息做个对比，我们就能够验证Service确实用一个静态IP地址代理了两个Pod的动态IP地址。</p>
 <p>那怎么测试Service的负载均衡效果呢？</p>
-<p>因为Service、Pod的IP地址都是Kubernetes集群的内部网段，所以我们需要用kubectlexec进入到Pod内部（或者ssh登录集群节点），再用curl等工具来访问Service：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl <span class="built_in">exec</span> -it ngx-dep-6796688696-r2j6t -- sh</span><br></pre></td></tr></table></figure></p>
+<p>因为Service、Pod的IP地址都是Kubernetes集群的内部网段，所以我们需要用<code>kubectl exec</code>进入到Pod内部（或者ssh登录集群节点），再用curl等工具来访问Service：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl <span class="built_in">exec</span> -it ngx-dep-6796688696-r2j6t -- sh</span><br></pre></td></tr></table></figure></p>
 <img src="/2022/09/12/20｜Service：微服务架构的应对之道/6.webp">
 <p>在Pod里，用curl访问Service的IP地址，就会看到它把数据转发给后端的Pod，输出信息会显示具体是哪个Pod响应了请求，就表明Service确实完成了对Pod的负载均衡任务。</p>
 <p>我们再试着删除一个Pod，看看Service是否会更新后端Pod的信息，实现自动化的服务发现：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl delete pod ngx-dep-6796688696-r2j6t</span><br></pre></td></tr></table></figure></p>
@@ -601,21 +601,21 @@
 <p>我们先来看看DNS域名。</p>
 <p>Service对象的IP地址是静态的，保持稳定，这在微服务里确实很重要，不过数字形式的IP地址用起来还是不太方便。这个时候Kubernetes的DNS插件就派上了用处，它可以为Service创建易写易记的域名，让Service更容易使用。</p>
 <p>使用DNS域名之前，我们要先了解一个新的概念：名字空间（namespace）。</p>
-<p>注意它与我们在第2讲里说的用于资源隔离的Linuxnamespace技术完全不同，千万不要弄混了。Kubernetes只是借用了这个术语，但目标是类似的，用来在集群里实现对API对象的隔离和分组。</p>
-<p>namespace的简写是“ns”，你可以使用命令kubectlgetns来查看当前集群里都有哪些名字空间，也就是说API对象有哪些分组：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get ns</span><br></pre></td></tr></table></figure></p>
+<p>注意它与我们在第2讲里说的用于资源隔离的Linux namespace技术完全不同，千万不要弄混了。Kubernetes只是借用了这个术语，但目标是类似的，用来在集群里实现对API对象的隔离和分组。</p>
+<p>namespace的简写是“ns”，你可以使用命令<code>kubectl get ns</code>来查看当前集群里都有哪些名字空间，也就是说API对象有哪些分组：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get ns</span><br></pre></td></tr></table></figure></p>
 <img src="/2022/09/12/20｜Service：微服务架构的应对之道/9.webp">
 <p>Kubernetes有一个默认的名字空间，叫“default”，如果不显式指定，API对象都会在这个“default”名字空间里。而其他的名字空间都有各自的用途，比如“kube-system”就包含了apiserver、etcd等核心组件的Pod。</p>
 <p>因为DNS是一种层次结构，为了避免太多的域名导致冲突，Kubernetes就把名字空间作为域名的一部分，减少了重名的可能性。</p>
-<p>Service对象的域名完全形式是“对象.名字空间.svc.cluster.local”，但很多时候也可以省略后面的部分，直接写“对象.名字空间”甚至“对象名”就足够了，默认会使用对象所在的名字空间（比如这里就是default）。</p>
-<p>现在我们来试验一下DNS域名的用法，还是先kubectlexec进入Pod，然后用curl访问ngx-svc、ngx-svc.default等域名：</p>
+<p>Service对象的域名完全形式是“<code>对象.名字空间.svc.cluster.local</code>”，但很多时候也可以省略后面的部分，直接写“对象.名字空间”甚至“对象名”就足够了，默认会使用对象所在的名字空间（比如这里就是default）。</p>
+<p>现在我们来试验一下DNS域名的用法，还是先<code>kubectl exec</code>进入Pod，然后用curl访问ngx-svc、ngx-svc.default等域名：</p>
 <img src="/2022/09/12/20｜Service：微服务架构的应对之道/10.webp">
 <p>可以看到，现在我们就不再关心Service对象的IP地址，只需要知道它的名字，就可以用DNS的方式去访问后端服务。</p>
 <p>比起Docker，这无疑是一个巨大的进步，而且对比其他微服务框架（如Dubbo、SpringCloud），由于服务发现机制被集成在了基础设施里，也会让应用的开发更加便捷。</p>
-<p>（顺便说一下，Kubernetes也为每个Pod分配了域名，形式是“IP地址.名字空间.pod.cluster.local”，但需要把IP地址里的.改成-。比如地址10.10.1.87，它对应的域名就是10-10-1-87.default.pod。）</p>
+<p>（顺便说一下，Kubernetes也为每个Pod分配了域名，形式是“<code>IP地址.名字空间.pod.cluster.local</code>”，但需要把IP地址里的.改成-。比如地址10.10.1.87，它对应的域名就是<code>10-10-1-87.default.pod</code>。）</p>
 <h1 id="如何让Service对外暴露服务"><a href="#如何让Service对外暴露服务" class="headerlink" title="如何让Service对外暴露服务"></a><span style="color:#339AFF;">如何让Service对外暴露服务</span></h1><p>由于Service是一种负载均衡技术，所以它不仅能够管理Kubernetes集群内部的服务，还能够担当向集群外部暴露服务的重任。</p>
 <p>Service对象有一个关键字段“type”，表示Service是哪种类型的负载均衡。前面我们看到的用法都是对集群内部Pod的负载均衡，所以这个字段的值就是默认的“ClusterIP”，Service的静态IP地址只能在集群内访问。</p>
 <p>除了“ClusterIP”，Service还支持其他三种类型，分别是“ExternalName”“LoadBalancer”“NodePort”。不过前两种类型一般由云服务商提供，我们的实验环境用不到，所以接下来就重点看“NodePort”这个类型。</p>
-<p>如果我们在使用命令kubectlexpose的时候加上参数—type=NodePort，或者在YAML里添加字段type:NodePort，那么Service除了会对后端的Pod做负载均衡之外，还会在集群里的每个节点上创建一个独立的端口，用这个端口对外提供服务，这也正是“NodePort”这个名字的由来。</p>
+<p>如果我们在使用命令<code>kubectl expose</code>的时候加上参数<code>--type=NodePort</code>，或者在YAML里添加字段type:NodePort，那么Service除了会对后端的Pod做负载均衡之外，还会在集群里的每个节点上创建一个独立的端口，用这个端口对外提供服务，这也正是“NodePort”这个名字的由来。</p>
 <p>让我们修改一下Service的YAML文件，加上字段“type”：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">apiVersion: v1</span><br><span class="line">...</span><br><span class="line">spec:</span><br><span class="line">  ...</span><br><span class="line">  <span class="built_in">type</span>: NodePort</span><br></pre></td></tr></table></figure></p>
 <p>然后创建对象，再查看它的状态：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get svc</span><br></pre></td></tr></table></figure></p>
 <img src="/2022/09/12/20｜Service：微服务架构的应对之道/11.webp">
@@ -758,7 +758,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1115</span>
+                    <span class="site-state-item-count">1116</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1151,6 +1151,10 @@
                   </li>
                 
                   <li>
+                    <a href="/2023/08/21/第6章-Kubernetes服务发布基础/" title="第6章 Kubernetes服务发布基础" target="_blank">第6章 Kubernetes服务发布基础</a>
+                  </li>
+                
+                  <li>
                     <a href="/2023/08/21/第5章-Kubernetes调度基础/" title="第5章 Kubernetes调度基础" target="_blank">第5章 Kubernetes调度基础</a>
                   </li>
                 
@@ -1160,10 +1164,6 @@
                 
                   <li>
                     <a href="/2023/08/20/第1章-Kubernetes入门/" title="第1章 Kubernetes入门" target="_blank">第1章 Kubernetes入门</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/08/20/第3章-Docker基础/" title="第3章 Docker基础" target="_blank">第3章 Docker基础</a>
                   </li>
                 
               </ul>
@@ -1224,7 +1224,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">8.6m</span>
+    <span title="站点总字数">8.7m</span>
   
 
   
@@ -1235,7 +1235,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">130:59</span>
+    <span title="站点阅读时长">131:40</span>
   
 </div>
 

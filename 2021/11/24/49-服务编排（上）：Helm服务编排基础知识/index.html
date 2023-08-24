@@ -113,7 +113,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2021/11/24/49-服务编排（上）：Helm服务编排基础知识/1.jpg">
 <meta property="og:image" content="http://yoursite.com/2021/11/24/49-服务编排（上）：Helm服务编排基础知识/2.jpg">
-<meta property="og:updated_time" content="2022-10-17T09:08:06.995Z">
+<meta property="og:updated_time" content="2023-08-23T02:00:03.980Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="49 | 服务编排（上）：Helm服务编排基础知识">
 <meta name="twitter:description" content="思考并回答以下问题：">
@@ -446,7 +446,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2022-10-17 17:08:06" itemprop="dateModified" datetime="2022-10-17T17:08:06+08:00">2022-10-17</time>
+                <time title="修改时间：2023-08-23 10:00:03" itemprop="dateModified" datetime="2023-08-23T10:00:03+08:00">2023-08-23</time>
               
             
           </span>
@@ -549,33 +549,107 @@
 <h2 id="我们为什么要使用Helm？"><a href="#我们为什么要使用Helm？" class="headerlink" title="我们为什么要使用Helm？"></a>我们为什么要使用Helm？</h2><p>现在你对Helm已经有了一定了解，这里我再来详细介绍下为什么要使用Helm。</p>
 <p>先来看下传统的应用部署模式：</p>
 <img src="/2021/11/24/49-服务编排（上）：Helm服务编排基础知识/2.jpg">
-<p>我们有测试环境、预发环境、现网环境三个环境，每个环境中部署一个应用A，应用A中包含了多个服务，每个服务又包含了自己的配置，不同服务之间的配置有些是共享的，例如配置A。每个服务由一个复杂的KubernetesYAML格式的文件来定义并创建，可以看到如果靠传统的方式，去维护这些YAML格式文件，并在不同环境下使用不同的配置去创建应用，是一件非常复杂的工作，并且后期YAML文件和Kubernetes集群中部署应用的维护都很复杂。随着微服务规模越来越大，会面临以下挑战：微服务化服务数量急剧增多，给服务管理带来了极大的挑战。服务数量急剧增多，增加了管理难度，对运维部署是一种挑战。服务数量的增多，对服务配置管理也提出了更高的要求。随着服务数量增加，服务依赖关系也变得更加复杂，服务依赖关系的管理难度增大。在环境信息管理方面，在新环境快速部署一个复杂应用变得更加困难。所以，我们需要一种更好的方式，来维护和管理这些YAML文件和Kubernetes中部署的应用。Helm可以帮我们解决上面这些问题。接下来，我们来看下Helm是如何解决这些问题的。在Helm中，可以理解为主要包含两类文件：模板文件和配置文件。模板文件通常有多个，配置文件通常有一个。Helm的模板文件基于text/template模板文件，提供了更加强大的模板渲染能力。Helm可以将配置文件中的值渲染进模板文件中，最终生成一个可以部署的KubernetesYAML格式的资源定义文件，如下图所示：</p>
-<p>上图中，我们将以下配置渲染进了模板中，生成了KubernetesYAML文件：</p>
+<p>我们有测试环境、预发环境、现网环境三个环境，每个环境中部署一个应用A，应用A中包含了多个服务，每个服务又包含了自己的配置，不同服务之间的配置有些是共享的，例如配置A。</p>
+<p>每个服务由一个复杂的KubernetesYAML格式的文件来定义并创建，可以看到如果靠传统的方式，去维护这些YAML格式文件，并在不同环境下使用不同的配置去创建应用，是一件非常复杂的工作，并且后期YAML文件和Kubernetes集群中部署应用的维护都很复杂。随着微服务规模越来越大，会面临以下挑战：</p>
+<ul>
+<li>微服务化服务数量急剧增多，给服务管理带来了极大的挑战。</li>
+<li>服务数量急剧增多，增加了管理难度，对运维部署是一种挑战。</li>
+<li>服务数量的增多，对服务配置管理也提出了更高的要求。</li>
+<li>随着服务数量增加，服务依赖关系也变得更加复杂，服务依赖关系的管理难度增大。</li>
+<li>在环境信息管理方面，在新环境快速部署一个复杂应用变得更加困难。</li>
+</ul>
+<p>所以，我们需要一种更好的方式，来维护和管理这些YAML文件和Kubernetes中部署的应用。Helm可以帮我们解决上面这些问题。</p>
+<p>接下来，我们来看下Helm是如何解决这些问题的。</p>
+<p>在Helm中，可以理解为主要包含两类文件：模板文件和配置文件。模板文件通常有多个，配置文件通常有一个。Helm的模板文件基于text/template模板文件，提供了更加强大的模板渲染能力。Helm可以将配置文件中的值渲染进模板文件中，最终生成一个可以部署的KubernetesYAML格式的资源定义文件，如下图所示：</p>
+<p>上图中，我们将以下配置渲染进了模板中，生成了KubernetesYAML文件：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
 <p>所以在Helm中，部署一个应用可以简化为Chart模板（多个服务）+Chart配置-&gt;应用，如下图所示：</p>
-<p>Chart模板一个应用只用编写一次，可以重复使用。在部署时，可以指定不同的配置，从而将应用部署在不同的环境中，或者在同一环境中部署不同配置的应用。Helm基本操作实战上面，我介绍了Helm的一些基础知识，这里我们再来学习下如何使用Helm对应用进行生命周期管理。前置条件在开始之前，你需要确保你有一个可以使用的Kubernetes集群。目前最方便快捷、最经济的方式是申请一个腾讯云EKS集群。至于如何申请和访问，你可以参考48讲“准备一个Kubernetes集群”部分的教程。这里再提醒下，用完集群后，记得删除集群资源，免得被持续扣费。安装HelmHelm提供了多种安装方式，在能连通外网的情况下，可以通过脚本来安装，安装命令如下：</p>
-<p>如果执行helmversion可以成功打印出helm命令的版本号，说明Helm安装成功。Helm各版本安装包地址见HelmReleases。安装完helm命令后，可以安装helm命令的自动补全脚本。假如你用的shell是bash，安装方法如下：</p>
-<p>执行helmcomp，就会自动补全为helmcompletion。Helm快速入门你可以通过以下六个步骤，来快速创建一个Chart应用。第一步，初始化一个Helm Chart仓库。安装完Helm之后，就可以使用helm命令添加一个Chart仓库。类似于用来托管Docker镜像的DockerHub、用来托管代码的GitHub，Chart包也有一个托管平台，当前比较流行的Chart包托管平台是ArtifactHub。ArtifactHub上有很多Chart仓库，我们可以添加需要的Chart仓库，这里我们添加BitNami提供的Chart仓库：</p>
-<p>添加完成后，我们可以通过helmsearch命令，来查询需要的Chart包。helmsearch支持两种不同的查询方式，这里我来介绍下。helmsearchrepo：从你使用helmrepoadd添加到本地Helm客户端中的仓库里查找。该命令基于本地数据进行搜索，无需连接外网。helmsearchhub：从ArtifactHub中查找并列出Helm Charts。ArtifactHub中存放了大量的仓库。Helm搜索使用模糊字符串匹配算法，所以你可以只输入名字的一部分。下面是一个helmsearch的示例：</p>
-<p>第二步，安装一个示例Chart。查询到自己需要的Helm Chart后，就可以通过helminstall命令来安装一个Chart。helminstall支持从多种源进行安装：Chart的Repository。本地的ChartArchive，例如helminstallfoofoo-1.0.0.tgz。一个未打包的Chart路径，例如helminstallfoopath/to/foo。一个完整的URL，例如helminstallfoo<a href="https://example.com/charts/foo-1.0.0.tgz。这里，我们选择通过bitnami/mysqlChart包来安装一个MySQL应用。你可以执行helmshowchartbitnami/mysql命令，来简单了解这个Chart的基本信息。或者，你也可以执行helmshowallbitnami/mysql，获取关于该Chart的所有信息。接下来，就可以使用helminstall命令来安装这个Chart包了。安装命令如下：" target="_blank" rel="noopener">https://example.com/charts/foo-1.0.0.tgz。这里，我们选择通过bitnami/mysqlChart包来安装一个MySQL应用。你可以执行helmshowchartbitnami/mysql命令，来简单了解这个Chart的基本信息。或者，你也可以执行helmshowallbitnami/mysql，获取关于该Chart的所有信息。接下来，就可以使用helminstall命令来安装这个Chart包了。安装命令如下：</a></p>
-<p>在上面的例子中，我们通过安装bitnami/mysql这个Chart，创建了一个mysql-1629528555Release。—generate-name参数告诉Helm自动为这个Release命名。在安装过程中，Helm客户端会打印一些有用的信息，包括哪些资源已经被创建，Release当前的状态，以及你是否还需要执行额外的配置步骤。例如，从上述例子的输出中，你可以获取到数据库的Root密码、登陆方式、更新方式等信息。安装完之后，你可以使用helmstatus来追踪Release的状态。每当你执行helminstall的时候，都会创建一个新的发布版本。所以一个Chart在同一个集群里面可以被安装多次，每一个都可以被独立地管理和升级。helminstall命令会将templates渲染成最终的Kubernetes能够识别的YAML格式，然后安装到Kubernetes集群中。helminstall功能非常强大，想了解更多功能，你可以参考这个指南：使用Helm。第三步，安装前自定义Chart。上一步中的安装方式只会使用Chart的默认配置选项，很多时候我们需要自定义Chart来指定我们想要的配置。使用helmshowvalues可以查看Chart中的可配置选项：</p>
+<p>Chart模板一个应用只用编写一次，可以重复使用。在部署时，可以指定不同的配置，从而将应用部署在不同的环境中，或者在同一环境中部署不同配置的应用。</p>
+<h1 id="Helm基本操作实战"><a href="#Helm基本操作实战" class="headerlink" title="Helm基本操作实战"></a>Helm基本操作实战</h1><p>上面，我介绍了Helm的一些基础知识，这里我们再来学习下如何使用Helm对应用进行生命周期管理。</p>
+<h2 id="前置条件"><a href="#前置条件" class="headerlink" title="前置条件"></a>前置条件</h2><p>在开始之前，你需要确保你有一个可以使用的Kubernetes集群。目前最方便快捷、最经济的方式是申请一个腾讯云EKS集群。至于如何申请和访问，你可以参考48讲“准备一个Kubernetes集群”部分的教程。这里再提醒下，用完集群后，记得删除集群资源，免得被持续扣费。</p>
+<h2 id="安装Helm"><a href="#安装Helm" class="headerlink" title="安装Helm"></a>安装Helm</h2><p>Helm提供了多种安装方式，在能连通外网的情况下，可以通过脚本来安装，安装命令如下：</p>
+<p>如果执行helmversion可以成功打印出helm命令的版本号，说明Helm安装成功。</p>
+<p>Helm各版本安装包地址见HelmReleases。</p>
+<p>安装完helm命令后，可以安装helm命令的自动补全脚本。假如你用的shell是bash，安装方法如下：</p>
+<p>执行helmcomp，就会自动补全为helmcompletion。</p>
+<h2 id="Helm快速入门"><a href="#Helm快速入门" class="headerlink" title="Helm快速入门"></a>Helm快速入门</h2><p>你可以通过以下六个步骤，来快速创建一个Chart应用。</p>
+<p>第一步，初始化一个Helm Chart仓库。</p>
+<p>安装完Helm之后，就可以使用helm命令添加一个Chart仓库。类似于用来托管Docker镜像的DockerHub、用来托管代码的GitHub，Chart包也有一个托管平台，当前比较流行的Chart包托管平台是ArtifactHub。</p>
+<p>ArtifactHub上有很多Chart仓库，我们可以添加需要的Chart仓库，这里我们添加BitNami提供的Chart仓库：</p>
+<p>添加完成后，我们可以通过helmsearch命令，来查询需要的Chart包。helmsearch支持两种不同的查询方式，这里我来介绍下。</p>
+<ul>
+<li>helmsearchrepo：从你使用helmrepoadd添加到本地Helm客户端中的仓库里查找。该命令基于本地数据进行搜索，无需连接外网。</li>
+<li>helmsearchhub：从ArtifactHub中查找并列出Helm Charts。ArtifactHub中存放了大量的仓库。</li>
+</ul>
+<p>Helm搜索使用模糊字符串匹配算法，所以你可以只输入名字的一部分。下面是一个helmsearch的示例：</p>
+<p>第二步，安装一个示例Chart。</p>
+<p>查询到自己需要的Helm Chart后，就可以通过helminstall命令来安装一个Chart。helminstall支持从多种源进行安装：</p>
+<ul>
+<li>Chart的Repository。</li>
+<li>本地的ChartArchive，例如helminstallfoofoo-1.0.0.tgz。</li>
+<li>一个未打包的Chart路径，例如helminstallfoopath/to/foo。</li>
+<li>一个完整的URL，例如<code>helminstallfoohttps://example.com/charts/foo-1.0.0.tgz</code>。</li>
+</ul>
+<p>这里，我们选择通过bitnami/mysqlChart包来安装一个MySQL应用。你可以执行helmshowchartbitnami/mysql命令，来简单了解这个Chart的基本信息。或者，你也可以执行helmshowallbitnami/mysql，获取关于该Chart的所有信息。</p>
+<p>接下来，就可以使用helminstall命令来安装这个Chart包了。安装命令如下：</p>
+<p>在上面的例子中，我们通过安装bitnami/mysql这个Chart，创建了一个mysql-1629528555Release。—generate-name参数告诉Helm自动为这个Release命名。</p>
+<p>在安装过程中，Helm客户端会打印一些有用的信息，包括哪些资源已经被创建，Release当前的状态，以及你是否还需要执行额外的配置步骤。例如，从上述例子的输出中，你可以获取到数据库的Root密码、登陆方式、更新方式等信息。</p>
+<p>安装完之后，你可以使用helmstatus来追踪Release的状态。</p>
+<p>每当你执行helminstall的时候，都会创建一个新的发布版本。所以一个Chart在同一个集群里面可以被安装多次，每一个都可以被独立地管理和升级。</p>
+<p>helminstall命令会将templates渲染成最终的Kubernetes能够识别的YAML格式，然后安装到Kubernetes集群中。</p>
+<p>helminstall功能非常强大，想了解更多功能，你可以参考这个指南：使用Helm。</p>
+<p>第三步，安装前自定义Chart。</p>
+<p>上一步中的安装方式只会使用Chart的默认配置选项，很多时候我们需要自定义Chart来指定我们想要的配置。使用helmshowvalues可以查看Chart中的可配置选项：</p>
 <p>然后，你可以使用YAML格式的文件，覆盖上述任意配置项，并在安装过程中使用该文件。</p>
-<p>上述命令将为MySQL创建一个名称为iam的默认用户，密码为iam59!z$，并且授予该用户访问新建的iam数据库的权限。Chart中的其他默认配置保持不变。安装过程中，有两种传递配置数据的方式。-f,—values：使用YAML文件覆盖配置。可以指定多次，优先使用最右边的文件。—set：通过命令行的方式对指定配置项进行覆盖。如果同时使用两种方式，则—set中的值会被合并到—values中，但是—set中的值优先级更高。在—set中覆盖的内容会被保存在ConfigMap中。你可以通过helmgetvalues来查看指定Release中—set设置的值，也可以通过运行helmupgrade并指定—reset-values字段，来清除—set中设置的值。这里我讲解下—set的格式和限制。—set选项使用0或多个key-value对。最简单的用法类似于—setname=value，等价于下面这个YAML格式：</p>
+<p>上述命令将为MySQL创建一个名称为iam的默认用户，密码为iam59!z$，并且授予该用户访问新建的iam数据库的权限。Chart中的其他默认配置保持不变。</p>
+<p>安装过程中，有两种传递配置数据的方式。</p>
+<ul>
+<li>-f,—values：使用YAML文件覆盖配置。可以指定多次，优先使用最右边的文件。</li>
+<li>—set：通过命令行的方式对指定配置项进行覆盖。</li>
+</ul>
+<p>如果同时使用两种方式，则—set中的值会被合并到—values中，但是—set中的值优先级更高。在—set中覆盖的内容会被保存在ConfigMap中。你可以通过helmgetvalues来查看指定Release中—set设置的值，也可以通过运行helmupgrade并指定—reset-values字段，来清除—set中设置的值。</p>
+<p>这里我讲解下—set的格式和限制。</p>
+<p>—set选项使用0或多个key-value对。最简单的用法类似于—setname=value，等价于下面这个YAML格式：</p>
 <p>多个值之间使用逗号分割，因此—seta=b,c=d的YAML表示是：</p>
 <p>—set还支持更复杂的表达式。例如，—setouter.inner=value被转换成了：</p>
 <p>列表使用花括号{}来表示。例如，—setname={a,b,c}被转换成了：</p>
 <p>从2.5.0版本开始，我们可以使用数组下标的语法来访问列表中的元素了。例如—setservers[0].port=80就变成了：</p>
 <p>多个值也可以通过这种方式来设置。—setservers[0][0].host=``marmotedu变成了：</p>
 <p>如果需要在—set中使用特殊字符，你可以使用反斜线来进行转义，比如—setname=value1\,value2就变成了：</p>
-<p>如果是深层嵌套的数据结构，可能很难用—set来表达，更多内容你可以参考Values文件。第四步，查看当前集群安装了哪些Release。通过helmlist可以查看当前集群、当前Namespace下安装的Release列表：</p>
-<p>可以看到，我们创建了两个Release，这些Release位于default命名空间中。上述命令，也列出了Release的更新时间、状态、Chart的版本等。第五步，升级Release，并且在失败时恢复。部署完应用之后，后续还可能升级应用，可以通过helmupgrade命令来升级应用。升级操作会基于已有的Release，根据提供的信息进行升级。Helm在更新时，只会变更有更改的内容。例如，这里我们升级mysql-1629528555，变更它的Root密码：</p>
-<p>在上面的例子中，mysql-1629528555这个Release使用相同的Chart进行升级，但使用了一个新的rootPassword配置。我们可以使用helmgetvalues命令，来看看配置值是否真的生效了：</p>
-<p>可以看到rootPassword的新值已经被部署到集群中了。假如发布失败，我们也很容易通过helmrollback[RELEASE][REVISION]命令，回滚到之前的发布版本。</p>
-<p>上面这条命令将我们的mysql-1629528555回滚到了它最初的版本。Release版本其实是一个增量修订（revision）。每当发生了一次安装、升级或回滚操作，revision的值就会加1。第一次revision的值永远是1。我们可以使用helmhistory[RELEASE]命令来查看一个特定Release的修订版本号：</p>
-<p>你还可以指定一些其他的选项，来自定义Helm在安装、升级、回滚期间的行为。这里，我介绍一些常用的参数，供你参考。—timeout：一个Goduration类型的值，用来表示等待Kubernetes命令完成的超时时间，默认值为5m0s。—no-hooks：不运行当前命令的钩子。—wait：表示必须要等到所有的Pods都处于ready状态、PVC都被绑定、Deployments处在ready状态的Pods个数达到最小值（Desired减去maxUnavailable），才会标记该Release为成功。最长等待时间由—timeout值指定。如果达到超时时间，Release将被标记为FAILED。这里需要注意，当Deployment的replicas被设置为1，但其滚动升级策略中的maxUnavailable没有被设置为0时，—wait将返回就绪，因为已经满足了最小readyPod数。第六步，卸载Release。你可以使用helmuninstall命令卸载一个Release：</p>
-<p>上述命令会从Kubernetes卸载mysql-1629528555，它将删除和该版本关联的所有资源（Service、Deployment、Pod、ConfigMap等），包括该Release的所有版本历史。如果你在执行helmuninstall的时候提供—keep-history选项，Helm将会保存版本历史。你可以通过helmstatus命令查看该版本的信息：</p>
-<p>因为—keep-history选项会让Helm跟踪你的版本（即使你卸载了它们），所以你可以审计集群历史，甚至使用helmrollback回滚版本。Helm命令上面我介绍了Helm的一些命令的用法，如果你想查看Helm提供的所有命令，可以执行helmhelp。或者，你也可以执行helm-h来查看某个子命令的用法，例如：</p>
+<p>如果是深层嵌套的数据结构，可能很难用—set来表达，更多内容你可以参考Values文件。</p>
+<p>第四步，查看当前集群安装了哪些Release。</p>
+<p>通过helmlist可以查看当前集群、当前Namespace下安装的Release列表：</p>
+<p>可以看到，我们创建了两个Release，这些Release位于default命名空间中。上述命令，也列出了Release的更新时间、状态、Chart的版本等。</p>
+<p>第五步，升级Release，并且在失败时恢复。</p>
+<p>部署完应用之后，后续还可能升级应用，可以通过helmupgrade命令来升级应用。升级操作会基于已有的Release，根据提供的信息进行升级。Helm在更新时，只会变更有更改的内容。</p>
+<p>例如，这里我们升级mysql-1629528555，变更它的Root密码：</p>
+<p>在上面的例子中，mysql-1629528555这个Release使用相同的Chart进行升级，但使用了一个新的rootPassword配置。</p>
+<p>我们可以使用helmgetvalues命令，来看看配置值是否真的生效了：</p>
+<p>可以看到rootPassword的新值已经被部署到集群中了。</p>
+<p>假如发布失败，我们也很容易通过helmrollback[RELEASE][REVISION]命令，回滚到之前的发布版本。</p>
+<p>上面这条命令将我们的mysql-1629528555回滚到了它最初的版本。Release版本其实是一个增量修订（revision）。每当发生了一次安装、升级或回滚操作，revision的值就会加1。第一次revision的值永远是1。</p>
+<p>我们可以使用helmhistory[RELEASE]命令来查看一个特定Release的修订版本号：</p>
+<p>你还可以指定一些其他的选项，来自定义Helm在安装、升级、回滚期间的行为。这里，我介绍一些常用的参数，供你参考。</p>
+<ul>
+<li>—timeout：一个Goduration类型的值，用来表示等待Kubernetes命令完成的超时时间，默认值为5m0s。</li>
+<li>—no-hooks：不运行当前命令的钩子。</li>
+<li>—wait：表示必须要等到所有的Pods都处于ready状态、PVC都被绑定、Deployments处在ready状态的Pods个数达到最小值（Desired减去maxUnavailable），才会标记该Release为成功。最长等待时间由—timeout值指定。如果达到超时时间，Release将被标记为FAILED。</li>
+</ul>
+<p>这里需要注意，当Deployment的replicas被设置为1，但其滚动升级策略中的maxUnavailable没有被设置为0时，—wait将返回就绪，因为已经满足了最小readyPod数。</p>
+<p>第六步，卸载Release。</p>
+<p>你可以使用helmuninstall命令卸载一个Release：</p>
+<p>上述命令会从Kubernetes卸载mysql-1629528555，它将删除和该版本关联的所有资源（Service、Deployment、Pod、ConfigMap等），包括该Release的所有版本历史。</p>
+<p>如果你在执行helmuninstall的时候提供—keep-history选项，Helm将会保存版本历史。你可以通过helmstatus命令查看该版本的信息：</p>
+<p>因为—keep-history选项会让Helm跟踪你的版本（即使你卸载了它们），所以你可以审计集群历史，甚至使用helmrollback回滚版本。</p>
+<h1 id="Helm命令"><a href="#Helm命令" class="headerlink" title="Helm命令"></a>Helm命令</h1><p>上面我介绍了Helm的一些命令的用法，如果你想查看Helm提供的所有命令，可以执行helmhelp。或者，你也可以执行helm-h来查看某个子命令的用法，例如：</p>
 <p>我整理了一份命令列表，供你参考：</p>
-<p>上面这些命令中，有些提供了子命令和命令行参数，具体你可以执行helm-h来查看。总结今天，我介绍了Helm的基础知识，并给你演示了如何基于Helm部署IAM应用。当一个应用包含了很多微服务时，手动在Kubernetes集群中部署、升级、回滚这些微服务是一件非常复杂的工作。这时候，我们就需要一个服务编排方案来编排这些服务，从而提高服务部署和维护的效率。目前业界提供了多种服务编排方案，其中最流行的是Helm，Helm已经成为一个事实上的Kubernetes服务编排标准。在Helm中，有Chart、Repository和Release三大基本概念。Chart代表一个Helm包，里面包含了运行Kubernetes应用需要的所有资源定义YAML文件；Repository是Chart仓库，用来存放和共享Helm Chart；Release是运行在Kubernetes集群中的Chart的实例。我们可以通过helminstall[NAME][CHART][flags]来安装一个Chart包；通过helmupgrade[RELEASE][CHART][flags]来更新一个HelmRelease；通过helmuninstallRELEASE_NAME[…][flags]来卸载一个HelmRelease。另外，helm命令行工具还提供了其他的功能，你可以再回顾一遍。课后练习思考下，如果使用Helm创建服务，是否会存在先启动服务，再创建服务配置，从而导致服务启动时加载配置失败的问题？如果有，Helm可以怎样解决这个问题？尝试将IAM应用制作成一个Chart包，并通过Helm安装。</p>
+<p>上面这些命令中，有些提供了子命令和命令行参数，具体你可以执行helm-h来查看。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>今天，我介绍了Helm的基础知识，并给你演示了如何基于Helm部署IAM应用。</p>
+<p>当一个应用包含了很多微服务时，手动在Kubernetes集群中部署、升级、回滚这些微服务是一件非常复杂的工作。这时候，我们就需要一个服务编排方案来编排这些服务，从而提高服务部署和维护的效率。</p>
+<p>目前业界提供了多种服务编排方案，其中最流行的是Helm，Helm已经成为一个事实上的Kubernetes服务编排标准。</p>
+<p>在Helm中，有Chart、Repository和Release三大基本概念。Chart代表一个Helm包，里面包含了运行Kubernetes应用需要的所有资源定义YAML文件；Repository是Chart仓库，用来存放和共享Helm Chart；Release是运行在Kubernetes集群中的Chart的实例。</p>
+<p>我们可以通过helminstall[NAME][CHART][flags]来安装一个Chart包；通过helmupgrade[RELEASE][CHART][flags]来更新一个HelmRelease；通过helmuninstallRELEASE_NAME[…][flags]来卸载一个HelmRelease。另外，helm命令行工具还提供了其他的功能，你可以再回顾一遍。</p>
+<h1 id="课后练习"><a href="#课后练习" class="headerlink" title="课后练习"></a>课后练习</h1><p>1，思考下，如果使用Helm创建服务，是否会存在先启动服务，再创建服务配置，从而导致服务启动时加载配置失败的问题？</p>
+<p>2，如果有，Helm可以怎样解决这个问题？尝试将IAM应用制作成一个Chart包，并通过Helm安装。</p>
 
       
     </div>
@@ -695,7 +769,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1115</span>
+                    <span class="site-state-item-count">1116</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1088,6 +1162,10 @@
                   </li>
                 
                   <li>
+                    <a href="/2023/08/21/第6章-Kubernetes服务发布基础/" title="第6章 Kubernetes服务发布基础" target="_blank">第6章 Kubernetes服务发布基础</a>
+                  </li>
+                
+                  <li>
                     <a href="/2023/08/21/第5章-Kubernetes调度基础/" title="第5章 Kubernetes调度基础" target="_blank">第5章 Kubernetes调度基础</a>
                   </li>
                 
@@ -1097,10 +1175,6 @@
                 
                   <li>
                     <a href="/2023/08/20/第1章-Kubernetes入门/" title="第1章 Kubernetes入门" target="_blank">第1章 Kubernetes入门</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/08/20/第3章-Docker基础/" title="第3章 Docker基础" target="_blank">第3章 Docker基础</a>
                   </li>
                 
               </ul>
@@ -1126,7 +1200,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Helm基础知识介绍"><span class="nav-number">1.</span> <span class="nav-text">Helm基础知识介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Helm是什么？"><span class="nav-number">1.1.</span> <span class="nav-text">Helm是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Helm中的三大基本概念"><span class="nav-number">1.2.</span> <span class="nav-text">Helm中的三大基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我们为什么要使用Helm？"><span class="nav-number">1.3.</span> <span class="nav-text">我们为什么要使用Helm？</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Helm基础知识介绍"><span class="nav-number">1.</span> <span class="nav-text">Helm基础知识介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Helm是什么？"><span class="nav-number">1.1.</span> <span class="nav-text">Helm是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Helm中的三大基本概念"><span class="nav-number">1.2.</span> <span class="nav-text">Helm中的三大基本概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我们为什么要使用Helm？"><span class="nav-number">1.3.</span> <span class="nav-text">我们为什么要使用Helm？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Helm基本操作实战"><span class="nav-number">2.</span> <span class="nav-text">Helm基本操作实战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#前置条件"><span class="nav-number">2.1.</span> <span class="nav-text">前置条件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Helm"><span class="nav-number">2.2.</span> <span class="nav-text">安装Helm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Helm快速入门"><span class="nav-number">2.3.</span> <span class="nav-text">Helm快速入门</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Helm命令"><span class="nav-number">3.</span> <span class="nav-text">Helm命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课后练习"><span class="nav-number">5.</span> <span class="nav-text">课后练习</span></a></li></ol></div>
             
 
           </div>
@@ -1161,7 +1235,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">8.6m</span>
+    <span title="站点总字数">8.7m</span>
   
 
   
@@ -1172,7 +1246,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">130:59</span>
+    <span title="站点阅读时长">131:40</span>
   
 </div>
 
