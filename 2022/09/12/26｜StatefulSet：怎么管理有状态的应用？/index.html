@@ -122,7 +122,7 @@
 <meta property="og:image" content="http://yoursite.com/2022/09/12/26｜StatefulSet：怎么管理有状态的应用？/9.png">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/26｜StatefulSet：怎么管理有状态的应用？/10.png">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/26｜StatefulSet：怎么管理有状态的应用？/11.jpg">
-<meta property="og:updated_time" content="2023-08-16T01:40:30.425Z">
+<meta property="og:updated_time" content="2023-08-24T09:49:27.751Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="26丨StatefulSet：怎么管理有状态的应用？">
 <meta name="twitter:description" content="思考并回答以下问题：">
@@ -455,7 +455,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2023-08-16 09:40:30" itemprop="dateModified" datetime="2023-08-16T09:40:30+08:00">2023-08-16</time>
+                <time title="修改时间：2023-08-24 17:49:27" itemprop="dateModified" datetime="2023-08-24T17:49:27+08:00">2023-08-24</time>
               
             
           </span>
@@ -537,52 +537,52 @@
       
         <p>思考并回答以下问题：</p>
 <a id="more"></a>
-<p>在中级篇里，我们学习了Deployment和DaemonSet两种API对象，它们是在Kubernetes集群里部署应用的重要工具，不过它们也有一个缺点，只能管理“无状态应用”（StatelessApplication），不能管理“有状态应用”（StatefulApplication）。</p>
+<p>在中级篇里，我们学习了Deployment和DaemonSet两种API对象，它们是在Kubernetes集群里部署应用的重要工具，不过它们也有一个缺点，只能管理“无状态应用”（Stateless Application），不能管理“有状态应用”（Stateful Application）。</p>
 <p>“有状态应用”的处理比较复杂，要考虑的事情很多，但是这些问题我们其实可以通过组合之前学过的Deployment、Service、PersistentVolume等对象来解决。</p>
 <p>今天我们就来研究一下什么是“有状态应用”，然后看看Kubernetes为什么会设计一个新对象——StatefulSet来专门管理“有状态应用”。</p>
 <h1 id="什么是有状态的应用"><a href="#什么是有状态的应用" class="headerlink" title="什么是有状态的应用"></a><span style="color:#339AFF;">什么是有状态的应用</span></h1><p>我们先从PersistentVolume谈起，它为Kubernetes带来了持久化存储的功能，能够让应用把数据存放在本地或者远程的磁盘上。</p>
 <p>那么你有没有想过，持久化存储，对应用来说，究竟意味着什么呢？</p>
 <p>有了持久化存储，应用就可以把一些运行时的关键数据落盘，相当于有了一份“保险”，如果Pod发生意外崩溃，也只不过像是按下了暂停键，等重启后挂载Volume，再加载原数据就能够满血复活，恢复之前的“状态”继续运行。</p>
-<p>注意到了吗？这里有一个关键词——“状态”，应用保存的数据，实际上就是它某个时刻的“运行状态”。</p>
+<p>注意到了吗？这里有一个关键词——“<strong>状态</strong>”，应用保存的数据，实际上就是它某个时刻的“运行状态”。</p>
 <p>所以从这个角度来说，理论上任何应用都是有状态的。</p>
 <p>只是有的应用的状态信息不是很重要，即使不恢复状态也能够正常运行，这就是我们常说的“无状态应用”。“无状态应用”典型的例子就是Nginx这样的Web服务器，它只是处理HTTP请求，本身不生产数据（日志除外），不需要特意保存状态，无论以什么状态重启都能很好地对外提供服务。</p>
-<p>还有一些应用，运行状态信息就很重要了，如果因为重启而丢失了状态是绝对无法接受的，这样的应用就是“有状态应用”。</p>
+<p>还有一些应用，运行状态信息就很重要了，如果因为重启而丢失了状态是绝对无法接受的，这样的应用就是“<strong>有状态应用</strong>”。</p>
 <p>“有状态应用”的例子也有很多，比如Redis、MySQL这样的数据库，它们的“状态”就是在内存或者磁盘上产生的数据，是应用的核心价值所在，如果不能够把这些数据及时保存再恢复，那绝对会是灾难性的后果。</p>
-<p>理解了这一点，我们结合目前学到的知识思考一下：Deployment加上PersistentVolume，在Kubernetes里是不是可以轻松管理有状态的应用了呢？</p>
+<p>理解了这一点，我们结合目前学到的知识思考一下：<strong>Deployment加上PersistentVolume，在Kubernetes里是不是可以轻松管理有状态的应用了呢？</strong></p>
 <p>的确，用Deployment来保证高可用，用PersistentVolume来存储数据，确实可以部分达到管理“有状态应用”的目的（你可以自己试着编写这样的YAML）。</p>
 <p>但是Kubernetes的眼光则更加全面和长远，它认为“状态”不仅仅是数据持久化，在集群化、分布式的场景里，还有多实例的依赖关系、启动顺序和网络标识等问题需要解决，而这些问题恰恰是Deployment力所不及的。</p>
 <p>因为只使用Deployment，多个实例之间是无关的，启动的顺序不固定，Pod的名字、IP地址、域名也都是完全随机的，这正是“无状态应用”的特点。</p>
 <p>但对于“有状态应用”，多个实例之间可能存在依赖关系，比如master/slave、active/passive，需要依次启动才能保证应用正常运行，外界的客户端也可能要使用固定的网络标识来访问实例，而且这些信息还必须要保证在Pod重启后不变。</p>
 <p>所以，Kubernetes就在Deployment的基础之上定义了一个新的API对象，名字也很好理解，就叫StatefulSet，专门用来管理有状态的应用。</p>
-<h1 id="如何使用YAML描述StatefulSet"><a href="#如何使用YAML描述StatefulSet" class="headerlink" title="如何使用YAML描述StatefulSet"></a><span style="color:#339AFF;">如何使用YAML描述StatefulSet</span></h1><p>首先我们还是用命令kubectlapi-resources来查看StatefulSet的基本信息，可以知道它的简称是sts，YAML文件头信息是：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StatefulSet</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">xxx-sts</span></span><br></pre></td></tr></table></figure></p>
-<p>和DaemonSet类似，StatefulSet也可以看做是Deployment的一个特例，它也不能直接用kubectlcreate创建样板文件，但它的对象描述和Deployment差不多，你同样可以把Deployment适当修改一下，就变成了StatefulSet对象。</p>
+<h1 id="如何使用YAML描述StatefulSet"><a href="#如何使用YAML描述StatefulSet" class="headerlink" title="如何使用YAML描述StatefulSet"></a><span style="color:#339AFF;">如何使用YAML描述StatefulSet</span></h1><p>首先我们还是用命令<code>kubectl api-resources</code>来查看StatefulSet的基本信息，可以知道它的简称是sts，YAML文件头信息是：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StatefulSet</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">xxx-sts</span></span><br></pre></td></tr></table></figure></p>
+<p>和DaemonSet类似，StatefulSet也可以看做是Deployment的一个特例，它也不能直接用<code>kubectl create</code>创建样板文件，但它的对象描述和Deployment差不多，你同样可以把Deployment适当修改一下，就变成了StatefulSet对象。</p>
 <p>这里我给出了一个使用Redis的StatefulSet，你来看看它与Deployment有什么差异：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StatefulSet</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">redis-sts</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  serviceName:</span> <span class="string">redis-svc</span></span><br><span class="line"><span class="attr">  replicas:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line"><span class="attr">    matchLabels:</span></span><br><span class="line"><span class="attr">      app:</span> <span class="string">redis-sts</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  template:</span></span><br><span class="line"><span class="attr">    metadata:</span></span><br><span class="line"><span class="attr">      labels:</span></span><br><span class="line"><span class="attr">        app:</span> <span class="string">redis-sts</span></span><br><span class="line"><span class="attr">    spec:</span></span><br><span class="line"><span class="attr">      containers:</span></span><br><span class="line"><span class="attr">      - image:</span> <span class="attr">redis:5-alpine</span></span><br><span class="line"><span class="attr">        name:</span> <span class="string">redis</span></span><br><span class="line"><span class="attr">        ports:</span></span><br><span class="line"><span class="attr">        - containerPort:</span> <span class="number">6379</span></span><br></pre></td></tr></table></figure></p>
 <p>我们会发现，YAML文件里除了kind必须是“StatefulSet”，在spec里还多出了一个“serviceName”字段，其余的部分和Deployment是一模一样的，比如replicas、selector、template等等。</p>
 <p>这两个不同之处其实就是StatefulSet与Deployment的关键区别。想要真正理解这一点，我们得结合StatefulSet在Kubernetes里的使用方法来分析。</p>
-<h1 id="如何在Kubernetes里使用StatefulSet"><a href="#如何在Kubernetes里使用StatefulSet" class="headerlink" title="如何在Kubernetes里使用StatefulSet"></a><span style="color:#339AFF;">如何在Kubernetes里使用StatefulSet</span></h1><p>让我们用kubectlapply创建StatefulSet对象，用kubectlget先看看它是什么样的：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f redis-sts.yml</span><br><span class="line">kubectl get sts</span><br><span class="line">kubectl get pod</span><br></pre></td></tr></table></figure></p>
+<h1 id="如何在Kubernetes里使用StatefulSet"><a href="#如何在Kubernetes里使用StatefulSet" class="headerlink" title="如何在Kubernetes里使用StatefulSet"></a><span style="color:#339AFF;">如何在Kubernetes里使用StatefulSet</span></h1><p>让我们用<code>kubectl apply</code>创建StatefulSet对象，用<code>kubectl get</code>先看看它是什么样的：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f redis-sts.yml</span><br><span class="line">kubectl get sts</span><br><span class="line">kubectl get pod</span><br></pre></td></tr></table></figure></p>
 <img src="/2022/09/12/26｜StatefulSet：怎么管理有状态的应用？/1.png">
-<p>从截图里，你应该能够看到，StatefulSet所管理的Pod不再是随机的名字了，而是有了顺序编号，从0开始分别被命名为redis-sts-0、redis-sts-1，Kubernetes也会按照这个顺序依次创建（0号比1号的AGE要长一点），这就解决了“有状态应用”的第一个问题：启动顺序。</p>
+<p>从截图里，你应该能够看到，StatefulSet所管理的Pod不再是随机的名字了，而是有了顺序编号，从0开始分别被命名为redis-sts-0、redis-sts-1，Kubernetes也会按照这个顺序依次创建（0号比1号的AGE要长一点），这就解决了<strong>“有状态应用”的第一个问题：启动顺序</strong>。</p>
 <p>有了启动的先后顺序，应用该怎么知道自己的身份，进而确定互相之间的依赖关系呢？</p>
-<p>Kubernetes给出的方法是使用hostname，也就是每个Pod里的主机名，让我们再用kubectlexec登录Pod内部看看：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl <span class="built_in">exec</span> -it redis-sts-0 -- sh</span><br></pre></td></tr></table></figure></p>
+<p>Kubernetes给出的方法是<strong>使用hostname</strong>，也就是每个Pod里的主机名，让我们再用<code>kubectl exec</code>登录Pod内部看看：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl <span class="built_in">exec</span> -it redis-sts-0 -- sh</span><br></pre></td></tr></table></figure></p>
 <img src="/2022/09/12/26｜StatefulSet：怎么管理有状态的应用？/2.png">
 <p>在Pod里查看环境变量$HOSTNAME或者是执行命令hostname，都可以得到这个Pod的名字redis-sts-0。</p>
 <p>有了这个唯一的名字，应用就可以自行决定依赖关系了，比如在这个Redis例子里，就可以让先启动的0号Pod是主实例，后启动的1号Pod是从实例。</p>
-<p>解决了启动顺序和依赖关系，还剩下第三个问题：网络标识，这就需要用到Service对象。</p>
-<p>不过这里又有一点奇怪的地方，我们不能用命令kubectlexpose直接为StatefulSet生成Service，只能手动编写YAML。但是这肯定难不倒你，经过了这么多练习，现在你应该能很轻松地写出一个Service对象。</p>
-<p>因为不能自动生成，你在写Service对象的时候要小心一些，metadata.name必须和StatefulSet里的serviceName相同，selector里的标签也必须和StatefulSet里的一致：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">redis-svc</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line"><span class="attr">    app:</span> <span class="string">redis-sts</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  ports:</span></span><br><span class="line"><span class="attr">  - port:</span> <span class="number">6379</span></span><br><span class="line"><span class="attr">    protocol:</span> <span class="string">TCP</span></span><br><span class="line"><span class="attr">    targetPort:</span> <span class="number">6379</span></span><br></pre></td></tr></table></figure></p>
-<p>写好Service之后，还是用kubectlapply创建这个对象：</p>
+<p>解决了启动顺序和依赖关系，还剩下<strong>第三个问题：网络标识，这就需要用到Service对象。</strong></p>
+<p>不过这里又有一点奇怪的地方，我们不能用命令<code>kubectl expose</code>直接为StatefulSet生成Service，只能手动编写YAML。但是这肯定难不倒你，经过了这么多练习，现在你应该能很轻松地写出一个Service对象。</p>
+<p>因为不能自动生成，你在写Service对象的时候要小心一些，<code>metadata.name</code>必须和StatefulSet里的serviceName相同，selector里的标签也必须和StatefulSet里的一致：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">redis-svc</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line"><span class="attr">    app:</span> <span class="string">redis-sts</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  ports:</span></span><br><span class="line"><span class="attr">  - port:</span> <span class="number">6379</span></span><br><span class="line"><span class="attr">    protocol:</span> <span class="string">TCP</span></span><br><span class="line"><span class="attr">    targetPort:</span> <span class="number">6379</span></span><br></pre></td></tr></table></figure></p>
+<p>写好Service之后，还是用<code>kubectl apply</code>创建这个对象：</p>
 <img src="/2022/09/12/26｜StatefulSet：怎么管理有状态的应用？/3.png">
 <p>可以看到这个Service并没有什么特殊的地方，也是用标签选择器找到StatefulSet管理的两个Pod，然后找到它们的IP地址。</p>
 <p>不过，StatefulSet的奥秘就在它的域名上。</p>
 <p>还记得在第20讲里我们说过的Service的域名用法吗？Service自己会有一个域名，格式是“对象名.名字空间”，每个Pod也会有一个域名，形式是“IP地址.名字空间”。但因为IP地址不稳定，所以Pod的域名并不实用，一般我们会使用稳定的Service域名。</p>
 <p>当我们把Service对象应用于StatefulSet的时候，情况就不一样了。</p>
-<p>Service发现这些Pod不是一般的应用，而是有状态应用，需要有稳定的网络标识，所以就会为Pod再多创建出一个新的域名，格式是“Pod名.服务名.名字空间.svc.cluster.local”。当然，这个域名也可以简写成“Pod名.服务名”。</p>
+<p>Service发现这些Pod不是一般的应用，而是有状态应用，需要有稳定的网络标识，所以就会为Pod再多创建出一个新的域名，格式是“<code>Pod名.服务名.名字空间.svc.cluster.local</code>”。当然，这个域名也可以简写成“<code>Pod名.服务名</code>”。</p>
 <p>我们还是用kubectlexec进入Pod内部，用ping命令来验证一下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl <span class="built_in">exec</span> -it redis-sts-0 -- sh</span><br></pre></td></tr></table></figure></p>
 <img src="/2022/09/12/26｜StatefulSet：怎么管理有状态的应用？/4.png">
 <p>显然，在StatefulSet里的这两个Pod都有了各自的域名，也就是稳定的网络标识。那么接下来，外部的客户端只要知道了StatefulSet对象，就可以用固定的编号去访问某个具体的实例了，虽然Pod的IP地址可能会变，但这个有编号的域名由Service对象维护，是稳定不变的。</p>
 <p>到这里，通过StatefulSet和Service的联合使用，Kubernetes就解决了“有状态应用”的依赖关系、启动顺序和网络标识这三个问题，剩下的多实例之间内部沟通协调等事情就需要应用自己去想办法处理了。</p>
 <p>关于Service，有一点值得再多提一下。</p>
-<p>Service原本的目的是负载均衡，应该由它在Pod前面来转发流量，但是对StatefulSet来说，这项功能反而是不必要的，因为Pod已经有了稳定的域名，外界访问服务就不应该再通过Service这一层了。所以，从安全和节约系统资源的角度考虑，我们可以在Service里添加一个字段clusterIP:None，告诉Kubernetes不必再为这个对象分配IP地址。</p>
+<p>Service原本的目的是负载均衡，应该由它在Pod前面来转发流量，但是对StatefulSet来说，这项功能反而是不必要的，因为Pod已经有了稳定的域名，外界访问服务就不应该再通过Service这一层了。所以，从安全和节约系统资源的角度考虑，我们可以在Service里添加一个字段<code>clusterIP:None</code>，告诉Kubernetes不必再为这个对象分配IP地址。</p>
 <p>我画了一张图展示StatefulSet与Service对象的关系，你可以参考一下它们字段之间的互相引用：</p>
 <img src="/2022/09/12/26｜StatefulSet：怎么管理有状态的应用？/5.jpg">
 <h1 id="如何实现StatefulSet的数据持久化"><a href="#如何实现StatefulSet的数据持久化" class="headerlink" title="如何实现StatefulSet的数据持久化"></a><span style="color:#339AFF;">如何实现StatefulSet的数据持久化</span></h1><p>现在StatefulSet已经有了固定的名字、启动顺序和网络标识，只要再给它加上数据持久化功能，我们就可以实现对“有状态应用”的管理了。</p>
@@ -598,7 +598,7 @@
 <p>你可以使用命令kubectlgetpvc来查看StatefulSet关联的存储卷状态：</p>
 <img src="/2022/09/12/26｜StatefulSet：怎么管理有状态的应用？/7.png">
 <p>看这两个PVC的命名，不是随机的，是有规律的，用的是PVC名字加上StatefulSet的名字组合而成，所以即使Pod被销毁，因为它的名字不变，还能够找到这个PVC，再次绑定使用之前存储的数据。</p>
-<p>那我们就来实地验证一下吧，用kubectlexec运行Redis的客户端，在里面添加一些KV数据：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl <span class="built_in">exec</span> -it redis-pv-sts-0 -- redis-cli</span><br></pre></td></tr></table></figure></p>
+<p>那我们就来实地验证一下吧，用<code>kubectl exec</code>运行Redis的客户端，在里面添加一些KV数据：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl <span class="built_in">exec</span> -it redis-pv-sts-0 -- redis-cli</span><br></pre></td></tr></table></figure></p>
 <img src="/2022/09/12/26｜StatefulSet：怎么管理有状态的应用？/8.png">
 <p>这里我设置了两个值，分别是a=111和b=222。</p>
 <p>现在我们模拟意外事故，删除这个Pod：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl delete pod redis-pv-sts-0</span><br></pre></td></tr></table></figure></p>
@@ -736,7 +736,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1116</span>
+                    <span class="site-state-item-count">1121</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1125,23 +1125,23 @@
                 
                 
                   <li>
-                    <a href="/2023/08/21/第7章-Kubernetes配置管理/" title="第7章 Kubernetes配置管理" target="_blank">第7章 Kubernetes配置管理</a>
+                    <a href="/2023/08/26/6-7-kubectl进程源码分析/" title="6-7 kubectl进程源码分析" target="_blank">6-7 kubectl进程源码分析</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/21/第6章-Kubernetes服务发布基础/" title="第6章 Kubernetes服务发布基础" target="_blank">第6章 Kubernetes服务发布基础</a>
+                    <a href="/2023/08/26/6-6-kube-proxy进程源码分析/" title="6-6 kube-proxy进程源码分析" target="_blank">6-6 kube-proxy进程源码分析</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/21/第5章-Kubernetes调度基础/" title="第5章 Kubernetes调度基础" target="_blank">第5章 Kubernetes调度基础</a>
+                    <a href="/2023/08/26/6-5-kubelet进程源码分析/" title="6-5 kubelet进程源码分析" target="_blank">6-5 kubelet进程源码分析</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/21/第4章-Kubernetes的基础概念/" title="第4章 Kubernetes的基础概念" target="_blank">第4章 Kubernetes的基础概念</a>
+                    <a href="/2023/08/26/6-4-kube-scheduler进程源码分析/" title="6-4 kube-scheduler进程源码分析" target="_blank">6-4 kube-scheduler进程源码分析</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/20/第1章-Kubernetes入门/" title="第1章 Kubernetes入门" target="_blank">第1章 Kubernetes入门</a>
+                    <a href="/2023/08/26/6-3-kube-controller-manager进程源码分析/" title="6-3 kube-controller-manager进程源码分析" target="_blank">6-3 kube-controller-manager进程源码分析</a>
                   </li>
                 
               </ul>
@@ -1213,7 +1213,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">131:40</span>
+    <span title="站点阅读时长">132:26</span>
   
 </div>
 

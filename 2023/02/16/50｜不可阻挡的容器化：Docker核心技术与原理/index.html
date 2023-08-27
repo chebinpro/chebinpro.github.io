@@ -115,7 +115,7 @@
 <meta property="og:image" content="http://yoursite.com/2023/02/16/50｜不可阻挡的容器化：Docker核心技术与原理/2.jpeg">
 <meta property="og:image" content="http://yoursite.com/2023/02/16/50｜不可阻挡的容器化：Docker核心技术与原理/3.jpeg">
 <meta property="og:image" content="http://yoursite.com/2023/02/16/50｜不可阻挡的容器化：Docker核心技术与原理/4.jpeg">
-<meta property="og:updated_time" content="2023-08-03T02:07:24.320Z">
+<meta property="og:updated_time" content="2023-08-24T09:46:01.727Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="50｜不可阻挡的容器化：Docker核心技术与原理">
 <meta name="twitter:description" content="思考并回答以下问题：  Docker的架构可以分为4个部分，分别为运行时（Runtime）、守护进程（Dockerd）、集群管理（Swarm）和客户端（Client）。 容器中的网络是相互隔离的，容器与容器之间无法相互通信。">
@@ -448,7 +448,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2023-08-03 10:07:24" itemprop="dateModified" datetime="2023-08-03T10:07:24+08:00">2023-08-03</time>
+                <time title="修改时间：2023-08-24 17:46:01" itemprop="dateModified" datetime="2023-08-24T17:46:01+08:00">2023-08-24</time>
               
             
           </span>
@@ -545,7 +545,7 @@
 <h1 id="Docker的架构"><a href="#Docker的架构" class="headerlink" title="Docker的架构"></a><span style="color:#339AFF;">Docker的架构</span></h1><p>当前Docker的架构可以分为4个部分，分别为运行时（Runtime）、守护进程（Dockerd）、集群管理（Swarm）和客户端（Client）。</p>
 <ul>
 <li>运行时主要分为底层运行时和更高级别的运行时两种。底层运行时称为runC，它遵循<a href="https://opencontainers.org" target="_blank" rel="noopener">OCI</a>定义的运行时规范。runC的工作是与底层操作系统交互、启动和停止容器。更高级别的运行时叫做Containerd。Containerd比runC做得更多，它负责管理容器的整个生命周期，包括拉取镜像、创建网络接口和管理较低级别的runc实例。</li>
-<li>守护进程(Dockerd)位于Containerd之上，负责执行更高级别的任务。Dockerd的一个主要任务是提供一个易于使用的API来抽象对底层容器的操作，它提供了对Images、Volume、网络的管理。</li>
+<li>守护进程（Dockerd）位于Containerd之上，负责执行更高级别的任务。Dockerd的一个主要任务是提供一个易于使用的API来抽象对底层容器的操作，它提供了对Images、Volume、网络的管理。</li>
 <li>Docker还原生支持管理Docker集群的技术Docker Swarm。Swarm有助于资源排版，并提供集群间交流的安全性。</li>
 <li>客户端Client用于发送指令与Dockerd进行交互，最终实现操作容器的目的。</li>
 </ul>
@@ -559,17 +559,17 @@
 <li>第三行，WORKDIR指令用于设置镜像的工作目录，这里我们设置为/app。</li>
 <li>第四行，COPY指令用于将文件复制到镜像中，在这里我们将项目的所有文件复制到了/app路径下。</li>
 <li>第五行，RUN指令，用于执行指定的命令。在这里，我们执行<code>go mod download</code>来安装Go项目的依赖。</li>
-<li>第六行，RUN go build用于构建项目的二进制文件。</li>
-<li>第七行，EXPOSE 8080声明了容器暴露的服务端口，它主要用于描述，没有正式的作用。</li>
+<li>第六行，<code>RUN go build</code>用于构建项目的二进制文件。</li>
+<li>第七行，<code>EXPOSE 8080</code>声明了容器暴露的服务端口，它主要用于描述，没有正式的作用。</li>
 <li>第八行，CMD声明了容器启动时运行的命令，在这里我们运行的是<code>./crawler worker</code>。</li>
 </ul>
-<p>接下来让我们构建镜像，下面的命令将创建一个新的镜像crawler:latest。第一行最后的<code>.</code>是在告诉Docker使用当前的目录作为构建的上下文环境。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">» docker image build -t crawler:latest .</span><br><span class="line">[+] Building 2.5s (10/10) FINISHED                                                                                                                                                                                                                                                                                            0.1s</span><br><span class="line"> =&gt; [1/5] FROM docker.io/library/golang:1.18-alpine@sha256:c2bb8281641f39a32e01854ae6b5fea45870f6f4c0c04365eadc0be596675456                                                    0.0s</span><br><span class="line">...                                                                                                                                                         0.0s</span><br><span class="line"> =&gt; =&gt; writing image sha256:543e5f9605c19472776ba5a97c892092fd27e12a3164c4850940c442b960c714                                                                                   0.0s</span><br><span class="line"> =&gt; =&gt; naming to docker.io/library/crawler:latest                                                                                                                              0.0s</span><br></pre></td></tr></table></figure></p>
+<p>接下来让我们构建镜像，下面的命令将创建一个新的镜像<code>crawler:latest</code>。第一行最后的<code>.</code>是在告诉Docker使用当前的目录作为构建的上下文环境。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">» docker image build -t crawler:latest .</span><br><span class="line">[+] Building 2.5s (10/10) FINISHED                                                                                                                                                                                                                                                                                            0.1s</span><br><span class="line"> =&gt; [1/5] FROM docker.io/library/golang:1.18-alpine@sha256:c2bb8281641f39a32e01854ae6b5fea45870f6f4c0c04365eadc0be596675456                                                    0.0s</span><br><span class="line">...                                                                                                                                                         0.0s</span><br><span class="line"> =&gt; =&gt; writing image sha256:543e5f9605c19472776ba5a97c892092fd27e12a3164c4850940c442b960c714                                                                                   0.0s</span><br><span class="line"> =&gt; =&gt; naming to docker.io/library/crawler:latest                                                                                                                              0.0s</span><br></pre></td></tr></table></figure></p>
 <p>执行<code>docker image ls</code>，可以看到镜像已经构建完毕了。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">» docker image ls | grep crawler</span><br><span class="line">REPOSITORY    TAG   IMAGE ID       CREATED          SIZE</span><br><span class="line">crawler      latest 543e5f9605c1   16 minutes ago   782MB</span><br></pre></td></tr></table></figure></p>
 <p>Docker镜像由一系列的层（Layers）组成，镜像中的每一层代表Dockerfile中的一条指令。添加和删除文件都会产生一个新的层，每一层与前一层只存在一组差异。分层设计加速了镜像的构建和分发，多个镜像还能共享相同的层，这也可以节约磁盘空间。</p>
-<p>要查看镜像的层，可以使用<code>docker image inspect</code>指令。如下所示，crawler:latest镜像目前有8层，每一层都有唯一的SHA256标示。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">» docker image inspect crawler:latest </span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        "Id": "sha256:543e5f9605c19472776ba5a97c892092fd27e12a3164c4850940c442b960c714",</span><br><span class="line">        "RootFS": &#123;</span><br><span class="line">            "Type": "layers",</span><br><span class="line">            "Layers": [</span><br><span class="line">                "sha256:ded7a220bb058e28ee3254fbba04ca90b679070424424761a53a043b93b612bf",</span><br><span class="line">                "sha256:5543070dee1f9b72eff0b8d84c87dd37b04899edd7afe46414ca6230c09cc4f5",</span><br><span class="line">                "sha256:e1cae8dd6f178986b987365d7702481e5bb71e020e2d44d9f8d9f4a352b426f0",</span><br><span class="line">                "sha256:22a177053ccef5c9de36c4060fec2b869c81511df49097f5047f65bfa39c6acc",</span><br><span class="line">                "sha256:a849b6eb6a27ad178cc557000862c28ffd978c7712321c3b425eba0dc30ad665",</span><br><span class="line">                "sha256:d946471b6b8d1d07563ab6db96c96e525f0977cdb87a74592cf5aa7c8ddd537a",</span><br><span class="line">                "sha256:abbce2bc78cffc226ed52ad907d158043aef6b92b72dba11f64ac643b1d5200a",</span><br><span class="line">                "sha256:13cf2b5bcfa0cc96e5c3631b0dcb1b8a7b9015ebc400556b10119b03ab6d9ab6"</span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">        "Metadata": &#123;</span><br><span class="line">            "LastTagTime": "2022-12-20T10:47:44.36765779Z"</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
+<p>要查看镜像的层，可以使用<code>docker image inspect</code>指令。如下所示，<code>crawler:latest</code>镜像目前有8层，每一层都有唯一的SHA256标示。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">» docker image inspect crawler:latest </span><br><span class="line">[</span><br><span class="line">    &#123;</span><br><span class="line">        "Id": "sha256:543e5f9605c19472776ba5a97c892092fd27e12a3164c4850940c442b960c714",</span><br><span class="line">        "RootFS": &#123;</span><br><span class="line">            "Type": "layers",</span><br><span class="line">            "Layers": [</span><br><span class="line">                "sha256:ded7a220bb058e28ee3254fbba04ca90b679070424424761a53a043b93b612bf",</span><br><span class="line">                "sha256:5543070dee1f9b72eff0b8d84c87dd37b04899edd7afe46414ca6230c09cc4f5",</span><br><span class="line">                "sha256:e1cae8dd6f178986b987365d7702481e5bb71e020e2d44d9f8d9f4a352b426f0",</span><br><span class="line">                "sha256:22a177053ccef5c9de36c4060fec2b869c81511df49097f5047f65bfa39c6acc",</span><br><span class="line">                "sha256:a849b6eb6a27ad178cc557000862c28ffd978c7712321c3b425eba0dc30ad665",</span><br><span class="line">                "sha256:d946471b6b8d1d07563ab6db96c96e525f0977cdb87a74592cf5aa7c8ddd537a",</span><br><span class="line">                "sha256:abbce2bc78cffc226ed52ad907d158043aef6b92b72dba11f64ac643b1d5200a",</span><br><span class="line">                "sha256:13cf2b5bcfa0cc96e5c3631b0dcb1b8a7b9015ebc400556b10119b03ab6d9ab6"</span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">        "Metadata": &#123;</span><br><span class="line">            "LastTagTime": "2022-12-20T10:47:44.36765779Z"</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
 <p>下一步，让我们用<code>docker run</code>执行容器。这里<code>-p 8081:8080</code>表示端口的映射，意思是将容器的8080端口映射到主机的8081端口。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">» docker run -p 8081:8080  crawler:latest</span><br><span class="line">&#123;"level":"INFO","ts":"2022-12-20T10:56:53.420Z","caller":"worker/worker.go:101","msg":"log init end"&#125;</span><br><span class="line">&#123;"level":"INFO","ts":"2022-12-20T10:56:53.420Z","caller":"worker/worker.go:109","msg":"proxy list: [&lt;http://127.0.0.1:8888&gt; &lt;http://127.0.0.1:8888&gt;] timeout: 3000"&#125;</span><br><span class="line">&#123;"level":"ERROR","ts":"2022-12-20T10:56:53.421Z","caller":"worker/worker.go:126","msg":"create sqlstorage failed","error":"dial tcp 127.0.0.1:3326: connect: connection refused"&#125;</span><br></pre></td></tr></table></figure></p>
-<p>不过在这里我们看到程序直接退出了，因为它无法连接127.0.0.1:3326的MySQL。原来，由于容器网络具有隔离性，容器在查找127.0.0.1回环地址时，流量直接转发到了当前容器中，无法访问到宿主机网络。</p>
-<p>为了让容器访问宿主机上的程序，我们可以将MySQL的地址修改为宿主机对外的IP地址，例如当前我的局域网地址为192.168.0.105（你可以使用ifconfig指令查看本机IP地址）。或者我们可以在<code>docker run</code>时使用<code>–network host</code>，取消容器与宿主机之间的网络隔离。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 8081:8080 --network host crawler:latest</span><br></pre></td></tr></table></figure></p>
+<p>不过在这里我们看到程序直接退出了，因为它无法连接<code>127.0.0.1:3326</code>的MySQL。原来，由于容器网络具有隔离性，容器在查找<code>127.0.0.1</code>回环地址时，流量直接转发到了当前容器中，无法访问到宿主机网络。</p>
+<p>为了让容器访问宿主机上的程序，我们可以将MySQL的地址修改为宿主机对外的IP地址，例如当前我的局域网地址为<code>192.168.0.105</code>（你可以使用<code>ifconfig</code>指令查看本机IP地址）。或者我们可以在<code>docker run</code>时使用<code>–network host</code>，取消容器与宿主机之间的网络隔离。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 8081:8080 --network host crawler:latest</span><br></pre></td></tr></table></figure></p>
 <p>通过<code>docker exec</code>我们可以在正在运行的容器中运行命令，这里<code>-it</code>指的是将容器的输入输出重定向到当前的终端。如下，在容器中运行<code>sh</code>命令，之后我们可以通过命令行与容器交互。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec  -it  crawler:latest sh</span><br></pre></td></tr></table></figure></p>
 <p>执行<code>docker ps</code>可以查看当前正在运行的容器。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">» docker ps </span><br><span class="line">CONTAINER ID   IMAGE                    COMMAND                CREATED          STATUS</span><br><span class="line">52442ef0a737   crawler:latest      "./crawler worker"       12 seconds ago   Up 12 seconds</span><br></pre></td></tr></table></figure></p>
 <h1 id="多阶段构建镜像"><a href="#多阶段构建镜像" class="headerlink" title="多阶段构建镜像"></a><span style="color:#339AFF;">多阶段构建镜像</span></h1><p>镜像可以只包含与运行程序相关的文件与依赖，因此镜像大小可以变得很小。镜像变小后能加快镜像的分发与运行。但是我们之前构建的镜像却有782MB，在生产环境下显然是无法让人满意的。</p>
@@ -721,7 +721,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1116</span>
+                    <span class="site-state-item-count">1121</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1110,23 +1110,23 @@
                 
                 
                   <li>
-                    <a href="/2023/08/21/第7章-Kubernetes配置管理/" title="第7章 Kubernetes配置管理" target="_blank">第7章 Kubernetes配置管理</a>
+                    <a href="/2023/08/26/6-7-kubectl进程源码分析/" title="6-7 kubectl进程源码分析" target="_blank">6-7 kubectl进程源码分析</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/21/第6章-Kubernetes服务发布基础/" title="第6章 Kubernetes服务发布基础" target="_blank">第6章 Kubernetes服务发布基础</a>
+                    <a href="/2023/08/26/6-6-kube-proxy进程源码分析/" title="6-6 kube-proxy进程源码分析" target="_blank">6-6 kube-proxy进程源码分析</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/21/第5章-Kubernetes调度基础/" title="第5章 Kubernetes调度基础" target="_blank">第5章 Kubernetes调度基础</a>
+                    <a href="/2023/08/26/6-5-kubelet进程源码分析/" title="6-5 kubelet进程源码分析" target="_blank">6-5 kubelet进程源码分析</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/21/第4章-Kubernetes的基础概念/" title="第4章 Kubernetes的基础概念" target="_blank">第4章 Kubernetes的基础概念</a>
+                    <a href="/2023/08/26/6-4-kube-scheduler进程源码分析/" title="6-4 kube-scheduler进程源码分析" target="_blank">6-4 kube-scheduler进程源码分析</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/20/第1章-Kubernetes入门/" title="第1章 Kubernetes入门" target="_blank">第1章 Kubernetes入门</a>
+                    <a href="/2023/08/26/6-3-kube-controller-manager进程源码分析/" title="6-3 kube-controller-manager进程源码分析" target="_blank">6-3 kube-controller-manager进程源码分析</a>
                   </li>
                 
               </ul>
@@ -1198,7 +1198,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">131:40</span>
+    <span title="站点阅读时长">132:26</span>
   
 </div>
 

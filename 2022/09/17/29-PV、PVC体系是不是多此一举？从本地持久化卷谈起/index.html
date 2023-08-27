@@ -111,7 +111,7 @@
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-10-16T10:36:27.930Z">
+<meta property="og:updated_time" content="2023-08-24T06:17:34.639Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="29 | PV、PVC体系是不是多此一举？从本地持久化卷谈起">
 <meta name="twitter:description" content="思考并回答以下问题：">
@@ -443,7 +443,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2022-10-16 18:36:27" itemprop="dateModified" datetime="2022-10-16T18:36:27+08:00">2022-10-16</time>
+                <time title="修改时间：2023-08-24 14:17:34" itemprop="dateModified" datetime="2023-08-24T14:17:34+08:00">2023-08-24</time>
               
             
           </span>
@@ -525,11 +525,37 @@
       
         <p>思考并回答以下问题：</p>
 <a id="more"></a>
-<p>在上一篇文章中，我为你详细讲解了PV、PVC持久化存储体系在Kubernetes项目中的设计和实现原理。而在文章最后的思考题中，我为你留下了这样一个讨论话题：像PV、PVC这样的用法，是不是有“过度设计”的嫌疑？比如，我们公司的运维人员可以像往常一样维护一套NFS或者Ceph服务器，根本不必学习Kubernetes。而开发人员，则完全可以靠“复制粘贴”的方式，在Pod的YAML文件里填上Volumes字段，而不需要去使用PV和PVC。实际上，如果只是为了职责划分，PV、PVC体系确实不见得比直接在Pod里声明Volumes字段有什么优势。不过，你有没有想过这样一个问题，如果Kubernetes内置的20种持久化数据卷实现，都没办法满足你的容器存储需求时，该怎么办？</p>
-<p>这个情况乍一听起来有点不可思议。但实际上，凡是鼓捣过开源项目的读者应该都有所体会，“不能用”“不好用”“需要定制开发”，这才是落地开源基础设施项目的三大常态。而在持久化存储领域，用户呼声最高的定制化需求，莫过于支持“本地”持久化存储了。也就是说，用户希望Kubernetes能够直接使用宿主机上的本地磁盘目录，而不依赖于远程存储服务，来提供“持久化”的容器Volume。这样做的好处很明显，由于这个Volume直接使用的是本地磁盘，尤其是SSD盘，它的读写性能相比于大多数远程存储来说，要好得多。这个需求对本地物理服务器部署的私有Kubernetes集群来说，非常常见。所以，Kubernetes在v1.10之后，就逐渐依靠PV、PVC体系实现了这个特性。这个特性的名字叫作：LocalPersistentVolume。</p>
-<p>不过，首先需要明确的是，LocalPersistentVolume并不适用于所有应用。事实上，它的适用范围非常固定，比如：高优先级的系统应用，需要在多个不同节点上存储数据，并且对I/O较为敏感。典型的应用包括：分布式数据存储比如MongoDB、Cassandra等，分布式文件系统比如GlusterFS、Ceph等，以及需要在本地磁盘上进行大量数据缓存的分布式应用。其次，相比于正常的PV，一旦这些节点宕机且不能恢复时，LocalPersistentVolume的数据就可能丢失。这就要求使用LocalPersistentVolume的应用必须具备数据备份和恢复的能力，允许你把这些数据定时备份在其他位置。接下来，我就为你深入讲解一下这个特性。不难想象，LocalPersistentVolume的设计，主要面临两个难点。第一个难点在于：如何把本地磁盘抽象成PV。可能你会说，LocalPersistentVolume，不就等同于hostPath加NodeAffinity吗？</p>
-<p>比如，一个Pod可以声明使用类型为Local的PV，而这个PV其实就是一个hostPath类型的Volume。如果这个hostPath对应的目录，已经在节点A上被事先创建好了。那么，我只需要再给这个Pod加上一个nodeAffinity=nodeA，不就可以使用这个Volume了吗？事实上，你绝不应该把一个宿主机上的目录当作PV使用。这是因为，这种本地目录的存储行为完全不可控，它所在的磁盘随时都可能被应用写满，甚至造成整个宿主机宕机。而且，不同的本地目录之间也缺乏哪怕最基础的I/O隔离机制。所以，一个LocalPersistentVolume对应的存储介质，一定是一块额外挂载在宿主机的磁盘或者块设备（“额外”的意思是，它不应该是宿主机根目录所使用的主硬盘）。这个原则，我们可以称为“一个PV一块盘”。第二个难点在于：调度器如何保证Pod始终能被正确地调度到它所请求的LocalPersistentVolume所在的节点上呢？</p>
-<p>造成这个问题的原因在于，对于常规的PV来说，Kubernetes都是先调度Pod到某个节点上，然后，再通过“两阶段处理”来“持久化”这台机器上的Volume目录，进而完成Volume目录与容器的绑定挂载。可是，对于LocalPV来说，节点上可供使用的磁盘（或者块设备），必须是运维人员提前准备好的。它们在不同节点上的挂载情况可以完全不同，甚至有的节点可以没这种磁盘。所以，这时候，调度器就必须能够知道所有节点与LocalPersistentVolume对应的磁盘的关联关系，然后根据这个信息来调度Pod。这个原则，我们可以称为“在调度的时候考虑Volume分布”。在Kubernetes的调度器里，有一个叫作VolumeBindingChecker的过滤条件专门负责这个事情。在Kubernetesv1.11中，这个过滤条件已经默认开启了。基于上述讲述，在开始使用LocalPersistentVolume之前，你首先需要在集群里配置好磁盘或者块设备。在公有云上，这个操作等同于给虚拟机额外挂载一个磁盘，比如GCE的LocalSSD类型的磁盘就是一个典型例子。而在我们部署的私有环境中，你有两种办法来完成这个步骤。第一种，当然就是给你的宿主机挂载并格式化一个可用的本地磁盘，这也是最常规的操作；第二种，对于实验环境，你其实可以在宿主机上挂载几个RAMDisk（内存盘）来模拟本地磁盘。接下来，我会使用第二种方法，在我们之前部署的Kubernetes集群上进行实践。首先，在名叫node-1的宿主机上创建一个挂载点，比如/mnt/disks；然后，用几个RAMDisk来模拟本地磁盘，如下所示：</p>
+<p>在上一篇文章中，我为你详细讲解了PV、PVC持久化存储体系在Kubernetes项目中的设计和实现原理。而在文章最后的思考题中，我为你留下了这样一个讨论话题：像PV、PVC这样的用法，是不是有“过度设计”的嫌疑？</p>
+<p>比如，我们公司的运维人员可以像往常一样维护一套NFS或者Ceph服务器，根本不必学习Kubernetes。而开发人员，则完全可以靠“复制粘贴”的方式，在Pod的YAML文件里填上Volumes字段，而不需要去使用PV和PVC。</p>
+<p>实际上，如果只是为了职责划分，PV、PVC体系确实不见得比直接在Pod里声明Volumes字段有什么优势。</p>
+<p>不过，你有没有想过这样一个问题，如果Kubernetes内置的20种持久化数据卷实现，都没办法满足你的容器存储需求时，该怎么办？</p>
+<p>这个情况乍一听起来有点不可思议。但实际上，凡是鼓捣过开源项目的读者应该都有所体会，“不能用”“不好用”“需要定制开发”，这才是落地开源基础设施项目的三大常态。</p>
+<p>而在持久化存储领域，用户呼声最高的定制化需求，莫过于支持“本地”持久化存储了。</p>
+<p>也就是说，用户希望Kubernetes能够直接使用宿主机上的本地磁盘目录，而不依赖于远程存储服务，来提供“持久化”的容器Volume。</p>
+<p>样做的好处很明显，由于这个Volume直接使用的是本地磁盘，尤其是SSD盘，它的读写性能相比于大多数远程存储来说，要好得多。这个需求对本地物理服务器部署的私有Kubernetes集群来说，非常常见。</p>
+<p>所以，Kubernetes在v1.10之后，就逐渐依靠PV、PVC体系实现了这个特性。这个特性的名字叫作：LocalPersistentVolume。</p>
+<p>不过，首先需要明确的是，LocalPersistentVolume并不适用于所有应用。事实上，它的适用范围非常固定，比如：高优先级的系统应用，需要在多个不同节点上存储数据，并且对I/O较为敏感。典型的应用包括：分布式数据存储比如MongoDB、Cassandra等，分布式文件系统比如GlusterFS、Ceph等，以及需要在本地磁盘上进行大量数据缓存的分布式应用。</p>
+<p>其次，相比于正常的PV，一旦这些节点宕机且不能恢复时，LocalPersistentVolume的数据就可能丢失。这就要求使用LocalPersistentVolume的应用必须具备数据备份和恢复的能力，允许你把这些数据定时备份在其他位置。</p>
+<p>接下来，我就为你深入讲解一下这个特性。</p>
+<p>不难想象，LocalPersistentVolume的设计，主要面临两个难点。</p>
+<p>第一个难点在于：如何把本地磁盘抽象成PV。</p>
+<p>可能你会说，LocalPersistentVolume，不就等同于hostPath加NodeAffinity吗？</p>
+<p>比如，一个Pod可以声明使用类型为Local的PV，而这个PV其实就是一个hostPath类型的Volume。如果这个hostPath对应的目录，已经在节点A上被事先创建好了。那么，我只需要再给这个Pod加上一个nodeAffinity=nodeA，不就可以使用这个Volume了吗？</p>
+<p>事实上，你绝不应该把一个宿主机上的目录当作PV使用。这是因为，这种本地目录的存储行为完全不可控，它所在的磁盘随时都可能被应用写满，甚至造成整个宿主机宕机。而且，不同的本地目录之间也缺乏哪怕最基础的I/O隔离机制。</p>
+<p>所以，一个LocalPersistentVolume对应的存储介质，一定是一块额外挂载在宿主机的磁盘或者块设备（“额外”的意思是，它不应该是宿主机根目录所使用的主硬盘）。这个原则，我们可以称为“一个PV一块盘”。</p>
+<p>第二个难点在于：调度器如何保证Pod始终能被正确地调度到它所请求的LocalPersistentVolume所在的节点上呢？</p>
+<p>造成这个问题的原因在于，对于常规的PV来说，Kubernetes都是先调度Pod到某个节点上，然后，再通过“两阶段处理”来“持久化”这台机器上的Volume目录，进而完成Volume目录与容器的绑定挂载。</p>
+<p>可是，对于LocalPV来说，节点上可供使用的磁盘（或者块设备），必须是运维人员提前准备好的。它们在不同节点上的挂载情况可以完全不同，甚至有的节点可以没这种磁盘。</p>
+<p>所以，这时候，调度器就必须能够知道所有节点与LocalPersistentVolume对应的磁盘的关联关系，然后根据这个信息来调度Pod。</p>
+<p>这个原则，我们可以称为“在调度的时候考虑Volume分布”。在Kubernetes的调度器里，有一个叫作VolumeBindingChecker的过滤条件专门负责这个事情。在Kubernetesv1.11中，这个过滤条件已经默认开启了。</p>
+<p>基于上述讲述，在开始使用LocalPersistentVolume之前，你首先需要在集群里配置好磁盘或者块设备。在公有云上，这个操作等同于给虚拟机额外挂载一个磁盘，比如GCE的LocalSSD类型的磁盘就是一个典型例子。</p>
+<p>而在我们部署的私有环境中，你有两种办法来完成这个步骤。</p>
+<ul>
+<li>第一种，当然就是给你的宿主机挂载并格式化一个可用的本地磁盘，这也是最常规的操作；</li>
+<li>第二种，对于实验环境，你其实可以在宿主机上挂载几个RAMDisk（内存盘）来模拟本地磁盘。</li>
+</ul>
+<p>接下来，我会使用第二种方法，在我们之前部署的Kubernetes集群上进行实践。</p>
+<p>首先，在名叫node-1的宿主机上创建一个挂载点，比如/mnt/disks；然后，用几个RAMDisk来模拟本地磁盘，如下所示：</p>
 <p>需要注意的是，如果你希望其他节点也能支持LocalPersistentVolume的话，那就需要为它们也执行上述操作，并且确保这些磁盘的名字（vol1、vol2等）都不重复。接下来，我们就可以为这些本地磁盘定义对应的PV了，如下所示：</p>
 <p>可以看到，这个PV的定义里：local字段，指定了它是一个LocalPersistentVolume；而path字段，指定的正是这个PV对应的本地磁盘的路径，即：/mnt/disks/vol1。当然了，这也就意味着如果Pod要想使用这个PV，那它就必须运行在node-1上。所以，在这个PV的定义里，需要有一个nodeAffinity字段指定node-1这个节点的名字。这样，调度器在调度Pod的时候，就能够知道一个PV与节点的对应关系，从而做出正确的选择。这正是Kubernetes实现“在调度的时候就考虑Volume分布”的主要方法。接下来，我们就可以使用kubectcreate来创建这个PV，如下所示：</p>
 <p>可以看到，这个PV创建后，进入了Available（可用）状态。而正如我在上一篇文章里所建议的那样，使用PV和PVC的最佳实践，是你要创建一个StorageClass来描述这个PV，如下所示：</p>
@@ -658,7 +684,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1116</span>
+                    <span class="site-state-item-count">1121</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1047,23 +1073,23 @@
                 
                 
                   <li>
-                    <a href="/2023/08/21/第7章-Kubernetes配置管理/" title="第7章 Kubernetes配置管理" target="_blank">第7章 Kubernetes配置管理</a>
+                    <a href="/2023/08/26/6-7-kubectl进程源码分析/" title="6-7 kubectl进程源码分析" target="_blank">6-7 kubectl进程源码分析</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/21/第6章-Kubernetes服务发布基础/" title="第6章 Kubernetes服务发布基础" target="_blank">第6章 Kubernetes服务发布基础</a>
+                    <a href="/2023/08/26/6-6-kube-proxy进程源码分析/" title="6-6 kube-proxy进程源码分析" target="_blank">6-6 kube-proxy进程源码分析</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/21/第5章-Kubernetes调度基础/" title="第5章 Kubernetes调度基础" target="_blank">第5章 Kubernetes调度基础</a>
+                    <a href="/2023/08/26/6-5-kubelet进程源码分析/" title="6-5 kubelet进程源码分析" target="_blank">6-5 kubelet进程源码分析</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/21/第4章-Kubernetes的基础概念/" title="第4章 Kubernetes的基础概念" target="_blank">第4章 Kubernetes的基础概念</a>
+                    <a href="/2023/08/26/6-4-kube-scheduler进程源码分析/" title="6-4 kube-scheduler进程源码分析" target="_blank">6-4 kube-scheduler进程源码分析</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/20/第1章-Kubernetes入门/" title="第1章 Kubernetes入门" target="_blank">第1章 Kubernetes入门</a>
+                    <a href="/2023/08/26/6-3-kube-controller-manager进程源码分析/" title="6-3 kube-controller-manager进程源码分析" target="_blank">6-3 kube-controller-manager进程源码分析</a>
                   </li>
                 
               </ul>
@@ -1118,7 +1144,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">131:40</span>
+    <span title="站点阅读时长">132:26</span>
   
 </div>
 
