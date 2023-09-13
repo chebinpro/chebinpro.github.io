@@ -124,7 +124,7 @@
 <meta property="og:image" content="http://yoursite.com/2022/10/01/9-Deployment：声明式地升级应用/11.png">
 <meta property="og:image" content="http://yoursite.com/2022/10/01/9-Deployment：声明式地升级应用/12.png">
 <meta property="og:image" content="http://yoursite.com/2022/10/01/9-Deployment：声明式地升级应用/14.png">
-<meta property="og:updated_time" content="2023-08-19T06:09:44.638Z">
+<meta property="og:updated_time" content="2023-08-29T13:43:09.245Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="9-Deployment：声明式地升级应用">
 <meta name="twitter:description" content="思考并回答以下问题：">
@@ -457,7 +457,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2023-08-19 14:09:44" itemprop="dateModified" datetime="2023-08-19T14:09:44+08:00">2023-08-19</time>
+                <time title="修改时间：2023-08-29 21:43:09" itemprop="dateModified" datetime="2023-08-29T21:43:09+08:00">2023-08-29</time>
               
             
           </span>
@@ -754,7 +754,7 @@
 </blockquote>
 <p>显示Deployment的滚动升级历史</p>
 <p>回滚升级之所以可以这么快地完成，是因为Deployment始终保持着升级的版本历史记录。之后也会看到，历史版本号会被保存在ReplicaSet中。滚动升级成功后，老版本的ReplicaSet也不会被删掉，这也使得回滚操作可以回滚到任何一个历史版本，而不仅仅是上一个版本。可以使用kubectlrollouthistory来显示升级的版本：</p>
-<p>还记得创建Deployment时的—record参数吗？如果不给定这个参数，版本历史中的CHANGE-CAUSE这一栏会为空。这也会使用户很难辨别每次的版本做了哪些修改。<br>回滚到一个特定的Deployment版本</p>
+<p>还记得创建Deployment时的<code>--record</code>参数吗？如果不给定这个参数，版本历史中的CHANGE-CAUSE这一栏会为空。这也会使用户很难辨别每次的版本做了哪些修改。<br>回滚到一个特定的Deployment版本</p>
 <p>通过在undo命令中指定一个特定的版本号，便可以回滚到那个特定的版本。例如，如果想回滚到第一个版本，可以执行下述命令：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">kubectlrolloutundodeploymentkubia--to-revision=1</span></span><br></pre></td></tr></table></figure></p>
 <p>还记得第一次修改Deployment时留下的ReplicaSet吗？这个ReplicaSet便表示Deployment的第一次修改版本。由Deployment创建的所有ReplicaSet表示完整的修改版本历史，如图9.11所示。每个ReplicaSet都用特定的版本号来保存Deployment的完整信息，所以不应该手动删除ReplicaSet。如果这么做便会丢失Deployment的历史版本记录而导致无法回滚。</p>
 <blockquote>
@@ -765,7 +765,7 @@
 <blockquote>
 <p>注意 extensions/v1betal版本的Deployment的revisionHisto-ryLimit没有值，在apps/v1beta2版本中，这个默认值是10。</p>
 </blockquote>
-<h2 id="控制滚动升级速率"><a href="#控制滚动升级速率" class="headerlink" title="控制滚动升级速率"></a>控制滚动升级速率</h2><p>当执行kubectlrolloutstatus命令来观察升级到v3的过程时，会看到第一个pod被新创建，等到它运行时，一个旧的pod会被删除，然后又一个新的pod被创建，直到再没有新的pod可以更新。创建新pod和删除旧pod的方式可以通过配置滚动更新策略内的两个属性。</p>
+<h2 id="控制滚动升级速率"><a href="#控制滚动升级速率" class="headerlink" title="控制滚动升级速率"></a>控制滚动升级速率</h2><p>当执行<code>kubectl rollout status</code>命令来观察升级到v3的过程时，会看到第一个pod被新创建，等到它运行时，一个旧的pod会被删除，然后又一个新的pod被创建，直到再没有新的pod可以更新。创建新pod和删除旧pod的方式可以通过配置滚动更新策略内的两个属性。</p>
 <p>介绍滚动升级策略的maxSurge和maxUnavailable属性</p>
 <p>在Deployment的滚动升级期间，有两个属性会决定一次替换多少个pod：maxSurge和maxUnavailable。可以通过Deployment的strategy字段下rollingUpdate的子属性来配置，如下面的代码清单所示。</p>
 <blockquote>
@@ -789,7 +789,10 @@
 <p>一个新的pod会被创建，与此同时所有旧的pod还在运行。一旦新的pod成功运行，服务的一部分请求将被切换到新的pod。这样相当于运行了一个金丝雀版本。金丝雀发布是一种可以将应用程序的出错版本和其影响到的用户的风险化为最小的技术。与其直接向每个用户发布新版本，不如用新版本替换一个或一小部分的pod。通过这种方式，在升级的初期只有少数用户会访问新版本。验证新版本是否正常工作之后，可以将剩余的pod继续升级或者回滚到上一个的版本。</p>
 <p>恢复滚动升级</p>
 <p>在上述例子中，通过暂停滚动升级过程，只有一小部分客户端请求会切换到v4pod，而大多数请求依然仍只会切换到v3pod。一旦确认新版本能够正常工作，就可以恢复滚动升级，用新版本pod替换所有旧版本的pod：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$kubectlrolloutresumedeploymentkubia</span></span><br><span class="line">deployment<span class="string">"kubia"</span>resumed</span><br></pre></td></tr></table></figure></p>
-<p>在滚动升级过程中，想要在一个确切的位置暂停滚动升级目前还无法做到，以后可能会有一种新的升级策略来自动完成上面的需求。但目前想要进行金丝雀发布的正确方式是，使用两个不同的Deployment并同时调整它们对应的pod数量。<br>使用暂停功能来停止滚动升级<br>暂停部署还可以用于阻止更新Deployment而自动触发的滚动升级过程，用户可以对Deployment进行多次更改，并在完成所有更改后才恢复滚动升级。一旦更改完毕，则恢复并启动滚动更新过程。<br>注意如果部署被暂停，那么在恢复部署之前，撤销命令不会撤销它。</p>
+<p>在滚动升级过程中，想要在一个确切的位置暂停滚动升级目前还无法做到，以后可能会有一种新的升级策略来自动完成上面的需求。但目前想要进行金丝雀发布的正确方式是，使用两个不同的Deployment并同时调整它们对应的pod数量。</p>
+<p>使用暂停功能来停止滚动升级</p>
+<p>暂停部署还可以用于阻止更新Deployment而自动触发的滚动升级过程，用户可以对Deployment进行多次更改，并在完成所有更改后才恢复滚动升级。一旦更改完毕，则恢复并启动滚动更新过程。</p>
+<p>注意如果部署被暂停，那么在恢复部署之前，撤销命令不会撤销它。</p>
 <h2 id="阻止出错版本的滚动升级"><a href="#阻止出错版本的滚动升级" class="headerlink" title="阻止出错版本的滚动升级"></a>阻止出错版本的滚动升级</h2><p>在结束本章之前，我们还会讨论Deployment资源的另一个属性。还记得在9.3.2节开始时在Deployment中设置的minReadySeconds属性吗？使用它来减慢滚动升级速率，使用这个参数之后确实执行了滚动更新，并且没有一次性替换所有的pod。minReadySeconds的主要功能是避免部署出错版本的应用，而不只是单纯地减慢部署的速度。</p>
 <p>了解minReadySeconds的用处</p>
 <p>minReadySeconds属性指定新创建的pod至少要成功运行多久之后，才能将其视为可用。在pod可用之前，滚动升级的过程不会继续还记得maxUnavail-able属性吗？）。当所有容器的就绪探针返回成功时，pod就被标记为就绪状态。如果一个新的pod运行出错，就绪探针返回失败，如果一个新的pod运行出错，并且在minReadySeconds时间内它的就绪探针出现了失败，那么新版本的滚动升级将被阻止。</p>
@@ -812,15 +815,45 @@
 <p>运行apply命令会自动开始滚动升级过程，可以再一次运行rolloutsta-tus命令来查看升级过程：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$kubect1ro1loutstatusdeploymentkubia</span></span><br><span class="line">Waitingforrollouttofinish:1outof3newreplicashavebeenupdated...</span><br></pre></td></tr></table></figure></p>
 <p>因为升级状态显示—个新的pod已经创建，一小部分流量应该也会切换到这个pod。可以通过下面的命令看到：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$whiletrue</span>;docurlhttp://130.211.109.222;<span class="keyword">done</span></span><br><span class="line">Thisisv2runrninginpodkukbia,.176519474-jvslk</span><br><span class="line">Thisisv2runninginpodkubia-1765119474-jvslk</span><br><span class="line">Thisisv2runninginpodkubia-1765119474-X0k5g3</span><br><span class="line">Thisisv2runninginpodkubia-1765119474-pmb26</span><br><span class="line">Thisisv2runninginpodkubia-1765119474-pmb26</span><br><span class="line">Thisisv2runninginpodkubia-1765119474-xk5g3</span><br></pre></td></tr></table></figure></p>
 <p>结果显示并没有请求被切换到v3pod，为什么呢？让我们先列出所有pod：</p>
-<p>可以看到，有一个pod并没有处于就绪状态，这是为什么呢？<br>就绪探针如何阻止出错版本的滚动升级<br>当新的pod启动时，就绪探针会每隔一秒发起请求（在podspec中，就绪探针的间隔被设置为1秒）。在就绪探针发起第五个请求的时候会出现失败，因为应用从第五个请求开始一直返回HTTP状态码500。<br>因此，pod会从Service的endpoint中移除（参见图9.14）。当执行curl循环请求服务时，pod已经被标记为未就绪。这就解释了为什么curl发出的请求不会切换到新的pod。这正是符合预期的，因为你不希望客户端流量会切换到一个无法正常工作的pod。</p>
+<p>可以看到，有一个pod并没有处于就绪状态，这是为什么呢？</p>
+<p>就绪探针如何阻止出错版本的滚动升级</p>
+<p>当新的pod启动时，就绪探针会每隔一秒发起请求（在podspec中，就绪探针的间隔被设置为1秒）。在就绪探针发起第五个请求的时候会出现失败，因为应用从第五个请求开始一直返回HTTP状态码500。</p>
+<p>因此，pod会从Service的endpoint中移除（参见图9.14）。当执行curl循环请求服务时，pod已经被标记为未就绪。这就解释了为什么curl发出的请求不会切换到新的pod。这正是符合预期的，因为你不希望客户端流量会切换到一个无法正常工作的pod。</p>
 <blockquote>
 <p>图9.14 Deployment因为新创建pod的就绪探针失败而被阻止</p>
 </blockquote>
 <img src="/2022/10/01/9-Deployment：声明式地升级应用/14.png">
-<p>rolloutstatus命令显示只有一个新副本启动，之后滚动升级过程没有再继续下去，因为新的pod一直处于不可用状态。即使变为就绪状态之后，也至少需要保持10秒，才是真正可用的。在这之前滚动升级过程将不再创建任何新的pod，因为当前maxUnavailable属性设置为0，所以也不会删除任何原始的pod。<br>实际上部署过程自动被阻止是一件好事。如果继续用新的pod替换旧的pod，那么最终服务将处于完全不能工作的状态，就和当时没有使用就绪探针的情况下滚动升级v3版本时出现的结果一样。但是添加了就绪探针之后，升级出错程序而对</p>
-<p>用户造成的影响面不会过大，对比之前替换所有pod的方式，只有一小部分用户受到了影响。<br>提示如果只定义就绪探针没有正确设置minReadySeconds旦有一次就绪探针调用成功，便会认为新的pod已经处于可用状态。因此最好适当地设置minReadySeconds的值。<br>为滚动升级配置deadline<br>默认情况下，在10分钟内不能完成滚动升级的话，将被视为失败。如果运行kubectldescribedeployment命令，将会显示一条ProgressDeadline-Exceeded的记录，如下面的代码清单所示。<br>代码清单9.12使用kubectldescribe查看Deployment的详细情况<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">SkubectIdescrilibedeploykubia</span><br><span class="line">Name:</span><br><span class="line">kubia</span><br><span class="line">Conditions:</span><br><span class="line">TypestatusReason</span><br><span class="line">....</span><br><span class="line">Deployment完成滚</span><br><span class="line">AvailableTrueMinimumReplicasAvailable</span><br><span class="line">动升级的时间过久</span><br><span class="line">Proqressinc</span><br><span class="line">FalseproaressDeadlineRxceeded</span><br><span class="line">gressingFalseProgre</span><br><span class="line">lir.ceeded</span><br></pre></td></tr></table></figure></p>
-<p>判定Deployment滚动升级失败的超时时间，可以通过设定Deploymentspec中的progressDeadlineSeconds来指定。<br>注意extensions/v1betal版本不会设置默认的deadlineo<br>取消出错版本的滚动升级<br>因为滚动升级过程不再继续，所以只能通过rolloutundo命令来取消滚动升级：<br>$kubect1rolloutundodeploymentkubia<br>deployment”kubia”rolledback<br>注意在后续的版本中，如果达到了progressDeadlineSeconds指定的时间，则滚动升级过程会自动取消。</p>
-<h1 id="本章小结"><a href="#本章小结" class="headerlink" title="本章小结"></a>本章小结</h1><p>本章展示了如何通过声明的方式在Kubernetes中部署和更新应用。阅读了这一章之后，你应该知道如何：<br>使用ReplicationController管理pod并执行滚动升级<br>创建Deployment，而不是底层的ReplicationController和ReplicaSet·通过更新Deployment定义的pod模板来更新pod<br>回滚Deployment到上个版本或历史版本列表中的任意一个历史版本·中止Deployment滚动升级<br>滚动升级时，在所有pod被替换之前，暂停Deployment滚动升级查看单个新版本的实例状况<br>通过maxSurge和maxUnavailable属性控制滚动升级的速率<br>使用minReadySeconds和就绪探针自动避免错误版本的升级<br>除了这些Deployment相关的知识点，还学习了如何：<br>·在一个单一的YAML文件内使用三个横杠（一）作为分隔符定义多个资源●打开kubectl的详细日志模式，查看背后运行的详细日志<br>现在你已经知道如何部署和管理从相同的pod模板创建的一组pod，共享同一个持久性存储。甚至了解如何以声明的方式升级它们。但是如果是运行一组pod并且每个实例都需要使用自己的持久存储该怎么办。这就是接下来这一章的主题。</p>
+<p>rolloutstatus命令显示只有一个新副本启动，之后滚动升级过程没有再继续下去，因为新的pod一直处于不可用状态。即使变为就绪状态之后，也至少需要保持10秒，才是真正可用的。在这之前滚动升级过程将不再创建任何新的pod，因为当前maxUnavailable属性设置为0，所以也不会删除任何原始的pod。</p>
+<p>实际上部署过程自动被阻止是一件好事。如果继续用新的pod替换旧的pod，那么最终服务将处于完全不能工作的状态，就和当时没有使用就绪探针的情况下滚动升级v3版本时出现的结果一样。但是添加了就绪探针之后，升级出错程序而对用户造成的影响面不会过大，对比之前替换所有pod的方式，只有一小部分用户受到了影响。</p>
+<p>提示如果只定义就绪探针没有正确设置minReadySeconds旦有一次就绪探针调用成功，便会认为新的pod已经处于可用状态。因此最好适当地设置minReadySeconds的值。</p>
+<p>为滚动升级配置deadline</p>
+<p>默认情况下，在10分钟内不能完成滚动升级的话，将被视为失败。如果运行kubectldescribedeployment命令，将会显示一条ProgressDeadline-Exceeded的记录，如下面的代码清单所示。</p>
+<blockquote>
+<p>代码清单9.12 使用kubectldescribe查看Deployment的详细情况</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">SkubectIdescrilibedeploykubia</span><br><span class="line">Name:</span><br><span class="line">kubia</span><br><span class="line">Conditions:</span><br><span class="line">TypestatusReason</span><br><span class="line">....</span><br><span class="line">Deployment完成滚</span><br><span class="line">AvailableTrueMinimumReplicasAvailable</span><br><span class="line">动升级的时间过久</span><br><span class="line">Proqressinc</span><br><span class="line">FalseproaressDeadlineRxceeded</span><br><span class="line">gressingFalseProgre</span><br><span class="line">lir.ceeded</span><br></pre></td></tr></table></figure>
+<p>判定Deployment滚动升级失败的超时时间，可以通过设定Deploymentspec中的progressDeadlineSeconds来指定。</p>
+<blockquote>
+<p>注意 extensions/v1betal版本不会设置默认的deadlineo</p>
+</blockquote>
+<p>取消出错版本的滚动升级</p>
+<p>因为滚动升级过程不再继续，所以只能通过rolloutundo命令来取消滚动升级：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">kubect1rolloutundodeploymentkubia</span></span><br><span class="line">deployment"kubia"rolledback</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>注意 在后续的版本中，如果达到了progressDeadlineSeconds指定的时间，则滚动升级过程会自动取消。</p>
+</blockquote>
+<h1 id="本章小结"><a href="#本章小结" class="headerlink" title="本章小结"></a>本章小结</h1><p>本章展示了如何通过声明的方式在Kubernetes中部署和更新应用。阅读了这一章之后，你应该知道如何：</p>
+<ul>
+<li>使用ReplicationController管理pod并执行滚动升级</li>
+<li>创建Deployment，而不是底层的ReplicationController和ReplicaSet·通过更新Deployment定义的pod模板来更新pod</li>
+<li>回滚Deployment到上个版本或历史版本列表中的任意一个历史版本·中止Deployment滚动升级</li>
+<li>滚动升级时，在所有pod被替换之前，暂停Deployment滚动升级查看单个新版本的实例状况</li>
+<li>通过maxSurge和maxUnavailable属性控制滚动升级的速率</li>
+<li>使用minReadySeconds和就绪探针自动避免错误版本的升级</li>
+<li>除了这些Deployment相关的知识点，还学习了如何：</li>
+<li>在一个单一的YAML文件内使用三个横杠（一）作为分隔符定义多个资源</li>
+<li>打开kubectl的详细日志模式，查看背后运行的详细日志</li>
+</ul>
+<p>现在你已经知道如何部署和管理从相同的pod模板创建的一组pod，共享同一个持久性存储。甚至了解如何以声明的方式升级它们。但是如果是运行一组pod并且每个实例都需要使用自己的持久存储该怎么办。这就是接下来这一章的主题。</p>
 
       
     </div>
@@ -940,7 +973,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1121</span>
+                    <span class="site-state-item-count">1108</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1019,9 +1052,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-count">24</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1292,13 +1323,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-count">76</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1417,7 +1442,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">132:26</span>
+    <span title="站点阅读时长">131:24</span>
   
 </div>
 

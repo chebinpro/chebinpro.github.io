@@ -125,7 +125,7 @@
 <meta property="og:image" content="http://yoursite.com/2022/09/12/25｜PersistentVolume-NFS：怎么使用网络共享存储？/13.png">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/25｜PersistentVolume-NFS：怎么使用网络共享存储？/14.jpg">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/25｜PersistentVolume-NFS：怎么使用网络共享存储？/15.jpg">
-<meta property="og:updated_time" content="2023-08-16T01:39:52.731Z">
+<meta property="og:updated_time" content="2023-08-28T10:40:24.369Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="25丨PersistentVolume + NFS：怎么使用网络共享存储？">
 <meta name="twitter:description" content="思考并回答以下问题：">
@@ -458,7 +458,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2023-08-16 09:39:52" itemprop="dateModified" datetime="2023-08-16T09:39:52+08:00">2023-08-16</time>
+                <time title="修改时间：2023-08-28 18:40:24" itemprop="dateModified" datetime="2023-08-28T18:40:24+08:00">2023-08-28</time>
               
             
           </span>
@@ -553,15 +553,15 @@
 <p>在Ubuntu系统里安装NFS服务端很容易，使用apt即可：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt -y install nfs-kernel-server</span><br></pre></td></tr></table></figure></p>
 <p>安装好之后，你需要给NFS指定一个存储位置，也就是网络共享目录。一般来说，应该建立一个专门的/data目录，这里为了简单起见，我就使用了临时目录/tmp/nfs：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /tmp/nfs</span><br></pre></td></tr></table></figure></p>
 <p>接下来你需要配置NFS访问共享目录，修改/etc/exports，指定目录名、允许访问的网段，还有权限等参数。这些规则比较琐碎，和我们的Kubernetes课程关联不大，我就不详细解释了，你只要把下面这行加上就行，注意目录名和IP地址要改成和自己的环境一致：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/tmp/nfs 192.168.10.0/24(rw,sync,no_subtree_check,no_root_squash,insecure)</span><br></pre></td></tr></table></figure></p>
-<p>改好之后，需要用exportfs-ra通知NFS，让配置生效，再用exportfs-v验证效果：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo exportfs -ra</span><br><span class="line">sudo exportfs -v</span><br></pre></td></tr></table></figure></p>
+<p>改好之后，需要用<code>exportfs -ra</code>通知NFS，让配置生效，再用<code>exportfs -v</code>验证效果：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo exportfs -ra</span><br><span class="line">sudo exportfs -v</span><br></pre></td></tr></table></figure></p>
 <img src="/2022/09/12/25｜PersistentVolume-NFS：怎么使用网络共享存储？/2.png">
-<p>现在，你就可以使用systemctl来启动NFS服务器了：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start  nfs-server</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> nfs-server</span><br><span class="line">sudo systemctl status nfs-server</span><br></pre></td></tr></table></figure></p>
+<p>现在，你就可以使用<code>systemctl</code>来启动NFS服务器了：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl start  nfs-server</span><br><span class="line">sudo systemctl <span class="built_in">enable</span> nfs-server</span><br><span class="line">sudo systemctl status nfs-server</span><br></pre></td></tr></table></figure></p>
 <img src="/2022/09/12/25｜PersistentVolume-NFS：怎么使用网络共享存储？/3.png">
-<p>你还可以使用命令showmount来检查NFS的网络挂载情况：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">showmount -e 127.0.0.1</span><br></pre></td></tr></table></figure></p>
+<p>你还可以使用命令<code>showmount</code>来检查NFS的网络挂载情况：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">showmount -e 127.0.0.1</span><br></pre></td></tr></table></figure></p>
 <img src="/2022/09/12/25｜PersistentVolume-NFS：怎么使用网络共享存储？/4.png">
 <h1 id="如何安装NFS客户端"><a href="#如何安装NFS客户端" class="headerlink" title="如何安装NFS客户端"></a><span style="color:#339AFF;">如何安装NFS客户端</span></h1><p>有了NFS服务器之后，为了让Kubernetes集群能够访问NFS存储服务，我们还需要在每个节点上都安装NFS客户端。</p>
 <p>这项工作只需要一条apt命令，不需要额外的配置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt -y install nfs-common</span><br></pre></td></tr></table></figure></p>
-<p>同样，在节点上可以用showmount检查NFS能否正常挂载，注意IP地址要写成NFS服务器的地址，我在这里就是“192.168.10.208”：</p>
+<p>同样，在节点上可以用<code>showmount</code>检查NFS能否正常挂载，注意IP地址要写成NFS服务器的地址，我在这里就是“192.168.10.208”：</p>
 <img src="/2022/09/12/25｜PersistentVolume-NFS：怎么使用网络共享存储？/5.png">
 <p>现在让我们尝试手动挂载一下NFS网络存储，先创建一个目录/tmp/test作为挂载点：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir -p /tmp/<span class="built_in">test</span></span><br></pre></td></tr></table></figure></p>
 <p>然后用命令mount把NFS服务器的共享目录挂载到刚才创建的本地目录上：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mount -t nfs 192.168.10.208:/tmp/nfs /tmp/<span class="built_in">test</span></span><br></pre></td></tr></table></figure></p>
@@ -572,17 +572,17 @@
 <p>因为这个存储卷是NFS系统，所以我们还需要在YAML里添加nfs字段，指定NFS服务器的IP地址和共享目录名。</p>
 <p>这里我在NFS服务器的/tmp/nfs目录里又创建了一个新的目录1g-pv，表示分配了1GB的可用存储空间，相应的，PV里的capacity也要设置成同样的数值，也就是1Gi。</p>
 <p>把这些字段都整理好后，我们就得到了一个使用NFS网络存储的YAML描述文件：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PersistentVolume</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">nfs-1g-pv</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  storageClassName:</span> <span class="string">nfs</span></span><br><span class="line"><span class="attr">  accessModes:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">ReadWriteMany</span></span><br><span class="line"><span class="attr">  capacity:</span></span><br><span class="line"><span class="attr">    storage:</span> <span class="number">1</span><span class="string">Gi</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  nfs:</span></span><br><span class="line"><span class="attr">    path:</span> <span class="string">/tmp/nfs/1g-pv</span></span><br><span class="line"><span class="attr">    server:</span> <span class="number">192.168</span><span class="number">.10</span><span class="number">.208</span></span><br></pre></td></tr></table></figure></p>
-<p>现在就可以用命令kubectlapply来创建PV对象，再用kubectlgetpv查看它的状态：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f nfs-static-pv.yml</span><br><span class="line">kubectl get pv</span><br></pre></td></tr></table></figure></p>
+<p>现在就可以用命令<code>kubectl apply</code>来创建PV对象，再用<code>kubectl get pv</code>查看它的状态：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f nfs-static-pv.yml</span><br><span class="line">kubectl get pv</span><br></pre></td></tr></table></figure></p>
 <img src="/2022/09/12/25｜PersistentVolume-NFS：怎么使用网络共享存储？/6.png">
-<p>再次提醒你注意，spec.nfs里的IP地址一定要正确，路径一定要存在（事先创建好），否则Kubernetes按照PV的描述会无法挂载NFS共享目录，PV就会处于“pending”状态无法使用。</p>
-<p>有了PV，我们就可以定义申请存储的PVC对象了，它的内容和PV差不多，但不涉及NFS存储的细节，只需要用resources.request来表示希望要有多大的容量，这里我写成1GB，和PV的容量相同：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PersistentVolumeClaim</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">nfs-static-pvc</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  storageClassName:</span> <span class="string">nfs</span></span><br><span class="line"><span class="attr">  accessModes:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">ReadWriteMany</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  resources:</span></span><br><span class="line"><span class="attr">    requests:</span></span><br><span class="line"><span class="attr">      storage:</span> <span class="number">1</span><span class="string">Gi</span></span><br></pre></td></tr></table></figure></p>
+<p>再次提醒你注意，<code>spec.nfs</code>里的IP地址一定要正确，路径一定要存在（事先创建好），否则Kubernetes按照PV的描述会无法挂载NFS共享目录，PV就会处于“pending”状态无法使用。</p>
+<p>有了PV，我们就可以定义申请存储的PVC对象了，它的内容和PV差不多，但不涉及NFS存储的细节，只需要用<code>resources.request</code>来表示希望要有多大的容量，这里我写成1GB，和PV的容量相同：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">PersistentVolumeClaim</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">nfs-static-pvc</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  storageClassName:</span> <span class="string">nfs</span></span><br><span class="line"><span class="attr">  accessModes:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">ReadWriteMany</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  resources:</span></span><br><span class="line"><span class="attr">    requests:</span></span><br><span class="line"><span class="attr">      storage:</span> <span class="number">1</span><span class="string">Gi</span></span><br></pre></td></tr></table></figure></p>
 <p>创建PVC对象之后，Kubernetes就会根据PVC的描述，找到最合适的PV，把它们“绑定”在一起，也就是存储分配成功：</p>
 <img src="/2022/09/12/25｜PersistentVolume-NFS：怎么使用网络共享存储？/7.png">
 <p>我们再创建一个Pod，把PVC挂载成它的一个volume，具体的做法和上节课是一样的，用persistentVolumeClaim指定PVC的名字就可以了：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">nfs-static-pod</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  volumes:</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">nfs-pvc-vol</span></span><br><span class="line"><span class="attr">    persistentVolumeClaim:</span></span><br><span class="line"><span class="attr">      claimName:</span> <span class="string">nfs-static-pvc</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  containers:</span></span><br><span class="line"><span class="attr">    - name:</span> <span class="string">nfs-pvc-test</span></span><br><span class="line"><span class="attr">      image:</span> <span class="attr">nginx:alpine</span></span><br><span class="line"><span class="attr">      ports:</span></span><br><span class="line"><span class="attr">      - containerPort:</span> <span class="number">80</span></span><br><span class="line"></span><br><span class="line"><span class="attr">      volumeMounts:</span></span><br><span class="line"><span class="attr">        - name:</span> <span class="string">nfs-pvc-vol</span></span><br><span class="line"><span class="attr">          mountPath:</span> <span class="string">/tmp</span></span><br></pre></td></tr></table></figure></p>
 <p>Pod、PVC、PV和NFS存储的关系可以用下图来形象地表示，你可以对比一下HostPathPV的用法，看看有什么不同：</p>
 
 <p>因为我们在PV/PVC里指定了storageClassName是nfs，节点上也安装了NFS客户端，所以Kubernetes就会自动执行NFS挂载动作，把NFS的共享目录/tmp/nfs/1g-pv挂载到Pod里的/tmp，完全不需要我们去手动管理。</p>
-<p>最后还是测试一下，用kubectlapply创建Pod之后，我们用kubectlexec进入Pod，再试着操作NFS共享目录：</p>
+<p>最后还是测试一下，用<code>kubectl apply</code>创建Pod之后，我们用<code>kubectl exec</code>进入Pod，再试着操作NFS共享目录：</p>
 <img src="/2022/09/12/25｜PersistentVolume-NFS：怎么使用网络共享存储？/9.png">
 <p>退出Pod，再看一下NFS服务器的/tmp/nfs/1g-pv目录，你就会发现Pod里创建的文件确实写入了共享目录：</p>
 <img src="/2022/09/12/25｜PersistentVolume-NFS：怎么使用网络共享存储？/10.png">
@@ -747,7 +747,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1121</span>
+                    <span class="site-state-item-count">1108</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -826,9 +826,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-count">24</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1099,13 +1097,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-count">76</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1224,7 +1216,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">132:26</span>
+    <span title="站点阅读时长">131:24</span>
   
 </div>
 

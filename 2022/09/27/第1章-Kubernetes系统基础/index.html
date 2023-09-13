@@ -111,13 +111,24 @@
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2022/09/27/第1章-Kubernetes系统基础/1.png">
+<meta property="og:image" content="http://yoursite.com/2022/09/27/第1章-Kubernetes系统基础/2.png">
+<meta property="og:image" content="http://yoursite.com/2022/09/27/第1章-Kubernetes系统基础/4.png">
+<meta property="og:image" content="http://yoursite.com/2022/09/27/第1章-Kubernetes系统基础/5.png">
+<meta property="og:image" content="http://yoursite.com/2022/09/27/第1章-Kubernetes系统基础/6.png">
+<meta property="og:image" content="http://yoursite.com/2022/09/27/第1章-Kubernetes系统基础/7.png">
+<meta property="og:image" content="http://yoursite.com/2022/09/27/第1章-Kubernetes系统基础/8.png">
+<meta property="og:image" content="http://yoursite.com/2022/09/27/第1章-Kubernetes系统基础/9.png">
+<meta property="og:image" content="http://yoursite.com/2022/09/27/第1章-Kubernetes系统基础/10.png">
 <meta property="og:image" content="http://yoursite.com/2022/09/27/第1章-Kubernetes系统基础/1-11.png">
 <meta property="og:image" content="http://yoursite.com/2022/09/27/第1章-Kubernetes系统基础/1-12.png">
-<meta property="og:updated_time" content="2022-09-27T08:21:09.900Z">
+<meta property="og:image" content="http://yoursite.com/2022/09/27/第1章-Kubernetes系统基础/13.png">
+<meta property="og:image" content="http://yoursite.com/2022/09/27/第1章-Kubernetes系统基础/14.png">
+<meta property="og:updated_time" content="2023-09-02T17:02:07.603Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第1章 Kubernetes系统基础">
 <meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2022/09/27/第1章-Kubernetes系统基础/1-11.png">
+<meta name="twitter:image" content="http://yoursite.com/2022/09/27/第1章-Kubernetes系统基础/1.png">
 
 
 
@@ -429,12 +440,24 @@
                 
               
 
-              <time title="创建时间：2022-09-27 09:53:28 / 修改时间：16:21:09" itemprop="dateCreated datePublished" datetime="2022-09-27T09:53:28+08:00">2022-09-27</time>
+              <time title="创建时间：2022-09-27 09:53:28" itemprop="dateCreated datePublished" datetime="2022-09-27T09:53:28+08:00">2022-09-27</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2023-09-03 01:02:07" itemprop="dateModified" datetime="2023-09-03T01:02:07+08:00">2023-09-03</time>
               
             
           </span>
@@ -480,7 +503,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">11k</span>
+                <span title="本文字数">14k</span>
               
 
               
@@ -494,7 +517,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">10 分钟</span>
+                <span title="阅读时长">13 分钟</span>
               
             </div>
           
@@ -522,9 +545,9 @@
 <h1 id="容器技术概述"><a href="#容器技术概述" class="headerlink" title="容器技术概述"></a>容器技术概述</h1><p>容器是一种轻量级、可移植、自包含的软件打包技术，它使得应用程序可以在几乎任何地方以相同的方式运行。软件开发工程师在自己笔记本上创建并测试完成的容器，无须任何修改就能够在生产系统的虚拟机、物理机或云主机上运行。</p>
 <p>容器由应用程序本身和它的环境依赖（库和其他应用程序）两部分组成，并在宿主机（Host）操作系统的用户空间中运行，但与操作系统的其他进程互相隔离，它们的实现机制有别于诸如VMWare、KVM和Xen等实现方案的传统虚拟化技术。容器与虚拟机的对比关系如图1-1所示。</p>
 <blockquote>
-<p>图1-1 </p>
+<p>图1-1 容器和虚拟机对比</p>
 </blockquote>
-<p>容器和虚拟机对比(<a href="http://www.nuagenetworksnet/blog/containers/" target="_blank" rel="noopener">http://www.nuagenetworksnet/blog/containers/</a>)</p>
+<img src="/2022/09/27/第1章-Kubernetes系统基础/1.png">
 <p>由于同一个宿主机上的所有容器都共享其底层操作系统（内核空间），这就使得容器在体积上要比传统的虚拟机小得多。另外，启动容器无须启动整个操作系统，所以容器部署和启动的速度更快，开销更小，也更容易迁移。事实上，容器赋予了应用程序超强的可移植能力。</p>
 <h2 id="容器技术的功用"><a href="#容器技术的功用" class="headerlink" title="容器技术的功用"></a>容器技术的功用</h2><p>IT系统在架构上已经迭代数十年之久，其环境复杂程度日趋加重，直有积重难返之势。现如今，应用程序开发人员通常需要同时使用多种服务构建，并要架构IT信息系统，涉及MQ、Cache和DB等，且很可能要部署到不同的环境中，如物理服务器、虚拟服务器、私有云或公有云之上。这些不同的主机或许还有着不同的系统环境，如RHEL、Debian或SUSE等Linux发行版，甚至是UNIX、Windows等。</p>
 <p>结果，一方面应用程序包含了多种服务，每种服务均可能存在依赖的库和软件包；另一方面存在多种部署环境，而服务在运行时又可能需要动态迁移到不同的环境中。于F是，各种服务和环境通过排列组合产生了—个大部署矩阵。应用程序开发工程师在编写代码时需要考虑不同的运行环境，而运维工程师则需要为不同的服务和平台配置环境。对他们双方来说，这都必将是一项困难而艰巨的任务。</p>
@@ -536,17 +559,17 @@
 <h2 id="容器简史"><a href="#容器简史" class="headerlink" title="容器简史"></a>容器简史</h2><p>容器技术的概念最初出现在2000年，当时称为FreeBSDjail，这种技术可将FreeBSD系统分区为多个子系统（也称为Jail）。2001年，通过JacquesGelinas的VServer项目，隔离环境的实施理念进入了Linux领域。</p>
 <p>Jail的目的是让进程在经过修改的chroot环境中创建，而不会脱离和影响整个系统一chroot环境对文件系统、网络和用户的访问都实现了虚拟化。然而，Jail在实施方面存在着不少的局限性，当它上jNamespaces和CGroups等技术结合在一起之后，才让这种隔离方法从构想变为了现实。后来，Linux容器项目（LXC）又为其添加了一些用户常用的工具、模板、库和语言绑定，从而较好地改善了用户使用容器技术时的体验。</p>
 <p>Docker在LXC项目的基础上，从文件系统、网络互联到进程隔离等方面对容器技术进行了进一步的封装，极大地简化了容器的创建和维护过程，从而促进了容器技术的大流行。Docker最初是由dotCloud公司创始人SolomonHykes在法国期间发起的一个公司内部项目，并于2013年3月以Apache2.0授权协议开源，其项目代码托管于GitHub之上。虽然其最初的实现是基于LXC项目的，但Docker在后来的0.7版本转为使用自行开发的libcontainer容器引擎，而1.11版本又将其换作了runC和containerd。</p>
-<p>1.1.3Docker的功能限制</p>
-<p>Docker本身非常适合用于管理单个容器，不过，一旦开始使用越来越多的容器封装和运行应用程序，必将会导致其管理和编排变得越来越困难。最终，用户不得不对容器实施分组，以便跨所有容器提供网络、安全、监控等服务。于是，以Kubernetes为代表的容器编排系统应运而生。</p>
+<h2 id="Docker的功能限制"><a href="#Docker的功能限制" class="headerlink" title="Docker的功能限制"></a>Docker的功能限制</h2><p>Docker本身非常适合用于管理单个容器，不过，一旦开始使用越来越多的容器封装和运行应用程序，必将会导致其管理和编排变得越来越困难。最终，用户不得不对容器实施分组，以便跨所有容器提供网络、安全、监控等服务。于是，以Kubernetes为代表的容器编排系统应运而生。</p>
 <p>真正的生产型应用会涉及多个容器，这些容器必须跨多个服务器主机进行部署。Kubernetes可以提供所需的编排和管理功能，以便用户针对这些工作负载轻松完成大规模容器部署。而且，借助于Kubernetes的编排功能，用户可以构建出跨多个容器的应用服务，并且可以实现跨集群调度、扩展容器，以及长期持续管理这些容器的健康状况等。使用中，Kubernetes还需要与网络、存储、安全性、监控及其他服务进行整合，以提供全面的容器基础架构，如图1-2所示。</p>
 <blockquote>
-<p>图1-2 容器与容器编排（来源：RedHatInc.）</p>
+<p>图1-2 容器与容器编排</p>
 </blockquote>
+<img src="/2022/09/27/第1章-Kubernetes系统基础/2.png">
 <p>Kubernetes利用容器的扩缩容机制解决了许多常见的问题，它将容器归类到一起，形成“容器集”（Pod），为分组的容器增加了一个抽象层，用于帮助用户调度工作负载（workload），并为这些容器提供所需的联网和存储等服务。Kubernetes的其他部分可帮助用户在这些Pod之间达成负载均衡，同时确保运行正确数量的容器，以充分支持实际的工作负载。</p>
 <h1 id="Kubernetes概述"><a href="#Kubernetes概述" class="headerlink" title="Kubernetes概述"></a>Kubernetes概述</h1><p>尽管公开面世不过短短数年时间，Kubernetes业已成为容器编排领域事实上的标准，其近一两年的发展状态也在不断地验证着UrsHδlzle曾经的断言：无论是公有云、私有云抑或混合云，Kubernetes都将作为一个为任何应用、任何环境提供的容器管理框架而无处不在。</p>
 <h2 id="Kubernetes简史"><a href="#Kubernetes简史" class="headerlink" title="Kubernetes简史"></a>Kubernetes简史</h2><p>Kubernetes（来自希腊语，意为“舵手”或“飞行员”）由JoeBeda、BrendanBurns和Craig McLuckie创立，而后Google的其他几位工程师，包括BrianGrant和TimHockin等加盟共同研发，并由Google在2014年首次对外宣布。。Kubernetes的开发和设计都深受Google内部系统Borg的影响，事实上，它的许多顶级贡献者之前也是Borg系统的开发者。</p>
 <p>Borg是Google内部使用的大规模集群管理系统，久负盛名。它建构于容器技术之上，目的是实现资源管理的自动化，以及跨多个数据中心的资源利用率最大化。2015年4月，Borg论文《Large-scaleclustermanagementatGooglewithBorg》伴随Kubernetes的高调宣传被Google首次公开，人们终于有缘得窥其全貌。</p>
-<p>事实上，正是由于诞生于容器世家Google，并站在Borg这个巨人的肩膀之上，充分受益于Borg过去十数年间积累的经验和教训，Kubernetes甫一面世就立即广受关注和青睐，并迅速称霸了容器编排技术领域。很多人将Kubernetes视为Borg系统的一个开源实现版本，在Google内部，Kubernetes的原始代号曾经是Serven<br>ofNine，即星际迷航中友好的“Borg”角色，它标识中的舵轮有七图1-3KubernetesLogo个轮辐就是对该项目代号的致意，如图1-3所示。</p>
+<p>事实上，正是由于诞生于容器世家Google，并站在Borg这个巨人的肩膀之上，充分受益于Borg过去十数年间积累的经验和教训，Kubernetes甫一面世就立即广受关注和青睐，并迅速称霸了容器编排技术领域。很多人将Kubernetes视为Borg系统的一个开源实现版本，在Google内部，Kubernetes的原始代号曾经是ServenofNine，即星际迷航中友好的“Borg”角色，它标识中的舵轮有七图1-3KubernetesLogo个轮辐就是对该项目代号的致意，如图1-3所示。</p>
 <p>Kubernetesv1.0于2015年7月21日发布，紧随其后，Google与Linux基金会合作组建了CloudNativeComputingFoundation（云原生计算基金会，简称为CNCF），并将Kubernetes作为种子技术予以提供。这之后，Kubernetes进入了版本快速迭代期，从此不断地融入着新功能，如Federation、NetworkPolicyAPI、RBAC、CRD和CSI，等等，并增加了对Windows系统的支持。</p>
 <p>2017年可谓是容器生态发展史上具有里程碑意义的一年。这一年，AWS、Azure和AlibabaCloud都相继在其原有容器服务上新增了对Kubernetes的支持，而Docker官方也在2017年10月宣布同时支持Swarm和Kubernetes编排系统。这一年，RKT容器派系的CoreOS舍弃掉自己的调度工具Fleet，将其商用平台Tectonic的重心转移至Kubernetes。这一年，Mesos也于9月宣布了对Kubernetes的支持，其平台用户可以安装、扩展和升级多个生产级的Kubernetes集群。这一年，RancherLabs推出了其2.0版本的容器管理平台并宣布all-inKubernetes，放弃了其内置多年的容器编排系统Cattle。类似的故事依然在进行，并且必将在一个时期内持续上演。</p>
 <h2 id="Kubernetes特性"><a href="#Kubernetes特性" class="headerlink" title="Kubernetes特性"></a>Kubernetes特性</h2><p>Kubernetes是一种用于在一组主机上运行和协同容器化应用程序的系统，旨在提供可预测性、可扩展性与高可用性的方法来完全管理容器化应用程序和服务的生命周期的平台。用户可以定义应用程序的运行方式，以及与其他应用程序或外部世界交互的途径，并能实现服务的扩容和缩容，执行平滑滚动更新，以及在不同版本的应用程序之间调度流量以测试功能或回滚有问题的部署。Kubernetes提供了接口和可组合的平台原语，使得用户能够以高度的灵活性和可靠性定义及管理应用程序。简单总结起来，它具有以下几个重要特性。</p>
@@ -570,6 +593,7 @@
 <blockquote>
 <p>图1-4Kubernetes集群主机</p>
 </blockquote>
+<img src="/2022/09/27/第1章-Kubernetes系统基础/4.png">
 <p>(1)Master</p>
 <p>Master是集群的网关和中枢，负责诸如为用户和客户端暴露API、跟踪其他服务器的健康状态、以最优方式调度工作负载，以及编排其他组件之间的通信等任务，它是用户或客户端与集群之间的核心联络点，并负责Kubernetes系统的大多数集中式管控逻辑。单个Master节点即可完成其所有的功能，但出于冗余及负载均衡等目的，生产环境中通常需要协同部署多个此类主机。Master节点类似于蜂群中的蜂王。</p>
 <p>(2)Node</p>
@@ -578,24 +602,32 @@
 <blockquote>
 <p>图1-5 Node组成的虚拟资源池</p>
 </blockquote>
+<img src="/2022/09/27/第1章-Kubernetes系统基础/5.png">
 <p>从抽象的视角来讲，Kubernetes还有着众多的组件来支撑其内部的业务逻辑，包括运行应用、应用编排、服务暴露、应用恢复等，它们在Kubernetes中被抽象为Pod、Service、Controller等资源类型，下面列出了几个较为常用的资源抽象。</p>
 <p>(1)Pod</p>
 <p>Kubernetes并不直接运行容器，而是使用一个抽象的资源对象来封装一个或者多个容器，这个抽象即为Pod，它也是Pod Kubernetes的最小调度单元。同一Pod中的容器共享网络名ContainerXContainerY称空间和存储资源，这些容器可经由本地回环节口lo直接通信，但彼此之间又在Mount、User及PID等名称空间上保持<br>volume了隔离。尽管Pod中可以包含多个容器，但是作为最小调度单元，它应该尽可能地保持“小”，即通常只应该包含一个主容器，以及必要的辅助型容器（sidecar），如图1-6所示。</p>
 <blockquote>
-<p>图1-6KubernetesPod示意图</p>
+<p>图1-6 KubernetesPod示意图</p>
 </blockquote>
+<img src="/2022/09/27/第1章-Kubernetes系统基础/6.png">
 <p>（2）资源标签</p>
 <p>标签（Label）是将资源进行分类的标识符，资源标签其实就是一个键值型（key/values）数据。标签旨在指定对象（如Pod等）辨识性的属性，这些属性仅对用户存在特定的意义，对Kubernetes集群来说并不直接表达核心系统语义。标签可以在对象创建时附加其上，并能够在创建后的任意时间进行添加和修改。一个对象可以拥有多个标签，一个标签也可以附加于多个对象（通常是同一类对象）之上，如图1-7所示。</p>
 <blockquote>
-<p>图1-7Kubernetes资源标签</p>
+<p>图1-7 Kubernetes资源标签</p>
 </blockquote>
+<img src="/2022/09/27/第1章-Kubernetes系统基础/7.png">
 <p>（3）标签选择器</p>
 <p>标签选择器（Selector）全称为“LabelSelector”，它是一种根据Label来过滤符合条件的资源对象的机制。例如，将附有标签“role：backend”的所有Pod对象挑选出来归为一组就是标签选择器的一种应用，如图1-8所示。用户通常使用标签对资源对象进行分类，而后使用标签选择器挑选出它们，例如将其创建为某Service的端点。</p>
+<blockquote>
+<p>图1-8 </p>
+</blockquote>
+<img src="/2022/09/27/第1章-Kubernetes系统基础/8.png">
 <p>（4）Pod控制器</p>
 <p>尽管Pod是Kubernetes的最小调度单元，但用户通常并不会直接部署及管理Pod对象，而是要借助于另一类抽象一控制器（Controller）对其进行管理。用于工作负载的控制器是一种管理Pod生命周期的资源抽象，它们是Kubernetes.上的一类对象，而非单个资源对象，包括ReplicationController、ReplicaSet、Deployment、StatefulSet、Job等。以图1-9中所示的Deployment控制器为例，它负责确保指定的Pod对象的副本数量精确符合定义，否则“多退少补”。使用控制器之后就不再需要手动管理Pod对象了，用户只需要声明应用的期望状态，控制器就会自动对其进行进程管理。</p>
 <blockquote>
-<p>图1-9Deployment控制器示意图</p>
+<p>图1-9 Deployment控制器示意图</p>
 </blockquote>
+<img src="/2022/09/27/第1章-Kubernetes系统基础/9.png">
 <p>（5）服务资源（Service）</p>
 <p>Service是建立在一组Pod对象之上的资源抽象，它通过标签选择器选定一组Pod对象，并为这组Pod对象定义一个统一的固定访问人口（通常是一个IP地址），若Kubernetes集群存在DNS附件，它就会在Service创建时为其自动配置一个DNS名称以便客户端进行服务发现。到达ServiceIP的请求将被负载均衡至其后的端点一各个Pod对象之上，因此Service从本质上来讲是一个四层代理服务。另外，Service还可以将集群外部流量引入到集群中来。</p>
 <p>（6）存储卷</p>
@@ -603,15 +635,16 @@
 <p>（7）Name和Namespace</p>
 <p>名称（Name）是Kubernetes集群中资源对象的标识符，它们的作用域通常是名称空间（Namespace），因此名称空间是名称的额外的限定机制。在同一个名称空间中，同一类型资源对象的名称必须具有唯一性。名称空间通常用于实现租户或项目的资源隔离，从而形成逻辑分组，如图1-10所示。创建的Pod和Service等资源对象都属于名称空间级别，未指定时，它们都属于默认的名称空间“default”。</p>
 <blockquote>
-<p>图1-10名称空间</p>
+<p>图1-10 名称空间</p>
 </blockquote>
+<img src="/2022/09/27/第1章-Kubernetes系统基础/10.png">
 <p>(8)Annotation</p>
 <p>Annotation（注解）是另-种附加在对象之上的键值类型的数据，但它拥有更大的数据容量。Annotation常用于将各种非标识型元数据（metadata）附加到对象上，但它不能用于标识和选择对象，通常也不会被Kubernetes直接使用，其主要目的是方便工具或用户的阅读及查找等。</p>
 <p>(9)Ingress</p>
 <p>Kubernetes将Pod对象和外部网络环境进行了隔离，Pod和Service等对象间的通信都使用其内部专用地址进行，如若需要开放某些Pod对象提供给外部用户访问，则需要为其请求流量打开一个通往Kubernetes集群内部的通道，除了Service之外，Ingress也是这类通道的实现方式之一。</p>
 <h1 id="Kubernetes集群组件"><a href="#Kubernetes集群组件" class="headerlink" title="Kubernetes集群组件"></a><span style="color:#339AFF;">Kubernetes集群组件</span></h1><p>一个典型的Kubernetes集群由多个工作节点（workernode）和一个集群控制平面（controlplane，即Master），以及一个集群状态存储系统（etcd）组成。其中Master节点负责整个集群的管理工作，为集群提供管理接口，并监控和编排集群中的各个工作节点。各节点负责以Pod的形式运行容器，因此，各节点需要事先配置好容器运行依赖到的所有服务和资源，如容器运行时环境等。Kubernetes的系统架构如图1-11所示。</p>
 <blockquote>
-<p>图1-11Kubernetes系统组件</p>
+<p>图1-11 Kubernetes系统组件</p>
 </blockquote>
 <img src="/2022/09/27/第1章-Kubernetes系统基础/1-11.png">
 <p>Master节点主要由APIServer、controller-manager和scheduler三个组件，以及一个用于集群状态存储的etcd存储服务组成，而每个Node节点则主要包含kubelet、kube-proxy及容器引擎（Docker是最为常用的实现）等组件。此外，完整的集群服务还依赖于一些附加组件，如KubeDNS等。</p>
@@ -630,7 +663,7 @@
 <p>（4）调度器（Scheduler）</p>
 <p>Kubernetes是用于部署和管理大规模容器应用的平台，根据集群规模的不同，其托管运行的容器很可能会数以千计甚至更多。APIServer确认Pod对象的创建请求之后，便需要由Scheduler根据集群内各节点的可用资源状态，以及要运行的容器的资源需求做出调度决策，其工作逻辑如图1-12所示。另外，Kubernetes还支持用户自定义调度器。</p>
 <blockquote>
-<p>图1-12Kubernetes调度器</p>
+<p>图1-12 Kubernetes调度器</p>
 </blockquote>
 <img src="/2022/09/27/第1章-Kubernetes系统基础/1-12.png">
 <h2 id="Node组件"><a href="#Node组件" class="headerlink" title="Node组件"></a><span style="color:#00ACC1;">Node组件</span></h2><p>Node负责提供运行容器的各种依赖环境，并接受Master的管理。每个Node主要由以下几个组件构成。</p>
@@ -646,6 +679,36 @@
 <li>KubernetesDashboard：Kubernetes集群的全部功能都要基于Web的UI，来管理集群中的应用甚至是集群自身。</li>
 <li>Heapster：容器和节点的性能监控与分析系统，它收集并解析多种指标数据，如资源利用率、生命周期事件等。新版本的Kubernetes中，其功能会逐渐由Prometheus结合其他组件所取代。</li>
 <li>IngressController：Service是一种工作于传统层的负载均衡器，而Ingress是在应用层实现的HTTP(s)负载均衡机制。不过，Ingress资源自身并不能进行“流量穿透”，它仅是一组路由规则的集合，这些规则需要通过Ingress控制器（IngressController）发挥作用。目前，此类的可用项目有Nginx、Traefik、Envoy及HAProxy等。</li>
+</ul>
+<h1 id="Kubernetes网络模型基础"><a href="#Kubernetes网络模型基础" class="headerlink" title="Kubernetes网络模型基础"></a><span style="color:#339AFF;">Kubernetes网络模型基础</span></h1><p>云计算的核心是虚拟化技术，网络虚拟化技术又是其最重要的组成部分，用于在物理网络上虚拟多个相互隔离的虚拟网络，实现网络资源切片，提高网络资源利用率，实现弹性化网络。Kubernetes作为容器云技术栈中的容器编排组件，必然需要在多租户（名称空间）的基础上实现弹性网络管理，这也是“基础设施即代码”的要求之一。</p>
+<h2 id="网络模型概述"><a href="#网络模型概述" class="headerlink" title="网络模型概述"></a><span style="color:#00ACC1;">网络模型概述</span></h2><p>Kubernetes的网络中主要存在四种类型的通信：同一Pod内的容器间通信、各Pod彼此之间的通信、Pod与Service间的通信，以及集群外部的流量同Service之间的通信。Kubernetes为Pod和Service资源对象分别使用了各自的专用网络，Pod网络由Kubernetes的网络插件配置实现，而Service的网络则由Kubernetes集群予以指定。为了提供更灵活的解决方式，Kubernetes的网络模型需要借助于外部插件实现，它要求任何实现机制都必须满足以下需求。</p>
+<ul>
+<li>所有Pod间均可不经NAT机制而直接通信。</li>
+<li>所有节点均可不经NAT机制而直接与所有容器通信。</li>
+<li>容器自己使用的IP也是其他容器或节点直接看到的地址。换句话讲，所有Pod对象都位于同一平面网络中，而且可以使用Pod自身的地址直接通信。</li>
+</ul>
+<p>Kubernetes使用的网络插件必须能为Pod提供满足以上要求的网络，它需要为每个Pod配置至少一个特定的地址，即PodIP。PodIP地址实际存在于某个网卡（可以是虚拟设备）上，而Service的地址却是一个虚拟IP地址，没有任何网络接口配置此地址，它由kube-proxy借助iptables规则或ipvs规则重新定向到本地端口，再将其调度至后端Pod对象。Service的IP地址是集群提供服务的接口，也称为ClusterIP。</p>
+<p>Pod网络及其IP由Kubernetes的网络插件负责配置和管理，具体使用的网络地址可在管理配置网络插件时指定，如10.244.0.0/16网络。而Cluster网络和IP则是由Kubernetes集群负责配置和管理，如10.96.0.0/12网络。</p>
+<p>总结起来，Kubernetes集群至少应该包含三个网络，如图1-13中的网络环境所示。一个是各主机（Master、Node和etcd等）自身所属的网络，其地址配置于主机的网络接口，用于各主机之间的通信，例如，Master与各Node之间的通信。此地址配置于Kubernetes集群构建之前，它并不能由Kubernetes管理，管理员需要于集群构建之前自行确定其地址配置及管理方式。第二个是Kubernetes集群上专用于Pod资源对象的网络，它是一个虚拟网络，用于为各Pod对象设定IP地址等网络参数，其地址配置于Pod中容器的网络接口之上。Pod网络需要借助kubenet插件或CNI插件实现，该插件可独立部署于Kubernetes集群之外，亦可托管于Kubernetes之上，它需要在构建Kubernetes集群时由管理员进行定义，而后在创建Pod对象时由其自动完成各网络参数的动态配置。第三个是专用于Service资源对象的网络，它也是一个虚拟网络，用于为Kubernetes集群之中的Service配置IP地址，但此地址并不配置于任何主机或容器的网络接口之上，而是通过Node之上的kube-proxy配置为iptables或ipvs规则，从而将发往此地址的所有流量调度至其后端的各Pod对象之上。Service网络在Kubernetes集群创建时予以指定，而各Service的地址则在用户创建Service时予以动态配置。</p>
+<blockquote>
+<p>图1-13 Kubernetes网络环境</p>
+</blockquote>
+<img src="/2022/09/27/第1章-Kubernetes系统基础/13.png">
+<p>握CNI是指容器网络接口（ContainerNetworkInterface），是由CNCF（CloudNative<br>ComputingFoundation）维护的项目，其由一系列的用于编写配置容器网络插件的规范和库接口（libcni）组成，支持众多插件项目。后文对此有详细说明。</p>
+<h2 id="集群上的网络通信"><a href="#集群上的网络通信" class="headerlink" title="集群上的网络通信"></a><span style="color:#00ACC1;">集群上的网络通信</span></h2><p>Kubernetes集群的客户端大体可以分为两类：APIServer客户端和应用程序（运行为Pod中的容器）客户端，如图1-14所示。第一类客户端通常包含人类用户和Pod对象两种，它们通过APIServer访问Kubernetes集群完成管理任务，例如，管理集群上的各种资源对象。第二类客户端一般也包含人类用户和Pod对象两种，它们的访问目标是Pod上运行于容器中的应用程序提供的各种具体的服务，如redis或nginx等，不过，这些访问请求通常要经由Service或Ingress资源对象进行。另外，第二类客户端的访问目标对象的操作要经由第一类客，户端创建和配置完成后才能进行。</p>
+<blockquote>
+<p>图1-14 Kubernetes客户端及其类型</p>
+</blockquote>
+<img src="/2022/09/27/第1章-Kubernetes系统基础/14.png">
+<p>访问APIServer时，人类用户一般借助于命令行工具kubectl或图形UI（例如KubernetesDashboard）进行，也可通过编程接口进行访问，包括RESTAPI。访问Pod中的应用时，其访问方式要取决于Pod中的应用程序，例如，对于运行Nginx容器的Pod来说，其最常用工具自然是浏览器。</p>
+<p>管理员（开发人员或运维人员）使用Kubernetes集群的常见操作包括通过控制器创建Pod，在Pod的基础上创建Service供第二类客户端访问，更新Pod中的应用版本（更新和回滚）以及对应用规模进行扩容或缩容等，另外还有集群附件管理、存储卷管理、网络及网络策略管理、资源管理和安全管理等，这些内容将在后面的章节中展开。不过，这一切的前提是要先构建出一个可用的Kubernetes集群，这一内容将在第2章中着重讲述。</p>
+<h1 id="本章小结"><a href="#本章小结" class="headerlink" title="本章小结"></a><span style="color:#339AFF;">本章小结</span></h1><p>本章介绍了Kubernetes的历史、功用、特性及其相关的核心概述和术语，并简单描述了其架构及其各关键组件，以及集群网络中的常见通信方式，具体如下。</p>
+<ul>
+<li>Kubernetes集群主要由Master和Node两类节点组成。</li>
+<li>Master主要包含APIServer、controller-manager、Scheduler和etcd几个组件，其中APIServer是整个集群的网关。</li>
+<li>Node主要由kubelet、kube-proxy和容器引擎等组件构成，kubelet是Kubernetes集群的工作于节点之上的代理组件。</li>
+<li>完整的Kubernetes集群还需要部署有CoreDNS（或KubeDNS）、Prometheus（或HeapSter）、Dashboard和IngressController几个附加组件。</li>
+<li>Kubernetes的网络中主要存在四种类型的通信：同一Pod内的容器间通信、各Pod间的通信、Pod与Service间的通信，以及集群外部的流量同Service之间的通信。</li>
 </ul>
 
       
@@ -766,7 +829,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1121</span>
+                    <span class="site-state-item-count">1108</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -845,9 +908,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-count">24</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1118,13 +1179,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-count">76</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1197,7 +1252,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#容器技术概述"><span class="nav-number">1.</span> <span class="nav-text">容器技术概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#容器技术的功用"><span class="nav-number">1.1.</span> <span class="nav-text">容器技术的功用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器简史"><span class="nav-number">1.2.</span> <span class="nav-text">容器简史</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kubernetes概述"><span class="nav-number">2.</span> <span class="nav-text">Kubernetes概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Kubernetes简史"><span class="nav-number">2.1.</span> <span class="nav-text">Kubernetes简史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kubernetes特性"><span class="nav-number">2.2.</span> <span class="nav-text">Kubernetes特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kubernetes概念和术语"><span class="nav-number">2.3.</span> <span class="nav-text">Kubernetes概念和术语</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kubernetes集群组件"><span class="nav-number">3.</span> <span class="nav-text">Kubernetes集群组件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Master组件"><span class="nav-number">3.1.</span> <span class="nav-text">Master组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Node组件"><span class="nav-number">3.2.</span> <span class="nav-text">Node组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#核心附件"><span class="nav-number">3.3.</span> <span class="nav-text">核心附件</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#容器技术概述"><span class="nav-number">1.</span> <span class="nav-text">容器技术概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#容器技术的功用"><span class="nav-number">1.1.</span> <span class="nav-text">容器技术的功用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#容器简史"><span class="nav-number">1.2.</span> <span class="nav-text">容器简史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Docker的功能限制"><span class="nav-number">1.3.</span> <span class="nav-text">Docker的功能限制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kubernetes概述"><span class="nav-number">2.</span> <span class="nav-text">Kubernetes概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Kubernetes简史"><span class="nav-number">2.1.</span> <span class="nav-text">Kubernetes简史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kubernetes特性"><span class="nav-number">2.2.</span> <span class="nav-text">Kubernetes特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Kubernetes概念和术语"><span class="nav-number">2.3.</span> <span class="nav-text">Kubernetes概念和术语</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kubernetes集群组件"><span class="nav-number">3.</span> <span class="nav-text">Kubernetes集群组件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Master组件"><span class="nav-number">3.1.</span> <span class="nav-text">Master组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Node组件"><span class="nav-number">3.2.</span> <span class="nav-text">Node组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#核心附件"><span class="nav-number">3.3.</span> <span class="nav-text">核心附件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Kubernetes网络模型基础"><span class="nav-number">4.</span> <span class="nav-text">Kubernetes网络模型基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#网络模型概述"><span class="nav-number">4.1.</span> <span class="nav-text">网络模型概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集群上的网络通信"><span class="nav-number">4.2.</span> <span class="nav-text">集群上的网络通信</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本章小结"><span class="nav-number">5.</span> <span class="nav-text">本章小结</span></a></li></ol></div>
             
 
           </div>
@@ -1243,7 +1298,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">132:26</span>
+    <span title="站点阅读时长">131:24</span>
   
 </div>
 

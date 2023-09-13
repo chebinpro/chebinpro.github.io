@@ -122,7 +122,7 @@
 <meta property="og:image" content="http://yoursite.com/2023/08/15/docker-compose：单机环境下的容器编排工具/9.webp">
 <meta property="og:image" content="http://yoursite.com/2023/08/15/docker-compose：单机环境下的容器编排工具/10.webp">
 <meta property="og:image" content="http://yoursite.com/2023/08/15/docker-compose：单机环境下的容器编排工具/11.webp">
-<meta property="og:updated_time" content="2023-08-15T16:22:02.703Z">
+<meta property="og:updated_time" content="2023-08-28T05:50:44.762Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="docker-compose：单机环境下的容器编排工具">
 <meta name="twitter:description" content="思考并回答以下问题：">
@@ -455,7 +455,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2023-08-16 00:22:02" itemprop="dateModified" datetime="2023-08-16T00:22:02+08:00">2023-08-16</time>
+                <time title="修改时间：2023-08-28 13:50:44" itemprop="dateModified" datetime="2023-08-28T13:50:44+08:00">2023-08-28</time>
               
             
           </span>
@@ -501,7 +501,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">6.6k</span>
+                <span title="本文字数">5.2k</span>
               
 
               
@@ -515,7 +515,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">6 分钟</span>
+                <span title="阅读时长">5 分钟</span>
               
             </div>
           
@@ -537,41 +537,28 @@
       
         <p>思考并回答以下问题：</p>
 <a id="more"></a>
-<p>作为云原生时代的操作系统，Kubernetes源自Docker又超越了Docker，依靠着它的master/node架构，掌控成百上千台的计算节点，然后使用YAML语言定义各种API对象来编排调度容器，实现了对现代应用的管理。</p>
-<p>不过，你有没有觉得，在Docker和Kubernetes之间，是否还缺了一点什么东西呢？</p>
-<p>Kubernetes的确是非常强大的容器编排平台，但强大的功能也伴随着复杂度和成本的提升，不说那几十个用途各异的API对象，单单说把Kubernetes运行起来搭建一个小型的集群，就需要耗费不少精力。但是，有的时候，我们只是想快速启动一组容器来执行简单的开发、测试工作，并不想承担Kubernetes里apiserver、scheduler、etcd这些组件的运行成本。</p>
-<p>显然，在这种简易任务的应用场景里，Kubernetes就显得有些“笨重”了。即使是“玩具”性质的minikube、kind，对电脑也有比较高的要求，会“吃”掉不少的计算资源，属于“大材小用”。</p>
-<p>那到底有没有这样的工具，既像Docker一样轻巧易用，又像Kubernetes一样具备容器编排能力呢？</p>
-<p>今天我就来介绍<a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="noopener">docker-compose</a>，它恰好满足了刚才的需求，是一个在单机环境里轻量级的容器编排工具，填补了Docker和Kubernetes之间的空白位置。</p>
-<h1 id="什么是docker-compose"><a href="#什么是docker-compose" class="headerlink" title="什么是docker-compose"></a><span style="color:#339AFF;">什么是docker-compose</span></h1><p>还是让我们从Docker诞生那会讲起。</p>
-<p>在Docker把容器技术大众化之后，Docker周边涌现出了数不胜数的扩展、增强产品，其中有一个名字叫“Fig”的小项目格外令人瞩目。</p>
-<p>Fig为Docker引入了“容器编排”的概念，使用YAML来定义容器的启动参数、先后顺序和依赖关系，让用户不再有Docker冗长命令行的烦恼，第一次见识到了“声明式”的威力。</p>
-<p>Docker公司也很快意识到了Fig这个小工具的价值，于是就在2014年7月把它买了下来，集成进Docker内部，然后改名成了“docker-compose”。</p>
-<p>从这段简短的历史中你可以看到，虽然docker-compose也是容器编排技术，也使用YAML，但它的基因与Kubernetes完全不同，走的是Docker的技术路线，所以在设计理念和使用方法上有差异就不足为怪了。</p>
-<p>docker-compose自身的定位是管理和运行多个Docker容器的工具，很显然，它没有Kubernetes那么“宏伟”的目标，只是用来方便用户使用Docker而已，所以学习难度比较低，上手容易，很多概念都是与Docker命令一一对应的。</p>
-<p>但这有时候也会给我们带来困扰，毕竟docker-compose和Kubernetes同属容器编排领域，用法不一致就容易导致认知冲突、混乱。考虑到这一点，我们在学习docker-compose的时候就要把握一个“度”，够用就行，不要太过深究，否则会对Kubernetes的学习造成一些不良影响。</p>
-<h1 id="如何使用docker-compose"><a href="#如何使用docker-compose" class="headerlink" title="如何使用docker-compose"></a><span style="color:#339AFF;">如何使用docker-compose</span></h1><p>docker-compose的安装非常简单，它在<a href="https://github.com/docker/compose" target="_blank" rel="noopener">GitHub</a>上提供了多种形式的二进制可执行文件，支持Windows、macOS、Linux等操作系统，也支持x86_64、arm64等硬件架构，可以直接下载。</p>
-<p>在Linux上安装的Shell命令我放在这里了，用的是最新的2.6.1版本：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> intel x86_64</span></span><br><span class="line">sudo curl -SL https://github.com/docker/compose/releases/download/v2.6.1/docker-compose-linux-x86_64 \</span><br><span class="line">          -o /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> apple m1</span></span><br><span class="line">sudo curl -SL https://github.com/docker/compose/releases/download/v2.6.1/docker-compose-linux-aarch64 \</span><br><span class="line">          -o /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line">sudo chmod +x /usr/local/bin/docker-compose</span><br><span class="line">sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose</span><br></pre></td></tr></table></figure></p>
-<p>安装完成之后，来看一下它的版本号，命令是<code>docker-compose version</code>，用法和<code>docker version</code>是一样的：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose version</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://docs.docker.com/compose/compose-file/" target="_blank" rel="noopener">docker-compose</a>，是一个在单机环境里轻量级的容器编排工具。</p>
+<h1 id="如何使用docker-compose"><a href="#如何使用docker-compose" class="headerlink" title="如何使用docker-compose"></a><span style="color:#339AFF;">如何使用docker-compose</span></h1><p><a href="https://github.com/docker/compose" target="_blank" rel="noopener">GitHub</a>上提供了多种形式的二进制可执行文件。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> intel x86_64</span></span><br><span class="line">sudo curl -SL https://github.com/docker/compose/releases/download/v2.6.1/docker-compose-linux-x86_64 \</span><br><span class="line">          -o /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> apple m1</span></span><br><span class="line">sudo curl -SL https://github.com/docker/compose/releases/download/v2.6.1/docker-compose-linux-aarch64 \</span><br><span class="line">          -o /usr/local/bin/docker-compose</span><br><span class="line"></span><br><span class="line">sudo chmod +x /usr/local/bin/docker-compose</span><br><span class="line">sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose</span><br><span class="line">docker-compose version</span><br></pre></td></tr></table></figure>
 <img src="/2023/08/15/docker-compose：单机环境下的容器编排工具/1.webp">
-<p>接下来，我们就要编写YAML文件，来管理Docker容器了，先用里的私有镜像仓库作为示范吧。</p>
+<p>接下来，我们就要编写YAML文件，来管理Docker容器了，先用<a href="/2022/09/12/07｜实战演练：玩转Docker/" title="第7讲">第7讲</a>里的私有镜像仓库作为示范吧。</p>
 <p>docker-compose里管理容器的核心概念是“<strong>service</strong>”。注意，它与Kubernetes里的Service虽然名字很像，但却是完全不同的东西。docker-compose里的“service”就是一个容器化的应用程序，通常是一个后台服务，用YAML定义这些容器的参数和相互之间的关系。</p>
 <p>如果硬要和Kubernetes对比的话，和“service”最像的API对象应该算是Pod里的container了，同样是管理容器运行，但docker-compose的“service”又融合了一些Service、Deployment的特性。</p>
 <p>下面的这个就是私有镜像仓库Registry的YAML文件，关键字段就是“<strong>services</strong>”，对应的Docker命令我也列了出来：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 5000:5000 registry</span><br></pre></td></tr></table></figure></p>
 <figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">  registry:</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">registry</span></span><br><span class="line"><span class="attr">    container_name:</span> <span class="string">registry</span></span><br><span class="line"><span class="attr">    restart:</span> <span class="string">always</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="number">5000</span><span class="string">:5000</span></span><br></pre></td></tr></table></figure>
-<p>把它和Kubernetes对比一下，你会发现它和Pod定义非常像，“services”相当于Pod，而里面的“service”就相当于“spec.containers”：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">ngx-pod</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  restartPolicy:</span> <span class="string">Always</span></span><br><span class="line"><span class="attr">  containers:</span></span><br><span class="line"><span class="attr">  - image:</span> <span class="attr">nginx:alpine</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">ngx</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="attr">    - containerPort:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure></p>
+<p>把它和Kubernetes对比一下，你会发现它和Pod定义非常像，“services”相当于Pod，而里面的“service”就相当于“<code>spec.containers</code>”：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">ngx-pod</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  restartPolicy:</span> <span class="string">Always</span></span><br><span class="line"><span class="attr">  containers:</span></span><br><span class="line"><span class="attr">  - image:</span> <span class="attr">nginx:alpine</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">ngx</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="attr">    - containerPort:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure></p>
 <p>比如用image声明镜像，用ports声明端口，很容易理解，只是在用法上有些不一样，像端口映射用的就还是Docker的语法。</p>
 <p>需要提醒的是，在docker-compose里，每个“service”都有一个自己的名字，它同时也是这个容器的唯一网络标识，有点类似Kubernetes里Service域名的作用。</p>
 <p>好，现在我们就可以启动应用了，命令是<code>docker-compose up -d</code>，同时还要用-f参数来指定YAML文件，和<code>kubectl apply</code>差不多：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose -f reg-compose.yml up -d</span><br></pre></td></tr></table></figure></p>
 <img src="/2023/08/15/docker-compose：单机环境下的容器编排工具/2.webp">
-<p>因为docker-compose在底层还是调用的Docker，所以它启动的容器用dockerps也能够看到：</p>
+<p>因为docker-compose在底层还是调用的Docker，所以它启动的容器用<code>docker ps</code>也能够看到：</p>
 <img src="/2023/08/15/docker-compose：单机环境下的容器编排工具/3.webp">
 <p>不过，我们用<code>docker-compose ps</code>能够看到更多的信息：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose -f reg-compose.yml ps</span><br></pre></td></tr></table></figure></p>
 <img src="/2023/08/15/docker-compose：单机环境下的容器编排工具/4.webp">
 <p>下面我们把Nginx的镜像改个标签，上传到私有仓库里测试一下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker tag nginx:alpine 127.0.0.1:5000/nginx:v1</span><br><span class="line">docker push 127.0.0.1:5000/nginx:v1</span><br></pre></td></tr></table></figure></p>
 <p>再用curl查看一下它的标签列表，就可以看到确实上传成功了：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl 127.1:5000/v2/nginx/tags/list</span><br></pre></td></tr></table></figure></p>
 <img src="/2023/08/15/docker-compose：单机环境下的容器编排工具/5.webp">
-<p>想要停止应用，我们需要使用docker-composedown命令：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose -f reg-compose.yml down</span><br></pre></td></tr></table></figure></p>
+<p>想要停止应用，我们需要使用<code>docker-compose down</code>命令：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose -f reg-compose.yml down</span><br></pre></td></tr></table></figure></p>
 <img src="/2023/08/15/docker-compose：单机环境下的容器编排工具/6.webp">
 <p>通过这个小例子，我们就成功地把“命令式”的Docker操作，转换成了“声明式”的docker-compose操作，用法与Kubernetes十分接近，同时还没有Kubernetes那些昂贵的运行成本，在单机环境里可以说是最适合不过了。</p>
 <h1 id="使用docker-compose搭建WordPress网站"><a href="#使用docker-compose搭建WordPress网站" class="headerlink" title="使用docker-compose搭建WordPress网站"></a><span style="color:#339AFF;">使用docker-compose搭建WordPress网站</span></h1><p>不过，私有镜像仓库Registry里只有一个容器，不能体现docker-compose容器编排的好处，我们再用它来搭建一次WordPress网站，深入感受一下。</p>
@@ -597,8 +584,7 @@
 <p>和Kubernetes比起来，docker-compose有它自己的局限性，比如只能用于单机，编排功能比较简单，缺乏运维监控手段等等。但它也有优点：小巧轻便，对软硬件的要求不高，只要有Docker就能够运行。</p>
 <p>所以虽然Kubernetes已经成为了容器编排领域的霸主，但docker-compose还是有一定的生存空间，像GitHub上就有很多项目提供了docker-compose YAML来快速搭建原型或者测试环境，其中的一个典型就是CNCF Harbor。</p>
 <p>对于我们日常工作来说，docker-compose也是很有用的。如果是只有几个容器的简单应用，用Kubernetes来运行实在是有种“杀鸡用牛刀”的感觉，而用Docker命令、Shell脚本又很不方便，这就是docker-compose出场的时候了，它能够让我们彻底摆脱“命令式”，全面使用“声明式”来操作容器。</p>
-<p>我再简单小结一下今天的内容：</p>
-<p>1，docker-compose源自Fig，是专门用来编排Docker容器的工具。</p>
+<p>1，docker-compose是专门用来编排Docker容器的工具。</p>
 <p>2，docker-compose也使用YAML来描述容器，但语法语义更接近Docker命令行。</p>
 <p>3，docker-compose YAML里的关键概念是“service”，它是一个容器化的应用。</p>
 <p>4，docker-compose的命令与Docker类似，比较常用的有up、ps、down，用来启动、查看和停止应用。</p>
@@ -722,7 +708,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1121</span>
+                    <span class="site-state-item-count">1108</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -801,9 +787,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">27</span>
+                    <span class="site-state-item-count">24</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1074,13 +1058,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">81</span>
+                    <span class="site-state-item-count">76</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1153,7 +1131,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是docker-compose"><span class="nav-number">1.</span> <span class="nav-text">什么是docker-compose</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何使用docker-compose"><span class="nav-number">2.</span> <span class="nav-text">如何使用docker-compose</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用docker-compose搭建WordPress网站"><span class="nav-number">3.</span> <span class="nav-text">使用docker-compose搭建WordPress网站</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#如何使用docker-compose"><span class="nav-number">1.</span> <span class="nav-text">如何使用docker-compose</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用docker-compose搭建WordPress网站"><span class="nav-number">2.</span> <span class="nav-text">使用docker-compose搭建WordPress网站</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li></ol></div>
             
 
           </div>
@@ -1199,7 +1177,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">132:26</span>
+    <span title="站点阅读时长">131:24</span>
   
 </div>
 
