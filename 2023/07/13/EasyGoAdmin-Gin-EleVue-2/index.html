@@ -111,7 +111,7 @@
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2023-07-13T02:05:40.737Z">
+<meta property="og:updated_time" content="2023-09-15T10:18:52.619Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="EasyGoAdmin_Gin_EleVue-2">
 <meta name="twitter:description" content="思考并回答以下问题：">
@@ -426,12 +426,24 @@
                 
               
 
-              <time title="创建时间：2023-07-13 09:40:04 / 修改时间：10:05:40" itemprop="dateCreated datePublished" datetime="2023-07-13T09:40:04+08:00">2023-07-13</time>
+              <time title="创建时间：2023-07-13 09:40:04" itemprop="dateCreated datePublished" datetime="2023-07-13T09:40:04+08:00">2023-07-13</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2023-09-15 18:18:52" itemprop="dateModified" datetime="2023-09-15T18:18:52+08:00">2023-09-15</time>
               
             
           </span>
@@ -477,7 +489,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">12</span>
+                <span title="本文字数">2.7k</span>
               
 
               
@@ -491,7 +503,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">2 分钟</span>
               
             </div>
           
@@ -513,7 +525,14 @@
       
         <p>思考并回答以下问题：</p>
 <a id="more"></a>
-
+<h1 id="middleware"><a href="#middleware" class="headerlink" title="middleware"></a><span style="color:#339AFF;">middleware</span></h1><blockquote>
+<p>app/middleware/checklogin.go</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 登录验证中间件</span></span><br><span class="line"><span class="comment"> * @File : checkauth</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">package</span> middleware</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"easygoadmin/utils"</span></span><br><span class="line">    <span class="string">"easygoadmin/utils/common"</span></span><br><span class="line">    <span class="string">"easygoadmin/utils/gstr"</span></span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"github.com/gin-gonic/gin"</span></span><br><span class="line">    <span class="string">"net/http"</span></span><br><span class="line">    <span class="string">"time"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">CheckLogin</span><span class="params">()</span> <span class="title">gin</span>.<span class="title">HandlerFunc</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(ctx *gin.Context)</span></span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">"登录验证中间件"</span>)</span><br><span class="line">        <span class="comment">// 放行设置</span></span><br><span class="line">        urlItem := []<span class="keyword">string</span>&#123;<span class="string">"/captcha"</span>, <span class="string">"/login"</span>&#125;</span><br><span class="line">        <span class="keyword">if</span> !utils.InStringArray(ctx.Request.RequestURI, urlItem) &#123;</span><br><span class="line">            <span class="comment">// 从请求头中获取Token</span></span><br><span class="line">            token := ctx.GetHeader(<span class="string">"Authorization"</span>)</span><br><span class="line">            <span class="comment">// 字符串替换</span></span><br><span class="line">            token = gstr.Replace(token, <span class="string">"Bearer "</span>, <span class="string">""</span>)</span><br><span class="line">            claim, err := utils.ParseToken(token)</span><br><span class="line">            <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">                fmt.Println(<span class="string">"解析token出现错误："</span>, err)</span><br><span class="line">                ctx.JSON(http.StatusOK, common.JsonResult&#123;</span><br><span class="line">                    Code: <span class="number">401</span>,</span><br><span class="line">                    Msg:  <span class="string">"Token已过期"</span>,</span><br><span class="line">                &#125;)</span><br><span class="line">                ctx.Abort()</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125; <span class="keyword">else</span> <span class="keyword">if</span> time.Now().Unix() &gt; claim.ExpiresAt &#123;</span><br><span class="line">                fmt.Println(<span class="string">"时间超时"</span>)</span><br><span class="line">                ctx.JSON(http.StatusOK, common.JsonResult&#123;</span><br><span class="line">                    Code: <span class="number">401</span>,</span><br><span class="line">                    Msg:  <span class="string">"时间超时"</span>,</span><br><span class="line">                &#125;)</span><br><span class="line">                ctx.Abort()</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 前置中间件</span></span><br><span class="line">        ctx.Next()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>app/middleware/cros.go</p>
+</blockquote>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 跨域处理中间件</span></span><br><span class="line"><span class="comment"> * @File : cros</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">package</span> middleware</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"github.com/gin-gonic/gin"</span></span><br><span class="line">    <span class="string">"net/http"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 处理跨域请求,支持options访问</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Cros</span><span class="params">()</span> <span class="title">gin</span>.<span class="title">HandlerFunc</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">        origin := c.GetHeader(<span class="string">"Origin"</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(origin) == <span class="number">0</span> &#123;</span><br><span class="line">            c.Next()</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 同源直接过</span></span><br><span class="line">        host := c.GetHeader(<span class="string">"Host"</span>)</span><br><span class="line">        <span class="keyword">if</span> origin == <span class="string">"http://"</span>+host || origin == <span class="string">"https://"</span>+host &#123;</span><br><span class="line">            c.Next()</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        c.Header(<span class="string">"Access-Control-Allow-Origin"</span>, <span class="string">"*"</span>)</span><br><span class="line">        c.Header(<span class="string">"Access-Control-Allow-Headers"</span>, <span class="string">"Content-Type,AccessToken,X-CSRF-Token, Authorization, Token"</span>)</span><br><span class="line">        c.Header(<span class="string">"Access-Control-Allow-Methods"</span>, <span class="string">"POST, GET, OPTIONS, PUT, PATCH, DELETE"</span>)</span><br><span class="line">        c.Header(<span class="string">"Access-Control-Expose-Headers"</span>, <span class="string">"Content-Length, Access-Control-Allow-Origin, Access-Control-Allow-Headers, Content-Type"</span>)</span><br><span class="line">        c.Header(<span class="string">"Access-Control-Allow-Credentials"</span>, <span class="string">"true"</span>)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// OPTIONS 过</span></span><br><span class="line">        method := c.Request.Method</span><br><span class="line">        <span class="keyword">if</span> method == <span class="string">"OPTIONS"</span> &#123;</span><br><span class="line">            c.AbortWithStatus(http.StatusNoContent)</span><br><span class="line">            c.Abort()</span><br><span class="line">        &#125;</span><br><span class="line">        c.Next()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -605,8 +624,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -623,7 +651,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1108</span>
+                    <span class="site-state-item-count">1100</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -971,9 +999,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">76</span>
+                    <span class="site-state-item-count">75</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1004,23 +1030,23 @@
                 
                 
                   <li>
-                    <a href="/2023/08/26/6-7-kubectl进程源码分析/" title="6-7 kubectl进程源码分析" target="_blank">6-7 kubectl进程源码分析</a>
+                    <a href="/2023/08/21/第7章-Kubernetes配置管理/" title="第7章 Kubernetes配置管理" target="_blank">第7章 Kubernetes配置管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/26/6-6-kube-proxy进程源码分析/" title="6-6 kube-proxy进程源码分析" target="_blank">6-6 kube-proxy进程源码分析</a>
+                    <a href="/2023/08/21/第6章-Kubernetes服务发布基础/" title="第6章 Kubernetes服务发布基础" target="_blank">第6章 Kubernetes服务发布基础</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/26/6-5-kubelet进程源码分析/" title="6-5 kubelet进程源码分析" target="_blank">6-5 kubelet进程源码分析</a>
+                    <a href="/2023/08/21/第5章-Kubernetes调度基础/" title="第5章 Kubernetes调度基础" target="_blank">第5章 Kubernetes调度基础</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/26/6-4-kube-scheduler进程源码分析/" title="6-4 kube-scheduler进程源码分析" target="_blank">6-4 kube-scheduler进程源码分析</a>
+                    <a href="/2023/08/21/第4章-Kubernetes的基础概念/" title="第4章 Kubernetes的基础概念" target="_blank">第4章 Kubernetes的基础概念</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/26/6-3-kube-controller-manager进程源码分析/" title="6-3 kube-controller-manager进程源码分析" target="_blank">6-3 kube-controller-manager进程源码分析</a>
+                    <a href="/2023/08/20/第3章-Docker基础/" title="第3章 Docker基础" target="_blank">第3章 Docker基础</a>
                   </li>
                 
               </ul>
@@ -1035,6 +1061,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#middleware"><span class="nav-number">1.</span> <span class="nav-text">middleware</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -1075,7 +1118,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">131:24</span>
+    <span title="站点阅读时长">131:27</span>
   
 </div>
 

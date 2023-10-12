@@ -125,7 +125,7 @@
 <meta property="og:image" content="http://yoursite.com/2022/09/12/27｜滚动更新：如何做到平滑的应用升级降级？/12.png">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/27｜滚动更新：如何做到平滑的应用升级降级？/13.png">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/27｜滚动更新：如何做到平滑的应用升级降级？/14.jpg">
-<meta property="og:updated_time" content="2023-08-16T01:40:44.660Z">
+<meta property="og:updated_time" content="2023-09-26T07:09:10.204Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="27丨滚动更新：如何做到平滑的应用升级降级？">
 <meta name="twitter:description" content="思考并回答以下问题：">
@@ -458,7 +458,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2023-08-16 09:40:44" itemprop="dateModified" datetime="2023-08-16T09:40:44+08:00">2023-08-16</time>
+                <time title="修改时间：2023-09-26 15:09:10" itemprop="dateModified" datetime="2023-09-26T15:09:10+08:00">2023-09-26</time>
               
             
           </span>
@@ -542,7 +542,7 @@
 <a id="more"></a>
 <p>上次课里我们学习了管理有状态应用的对象StatefulSet，再加上管理无状态应用的Deployment和DaemonSet，我们就能在Kubernetes里部署任意形式的应用了。</p>
 <p>不过，只是把应用发布到集群里是远远不够的，要让应用稳定可靠地运行，还需要有持续的运维工作。</p>
-<p>如果你还记得在<a href="/2022/09/12/18｜Deployment：让应用永不宕机/" title="第18节课">第18节课</a>里，我们学过Deployment的“应用伸缩”功能就是一种常见的运维操作，在Kubernetes里，使用命令kubectlscale，我们就可以轻松调整Deployment下属的Pod数量，因为StatefulSet是Deployment的一种特例，所以它也可以使用kubectlscale来实现“应用伸缩”。</p>
+<p>如果你还记得在<a href="/2022/09/12/18｜Deployment：让应用永不宕机/" title="第18节课">第18节课</a>里，我们学过Deployment的“应用伸缩”功能就是一种常见的运维操作，在Kubernetes里，使用命令<code>kubectl scale</code>，我们就可以轻松调整Deployment下属的Pod数量，因为StatefulSet是Deployment的一种特例，所以它也可以使用<code>kubectl scale</code>来实现“应用伸缩”。</p>
 <p>除了“应用伸缩”，其他的运维操作比如应用更新、版本回退等工作，该怎么做呢？这些也是我们日常运维中经常会遇到的问题。</p>
 <p>今天我就以Deployment为例，来讲讲Kubernetes在应用管理方面的高级操作：滚动更新，使用<code>kubectl rollout</code>实现用户无感知的应用升级和降级。</p>
 <h1 id="Kubernetes如何定义应用版本"><a href="#Kubernetes如何定义应用版本" class="headerlink" title="Kubernetes如何定义应用版本"></a><span style="color:#339AFF;">Kubernetes如何定义应用版本</span></h1><p>应用的版本更新，大家都知道是怎么回事，比如我们发布了V1版，过了几天加了新功能，要发布V2版。</p>
@@ -628,7 +628,7 @@
 <p>2，Kubernetes更新应用采用的是滚动更新策略，减少旧版本Pod的同时增加新版本Pod，保证在更新过程中服务始终可用。</p>
 <p>3，管理应用更新使用的命令是<code>kubectl rollout</code>，子命令有status、history、undo等。</p>
 <p>4，Kubernetes会记录应用的更新历史，可以使用<code>history --revision</code>查看每个版本的详细信息，也可以在每次更新时添加注解kubernetes.io/change-cause。</p>
-<p>另外，在Deployment里还有其他一些字段可以对滚动更新的过程做更细致的控制，它们都在spec.strategy.rollingUpdate里，比如maxSurge、maxUnavailable等字段，分别控制最多新增Pod数和最多不可用Pod数，一般用默认值就足够了，你如果感兴趣也可以查看Kubernetes文档进一步研究。</p>
+<p>另外，在Deployment里还有其他一些字段可以对滚动更新的过程做更细致的控制，它们都在<code>spec.strategy.rollingUpdate</code>里，比如maxSurge、maxUnavailable等字段，分别控制最多新增Pod数和最多不可用Pod数，一般用默认值就足够了，你如果感兴趣也可以查看Kubernetes文档进一步研究。</p>
 <h1 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a><span style="color:#339AFF;">课下作业</span></h1><p>最后是课下作业时间，给你留两个思考题：</p>
 <p>1，今天学的Kubernetes的“滚动更新”，与我们常说的“灰度发布”有什么相同点和不同点？</p>
 <p>2，直接部署旧版本的YAML也可以实现版本回退，<code>kubectl rollout undo</code>命令的好处是什么？</p>
@@ -751,7 +751,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1108</span>
+                    <span class="site-state-item-count">1100</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1099,9 +1099,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">76</span>
+                    <span class="site-state-item-count">75</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1132,23 +1130,23 @@
                 
                 
                   <li>
-                    <a href="/2023/08/26/6-7-kubectl进程源码分析/" title="6-7 kubectl进程源码分析" target="_blank">6-7 kubectl进程源码分析</a>
+                    <a href="/2023/08/21/第7章-Kubernetes配置管理/" title="第7章 Kubernetes配置管理" target="_blank">第7章 Kubernetes配置管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/26/6-6-kube-proxy进程源码分析/" title="6-6 kube-proxy进程源码分析" target="_blank">6-6 kube-proxy进程源码分析</a>
+                    <a href="/2023/08/21/第6章-Kubernetes服务发布基础/" title="第6章 Kubernetes服务发布基础" target="_blank">第6章 Kubernetes服务发布基础</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/26/6-5-kubelet进程源码分析/" title="6-5 kubelet进程源码分析" target="_blank">6-5 kubelet进程源码分析</a>
+                    <a href="/2023/08/21/第5章-Kubernetes调度基础/" title="第5章 Kubernetes调度基础" target="_blank">第5章 Kubernetes调度基础</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/26/6-4-kube-scheduler进程源码分析/" title="6-4 kube-scheduler进程源码分析" target="_blank">6-4 kube-scheduler进程源码分析</a>
+                    <a href="/2023/08/21/第4章-Kubernetes的基础概念/" title="第4章 Kubernetes的基础概念" target="_blank">第4章 Kubernetes的基础概念</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/26/6-3-kube-controller-manager进程源码分析/" title="6-3 kube-controller-manager进程源码分析" target="_blank">6-3 kube-controller-manager进程源码分析</a>
+                    <a href="/2023/08/20/第3章-Docker基础/" title="第3章 Docker基础" target="_blank">第3章 Docker基础</a>
                   </li>
                 
               </ul>
@@ -1220,7 +1218,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">131:24</span>
+    <span title="站点阅读时长">131:27</span>
   
 </div>
 

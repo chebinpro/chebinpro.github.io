@@ -112,8 +112,8 @@
 <meta property="og:description" content="思考并回答以下问题：">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2023/07/12/EasyGoAdmin-Gin-EleVue-1/1.png">
-<meta property="og:image" content="http://yoursite.com/2023/07/12/EasyGoAdmin-Gin-EleVue-1/1.png">
-<meta property="og:updated_time" content="2023-07-13T02:11:45.548Z">
+<meta property="og:image" content="http://yoursite.com/2023/07/12/EasyGoAdmin-Gin-EleVue-1/2.png">
+<meta property="og:updated_time" content="2023-09-14T03:24:37.241Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="EasyGoAdmin_Gin_EleVue-1">
 <meta name="twitter:description" content="思考并回答以下问题：">
@@ -446,7 +446,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2023-07-13 10:11:45" itemprop="dateModified" datetime="2023-07-13T10:11:45+08:00">2023-07-13</time>
+                <time title="修改时间：2023-09-14 11:24:37" itemprop="dateModified" datetime="2023-09-14T11:24:37+08:00">2023-09-14</time>
               
             
           </span>
@@ -532,7 +532,7 @@
 <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a><span style="color:#339AFF;">目录</span></h1><img src="/2023/07/12/EasyGoAdmin-Gin-EleVue-1/1.png">
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">├── app             // 应用目录</span><br><span class="line">│   ├── controller  // 控制器</span><br><span class="line">│   ├── dto         // DTO层</span><br><span class="line">│   ├── middleware  // 中间件层</span><br><span class="line">│   ├── model       // 模型层</span><br><span class="line">│   └── service     // 服务层</span><br><span class="line">│   └── vo          // VO视图层</span><br><span class="line">├── boot</span><br><span class="line">├── config          // 系统配置</span><br><span class="line">├── document        // 文档目录</span><br><span class="line">├── i18n            // 国际化</span><br><span class="line">├── library         // 类库</span><br><span class="line">├── packed</span><br><span class="line">├── public          // 资源目录</span><br><span class="line">├── router          // 路由</span><br><span class="line">├── templates       // 自定义模板</span><br><span class="line">├── utils           // 工具类库</span><br><span class="line">├── Dockerfile</span><br><span class="line">├── go.mod</span><br><span class="line">└── main.go</span><br></pre></td></tr></table></figure>
 <h1 id="main-go"><a href="#main-go" class="headerlink" title="main.go"></a><span style="color:#339AFF;">main.go</span></h1><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 系统入口文件</span></span><br><span class="line"><span class="comment"> * @File : main</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    _ <span class="string">"easygoadmin/boot"</span></span><br><span class="line">    <span class="string">"easygoadmin/library/cfg"</span></span><br><span class="line">    _ <span class="string">"easygoadmin/router"</span></span><br><span class="line">    _ <span class="string">"easygoadmin/utils"</span></span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"github.com/gin-gonic/gin"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 开始调试模式</span></span><br><span class="line">    gin.SetMode(<span class="string">"debug"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 实例化配置</span></span><br><span class="line">    config := cfg.Instance()</span><br><span class="line">    <span class="keyword">if</span> config == <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Printf(<span class="string">"参数错误"</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="library"><a href="#library" class="headerlink" title="library"></a><span style="color:#339AFF;">library</span></h1><img src="/2023/07/12/EasyGoAdmin-Gin-EleVue-1/1.png">
+<h1 id="library"><a href="#library" class="headerlink" title="library"></a><span style="color:#339AFF;">library</span></h1><img src="/2023/07/12/EasyGoAdmin-Gin-EleVue-1/2.png">
 <blockquote>
 <p>library/cfg/cfg.go</p>
 </blockquote>
@@ -659,7 +659,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1108</span>
+                    <span class="site-state-item-count">1100</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1007,9 +1007,7 @@
                     
                       
                     
-                      
-                    
-                    <span class="site-state-item-count">76</span>
+                    <span class="site-state-item-count">75</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1040,23 +1038,23 @@
                 
                 
                   <li>
-                    <a href="/2023/08/26/6-7-kubectl进程源码分析/" title="6-7 kubectl进程源码分析" target="_blank">6-7 kubectl进程源码分析</a>
+                    <a href="/2023/08/21/第7章-Kubernetes配置管理/" title="第7章 Kubernetes配置管理" target="_blank">第7章 Kubernetes配置管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/26/6-6-kube-proxy进程源码分析/" title="6-6 kube-proxy进程源码分析" target="_blank">6-6 kube-proxy进程源码分析</a>
+                    <a href="/2023/08/21/第6章-Kubernetes服务发布基础/" title="第6章 Kubernetes服务发布基础" target="_blank">第6章 Kubernetes服务发布基础</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/26/6-5-kubelet进程源码分析/" title="6-5 kubelet进程源码分析" target="_blank">6-5 kubelet进程源码分析</a>
+                    <a href="/2023/08/21/第5章-Kubernetes调度基础/" title="第5章 Kubernetes调度基础" target="_blank">第5章 Kubernetes调度基础</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/26/6-4-kube-scheduler进程源码分析/" title="6-4 kube-scheduler进程源码分析" target="_blank">6-4 kube-scheduler进程源码分析</a>
+                    <a href="/2023/08/21/第4章-Kubernetes的基础概念/" title="第4章 Kubernetes的基础概念" target="_blank">第4章 Kubernetes的基础概念</a>
                   </li>
                 
                   <li>
-                    <a href="/2023/08/26/6-3-kube-controller-manager进程源码分析/" title="6-3 kube-controller-manager进程源码分析" target="_blank">6-3 kube-controller-manager进程源码分析</a>
+                    <a href="/2023/08/20/第3章-Docker基础/" title="第3章 Docker基础" target="_blank">第3章 Docker基础</a>
                   </li>
                 
               </ul>
@@ -1128,7 +1126,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">131:24</span>
+    <span title="站点阅读时长">131:27</span>
   
 </div>
 
