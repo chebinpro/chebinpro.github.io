@@ -1,0 +1,1636 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="思考并回答以下问题：">
+<meta name="keywords" content="后端工程师进阶">
+<meta property="og:type" content="article">
+<meta property="og:title" content="28｜架构设计：如果让你设计一个消息队列，你会怎么设计它的架构？">
+<meta property="og:url" content="http://yoursite.com/2023/11/06/28｜架构设计：如果让你设计一个消息队列，你会怎么设计它的架构？/index.html">
+<meta property="og:site_name" content="车斌的技术博客">
+<meta property="og:description" content="思考并回答以下问题：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-11-16T02:04:47.136Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="28｜架构设计：如果让你设计一个消息队列，你会怎么设计它的架构？">
+<meta name="twitter:description" content="思考并回答以下问题：">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2023/11/06/28｜架构设计：如果让你设计一个消息队列，你会怎么设计它的架构？/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>28｜架构设计：如果让你设计一个消息队列，你会怎么设计它的架构？ | 车斌的技术博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">车斌的技术博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">放弃会成为一种习惯</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/06/28｜架构设计：如果让你设计一个消息队列，你会怎么设计它的架构？/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CheBin">
+      <meta itemprop="description" content="先得寸再进尺，既得陇复望蜀">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="车斌的技术博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">28｜架构设计：如果让你设计一个消息队列，你会怎么设计它的架构？
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2023-11-06 11:17:10" itemprop="dateCreated datePublished" datetime="2023-11-06T11:17:10+08:00">2023-11-06</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2023-11-16 10:04:47" itemprop="dateModified" datetime="2023-11-16T10:04:47+08:00">2023-11-16</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/消息队列/" itemprop="url" rel="index"><span itemprop="name">消息队列</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">7k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">6 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>思考并回答以下问题：</p>
+<a id="more"></a>
+<p>今天我们学习消息队列的架构设计，也就是如果让你设计一个消息队列，你会怎么做。这个话题在面试中属于很难的一类，它要求你不仅要对Kafka本身有很深刻的理解，也要对分布式系统设计与实现有很深刻的理解。而且你还要在面试短短几分钟内说清楚，就更难了。如果没有准备凭着感觉回答的话，大概率只能讲出生产者、消费者这些比较浅显的东西，不成体系。所以今天我就从理论和落地实践上给你讲清楚，如果你要设计一个消息队列，你要解决哪些问题。很多跟消息队列有关的知识你已经在前面学过了，所以我们直接从面试准备开始。面试准备如果你所在的公司并没有使用任何消息队列之类的中间件，那么你就需要搞清楚你们公司是如何做到解耦、异步和削峰的。当然，如果你所在公司有一些历史比较悠久的系统，尤其是在Kafka等消息队列兴盛起来之前就已经存在的系统，也可以去找找它们是如何解决类似问题的。此外你还可以进一步去了解下面这些实现。基于内存的消息队列，一般用于进程内的事件驱动，又或者用于替代真实的消息队列参与测试。基于TCP的消息队列。这种消息队列是指生产者直接和消费者连在一起，没有broker。生产者会直接把消息发给消费者。基于本地文件的消息队列，也就是生产者直接把消息写入到本地文件，消费者直接从本地文件中读取。它们也不一定都叫做消息队列，但是基本的形态都是发布-订阅模式。我在面试思路里面讲述的内容也不是只能用于回答如何设计一个消息队列，下面这些问题你也可以用里面的内容来回答。Kafka为什么要引入topic？Kafka为什么要引入分区？只有topic行不行？Kafka为什么要强调把topic的分区分散在不同的broker上？Kafka为什么要引入消费者组概念？只有消费者行不行？</p>
+<p>面试思路面试官问到这个问题本身只是希望你能站在设计者的角度，阐述Kafka等消息队列为什么设计成当前的形态。那么你就要围绕生产者、消费者、broker和topic这4个方面来阐述消息队列设计的关键点。目前主流的消息队列已经很强大了，所以可以考虑参考它们的设计。现在的消息队列都有几个概念：生产者、消费者、Broker和topic。这里我以MySQL为例，讲述怎么在MySQL的基础上封装一个消息队列。那么接下来你就可以一个一个介绍你准备怎么设计。因为单纯讲设计是一个很干巴巴的事情，这里我就用之前接触过的基于数据库封装消息队列的案例来辅助说明。topic设计前面你已经知道，一个topic会有若干个分区，而这些分区是分散在不同的broker上的。那你的设计肯定是不能脱离这些已有的成熟方案。首先我也会保留topic和分区的设计。现代的消息队列基本上都有类似的结构，只是名字可能不一样，有些叫分区Partition，有些叫队列Queue。然后你要站在设计者的角度补充为什么要这么设计，也就是侧面阐述Kafka设计的精髓。topic是必不可少，因为它代表的是不同的业务。然后面临的选择就是要不要在topic内部进一步划分分区。假如说不划分分区的话，有一个很大的缺点，就是并发竞争，比如说所有的生产者都要竞争同一把锁才能写入到topic，消费者要读取数据也必须竞争同一把锁才能读取数据，这样性能很差。所以topic内部肯定要进一步细分，因此需要引入分区的设计。然后讨论在MySQL上怎么把topic和表关联起来，关键词就是一个topic一个逻辑表。结合MySQL的特性，最基础的设计就是一个topic是一个逻辑表，而对应的分区就是对这个逻辑表执行分库分表之后得到的物理表。举个例子，假如说有一个叫做create_order的topic，那么就代表我有一个逻辑上叫做create_order的表。如果这个topic有3个分区，那么就代表我有create_order_0、create_order_1和create_order_2三张物理表。这种情况下，每一张表都可以用自增主键，这个自增主键就对应于Kafka中的偏移量。</p>
+<p>上面这个回答还提到了分库分表，那么面试官可能将话题引导到分库分表上。这里你可能会困惑，包括面试官也可能会问，为什么要这么设计？为什么不能所有的topic都用一张逻辑表，里面有一个topic的列呢？这个时候你就要抓住性能和隔离两个点来解释。之所以不采用所有topic都共用一张逻辑表，有两方面的原因。首先是一张表，难以应付大数据与高并发的场景，即便分库分表，也要分出来几千张表，实在犯不着；其次topic天然就是业务隔离的，因此让不同topic用不同的表，那么相互之间就没有影响了。接着你可以引出broker的话题。而且使用不同的表，能更好地安排不同的数据库实例来存储。broker与消息存储当你确定了topic和分区两个概念之后，接着就是怎么存储这些topic和分区。Kafka在存储分区的时候，是尽量做到分散开来，所以你的设计也要遵循这一点。为了进一步保证可用性，同一个topic的不同分区最好分散在不同的broker上存储。这样即便某一个broker崩溃了，这个topic也最多只有一个分区受到了影响。如果要利用数据库来做到这一点，那么就是把表分散在不同的数据库上，换句话来说就是，一个topic的不同分区，不仅要分表，还要分库。这里的分库，更加准确地说，是分数据源。也就是说，不同分区最好是存放在不同的主从集群上。要想提高可用性，最好的策略就是把分区分散在不同的主从集群上。比如说有四个分区，那么可以四个分区分别在四个不同的主从集群上。优点是尽量分散了流量，并且不同的主从集群之间互不影响。然后你进一步指出，主从集群本身就达成类似Kafka的副本效果，只不过你没有ISR的概念。主从集群就意味着每一个分区在从库都有对应的一份数据。举个例子来说，如果是一主两从，那么就意味着每一个分区都有一个主分区和两个从分区。使用MySQL的主从机制也意味着我们不需要管理主从选举的问题，这样能够很大程度上减轻落地的难度。</p>
+<p>发送消息在解决了topic和broker的问题之后，接下来就要讨论发送者怎么发送了。第一个要确定就是发送者发送应该是推模型还是拉模型。也就是说，是发送者主动发给broker还是broker主动去拉取。显然在发送者这个场景下，应该是发送者来推送。就生产者来说，它应该主动推送消息到broker上，因为消息产生速率完全跟broker没有关系，让broker来主动拉取的话，broker不好控制拉的频率和拉的数量。紧接着我们可以深入进去，讨论一下发送者发送性能的问题。批量发送你同样可以借鉴Kafka优化发送者性能的措施，就是批量发送。为了优化发送性能，可以支持批量发送功能。也就是说，生产者可以考虑凑够一个批次之后再发送。这个批次大小可以让生产者来控制。当然生产者也要考虑兜底措施，也就是说如果在一段时间之内，没有凑够一批数据也要发送，防止消息长时间停留在生产者内存里面，出现消息丢失的问题。Kafka有类似的机制，比如说生产者可以通过linger.ms来控制生产者最终等待多长时间。这个批量发送能够有效提高生产者的性能，下一节课我们会展开讨论。除了这个批量发送，你还有另外一个做法，就是生产者直接插入数据到消息表。直接插入消息在MySQL的实现里面，消息最终是存储在数据库里面，你既可以通过broker来访问这个数据库，也可以让生产者直接访问这个数据库。后者，你也可以认为生产者和broker就是一体的。</p>
+<p>如果要追求极致的性能，那么可以考虑让生产者直接把消息插入到数据库里。生产者需要引入一个本地依赖，本地依赖会根据消息的topic、分区找到对应的数据库配置，初始化连接池。而发送消息就是调用本地依赖的本地方法，这个方法会执行一个INSERT语句，插入消息。这样做的好处就是省略了一次网络中间通信。同样地，也可以使用批量插入来进一步提高性能。在消费者端也可以采用这样的措施。消费消息显然，可能会有不同的业务方消费同一个topic的消息，所以你需要引入消费者组和消费者的概念。在消费消息的时候，同样需要引入消费者组和消费者的概念。一个业务方就是一个消费者组，一个消费者组里面可以有多个消费者。在Kafka里面，每一个分区有一个消费者，但是一个消费者可以消费多个分区。那么我这里也保留了这种设计，每一个分区是一张表，这张表对于一个消费者组来说，只能有一个消费者读取消息。接着你要指出消费者这边使用拉模型会更好。因为消费者才知道自己的消费速率，所以消费者这边用拉模型，例如每1s从消息队列中拉取50条消息。这时候就会有另外一个问题，就是你怎么记录一个消费者已经消费了哪些消息？记录偏移量既然我们用的是MySQL，那么自然就是用另外一张表来记录了，而且同样保持每个topic都有一张表，例如create_order有一个对应的表叫做create_order_consumers，里面记录了消费create_order这张表的消费者组和消费者数量。</p>
+<p>这张表的设计也很简单，主要包含三列：消费者组的名字、分区、已消费偏移量。假如说create_order这个topic有搜索和推荐两个业务方消费消息，那么create_order_consumers这张表的数据就类似于下面这样。为了存储每一个消费者消费的偏移量，我需要一张新的表。比如说在create_order这个例子里面，有一张表叫做create_order_consumers。这张表有三个关键列：消费者组名字、分区和偏移量。而每次消费者提交消息，对于borker来说就是更新这张表的偏移量。紧接着你就要介绍一下消息队列惯常支持的指定偏移量消费。对于消费者来说，它也可以消费指定偏移量的消息，比如最开始消费到了偏移量1000的消息，现在因为业务出了问题，要从偏移量100的消息重新消费。这种时候，只需要更新commited_offset为100就可以了。你可以理解为broker就是执行一下这种语句。UPDATEcreate_order_consumersSETcommitted_offset=100WHEREpartition=2andconsumer_group=’test’而消费者拉取消息，实际上就是执行一个SELECT查询，比如在前面的例子里，重置偏移量到100之后，再次拉取一批消息，假如说一批是50条消息，那么就执行这样的SELECT语句。</p>
+<p>然后你要分析一下这样做的好处。可以预见每一个topic都不会有很多消费者，所以记录消费偏移量的表不会有很多数据。而且在执行更新的时候，也只会使用到行锁，所以性能会很好。你还可以考虑一些改进，也就是不用MySQL来记录这个消费偏移量。也可以参考Kafka之类的设计，使用别的中间件来记录消费偏移量，比如说ZooKeeper。然后可以用一个Redis结合异步刷新的方案来进一步刷亮点。此外，更新偏移量的操作并发非常高，那么可以考虑使用Redis来记录消费偏移量，然后异步刷新到数据库中。但凡涉及到异步，你就应该想到数据丢失的问题。但是这个方案存在的风险就是Redis可能突然宕机，导致最新的偏移量没有更新到MySQL中。比如说数据库记录的消费偏移量是950，而消费者已经消费到了偏移量1000，但是因为Redis突然宕机，以至于数据库里的偏移量还没更新为1000。当Redis再次恢复之后，消费者就只能从950的位置重新消费。这种情况下，消费者做到幂等就可以。如果要提高性能，也可以考虑让消费者直接连上数据库，自己拉取消息。直接拉取消息类似于生产者直连数据库，消费者也可以考虑直连数据库。还有一个优化消费者性能的地方，就是提供一个本地依赖，让消费者通过这个本地依赖直连数据库，直接从数据库中读取消息。同样地，消费者也通过这个本地依赖来提交消息。</p>
+<p>延迟消息这个方案有一个很大的好处，就是它很容易实现延迟消息。关键操作就是在消息表里面加上一个预期发送时间。而消费者拉取消息的时候，执行的语句类似于下面这样：SELECT<em>FROMsome_topicWHEREsend_time&lt;=now()ANDsend_time&gt;$last_batch_send_max_time上面SQL中的参数$last_batch_send_time就是消费者拉取出来的一批消息中最大的那个发送时间。你应该注意到了，在这种形态下，你需要记录的就不是消费偏移量，而是时间戳了。比如说对于某个消费者，你应该记录它已经消费到了哪个时间点的延迟消息。所以你可以先简单介绍这个方案。我这个方案很容易支持延迟消息，只需要在消息表里面加上一个send_time的列记录预期发送时间的毫秒数就可以。比如说消费者拉取消息的时候就是执行类似这样一个语句，SELECT</em>FROMsome_topicWHEREsend_time&lt;=now()ANDsend_time&gt;last_batch_send_max_time。last_batch_send_max_time就是消费者拉取出来的一批消息里最大的那个发送时间。不过这里并不能用LIMIT来解决批次大小的问题，因为这里要考虑同时发送的问题。最后一句话，就是为了引出来同时发送的问题。你不需要立刻回答，而是等着面试官来问。问到了你就先解释什么叫做同时发送。举个例子来说，数据库里面有40条消息是在00:00.001时刻发送，50条是在00:00.002时刻发送。如果你在SELECT语句里面加上LIMIT50，那么你就会拿到40条00:00.001发送的消息，10条00:00.002发送的消息。下一次执行的时候，WHEREsend_time&gt;00:00.002就会把剩下的40条00:00.002发送的消息全部跳过。如果条件改成WHEREsend_time&gt;=00:00.002，那么这一次拉出来的10条00:00.002消息会再次拉出来。紧接着就要说一下这个问题的解决方案。</p>
+<p>要解决这个问题就要在查询的时候，不依赖于数据库计算LIMIT，而是自己算。也就是说，当我拿到这个查询返回的结果集的时候，首先读够50条。然后检查第50条之后的数据，如果send_time和第50条是一样，那么就加入到当前批次来。所以按照这个算法，当前批次应该是把00:00.001和00:00.002两个时刻的数据都读到，也就是有90条。这个算法有一个基本假设，也就是某一个时刻，要发送的消息不会太多。比如说特定某毫秒的消息，连几十条可能都没有。如果面试官问这个方案的难点在哪里，你也可以用这个同时发送的问题来回答。在其他类似的跟时间有关的场景下，也需要考虑同样的问题，所以解决思路还是比较有参考价值的。方案总结这个方案还有一些点需要解释一下，让你心中有底，防止面试官突然问到相关的问题。首先这个方案利用了数据库来作为存储，而不是自己操作文件，也就是避开了消息队列中对性能影响很大的IO方面的内容，自然也就用不上零拷贝之类的技术。这个方案是基于MySQL实现的，你也可以把MySQL换成PostgreSQL或者Oracle。在换成Oracle之后，连分库分表都不需要，因为Oracle完全撑得住高并发。你也可以考虑换成TiDB等分布式数据库。你可能会觉得有点奇怪，就是什么情况下我们会考虑用MySQL来实现一个消息队列？答案是在一些ToB的场景下。比如说A公司研发了一个软件，B公司购买之后要求本地部署。A公司研发的软件需要使用到消息队列，但是B公司是一个小公司，并不打算部署消息队列，因为他们缺乏技术力量来维护这个消息队列。那么A公司就可以考虑利用MySQL来封装一个消息队列，比较典型的例子就是私有化部署的即时通讯工具。面试思路总结这节课我带你深入讨论了设计一个消息队列应该要考虑的问题，并且给出了基于MySQL实现的一个方案，里面有一些要点需要你记住。一个topic一个逻辑表，一个分区一个物理表。同一个topic的不同分区对应的表，应该尽可能分散在不同的数据库、主从集群上。生产者使用推模型，主动推送消息。生产者可以考虑使用批量发送、直连数据库的方式提高性能。一个topic一个消费偏移量表，用来记录各个消费者组的消费进度。消费者使用拉模型，按照自己的消费能力按需拉取。可以通过增加send_time这个列来支持延时队列。如果你有时间的话，我建议你尝试自己实现一下，加深你对消息队列的理解。此外，你在面试中还有可能遇到类似的问题，比如说让你设计一个Redis、一个数据库，或者ZooKeeper。如果你没有提前准备这一类问题，你就可以回答相应中间件的核心原理。比如说消息队列，除了我告诉你的用MySQL来封装一个消息队列的核心设计，其他的基本上都是在介绍Kafka的核心原理。思考题最后请你来思考两个问题。在MySQL的实现里面，当来了一个新消费者组的时候，该怎么初始化消息偏移量表中该消费者组的数据？有些小型公司也不会使用Kafka之类的专业的消息队列，而是借助于Redis来实现。你知道怎么用Redis来实现类似的功能吗？</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/后端工程师进阶/" rel="tag"># 后端工程师进阶</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/11/06/27｜重复消费：高并发场景下怎么保证消息不会重复消费？/" rel="next" title="27｜重复消费：高并发场景下怎么保证消息不会重复消费？">
+                <i class="fa fa-chevron-left"></i> 27｜重复消费：高并发场景下怎么保证消息不会重复消费？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/11/06/29｜高性能：Kafka为什么性能那么好？/" rel="prev" title="29｜高性能：Kafka为什么性能那么好？">
+                29｜高性能：Kafka为什么性能那么好？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+            
+              <p class="site-author-name" itemprop="name">CheBin</p>
+              <div class="site-description motion-element" itemprop="description">先得寸再进尺，既得陇复望蜀</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">1148</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">77</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history fa-" aria-hidden="true"></i>
+                近期文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li>
+                    <a href="/2023/11/10/模拟面试｜NoSQL面试思路一图懂/" title="模拟面试｜NoSQL面试思路一图懂" target="_blank">模拟面试｜NoSQL面试思路一图懂</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/10/42｜MongoDB高性能：怎么优化MongoDB的查询性能？/" title="42｜MongoDB高性能：怎么优化MongoDB的查询性能？" target="_blank">42｜MongoDB高性能：怎么优化MongoDB的查询性能？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/10/41｜MongoDB：MongoDB是怎么做到高可用的？/" title="41｜MongoDB：MongoDB是怎么做到高可用的？" target="_blank">41｜MongoDB：MongoDB是怎么做到高可用的？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/" title="40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？" target="_blank">40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/10/39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？/" title="39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？" target="_blank">39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？</a>
+                  </li>
+                
+              </ul>
+            </div>
+        
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2023</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CheBin</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">9m</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">135:58</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>

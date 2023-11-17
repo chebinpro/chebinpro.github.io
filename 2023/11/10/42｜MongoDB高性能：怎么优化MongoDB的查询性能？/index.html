@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="思考并回答以下问题：">
+<meta name="keywords" content="后端工程师进阶">
+<meta property="og:type" content="article">
+<meta property="og:title" content="42｜MongoDB高性能：怎么优化MongoDB的查询性能？">
+<meta property="og:url" content="http://yoursite.com/2023/11/10/42｜MongoDB高性能：怎么优化MongoDB的查询性能？/index.html">
+<meta property="og:site_name" content="车斌的技术博客">
+<meta property="og:description" content="思考并回答以下问题：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-11-17T09:15:15.551Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="42｜MongoDB高性能：怎么优化MongoDB的查询性能？">
+<meta name="twitter:description" content="思考并回答以下问题：">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2023/11/10/42｜MongoDB高性能：怎么优化MongoDB的查询性能？/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>42｜MongoDB高性能：怎么优化MongoDB的查询性能？ | 车斌的技术博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">车斌的技术博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">放弃会成为一种习惯</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/10/42｜MongoDB高性能：怎么优化MongoDB的查询性能？/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CheBin">
+      <meta itemprop="description" content="先得寸再进尺，既得陇复望蜀">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="车斌的技术博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">42｜MongoDB高性能：怎么优化MongoDB的查询性能？
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2023-11-10 12:35:30" itemprop="dateCreated datePublished" datetime="2023-11-10T12:35:30+08:00">2023-11-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2023-11-17 17:15:15" itemprop="dateModified" datetime="2023-11-17T17:15:15+08:00">2023-11-17</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/MongoDB/" itemprop="url" rel="index"><span itemprop="name">MongoDB</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">5.5k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">5 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>思考并回答以下问题：</p>
+<a id="more"></a>
+<p>今天我们来学习MongoDB的另外一个热点面试主题——优化MongoDB的查询性能。就像之前我多次提到的，任何中间件的面试说到底就是以高可用、高性能和高并发为主。高性能和高并发可以说是孪生兄弟，你做到了高性能，基本上就做到了高并发。在面试中，性能优化一直被看作是一个高级面试点，因为只有对原理了解得很透彻的人，在实践中才能找准性能问题的关键点，从而通过各种优化手段解决性能问题。在这之前，我们先来看看MongoDB的查询过程，这样方便你理解后面的优化手段。MongoDB的查询过程MongoDB在分片之后肯定会有一些机制来保证查询能够准确找到数据。说到这里，你肯定想到了分库分表的查询过程。在分库分表中，查询的执行过程中最重要的一步，就是计算数据可能在哪个目标表上。如果实在计算不出来，那么只能考虑使用广播。而MongoDB也需要考虑类似的问题。在MongoDB里面，有一类实例叫做mongos，这些实例就是负责路由查询到目标表上，还有合并结果集。而在分库分表中，计算目标表是分库分表中间件或者分库分表代理完成的。MongoDB的ESR规则在MongoDB里面设计索引的时候就要考虑所谓的ESR规则。ESR代表的是E（Equality）、S（Sort）和R（Range），也就是相等、排序和范围。你在设计索引的时候，按照ESR规则来排列你的索引列。比如说，你用A进行等值查找，用B进行排序，用C进行范围查询，那么就应该是ABC。如果你是BAC，那么就违背了ESR规则。而且ESR的三个元素是可以重复的，只要相对顺序不变就可以。</p>
+<p>EESR：两个等值列是可以的。ESSR：两个排序列也是可以的。ER：没有排序列也是可以的。ERR：两个范围列也是可以的。因此你在设计索引、优化索引的时候就是要让索引尽可能符合ESR规则。面试准备除了上面的这些基础知识，在面试前你还需要在公司内部收集一些信息。你们公司有没有遇到过MongoDB慢查询的问题？如果有，那么引发慢查询的原因是什么？最终又是怎么解决的？你有没有优化过MongoDB的索引？如果有，是怎么优化的？你们公司MongoDB的参数有没有调整过？如果调整过，调过哪些？为什么调整？你们公司MongoDB的平均查询时间多长？99线以及999线是多少？你可以把MongoDB的性能优化、MySQL查询性能优化、Elasticsearch性能优化三个合并在一起。也就是说你整个面试思路就是讨论它们三个的性能优化手段。比如：在讨论到MySQL索引优化的时候，提起优化MongoDB的索引。在讨论到分库分表分页查询的时候，提起MongoDB里的mongos。在讨论Elasticsearch分片的时候，也可以提起MongoDB的分片。你可以通过这样的横向对比，树立起一个掌握了各种中间件性能优化方法论的形象，从而加深面试官对你的印象，赢得竞争优势。</p>
+<p>优化MongoDB查询方案1：使用覆盖索引这里我是借鉴了MySQL里的说法。你应该知道，在MySQL上使用覆盖索引的最大好处就是不需要回表，从索引里就可以直接拿到你需要的数据。在MongoDB里也可以用这样的手段。也就是说，如果有一个索引上有你要查询的全部数据，那么MongoDB就不用把整个文档加载出来。最直观的做法就是在查询中使用projection方法指定字段，而且这些字段都是索引字段。这算是最基本的优化手段，在真实的工作场景里也很常见。因为最开始开发者为了省事，通常都是直接把所有的字段都查询出来，后续随着数据量增长才会遇到性能问题。之前我做过一个很简单的优化。我们早期有一个业务查询，就是把整个文档都加载起来。后面我发现，这个查询的调用者大部分其实不需要整个文档，只需要里面的几个字段。所以我就额外提供了一个新的查询接口，这个查询接口只会返回部分字段。这样优化之后，大部分查询都是改用新接口，MongoDB也不需要把整个文档都加载出来，性能提升了至少30%。你可以进一步总结升华一下。也不仅仅是查询，就算是在更新的时候，也要尽可能做到只更新必要的字段。比如说在一些业务场景下，出于快速研发的角度，我们可能会考虑前端把整个文档传过来，后端就直接更新整个文档。但是如果能够做到只传来修改过的字段，那么就可以只更新必要的字段了。这样性能也更好。</p>
+<p>方案2：优化排序这又是一个你在MySQL里见过的优化手段。在MongoDB里面，如果能够利用索引来排序的话，那么直接按照索引顺序加载数据就可以了。而如果不能利用索引来排序的话，就必须在加载了数据之后，再次进行排序，也就是进行内存排序。可想而知，如果内存排序，再叠加分页查询的话，性能就会更差。比如说你要查询skip(100000).limit(100)，那么最坏的情况下，MongoDB要把所有的文件都加载到内存里进行排序，然后找到从100000开始的100条数据。优化的思路也类似于之前在MySQL里面讲的。第一种是把查询优化成利用索引来排序，可以考虑修改查询，也可以考虑修改索引。比如说你可以新建索引。我还优化过一个分页查询。早期的时候，有一个查询是需要排序加分页的，但是最开始数据量不多，所以随便写了也没问题。但是后面数据量上来之后，这个地方查询就越来越慢。看到这个排序加分页的查询，我的第一个想法就是这个查询肯定是内存排序，不然不会那么慢。我一排查，还真是这样。后来我就创建了一个新的索引，确保排序的时候可以直接利用索引来排序。另外一种优化思路是借鉴我们在分库分表里面提到的禁止跨页查询，也就是说每次查询带上上一次查询的极值作为查询条件。MongoDB的分页查询还有一种优化方式，但是这种优化方式需要业务折中。也就是原本分页向后翻页是通过偏移量来进行的，那么现在可以通过修改查询条件，在查询语句里带上前一页的排序字段的极值。比如说我们的查询是根据创建时间create_time倒序排序，那么就可以优化成查询条件里上一批最小的create_time，接近于WHEREcreate_time&lt;=$last_min_create_time的语义。注意，这里的极值是最大值还是最小值，跟你的排序有关。另外你可以进一步把这个话题引导到MySQL和分库分表上。</p>
+<p>总体来说，MongoDB的分页查询面临的问题和关系型数据库分页查询面临的问题差不多，而在分片集合上进行分页查询面临的问题，也和分库分表的问题差不多。总之，分页查询如果不小心的话，是比较容易出现性能问题的。既然MongoDB会有这种分页的问题，那么分片情况下处理分页的mongos岂不是就容易成为瓶颈吗？是的，所以你就可以考虑增加mongos的数量。方案3：增加mongos数量在前置知识里面你已经知道了，如果是分片集合的话，查询都要靠mongos来执行路由，并且合并结果集。换一句话来说，mongos就是查询的性能瓶颈，它可能是CPU瓶颈，可能是内存瓶颈，也可能是网络带宽瓶颈。我举一个例子你就知道了，比如说你有分页查询，那么mongos就必须要求各个分片查询到结果之后，自己再排序，选出全局分页里对应的数据。因此，在实践中你要密切关注查询性能，并且在发现查询很慢的时候，就要去看看是不是mongos引起的。之前我还优化过mongos。不过mongos实例能优化的不多，主要就是增加mongos实例。而且最好是独立部署mongos，独享系统的CPU和内存资源。另外一种面试的思路是隔离。也就是考虑到mongos本身容易成为性能瓶颈，并且你也不能无限增加mongos实例，所以如果公司资源足够，你应该让核心业务使用独立的mongos实例，或者说独立的MongoDB集群。并且，为了保证核心服务的查询效率和稳定性，我都是单独准备了一个集群给核心服务，这样可以保证核心服务的mongos互相之间没有影响。</p>
+<p>方案4：拆分大文档这算是很常见的一种优化手段了。在一些特定的业务场景中，你会有一些很大的文档，这些文档有很多字段，并且有一些特定的字段还特别大。那么你就可以考虑拆分这些文档。大文档对MongoDB的性能影响还是很大的。就我的个人经验来说，我认为可以考虑从两个角度出发去拆分大文档。按照字段的访问频率拆分。也就是访问频繁的放一个文档，访问不频繁的拆出去，作为另外一个文档。按照字段的大小来拆分。也就是小字段放在一个文档，大字段拆出去，作为另外一个文档。之前我就拆分过一个文档，非常庞大。而且在业务中，有一些庞大的字段根本用不上。在这种情况下，我一次拆出了三个文档。访问频繁的小字段放在一起，作为一个文档。把访问不频繁的大字段拆出去，作为一个文档。这个地方我觉得可以进一步优化为特定的巨大的字段可以直接拿出去，作为一个单独的文档。剩余的合并在一起，作为一个文档。这样做的优点很明显，比较多的业务查询其实只需要第一种文档，极少数会需要第二种文档。但是缺点也同样明显，如果调用者需要整个文档，也就意味着我需要查询三次，再合并组成一个业务上完整的文档。你还可以升华一下。当然，拆分终究是下策，最好还是在一开始使用MongoDB的时候就约束住文档的大小。不过还有一个和这种策略完全相反的优化手段：嵌入文档。</p>
+<p>方案5：嵌入文档所谓的嵌入文档是指如果A文档和B文档有关联关系，那么就在A文档里面嵌入B文档，做成一个大文档。相当于原本A文档和B文档都是单独存储的，可能在A文档里面有一个B文档的ID字段，又或者在B文档里有A的文档ID。那么你可以考虑合并这两个文档。你可以这么介绍你的方案。早前我们有一个过度设计的场景，就是有两个文档A和B。其中A里面有一个B的文档ID，建立了一对一的映射关系。但是实际上，业务查询的时候，基本上都是分成两次查询，先把A查询出来，再根据A里面的文档ID把B也查出来。后面这个地方慢慢成为了性能瓶颈，我就尝试了优化这个地方。我的想法是既然A和B在业务上联系那么紧密，我可以直接把它们整合成一个文档。整合之后，一次查询就能拿到所有需要的数据了，直接节约了一个MongoDB查询，业务响应时间提高了，而且MongoDB的压力也变小了。那么如果面试官问你怎么直接整合成一个文档呢？你就可以考虑说你采用的是懒惰的、渐进式的整合方案。我采用的是懒惰策略来整合文档。也就是说，如果我先查询A文档之后发现A文档还没有嵌入B文档，那么我就查询B文档，嵌入进A文档之后，直接更新A文档。在更新A文档的时候，要采用乐观锁策略，也就是在更新的条件里面，加上A文档不包含B文档这个条件。我这个业务有一个好处，就是没有直接更新B文档的场景，都是通过A来操作B文档，所以并不需要考虑其他的并发问题。</p>
+<p>这种懒惰更新策略里的最后一步更新动作，实际上就是一个乐观锁。所以你可以尝试把话题引导到乐观锁上。不过，嵌入整个文档是很罕见的优化手段。更加常用的是嵌入部分字段，也叫做冗余字段。这种优化手段在关系型数据库里也很常见。比如说A经常使用B的某几个字段，那么就可以在A里面冗余一份。不过这种冗余的方案会有比较严重的数据一致性问题。只有在你能够容忍这种数据不一致的时候，才可以应用这个方案。在现实中最常见的场景就是在别的模块的文档里面冗余用户的昵称、头像，这样可以避免再次去用户文档里查询昵称或者头像。毕竟昵称和头像在很多时候，都不是什么关键字段。方案6：操作系统优化前面提到的都是查询本身的优化，那么根据之前我们在Kafka、Elasticsearch里准备面试的思路，我们也需要为MongoDB准备一些操作系统优化的点。这里我列出来一些简单的、你之前接触过的点。首先就是内存优化。在MongoDB里，索引对性能的影响很大，所以你应该尽可能保证有足够的物理内存来存放所有的索引。这个类似于前面MySQL里讨论索引的时候说到的，预估查询的耗时有一个基本的假设，就是索引都是放在内存里的。所以优化内存差不多就是使用钞能力，加大内存。进一步，你也能够想到，swap对MongoDB的影响也很大。你同样需要避免触发交换，也就是可以调小vm.swappiness这个参数。</p>
+<p>面试思路总结</p>
+<p>这一节课，我们先分析了MongoDB的查询过程，目的是让你知道mongos在其中的关键作用。在设计索引的过程中要注意遵循ESR规则。后面我列举了覆盖索引、优化排序、增加mongos数量、拆分大文档、嵌入文档和操作系统优化几个性能优化方案。不过我知道业界肯定还有很多其他精妙绝伦的方案，你有兴趣可以进一步去搜集。我想再强调一次，不管是SQL查询优化、Elasticsearch查询优化，还是这里的MongoDB查询优化，都有非常多的手段可以考虑，我们没办法全部列举出来，课程中没有提到的方案，就需要靠你自己去探索了。不过也欢迎你把你自己遇到的或者实践过的方案分享出来，众人拾柴火焰高，希望最终可以形成一个小型的知识库。最后还是想要再叮嘱你一下，在面试的时候要提前准备好优化方案，在面试过程中注意引导。不然如果面试官自由发挥，手写一个查询让你优化，撞上你不知道的手段或者你没有见过的案例，你就回答不出来了。思考题最后请你来思考两个问题。在操作系统优化的时候，我并没有提到网络和磁盘IO方面的优化，那么你认为这两个角度可以怎么优化？对MongoDB的效果好不好？MongoDB性能优化还有很多手段，你有没有用过什么很有特色的方案或者说让你印象深刻的方案？</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/后端工程师进阶/" rel="tag"># 后端工程师进阶</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/11/10/41｜MongoDB：MongoDB是怎么做到高可用的？/" rel="next" title="41｜MongoDB：MongoDB是怎么做到高可用的？">
+                <i class="fa fa-chevron-left"></i> 41｜MongoDB：MongoDB是怎么做到高可用的？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/11/10/模拟面试｜NoSQL面试思路一图懂/" rel="prev" title="模拟面试｜NoSQL面试思路一图懂">
+                模拟面试｜NoSQL面试思路一图懂 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+            
+              <p class="site-author-name" itemprop="name">CheBin</p>
+              <div class="site-description motion-element" itemprop="description">先得寸再进尺，既得陇复望蜀</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">1148</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">77</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history fa-" aria-hidden="true"></i>
+                近期文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li>
+                    <a href="/2023/11/10/模拟面试｜NoSQL面试思路一图懂/" title="模拟面试｜NoSQL面试思路一图懂" target="_blank">模拟面试｜NoSQL面试思路一图懂</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/10/42｜MongoDB高性能：怎么优化MongoDB的查询性能？/" title="42｜MongoDB高性能：怎么优化MongoDB的查询性能？" target="_blank">42｜MongoDB高性能：怎么优化MongoDB的查询性能？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/10/41｜MongoDB：MongoDB是怎么做到高可用的？/" title="41｜MongoDB：MongoDB是怎么做到高可用的？" target="_blank">41｜MongoDB：MongoDB是怎么做到高可用的？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/" title="40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？" target="_blank">40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/10/39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？/" title="39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？" target="_blank">39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？</a>
+                  </li>
+                
+              </ul>
+            </div>
+        
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2023</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CheBin</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">9m</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">135:58</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>

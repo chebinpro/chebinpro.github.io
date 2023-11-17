@@ -1,0 +1,1814 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="思考并回答以下问题：">
+<meta name="keywords" content="后端工程师进阶">
+<meta property="og:type" content="article">
+<meta property="og:title" content="05｜限流：别说算法了，就问你“阈值”怎么算？">
+<meta property="og:url" content="http://yoursite.com/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/index.html">
+<meta property="og:site_name" content="车斌的技术博客">
+<meta property="og:description" content="思考并回答以下问题：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/1.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/2.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/3.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/4.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/5.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/6.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/7.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/8.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/9.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/10.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/11.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/12.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/13.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/14.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/15.webp">
+<meta property="og:updated_time" content="2023-11-15T02:39:32.143Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="05｜限流：别说算法了，就问你“阈值”怎么算？">
+<meta name="twitter:description" content="思考并回答以下问题：">
+<meta name="twitter:image" content="http://yoursite.com/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/1.webp">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>05｜限流：别说算法了，就问你“阈值”怎么算？ | 车斌的技术博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">车斌的技术博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">放弃会成为一种习惯</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CheBin">
+      <meta itemprop="description" content="先得寸再进尺，既得陇复望蜀">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="车斌的技术博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">05｜限流：别说算法了，就问你“阈值”怎么算？
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2023-10-10 09:42:07" itemprop="dateCreated datePublished" datetime="2023-10-10T09:42:07+08:00">2023-10-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2023-11-15 10:39:32" itemprop="dateModified" datetime="2023-11-15T10:39:32+08:00">2023-11-15</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/微服务/" itemprop="url" rel="index"><span itemprop="name">微服务</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">7.4k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">7 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>思考并回答以下问题：</p>
+<a id="more"></a>
+<p>今天我们来聊一聊微服务架构下的限流功能。</p>
+<p>熔断、降级和限流是最常见的三种微服务架构可用性保障措施。和熔断、降级比起来，限流要更加复杂一些。大部分情况下，面试官面试限流就是随便问问算法，最多就是问问BBR之类的动态算法。但是有一个问题，很多人都答不好，就是限流需要确定一个流量阈值，这个阈值该怎么算？</p>
+<p>今天我就带你深入讨论限流的这个问题。</p>
+<h1 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a><span style="color:#339AFF;">前置知识</span></h1><p>限流是通过限制住流量大小来保护系统，它尤其能够解决异常突发流量打崩系统的问题。例如常见的某个攻击者攻击你维护的系统，那么限流就能极大程度上保护住你的系统。</p>
+<p>要想全面掌握限流这个知识点，我们需要深入理解限流的算法、对象，以及限流后的做法。下面我们一个一个来看。</p>
+<h2 id="算法"><a href="#算法" class="headerlink" title="算法"></a><span style="color:#00ACC1;">算法</span></h2><p>限流算法也可以像负载均衡算法那样，划分成静态算法和动态算法两类。</p>
+<ul>
+<li>静态算法包含令牌桶、漏桶、固定窗口和滑动窗口。这些算法就是要求研发人员提前设置好阈值。在算法运行期间它是不会管服务器的真实负载的。</li>
+<li>动态算法也叫做自适应限流算法，典型的是BBR算法。这一类算法利用一系列指标来判定是否应该减少流量或者放大流量。动态算法和TCP的拥塞控制是非常接近的，只不过TCP控制的是报文流量，而微服务控制的是请求流量。</li>
+</ul>
+<p>除了我这里列举的算法，你也可以考虑参考熔断和降级里面的思路，选用一些指标来设计自己的限流算法。例如你的业务需要很多内存，那么你可以根据剩余空闲内存来判断要不要执行限流。</p>
+<p>下面我们就从静态算法中的令牌桶看起，掌握限流中常见的算法。</p>
+<h2 id="令牌桶"><a href="#令牌桶" class="headerlink" title="令牌桶"></a><span style="color:#00ACC1;">令牌桶</span></h2><p>系统会以一个恒定的速率产生令牌，这些令牌会放到一个桶里面，每个请求只有拿到了令牌才会被执行。每当一个请求过来的时候，就需要尝试从桶里面拿一个令牌。如果拿到了令牌，那么请求就会被处理；如果没有拿到，那么这个请求就被限流了。</p>
+<img src="/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/1.webp">
+<p>你需要注意，本身令牌桶是可以积攒一定数量的令牌的。比如说桶的容量是100，也就是这里面最多积攒100个令牌。那么当某一时刻突然来了100个请求，它们都能拿到令牌。</p>
+<h2 id="漏桶"><a href="#漏桶" class="headerlink" title="漏桶"></a><span style="color:#00ACC1;">漏桶</span></h2><p>漏桶是指当请求以不均匀的速度到达服务器之后，限流器会以固定的速率转交给业务逻辑。</p>
+<img src="/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/2.webp">
+<p>某种程度上，你可以将漏桶算法看作是令牌桶算法的一种特殊形态。你将令牌桶中桶的容量设想为0，就是漏桶了。</p>
+<img src="/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/3.webp">
+<p>所以你可以看到，在漏桶里面，令牌产生之后你就需要取走，没取走的话也不会积攒下来。因此漏桶是绝对均匀的，而令牌桶不是绝对均匀的。</p>
+<h2 id="固定窗口与滑动窗口"><a href="#固定窗口与滑动窗口" class="headerlink" title="固定窗口与滑动窗口"></a><span style="color:#00ACC1;">固定窗口与滑动窗口</span></h2><p>固定窗口是指在一个固定时间段，只允许执行固定数量的请求。比如说在一秒钟之内只能执行100个请求。</p>
+<img src="/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/4.webp">
+<p>滑动窗口类似于固定窗口，也是指在一个固定时间段内，只允许执行固定数量的请求。区别就在于，滑动窗口是平滑地挪动窗口，而不像固定窗口那样突然地挪动窗口。</p>
+<p>假设窗口大小是一分钟。此时时间是t1，那么窗口的起始位置是t1-1分钟。过了2秒之后，窗口大小依旧是1分钟，但是窗口的起始位置也向后挪动了2秒，变成了t1-1分钟+2秒。这也就是滑动的含义。</p>
+<h2 id="限流对象"><a href="#限流对象" class="headerlink" title="限流对象"></a><span style="color:#00ACC1;">限流对象</span></h2><p>此外我们还要进一步考虑限流对象，也就是针对什么来进行限流。</p>
+<p>从单机或者集群的角度看，可以分为单机限流或者集群限流。集群限流一般需要借助Redis之类的中间件来记录流量和阈值。换句话说，就是你需要用Redis等工具来实现前面提到的限流算法。当然如果是利用网关来实现集群限流，那么可以摆脱Redis。</p>
+<img src="/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/5.webp">
+<p>针对业务对象限流，这一类限流对象就非常多样。</p>
+<ul>
+<li>VIP用户不限流而普通用户限流。</li>
+<li>针对IP限流。用户登录或者参与秒杀都可以使用这种限流，比方说设置一秒钟最多只能有50个请求，即便考虑到公共IP的问题，正常的用户手速也是没那么快的。</li>
+<li>针对业务ID限流，例如针对用户ID进行限流。</li>
+</ul>
+<img src="/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/6.webp">
+<h2 id="限流后的做法"><a href="#限流后的做法" class="headerlink" title="限流后的做法"></a><span style="color:#00ACC1;">限流后的做法</span></h2><p>即使一个请求被限流了，那么我们也可以设计一些精巧的方案来处理。</p>
+<ul>
+<li>同步阻塞等待一段时间。如果是偶发性地触发了限流，那么稍微阻塞等待一会儿，后面就有极大的概率能得到处理。比如说限流设置为一秒钟100个请求，恰好来了101个请求。多出来的一个请求只需要等一秒钟，下一秒钟就会被处理。但是要注意控制住超时，也就是说你不能让人无限期地等待下去。</li>
+</ul>
+<img src="/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/7.webp">
+<ul>
+<li>同步转异步。这里我们又一次看到了这个手段，它是指如果一个请求没被限流，那就直接同步处理；而如果被限流了，那么这个请求就会被存储起来，等到业务低峰期的时候再处理。这个其实跟降级差不多。</li>
+<li>调整负载均衡算法。如果某个请求被限流了，那么就相当于告诉负载均衡器，应该尽可能少给这个节点发送请求。我在熔断里面给你讲过类似的方案。不过在熔断里面是负载均衡器后续不再发请求，而在限流这里还是会发送请求，只是会降低转发请求到该节点的概率。调整节点的权重就能达成这种效果。</li>
+</ul>
+<img src="/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/8.webp">
+<h1 id="面试准备"><a href="#面试准备" class="headerlink" title="面试准备"></a><span style="color:#339AFF;">面试准备</span></h1><p>理论上，你要能够说出各种算法的基本原理。但动态算法，比如BBR，就不作硬性的要求了。这主要是因为BBR的原理和实现都很有难度，大多数微服务框架都没提供BBR的限流器实现。不过还是那句老话，你要是有时间和精力，还是可以了解一下BBR的基本原理。</p>
+<p>有些时候面试官可能会让你手写限流算法，那么漏桶、令牌桶、滑动窗口和固定窗口这几个算法你都要能写出来，至少要能把基本思路写清楚。如果你还有时间和精力，那么我建议你为一些开源框架提供限流插件，比如说为gRPC提供各种限流算法实现的插件。</p>
+<p>你可能会说，现在开源的那么多，你写出来的插件还有人用吗？大概率没人用，但是你的目标也不是让人用，而是作为一个证据，来证明你懂限流，你很熟悉gRPC，你喜欢开源。</p>
+<img src="/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/9.webp">
+<p>除了这些基本的知识，在面试前，你还需要了解清楚你们公司使用限流的情况。正常来说，核心HTTP请求和核心服务都应该使用限流来保障系统的可用性。对于每一个限流，你都要了解这些信息。</p>
+<ul>
+<li>限流的阈值是多少，为什么设定成这个阈值？</li>
+<li>被限流的请求会被怎么处理，是直接拒绝还是阻塞直到超时，还是转为异步处理？</li>
+</ul>
+<p>同样，面试限流的最好策略就是为自己打造一个掌握了高可用微服务架构的人设。而限流就是你在提高系统可用性时的一个具体策略。如果你前面和面试官已经聊到了熔断和降级，那么就可以直接把话题引导到限流上。比如：</p>
+<ul>
+<li>在讨论对外的API，如HTTP接口或者公共API时，可以强调使用限流来保护系统。</li>
+<li>在讨论TCP拥塞控制时，你可以提起在服务治理上限流也借鉴了TCP拥塞控制的一些思想。</li>
+<li>在讨论Redis或者类似产品的时候，你可以提你用Redis实现过集群限流。</li>
+</ul>
+<p>如果你维护的服务或者接口还没有使用限流来保护系统，那么你就可以考虑加上限流。而为了确定具体的阈值，你可以尝试对接口进行压力测试，找准限流的阈值。这个也是需要你通过实践来加深印象、把握细节的。</p>
+<h1 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a><span style="color:#339AFF;">基本思路</span></h1><p>如果面试官问到了限流，那么你就可以先阐述限流的总体目标，然后回答前置知识里面的三个点：算法、限流对象和限流后的做法，最后再把话题引到计算阈值上。</p>
+<blockquote>
+<p>限流是为了保证系统可用性，防止系统因为流量过大而崩溃的一种服务治理手段。从算法上来说，有令牌桶、漏桶、固定窗口和滑动窗口算法。还有动态限流算法，或者说自适应限流算法，比较有名的就是参考了TCP拥塞控制算法BBR衍生出来的算法，比如说B站开源的Kratos框架就有一个实现。这些算法之间比较重要的一个区别是能否处理小规模的突发流量。<br><br>从限流对象上来说，可以是集群限流或者单机限流，也可以是针对具体业务来做限流。比如说在登录的时候，我们经常针对IP进行限流。又或者在一些增值服务里面，非付费用户也会被限流。<br><br>触发限流之后，具体的措施也可以非常灵活。被限流的请求可以同步阻塞一段时间，也可以考虑同步转异步。如果负载均衡算法灵活的话，也可以做一些调整，减少发到该节点的概率。<br><br>用好限流的一个重要前提是能够设置准确的阈值，例如每秒钟限制在100个请求还是限制在200个请求。如果阈值过低，那么系统资源就容易闲置浪费；如果阈值太高，那么系统可能撑不住那么多流量，导致崩溃。</p>
+</blockquote>
+<p>同时你还要补充一个简单的例子，关键词是IP限流。你也可以考虑使用你的真实案例。</p>
+<blockquote>
+<p>我在我们公司的登录接口里面就引入了限流机制。正常情况下，一个用户在一秒钟内最多点击一次登录，所以针对每一个IP，我限制它最多只能在一秒内提交50次登录请求。这个50充分考虑到了公共IP的问题，正常用户是不可能触发这个阈值的。这个限流虽然很简单，但是能够有效防范一些攻击。不过限流再怎么防范，还是会出现系统撑不住流量的情况。</p>
+</blockquote>
+<img src="/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/10.webp">
+<p>注意在上面的回答里，我们没有说任何的细节，只是宽泛地介绍了一下限流，那么面试官接下来大概会问每一个算法、不同的限流对象，以及限流后的不同做法的细节。这部分你按照前置知识里面的内容来回答就可以。</p>
+<p>同时，如果你开源了一个限流的仓库，你可以一起介绍一下。</p>
+<blockquote>
+<p>我在GitHub上有一个开源仓库，里面放了我为gRPC实现的各种限流算法，包括基于Redis实现的集群限流版本。</p>
+</blockquote>
+<p>如果你是跨语言面试，比如你是Python转Go，你就可以强调一下，这个原本在我司是Python写的，后来我用Go又写了一遍。如果你有进行一些改进，你可以把你具体改进的内容表述出来。</p>
+<p>接下来是一些对限流的深入讨论，这部分内容能让你刷出不少的亮点。</p>
+<h2 id="突发流量"><a href="#突发流量" class="headerlink" title="突发流量"></a><span style="color:#00ACC1;">突发流量</span></h2><p>前面我们提到了“算法之间比较重要的一个区别是能否处理小规模的突发流量”，就是为这个部分的详细阐述留下了一个引子。</p>
+<p>假如说正常你的限流是一秒钟100个请求，但是如果某一秒钟来了101个请求，你依旧会觉得第101个请求应该尽可能处理掉。在这种场景下，漏桶是做不到的，因为漏桶是非常均匀的。一秒钟100个请求在漏桶里面就是10毫秒一个请求，绝对不会多也不会少。</p>
+<p>而令牌桶就能够处理。比如说令牌桶产生令牌的速率是100个每秒，但是桶的容量是20个，那么也就是说某一秒钟内，最多可以处理120个请求。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">20（前一秒攒的令牌）+100（当下这一秒）=120</span><br></pre></td></tr></table></figure></p>
+<img src="/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/11.webp">
+<p>固定窗口和滑动窗口则有另外一个类似的问题，就是毛刺问题。</p>
+<p>假如一个窗口大小是一分钟1000个请求，你预计这1000个请求会均匀分散在这一分钟内。那么有没有可能第一秒钟就来了1000个请求？当然可能。那当下这一秒系统有没有可能崩溃？自然也是可能的。</p>
+<img src="/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/12.webp">
+<p>所以固定窗口和滑动窗口的窗口时间不能太长。比如说以秒为单位是合适的，但是以分钟作为单位就是不合适的。</p>
+<p>那么在面试官问到，或者你在介绍了漏桶或令牌桶算法之后，就可以补充这一段。</p>
+<blockquote>
+<p>漏桶算法非常均匀，但是令牌桶相比之下就没那么均匀。令牌桶本身允许积攒一部分令牌，所以如果有偶发的突发流量，那么这一部分请求也能得到正常处理。但是要小心令牌桶的容量，不能设置太大。不然积攒的令牌太多的话就起不到限流效果了。例如容量设置为1000，那么要是积攒了1000个令牌之后真的突然来了1000个请求，它们都能拿到令牌，那么系统可能撑不住这突如其来的1000个请求。</p>
+</blockquote>
+<h2 id="请求大小"><a href="#请求大小" class="headerlink" title="请求大小"></a><span style="color:#00ACC1;">请求大小</span></h2><p>刚刚我们讨论的限流是针对请求的个数进行的，但并没有考虑到另一个非常关键的问题，就是请求的大小。我在负载均衡里曾提过到这个问题，就是负载均衡算法基本上都没有考虑请求所需的资源。同理在限流算法也是如此。</p>
+<p>限流是针对请求个数进行的，那么显然，如果有两台实例，一台实例处理的都是小请求，另一台实例处理的都是大请求，那么都限流在每秒100个请求。可能第一台实例什么问题都没有，而第二台实例就崩溃了。</p>
+<p>所以如果面试官问到为什么使用了限流，系统还是有可能崩溃，或者你在负载均衡里面聊到了请求大小的问题，都可以这样来回答，关键词是请求大小。</p>
+<blockquote>
+<p>限流和负载均衡有点儿像，基本没有考虑请求的资源消耗问题。所以负载均衡不管怎么样，都会有偶发性负载不均衡的问题，限流也是如此。例如即便我将一个实例限制在每秒100个请求，但是万一这个100个请求都是消耗资源很多的请求，那么最终这个实例也可能会承受不住负载而崩溃。动态限流算法一定程度上能够缓解这个问题，但是也无法根治，因为一个请求只有到它被执行的时候，我们才知道它是不是大请求。</p>
+</blockquote>
+<p>以上就是我们在回答限流相关问题时的基本思路，如果可以回答出来，基本上就可以拿到一个70分的成绩，你满意吗？相信你和我一样，还想要更加出类拔萃一点，那这时候就要从计算阈值上面下功夫了。</p>
+<h2 id="计算阈值"><a href="#计算阈值" class="headerlink" title="计算阈值"></a><span style="color:#00ACC1;">计算阈值</span></h2><p>在面试限流的基本回答里面，你已经主动提起了限流阈值难以确定。那么不出所料，面试官就会问你怎么确定阈值。又或者你使用了限流的不同案例，那么面试官也会问你限流的阈值是怎么确定的。</p>
+<p>总体上思路有四个：看服务的观测数据、压测、借鉴、手动计算。</p>
+<p>看服务的性能数据属于常规解法，基本上就是看业务高峰期的QPS来确定整个集群的阈值。如果要确定单机的阈值，那就再除以实例个数。所以你可以这样来回答，关键词是业务性能数据。</p>
+<blockquote>
+<p>我们公司有完善的监控，所以我可以通过观测到的性能数据来确定阈值。比如说观察线上的数据，如果在业务高峰期整个集群的QPS都没超过1000，那么就可以考虑将阈值设定在1200，多出来的200就是余量。<br>不过这种方式有一个要求，就是服务必须先上线，有了线上的观测数据才能确定阈值。并且，整个阈值很有可能是偏低的。因为业务巅峰并不意味着是集群性能的瓶颈。如果集群本身可以承受每秒3000个请求，但是因为业务量不够，每秒只有1000个请求，那么我这里预估出来的阈值是显著低于集群真实瓶颈QPS的。</p>
+</blockquote>
+<p>注意你在回答的时候也解释了这种方法的缺陷，这算是一个小亮点。然后我们可以继续讨论其他的思路，关键词是压测。</p>
+<blockquote>
+<p>不过我个人觉得，最好的方式应该是在线上执行全链路压测，测试出瓶颈。即便不能做全链路压测，也可以考虑模拟线上环境进行压测，再差也应该在测试环境做一个压力测试。</p>
+</blockquote>
+<p>在这个回答里面你其实已经回答出了最正确的思路：做压测，而且你要强调全链路压测。理由很简单，限流针对的是线上环境，那么自然要尽可能模拟线上环境。最符合这个要求的就是全链路压测了，它就是直接在线上环境执行的，因此结果也是最准的。</p>
+<p>然后你需要进一步解释，怎么利用压测结果。大部分性能测试的结果类似于图片里展示的这样，当然你是不太可能搞出来那么优雅的图形，多少会有些偏差。</p>
+<img src="/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/13.webp">
+<p>从理论上来说，你可以选择A、B、C当中的任何一个点作为你的限流的阈值。</p>
+<p>A是性能最好的点。A之前QPS虽然在上升，但是响应时间稳定不变。在这个时候资源利用率也在提升，所以选择A你可以得到最好的性能和较高的资源利用率。</p>
+<p>B是系统快要崩溃的临界点。很多人会选择这个点作为限流的阈值。这个点响应时间已经比较长了，但是系统还能撑住。选择这个点意味着能撑住更高的并发，但是性能不是最好的，吞吐量也不是最高的。</p>
+<p>C是吞吐量最高的点。实际上，有些时候你压测出来的B和C可能对应到同一个QPS的值。选择这个点作为限流阈值，你可以得到最好的吞吐量。</p>
+<p>你在回答怎么选之前，最好给面试官比划一下上面这张图中的三条曲线，然后解释这三个点，口诀就是性能A、并发B、吞吐量C。</p>
+<blockquote>
+<p>综合来说，如果是性能苛刻的服务，我会选择A点。如果是追求最高并发的服务，我会选择B点，如果是追求吞吐量的服务，我会选择C点。</p>
+</blockquote>
+<p>面试官多半会杠你，压力测试特别难，或者有些服务根本测不了，那你怎么办。这个时候，你需要说点正确但没用的废话，关键词压测是基操。你在表述的时候语气要委婉，态度要坚决。</p>
+<blockquote>
+<p>一般我会认为一家公司应该把压测作为提高系统性能和可用性的一个关键措施，毕竟没有压测数据，性能优化和可用性改进也不知道怎么下手。所以我还是比较建议尽可能把压测搞起来，反正压测这个东西是迟早要有的。</p>
+</blockquote>
+<p>然后你就要转过话头，顺着面试官的话往下说，讨论真的做不了压测的时候怎么确定阈值。关键词就是借鉴。</p>
+<blockquote>
+<p>不过如果真的做不了，或者来不及，或者没资源，那么还可以考虑参考类似服务的阈值。比如说如果A、B服务是紧密相关的，也就是通常调用了A服务就会调用B服务，那么可以用A已经确定的阈值作为B的阈值。又或者A服务到B服务之间有一个转化关系。比如说创建订单到支付，会有一个转化率，假如说是90%，如果创建订单的接口阈值是100，那么支付的接口就可以设置为90。</p>
+</blockquote>
+<img src="/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/14.webp">
+<p>这个时候面试官可能会继续问：如果我这是一个全新的业务呢？也就是说，你都没得借鉴。这个时候就只剩下最后一招了——手动计算。</p>
+<blockquote>
+<p>实在没办法了，就只能手动计算了。也就是沿着整条调用链路统计出现了多少次数据库查询、多少次微服务调用、多少次第三方中间件访问，如Redis，Kafka等。举一个最简单的例子，假如说一个非常简单的服务，整个链路只有一次数据库查询，这是一个会回表的数据库查询，根据公司的平均数据这一次查询会耗时10ms，那么再增加10ms作为CPU计算耗时。也就是说这一个接口预期的响应时间是20ms。如果一个实例是4核，那么就可以简单用<code>1000ms ÷ 20ms × 4 = 200</code>得到阈值。</p>
+</blockquote>
+<p>这个时候你还可以进一步补充一些手动计算要考虑的事情。</p>
+<blockquote>
+<p>手动计算准确度是很差的。比如说垃圾回收类型语言，还要刨除垃圾回收的开销，相当于200打个折扣。折扣多大又取决于你的垃圾回收频率和消耗。</p>
+</blockquote>
+<p>最后再升华一下主题。</p>
+<blockquote>
+<p>最好还是把阈值做成可以动态调整的。那么在最开始上线的时候就可以把阈值设置得比较小。后面通过观测发现系统还很健康，就可以继续上调阈值。</p>
+</blockquote>
+<h1 id="面试思路总结"><a href="#面试思路总结" class="headerlink" title="面试思路总结"></a><span style="color:#339AFF;">面试思路总结</span></h1><p>这节课我们讨论了限流的主要问题，包括限流算法，限流对象以及限流之后的做法。在讨论怎么计算阈值的问题时，你尤其要记住里面提到的ABC三个点。不仅仅是面试中，在你实际工作中也用得上的。</p>
+<p>我也再次强调一下，你应该在面试前尽可能在公司里面应用一下限流，同时尝试做一做压测。如果公司没有这种压测的环境，那么这正好是你刷KPI的机会。你把压测环境准备好，流程标准化之后，这件事情本身也可以作为你面试时候的一个亮点。</p>
+<p>同样地，这里有我整理的思维导图，你可以参考。</p>
+<img src="/2023/10/10/05｜限流：别说算法了，就问你“阈值”怎么算？/15.webp">
+<h1 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a><span style="color:#339AFF;">思考题</span></h1><ul>
+<li>针对IP限流是一个非常常见的限流方案，那么怎么获得用户的IP呢？尤其是在请求经过了网关的情况下，怎么避免自己拿到的是网关的IP？</li>
+<li>我在阈值里面提到的ABC三个点，你能说出你的业务应该使用哪个点吗？</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/后端工程师进阶/" rel="tag"># 后端工程师进阶</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/10/09/04｜降级：为什么每次大促的时候总是要把退款之类的服务停掉？/" rel="next" title="04｜降级：为什么每次大促的时候总是要把退款之类的服务停掉？">
+                <i class="fa fa-chevron-left"></i> 04｜降级：为什么每次大促的时候总是要把退款之类的服务停掉？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/10/10/06｜隔离：怎么保证尊贵的VIP用户体验不受损？/" rel="prev" title="06｜隔离：怎么保证尊贵的VIP用户体验不受损？">
+                06｜隔离：怎么保证尊贵的VIP用户体验不受损？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+            
+              <p class="site-author-name" itemprop="name">CheBin</p>
+              <div class="site-description motion-element" itemprop="description">先得寸再进尺，既得陇复望蜀</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">1148</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">77</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history fa-" aria-hidden="true"></i>
+                近期文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li>
+                    <a href="/2023/11/10/模拟面试｜NoSQL面试思路一图懂/" title="模拟面试｜NoSQL面试思路一图懂" target="_blank">模拟面试｜NoSQL面试思路一图懂</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/10/42｜MongoDB高性能：怎么优化MongoDB的查询性能？/" title="42｜MongoDB高性能：怎么优化MongoDB的查询性能？" target="_blank">42｜MongoDB高性能：怎么优化MongoDB的查询性能？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/10/41｜MongoDB：MongoDB是怎么做到高可用的？/" title="41｜MongoDB：MongoDB是怎么做到高可用的？" target="_blank">41｜MongoDB：MongoDB是怎么做到高可用的？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/" title="40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？" target="_blank">40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/10/39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？/" title="39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？" target="_blank">39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？</a>
+                  </li>
+                
+              </ul>
+            </div>
+        
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前置知识"><span class="nav-number">1.</span> <span class="nav-text">前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#算法"><span class="nav-number">1.1.</span> <span class="nav-text">算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#令牌桶"><span class="nav-number">1.2.</span> <span class="nav-text">令牌桶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#漏桶"><span class="nav-number">1.3.</span> <span class="nav-text">漏桶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#固定窗口与滑动窗口"><span class="nav-number">1.4.</span> <span class="nav-text">固定窗口与滑动窗口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#限流对象"><span class="nav-number">1.5.</span> <span class="nav-text">限流对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#限流后的做法"><span class="nav-number">1.6.</span> <span class="nav-text">限流后的做法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面试准备"><span class="nav-number">2.</span> <span class="nav-text">面试准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本思路"><span class="nav-number">3.</span> <span class="nav-text">基本思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#突发流量"><span class="nav-number">3.1.</span> <span class="nav-text">突发流量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求大小"><span class="nav-number">3.2.</span> <span class="nav-text">请求大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算阈值"><span class="nav-number">3.3.</span> <span class="nav-text">计算阈值</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面试思路总结"><span class="nav-number">4.</span> <span class="nav-text">面试思路总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">5.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2023</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CheBin</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">9m</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">135:58</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>

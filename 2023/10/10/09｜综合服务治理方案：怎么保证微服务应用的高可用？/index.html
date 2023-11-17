@@ -1,0 +1,1799 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="思考并回答以下问题：">
+<meta name="keywords" content="后端工程师进阶">
+<meta property="og:type" content="article">
+<meta property="og:title" content="09｜综合服务治理方案：怎么保证微服务应用的高可用？">
+<meta property="og:url" content="http://yoursite.com/2023/10/10/09｜综合服务治理方案：怎么保证微服务应用的高可用？/index.html">
+<meta property="og:site_name" content="车斌的技术博客">
+<meta property="og:description" content="思考并回答以下问题：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2023/10/10/09｜综合服务治理方案：怎么保证微服务应用的高可用？/1.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/10/09｜综合服务治理方案：怎么保证微服务应用的高可用？/2.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/10/09｜综合服务治理方案：怎么保证微服务应用的高可用？/3.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/10/09｜综合服务治理方案：怎么保证微服务应用的高可用？/4.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/10/09｜综合服务治理方案：怎么保证微服务应用的高可用？/5.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/10/09｜综合服务治理方案：怎么保证微服务应用的高可用？/6.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/10/09｜综合服务治理方案：怎么保证微服务应用的高可用？/7.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/10/09｜综合服务治理方案：怎么保证微服务应用的高可用？/8.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/10/09｜综合服务治理方案：怎么保证微服务应用的高可用？/9.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/10/09｜综合服务治理方案：怎么保证微服务应用的高可用？/10.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/10/09｜综合服务治理方案：怎么保证微服务应用的高可用？/11.webp">
+<meta property="og:updated_time" content="2023-11-14T15:58:16.468Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="09｜综合服务治理方案：怎么保证微服务应用的高可用？">
+<meta name="twitter:description" content="思考并回答以下问题：">
+<meta name="twitter:image" content="http://yoursite.com/2023/10/10/09｜综合服务治理方案：怎么保证微服务应用的高可用？/1.webp">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2023/10/10/09｜综合服务治理方案：怎么保证微服务应用的高可用？/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>09｜综合服务治理方案：怎么保证微服务应用的高可用？ | 车斌的技术博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">车斌的技术博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">放弃会成为一种习惯</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/10/10/09｜综合服务治理方案：怎么保证微服务应用的高可用？/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CheBin">
+      <meta itemprop="description" content="先得寸再进尺，既得陇复望蜀">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="车斌的技术博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">09｜综合服务治理方案：怎么保证微服务应用的高可用？
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2023-10-10 09:42:39" itemprop="dateCreated datePublished" datetime="2023-10-10T09:42:39+08:00">2023-10-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2023-11-14 23:58:16" itemprop="dateModified" datetime="2023-11-14T23:58:16+08:00">2023-11-14</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/微服务/" itemprop="url" rel="index"><span itemprop="name">微服务</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">6.7k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">6 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>思考并回答以下问题：</p>
+<a id="more"></a>
+<p>今天我们来聊一个综合性的话题：给你一个微服务应用，你怎么保证它的高可用？</p>
+<p>在面试互联网相关岗位的时候，大部分公司都会看重高并发、高可用和大数据相关的经验。不过有没有高并发和大数据的项目经验有点儿看命。因为如果你不是在大厂的核心部门，你是很难遇到真正的高并发和大数据场景的。</p>
+<p>高可用不一样，即便你维护的系统月活只有一万人，依旧可以把自己的系统做成高可用的。所以相比之下，高可用就可以成为我们面试的主要发力点。</p>
+<img src="/2023/10/10/09｜综合服务治理方案：怎么保证微服务应用的高可用？/1.webp">
+<p>当然你也需要意识到，一个类似淘宝那种量级的系统的高可用和一个简单的后台管理系统的高可用，含金量是不一样的。但还是那句话，又有几个人真的有机会接触到淘宝那种项目呢？所以如果你真的不知道怎么把自己平凡的项目说得比较有特色，那么就可以参考这节课的内容。</p>
+<h1 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a><span style="color:#339AFF;">前置知识</span></h1><p>一般衡量可用性，我们都是用SLA（Service Level Aggrement）指标，通常用N个九来说明。例如，当我们说微服务的可用性是三个九，是指系统在一段时间内（一般是一年）正常提供服务的时间超过了99.9%。</p>
+<p>那么高可用究竟有多高？一般是指可用性需要达到三个九。当然有些人会认为需要达到四个九，这并没有硬性的标准。那么怎么做到高可用呢？</p>
+<p>核心有四点：</p>
+<ul>
+<li>容错；</li>
+<li>限制故障影响范围；</li>
+<li>出现故障可以快速发现，快速修复；</li>
+<li>规范变更流程。</li>
+</ul>
+<h2 id="容错"><a href="#容错" class="headerlink" title="容错"></a><span style="color:#00ACC1;">容错</span></h2><p>容错是指不管发生了什么，你的系统都能正常提供服务，也就是所谓的DesignforFailure。用一句俗语来说，就是凑合用。</p>
+<img src="/2023/10/10/09｜综合服务治理方案：怎么保证微服务应用的高可用？/2.webp">
+<p>系统中可能出问题的组件包括你的服务本身、你依赖的服务，还包括你依赖的硬件基础设施和软件基础设施。</p>
+<p>在面试的时候，最重要的是描述怎么保证自己的服务即便在遇到了一些故障的情况下，整个系统也能继续为用户提供服务。</p>
+<img src="/2023/10/10/09｜综合服务治理方案：怎么保证微服务应用的高可用？/3.webp">
+<p>其次是软件基础设施如果出问题了，你是否能保证你的服务还能正常运作。如果你的服务不能正常运作，系统整体也要能运作，这主要考虑两个点。</p>
+<p>1，在公司内使用软件基础设施的高可用方案。比如说在使用Redis的时候就不再是使用单机Redis，而是改成RedisCluster或者直接使用云厂商的Redis服务。</p>
+<p>2，做好万一软件崩溃的容错手段。比如说前面我提到如果Redis崩溃了，你可以使用限流来保护数据库。</p>
+<p>剩余的内容除了依赖第三方这一个特殊的场景外，在面试中出现得很少，这里我们就不展开说了。</p>
+<p>容错的问题就是不管你怎么容错，最终都有可能出错，所以到了真出错的时候，你就要考虑限制故障影响范围。</p>
+<h2 id="限制故障影响范围"><a href="#限制故障影响范围" class="headerlink" title="限制故障影响范围"></a><span style="color:#00ACC1;">限制故障影响范围</span></h2><p>限制故障影响范围是指万一真的出现了故障，也要尽可能减轻它的影响范围。影响范围可以从三个角度来考虑，尽可能使故障造成的业务损失更小、被影响的用户更少，还有被影响的其他组件更少。</p>
+<p>限制影响范围的最佳策略就是隔离。一个复杂的系统被划分成独立的不同的服务，服务内部再进一步细分模块、核心服务与非核心服务，尽量降低相互之间的影响。</p>
+<p>但是普遍来说，想要缩小影响范围总是面临两个难点。</p>
+<ul>
+<li>服务互相依赖，这种依赖一部分源自业务本身的复杂度，另外一部分则源自设计不合理。我们可以通过改进设计来降低服务之间的依赖，但是不可能做到彻底没有依赖。比如说后面提到的解耦方案，就是通过改进设计来降低服务之间依赖的一个例子。</li>
+<li>服务共享一部分基础设施。理论上只要你有足够多的钱，能够为每一个服务提供完全独立的基础设施，就可以彻底解决这个问题。但是实际中大部分公司连部署两套Redis都舍不得，所以我们经常听到某某公司因为共享基础设施导致系统崩溃的事故。</li>
+</ul>
+<img src="/2023/10/10/09｜综合服务治理方案：怎么保证微服务应用的高可用？/4.webp">
+<p>在限制了故障影响范围后，你就要考虑快速发现和快速修复故障。</p>
+<h2 id="快速发现和快速修复故障"><a href="#快速发现和快速修复故障" class="headerlink" title="快速发现和快速修复故障"></a><span style="color:#00ACC1;">快速发现和快速修复故障</span></h2><p>快速发现强调的是完备的观测和告警系统。观测不仅要观测服务本身，也要对各种基础设施、第三方依赖进行观测。尤其是在你核心链路上依赖的东西，你都需要进行全方位地观测。有了观测之后，还要设置合理的告警。没有告警的观测是没有灵魂的。</p>
+<p>快速恢复则是尽可能减少服务不可用的时间。快速修复与其说是一个工程技术问题，不如说是一个组织建设问题。它实际上要求每一个组都需要安排人24小时值班，并且每个值班的人都需要了解整个组所维护的项目的细节，否则出了故障都没人响应，或者不知道怎么响应。</p>
+<img src="/2023/10/10/09｜综合服务治理方案：怎么保证微服务应用的高可用？/5.webp">
+<p>所以要想真正做到快速修复，不能依赖于研发个人的自觉性，而是要依赖于自动处理故障的机制，后面我们再详细介绍这一机制。</p>
+<h2 id="规范变更流程"><a href="#规范变更流程" class="headerlink" title="规范变更流程"></a><span style="color:#00ACC1;">规范变更流程</span></h2><p>规范变更流程是指任何一个人都不能随意发布新版本，也不能随意修改配置。任何一个变更都要经过review，并且做好回退的准备。</p>
+<p>实际上，我们在实践中最害怕的就是发布新版本或者新配置。因为原本系统都运作得非常好，但是一旦上线新功能或者变更配置，就很容易出现线上故障。特别是有些时候因为急着修Bug，根本没有测试就直接发布新代码或者配置，导致不仅已有的Bug没修好，还造成了新的问题。</p>
+<img src="/2023/10/10/09｜综合服务治理方案：怎么保证微服务应用的高可用？/6.webp">
+<p>因此变更流程是一定要搞好的，搞好了变更流程，可用性就能大幅提升。不过这一点和快速修复一样，都是一个组织问题而不是一个工程技术问题。</p>
+<h1 id="面试准备"><a href="#面试准备" class="headerlink" title="面试准备"></a><span style="color:#339AFF;">面试准备</span></h1><p>在面试前，你需要准备一个从前端到后端全方位的、完整的高可用方案，而且要仔细思考其中的几个环节。</p>
+<ul>
+<li>所有面向前端用户的接口有没有限流之类的措施，防止攻击者伪造大量请求把你的系统搞崩。</li>
+<li>你所依赖的第三方组件，包括缓存（如Redis）、数据库（如MySQL）、消息队列（如Kafka）是否启用了高可用方案。</li>
+<li>如果你依赖的某个第三方组件崩溃了，你维护的服务会发生什么事情，整个系统是否还能正常提供服务。</li>
+<li>你的所有服务是否选择了合适的负载均衡算法，是否有熔断、降级、限流和超时控制等治理措施。</li>
+<li>你所在公司的上线流程、配置变更流程等和研发息息相关的流程，或者说你认为会对系统可用性产生影响的各种流程。</li>
+</ul>
+<p>我在接下来的内容里给出了一个非常全面的高可用方案，你要做的就是根据你的真实项目经历来改造一下，并且重新组织一下语言。</p>
+<p>我在这里使用的都是一些比较普适的例子，也就是说即便你在中小企业也能用上这些例子。但是如果你在大厂，有机会接触到一些更加高级的高可用方案，此时你应该优先使用那些高级高可用方案。我建议你在面试前将整个内容写出来。面试讲究的是有备无患，千万别考验自己的临机应变能力。</p>
+<p>最佳的面试策略就是在自我介绍的时候提到自己在高可用微服务架构方面的经历，然后在介绍项目的时候，展示自己在入职之后大幅度提高了系统可用性的成果。之后面试官大概率会详细问你这个项目，以及你是怎么提高可用性的。这时候你就可以用到下面的话术了。</p>
+<h1 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a><span style="color:#339AFF;">基本思路</span></h1><p>整个思路可以拆解成几个部分，分别是发现问题、计划方案、落地实施、取得效果、后续改进。而且发现问题和取得效果这两个步骤可以通过前后对比来凸显你在这个过程中起到的作用。</p>
+<h2 id="发现问题"><a href="#发现问题" class="headerlink" title="发现问题"></a><span style="color:#00ACC1;">发现问题</span></h2><p>第一个部分发现问题由项目的核心困难、困难的具体体现、具体难点三个部分组成。</p>
+<blockquote>
+<p>某某业务是我们公司的核心业务，它的核心困难是需要保证高可用。在我刚入职的时候，这个系统的可用性还是比较低的。比如说我刚入职的第一个月就出了一个比较严重的线上故障，别的业务组突然上线了一个功能，带来了非常多的Redis大对象操作，以至于Redis响应非常慢，把我们的核心服务搞超时了。<br>后面经过调研，我总结下来，系统可用性不高主要是这三个原因导致的。<br>1，缺乏监控和告警，导致我们难以发现问题，难以定位问题，难以解决问题。<br>2，缺乏服务治理，导致某一个服务出现故障的时候，整个系统都不可用了。<br>3，缺乏合理的变更流程。我们每次复盘Bug时候，都觉得如果有更加合理的变更流程的话，那么大部分事故都是可以避免的。</p>
+</blockquote>
+<h2 id="计划方案"><a href="#计划方案" class="headerlink" title="计划方案"></a><span style="color:#00ACC1;">计划方案</span></h2><p>这里有一个常见的误区，就是你在现实中可能做过类似的事情，但是都是东一榔头西一棒槌，也就是说想到了啥就做啥。但是面试的时候，你一定要将这些内容组织得非常有条理、有计划。</p>
+<p>你要给面试官留下的印象不仅仅是你能解决问题，更是你能够有计划地解决问题。所以你一定要有一个非常清晰的、可执行性高的计划。</p>
+<blockquote>
+<p>针对这些具体的点，我的可用性改进计划分成了几个步骤。<br>1，引入全方位的监控与告警，这一步是为了快速发现问题和定位问题。<br>2，引入各种服务治理措施，这一步是为了提高服务本身的可用性，并且降低不同服务相互之间的影响。<br>3，为所有第三方依赖引入高可用方案，这一步是为了提高第三方依赖的可用性。<br>4，拆分核心业务与非核心业务的共同依赖。这一步是为了进一步提高核心业务的可用性。<br>5，规范变更流程，降低因为变更而引入Bug的可能性。</p>
+</blockquote>
+<img src="/2023/10/10/09｜综合服务治理方案：怎么保证微服务应用的高可用？/7.webp">
+<p>如果你们公司有非常完善的基础设施和强大的技术实力，那么你可以加上像全链路压测、混沌工程、故障演练等高端方案，作为你整个计划中的一部分。</p>
+<h2 id="落地实施"><a href="#落地实施" class="headerlink" title="落地实施"></a><span style="color:#00ACC1;">落地实施</span></h2><p>然后你再讲落地实施。落地实施的时候你要补充细节，同时也可以掺杂一些落地过程中的痛点。</p>
+<blockquote>
+<p>在第一个步骤里面，就监控来说，既要为业务服务添加监控和告警，又要为第三方依赖增加监控，比如说监控数据库、Redis和消息队列。而告警则要综合考虑告警频率、告警方式以及告警信息的内容是否足够充足，减少误报和谎报。本身这个东西并不是很难，就是非常琐碎，要一个个链路捋过去，一个个业务查漏补缺。<br>就第二个步骤来说，服务治理包括的范围比较广，我使用过的方案也比较多，比如说限流熔断等等。<br>第三个步骤遇到了比较大的阻力，主要是大部分第三方依赖的高可用方案都需要资金投入。比如说最开始我们使用的Redis就是一个单机Redis，那么后面我尝试引入RedisCluster的时候，就需要部署更多的实例。<br>第四个步骤也是执行得不彻底。现在的策略就是新的核心业务会启用新的第三方依赖集群，比如说Redis集群，但是老的核心业务就保持不动。</p>
+</blockquote>
+<p>你可能发现了，我在上面的回答中，谈到第三点和第四点的时候都说执行得不太好。这会不会给面试官留下不好的印象呢？</p>
+<p>其实不会。因为我陈述的基本上都是事实，这些困难都是实打实的，而且也是面试官能理解的。另一方面，一个方案不可能十全十美，适当地暴露一些问题能够增强说服力。</p>
+<p>第五个步骤有点特殊，取决于你在公司的地位。如果你在公司很有话语权，甚至本身就在带团队，那么你可以直接说你推行了新的变更流程。如果你是一个纯粹的“搬砖”工程师，那么可以参考这个回答，关键词是建议。</p>
+<blockquote>
+<p>第五个步骤是我在公司站稳脚跟之后跟领导建议过几次，后来领导就制定了新的规范，主要是上线规范，包括上线流程、回滚计划等内容。</p>
+</blockquote>
+<h2 id="取得效果"><a href="#取得效果" class="headerlink" title="取得效果"></a><span style="color:#00ACC1;">取得效果</span></h2><p>既然我们这里讨论的是可用性，那么你取得的效果肯定就是可用性方面有多大的改进。一般来说，我建议你说可用性达到了三个九，而不是四个九，毕竟四个九的可用性有点过于夸张了。</p>
+<blockquote>
+<p>经过我的改进之后，现在我维护的服务的可用性从原来不足两个九提升到了三个九。</p>
+</blockquote>
+<p>你也可以比较幽默地回答。</p>
+<blockquote>
+<p>现在Bug数量也减少了。Bug复盘的时候我已经不再是那个挨骂的人了，变成了看别人挨骂的人。</p>
+</blockquote>
+<p>同时你还可以强调一下，系统中超出你影响力范围的部分，可用性还是比较差。</p>
+<blockquote>
+<p>不过我的服务还依赖于一些同事提供的服务，而他们的服务可用性就还是比较差。我这边只能是说尽量做到容错，比如说提供有损服务。后面要想进一步提高可用性，还是得推动同事去提高可用性。</p>
+</blockquote>
+<p>如果面试官质疑你为什么三个九也敢说是高可用，你要怎么回答呢？</p>
+<p>其实不用慌，你可以解释一下，也可以理解为认怂，关键词是影响力有限。</p>
+<blockquote>
+<p>我也一直在想办法进一步提高可用性，但是整个系统要做到四个九还是非常难的，需要整个公司技术人员一起努力才能达到。我在公司的影响力还局限在我们部门，困难比较多，暂时做不到那么高的可用性。</p>
+</blockquote>
+<h2 id="后续改进"><a href="#后续改进" class="headerlink" title="后续改进"></a><span style="color:#00ACC1;">后续改进</span></h2><p>最后你要补充一下你的改进计划。一般来说，改进计划都是针对已有方案的缺点，所以你要先讲已有方案的缺点。</p>
+<blockquote>
+<p>目前我的服务，尤其是一些老服务，相互之间还是在共享一些基础设施。一个出问题就很容易牵连其他服务，所以我还需要进一步将这些老服务解耦。</p>
+</blockquote>
+<p>然后你可以再举一个非常具体的改进措施，来增强说服力。</p>
+<blockquote>
+<p>比如说，我一定要让我的全部服务都使用我自己所在组的数据库实例，省得因为别组的同事搞崩了数据库，牵连到我的业务。大家一起用一个东西，出了事别人死不认账，甩锅都甩不出去。</p>
+</blockquote>
+<p>讲改进方案有一个好处，就是它还没实施，你就可以随便讲，什么高大上你就讲什么。</p>
+<h1 id="亮点方案"><a href="#亮点方案" class="headerlink" title="亮点方案"></a><span style="color:#339AFF;">亮点方案</span></h1><p>掌握了面试的基本思路之后，实际上你在这次面试中就基本上能给面试官留下一个不错的印象了。这里我再额外补充一些方案，你可以选择其中一两个来进一步强化你在面试官心目中的形象。</p>
+<h2 id="异步-解耦"><a href="#异步-解耦" class="headerlink" title="异步/解耦"></a><span style="color:#00ACC1;">异步/解耦</span></h2><p>这个方案适用于什么情况呢？就是你的某一个业务可以分成两部分。一部分是必须要同步执行成功的关键步骤，另外一部分则是可以异步执行的非关键步骤。</p>
+<p>比如说在一个简单的创建订单的场景中，创建订单、支付是必须要同步执行成功的。但是另外一些部分，比如说发邮件通知你下单成功、为你增加积分这种就不是一定要立刻执行成功的。</p>
+<img src="/2023/10/10/09｜综合服务治理方案：怎么保证微服务应用的高可用？/8.webp">
+<p>因此在设计高可用微服务的时候有一个技巧或者说原则，就是能够异步执行的绝对异步执行，能够解耦的必须解耦。</p>
+<p>这种理念用一句话来形容就是多做多错，少做少错，不做不错。</p>
+<p>因此你可以用这个话术来介绍你的方案，关键词是异步/解耦。</p>
+<blockquote>
+<p>我还全面推行了异步/解耦。我将核心业务的逻辑一个个捋过去，再找产品经理确认，最终将所有的核心业务中能够异步执行的都异步执行，能够解耦的都解耦。这样在我的业务里面，需要同步执行的步骤就大大减少了。而后续异步执行的动作，即便失败了也可以引入重试机制，所以整个可用性都大幅度提升了。<br>比如说在某个场景下，整个逻辑可以分成很明显的两部分，必须要同步执行的A步骤和可以异步执行的B步骤。那么在A步骤成功之后，再发一条消息到消息队列。另外一边消费消息，执行B步骤。</p>
+</blockquote>
+<h2 id="自动故障处理"><a href="#自动故障处理" class="headerlink" title="自动故障处理"></a><span style="color:#00ACC1;">自动故障处理</span></h2><p>严格来说，熔断、限流和降级也算是自动故障处理。不过我这里说的是有一个独立的系统来处理业务系统发生的故障。</p>
+<img src="/2023/10/10/09｜综合服务治理方案：怎么保证微服务应用的高可用？/9.webp">
+<p>一个问题从发现到找出临时应对方案、再到付诸实施，一不留神一个小时就过去了。所以在达成三个九以后，如果你还想进一步提升可用性，那就要么降低出事故的概率，要么提高反应速度。</p>
+<p>人本身做不到长时间精神紧绷24小时待命，并且同一个项目组的项目也很难说了如指掌，所以自动故障处理机制的重要性不言而喻。甚至可以说，如果没有自动故障处理机制，是不可能达到四个九的可用性的。</p>
+<p>这里我给你一个例子：微服务集群自动扩容。它是指对整个微服务集群进行监控，如果发现集群负载过高那么就会自动扩容。</p>
+<img src="/2023/10/10/09｜综合服务治理方案：怎么保证微服务应用的高可用？/10.webp">
+<p>所以你可以这么回答，关键词是自动扩容。</p>
+<blockquote>
+<p>为了进一步提高整个集群服务的可用性，我跟运维团队进行密切合作，让他们支持了自动扩容。整个设计方案是允许不同的业务方设置不同的扩容条件，满足条件之后运维就会自动扩容。比如说我为我的服务设置了CPU90%的指标。如果我这个服务所有节点的CPU使用率都已经超过了90%，并且持续了一段时间，那么就会触发自动扩容，每次扩容会新增一个节点。</p>
+</blockquote>
+<p>这里我用的例子比较简单，决策的理由也比较简单。</p>
+<blockquote>
+<p>CPU使用率长期处于高位，基本上代表节点处于高负载状态。并且我强调的是集群里面的节点都超过了这个指标，防止单一节点超过该指标之后引起不必要的扩容。比如说，万一某个节点非常不幸，处理的都是复杂的请求，那么它就会处于高负载的状态，但是其他节点其实负载还很低。那么这个时候扩容，并没有什么效果。</p>
+</blockquote>
+<p>还有一些常见的方案，你可以参考。</p>
+<ul>
+<li>自动修复数据，最常见的就是有一个定时任务比对不同的业务数据，如果数据不一致，就会发出告警，同时触发自动修复动作。</li>
+<li>自动补发消息，也是通过定时任务等机制来比对业务数据，如果发现某条消息还没发，就会触发告警，同时触发补发消息动作。</li>
+</ul>
+<p>但凡你的业务有很多需要人手工介入处理的数据问题，你都可以考虑设计一个自动恢复程序，去自动地发现和修复不一致的数据。</p>
+<h1 id="面试思路总结"><a href="#面试思路总结" class="headerlink" title="面试思路总结"></a><span style="color:#339AFF;">面试思路总结</span></h1><p>我要强调一下，这里给出的整个话术和方案，你要根据你的实际经验来做调整。业界有非常多的高可用方案，你可以多学几个，纳入你的面试方案里面。</p>
+<p>你不需要掌握全部的高可用方案，因为实在太多学不过来。你只需要重点掌握几种，然后在面试的时候注重引导和把控面试节奏，将面试内容限制在你所了解的那几种上就可以。</p>
+<img src="/2023/10/10/09｜综合服务治理方案：怎么保证微服务应用的高可用？/11.webp">
+<h1 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a><span style="color:#339AFF;">思考题</span></h1><p>1，四个九代表全年不可用时间不超过53分钟，那么你知道三个九和五个九又各自代表多少时间吗？从你个人经历出发，你认为四个九的可用性，究竟难不难达成？<br>2，除了我这里提到的各种措施以外，你自己有没有做过其他提高可用性的事情？你怎么把它整合进你的面试方案里面？</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/后端工程师进阶/" rel="tag"># 后端工程师进阶</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/10/10/08｜调用第三方：下游的接口不稳定性能又差怎么办？/" rel="next" title="08｜调用第三方：下游的接口不稳定性能又差怎么办？">
+                <i class="fa fa-chevron-left"></i> 08｜调用第三方：下游的接口不稳定性能又差怎么办？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/10/10/模拟面试（一）｜微服务架构面试思路一图懂/" rel="prev" title="模拟面试（一）｜微服务架构面试思路一图懂">
+                模拟面试（一）｜微服务架构面试思路一图懂 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+            
+              <p class="site-author-name" itemprop="name">CheBin</p>
+              <div class="site-description motion-element" itemprop="description">先得寸再进尺，既得陇复望蜀</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">1148</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">77</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history fa-" aria-hidden="true"></i>
+                近期文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li>
+                    <a href="/2023/11/10/模拟面试｜NoSQL面试思路一图懂/" title="模拟面试｜NoSQL面试思路一图懂" target="_blank">模拟面试｜NoSQL面试思路一图懂</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/10/42｜MongoDB高性能：怎么优化MongoDB的查询性能？/" title="42｜MongoDB高性能：怎么优化MongoDB的查询性能？" target="_blank">42｜MongoDB高性能：怎么优化MongoDB的查询性能？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/10/41｜MongoDB：MongoDB是怎么做到高可用的？/" title="41｜MongoDB：MongoDB是怎么做到高可用的？" target="_blank">41｜MongoDB：MongoDB是怎么做到高可用的？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/" title="40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？" target="_blank">40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/10/39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？/" title="39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？" target="_blank">39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？</a>
+                  </li>
+                
+              </ul>
+            </div>
+        
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前置知识"><span class="nav-number">1.</span> <span class="nav-text">前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#容错"><span class="nav-number">1.1.</span> <span class="nav-text">容错</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#限制故障影响范围"><span class="nav-number">1.2.</span> <span class="nav-text">限制故障影响范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#快速发现和快速修复故障"><span class="nav-number">1.3.</span> <span class="nav-text">快速发现和快速修复故障</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#规范变更流程"><span class="nav-number">1.4.</span> <span class="nav-text">规范变更流程</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面试准备"><span class="nav-number">2.</span> <span class="nav-text">面试准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本思路"><span class="nav-number">3.</span> <span class="nav-text">基本思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#发现问题"><span class="nav-number">3.1.</span> <span class="nav-text">发现问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计划方案"><span class="nav-number">3.2.</span> <span class="nav-text">计划方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#落地实施"><span class="nav-number">3.3.</span> <span class="nav-text">落地实施</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#取得效果"><span class="nav-number">3.4.</span> <span class="nav-text">取得效果</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#后续改进"><span class="nav-number">3.5.</span> <span class="nav-text">后续改进</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#亮点方案"><span class="nav-number">4.</span> <span class="nav-text">亮点方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#异步-解耦"><span class="nav-number">4.1.</span> <span class="nav-text">异步/解耦</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自动故障处理"><span class="nav-number">4.2.</span> <span class="nav-text">自动故障处理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面试思路总结"><span class="nav-number">5.</span> <span class="nav-text">面试思路总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">6.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2023</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CheBin</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">9m</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">135:58</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>
