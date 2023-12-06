@@ -127,7 +127,7 @@
 <meta property="og:image" content="http://yoursite.com/2023/11/03/17｜分库分表分页查询：为什么你的分页查询又慢又耗费内存？/14.webp">
 <meta property="og:image" content="http://yoursite.com/2023/11/03/17｜分库分表分页查询：为什么你的分页查询又慢又耗费内存？/15.webp">
 <meta property="og:image" content="http://yoursite.com/2023/11/03/17｜分库分表分页查询：为什么你的分页查询又慢又耗费内存？/16.webp">
-<meta property="og:updated_time" content="2023-11-10T08:23:13.986Z">
+<meta property="og:updated_time" content="2023-11-21T01:54:56.001Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="17｜分库分表分页查询：为什么你的分页查询又慢又耗费内存？">
 <meta name="twitter:description" content="思考并回答以下问题：">
@@ -460,7 +460,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2023-11-10 16:23:13" itemprop="dateModified" datetime="2023-11-10T16:23:13+08:00">2023-11-10</time>
+                <time title="修改时间：2023-11-21 09:54:56" itemprop="dateModified" datetime="2023-11-21T09:54:56+08:00">2023-11-21</time>
               
             
           </span>
@@ -506,7 +506,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">9.1k</span>
+                <span title="本文字数">9.2k</span>
               
 
               
@@ -546,18 +546,18 @@
 <p>在实践中，分页是分库分表之后肯定要解决的问题，如果解决方案没选好，那么很容易出现性能问题。分页的解决方案很多，不过能够在面试中系统地将所有的方案都说出来的候选人可以说是少之又少。所以你只需要记住这节课的内容记住，就足以拉开和其他候选人的差距。</p>
 <p>让我们从分库分表的一般做法开始学起。</p>
 <h1 id="分库分表的一般做法"><a href="#分库分表的一般做法" class="headerlink" title="分库分表的一般做法"></a><span style="color:#339AFF;">分库分表的一般做法</span></h1><p>分库分表我们一般会使用三种算法。</p>
-<p>1，哈希分库分表：根据分库分表键算出一个哈希值，然后根据这个哈希值选择一个数据库。最常见的就是使用数字类型的字段作为分库分表键，然后取余。比如说在订单表里面，按照买家的ID除以8的余数进行分表。</p>
-<p>2，范围分库分表：将某个数据按照范围大小进行分段。比如说根据ID，[0,1000)在一张表，[1000,2000)在另外一张表上。最常见的应该是按照日期进行分库分表，比如说按照月分表，每个月一张表。</p>
-<p>3，中间表：引入一个中间表来记录数据所在的目标表。一般是记录主键到目标表的映射关系。</p>
+<p>1，<strong>哈希分库分表</strong>：根据分库分表键算出一个哈希值，然后根据这个哈希值选择一个数据库。最常见的就是使用数字类型的字段作为分库分表键，然后取余。比如说在订单表里面，按照买家的ID除以8的余数进行分表。</p>
+<p>2，<strong>范围分库分表</strong>：将某个数据按照范围大小进行分段。比如说根据ID，[0,1000)在一张表，[1000,2000)在另外一张表上。最常见的应该是按照日期进行分库分表，比如说按照月分表，每个月一张表。</p>
+<p>3，<strong>中间表</strong>：引入一个中间表来记录数据所在的目标表。一般是记录主键到目标表的映射关系。</p>
 <img src="/2023/11/03/17｜分库分表分页查询：为什么你的分页查询又慢又耗费内存？/1.webp">
 <p>这三者并不是互斥的，也就是说你可以考虑使用哈希分库分表，同时引入一个中间表。也可以先进行范围分库分表，再引入一个中间表。</p>
 <h1 id="分库分表中间件的形态"><a href="#分库分表中间件的形态" class="headerlink" title="分库分表中间件的形态"></a><span style="color:#339AFF;">分库分表中间件的形态</span></h1><p>分库分表中间件的形态有三种。</p>
-<p>1，SDK形态：SDK形态就是我们最熟悉的，它通过依赖的形式引入到你的代码里面。比如说ShardingSphere的Java依赖。</p>
-<p>2，Proxy形态：独立部署的分库分表中间件，它对于所有的业务方来说，就像一个普通的数据库，业务方的查询发送过去之后，它就会执行分库分表，发起实际查询，然后把查询结果返回给业务方。ShardingSphere也支持这种形态。</p>
+<p>1，<strong>SDK形态</strong>：SDK形态就是我们最熟悉的，它通过依赖的形式引入到你的代码里面。比如说ShardingSphere的Java依赖。</p>
+<p>2，<strong>Proxy形态</strong>：独立部署的分库分表中间件，它对于所有的业务方来说，就像一个普通的数据库，业务方的查询发送过去之后，它就会执行分库分表，发起实际查询，然后把查询结果返回给业务方。ShardingSphere也支持这种形态。</p>
 <img src="/2023/11/03/17｜分库分表分页查询：为什么你的分页查询又慢又耗费内存？/2.webp">
-<p>3，Sidecar形态：简单来说就是一个提供了分库分表的Sidecar。这是一个理论上的形态，现在并没有非常成熟的产品。</p>
+<p>3，<strong>Sidecar形态</strong>：简单来说就是一个提供了分库分表的Sidecar。这是一个理论上的形态，现在并没有非常成熟的产品。</p>
 <img src="/2023/11/03/17｜分库分表分页查询：为什么你的分页查询又慢又耗费内存？/3.webp">
-<p>这三种形态里面，SDK形态性能最好，但是和语言强耦合。比如说Java研发的ShardingSpherejar包是没办法给Go语言使用的。</p>
+<p>这三种形态里面，SDK形态性能最好，但是和语言强耦合。比如说Java研发的ShardingSphere jar包是没办法给Go语言使用的。</p>
 <p>Proxy形态性能最差，因为所有的数据库查询都发给了它，很容易成为性能瓶颈。尤其是单机部署Proxy的话，还面临着单节点故障的问题。它的优点就是跟编程语言没有关系，所以部署一个Proxy之后可以给使用不同编程语言的业务使用。同时，Proxy将自己伪装成一个普通的数据库之后，业务方可以轻易地从单库单表切换到分库分表，整个过程对于业务方来说就是换了一个数据源。</p>
 <img src="/2023/11/03/17｜分库分表分页查询：为什么你的分页查询又慢又耗费内存？/4.webp">
 <p>Sidecar目前还没有成熟的产品，但是从架构上来说它的性能应该介于SDK和Proxy之间，并且也没有单体故障、集群管理等烦恼。</p>
@@ -572,7 +572,7 @@
 <h1 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a><span style="color:#339AFF;">基本思路</span></h1><p>在面试的时候，你可以尝试介绍一下你是如何优化数据库性能的，比如SQL本身优化，数据库优化等。然后罗列出你准备的SQL案例，说明你在SQL优化方面做过哪些事情，比如你说你优化过分库分表的查询，其中最典型的就是优化分页查询。</p>
 <p>我们假设之前是全局查询，现在我们采用禁用跨页查询的方案来优化。</p>
 <blockquote>
-<p>最开始我在公司监控慢查询的时候，发现有一个分页查询非常慢。这个分页查询是按照更新时间降序来排序的。后来我发现那个分页查询用的是全局查询法，因为这个接口原本是提供给Web端用的，而Web端要支持跨页查询，所以只能使用全局查询法。当查询的页数靠后的时候，响应时间就非常长。<br>后来我们公司搞出App之后，类似的场景直接复用了这个接口。但是事实上在App上是没有跨页需求的。所以我就直接写了一个新接口，这个接口要求分页的时候带上上一页的最后一条数据的更新时间。也就是我用这个更新时间构造了一个查询条件，只查询早于这个时间的数据。那么分页查询的时候OFFSET就永远被我控制在0了，查询的时间就非常稳定了。</p>
+<p>最开始我在公司监控慢查询的时候，发现有一个分页查询非常慢。这个分页查询是按照更新时间降序来排序的。后来我发现那个分页查询用的是全局查询法，因为这个接口原本是提供给Web端用的，而Web端要支持跨页查询，所以只能使用全局查询法。当查询的页数靠后的时候，响应时间就非常长。<br><br>后来我们公司搞出App之后，类似的场景直接复用了这个接口。但是事实上在App上是没有跨页需求的。所以我就直接写了一个新接口，这个接口要求分页的时候带上上一页的最后一条数据的更新时间。也就是我用这个更新时间构造了一个查询条件，只查询早于这个时间的数据。那么分页查询的时候OFFSET就永远被我控制在0了，查询的时间就非常稳定了。</p>
 </blockquote>
 <p>最后你可以加一个总结。</p>
 <blockquote>
@@ -594,19 +594,19 @@
 </ul>
 <img src="/2023/11/03/17｜分库分表分页查询：为什么你的分页查询又慢又耗费内存？/7.webp">
 <p>所以在分库分表里面，这样一个SELECT语句生成的目标语句是这样的：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> order_tab <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">id</span> <span class="keyword">LIMIT</span> <span class="number">6</span> <span class="keyword">OFFSET</span> <span class="number">0</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> order_tab <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">id</span> <span class="keyword">LIMIT</span> <span class="number">6</span> <span class="keyword">OFFSET</span> <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
-<p>注意看LIMIT部分，被修改成了0、6。用更加通用的形式来描述，就是如果一个分页语句是LIMITxOFFSETy的形式，那么最终生成的目标语句就是<code>LIMIT x + y OFFSET 0</code>。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LIMIT x OFFSET y =&gt; LIMIT x+y OFFSET 0</span><br></pre></td></tr></table></figure></p>
-<p>当分库分表中间件拿到这两个语句的查询结果之后，就要在内存中进行排序，再找出全局的LIMIT4OFFSET2。</p>
-<p>那么你可以先回答这种全局排序的基本思路，抓住关键词LIMITx+yOFFSET0。</p>
+<p>注意看LIMIT部分，被修改成了0、6。用更加通用的形式来描述，就是如果一个分页语句是<code>LIMIT x OFFSET y</code>的形式，那么最终生成的目标语句就是<code>LIMIT x + y OFFSET 0</code>。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LIMIT x OFFSET y =&gt; LIMIT x+y OFFSET 0</span><br></pre></td></tr></table></figure></p>
+<p>当分库分表中间件拿到这两个语句的查询结果之后，就要在内存中进行排序，再找出全局的<code>LIMIT 4 OFFSET 2</code>。</p>
+<p>那么你可以先回答这种全局排序的基本思路，抓住关键词<code>LIMIT x + y OFFSET 0</code>。</p>
 <blockquote>
-<p>分库分表中间件一般采用的都是全局排序法。假如说现在我们要查询的是LIMITxOFFSETy。那么分库分表中间件会把查询改写为LIMITx+yOFFSET0，然后把查询请求发送给所有的目标表。在拿到所有的返回值之后，在内存中排序，并且根据排序结果找出全局符合条件的目标数据。</p>
+<p>分库分表中间件一般采用的都是全局排序法。假如说现在我们要查询的是<code>LIMIT x OFFSET y</code>。那么分库分表中间件会把查询改写为<code>LIMIT x + y OFFSET 0</code>，然后把查询请求发送给所有的目标表。在拿到所有的返回值之后，在内存中排序，并且根据排序结果找出全局符合条件的目标数据。</p>
 </blockquote>
 <p>接下来你可以先从性能问题上刷一个亮点，抓住受影响的三个方面：网络、内存、CPU。</p>
 <blockquote>
-<p>这个解决方案最大的问题是性能不太好。首先是网络传输瓶颈，比如说在LIMIT10OFFSET1000这种场景下，如果没有分库分表，那么只需要传输10条数据。而在分库分表的情况下，如果命中了N个表，那么需要传输的就是（1000+10）×N条数据。而实际上最终我们只会用其中的10条数据，存在巨大的浪费。<br>其次是内存瓶颈。收到那么多数据之后，中间件需要维持在内存中排序。CPU也会成为瓶颈，因为排序本身是一个CPU密集的操作。所以在Proxy形态的分库分表中间件里面，分页查询一多，就容易把中间件的内存耗尽，引发OOM，又或者CPU100%。不过可以通过归并排序来缓解这些问题。</p>
+<p>这个解决方案最大的问题是性能不太好。首先是网络传输瓶颈，比如说在<code>LIMIT 10 OFFSET 1000</code>这种场景下，如果没有分库分表，那么只需要传输10条数据。而在分库分表的情况下，如果命中了N个表，那么需要传输的就是<code>（1000+10）×N</code>条数据。而实际上最终我们只会用其中的10条数据，存在巨大的浪费。<br><br>其次是内存瓶颈。收到那么多数据之后，中间件需要维持在内存中排序。CPU也会成为瓶颈，因为排序本身是一个CPU密集的操作。所以在Proxy形态的分库分表中间件里面，分页查询一多，就容易把中间件的内存耗尽，引发OOM，又或者CPU 100%。不过可以通过归并排序来缓解这些问题。</p>
 </blockquote>
 <p>我在这里还留了一个归并排序的引导点，但是面试官如果不擅长分库分表的话，他可能注意不到这个地方，那么你也可以直接回答。关键点就是在拿到数据之后，使用归并排序的算法。</p>
 <blockquote>
-<p>在分库分表里面，可以使用归并排序算法来给返回的结果排序。也就是说在改写为LIMITx+yOFFSET0之后，每一个目标表返回的结果都是有序的，自然可以使用归并排序。在归并排序的过程中，我们可以逐条从返回结果中读取，这意味着没必要将所有的结果一次性放到内存中再排序。在分页的场景下，取够了数据就可以直接返回，剩下的数据就可以丢弃了。</p>
+<p>在分库分表里面，可以使用归并排序算法来给返回的结果排序。也就是说在改写为<code>LIMIT x + y OFFSET 0</code>之后，每一个目标表返回的结果都是有序的，自然可以使用归并排序。在归并排序的过程中，我们可以逐条从返回结果中读取，这意味着没必要将所有的结果一次性放到内存中再排序。在分页的场景下，取够了数据就可以直接返回，剩下的数据就可以丢弃了。</p>
 </blockquote>
 <img src="/2023/11/03/17｜分库分表分页查询：为什么你的分页查询又慢又耗费内存？/8.webp">
 <p>不过既然我们前面说了全局查询这个方案的性能很差，那么有没有其他方案呢？的确有，比如平均分页、禁用跨页查询、换用其他中间件等。不过任何方案都不是十全十美的，这些方案也存在一些难点，有的是需要业务折中，有的处理过程非常复杂。</p>
@@ -618,52 +618,53 @@
 <img src="/2023/11/03/17｜分库分表分页查询：为什么你的分页查询又慢又耗费内存？/9.webp">
 <p>你可以看一下我给出的平均分页图，从图里我们能够看出来，按照道理全局的LIMIT4OFFSET2拿到的应该是3、4、5、6四条数据。但是这里我们拿到的数据却是2、4、5、9。这也就是这个方案的缺陷：它存在精度问题。也就是说，它返回的数据并不一定是全局最精确的数据。</p>
 <p>那么这个方案是不是就不能用了呢？并不是的，在一些对顺序、精度要求不严格的场景下，还是可以用的。例如浏览页面，你只需要返回足够多的数据行，但是这些数据具体来自哪些表，用户并不关心。</p>
-<p>你在回答的时候，抓住关键词：平均分页。</p>
+<p>你在回答的时候，抓住关键词：<strong>平均分页</strong>。</p>
 <blockquote>
-<p>在一些可以接受分页结果不精确的场景下，可以考虑平均分页的做法。举个例子来说，如果查询的是LIMIT4OFFSET2，并且命中了两张目标表，那么就可以考虑在每个表上都查询LIMIT2OFFSET1。这些结果合并在一起就是LIMIT4OFFSET2的一个近似答案。这种做法对于数据分布均匀的分库分表效果很好，偏差也不大。</p>
+<p>在一些可以接受分页结果不精确的场景下，可以考虑平均分页的做法。举个例子来说，如果查询的是<code>LIMIT 4 OFFSET 2</code>，并且命中了两张目标表，那么就可以考虑在每个表上都查询<code>LIMIT 2 OFFSET 1</code>。这些结果合并在一起就是<code>LIMIT 4 OFFSET 2</code>的一个近似答案。这种做法对于数据分布均匀的分库分表效果很好，偏差也不大。</p>
 </blockquote>
 <p>这个方案还有一个进阶版本，就是根据数据分布来决定如何取数据。假如说你预计你查询的数据有70%在order_tab_0，有30%在order_tab_1，然后你假设逻辑上的查询是：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> order_tab <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">id</span> <span class="keyword">LIMIT</span> <span class="number">10</span> <span class="keyword">OFFSET</span> <span class="number">100</span></span><br></pre></td></tr></table></figure></p>
 <p>那么你可以根据数据分布，从order_tab_0取70%的数据，然后在order_tab_1取30%数据，偏移量也是如此。</p>
 <p>因此目标SQL就是：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> order_tab_0 <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">id</span> <span class="keyword">LIMIT</span> <span class="number">7</span> <span class="keyword">OFFSET</span> <span class="number">70</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> order_tab_1 <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">id</span> <span class="keyword">LIMIT</span> <span class="number">3</span> <span class="keyword">OFFSET</span> <span class="number">30</span></span><br></pre></td></tr></table></figure></p>
 <p>这个进阶版本你可以在前面的基本回答之后进一步补充。</p>
 <blockquote>
-<p>更加通用的做法是根据数据分布来决定分页在不同的表上各自取多少条数据。比如说一张表上面有70%的数据，但是另一张表上只有30%的数据，那么在LIMIT10OFFSET100的场景下，可以在70%的表里取LIMIT7OFFSET70，在30%的表里取LIMIT3OFFSET30。所以，也可以把前面平均分配的方案看作是各取50%的特例。</p>
+<p>更加通用的做法是根据数据分布来决定分页在不同的表上各自取多少条数据。比如说一张表上面有70%的数据，但是另一张表上只有30%的数据，那么在<code>LIMIT 10 OFFSET 100</code>的场景下，可以在70%的表里取<code>LIMIT 7 OFFSET 70</code>，在30%的表里取<code>LIMIT 3 OFFSET 30</code>。所以，也可以把前面平均分配的方案看作是各取50%的特例。</p>
 </blockquote>
 <p>那么面试官就可能进一步追问，你怎么知道一张表上有70%的数据，另外一张表上有30%。这个倒是很简单，在开发的时候先用SQL在不同的表上执行一下，看看同样的WHERE条件下各自返回了多少数据，就可以推断出来了。</p>
 <p>不过实际上，能够接受不精确的业务场景还是比较少的。所以我们还有一种业务折中的解决方案，它精确并且高效，也就是禁用跨页查询方案。</p>
 <h1 id="禁用跨页查询"><a href="#禁用跨页查询" class="headerlink" title="禁用跨页查询"></a><span style="color:#339AFF;">禁用跨页查询</span></h1><p>禁用跨页查询，意思就是要求用户只能从第0页开始，逐页往后翻，不允许跨页。比如说从第3页跳到第10页，这种是不允许的。假如说业务上分页查询是50条数据一页。那么发起的查询依次是：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> order_tab <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">id</span> <span class="keyword">LIMIT</span> <span class="number">50</span> <span class="keyword">OFFSET</span> <span class="number">0</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> order_tab <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">id</span> <span class="keyword">LIMIT</span> <span class="number">50</span> <span class="keyword">OFFSET</span> <span class="number">50</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> order_tab <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">id</span> <span class="keyword">LIMIT</span> <span class="number">50</span> <span class="keyword">OFFSET</span> <span class="number">100</span></span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
 <p>所以你可以看到，这里不断增长的只有偏移量。那么有没有办法控制住这个偏移量呢？</p>
-<p>答案就是根据ORDERBY的部分来增加一个查询条件。在上面的例子里，ORDERBYid是按照id升序排序的，那么只需要在WHERE部分增加一个大于上次查询的最大id的条件就可以了。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> order_tab <span class="keyword">WHERE</span> <span class="string">`id`</span> &gt; max_id <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">id</span> <span class="keyword">LIMIT</span> <span class="number">50</span> <span class="keyword">OFFSET</span> <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<p>答案就是根据ORDER BY的部分来增加一个查询条件。在上面的例子里，<code>ORDER BY id</code>是按照id升序排序的，那么只需要在WHERE部分增加一个大于上次查询的最大id的条件就可以了。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> order_tab <span class="keyword">WHERE</span> <span class="string">`id`</span> &gt; max_id <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">id</span> <span class="keyword">LIMIT</span> <span class="number">50</span> <span class="keyword">OFFSET</span> <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
 <p>max_id就是你上一批次的最大id。</p>
-<p>反过来，如果ORDERBY是降序的，比如ORDERBYidDESC，那么对应的SQL就变成这样：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> order_tab <span class="keyword">WHERE</span> <span class="string">`id`</span> &lt; min_id <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">id</span> <span class="keyword">LIMIT</span> <span class="number">50</span> <span class="keyword">OFFSET</span> <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
+<p>反过来，如果ORDER BY是降序的，比如<code>ORDER BY id DESC</code>，那么对应的SQL就变成这样：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> order_tab <span class="keyword">WHERE</span> <span class="string">`id`</span> &lt; min_id <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">id</span> <span class="keyword">LIMIT</span> <span class="number">50</span> <span class="keyword">OFFSET</span> <span class="number">0</span></span><br></pre></td></tr></table></figure></p>
 <p>min_id就是上一批次里最小的id。</p>
-<p>即便ORDERBY里面使用了多个列，规则也是一样的。</p>
-<p>总的来看，你的回答要分成两部分，第一部分介绍基本做法，关键词是拿到上一批次的极值。</p>
+<p>即便ORDER BY里面使用了多个列，规则也是一样的。</p>
+<p>总的来看，你的回答要分成两部分，第一部分介绍基本做法，关键词是<strong>拿到上一批次的极值</strong>。</p>
 <blockquote>
-<p>目前比较好的分页做法是禁用跨页查询，然后在每一次查询条件里面加上上一次查询的极值，也就是最大值或者最小值。比如说第一次查询的时候<code>ORDERBYIDLIMIT10OFFSET0</code>，那么下一页，就可以改成<code>WHEREid&gt;max_idORDERBYIDLIMIT10OFFSET0</code>。在现在的手机App里这个策略是非常好用的，因为手机App都是下拉刷新，天然就不存在跨页的问题。</p>
+<p>目前比较好的分页做法是禁用跨页查询，然后在每一次查询条件里面加上上一次查询的极值，也就是最大值或者最小值。比如说第一次查询的时候<code>ORDER BY ID LIMIT 10 OFFSET 0</code>，那么下一页，就可以改成<code>WHERE id &gt; max_id ORDER BY ID LIMIT 10 OFFSET 0</code>。在现在的手机App里这个策略是非常好用的，因为手机App都是下拉刷新，天然就不存在跨页的问题。</p>
 </blockquote>
 <p>第一部分你提到了极值，那么面试官就可能问你什么时候用最大值，什么时候用最小值。你就可以这样说：</p>
 <blockquote>
-<p>至于用最大值还是用最小值，这个取决于ORDERBY。总的原则就是升序用最大值，降序用最小值。如果ORDERBY里面包含了多个列，那么针对每一个列是升序还是降序，来确定使用最大值还是使用最小值。</p>
+<p>至于用最大值还是用最小值，这个取决于<strong>ORDER BY</strong>。总的原则就是升序用最大值，降序用最小值。如果ORDER BY里面包含了多个列，那么针对每一个列是升序还是降序，来确定使用最大值还是使用最小值。</p>
 </blockquote>
 <p>这种方案在实践中使用得非常广泛。不过我们还有一个更加简单粗暴的方案，既然分库分表难以处理分页的问题，那么干嘛不直接换用其他中间件呢？</p>
 <h1 id="换用其他中间件"><a href="#换用其他中间件" class="headerlink" title="换用其他中间件"></a><span style="color:#339AFF;">换用其他中间件</span></h1><p>这个思路可以说是非常直接了，既然分库分表导致了分页很困难，那么我就换一个不需要分库分表的中间件不就好了吗？也可以，换中间件也有两种思路。</p>
 <p>第一种思路是用NoSQL之类的来存储数据。比如说使用Elasticsearch、ClickHouse。另外一种思路是使用分布式关系型数据库。这其实就相当于你把分页的难题抛给了这些数据库，性能如何就取决于你最终选择了哪个分布式关系型数据库。</p>
 <p>上面这些方案不管是从实际，还是从理论上，都有各自的特色。下面我们再往前一步，看看还有哪些比较好用且有亮点的方案。</p>
 <h1 id="亮点方案"><a href="#亮点方案" class="headerlink" title="亮点方案"></a><span style="color:#339AFF;">亮点方案</span></h1><p>这里我提供两个亮点方案。第一个是二次查询。实际上它应该是一个常见的方案，但是因为过于复杂所以能够记住并且把原理讲清楚，本身就是一件不容易的事情。第二个是引入中间表。这个方案从复杂度上来说是不如二次查询的，但是它比较罕见，也就是说面经里面会提到这个方案的比较少。</p>
-<h2 id="二次查询"><a href="#二次查询" class="headerlink" title="二次查询"></a><span style="color:#339AFF;">二次查询</span></h2><p>二次查询的基本理念是先尝试获得某个数据的全局偏移量，然后再根据这个偏移量来计算剩下数据的偏移量。这里我用一个例子来阐述它的基本原理，再抽象出一般步骤。</p>
+<h2 id="二次查询"><a href="#二次查询" class="headerlink" title="二次查询"></a><span style="color:#339AFF;">二次查询</span></h2><p>二次查询的基本理念是先尝试<strong>获得某个数据的全局偏移量，然后再根据这个偏移量来计算剩下数据的偏移量</strong>。这里我用一个例子来阐述它的基本原理，再抽象出一般步骤。</p>
 <p>假设说我们的查询依旧是：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> order_tab <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">id</span> <span class="keyword">LIMIT</span> <span class="number">4</span> <span class="keyword">OFFSET</span> <span class="number">4</span></span><br></pre></td></tr></table></figure></p>
 <p>数据分布如图所示：</p>
 <img src="/2023/11/03/17｜分库分表分页查询：为什么你的分页查询又慢又耗费内存？/10.webp">
-<p>全局上的LIMIT4OFFSET4是5、6、7、8四条数据。</p>
-<p>步骤一：首次查询</p>
+<p>全局上的<code>LIMIT 4 OFFSET 4</code>是5、6、7、8四条数据。</p>
+<p><strong><font size="4">步骤一：首次查询</font></strong></p>
 <p>我们把SQL语句改写成这样：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> order_tab_0 <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">id</span> <span class="keyword">LIMIT</span> <span class="number">4</span> <span class="keyword">OFFSET</span> <span class="number">2</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> order_tab_1 <span class="keyword">ORDER</span> <span class="keyword">BY</span> <span class="keyword">id</span> <span class="keyword">LIMIT</span> <span class="number">4</span> <span class="keyword">OFFSET</span> <span class="number">2</span></span><br></pre></td></tr></table></figure></p>
 <p>注意，这里我们只是把OFFSET平均分配了，但是LIMIT没变。</p>
 <p>那么我们第一次查询到的数据是怎样的呢？你可以看一下图片。</p>
 <img src="/2023/11/03/17｜分库分表分页查询：为什么你的分页查询又慢又耗费内存？/11.webp">
 <p>order_tab_0拿到了4、6、10、12，而order_tab_1拿到了7、8、9、11。</p>
-<p>步骤二：确认最小值很明显，上一步返回的查询数据里面，id最小的是4，来自order_tab_0。</p>
-<p>步骤三：二次查询</p>
+<p><strong><font size="4">步骤二：确认最小值</font></strong></p>
+<p>很明显，上一步返回的查询数据里面，id最小的是4，来自order_tab_0。</p>
+<p><strong><font size="4">步骤三：二次查询</font></strong></p>
 <p>这一次查询需要利用上一步找出来的最小值以及各自分库的最大值来构造BETWEEN查询。改写得到的SQL是：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> order_tab_0 <span class="keyword">WHERE</span> <span class="keyword">id</span> <span class="keyword">BETWEEN</span> <span class="number">4</span> <span class="keyword">AND</span> <span class="number">12</span></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> order_tab_1 <span class="keyword">WHERE</span> <span class="keyword">id</span> <span class="keyword">BETWEEN</span> <span class="number">4</span> <span class="keyword">AND</span> <span class="number">11</span></span><br></pre></td></tr></table></figure></p>
 <p>结果：</p>
 <ul>
@@ -672,15 +673,15 @@
 </ul>
 <img src="/2023/11/03/17｜分库分表分页查询：为什么你的分页查询又慢又耗费内存？/12.webp">
 <p>取过来的所有数据排序之后就是4、5、6、7、8、9、10、11、12。</p>
-<p>步骤四：计算最小值的全局偏移量</p>
+<p><strong><font size="4">步骤四：计算最小值的全局偏移量</font></strong></p>
 <p>这是最难理解的一步，你抓住核心：根据BETWEEN中多出来的数据量来推断全局偏移量。现在我们知道4在order_tab_0中的偏移量是2，也就是说比4小的数据有2条。在BETWEEN查询里面，order_tab_1返回的结果是5、7、8、9、11，7在第一次查询里面的偏移量是2，所以5的偏移量是1。也就是说，5的前面只有一条比4小的数据。</p>
 <p>那么4在order_tab中的全局偏移量就是3（2+1），换一句话来说，就是4前面有三条数据。</p>
 <img src="/2023/11/03/17｜分库分表分页查询：为什么你的分页查询又慢又耗费内存？/13.webp">
-<p>那么加上4本身，刚好构成了OFFSET4，因此就是从5开始取，往后取4条数据。</p>
-<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a><span style="color:#339AFF;">小结</span></h1><p>现在我抽象地说一下这个算法。假设你的分库分表总共有N个表，查询是LIMITXOFFSETY，那么：</p>
-<p>1，首先发送查询语句LIMITXOFFSETY/N到所有的表。</p>
+<p>那么加上4本身，刚好构成了<code>OFFSET 4</code>，因此就是从5开始取，往后取4条数据。</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a><span style="color:#339AFF;">小结</span></h1><p>现在我抽象地说一下这个算法。假设你的分库分表总共有N个表，查询是<code>LIMIT X OFFSET Y</code>，那么：</p>
+<p>1，首先发送查询语句<code>LIMIT X OFFSET Y/N</code>到所有的表。</p>
 <p>2，找到所有返回结果中的最小值（升序），记为min。</p>
-<p>3，执行第二次查询，关键是BETWEENminANDmax。其中max是在第一次查询的数据中每个表各自的最大值。</p>
+<p>3，执行第二次查询，关键是<code>BETWEEN min AND max</code>。其中max是在第一次查询的数据中每个表各自的最大值。</p>
 <p>4，根据min、第一次查询和第二次查询的值来确定min的全局偏移量。总的来说，min在某个表里面的偏移量这样计算：如果第二次查询比第一次查询多了K条数据，那么偏移量就是Y除以N减去K。然后把所有表的偏移量加在一起，得到的就是min的全局偏移量。</p>
 <p>5，根据min的全局偏移量，在第二次查询的结果里面向后补足到Y，得到第一条数据的位置，再取X条。</p>
 <p>上面的这些步骤太难记忆了，这里我给你一个简化版本。</p>
@@ -718,7 +719,7 @@
 <img src="/2023/11/03/17｜分库分表分页查询：为什么你的分页查询又慢又耗费内存？/16.webp">
 <h1 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a><span style="color:#339AFF;">思考题</span></h1><ul>
 <li>如果查询里面有GROUP BY，其实会影响到分页的执行。你可以说说假如GROUP BY刚好是根据分库分表键来进行的，分页可以怎么执行呢？不然的话又该怎么执行呢？</li>
-<li>我在这里用的例子都是哈希分表的，那么在使用范围分库分表的情况下，分页查询执行又有一些不同，你能说一下范围查询的做法会有怎样的区别吗？我可以给你一些提示，要注意ORDERBY和分库分表键，还要注意GROUP BY。</li>
+<li>我在这里用的例子都是哈希分表的，那么在使用范围分库分表的情况下，分页查询执行又有一些不同，你能说一下范围查询的做法会有怎样的区别吗？我可以给你一些提示，要注意ORDER BY和分库分表键，还要注意GROUP BY。</li>
 </ul>
 
       
@@ -839,7 +840,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1148</span>
+                    <span class="site-state-item-count">1151</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1197,7 +1198,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">77</span>
+                      
+                    
+                    <span class="site-state-item-count">78</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1228,23 +1231,23 @@
                 
                 
                   <li>
+                    <a href="/2023/11/22/技术领导力实战笔记/" title="技术领导力实战笔记" target="_blank">技术领导力实战笔记</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/22/技术管理实战36讲/" title="技术管理实战36讲" target="_blank">技术管理实战36讲</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/21/Go面试题（一）/" title="Go面试题（一）" target="_blank">Go面试题（一）</a>
+                  </li>
+                
+                  <li>
                     <a href="/2023/11/10/模拟面试｜NoSQL面试思路一图懂/" title="模拟面试｜NoSQL面试思路一图懂" target="_blank">模拟面试｜NoSQL面试思路一图懂</a>
                   </li>
                 
                   <li>
                     <a href="/2023/11/10/42｜MongoDB高性能：怎么优化MongoDB的查询性能？/" title="42｜MongoDB高性能：怎么优化MongoDB的查询性能？" target="_blank">42｜MongoDB高性能：怎么优化MongoDB的查询性能？</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/11/10/41｜MongoDB：MongoDB是怎么做到高可用的？/" title="41｜MongoDB：MongoDB是怎么做到高可用的？" target="_blank">41｜MongoDB：MongoDB是怎么做到高可用的？</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/" title="40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？" target="_blank">40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/11/10/39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？/" title="39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？" target="_blank">39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？</a>
                   </li>
                 
               </ul>
@@ -1316,7 +1319,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">135:58</span>
+    <span title="站点阅读时长">136:09</span>
   
 </div>
 

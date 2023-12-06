@@ -114,7 +114,7 @@
 <meta property="og:image" content="http://yoursite.com/2021/12/20/15｜配置和环境（上）：配置服务中的设计思路/1.webp">
 <meta property="og:image" content="http://yoursite.com/2021/12/20/15｜配置和环境（上）：配置服务中的设计思路/2.webp">
 <meta property="og:image" content="http://yoursite.com/2021/12/20/15｜配置和环境（上）：配置服务中的设计思路/3.webp">
-<meta property="og:updated_time" content="2023-07-24T02:50:06.817Z">
+<meta property="og:updated_time" content="2023-12-06T02:59:05.295Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="15｜配置和环境（上）：配置服务中的设计思路">
 <meta name="twitter:description" content="思考并回答以下问题：">
@@ -447,7 +447,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2023-07-24 10:50:06" itemprop="dateModified" datetime="2023-07-24T10:50:06+08:00">2023-07-24</time>
+                <time title="修改时间：2023-12-06 10:59:05" itemprop="dateModified" datetime="2023-12-06T10:59:05+08:00">2023-12-06</time>
               
             
           </span>
@@ -567,8 +567,8 @@
 <p>下面就来说接口的具体实现，在框架文件framework/provider/env/service.go中，大致就是按照先读取本地默认.env文件，再读取运行环境变量。</p>
 <p>我们使用一个<code>map[string]string</code>来保存最终的环境变量值，设置这个map初始有一个APP_ENV的key，并将它设置为开发环境。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">hadeEnv := &amp;HadeEnv&#123;</span><br><span class="line">    folder: folder,</span><br><span class="line">    <span class="comment">// 实例化环境变量，APP_ENV 默认设置为开发环境</span></span><br><span class="line">    maps: <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;<span class="string">"APP_ENV"</span>: contract.EnvDevelopment&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>接下来先读取.env文件中保存的默认环境变量，这里读取就使用Golang里面的文件读取方式：先用<code>os.Open</code>打开文件，使用<code>bufio.NewReader</code>创建一个读取器，然后使用ReadLine逐行读取，读取之后将结果保存到map中。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 打开文件.env</span></span><br><span class="line">fi, err := os.Open(file)</span><br><span class="line"><span class="keyword">if</span> err == <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">defer</span> fi.Close()</span><br><span class="line">    <span class="comment">// 读取文件</span></span><br><span class="line">    br := bufio.NewReader(fi)</span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        <span class="comment">// 按照行进行读取</span></span><br><span class="line">        line, _, c := br.ReadLine()</span><br><span class="line">        <span class="keyword">if</span> c == io.EOF &#123;</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 按照等号解析</span></span><br><span class="line">        s := bytes.SplitN(line, []<span class="keyword">byte</span>&#123;<span class="string">'='</span>&#125;, <span class="number">2</span>)</span><br><span class="line">        <span class="comment">// 如果不符合规范，则过滤</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(s) &lt; <span class="number">2</span> &#123;</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 保存 map</span></span><br><span class="line">        key := <span class="keyword">string</span>(s[<span class="number">0</span>])</span><br><span class="line">        val := <span class="keyword">string</span>(s[<span class="number">1</span>])</span><br><span class="line">        hadeEnv.maps[key] = val</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>最后再使用开头说的os.Environ来读取程序的所有环境变量，并且直接覆盖map变量。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取当前程序的环境变量，并且覆盖.env 文件下的变量</span></span><br><span class="line"><span class="keyword">for</span> _, e := <span class="keyword">range</span> os.Environ() &#123;</span><br><span class="line">    pair := strings.SplitN(e, <span class="string">"="</span>, <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(pair) &lt; <span class="number">2</span> &#123;</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    &#125;</span><br><span class="line">    hadeEnv.maps[pair[<span class="number">0</span>]] = pair[<span class="number">1</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>而环境变量服务最终提供的Get接口，也就非常简单了，直接从map中获取某个key的环境变量即可。并且由于在运行过程中没有Set等修改环境变量的方法，所以也不需要加锁。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Get 获取某个环境变量，如果没有设置，返回""</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(en *HadeEnv)</span> <span class="title">Get</span><span class="params">(key <span class="keyword">string</span>)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> val, ok := en.maps[key]; ok &#123;</span><br><span class="line">    <span class="keyword">return</span> val</span><br><span class="line">&#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">""</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>最后再使用开头说的<code>os.Environ</code>来读取程序的所有环境变量，并且直接覆盖map变量。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取当前程序的环境变量，并且覆盖.env 文件下的变量</span></span><br><span class="line"><span class="keyword">for</span> _, e := <span class="keyword">range</span> os.Environ() &#123;</span><br><span class="line">    pair := strings.SplitN(e, <span class="string">"="</span>, <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(pair) &lt; <span class="number">2</span> &#123;</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    &#125;</span><br><span class="line">    hadeEnv.maps[pair[<span class="number">0</span>]] = pair[<span class="number">1</span>]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>而环境变量服务最终提供的Get接口，也就非常简单了，直接从map中获取某个key的环境变量即可。并且由于在运行过程中没有Set等修改环境变量的方法，所以也不需要加锁。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Get 获取某个环境变量，如果没有设置，返回""</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(en *HadeEnv)</span> <span class="title">Get</span><span class="params">(key <span class="keyword">string</span>)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> val, ok := en.maps[key]; ok &#123;</span><br><span class="line">        <span class="keyword">return</span> val</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">""</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>到这里接口和实现就基本完成了，简单写段代码测试一下。</p>
 <p>我们可以创建一个一级命令<code>./hade env</code>来获取当前app的环境，并且验证刚才写的环境变量服务，在这个命令中，我们直接将AppEnv打印到控制台。在文件framework/command/contract.go中：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// envCommand 获取当前的 App 环境</span></span><br><span class="line"><span class="keyword">var</span> envCommand = &amp;cobra.Command&#123;</span><br><span class="line">    Use:   <span class="string">"env"</span>,</span><br><span class="line">    Short: <span class="string">"获取当前的 App 环境"</span>,</span><br><span class="line">    Run: <span class="function"><span class="keyword">func</span><span class="params">(c *cobra.Command, args []<span class="keyword">string</span>)</span></span> &#123;</span><br><span class="line">        <span class="comment">// 获取 env 环境</span></span><br><span class="line">        container := c.GetContainer()</span><br><span class="line">        envService := container.MustMake(contract.EnvKey).(contract.Env)</span><br><span class="line">        <span class="comment">// 打印环境</span></span><br><span class="line">        fmt.Println(<span class="string">"environment:"</span>, envService.AppEnv())</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <img src="/2021/12/20/15｜配置和环境（上）：配置服务中的设计思路/1.webp">
@@ -583,7 +583,7 @@
 <p>之前在环境变量中设置了APP_ENV，表示这个应用在不同环境会有不同配置，所以如果将每个环境的配置文件存放在ConfigFolder下的不同文件夹下，这样配置文件结构是不是显得更为清晰呢？</p>
 <p>我们读取文件的时候，<strong>直接根据APP_ENV的环境变量，去不同的配置文件的文件夹下获取对应的配置文件即可</strong>，很方便。</p>
 <blockquote>
-<p>多个配置文件+不同配置文件夹</p>
+<p>多个配置文件 + 不同配置文件夹</p>
 </blockquote>
 <img src="/2021/12/20/15｜配置和环境（上）：配置服务中的设计思路/3.webp">
 <p>接下来就是要从某个配置文件读取某个目标配置项了。我们可以设计成先读取文件、再读取某个字段的方式，但这样有点复杂，更简单的是，<strong>使用点号分割的路径读取方式</strong>来增加读取的易用性。</p>
@@ -716,7 +716,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1148</span>
+                    <span class="site-state-item-count">1151</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1074,7 +1074,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">77</span>
+                      
+                    
+                    <span class="site-state-item-count">78</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1105,23 +1107,23 @@
                 
                 
                   <li>
+                    <a href="/2023/11/22/技术领导力实战笔记/" title="技术领导力实战笔记" target="_blank">技术领导力实战笔记</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/22/技术管理实战36讲/" title="技术管理实战36讲" target="_blank">技术管理实战36讲</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/21/Go面试题（一）/" title="Go面试题（一）" target="_blank">Go面试题（一）</a>
+                  </li>
+                
+                  <li>
                     <a href="/2023/11/10/模拟面试｜NoSQL面试思路一图懂/" title="模拟面试｜NoSQL面试思路一图懂" target="_blank">模拟面试｜NoSQL面试思路一图懂</a>
                   </li>
                 
                   <li>
                     <a href="/2023/11/10/42｜MongoDB高性能：怎么优化MongoDB的查询性能？/" title="42｜MongoDB高性能：怎么优化MongoDB的查询性能？" target="_blank">42｜MongoDB高性能：怎么优化MongoDB的查询性能？</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/11/10/41｜MongoDB：MongoDB是怎么做到高可用的？/" title="41｜MongoDB：MongoDB是怎么做到高可用的？" target="_blank">41｜MongoDB：MongoDB是怎么做到高可用的？</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/" title="40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？" target="_blank">40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/11/10/39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？/" title="39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？" target="_blank">39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？</a>
                   </li>
                 
               </ul>
@@ -1193,7 +1195,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">135:58</span>
+    <span title="站点阅读时长">136:09</span>
   
 </div>
 

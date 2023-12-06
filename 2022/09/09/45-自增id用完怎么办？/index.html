@@ -111,10 +111,15 @@
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-09-30T03:52:47.867Z">
+<meta property="og:image" content="http://yoursite.com/2022/09/09/45-自增id用完怎么办？/1.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/09/45-自增id用完怎么办？/2.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/09/45-自增id用完怎么办？/3.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/09/45-自增id用完怎么办？/4.webp">
+<meta property="og:updated_time" content="2023-11-24T08:54:48.938Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="45 | 自增id用完怎么办？">
 <meta name="twitter:description" content="思考并回答以下问题：">
+<meta name="twitter:image" content="http://yoursite.com/2022/09/09/45-自增id用完怎么办？/1.webp">
 
 
 
@@ -443,7 +448,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2022-09-30 11:52:47" itemprop="dateModified" datetime="2022-09-30T11:52:47+08:00">2022-09-30</time>
+                <time title="修改时间：2023-11-24 16:54:48" itemprop="dateModified" datetime="2023-11-24T16:54:48+08:00">2023-11-24</time>
               
             
           </span>
@@ -542,8 +547,12 @@
 <p>要验证这个结论的话，你可以通过gdb修改系统的自增row_id来实现。注意，用gdb改变量这个操作是为了便于我们复现问题，只能在测试环境使用。    </p>
 <blockquote>
 <p>图1 row_id用完的验证序列</p>
+</blockquote>
+<img src="/2022/09/09/45-自增id用完怎么办？/1.webp">
+<blockquote>
 <p>图2 row_id用完的效果验证</p>
 </blockquote>
+<img src="/2022/09/09/45-自增id用完怎么办？/2.webp">
 <p>可以看到，在我用gdb将dict_sys.row_id设置为248之后，再插入的a=2的行会出现在表t的第一行，因为这个值的row_id=0。之后再插入的a=3的行，由于row_id=1，就覆盖了之前a=1的行，因为a=1这一行的row_id也是1。</p>
 <p>从这个角度看，我们还是应该在InnoDB表中主动创建自增主键。因为，表自增id到达上限后，再插入数据时报主键冲突错误，是更能被接受的。</p>
 <p>毕竟覆盖数据，就意味着数据丢失，影响的是数据可靠性；报主键冲突，是插入失败，影响的是可用性。而一般情况下，可靠性优先于可用性。</p>
@@ -568,6 +577,7 @@
 <blockquote>
 <p>图3 事务的trx_id</p>
 </blockquote>
+<img src="/2022/09/09/45-自增id用完怎么办？/3.webp">
 <p>sessionB里，我从innodb_trx表里查出的这两个字段，第二个字段trx_mysql_thread_id就是线程id。显示线程id，是为了说明这两次查询看到的事务对应的线程id都是5，也就是sessionA所在的线程。</p>
 <p>可以看到，T2时刻显示的trx_id是一个很大的数；T4时刻显示的trx_id是1289，看上去是一个比较正常的数字。这是什么原因呢？</p>
 <p>实际上，在T1时刻，sessionA还没有涉及到更新，是一个只读事务。而对于只读事务，InnoDB并不会分配trx_id。也就是说：</p>
@@ -593,6 +603,7 @@
 <blockquote>
 <p>图4 复现脏读</p>
 </blockquote>
+<img src="/2022/09/09/45-自增id用完怎么办？/4.webp">
 <p>由于我们已经把系统的max_trx_id设置成了248-1，所以在sessionA启动的事务TA的低水位就是248-1。</p>
 <p>在T2时刻，sessionB执行第一条update语句的事务id就是248-1，而第二条update语句的事务id就是0了，这条update语句执行后生成的数据版本上的trx_id就是0。</p>
 <p>在T3时刻，sessionA执行select语句的时候，判断可见性发现，c=3这个数据版本的trx_id，小于事务TA的低水位，因此认为这个数据可见。</p>
@@ -604,7 +615,7 @@
 <p>当然，这个例子更现实的意义是，可以加深我们对低水位和数据可见性的理解。你也可以借此机会再回顾下第8篇文章《事务到底是隔离的还是不隔离的？》中的相关内容。</p>
 <h1 id="thread-id"><a href="#thread-id" class="headerlink" title="thread_id"></a><span style="color:#339AFF;">thread_id</span></h1><p>接下来，我们再看看线程id（thread_id）。其实，线程id才是MySQL中最常见的一种自增id。平时我们在查各种现场的时候，showprocesslist里面的第一列，就是thread_id。</p>
 <p>thread_id的逻辑很好理解：系统保存了一个全局变量thread_id_counter，每新建一个连接，就将thread_id_counter赋值给这个新连接的线程变量。</p>
-<p>thread_id_counter定义的大小是4个字节，因此达到232-1后，它就会重置为0，然后继续增加。但是，你不会在showprocesslist里看到两个相同的thread_id。</p>
+<p>thread_id_counter定义的大小是4个字节，因此达到232-1后，它就会重置为0，然后继续增加。但是，你不会在<code>show processlist</code>里看到两个相同的thread_id。</p>
 <p>这，是因为MySQL设计了一个唯一数组的逻辑，给新线程分配thread_id的时候，逻辑代码是这样的：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">do &#123;</span><br><span class="line">    new_id= thread_id_counter++;</span><br><span class="line">&#125; while (!thread_ids.insert_unique(new_id).second);</span><br></pre></td></tr></table></figure></p>
 <p>这个代码逻辑简单而且实现优雅，相信你一看就能明白。</p>
 <h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a><span style="color:#339AFF;">小结</span></h1><p>今天这篇文章，我给你介绍了MySQL不同的自增id达到上限以后的行为。数据库系统作为一个可能需要7*24小时全年无休的服务，考虑这些边界是非常有必要的。</p>
@@ -735,7 +746,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1148</span>
+                    <span class="site-state-item-count">1151</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1093,7 +1104,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">77</span>
+                      
+                    
+                    <span class="site-state-item-count">78</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1124,23 +1137,23 @@
                 
                 
                   <li>
+                    <a href="/2023/11/22/技术领导力实战笔记/" title="技术领导力实战笔记" target="_blank">技术领导力实战笔记</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/22/技术管理实战36讲/" title="技术管理实战36讲" target="_blank">技术管理实战36讲</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/21/Go面试题（一）/" title="Go面试题（一）" target="_blank">Go面试题（一）</a>
+                  </li>
+                
+                  <li>
                     <a href="/2023/11/10/模拟面试｜NoSQL面试思路一图懂/" title="模拟面试｜NoSQL面试思路一图懂" target="_blank">模拟面试｜NoSQL面试思路一图懂</a>
                   </li>
                 
                   <li>
                     <a href="/2023/11/10/42｜MongoDB高性能：怎么优化MongoDB的查询性能？/" title="42｜MongoDB高性能：怎么优化MongoDB的查询性能？" target="_blank">42｜MongoDB高性能：怎么优化MongoDB的查询性能？</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/11/10/41｜MongoDB：MongoDB是怎么做到高可用的？/" title="41｜MongoDB：MongoDB是怎么做到高可用的？" target="_blank">41｜MongoDB：MongoDB是怎么做到高可用的？</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/" title="40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？" target="_blank">40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/11/10/39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？/" title="39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？" target="_blank">39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？</a>
                   </li>
                 
               </ul>
@@ -1212,7 +1225,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">135:58</span>
+    <span title="站点阅读时长">136:09</span>
   
 </div>
 

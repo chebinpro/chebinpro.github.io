@@ -124,7 +124,7 @@
 <meta property="og:image" content="http://yoursite.com/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/11.webp">
 <meta property="og:image" content="http://yoursite.com/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/12.webp">
 <meta property="og:image" content="http://yoursite.com/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/13.png">
-<meta property="og:updated_time" content="2023-11-13T07:46:02.406Z">
+<meta property="og:updated_time" content="2023-11-24T09:17:52.529Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="12｜数据库锁：明明有行锁，怎么突然就加了表锁？">
 <meta name="twitter:description" content="思考并回答以下问题：">
@@ -457,7 +457,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2023-11-13 15:46:02" itemprop="dateModified" datetime="2023-11-13T15:46:02+08:00">2023-11-13</time>
+                <time title="修改时间：2023-11-24 17:17:52" itemprop="dateModified" datetime="2023-11-24T17:17:52+08:00">2023-11-24</time>
               
             
           </span>
@@ -585,11 +585,11 @@
 <p>注意，意向锁的意向强调的就是你想要拿到这个锁，但是你最终能否拿到这个锁，是不确定的。</p>
 <p>在MySQL里面，使用意向锁的典型场景是在增删改查的时候，对表结构定义加一个意向共享锁，防止在查询的时候有人修改表结构。而在修改表结构的时候，则会加一个意向排它锁。这也就是修改表结构的时候会直接阻塞掉所有的增删改查语句的原因。<strong>使用意向锁能够提高数据库的并发性能，并且避免死锁问题</strong>。</p>
 <h2 id="记录锁、间隙锁和临键锁"><a href="#记录锁、间隙锁和临键锁" class="headerlink" title="记录锁、间隙锁和临键锁"></a><span style="color:#00ACC1;">记录锁、间隙锁和临键锁</span></h2><p>这是面试中最难理解的三个概念，而且要是面试官对细节非常了解，那么你就很容易挂在这一个部分。但是反过来说，如果你能将这部分的细节都说清楚，本身就是一个很大的亮点了。</p>
-<h3 id="记录锁"><a href="#记录锁" class="headerlink" title="记录锁"></a><span style="color:#EF7060;">记录锁</span></h3><p><strong>记录锁是指锁住了特定的某一条记录的锁</strong>。例如这样一条语句：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span>*FROMyour_tabWHEREid=<span class="number">31</span>FORUPDATE</span><br></pre></td></tr></table></figure></p>
+<h3 id="记录锁"><a href="#记录锁" class="headerlink" title="记录锁"></a><span style="color:#EF7060;">记录锁</span></h3><p><strong>记录锁是指锁住了特定的某一条记录的锁</strong>。例如这样一条语句：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> your_tab <span class="keyword">WHERE</span> <span class="keyword">id</span> = <span class="number">31</span> <span class="keyword">FOR</span> <span class="keyword">UPDATE</span></span><br></pre></td></tr></table></figure></p>
 <p>在你使用了主键作为查询条件，并且是相等条件下，将只命中一条记录。这一条记录就会被加上记录锁。</p>
 <img src="/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/7.webp">
-<p>但是如果查询条件没有命中任何记录，那么就不会使用记录锁，而是使用间隙锁。又或者你使用了唯一索引作为条件，比如说在user表里面在列email上有一个唯一索引。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> your_tab <span class="keyword">WHERE</span> email=<span class="string">'your_email'</span> <span class="keyword">FOR</span> <span class="keyword">UPDATE</span></span><br></pre></td></tr></table></figure></p>
-<p>那么这条查询语句此时也是使用了记录锁。类似地，如果<code>email=‘your_email’</code>这条记录不存在，那么会变成一个间隙锁。</p>
+<p>但是如果查询条件没有命中任何记录，那么就不会使用记录锁，而是使用间隙锁。又或者你使用了唯一索引作为条件，比如说在user表里面在列email上有一个唯一索引。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> your_tab <span class="keyword">WHERE</span> email = <span class="string">'your_email'</span> <span class="keyword">FOR</span> <span class="keyword">UPDATE</span></span><br></pre></td></tr></table></figure></p>
+<p>那么这条查询语句此时也是使用了记录锁。类似地，如果<code>email = ‘your_email’</code>这条记录不存在，那么会变成一个间隙锁。</p>
 <p>举个例子，如果数据库中只有id为（1，4，7）的三条记录，也就是id=3这个条件没有命中任何数据，那么这条语句会在（1，4）加上间隙锁。所以你可以看到，<strong>在生产环境里面遇到了未命中索引的情况，对性能影响极大</strong>。</p>
 <p>我这里稍微解释一下，实际上MySQL本身是加上临键锁的，但是临键锁本身是由间隙锁和记录锁合并组成的，所以这里我就先用间隙锁来描述了。</p>
 <h3 id="间隙锁"><a href="#间隙锁" class="headerlink" title="间隙锁"></a><span style="color:#EF7060;">间隙锁</span></h3><p>间隙锁是锁住了某一段记录的锁。直观来说就是你锁住了一个范围的记录。比如说你在查询的时候使用了&lt;、&lt;=、BETWEEN之类的范围查询条件，就会使用间隙锁。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> your_tab <span class="keyword">WHERE</span> <span class="keyword">id</span> <span class="keyword">BETWEEN</span> <span class="number">50</span> <span class="keyword">AND</span> <span class="number">100</span> <span class="keyword">FOR</span> <span class="keyword">UPDATE</span></span><br></pre></td></tr></table></figure></p>
@@ -597,12 +597,12 @@
 <p>如果你的表里面没有50，那么数据库就会一直向左，找到第一个存在的数据，比如说40；如果你的表里面没有100，那么数据库就会一直向右，找到第一个存在的数据，比如说120。那么使用的间隙锁就是(40，120)。如果此时有人想要插入一个主键为70的行，是无法插入的，它需要等这个SELECT语句释放掉间隙锁。</p>
 <p>间隙锁我们一般都说两边都是开的，即端点是没有被间隙锁锁住的。<strong>记录锁和记录锁是排它的，但是间隙锁和间隙锁不是排它的</strong>。也就是说两个间隙锁之间即便重叠了，也还是可以加锁成功的。</p>
 <img src="/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/8.webp">
-<h3 id="临键锁"><a href="#临键锁" class="headerlink" title="临键锁"></a><span style="color:#EF7060;">临键锁</span></h3><p>临键锁（Next-KeyLocks）是很独特的一种锁，直观上来说可以看做是一个记录锁和间隙锁的组合。也就是说<strong>临键锁不仅仅是会用记录锁锁住命中的记录，也会用间隙锁锁住记录之间的空隙</strong>。临键锁和数据库隔离级别的联系最为紧密，它可以解决在可重复读隔离级别之下的幻读问题。</p>
+<h3 id="临键锁"><a href="#临键锁" class="headerlink" title="临键锁"></a><span style="color:#EF7060;">临键锁</span></h3><p>临键锁（Next-Key Locks）是很独特的一种锁，直观上来说可以看做是一个记录锁和间隙锁的组合。也就是说<strong>临键锁不仅仅是会用记录锁锁住命中的记录，也会用间隙锁锁住记录之间的空隙</strong>。临键锁和数据库隔离级别的联系最为紧密，它可以解决在可重复读隔离级别之下的幻读问题。</p>
 <p>间隙锁是左开右开，而临键锁是<strong>左开右闭</strong>。还是用前面的例子来说明。如果id只有（1，4，7）三条记录，那么临键锁就将（1，4]锁住。</p>
 <h2 id="小结一下"><a href="#小结一下" class="headerlink" title="小结一下"></a><span style="color:#00ACC1;">小结一下</span></h2><p>我这里依旧给你准备了简洁版的记忆口诀，让你用来判断使用的是记录锁、间隙锁还是临键锁。</p>
 <ul>
 <li><strong>遇事不决临键锁</strong>。你可以认为，全部都是加临键锁的，除了下面两个子句提到的例外情况。</li>
-<li><strong>右边缺省间隙锁</strong>。例如你的值只有（1，4，7）三个，但是你查询的条件是WHEREid&lt;5，那么加的其实是间隙锁，因为7本身不在你的条件范围内。</li>
+<li><strong>右边缺省间隙锁</strong>。例如你的值只有（1，4，7）三个，但是你查询的条件是<code>WHERE id &lt; 5</code>，那么加的其实是间隙锁，因为7本身不在你的条件范围内。</li>
 <li><strong>等值查询记录锁</strong>。这个其实针对的是主键和唯一索引，普通索引只适用上面两条。</li>
 </ul>
 <img src="/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/9.webp">
@@ -643,7 +643,7 @@
 </ul>
 <p>那么类似的问题你就可以先综合回答，介绍一下MySQL里面的五花八门的锁。</p>
 <blockquote>
-<p>MySQL里面的锁机制特别丰富，这里我以InnoDB引擎为例。首先，从锁的范围来看，可以分成行锁和表锁。其次，从排它性来看，可以分成排它锁和共享锁。还有意向锁，结合排它性，就分为排它意向锁和共享意向锁。还有三个重要的锁概念，记录锁、间隙锁和临键锁。记录锁，是指锁住某条记录；间隙锁，是指锁住两条记录之间的位置；临键锁可以看成是记录锁与间隙锁的组合情况。<br>还有一种分类方法，是乐观锁和悲观锁。那么在数据库里面使用乐观锁，本质上是一种应用层面的CAS操作。</p>
+<p>MySQL里面的锁机制特别丰富，这里我以InnoDB引擎为例。首先，从锁的范围来看，可以分成行锁和表锁。其次，从排它性来看，可以分成排它锁和共享锁。还有意向锁，结合排它性，就分为排它意向锁和共享意向锁。还有三个重要的锁概念，记录锁、间隙锁和临键锁。记录锁，是指锁住某条记录；间隙锁，是指锁住两条记录之间的位置；临键锁可以看成是记录锁与间隙锁的组合情况。<br><br>还有一种分类方法，是乐观锁和悲观锁。那么在数据库里面使用乐观锁，本质上是一种应用层面的CAS操作。</p>
 </blockquote>
 <p>紧接着，你不要深入去解释各种锁，而是先从大方向上解释清楚锁的根本特性：<strong>锁是和索引、隔离级别密切相关的</strong>。</p>
 <blockquote>
@@ -661,7 +661,7 @@
 <h1 id="亮点方案"><a href="#亮点方案" class="headerlink" title="亮点方案"></a><span style="color:#339AFF;">亮点方案</span></h1><p>这里我先说一个最简单的锁优化的方案。我们前面提到，MySQL的锁是依赖索引机制来实现的。而如果查询没有使用任何索引，就会使用表锁。那么很显然最简单的方案就是给这种查询创建一个索引，避免使用表锁。</p>
 <p>你可以这么回答，关键词是<strong>缺索引</strong>。</p>
 <blockquote>
-<p>早期我发现我们的业务有一个神奇的性能问题，就是响应时间偶尔会突然延长。后来经过我们排查，确认响应时间是因为数据库查询变慢引起的。但是这些变长的查询，SQL完全没有问题，我用EXPLAIN去分析，都很正常，也走了索引。<br>直到后面我们去排查业务代码的提交记录，才发现新加了一个功能，这个功能会执行一个SQL，但是这个SQL本身不会命中任何索引。于是数据库就会使用表锁，偏偏这个SQL因为本身没有命中索引，又很慢，导致表锁一直得不到释放。结果其他正常的SQL反而被它拖累了。最终我们重新优化了这个使用表锁的SQL，让它走了一个索引，就解决了这个问题。</p>
+<p>早期我发现我们的业务有一个神奇的性能问题，就是响应时间偶尔会突然延长。后来经过我们排查，确认响应时间是因为数据库查询变慢引起的。但是这些变长的查询，SQL完全没有问题，我用EXPLAIN去分析，都很正常，也走了索引。<br><br>直到后面我们去排查业务代码的提交记录，才发现新加了一个功能，这个功能会执行一个SQL，但是这个SQL本身不会命中任何索引。于是数据库就会使用表锁，偏偏这个SQL因为本身没有命中索引，又很慢，导致表锁一直得不到释放。结果其他正常的SQL反而被它拖累了。最终我们重新优化了这个使用表锁的SQL，让它走了一个索引，就解决了这个问题。</p>
 </blockquote>
 <p>不过这个方案说起来还是太简单，我们需要一些更复杂的方案来打动面试官。那么接下来我再给你提供两个稍微复杂一些的方案：临键锁引发的死锁和弃用悲观锁。</p>
 <h2 id="临键锁引发的死锁"><a href="#临键锁引发的死锁" class="headerlink" title="临键锁引发的死锁"></a><span style="color:#00ACC1;">临键锁引发的死锁</span></h2><p>在一个业务中，有一个场景是先从数据库中查询数据并锁住。如果这个数据不存在，那么就需要执行一段逻辑，计算出一个数据，然后插入。如果已经有数据了，那么就将原始的数据取出来，再利用这个数据执行一段逻辑，计算出来一个结果，执行更新。</p>
@@ -683,7 +683,7 @@
 </ul>
 <p>你可以通过一个案例来说明，关键词是<strong>临键锁</strong>。</p>
 <blockquote>
-<p>早期我优化过一个死锁问题，是临键锁引起的。业务逻辑很简单，先用<code>SELECTFORUPDATE</code>查询数据。如果查询到了数据，那么就执行一段业务逻辑，然后更新结果；如果没有查询到，那么就执行另外一段业务逻辑，然后插入计算结果。<br>那么如果SELECTFORUPDATE查找的数据不存在，那么数据库会使用一个临键锁。此时，如果有两个线程加了临键锁，然后又希望插入计算结果，那么就会造成死锁。<br>我这个优化也很简单，就是上来先不管三七二十一，直接插入数据。如果插入成功，那么就执行没有数据的逻辑，此时不会再持有临键锁，而是持有了行锁。如果插入不成功，那么就执行有数据的业务逻辑。<br>此外，还有两个思路。一个是修改数据库的隔离级别为RC，那么自然不存在临键锁了，但是这个修改影响太大，被DBA否决了。另外一个思路就是使用乐观锁，不过代码改起来要更加复杂，所以就没有使用。</p>
+<p>早期我优化过一个死锁问题，是临键锁引起的。业务逻辑很简单，先用<code>SELECT FOR UPDATE</code>查询数据。如果查询到了数据，那么就执行一段业务逻辑，然后更新结果；如果没有查询到，那么就执行另外一段业务逻辑，然后插入计算结果。<br><br>那么如果<code>SELECT FOR UPDATE</code>查找的数据不存在，那么数据库会使用一个临键锁。此时，如果有两个线程加了临键锁，然后又希望插入计算结果，那么就会造成死锁。<br><br>我这个优化也很简单，就是上来先不管三七二十一，直接插入数据。如果插入成功，那么就执行没有数据的逻辑，此时不会再持有临键锁，而是持有了行锁。如果插入不成功，那么就执行有数据的业务逻辑。<br><br>此外，还有两个思路。一个是修改数据库的隔离级别为RC，那么自然不存在临键锁了，但是这个修改影响太大，被DBA否决了。另外一个思路就是使用乐观锁，不过代码改起来要更加复杂，所以就没有使用。</p>
 </blockquote>
 <p>你这么回答的话，面试官接下来就可能追问你隔离级别的事情，或者问你乐观锁的细节，那么你就有机会继续展示了。</p>
 <h2 id="弃用悲观锁"><a href="#弃用悲观锁" class="headerlink" title="弃用悲观锁"></a><span style="color:#00ACC1;">弃用悲观锁</span></h2><p>很多人为了省事会在开发的时候直接使用悲观锁。最为典型的例子就是在事务里面存在<code>SELECT ... FOR UPDATE</code>的语句，而后会紧跟着一个UPDATE语句。</p>
@@ -692,7 +692,7 @@
 <p>这里我是直接用的data来比较的，实践中也可能是引入了version列，或者使用update_time来确保数据没有发生变更。</p>
 <p>你可以在聊到乐观锁的情况下，使用这个案例。</p>
 <blockquote>
-<p>我在入职这家公司之后，曾经系统地清理过公司内部使用悲观锁的场景，改用乐观锁。正常的悲观锁都是使用了<code>SELECT FOR UPDATE</code>语句，查询到数据之后，进行一串计算，再将结果写回去。那么改造的方案很简单，查询的时候使用SELECT语句直接查询，然后进行计算。但是在写回去的时候，就要用到数据库的CAS操作，即UPDATE的时候要确认之前查询出来的结果并没有实际被修改过。<br>一般来说就是<code>UPDATE xxx SET data = newData WHERE id = 1 AND data = oldData</code>。这种改造效果非常好，性能提升了30%。当然，并不是所有的悲观锁场景都能清理，还有一部分实在没办法，只能是考虑别的手段了。</p>
+<p>我在入职这家公司之后，曾经系统地清理过公司内部使用悲观锁的场景，改用乐观锁。正常的悲观锁都是使用了<code>SELECT FOR UPDATE</code>语句，查询到数据之后，进行一串计算，再将结果写回去。那么改造的方案很简单，查询的时候使用SELECT语句直接查询，然后进行计算。但是在写回去的时候，就要用到数据库的CAS操作，即UPDATE的时候要确认之前查询出来的结果并没有实际被修改过。<br><br>一般来说就是<code>UPDATE xxx SET data = newData WHERE id = 1 AND data = oldData</code>。这种改造效果非常好，性能提升了30%。当然，并不是所有的悲观锁场景都能清理，还有一部分实在没办法，只能是考虑别的手段了。</p>
 </blockquote>
 <p>这里最后留了一个尾巴，也就是将话题引导到你准备的其他优化锁的案例上。</p>
 <h1 id="面试思路总结"><a href="#面试思路总结" class="headerlink" title="面试思路总结"></a><span style="color:#339AFF;">面试思路总结</span></h1><p>这节课我们学习了面试中的重难点问题——锁，锁与索引的关系十分密切，可以说锁是借助索引来实现的。锁的形式五花八门，有乐观锁、悲观锁、行锁、表锁、共享锁、排它锁、意向锁、记录锁、间隙锁和临键锁等多种类型，它们各有用途，这里你要注意分辨它们各自的能力，学会分析什么场景下使用哪一种锁。</p>
@@ -826,7 +826,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1148</span>
+                    <span class="site-state-item-count">1151</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1184,7 +1184,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">77</span>
+                      
+                    
+                    <span class="site-state-item-count">78</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1215,23 +1217,23 @@
                 
                 
                   <li>
+                    <a href="/2023/11/22/技术领导力实战笔记/" title="技术领导力实战笔记" target="_blank">技术领导力实战笔记</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/22/技术管理实战36讲/" title="技术管理实战36讲" target="_blank">技术管理实战36讲</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/21/Go面试题（一）/" title="Go面试题（一）" target="_blank">Go面试题（一）</a>
+                  </li>
+                
+                  <li>
                     <a href="/2023/11/10/模拟面试｜NoSQL面试思路一图懂/" title="模拟面试｜NoSQL面试思路一图懂" target="_blank">模拟面试｜NoSQL面试思路一图懂</a>
                   </li>
                 
                   <li>
                     <a href="/2023/11/10/42｜MongoDB高性能：怎么优化MongoDB的查询性能？/" title="42｜MongoDB高性能：怎么优化MongoDB的查询性能？" target="_blank">42｜MongoDB高性能：怎么优化MongoDB的查询性能？</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/11/10/41｜MongoDB：MongoDB是怎么做到高可用的？/" title="41｜MongoDB：MongoDB是怎么做到高可用的？" target="_blank">41｜MongoDB：MongoDB是怎么做到高可用的？</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/" title="40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？" target="_blank">40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/11/10/39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？/" title="39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？" target="_blank">39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？</a>
                   </li>
                 
               </ul>
@@ -1303,7 +1305,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">135:58</span>
+    <span title="站点阅读时长">136:09</span>
   
 </div>
 
