@@ -117,7 +117,7 @@
 <meta property="og:image" content="http://yoursite.com/2023/03/28/29丨为什么没有理想的索引？/4.webp">
 <meta property="og:image" content="http://yoursite.com/2023/03/28/29丨为什么没有理想的索引？/5.webp">
 <meta property="og:image" content="http://yoursite.com/2023/03/28/29丨为什么没有理想的索引？/6.webp">
-<meta property="og:updated_time" content="2023-03-28T09:26:42.253Z">
+<meta property="og:updated_time" content="2023-12-10T06:36:53.378Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="29丨为什么没有理想的索引？">
 <meta name="twitter:description" content="思考并回答以下问题：">
@@ -433,12 +433,24 @@
                 
               
 
-              <time title="创建时间：2023-03-28 16:13:29 / 修改时间：17:26:42" itemprop="dateCreated datePublished" datetime="2023-03-28T16:13:29+08:00">2023-03-28</time>
+              <time title="创建时间：2023-03-28 16:13:29" itemprop="dateCreated datePublished" datetime="2023-03-28T16:13:29+08:00">2023-03-28</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2023-12-10 14:36:53" itemprop="dateModified" datetime="2023-12-10T14:36:53+08:00">2023-12-10</time>
               
             
           </span>
@@ -484,7 +496,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">4k</span>
+                <span title="本文字数">4.1k</span>
               
 
               
@@ -528,19 +540,19 @@
 <h1 id="索引片和过滤因子"><a href="#索引片和过滤因子" class="headerlink" title="索引片和过滤因子"></a><span style="color:#339AFF;">索引片和过滤因子</span></h1><p>索引片就是SQL查询语句在执行中需要扫描的一个索引片段，我们会根据索引片中包含的匹配列的数量不同，将索引分成窄索引（比如包含索引列数为1或2）和宽索引（包含的索引列数大于2）。</p>
 <p>如果索引片越宽，那么需要顺序扫描的索引页就越多；如果索引片越窄，就会减少索引访问的开销。比如在product_comment数据表中，我们将comment_id设置为主键，然后执行下面的SQL查询语句：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> comment_id, product_id, comment_text, user_id <span class="keyword">FROM</span> product_comment <span class="keyword">WHERE</span> user_id <span class="keyword">between</span> <span class="number">100001</span> <span class="keyword">and</span> <span class="number">100100</span></span><br></pre></td></tr></table></figure></p>
 <img src="/2023/03/28/29丨为什么没有理想的索引？/1.webp">
-<p>针对这条SQL查询语句，我们可以设置窄索引（user_id）。需要说明的是，每个非聚集索引保存的数据都会存储主键值，然后通过主键值，来回表查找相应的数据，因此每个索引都相当于包括了主键，也就是（comment_id,user_id）。</p>
-<p>同样我们可以设置宽索引（user_id,product_id,comment_text），相当于包括了主键，也就是（comment_id,user_id,product_id,comment_text）。</p>
+<p>针对这条SQL查询语句，我们可以设置窄索引（user_id）。需要说明的是，每个非聚集索引保存的数据都会存储主键值，然后通过主键值，来回表查找相应的数据，因此每个索引都相当于包括了主键，也就是<code>(comment_id, user_id)</code>。</p>
+<p>同样我们可以设置宽索引<code>(user_id, product_id, comment_text)</code>，相当于包括了主键，也就是<code>(comment_id, user_id, product_id, comment_text)</code>。</p>
 <h1 id="如何通过宽索引避免回表"><a href="#如何通过宽索引避免回表" class="headerlink" title="如何通过宽索引避免回表"></a><span style="color:#339AFF;">如何通过宽索引避免回表</span></h1><p>刚才我讲到了宽索引需要顺序扫描的索引页很多，不过它也可以避免通过索引找到主键，再通过主键回表进行数据查找的情况。回表指的就是数据库根据索引找到了数据行之后，还需要通过主键再次到数据表中读取数据的情况。</p>
 <p>我们可以用不同索引片来运行下刚才的SQL语句，比如我们采用窄索引（user_id）的方式，来执行下面这条语句：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> comment_id, product_id, comment_text, user_id <span class="keyword">FROM</span> product_comment <span class="keyword">WHERE</span> user_id <span class="keyword">between</span> <span class="number">100001</span> <span class="keyword">and</span> <span class="number">100100</span></span><br></pre></td></tr></table></figure></p>
 <p>运行结果（110条记录，运行时间0.062s）：</p>
 <img src="/2023/03/28/29丨为什么没有理想的索引？/2.webp">
-<p>同样，如果我们设置宽索引（user_id,product_id,comment_text），然后执行相同的SQL语句，运行结果相同，运行时间为0.043s，你能看到查询效率有了一些提升。这就是因为我们可以通过宽索引将SELECT中需要用到的列（主键列可以除外）都设置在宽索引中，这样就避免了回表扫描的情况，从而提升SQL查询效率。</p>
+<p>同样，如果我们设置宽索引<code>(user_id, product_id, comment_text)</code>，然后执行相同的SQL语句，运行结果相同，运行时间为0.043s，你能看到查询效率有了一些提升。这就是因为我们可以通过宽索引将SELECT中需要用到的列（主键列可以除外）都设置在宽索引中，这样就避免了回表扫描的情况，从而提升SQL查询效率。</p>
 <h1 id="什么是过滤因子"><a href="#什么是过滤因子" class="headerlink" title="什么是过滤因子"></a><span style="color:#339AFF;">什么是过滤因子</span></h1><p>在索引片的设计中，我们还需要考虑一个因素，那就是过滤因子，它描述了谓词的选择性。在WHERE条件语句中，每个条件都称为一个谓词，谓词的选择性也等于满足这个条件列的记录数除以总记录数的比例。</p>
 <p>举个例子，我们在player数据表中，定义了team_id和height字段，我们也可以设计个gender字段，这里gender的取值都为male。</p>
 <p>在player表中记录比较少，一共37条记录，不过我们也可以统计以下字段：gender、team_id、height和name，以便评估过滤因子的筛选能力，如下表所示：</p>
 <img src="/2023/03/28/29丨为什么没有理想的索引？/3.webp">
-<p>你能看到<code>gender=&#39;male&#39;</code>不是个好过滤因子，因为所有球员都是男性，同样team_id=1001也不是个好过滤因子，因为这个比例在这个特定的数据集中高达54%，相比之下height=2.08具有一定的筛选性，过滤因子能力最强的是name字段。</p>
-<p>这时如果我们创建一个联合的过滤条件（height,team_id），那么它的过滤能力是怎样的呢？</p>
+<p>你能看到<code>gender=&#39;male&#39;</code>不是个好过滤因子，因为所有球员都是男性，同样<code>team_id=1001</code>也不是个好过滤因子，因为这个比例在这个特定的数据集中高达54%，相比之下<code>height=2.08</code>具有一定的筛选性，过滤因子能力最强的是name字段。</p>
+<p>这时如果我们创建一个联合的过滤条件<code>(height, team_id)</code>，那么它的过滤能力是怎样的呢？</p>
 <img src="/2023/03/28/29丨为什么没有理想的索引？/4.webp">
 <p>联合过滤因子有更高的过滤能力，这里还需要注意一个条件，那就是条件列的关联性应该尽量相互独立，否则如果列与列之间具有相关性，联合过滤因子的能力就会下降很多。比如城市名称和电话区号就有强相关性，这两个列组合到一起不会加强过滤效果。</p>
 <p>你能看到过滤因子决定了索引片的大小（注意这里不是窄索引和宽索引），过滤因子的条件过滤能力越强，满足条件的记录数就越少，SQL查询需要扫描的索引片也就越小。同理，如果我们没有选择好索引片中的过滤因子，就会造成索引片中的记录数过多的情况。</p>
