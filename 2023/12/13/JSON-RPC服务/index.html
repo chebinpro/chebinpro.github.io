@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="思考并回答以下问题：">
+<meta name="keywords" content="Hyperf">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSON RPC服务">
+<meta property="og:url" content="http://yoursite.com/2023/12/13/JSON-RPC服务/index.html">
+<meta property="og:site_name" content="车斌的技术博客">
+<meta property="og:description" content="思考并回答以下问题：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-12-13T05:54:08.615Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JSON RPC服务">
+<meta name="twitter:description" content="思考并回答以下问题：">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2023/12/13/JSON-RPC服务/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>JSON RPC服务 | 车斌的技术博客</title><meta name="robots" content="noindex">
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">车斌的技术博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">放弃会成为一种习惯</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/12/13/JSON-RPC服务/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CheBin">
+      <meta itemprop="description" content="先得寸再进尺，既得陇复望蜀">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="车斌的技术博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JSON RPC服务
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2023-12-13 13:50:08 / 修改时间：13:54:08" itemprop="dateCreated datePublished" datetime="2023-12-13T13:50:08+08:00">2023-12-13</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/微服务/" itemprop="url" rel="index"><span itemprop="name">微服务</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">13k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">12 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>思考并回答以下问题：</p>
+<a id="more"></a>
+<p>JSON RPC 是一种基于 JSON 格式的轻量级的 RPC 协议标准，易于使用和阅读。在 Hyperf 里由 hyperf/json-rpc 组件来实现，可自定义基于 HTTP 协议来传输，或直接基于 TCP 协议来传输。</p>
+<p>安装<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer require hyperf/json-rpc</span><br></pre></td></tr></table></figure></p>
+<p>该组件只是 JSON RPC 的协议处理的组件，通常来说，您仍需配合 hyperf/rpc-server 或 hyperf/rpc-client 来满足 服务端 和 客户端的场景，如同时使用则都需要安装：</p>
+<p>要使用 JSON RPC 服务端：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer require hyperf/rpc-server</span><br></pre></td></tr></table></figure></p>
+<p>要使用 JSON RPC 客户端：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">composer requ`ire hyperf/rpc-client</span><br></pre></td></tr></table></figure></p>
+<p>使用<br>服务有两种角色，一种是 服务提供者(ServiceProvider)，即为其它服务提供服务的服务，另一种是 服务消费者(ServiceConsumer)，即依赖其它服务的服务，一个服务既可能是 服务提供者(ServiceProvider)，同时又是 服务消费者(ServiceConsumer)。而两者直接可以通过 服务契约 来定义和约束接口的调用，在 Hyperf 里，可直接理解为就是一个 接口类(Interface)，通常来说这个接口类会同时出现在提供者和消费者下。</p>
+<p>定义服务提供者<br>目前仅支持通过注解的形式来定义 服务提供者(ServiceProvider)，后续迭代会增加配置的形式。<br>我们可以直接通过 #[RpcService] 注解对一个类进行定义即可发布这个服务了：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">App</span>\<span class="title">JsonRpc</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">Hyperf</span>\<span class="title">RpcServer</span>\<span class="title">Annotation</span>\<span class="title">RpcService</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 注意，如希望通过服务中心来管理服务，需在注解内增加 publishTo 属性</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="comment">#[RpcService(name: "CalculatorService", protocol: "jsonrpc-http", server: "jsonrpc-http")]</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CalculatorService</span> <span class="keyword">implements</span> <span class="title">CalculatorServiceInterface</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">// 实现一个加法方法，这里简单的认为参数都是 int 类型</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">add</span><span class="params">(int $a, int $b)</span>: <span class="title">int</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// 这里是服务方法的具体实现</span></span><br><span class="line">        <span class="keyword">return</span> $a + $b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>#[RpcService]</code> 共有 4 个参数：<br>name 属性为定义该服务的名称，这里定义一个全局唯一的名字即可，Hyperf 会根据该属性生成对应的 ID 注册到服务中心去；<br>protocol 属性为定义该服务暴露的协议，目前仅支持 jsonrpc-http, jsonrpc, jsonrpc-tcp-length-check ，分别对应于 HTTP 协议和 TCP 协议下的两种协议，默认值为 jsonrpc-http，这里的值对应在 Hyperf\Rpc\ProtocolManager 里面注册的协议的 key，它们本质上都是 JSON RPC 协议，区别在于数据格式化、数据打包、数据传输器等不同。<br>server 属性为绑定该服务类发布所要承载的 Server，默认值为 jsonrpc-http，该属性对应 config/autoload/server.php 文件内 servers 下所对应的 name，这里也就意味着我们需要定义一个对应的 Server；<br>publishTo 属性为定义该服务所要发布的服务中心，目前仅支持 consul、nacos 或为空，为空时代表不发布该服务到服务中心去，但也就意味着您需要手动处理服务发现的问题，要使用此功能需安装 hyperf/service-governance 组件及对应的驱动依赖，具体可参考 服务注册 章节；</p>
+<blockquote>
+<p>使用 <code>#[RpcService]</code> 注解需<code>use Hyperf\RpcServer\Annotation\RpcService;</code>命名空间。</p>
+</blockquote>
+<p>定义 JSON RPC Server<br>HTTP Server (适配 jsonrpc-http 协议)<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">Hyperf</span>\<span class="title">Server</span>\<span class="title">Server</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Hyperf</span>\<span class="title">Server</span>\<span class="title">Event</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> [</span><br><span class="line">    <span class="comment">// 这里省略了该文件的其它配置</span></span><br><span class="line">    <span class="string">'servers'</span> =&gt; [</span><br><span class="line">        [</span><br><span class="line">            <span class="string">'name'</span> =&gt; <span class="string">'jsonrpc-http'</span>,</span><br><span class="line">            <span class="string">'type'</span> =&gt; Server::SERVER_HTTP,</span><br><span class="line">            <span class="string">'host'</span> =&gt; <span class="string">'0.0.0.0'</span>,</span><br><span class="line">            <span class="string">'port'</span> =&gt; <span class="number">9504</span>,</span><br><span class="line">            <span class="string">'sock_type'</span> =&gt; SWOOLE_SOCK_TCP,</span><br><span class="line">            <span class="string">'callbacks'</span> =&gt; [</span><br><span class="line">                Event::ON_REQUEST =&gt; [\Hyperf\JsonRpc\HttpServer::class, <span class="string">'onRequest'</span>],</span><br><span class="line">            ],</span><br><span class="line">        ],</span><br><span class="line">    ],</span><br><span class="line">];</span><br></pre></td></tr></table></figure></p>
+<p>TCP Server (适配 jsonrpc 协议)<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">Hyperf</span>\<span class="title">Server</span>\<span class="title">Server</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Hyperf</span>\<span class="title">Server</span>\<span class="title">Event</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> [</span><br><span class="line">    <span class="comment">// 这里省略了该文件的其它配置</span></span><br><span class="line">    <span class="string">'servers'</span> =&gt; [</span><br><span class="line">        [</span><br><span class="line">            <span class="string">'name'</span> =&gt; <span class="string">'jsonrpc'</span>,</span><br><span class="line">            <span class="string">'type'</span> =&gt; Server::SERVER_BASE,</span><br><span class="line">            <span class="string">'host'</span> =&gt; <span class="string">'0.0.0.0'</span>,</span><br><span class="line">            <span class="string">'port'</span> =&gt; <span class="number">9503</span>,</span><br><span class="line">            <span class="string">'sock_type'</span> =&gt; SWOOLE_SOCK_TCP,</span><br><span class="line">            <span class="string">'callbacks'</span> =&gt; [</span><br><span class="line">                Event::ON_RECEIVE =&gt; [\Hyperf\JsonRpc\TcpServer::class, <span class="string">'onReceive'</span>],</span><br><span class="line">            ],</span><br><span class="line">            <span class="string">'settings'</span> =&gt; [</span><br><span class="line">                <span class="string">'open_eof_split'</span> =&gt; <span class="keyword">true</span>,</span><br><span class="line">                <span class="string">'package_eof'</span> =&gt; <span class="string">"\r\n"</span>,</span><br><span class="line">                <span class="string">'package_max_length'</span> =&gt; <span class="number">1024</span> * <span class="number">1024</span> * <span class="number">2</span>,</span><br><span class="line">            ],</span><br><span class="line">        ],</span><br><span class="line">    ],</span><br><span class="line">];</span><br></pre></td></tr></table></figure></p>
+<p>TCP Server (适配 jsonrpc-tcp-length-check 协议)</p>
+<p>当前协议为 jsonrpc 的扩展协议，用户可以很方便的修改对应的 settings 使用此协议，示例如下。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">Hyperf</span>\<span class="title">Server</span>\<span class="title">Server</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Hyperf</span>\<span class="title">Server</span>\<span class="title">Event</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> [</span><br><span class="line">    <span class="comment">// 这里省略了该文件的其它配置</span></span><br><span class="line">    <span class="string">'servers'</span> =&gt; [</span><br><span class="line">        [</span><br><span class="line">            <span class="string">'name'</span> =&gt; <span class="string">'jsonrpc'</span>,</span><br><span class="line">            <span class="string">'type'</span> =&gt; Server::SERVER_BASE,</span><br><span class="line">            <span class="string">'host'</span> =&gt; <span class="string">'0.0.0.0'</span>,</span><br><span class="line">            <span class="string">'port'</span> =&gt; <span class="number">9503</span>,</span><br><span class="line">            <span class="string">'sock_type'</span> =&gt; SWOOLE_SOCK_TCP,</span><br><span class="line">            <span class="string">'callbacks'</span> =&gt; [</span><br><span class="line">                Event::ON_RECEIVE =&gt; [\Hyperf\JsonRpc\TcpServer::class, <span class="string">'onReceive'</span>],</span><br><span class="line">            ],</span><br><span class="line">            <span class="string">'settings'</span> =&gt; [</span><br><span class="line">                <span class="string">'open_length_check'</span> =&gt; <span class="keyword">true</span>,</span><br><span class="line">                <span class="string">'package_length_type'</span> =&gt; <span class="string">'N'</span>,</span><br><span class="line">                <span class="string">'package_length_offset'</span> =&gt; <span class="number">0</span>,</span><br><span class="line">                <span class="string">'package_body_offset'</span> =&gt; <span class="number">4</span>,</span><br><span class="line">                <span class="string">'package_max_length'</span> =&gt; <span class="number">1024</span> * <span class="number">1024</span> * <span class="number">2</span>,</span><br><span class="line">            ],</span><br><span class="line">        ],</span><br><span class="line">    ],</span><br><span class="line">];</span><br></pre></td></tr></table></figure></p>
+<p>发布到服务中心<br>目前仅支持发布服务到 consul、nacos，后续会增加其它服务中心。<br>发布服务到 consul 在 Hyperf 也是非常容易的一件事情，通过 composer require hyperf/service-governance-consul 引用组件（如果已安装则可忽略该步骤），然后再在 config/autoload/services.php 配置文件内配置 drivers.consul 配置即可。 发布服务到 nacos 在也是类似，通过 composer require hyperf/service-governance-nacos 引用组件（如果已安装则可忽略该步骤），然后再在 config/autoload/services.php 配置文件内配置 drivers.nacos 配置即可，示例如下：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">return</span> [</span><br><span class="line">    <span class="string">'enable'</span> =&gt; [</span><br><span class="line">        <span class="string">'discovery'</span> =&gt; <span class="keyword">true</span>,</span><br><span class="line">        <span class="string">'register'</span> =&gt; <span class="keyword">true</span>,</span><br><span class="line">    ],</span><br><span class="line">    <span class="string">'consumers'</span> =&gt; [],</span><br><span class="line">    <span class="string">'providers'</span> =&gt; [],</span><br><span class="line">    <span class="string">'drivers'</span> =&gt; [</span><br><span class="line">        <span class="string">'consul'</span> =&gt; [</span><br><span class="line">            <span class="string">'uri'</span> =&gt; <span class="string">'http://127.0.0.1:8500'</span>,</span><br><span class="line">            <span class="string">'token'</span> =&gt; <span class="string">''</span>,</span><br><span class="line">        ],</span><br><span class="line">        <span class="string">'nacos'</span> =&gt; [</span><br><span class="line">            <span class="comment">// nacos server url like https://nacos.hyperf.io, Priority is higher than host:port</span></span><br><span class="line">            <span class="comment">// 'url' =&gt; '',</span></span><br><span class="line">            <span class="comment">// The nacos host info</span></span><br><span class="line">            <span class="string">'host'</span> =&gt; <span class="string">'127.0.0.1'</span>,</span><br><span class="line">            <span class="string">'port'</span> =&gt; <span class="number">8848</span>,</span><br><span class="line">            <span class="comment">// The nacos account info</span></span><br><span class="line">            <span class="string">'username'</span> =&gt; <span class="keyword">null</span>,</span><br><span class="line">            <span class="string">'password'</span> =&gt; <span class="keyword">null</span>,</span><br><span class="line">            <span class="string">'guzzle'</span> =&gt; [</span><br><span class="line">                <span class="string">'config'</span> =&gt; <span class="keyword">null</span>,</span><br><span class="line">            ],</span><br><span class="line">            <span class="string">'group_name'</span> =&gt; <span class="string">'api'</span>,</span><br><span class="line">            <span class="string">'namespace_id'</span> =&gt; <span class="string">'namespace_id'</span>,</span><br><span class="line">            <span class="string">'heartbeat'</span> =&gt; <span class="number">5</span>,</span><br><span class="line">        ],</span><br><span class="line">    ],</span><br><span class="line">];</span><br></pre></td></tr></table></figure></p>
+<p>配置完成后，在启动服务时，Hyperf 会自动地将 #[RpcService] 定义了 publishTo 属性为 consul 或 nacos 的服务注册到对应的服务中心去。</p>
+<p>目前仅支持 jsonrpc 和 jsonrpc-http 协议发布到服务中心去，其它协议尚未实现服务注册</p>
+<p>定义服务消费者<br>一个 服务消费者(ServiceConsumer) 可以理解为就是一个客户端类，但在 Hyperf 里您无需处理连接和请求相关的事情，只需要进行一些鉴定配置即可。</p>
+<p>自动创建代理消费者类<br>您可通过在 config/autoload/services.php 配置文件内进行一些简单的配置，即可通过动态代理自动创建消费者类。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">return</span> [</span><br><span class="line">    <span class="comment">// 此处省略了其它同层级的配置</span></span><br><span class="line">    <span class="string">'consumers'</span> =&gt; [</span><br><span class="line">        [</span><br><span class="line">            <span class="comment">// name 需与服务提供者的 name 属性相同</span></span><br><span class="line">            <span class="string">'name'</span> =&gt; <span class="string">'CalculatorService'</span>,</span><br><span class="line">            <span class="comment">// 服务接口名，可选，默认值等于 name 配置的值，如果 name 直接定义为接口类则可忽略此行配置，如 name 为字符串则需要配置 service 对应到接口类</span></span><br><span class="line">            <span class="string">'service'</span> =&gt; \App\JsonRpc\CalculatorServiceInterface::class,</span><br><span class="line">            <span class="comment">// 对应容器对象 ID，可选，默认值等于 service 配置的值，用来定义依赖注入的 key</span></span><br><span class="line">            <span class="string">'id'</span> =&gt; \App\JsonRpc\CalculatorServiceInterface::class,</span><br><span class="line">            <span class="comment">// 服务提供者的服务协议，可选，默认值为 jsonrpc-http</span></span><br><span class="line">            <span class="comment">// 可选 jsonrpc-http jsonrpc jsonrpc-tcp-length-check</span></span><br><span class="line">            <span class="string">'protocol'</span> =&gt; <span class="string">'jsonrpc-http'</span>,</span><br><span class="line">            <span class="comment">// 负载均衡算法，可选，默认值为 random</span></span><br><span class="line">            <span class="string">'load_balancer'</span> =&gt; <span class="string">'random'</span>,</span><br><span class="line">            <span class="comment">// 这个消费者要从哪个服务中心获取节点信息，如不配置则不会从服务中心获取节点信息</span></span><br><span class="line">            <span class="string">'registry'</span> =&gt; [</span><br><span class="line">                <span class="string">'protocol'</span> =&gt; <span class="string">'consul'</span>,</span><br><span class="line">                <span class="string">'address'</span> =&gt; <span class="string">'http://127.0.0.1:8500'</span>,</span><br><span class="line">            ],</span><br><span class="line">            <span class="comment">// 如果没有指定上面的 registry 配置，即为直接对指定的节点进行消费，通过下面的 nodes 参数来配置服务提供者的节点信息</span></span><br><span class="line">            <span class="string">'nodes'</span> =&gt; [</span><br><span class="line">                [<span class="string">'host'</span> =&gt; <span class="string">'127.0.0.1'</span>, <span class="string">'port'</span> =&gt; <span class="number">9504</span>],</span><br><span class="line">            ],</span><br><span class="line">            <span class="comment">// 配置项，会影响到 Packer 和 Transporter</span></span><br><span class="line">            <span class="string">'options'</span> =&gt; [</span><br><span class="line">                <span class="string">'connect_timeout'</span> =&gt; <span class="number">5.0</span>,</span><br><span class="line">                <span class="string">'recv_timeout'</span> =&gt; <span class="number">5.0</span>,</span><br><span class="line">                <span class="string">'settings'</span> =&gt; [</span><br><span class="line">                    <span class="comment">// 根据协议不同，区分配置</span></span><br><span class="line">                    <span class="string">'open_eof_split'</span> =&gt; <span class="keyword">true</span>,</span><br><span class="line">                    <span class="string">'package_eof'</span> =&gt; <span class="string">"\r\n"</span>,</span><br><span class="line">                    <span class="comment">// 'open_length_check' =&gt; true,</span></span><br><span class="line">                    <span class="comment">// 'package_length_type' =&gt; 'N',</span></span><br><span class="line">                    <span class="comment">// 'package_length_offset' =&gt; 0,</span></span><br><span class="line">                    <span class="comment">// 'package_body_offset' =&gt; 4,</span></span><br><span class="line">                ],</span><br><span class="line">                <span class="comment">// 重试次数，默认值为 2，收包超时不进行重试。暂只支持 JsonRpcPoolTransporter</span></span><br><span class="line">                <span class="string">'retry_count'</span> =&gt; <span class="number">2</span>,</span><br><span class="line">                <span class="comment">// 重试间隔，毫秒</span></span><br><span class="line">                <span class="string">'retry_interval'</span> =&gt; <span class="number">100</span>,</span><br><span class="line">                <span class="comment">// 使用多路复用 RPC 时的心跳间隔，null 为不触发心跳</span></span><br><span class="line">                <span class="string">'heartbeat'</span> =&gt; <span class="number">30</span>,</span><br><span class="line">                <span class="comment">// 当使用 JsonRpcPoolTransporter 时会用到以下配置</span></span><br><span class="line">                <span class="string">'pool'</span> =&gt; [</span><br><span class="line">                    <span class="string">'min_connections'</span> =&gt; <span class="number">1</span>,</span><br><span class="line">                    <span class="string">'max_connections'</span> =&gt; <span class="number">32</span>,</span><br><span class="line">                    <span class="string">'connect_timeout'</span> =&gt; <span class="number">10.0</span>,</span><br><span class="line">                    <span class="string">'wait_timeout'</span> =&gt; <span class="number">3.0</span>,</span><br><span class="line">                    <span class="string">'heartbeat'</span> =&gt; <span class="number">-1</span>,</span><br><span class="line">                    <span class="string">'max_idle_time'</span> =&gt; <span class="number">60.0</span>,</span><br><span class="line">                ],</span><br><span class="line">            ],</span><br><span class="line">        ]</span><br><span class="line">    ],</span><br><span class="line">];</span><br></pre></td></tr></table></figure></p>
+<p>在应用启动时会自动创建客户端类的代理对象，并在容器中使用配置项 id 的值（如果未设置，会使用配置项 service 值代替）来添加绑定关系，这样就和手工编写的客户端类一样，通过注入 CalculatorServiceInterface 接口来直接使用客户端。</p>
+<p>当服务提供者使用接口类名发布服务名，在服务消费端只需要设置配置项 name 值为接口类名，不需要重复设置配置项 id 和 service。</p>
+<p>手动创建消费者类<br>如您对消费者类有更多的需求，您可通过手动创建一个消费者类来实现，只需要定义一个类及相关属性即可。<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">App</span>\<span class="title">JsonRpc</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">Hyperf</span>\<span class="title">RpcClient</span>\<span class="title">AbstractServiceClient</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CalculatorServiceConsumer</span> <span class="keyword">extends</span> <span class="title">AbstractServiceClient</span> <span class="keyword">implements</span> <span class="title">CalculatorServiceInterface</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 定义对应服务提供者的服务名称</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> string $serviceName = <span class="string">'CalculatorService'</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 定义对应服务提供者的服务协议</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> string $protocol = <span class="string">'jsonrpc-http'</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">add</span><span class="params">(int $a, int $b)</span>: <span class="title">int</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">$this</span>-&gt;__request(<span class="keyword">__FUNCTION__</span>, compact(<span class="string">'a'</span>, <span class="string">'b'</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后还需要在配置文件定义一个配置标记要从何服务中心获取节点信息，位于 config/autoload/services.php (如不存在可自行创建)<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">return</span> [</span><br><span class="line">    <span class="comment">// 此处省略了其它同层级的配置</span></span><br><span class="line">    <span class="string">'consumers'</span> =&gt; [</span><br><span class="line">        [</span><br><span class="line">            <span class="comment">// 对应消费者类的 $serviceName</span></span><br><span class="line">            <span class="string">'name'</span> =&gt; <span class="string">'CalculatorService'</span>,</span><br><span class="line">            <span class="comment">// 这个消费者要从哪个服务中心获取节点信息，如不配置则不会从服务中心获取节点信息</span></span><br><span class="line">            <span class="string">'registry'</span> =&gt; [</span><br><span class="line">                <span class="string">'protocol'</span> =&gt; <span class="string">'consul'</span>,</span><br><span class="line">                <span class="string">'address'</span> =&gt; <span class="string">'http://127.0.0.1:8500'</span>,</span><br><span class="line">            ],</span><br><span class="line">            <span class="comment">// 如果没有指定上面的 registry 配置，即为直接对指定的节点进行消费，通过下面的 nodes 参数来配置服务提供者的节点信息</span></span><br><span class="line">            <span class="string">'nodes'</span> =&gt; [</span><br><span class="line">                [<span class="string">'host'</span> =&gt; <span class="string">'127.0.0.1'</span>, <span class="string">'port'</span> =&gt; <span class="number">9504</span>],</span><br><span class="line">            ],</span><br><span class="line">        ]</span><br><span class="line">    ],</span><br><span class="line">];</span><br></pre></td></tr></table></figure></p>
+<p>这样我们便可以通过 CalculatorService 类来实现对服务的消费了，为了让这里的关系逻辑更加的合理，还应该在 config/autoload/dependencies.php 内定义 CalculatorServiceInterface 和 CalculatorServiceConsumer 的关系，示例如下：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> [</span><br><span class="line">    App\JsonRpc\CalculatorServiceInterface::class =&gt; App\JsonRpc\CalculatorServiceConsumer::class,</span><br><span class="line">];</span><br></pre></td></tr></table></figure></p>
+<p>这样便可以通过注入 CalculatorServiceInterface 接口来使用客户端了。</p>
+<p>配置复用<br>通常来说，一个服务消费者会同时消费多个服务提供者，当我们通过服务中心来发现服务提供者时， config/autoload/services.php 配置文件内就可能会重复配置很多次 registry 配置，但通常来说，我们的服务中心可能是统一的，也就意味着多个服务消费者配置都是从同样的服务中心去拉取节点信息，此时我们可以通过 PHP 变量 或 循环 等 PHP 代码来实现配置文件的生成。</p>
+<p>通过 PHP 变量生成配置<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">$registry = [</span><br><span class="line">   <span class="string">'protocol'</span> =&gt; <span class="string">'consul'</span>,</span><br><span class="line">   <span class="string">'address'</span> =&gt; <span class="string">'http://127.0.0.1:8500'</span>,</span><br><span class="line">];</span><br><span class="line"><span class="keyword">return</span> [</span><br><span class="line">    <span class="comment">// 下面的 FooService 和 BarService 仅示例多服务，并不是在文档示例中真实存在的</span></span><br><span class="line">    <span class="string">'consumers'</span> =&gt; [</span><br><span class="line">        [</span><br><span class="line">            <span class="string">'name'</span> =&gt; <span class="string">'FooService'</span>,</span><br><span class="line">            <span class="string">'registry'</span> =&gt; $registry,</span><br><span class="line">        ],</span><br><span class="line">        [</span><br><span class="line">            <span class="string">'name'</span> =&gt; <span class="string">'BarService'</span>,</span><br><span class="line">            <span class="string">'registry'</span> =&gt; $registry,</span><br><span class="line">        ]</span><br><span class="line">    ],</span><br><span class="line">];</span><br></pre></td></tr></table></figure></p>
+<p>通过循环生成配置<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">return</span> [</span><br><span class="line">    <span class="comment">// 此处省略了其它同层级的配置</span></span><br><span class="line">    <span class="string">'consumers'</span> =&gt; value(<span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">        $consumers = [];</span><br><span class="line">        <span class="comment">// 这里示例自动创建代理消费者类的配置形式，顾存在 name 和 service 两个配置项，这里的做法不是唯一的，仅说明可以通过 PHP 代码来生成配置</span></span><br><span class="line">        <span class="comment">// 下面的 FooServiceInterface 和 BarServiceInterface 仅示例多服务，并不是在文档示例中真实存在的</span></span><br><span class="line">        $services = [</span><br><span class="line">            <span class="string">'FooService'</span> =&gt; App\JsonRpc\FooServiceInterface::class,</span><br><span class="line">            <span class="string">'BarService'</span> =&gt; App\JsonRpc\BarServiceInterface::class,</span><br><span class="line">        ];</span><br><span class="line">        <span class="keyword">foreach</span> ($services <span class="keyword">as</span> $name =&gt; $interface) &#123;</span><br><span class="line">            $consumers[] = [</span><br><span class="line">                <span class="string">'name'</span> =&gt; $name,</span><br><span class="line">                <span class="string">'service'</span> =&gt; $interface,</span><br><span class="line">                <span class="string">'registry'</span> =&gt; [</span><br><span class="line">                   <span class="string">'protocol'</span> =&gt; <span class="string">'consul'</span>,</span><br><span class="line">                   <span class="string">'address'</span> =&gt; <span class="string">'http://127.0.0.1:8500'</span>,</span><br><span class="line">                ]</span><br><span class="line">            ];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> $consumers;</span><br><span class="line">    &#125;),</span><br><span class="line">];</span><br></pre></td></tr></table></figure></p>
+<p>返回 PHP 对象<br>当框架导入 symfony/serializer (^5.0) 和 symfony/property-access (^5.0) 后，并在 dependencies.php 中配置一下映射关系<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">Hyperf</span>\<span class="title">Utils</span>\<span class="title">Serializer</span>\<span class="title">SerializerFactory</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Hyperf</span>\<span class="title">Utils</span>\<span class="title">Serializer</span>\<span class="title">Serializer</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> [</span><br><span class="line">    Hyperf\Contract\NormalizerInterface::class =&gt; <span class="keyword">new</span> SerializerFactory(Serializer::class),</span><br><span class="line">];</span><br></pre></td></tr></table></figure></p>
+<p>NormalizerInterface 就会支持对象的序列化和反序列化。暂时不支持这种 MathValue[] 对象数组。</p>
+<p>定义返回对象<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">declare</span>(strict_types=<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">App</span>\<span class="title">JsonRpc</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MathValue</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $value;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($value)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;value = $value;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>改写接口文件<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">declare</span>(strict_types=<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">App</span>\<span class="title">JsonRpc</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">interface</span> <span class="title">CalculatorServiceInterface</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">sum</span><span class="params">(MathValue $v1, MathValue $v2)</span>: <span class="title">MathValue</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>控制器中调用<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">Hyperf</span>\<span class="title">Context</span>\<span class="title">ApplicationContext</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">App</span>\<span class="title">JsonRpc</span>\<span class="title">CalculatorServiceInterface</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">App</span>\<span class="title">JsonRpc</span>\<span class="title">MathValue</span>;</span><br><span class="line"></span><br><span class="line">$client = ApplicationContext::getContainer()-&gt;get(CalculatorServiceInterface::class);</span><br><span class="line"></span><br><span class="line"><span class="comment">/** <span class="doctag">@var</span> MathValue $result */</span></span><br><span class="line">$result = $client-&gt;sum(<span class="keyword">new</span> MathValue(<span class="number">1</span>), <span class="keyword">new</span> MathValue(<span class="number">2</span>));</span><br><span class="line"></span><br><span class="line">var_dump($result-&gt;value);</span><br></pre></td></tr></table></figure></p>
+<p>使用 JsonRpcPoolTransporter<br>框架提供了基于连接池的 Transporter，可以有效避免高并发时，建立过多连接的问题。这里可以通过替换 JsonRpcTransporter 的方式，使用 JsonRpcPoolTransporter。</p>
+<p>修改 dependencies.php 文件<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">declare</span>(strict_types=<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">Hyperf</span>\<span class="title">JsonRpc</span>\<span class="title">JsonRpcPoolTransporter</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Hyperf</span>\<span class="title">JsonRpc</span>\<span class="title">JsonRpcTransporter</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> [</span><br><span class="line">    JsonRpcTransporter::class =&gt; JsonRpcPoolTransporter::class,</span><br><span class="line">];</span><br></pre></td></tr></table></figure></p>
+<!-- flag of hidden posts -->
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Hyperf/" rel="tag"># Hyperf</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+            
+              <p class="site-author-name" itemprop="name">CheBin</p>
+              <div class="site-description motion-element" itemprop="description">先得寸再进尺，既得陇复望蜀</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">1153</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">78</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history fa-" aria-hidden="true"></i>
+                近期文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li>
+                    <a href="/2023/11/22/技术领导力实战笔记/" title="技术领导力实战笔记" target="_blank">技术领导力实战笔记</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/22/技术管理实战36讲/" title="技术管理实战36讲" target="_blank">技术管理实战36讲</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/21/Go面试题（一）/" title="Go面试题（一）" target="_blank">Go面试题（一）</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/10/模拟面试｜NoSQL面试思路一图懂/" title="模拟面试｜NoSQL面试思路一图懂" target="_blank">模拟面试｜NoSQL面试思路一图懂</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/10/42｜MongoDB高性能：怎么优化MongoDB的查询性能？/" title="42｜MongoDB高性能：怎么优化MongoDB的查询性能？" target="_blank">42｜MongoDB高性能：怎么优化MongoDB的查询性能？</a>
+                  </li>
+                
+              </ul>
+            </div>
+        
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2023</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CheBin</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">9m</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">136:18</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>
