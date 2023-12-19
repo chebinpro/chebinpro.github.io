@@ -111,7 +111,7 @@
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2023-12-13T07:30:57.920Z">
+<meta property="og:updated_time" content="2023-12-15T09:09:56.760Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式事务">
 <meta name="twitter:description" content="思考并回答以下问题：">
@@ -196,7 +196,7 @@
     </div>
     
       
-        <p class="site-subtitle">放弃会成为一种习惯</p>
+        <p class="site-subtitle">读书百遍，其义自见</p>
       
     
     
@@ -384,7 +384,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="先得寸再进尺，既得陇复望蜀">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.jpg">
     </span>
 
@@ -426,12 +426,24 @@
                 
               
 
-              <time title="创建时间：2023-12-13 15:17:05 / 修改时间：15:30:57" itemprop="dateCreated datePublished" datetime="2023-12-13T15:17:05+08:00">2023-12-13</time>
+              <time title="创建时间：2023-12-13 15:17:05" itemprop="dateCreated datePublished" datetime="2023-12-13T15:17:05+08:00">2023-12-13</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2023-12-15 17:09:56" itemprop="dateModified" datetime="2023-12-15T17:09:56+08:00">2023-12-15</time>
               
             
           </span>
@@ -477,7 +489,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">11</span>
+                <span title="本文字数">3k</span>
               
 
               
@@ -491,7 +503,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">1 分钟</span>
+                <span title="阅读时长">3 分钟</span>
               
             </div>
           
@@ -512,7 +524,41 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a><!-- flag of hidden posts -->
+<a id="more"></a>
+<p>分布式事务<br>dtm-client是由Hyperf团队开发并维护的DTM分布式事务客户端组件，配合DTM-Server可以实现分布式事务的管理，稳定可用于生产环境。<br>seata/seata-php是由Hyperf团队开发并贡献给Seata开源社区的SeataPHP客户端组件，配合Seata-Server可以实现分布式事务的管理，目前仍在开发迭代中，尚未能用于生产环境，希望大家能够共同参与进来加速孵化。</p>
+<p>DTM-Client介绍<br>dtm/dtm-client是分布式事务管理器DTM的PHP客户端，已支持TCC模式、Saga、XA、二阶段消息模式的分布式事务模式，并分别实现了与DTMServer以HTTP协议或gRPC协议通讯，该客户端可安全运行于PHP-FPM和Swoole协程环境中，更是对Hyperf做了更加易用的功能支持。</p>
+<p>关于DTM<br>DTM是一款基于Go语言实现的开源分布式事务管理器，提供跨语言，跨存储引擎组合事务的强大功能。DTM优雅的解决了幂等、空补偿、悬挂等分布式事务难题，也提供了简单易用、高性能、易水平扩展的分布式事务解决方案。</p>
+<p>亮点<br>极易上手<br>零配置启动服务，提供非常简单的HTTP接口，极大降低上手分布式事务的难度<br>跨语言<br>可适合多语言栈的公司使用。方便Go、Python、PHP、NodeJs、Ruby、C#等各类语言使用。<br>使用简单<br>开发者不再担心悬挂、空补偿、幂等各类问题，首创子事务屏障技术代为处理<br>易部署、易扩展<br>仅依赖MySQL/Redis，部署简单，易集群化，易水平扩展<br>多种分布式事务协议支持<br>TCC、SAGA、XA、二阶段消息，一站式解决多种分布式事务问题<br>对比<br>在非Java语言下，暂未看到除DTM之外的成熟的分布式事务管理器，因此这里将DTM和Java中最成熟的开源项目Seata做对比：</p>
+<p>安装<br>通过Composer可以非常方便的安装dtm-client</p>
+<p>composerrequiredtm/dtm-client<br>CopytoclipboardErrorCopied<br>使用时别忘了启动DTMServer哦<br>配置<br>配置文件<br>如果您是在Hyperf框架中使用，在安装组件后，可通过下面的vendor:publish命令一件发布配置文件于./config/autoload/dtm.php</p>
+<p>phpbin/hyperf.phpvendor:publishdtm/dtm-client<br>CopytoclipboardErrorCopied<br>如果您是在非Hyperf框架中使用，可复制./vendor/dtm/dtm-client/publish/dtm.php文件到对应的配置目录中。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>配置中间件<br>在使用之前，需要配置DtmClient\Middleware\DtmMiddleware中间件作为Server的全局中间件，该中间件支持PSR-15规范，可适用于各个支持该规范的的框架。<br>在Hyperf中的中间件配置可参考Hyperf文档-中间件一章。</p>
+<p>使用<br>dtm-client的使用非常简单，我们提供了一个示例项目dtm-php/dtm-sample来帮助大家更好的理解和调试。<br>在使用该组件之前，也强烈建议您先阅读DTM官方文档，以做更详细的了解。</p>
+<p>TCC模式<br>TCC模式是一种非常流行的柔性事务解决方案，由Try-Confirm-Cancel三个单词的首字母缩写分别组成TCC的概念，最早是由PatHelland于2007年发表的一篇名为《LifebeyondDistributedTransactions:anApostate’sOpinion》的论文中提出。</p>
+<p>TCC的3个阶段<br>Try阶段：尝试执行，完成所有业务检查（一致性）,预留必须业务资源（准隔离性）<br>Confirm阶段：如果所有分支的Try都成功了，则走到Confirm阶段。Confirm真正执行业务，不作任何业务检查，只使用Try阶段预留的业务资源<br>Cancel阶段：如果所有分支的Try有一个失败了，则走到Cancel阶段。Cancel释放Try阶段预留的业务资源。</p>
+<p>如果我们要进行一个类似于银行跨行转账的业务，转出（TransOut）和转入（TransIn）分别在不同的微服务里，一个成功完成的TCC事务典型的时序图如下：</p>
+<p>代码示例<br>以下展示在Hyperf框架中的使用方法，其它框架类似</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>Saga模式<br>Saga模式是分布式事务领域最有名气的解决方案之一，也非常流行于各大系统中，最初出现在1987年由HectorGarcaa-Molrna&amp;KennethSalem发表的论文SAGAS里。</p>
+<p>Saga是一种最终一致性事务，也是一种柔性事务，又被叫做长时间运行的事务（Long-running-transaction），Saga是由一系列的本地事务构成。每一个本地事务在更新完数据库之后，会发布一条消息或者一个事件来触发Saga全局事务中的下一个本地事务的执行。如果一个本地事务因为某些业务规则无法满足而失败，Saga会执行在这个失败的事务之前成功提交的所有事务的补偿操作。所以Saga模式在对比TCC模式时，因缺少了资源预留的步骤，往往在实现回滚逻辑时会变得更麻烦。</p>
+<p>Saga子事务拆分<br>比如我们要进行一个类似于银行跨行转账的业务，将A账户中的30元转到B账户，根据Saga事务的原理，我们将整个全局事务，拆分为以下服务：</p>
+<p>转出（TransOut）服务，这里将会进行操作A账户扣减30元<br>转出补偿（TransOutCompensate）服务，回滚上面的转出操作，即A账户增加30元<br>转入（TransIn）服务，这里将会进行B账户增加30元<br>转入补偿（TransInCompensate）服务，回滚上面的转入操作，即B账户减少30元<br>整个事务的逻辑是：</p>
+<p>执行转出成功=&gt;执行转入成功=&gt;全局事务完成</p>
+<p>如果在中间发生错误，例如转入B账户发生错误，则会调用已执行分支的补偿操作，即：</p>
+<p>执行转出成功=&gt;执行转入失败=&gt;执行转入补偿成功=&gt;执行转出补偿成功=&gt;全局事务回滚完成</p>
+<p>下面是一个成功完成的SAGA事务典型的时序图：</p>
+<p>代码示例<br>以下展示在Hyperf框架中的使用方法，其它框架类似</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>XA模式<br>XA是由X/Open组织提出的分布式事务的规范，XA规范主要定义了(全局)事务管理器(TM)和(局部)资源管理器(RM)之间的接口。本地的数据库如mysql在XA中扮演的是RM角色</p>
+<p>XA一共分为两阶段：</p>
+<p>第一阶段（prepare）：即所有的参与者RM准备执行事务并锁住需要的资源。参与者ready时，向TM报告已准备就绪。第二阶段(commit/rollback)：当事务管理者(TM)确认所有参与者(RM)都ready后，向所有参与者发送commit命令。</p>
+<p>目前主流的数据库基本都支持XA事务，包括mysql、oracle、sqlserver、postgre</p>
+<p>下面是一个成功完成的XA事物典型的时序图</p>
+<p>代码示例<br>以下展示在Hyperf框架中的使用方法，其它框架类似</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>上面的代码首先注册了一个全局XA事务，然后添加了两个子事务transIn、transOut。子事务全部执行成功之后，提交给dtm。dtm收到提交的xa全局事务后，会调用所有子事务的xacommit，完成整个xa事务。</p>
+<!-- flag of hidden posts -->
       
     </div>
 
@@ -592,7 +638,7 @@
               <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
             
               <p class="site-author-name" itemprop="name">CheBin</p>
-              <div class="site-description motion-element" itemprop="description">先得寸再进尺，既得陇复望蜀</div>
+              <div class="site-description motion-element" itemprop="description"></div>
           </div>
 
           
@@ -602,7 +648,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1153</span>
+                    <span class="site-state-item-count">1148</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -691,7 +737,7 @@
                     
                       
                     
-                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -966,7 +1012,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">78</span>
+                      
+                    
+                    <span class="site-state-item-count">77</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -997,23 +1045,23 @@
                 
                 
                   <li>
-                    <a href="/2023/11/22/技术领导力实战笔记/" title="技术领导力实战笔记" target="_blank">技术领导力实战笔记</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/11/22/技术管理实战36讲/" title="技术管理实战36讲" target="_blank">技术管理实战36讲</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/11/21/Go面试题（一）/" title="Go面试题（一）" target="_blank">Go面试题（一）</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2023/11/10/模拟面试｜NoSQL面试思路一图懂/" title="模拟面试｜NoSQL面试思路一图懂" target="_blank">模拟面试｜NoSQL面试思路一图懂</a>
-                  </li>
-                
-                  <li>
                     <a href="/2023/11/10/42｜MongoDB高性能：怎么优化MongoDB的查询性能？/" title="42｜MongoDB高性能：怎么优化MongoDB的查询性能？" target="_blank">42｜MongoDB高性能：怎么优化MongoDB的查询性能？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/10/41｜MongoDB：MongoDB是怎么做到高可用的？/" title="41｜MongoDB：MongoDB是怎么做到高可用的？" target="_blank">41｜MongoDB：MongoDB是怎么做到高可用的？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/" title="40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？" target="_blank">40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/10/39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？/" title="39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？" target="_blank">39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/09/38｜缓存综合应用：怎么用缓存来提高整个应用的性能？/" title="38｜缓存综合应用：怎么用缓存来提高整个应用的性能？" target="_blank">38｜缓存综合应用：怎么用缓存来提高整个应用的性能？</a>
                   </li>
                 
               </ul>
@@ -1068,7 +1116,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">136:18</span>
+    <span title="站点阅读时长">136:15</span>
   
 </div>
 
