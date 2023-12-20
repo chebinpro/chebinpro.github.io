@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="思考并回答以下问题：">
+<meta name="keywords" content="后端工程师进阶">
+<meta property="og:type" content="article">
+<meta property="og:title" content="12｜数据库锁：明明有行锁，怎么突然就加了表锁？">
+<meta property="og:url" content="http://yoursite.com/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/index.html">
+<meta property="og:site_name" content="车斌的技术博客">
+<meta property="og:description" content="思考并回答以下问题：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/1.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/2.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/3.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/4.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/5.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/6.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/7.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/8.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/9.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/10.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/11.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/12.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/13.png">
+<meta property="og:updated_time" content="2023-11-24T09:17:52.529Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="12｜数据库锁：明明有行锁，怎么突然就加了表锁？">
+<meta name="twitter:description" content="思考并回答以下问题：">
+<meta name="twitter:image" content="http://yoursite.com/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/1.webp">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>12｜数据库锁：明明有行锁，怎么突然就加了表锁？ | 车斌的技术博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">车斌的技术博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">读书百遍，其义自见</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CheBin">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="车斌的技术博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">12｜数据库锁：明明有行锁，怎么突然就加了表锁？
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2023-11-03 14:21:05" itemprop="dateCreated datePublished" datetime="2023-11-03T14:21:05+08:00">2023-11-03</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2023-11-24 17:17:52" itemprop="dateModified" datetime="2023-11-24T17:17:52+08:00">2023-11-24</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">9.1k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">8 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>思考并回答以下问题：</p>
+<a id="more"></a>
+<p>锁在整个数据库面试中都是属于偏难，而且偏琐碎的一类问题。但是偏偏锁又很重要，比如说实践中遇到死锁影响了性能，这都要求我们必须对锁有一定的了解。并且锁的原理和索引、隔离级别都有关，所以很容易从锁这个角度联想到另外两个地方，又或者从索引和隔离级别里面跳到锁这里。</p>
+<p>因此，一句话总结就是<strong>锁既难又琐碎还热门</strong>。那么今天这节课我会带你彻底捋清楚锁，并且告诉你在面试过程中如何展示出你的亮点。</p>
+<h1 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a><span style="color:#339AFF;">前置知识</span></h1><h2 id="锁与索引"><a href="#锁与索引" class="headerlink" title="锁与索引"></a><span style="color:#00ACC1;">锁与索引</span></h2><p>在MySQL的InnoDB引擎里面，锁是借助索引来实现的。或者说，加锁锁住的其实是索引项，更加具体地来说，就是锁住了<strong>叶子节点</strong>。</p>
+<img src="/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/1.webp">
+<p>你从这个角度出发，就能理解大部分跟锁有关的千奇百怪的问题了。</p>
+<p>一个表有很多索引，锁的是哪个索引呢？其实就是查询最终使用的那个索引。万一查询没有使用任何索引呢？那么锁住的就是整个表，也就是此时退化为表锁。</p>
+<p>如果查询条件的值并不存在，例如：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> your_tab <span class="keyword">WHERE</span> <span class="keyword">id</span> = <span class="number">15</span> <span class="keyword">FOR</span> <span class="keyword">UPDATE</span></span><br></pre></td></tr></table></figure></p>
+<p>id=15的值根本不存在，那么怎么锁？InnoDB引擎会利用最接近15的相邻的两个节点，构造一个临键锁。</p>
+<img src="/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/2.webp">
+<p>此时如果别的事务想要插入一个id=15的记录，就不会成功。</p>
+<p>那么范围查询呢？也是利用索引上的数据，构造一个恰好能够装下这个范围的临键锁。例如：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> your_tab <span class="keyword">WHERE</span> <span class="keyword">id</span> &gt; <span class="number">33</span> <span class="keyword">FOR</span> <span class="keyword">UPDATE</span></span><br></pre></td></tr></table></figure></p>
+<p>InnoDB引擎会构造一个<code>(33, supremum]</code>的临键锁，锁住整个范围。supremum你可以直观理解为MySQL认为的一个虚拟的最大值。</p>
+<img src="/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/3.webp">
+<p>因此，我们得出了一个结论：<strong>锁和索引密切相关</strong>。</p>
+<h2 id="释放锁时机"><a href="#释放锁时机" class="headerlink" title="释放锁时机"></a><span style="color:#00ACC1;">释放锁时机</span></h2><p>大部分人在学习锁的时候有一个误区，就是认为锁是在语句执行完毕之后就立刻释放掉的。其实并不是，它是在整个事务结束之后才释放的。换句话来说，当一个事务内部给数据加上锁之后，<strong>只有在执行Rollback或者Commit的时候，锁才会被释放掉</strong>。</p>
+<img src="/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/4.webp">
+<h2 id="乐观锁与悲观锁"><a href="#乐观锁与悲观锁" class="headerlink" title="乐观锁与悲观锁"></a><span style="color:#00ACC1;">乐观锁与悲观锁</span></h2><p>乐观锁和悲观锁实际上是一种逻辑概念，它们是并发控制中常用的两种锁机制。</p>
+<ul>
+<li>乐观锁是直到要修改数据的时候，才检测数据是否已经被别人修改过。</li>
+<li>悲观锁是在初始时刻就直接加锁保护好临界资源。</li>
+</ul>
+<p>乐观锁在数据库中通常指利用CAS的思路进行的更新操作。一般的使用形态就是下面这样的。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> your_tab <span class="keyword">WHERE</span> <span class="keyword">id</span> = <span class="number">1</span>; <span class="comment"># 在这里拿到了 a = 1</span></span><br><span class="line"><span class="comment"># 一大堆的业务操作</span></span><br><span class="line"><span class="keyword">UPDATE</span> your_tab <span class="keyword">SET</span> a = <span class="number">3</span>, b = <span class="number">4</span> <span class="keyword">WHERE</span> <span class="keyword">id</span> = <span class="number">1</span> <span class="keyword">AND</span> a =<span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<p>在上面的这个语句里面，预期数据库中a的值为1才会进行更新。如果此时数据库中的值已经被修改了，那么这个UPDATE语句就会失败。业务方通过检测受影响的行数是否为0，来判断更新是否成功。</p>
+<img src="/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/5.webp">
+<p>悲观锁是指在写入数据时直接加锁。还拿上面这个例子来说吧，就是从最开始的SELECT语句就直接加上了锁。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> your_tab <span class="keyword">WHERE</span> <span class="keyword">id</span> = <span class="number">1</span> <span class="keyword">FOR</span> <span class="keyword">UPDATE</span>; <span class="comment"># 在这里拿到了 a = 1</span></span><br><span class="line"><span class="comment"># 一大堆的业务操作</span></span><br><span class="line"><span class="keyword">UPDATE</span> your_tab <span class="keyword">SET</span> a = <span class="number">3</span>, b = <span class="number">4</span> <span class="keyword">WHERE</span> <span class="keyword">id</span> = <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<p>在加上锁之后，就可以直接更新了。这个时候不需要担心别人可以在SELECT和UPDATE之间将a更新为别的值。</p>
+<p>在使用乐观锁和悲观锁时，需要考虑数据一致性和并发性的问题。乐观锁适用于读多写少的场景，互联网中大部分应用都属于这一类。而悲观锁则适用于写多读少的场景，比如在金融领域里面对金额的操作就是以写为主。</p>
+<p>相比之下，乐观锁的性能要比悲观锁好很多。不过因为乐观锁的代码写起来比较复杂，所以很多人偷懒就会直接使用悲观锁。</p>
+<h2 id="行锁与表锁"><a href="#行锁与表锁" class="headerlink" title="行锁与表锁"></a><span style="color:#00ACC1;">行锁与表锁</span></h2><p>行锁与表锁都是根据锁的范围来划分的。一般来说，行锁是指锁住行，可能是锁住一行，也可能是锁住多行。表锁则是直接将整个表都锁住。</p>
+<p>那么在MySQL里面，InnoDB引擎同时支持行锁和表锁。但是行锁是借助索引来实现的，也就是说，如果你的查询没有命中任何的索引，那么InnoDB引擎是用不了行锁的，只能使用表锁。当然，如果用的是MySQL，类似于MyISAM引擎，那么只能使用表锁，因为这些引擎不支持行锁。</p>
+<h2 id="共享锁与排它锁"><a href="#共享锁与排它锁" class="headerlink" title="共享锁与排它锁"></a><span style="color:#00ACC1;">共享锁与排它锁</span></h2><p>共享锁和排它锁是在互斥的角度上看待锁的。</p>
+<ul>
+<li>共享锁是指一个线程加锁之后，其他线程还是可以继续加同类型的锁。</li>
+<li>排它锁是指一个线程加锁之后，其他线程就不能再加锁了。</li>
+</ul>
+<img src="/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/6.webp">
+<p>这两个概念非常接近读锁和写锁。因为读锁本身就是共享的，而写锁就是排它的。</p>
+<h2 id="意向锁"><a href="#意向锁" class="headerlink" title="意向锁"></a><span style="color:#00ACC1;">意向锁</span></h2><p>意向锁相当于一个信号，就是告诉别人我要加锁了，所以意向锁并不是一个真正物理意义上的锁。</p>
+<p>意向锁和共享锁、排它锁相结合，就有了意向共享锁和意向排它锁。</p>
+<ul>
+<li>意向共享锁即你希望获得一个共享锁。</li>
+<li>意向排它锁即你希望获得一个排它锁。</li>
+</ul>
+<p>注意，意向锁的意向强调的就是你想要拿到这个锁，但是你最终能否拿到这个锁，是不确定的。</p>
+<p>在MySQL里面，使用意向锁的典型场景是在增删改查的时候，对表结构定义加一个意向共享锁，防止在查询的时候有人修改表结构。而在修改表结构的时候，则会加一个意向排它锁。这也就是修改表结构的时候会直接阻塞掉所有的增删改查语句的原因。<strong>使用意向锁能够提高数据库的并发性能，并且避免死锁问题</strong>。</p>
+<h2 id="记录锁、间隙锁和临键锁"><a href="#记录锁、间隙锁和临键锁" class="headerlink" title="记录锁、间隙锁和临键锁"></a><span style="color:#00ACC1;">记录锁、间隙锁和临键锁</span></h2><p>这是面试中最难理解的三个概念，而且要是面试官对细节非常了解，那么你就很容易挂在这一个部分。但是反过来说，如果你能将这部分的细节都说清楚，本身就是一个很大的亮点了。</p>
+<h3 id="记录锁"><a href="#记录锁" class="headerlink" title="记录锁"></a><span style="color:#EF7060;">记录锁</span></h3><p><strong>记录锁是指锁住了特定的某一条记录的锁</strong>。例如这样一条语句：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> your_tab <span class="keyword">WHERE</span> <span class="keyword">id</span> = <span class="number">31</span> <span class="keyword">FOR</span> <span class="keyword">UPDATE</span></span><br></pre></td></tr></table></figure></p>
+<p>在你使用了主键作为查询条件，并且是相等条件下，将只命中一条记录。这一条记录就会被加上记录锁。</p>
+<img src="/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/7.webp">
+<p>但是如果查询条件没有命中任何记录，那么就不会使用记录锁，而是使用间隙锁。又或者你使用了唯一索引作为条件，比如说在user表里面在列email上有一个唯一索引。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> your_tab <span class="keyword">WHERE</span> email = <span class="string">'your_email'</span> <span class="keyword">FOR</span> <span class="keyword">UPDATE</span></span><br></pre></td></tr></table></figure></p>
+<p>那么这条查询语句此时也是使用了记录锁。类似地，如果<code>email = ‘your_email’</code>这条记录不存在，那么会变成一个间隙锁。</p>
+<p>举个例子，如果数据库中只有id为（1，4，7）的三条记录，也就是id=3这个条件没有命中任何数据，那么这条语句会在（1，4）加上间隙锁。所以你可以看到，<strong>在生产环境里面遇到了未命中索引的情况，对性能影响极大</strong>。</p>
+<p>我这里稍微解释一下，实际上MySQL本身是加上临键锁的，但是临键锁本身是由间隙锁和记录锁合并组成的，所以这里我就先用间隙锁来描述了。</p>
+<h3 id="间隙锁"><a href="#间隙锁" class="headerlink" title="间隙锁"></a><span style="color:#EF7060;">间隙锁</span></h3><p>间隙锁是锁住了某一段记录的锁。直观来说就是你锁住了一个范围的记录。比如说你在查询的时候使用了&lt;、&lt;=、BETWEEN之类的范围查询条件，就会使用间隙锁。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> your_tab <span class="keyword">WHERE</span> <span class="keyword">id</span> <span class="keyword">BETWEEN</span> <span class="number">50</span> <span class="keyword">AND</span> <span class="number">100</span> <span class="keyword">FOR</span> <span class="keyword">UPDATE</span></span><br></pre></td></tr></table></figure></p>
+<p>间隙锁会锁住(50，100)之间的数据，而50和100本身会被记录锁锁住。类似地，&lt;=这种查询你也可以认为=的那个值会被记录锁锁住。</p>
+<p>如果你的表里面没有50，那么数据库就会一直向左，找到第一个存在的数据，比如说40；如果你的表里面没有100，那么数据库就会一直向右，找到第一个存在的数据，比如说120。那么使用的间隙锁就是(40，120)。如果此时有人想要插入一个主键为70的行，是无法插入的，它需要等这个SELECT语句释放掉间隙锁。</p>
+<p>间隙锁我们一般都说两边都是开的，即端点是没有被间隙锁锁住的。<strong>记录锁和记录锁是排它的，但是间隙锁和间隙锁不是排它的</strong>。也就是说两个间隙锁之间即便重叠了，也还是可以加锁成功的。</p>
+<img src="/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/8.webp">
+<h3 id="临键锁"><a href="#临键锁" class="headerlink" title="临键锁"></a><span style="color:#EF7060;">临键锁</span></h3><p>临键锁（Next-Key Locks）是很独特的一种锁，直观上来说可以看做是一个记录锁和间隙锁的组合。也就是说<strong>临键锁不仅仅是会用记录锁锁住命中的记录，也会用间隙锁锁住记录之间的空隙</strong>。临键锁和数据库隔离级别的联系最为紧密，它可以解决在可重复读隔离级别之下的幻读问题。</p>
+<p>间隙锁是左开右开，而临键锁是<strong>左开右闭</strong>。还是用前面的例子来说明。如果id只有（1，4，7）三条记录，那么临键锁就将（1，4]锁住。</p>
+<h2 id="小结一下"><a href="#小结一下" class="headerlink" title="小结一下"></a><span style="color:#00ACC1;">小结一下</span></h2><p>我这里依旧给你准备了简洁版的记忆口诀，让你用来判断使用的是记录锁、间隙锁还是临键锁。</p>
+<ul>
+<li><strong>遇事不决临键锁</strong>。你可以认为，全部都是加临键锁的，除了下面两个子句提到的例外情况。</li>
+<li><strong>右边缺省间隙锁</strong>。例如你的值只有（1，4，7）三个，但是你查询的条件是<code>WHERE id &lt; 5</code>，那么加的其实是间隙锁，因为7本身不在你的条件范围内。</li>
+<li><strong>等值查询记录锁</strong>。这个其实针对的是主键和唯一索引，普通索引只适用上面两条。</li>
+</ul>
+<img src="/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/9.webp">
+<h1 id="面试准备"><a href="#面试准备" class="headerlink" title="面试准备"></a><span style="color:#339AFF;">面试准备</span></h1><p>为了更好地面试锁，你需要在公司内部收集一些信息。</p>
+<ul>
+<li>公司出现过的死锁，包含排查过程、解决方案。</li>
+<li>其他锁使用不当的场景，比如因为锁使用不当造成的一些性能问题。</li>
+<li>收集至少一个使用乐观锁的场景，并且看看相关的SQL是怎么写的，做到心中有数。</li>
+<li>收集公司内使用悲观锁的场景，并且尝试使用乐观锁来进行优化。</li>
+</ul>
+<p>这些案例非常重要，如果你自己没有亲自遇到，也要找同事问清楚，或者在互联网上搜集一些案例来实际看看锁的应用。</p>
+<p>类似索引，面试官可能会直接写一个SQL语句，问你可能加什么锁。这种问题总体上还是偏难的，你在准备面试的时候可以先刻意练习一下。</p>
+<ul>
+<li>在主键或唯一索引上使用等值查询，例如<code>WHERE email = &#39;abc@qq.com&#39;</code>，区分记录存在与不存在两种情况。</li>
+<li>在主键或唯一索引上使用范围查询，例如<code>WHERE email &gt;= &#39;abc@qq.com&#39;</code>。</li>
+<li>在普通索引上使用等值查询。</li>
+<li>在普通索引上使用范围查询。</li>
+<li>执行查询，但是该查询不会使用任何索引。</li>
+</ul>
+<p>不管你怎么回答，都要记得强调间隙锁和临键锁是在可重复读的隔离级别下才有效果的。</p>
+<p>在面试中，如果你非常熟悉MySQL锁，那么你可以抓住机会展示一下。</p>
+<blockquote>
+<p>我觉得我对MySQL的锁机制还是非常了解的，只要您写出来SQL，告诉我表结构定义，我就可以告诉您这个语句会加什么锁，会不会阻塞别的语句。</p>
+</blockquote>
+<p>此外，你和面试官在聊到一些话题的时候，你可以尝试把话题引导到锁机制上。</p>
+<ul>
+<li>索引：MySQL的InnoDB引擎是借助索引来实现行锁的。</li>
+<li>性能问题：锁使用不当引起的性能问题。</li>
+<li>乐观锁：比如说原子操作中的CAS操作，你可以借助CAS这个关键词，聊一聊在MySQL层面上怎么利用类似的CAS操作来实现一个乐观锁。</li>
+<li>语言相关的锁：比如说Go语言的mutex和Java的Lock，都可以引申到数据库的锁。</li>
+<li>死锁：聊一聊公司的数据库死锁案例。</li>
+</ul>
+<p>整体来说，数据库锁优化在整个性能优化领域里面也算是一个比较高级的点了，很有竞争优势，不可错过。</p>
+<h1 id="基本面试"><a href="#基本面试" class="headerlink" title="基本面试"></a><span style="color:#339AFF;">基本面试</span></h1><p>锁这边的问题会有非常多的问法。一开始引起锁的话题的时候，面试官可能这么问。</p>
+<ul>
+<li>你知道MySQL的锁机制吗？</li>
+<li>你了解MySQL的锁吗？</li>
+</ul>
+<p>那么类似的问题你就可以先综合回答，介绍一下MySQL里面的五花八门的锁。</p>
+<blockquote>
+<p>MySQL里面的锁机制特别丰富，这里我以InnoDB引擎为例。首先，从锁的范围来看，可以分成行锁和表锁。其次，从排它性来看，可以分成排它锁和共享锁。还有意向锁，结合排它性，就分为排它意向锁和共享意向锁。还有三个重要的锁概念，记录锁、间隙锁和临键锁。记录锁，是指锁住某条记录；间隙锁，是指锁住两条记录之间的位置；临键锁可以看成是记录锁与间隙锁的组合情况。<br><br>还有一种分类方法，是乐观锁和悲观锁。那么在数据库里面使用乐观锁，本质上是一种应用层面的CAS操作。</p>
+</blockquote>
+<p>紧接着，你不要深入去解释各种锁，而是先从大方向上解释清楚锁的根本特性：<strong>锁是和索引、隔离级别密切相关的</strong>。</p>
+<blockquote>
+<p>在MySQL的InnoDB引擎里面，锁和索引、隔离级别都是有密切关系的。在InnoDB引擎里面，锁是依赖于索引来实现的。或者说，锁都是加在索引项上的。因此，如果一个查询用了索引，那么会用行锁，如果没用到任何索引，那么就会用表锁。此外，在MySQL里面，间隙锁和临键锁是只工作在可重复读这个隔离级别下的。</p>
+</blockquote>
+<p>然后你就等着面试官进一步追问细节。正常情况下，他可能问下面这些问题。</p>
+<ul>
+<li>某一种锁的具体含义。</li>
+<li>某一种锁的使用场景，这里稍微注意一点意向锁就可以，其他的都比较简单。</li>
+<li>怎么在数据库里面使用乐观锁，或者你用乐观锁解决过什么问题？</li>
+<li>你有没有优化过锁，或者解决过死锁？</li>
+<li>详细介绍记录锁、间隙锁和临键锁，也有可能问你MySQL在可重复读的隔离级别下，会不会有幻读问题？</li>
+</ul>
+<p>这里，你可以详细分析记录锁、间隙锁和临键锁，不过如果想要百分之百征服面试官，你还是需要用一些实际的锁优化的案例来证明你的能力。</p>
+<h1 id="亮点方案"><a href="#亮点方案" class="headerlink" title="亮点方案"></a><span style="color:#339AFF;">亮点方案</span></h1><p>这里我先说一个最简单的锁优化的方案。我们前面提到，MySQL的锁是依赖索引机制来实现的。而如果查询没有使用任何索引，就会使用表锁。那么很显然最简单的方案就是给这种查询创建一个索引，避免使用表锁。</p>
+<p>你可以这么回答，关键词是<strong>缺索引</strong>。</p>
+<blockquote>
+<p>早期我发现我们的业务有一个神奇的性能问题，就是响应时间偶尔会突然延长。后来经过我们排查，确认响应时间是因为数据库查询变慢引起的。但是这些变长的查询，SQL完全没有问题，我用EXPLAIN去分析，都很正常，也走了索引。<br><br>直到后面我们去排查业务代码的提交记录，才发现新加了一个功能，这个功能会执行一个SQL，但是这个SQL本身不会命中任何索引。于是数据库就会使用表锁，偏偏这个SQL因为本身没有命中索引，又很慢，导致表锁一直得不到释放。结果其他正常的SQL反而被它拖累了。最终我们重新优化了这个使用表锁的SQL，让它走了一个索引，就解决了这个问题。</p>
+</blockquote>
+<p>不过这个方案说起来还是太简单，我们需要一些更复杂的方案来打动面试官。那么接下来我再给你提供两个稍微复杂一些的方案：临键锁引发的死锁和弃用悲观锁。</p>
+<h2 id="临键锁引发的死锁"><a href="#临键锁引发的死锁" class="headerlink" title="临键锁引发的死锁"></a><span style="color:#00ACC1;">临键锁引发的死锁</span></h2><p>在一个业务中，有一个场景是先从数据库中查询数据并锁住。如果这个数据不存在，那么就需要执行一段逻辑，计算出一个数据，然后插入。如果已经有数据了，那么就将原始的数据取出来，再利用这个数据执行一段逻辑，计算出来一个结果，执行更新。</p>
+<img src="/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/10.webp">
+<p>因为两段运算逻辑不同，所以不能简单地使用<code>INSERT ON DUPLICATE</code>的语句来取代。</p>
+<p>只看没有数据的逻辑，在计算之后插入新数据，如果用伪代码来描述，就是下面这样的。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">BEGIN</span>;</span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> biz <span class="keyword">WHERE</span> <span class="keyword">id</span> = ? <span class="keyword">FOR</span> <span class="keyword">UPDATE</span></span><br><span class="line"><span class="comment"># 中间有很多业务操作</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> biz(<span class="keyword">id</span>, <span class="keyword">data</span>) <span class="keyword">VALUE</span>(?, ?);</span><br><span class="line"><span class="keyword">COMMIT</span>;</span><br></pre></td></tr></table></figure></p>
+<p>看起来是不是没有任何问题？实际上，这个地方会引起<strong>死锁</strong>。</p>
+<p>假设说现在数据库中ID最大的值是78。那么如果两个业务进来，同时执行这个逻辑。一个准备插入id=79的数据，一个准备插入id=80的数据。如果它们的执行时序如下图，那么你就会得到一个死锁错误。</p>
+<img src="/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/11.webp">
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[40001][1213] Deadlock found when trying to get lock; try restarting transaction</span><br></pre></td></tr></table></figure>
+<p>造成死锁的原因也很简单。在线程1执行<code>SELECT FOR UPDATE</code>的时候，因为id=79的数据不存在，所以实际上数据库会产生一个<code>(78，supremum]</code>的临键锁。类似地，线程2也会产生一个(78，supremum]临键锁。</p>
+<p>当线程1想要执行插入的时候，它想要获得id=79的行锁。当线程2想要执行插入的时候，它想要获得id=80的行锁，这个时候就会出现死锁。因为线程1和线程2同时还在等着对方释放掉持有的间隙锁。</p>
+<img src="/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/12.webp">
+<p>从理论上来说，解决方案有三种。</p>
+<ul>
+<li>不管有没有数据，先插入一个默认的数据。如果没有数据，那么会插入成功；如果有数据，那么会出现主键冲突或者唯一索引冲突，插入失败。那么在插入成功的时候，执行以前数据不存在的逻辑，但是因为此时数据库中有数据，所以不会使用间隙锁，而是使用行锁，从而规避了死锁问题。</li>
+<li>调整数据库的隔离级别，降低为已提交读，那么就没有间隙锁了。这种解决方案也可以，而且你可以将话题进一步引申到MVCC中。</li>
+<li>放弃悲观锁，使用乐观锁。这也是我提供的亮点方案。</li>
+</ul>
+<p>你可以通过一个案例来说明，关键词是<strong>临键锁</strong>。</p>
+<blockquote>
+<p>早期我优化过一个死锁问题，是临键锁引起的。业务逻辑很简单，先用<code>SELECT FOR UPDATE</code>查询数据。如果查询到了数据，那么就执行一段业务逻辑，然后更新结果；如果没有查询到，那么就执行另外一段业务逻辑，然后插入计算结果。<br><br>那么如果<code>SELECT FOR UPDATE</code>查找的数据不存在，那么数据库会使用一个临键锁。此时，如果有两个线程加了临键锁，然后又希望插入计算结果，那么就会造成死锁。<br><br>我这个优化也很简单，就是上来先不管三七二十一，直接插入数据。如果插入成功，那么就执行没有数据的逻辑，此时不会再持有临键锁，而是持有了行锁。如果插入不成功，那么就执行有数据的业务逻辑。<br><br>此外，还有两个思路。一个是修改数据库的隔离级别为RC，那么自然不存在临键锁了，但是这个修改影响太大，被DBA否决了。另外一个思路就是使用乐观锁，不过代码改起来要更加复杂，所以就没有使用。</p>
+</blockquote>
+<p>你这么回答的话，面试官接下来就可能追问你隔离级别的事情，或者问你乐观锁的细节，那么你就有机会继续展示了。</p>
+<h2 id="弃用悲观锁"><a href="#弃用悲观锁" class="headerlink" title="弃用悲观锁"></a><span style="color:#00ACC1;">弃用悲观锁</span></h2><p>很多人为了省事会在开发的时候直接使用悲观锁。最为典型的例子就是在事务里面存在<code>SELECT ... FOR UPDATE</code>的语句，而后会紧跟着一个UPDATE语句。</p>
+<p>伪代码：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 开启事务</span></span><br><span class="line">Begin()</span><br><span class="line"><span class="comment">// 查询到已有的数据 SELECT * FROM xxx WHERE id = 1 FOR UPDATE</span></span><br><span class="line">data := SelectForUpdate(id) </span><br><span class="line">newData := calculate(data) <span class="comment">// 一大通计算</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 将新数据写回去数据库 UPDATE xxx SET data = newData WHERE id =1</span></span><br><span class="line">Update(id, newData) </span><br><span class="line">Commit()</span><br></pre></td></tr></table></figure></p>
+<p>那么这一类代码可以考虑将整个事务都去掉，纯粹依赖CAS操作。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> &#123;</span><br><span class="line">    <span class="comment">// 查询到已有的数据 SELECT * FROM xxx WHERE id = 1</span></span><br><span class="line">    data := Select(id) </span><br><span class="line">    newData := calculate(data) <span class="comment">// 一大通计算</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将新数据写回去数据库 </span></span><br><span class="line">    <span class="comment">// UPDATE xxx SET data = newData WHERE id =1 AND data=oldData</span></span><br><span class="line">    success := CAS(id, newData, data) </span><br><span class="line">    <span class="comment">// 确实更新成功，代表在业务执行过程中没有人修改过这个 data。</span></span><br><span class="line">    <span class="comment">// 适合读多写少的情况</span></span><br><span class="line">    <span class="keyword">if</span> success &#123;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里我是直接用的data来比较的，实践中也可能是引入了version列，或者使用update_time来确保数据没有发生变更。</p>
+<p>你可以在聊到乐观锁的情况下，使用这个案例。</p>
+<blockquote>
+<p>我在入职这家公司之后，曾经系统地清理过公司内部使用悲观锁的场景，改用乐观锁。正常的悲观锁都是使用了<code>SELECT FOR UPDATE</code>语句，查询到数据之后，进行一串计算，再将结果写回去。那么改造的方案很简单，查询的时候使用SELECT语句直接查询，然后进行计算。但是在写回去的时候，就要用到数据库的CAS操作，即UPDATE的时候要确认之前查询出来的结果并没有实际被修改过。<br><br>一般来说就是<code>UPDATE xxx SET data = newData WHERE id = 1 AND data = oldData</code>。这种改造效果非常好，性能提升了30%。当然，并不是所有的悲观锁场景都能清理，还有一部分实在没办法，只能是考虑别的手段了。</p>
+</blockquote>
+<p>这里最后留了一个尾巴，也就是将话题引导到你准备的其他优化锁的案例上。</p>
+<h1 id="面试思路总结"><a href="#面试思路总结" class="headerlink" title="面试思路总结"></a><span style="color:#339AFF;">面试思路总结</span></h1><p>这节课我们学习了面试中的重难点问题——锁，锁与索引的关系十分密切，可以说锁是借助索引来实现的。锁的形式五花八门，有乐观锁、悲观锁、行锁、表锁、共享锁、排它锁、意向锁、记录锁、间隙锁和临键锁等多种类型，它们各有用途，这里你要注意分辨它们各自的能力，学会分析什么场景下使用哪一种锁。</p>
+<p>此外，我还提供了两个比较复杂的亮点方案：<strong>临键锁引发的死锁、弃用悲观锁</strong>。你在实际面试中可以考虑替换为自己的案例。</p>
+<img src="/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/13.png">
+<h1 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a><span style="color:#339AFF;">思考题</span></h1><ul>
+<li>你在公司有没有优化过什么锁？可以分享一下你的案例吗？</li>
+<li>你有没有使用过乐观锁？用于解决什么问题？相比直接使用悲观锁，你认为代码量有没有变化？</li>
+</ul>
+<h1 id="题外话：面试锦囊"><a href="#题外话：面试锦囊" class="headerlink" title="题外话：面试锦囊"></a><span style="color:#339AFF;">题外话：面试锦囊</span></h1><p>最后我们再来聊点儿题外话，就是面试时的一个小技巧——能示之不能，不能示之能。在前面很多讲里，我都在回答中都故意点到即止，或者故意留出破绽，就是“能示之不能”，引诱面试官追问。</p>
+<p>那么反过来“不能示之能”就是纯粹地唬人。就是说实际上你并不是很了解某一些方面的东西，但是你假装你非常了解、胸有成竹。那么在这种情况下，如果面试官被你的假象迷惑住了，那么他就不会继续追问这方面的东西。</p>
+<p>这跟我们的面试流程是有关的。很多人出去面候选者，讲究的是问到候选者无话可说。那么既然你表现得一副我还有很多话说，快来问我的样子，他们自然不会问你了。</p>
+<p>不过“不能示之能”策略要慎用。一场面试可一不可二，可二千万别三。因为你装多了，面试官就会好奇你怎么什么都知道，或者激起了逆反心理，深挖下来你就挡不住了。</p>
+<p>但是“能而示之不能”就可以随便用。尤其是一些公司有所谓的“压薪面”。就是本身你已经通过了基本的技术面试，但是公司不想给你高薪，就会故意面你一些很难的问题，打击你，这样好压价。那么如果你能够在压薪面里面将面试官引导到你熟悉的领域，立于不败之地，那么接下来谈薪酬就更有主动权。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/后端工程师进阶/" rel="tag"># 后端工程师进阶</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/11/03/11｜SQL优化：如何发现SQL中的问题？/" rel="next" title="11｜SQL优化：如何发现SQL中的问题？">
+                <i class="fa fa-chevron-left"></i> 11｜SQL优化：如何发现SQL中的问题？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/11/03/13｜MVCC协议：MySQL在修改数据的时候，还能不能读到这条数据？/" rel="prev" title="13｜MVCC协议：MySQL在修改数据的时候，还能不能读到这条数据？">
+                13｜MVCC协议：MySQL在修改数据的时候，还能不能读到这条数据？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+            
+              <p class="site-author-name" itemprop="name">CheBin</p>
+              <div class="site-description motion-element" itemprop="description"></div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">1148</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">77</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history fa-" aria-hidden="true"></i>
+                近期文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li>
+                    <a href="/2023/11/10/42｜MongoDB高性能：怎么优化MongoDB的查询性能？/" title="42｜MongoDB高性能：怎么优化MongoDB的查询性能？" target="_blank">42｜MongoDB高性能：怎么优化MongoDB的查询性能？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/10/41｜MongoDB：MongoDB是怎么做到高可用的？/" title="41｜MongoDB：MongoDB是怎么做到高可用的？" target="_blank">41｜MongoDB：MongoDB是怎么做到高可用的？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/" title="40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？" target="_blank">40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/10/39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？/" title="39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？" target="_blank">39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/09/38｜缓存综合应用：怎么用缓存来提高整个应用的性能？/" title="38｜缓存综合应用：怎么用缓存来提高整个应用的性能？" target="_blank">38｜缓存综合应用：怎么用缓存来提高整个应用的性能？</a>
+                  </li>
+                
+              </ul>
+            </div>
+        
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前置知识"><span class="nav-number">1.</span> <span class="nav-text">前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#锁与索引"><span class="nav-number">1.1.</span> <span class="nav-text">锁与索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#释放锁时机"><span class="nav-number">1.2.</span> <span class="nav-text">释放锁时机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#乐观锁与悲观锁"><span class="nav-number">1.3.</span> <span class="nav-text">乐观锁与悲观锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#行锁与表锁"><span class="nav-number">1.4.</span> <span class="nav-text">行锁与表锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#共享锁与排它锁"><span class="nav-number">1.5.</span> <span class="nav-text">共享锁与排它锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#意向锁"><span class="nav-number">1.6.</span> <span class="nav-text">意向锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#记录锁、间隙锁和临键锁"><span class="nav-number">1.7.</span> <span class="nav-text">记录锁、间隙锁和临键锁</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#记录锁"><span class="nav-number">1.7.1.</span> <span class="nav-text">记录锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#间隙锁"><span class="nav-number">1.7.2.</span> <span class="nav-text">间隙锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#临键锁"><span class="nav-number">1.7.3.</span> <span class="nav-text">临键锁</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结一下"><span class="nav-number">1.8.</span> <span class="nav-text">小结一下</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面试准备"><span class="nav-number">2.</span> <span class="nav-text">面试准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本面试"><span class="nav-number">3.</span> <span class="nav-text">基本面试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#亮点方案"><span class="nav-number">4.</span> <span class="nav-text">亮点方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#临键锁引发的死锁"><span class="nav-number">4.1.</span> <span class="nav-text">临键锁引发的死锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#弃用悲观锁"><span class="nav-number">4.2.</span> <span class="nav-text">弃用悲观锁</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面试思路总结"><span class="nav-number">5.</span> <span class="nav-text">面试思路总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">6.</span> <span class="nav-text">思考题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#题外话：面试锦囊"><span class="nav-number">7.</span> <span class="nav-text">题外话：面试锦囊</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2023</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CheBin</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">9m</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">136:15</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>
