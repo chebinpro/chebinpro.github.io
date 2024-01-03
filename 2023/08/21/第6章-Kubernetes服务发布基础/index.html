@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="思考并回答以下问题：">
+<meta name="keywords" content="云原生Kubernetes实战">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第6章 Kubernetes服务发布基础">
+<meta property="og:url" content="http://yoursite.com/2023/08/21/第6章-Kubernetes服务发布基础/index.html">
+<meta property="og:site_name" content="车斌的技术博客">
+<meta property="og:description" content="思考并回答以下问题：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2023/08/21/第6章-Kubernetes服务发布基础/1.jpg">
+<meta property="og:updated_time" content="2023-10-10T09:42:14.417Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="第6章 Kubernetes服务发布基础">
+<meta name="twitter:description" content="思考并回答以下问题：">
+<meta name="twitter:image" content="http://yoursite.com/2023/08/21/第6章-Kubernetes服务发布基础/1.jpg">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2023/08/21/第6章-Kubernetes服务发布基础/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>第6章 Kubernetes服务发布基础 | 车斌的技术博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">车斌的技术博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">抄写十遍，其义自见</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/08/21/第6章-Kubernetes服务发布基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CheBin">
+      <meta itemprop="description" content="参与开源才是出路">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="车斌的技术博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第6章 Kubernetes服务发布基础
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2023-08-21 11:02:20" itemprop="dateCreated datePublished" datetime="2023-08-21T11:02:20+08:00">2023-08-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2023-10-10 17:42:14" itemprop="dateModified" datetime="2023-10-10T17:42:14+08:00">2023-10-10</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">8.5k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">8 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>思考并回答以下问题：</p>
+<a id="more"></a>
+<p>在第5章学习了Kubernetes的调度，成功地把服务部署到了Kubernetes，应用部署后，最重要的就是对用户开放。</p>
+<p>在传统架构中，用户访问公司内的服务可能通过了多层代理、网关、防火墙等。在Kubernetes中，访问Kubernetes中的应用同样也会经过多层代理、网关、防火墙等。但是在传统架构中，可能是通过Nginx、HAProxy、LVS、公有云的SLB、ELB等实现的负载均衡和域名路由，虽然Kubernetes也是通过诸如此类的技术实现的域名路由或者负载均衡，只不过对应的名字叫法可能有所变化，读者不要把这些当作一个比较新颖的东西，其实内部的实现和之前并无区别。</p>
+<p>在传统架构配置多个相同服务的负载均衡可能使用的是Nginx的upstream，在Kubernetes中用Service实现。在传统架构配置域名访问应用可能使用Nginx的Server配置，在Kubernetes中用Ingress实现域名路由的配置（最终通过Ingress的配置生成对应控制器的配置，比如使用Nginx作为Ingress控制器，Ingress资源最终生成的就是Nginx的配置文件）。</p>
+<p>通过本章的学习读者就能明白上述资源的用法和用途。</p>
+<h1 id="标签和选择器"><a href="#标签和选择器" class="headerlink" title="标签和选择器"></a>标签和选择器</h1><p>很多情况下，我们需要对各类资源进行分组管理，或者同一个应用的Pod可能会根据不同的功能进行划分，比如有一个后端的应用，需要提供API接口供前端调用，也需要进行一些周期性的计划任务，相当于同一个镜像分两个身份运行，所以就需要对这两个资源文件用标签进行区分，这样的话就可以让流量进入提供API接口的Pod，执行计划任务的Pod不接收任何流量，如图6.1所示。</p>
+<blockquote>
+<p>图6.1 同一个应用不同的运行方式</p>
+</blockquote>
+<img src="/2023/08/21/第6章-Kubernetes服务发布基础/1.jpg">
+<p>此时其他应用调用该应用的Service（Service为容器服务的入口，可以通过Service访问符合选择器（Selector）过滤的容器的应用程序，缩写为svc，具体可以参考本书6.2节）时，流量只能到达api的Pod，不会到达cron的Pod，因为选择器进行匹配时是“与”的关系，需要所有的标签（Label）都要匹配，所以role=cronjob的Pod不会被接入流量。</p>
+<p>使用标签同样可以对Kubernetes的其他资源进行配置，当Kubernetes对系统的任何API对象（如Pod和节点）进行“分组”时，会对其添加标签（key=value形式的“键-值对”），用以精准地选择对应的API对象。而选择器则是针对匹配对象的查询方法。</p>
+<p>常用的标签tier可用于区分容器的属性，如frontend、backend；或者一个release_track用于区分容器的环境，如canary、production等。</p>
+<h2 id="定义标签"><a href="#定义标签" class="headerlink" title="定义标签"></a>定义标签</h2><p>应用案例：公司与xx银行有一条专属的高速光纤通道，此通道只能与192.168.7.0网段进行通信，因此只能将与xx银行通信的应用部署到192.168.7.0网段所在的节点上，此时可以对节点添加标签：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<p>然后可以通过选择器对其筛选：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<p>最后在Deployment或其他控制器中指定将Pod部署到该节点：<br>[插图]</p>
+<p>也可以用同样的方式对Service添加标签：<br>[插图]</p>
+<p>查看该Service的标签：<br>[插图]</p>
+<p>还可以查看所有version为v1的Service：<br>[插图]</p>
+<p>上述演示了对节点、Service添加自定义标签的方法，对其他资源添加标签的方式相同。</p>
+<h2 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h2><p>选择器主要用于资源的匹配，只有符合条件的资源才会被调用或使用，可以使用该方式对集群中的各类资源进行分配。由于Kubernetes的核心资源Deployment、StatefulSet管理哪些Pod是通过选择器字段决定的，通过Service访问哪些后端Pod也是通过选择器字段决定的，因此本节将介绍如何使用选择器过滤出自己想要的资源。首先使用—show-labels查看目前已有的标签：</p>
+<p>选择匹配app为details或者productpage的Service：<br>[插图]</p>
+<p>选择app为productpage或reviews但不包括version=v1的Service：</p>
+<p>[插图]</p>
+<p>选择label的key名为app的Service：</p>
+<p>[插图]</p>
+<h2 id="修改标签"><a href="#修改标签" class="headerlink" title="修改标签"></a>修改标签</h2><p>在实际使用中，资源标签的更改是经常发生的事情，可以使用overwrite参数修改标签。比如将version=v1改为version=v2：</p>
+<h2 id="删除标签"><a href="#删除标签" class="headerlink" title="删除标签"></a>删除标签</h2><p>有时候也会需要删除某资源的标签，在label的key名后面加一个减号即可删除，比如删除key名为version的标签：</p>
+<h1 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h1><p>使用虚拟机或者裸容器部署应用时，程序之前的互相访问一般都是使用宿主机的IP地址和端口号进行访问的，因为宿主机的IP地址一般不会轻易改变，所以IP+端口的方式并没有什么大的问题。而使用Kubernetes的Pod部署应用时，Pod大部分都是随机地部署至最佳的节点上，并且经常被删除重建，所以Pod的IP地址并不是一成不变的，这样的话服务之前的访问就不能使用IP+端口的方式，所以Service应运而生。Service主要用于Pod之间的通信，对于Pod的IP地址而言，Service是提前定义好并且是不变的资源类型，在生产环境中最佳的实践方式就是每个应用互相调用时使用Service的名字进行连接，而非IP地址。</p>
+<h2 id="Service的基本概念"><a href="#Service的基本概念" class="headerlink" title="Service的基本概念"></a>Service的基本概念</h2><p>Kubernetes的Pod具有生命周期的概念，它可以被创建、删除、销毁，一旦被销毁就意味着生命周期的结束。通过ReplicaSet能够动态地创建和销毁Pod，例如进行扩缩容和执行滚动升级。每个Pod都会获取到它自己的IP地址，但是这些IP地址不总是稳定和可依赖的，这样就会导致一个问题：在Kubernetes集群中，如果一组Pod（比如后端的Pod）为其他Pod（比如前端的Pod）提供服务，那么如果它们之间使用Pod的IP地址进行通信，在Pod重建后，将无法再进行连接。为了解决上述问题，Kubernetes引用了Service这样一种抽象概念：逻辑上的一组Pod，即一种可以访问Pod的策略，通常被称为微服务。这一组Pod能够被Service访问，通常是通过Label Selector（标签选择器）实现的，如图6.2所示。</p>
+<p>图6.2　Service代理模式假设有一个用作图片处理的backend（后端），运行了3个副本，每个副本具有一个app=backend的Label，这些副本是可互换（无状态）的，之后创建一个Service指定Selector为app=backend，那么frontend（前端）即可通过这个Service的名称直接访问backend，所以frontend不需要关心它调用了哪个backend副本。即使组成这一组backend程序的Pod发生了变化，frontend也没有必要知道，而且也不需要跟踪这一组backend的状态，因为Service能够解耦这种关联。6.2.2　定义Service和创建其他类型的资源一样，定义一个YAML文件，即可通过kubectl客户端创建一个Service。例如有一组Pod，它们暴露了9376端口，同时具有app=myapp的标签，此时可以定义Service的YAML文件如下：</p>
+<p>上述文件配置创建一个名为my-service的Service对象，它会将请求代理到TCP端口为9376并且具有标签app=myapp的Pod上。这个Service会被分配一个IP地址，通常称为ClusterIP，它会被服务的代理使用，在集群内部可以通过该ClusterIP（不建议使用ClusterIP进行访问）或Service名加上port进行访问，该示例my-service:80即可访问具有app=myapp标签的Pod的9376端口。需要注意的是，Service能够将一个接收端口映射到任意的targetPort，如果targetPort为空，targetPort将被设置为与Port字段相同的值。targetPort可以设置为一个字符串，引用backend Pod的一个端口的名称，这样的话即使更改了Pod的端口，也不会对Service的访问造成影响。Kubernetes Service能够支持TCP、UDP、SCTP等协议，默认为TCP协议。</p>
+<p>6.2.3　无选择器的Service和Endpoint创建一个带有选择器的Service后，集群会在该Service所在的Namespace下自动创建一个同名的Endpoint，这个Endpoint（缩写为ep）记录了选择器匹配到的Pod的IP地址和端口，比如在搭建集群时安装的Metrics Server的Service，可以查看一下这个Service的YAML文件：</p>
+<p>该Service将具有k8s-app=metrics-server标签的Pod设置为自己的后端，并将443（在port中定义）端口映射到Pod的443（在targetPort中定义）端口。可以通过该Label查看当前匹配的Pod的IP地址：[插图]可以看到此时Pod的IP地址为172.16.65.19，我们再查看与该Service同名的Endpoint：[插图]Service通过Endpoint记录了后端Pod的IP和端口，当Pod被重建后，该Endpoint会被更新，而我们使用Service名称链接后端Pod时，并不会感知到这些变化。</p>
+<p>上述演示的都是定义了Selector字段的Service，这类Service创建后会根据匹配到的Pod自动创建同名的Endpoint，并记录匹配到的所有Pod的IP地址和端口，可以看出具有Selector字段的Service适合用在集群内部资源的Pod上。但我们有时需要通过Service代理集群外部服务时，可以创建一个没有Selector字段的Service，之后再手动创建Endpoint添加外部服务即可，以下情况均可使用无选择器的Service，例如：·　希望在生产环境中使用某个固定的名称而非IP地址访问外部的中间件服务。·　希望Service指向另一个Namespace或其他集群中的服务。·　正在将工作负载转移到Kubernetes集群，但是一部分服务仍运行在Kubernetes集群之外的backend。在这些场景中，都能定义没有选择器的Service，只需要把上述的Service去除Selector字段即可：</p>
+<p>由于这个Service没有选择器，就不会创建相关的Endpoints对象，可以手动创建一个同名的Endpoints（同名的Service和Endpoints会自动建立链接）：[插图]注意Endpoint IP地址不能是loopback（127.0.0.0/8）、link-loca（l169.254.0.0/16）或者link-local多播地址（224.0.0.0/24）。访问没有选择器的Service与有选择器的Service的原理相同，通过Service名称即可访问，请求将被路由到用户定义的Endpoint，该示例为1.2.3.4:9376。</p>
+<p>6.2.4　ExternalName ServiceExternalName Service是Service的特例，它没有选择器，也没有定义任何端口和Endpoint，它通过返回该外部服务的别名来提供服务。比如可以定义一个Service，后端设置为一个外部域名，这样通过Service的名称即可访问该域名。使用nslookup解析以下文件定义的Service，集群的DNS服务将返回一个值为my.database.example.com的CNAME记录：</p>
+<p>6.2.5　Service代理模式在Kubernetes集群中，每个节点运行一个kube-proxy进程。kube-proxy负责为Service实现一种VIP（虚拟IP）的形式，而不是ExternalName的形式。在Kubernetesv 1.0版本中，代理完全是userspace。在Kubernetesv 1.1版中新增了iptables代理，从Kubernetesv 1.2版起，默认是iptables代理。从Kubernetesv 1.8版开始新增了ipvs代理，生产环境建议使用ipvs模式。在Kubernetesv 1.0版中Service是4层（TCP/UDP over IP）概念，在Kubernetesv 1.1版中新增了Ingress API（beta版），用来表示7层（HTTP）服务。</p>
+<p>1．iptables代理模式这种模式下，kube-proxy会监视Kubernetes master节点对Service对象和Endpoints对象的添加和移除。对每个Service它会创建iptables规则，从而捕获该Service的ClusterIP（虚拟IP）和端口的请求，进而将请求重定向到Service的一组backend中的某个Pod上面。对于每个Endpoints对象，它也会创建iptables规则，这个规则会选择一个backend Pod。默认的策略是随机选择一个backend，如果要实现基于客户端IP的会话亲和性，可以将service.spec.sessionAffinity的值设置为ClusterIP（默认为None）。和userspace代理类似，网络返回的结果都是到达Service的IP:Port请求，这些请求会被代理到一个合适的backend，不需要客户端知道关于Kubernetes、Service或Pod的任何信息。这比userspace代理更快、更可靠，并且当初始选择的Pod没有响应时，iptables代理能够自动重试另一个Pod。</p>
+<p>2．ipvs代理模式在此模式下，kube-proxy监视Kubernetes Service和Endpoint，调用netlink接口以相应地创建ipvs规则，并定期与Kubernetes Service和Endpoint同步ipvs规则，以确保ipvs状态与期望保持一致。访问服务时，流量将被重定向到其中一个后端Pod。与iptables类似，ipvs基于netfilter钩子函数，但是ipvs使用哈希表作为底层数据结构并在内核空间中工作，这意味着ipvs可以更快地重定向流量，并且在同步代理规则时具有更好的性能，此外，ipvs为负载均衡算法提供了更多的选项，例如：·　rr：轮询。·　lc：最少连接。·　dh：目标哈希。·　sh：源哈希。·　sed：预计延迟最短。·　nq：从不排队。</p>
+<p>注意Kube-proxy使用ipvs模式必须在每个节点上安装ipvs模块，如果没有安装ipvs模块，将会默认使用iptables模式。6.2.6　多端口Service在许多情况下，Service可能需要暴露多个端口，对于这种情况，Kubernetes支持Service定义多个端口，但使用多个端口时，必须提供所有端口的名称，例如将Service的80端口代理到后端的9376，443端口代理到后端的9377：</p>
+<p>6.2.7　Service的类型Kubernetes Service Type（服务类型）主要包括以下几种：·　ClusterIP：在集群内部使用，默认值，只能从集群中访问。·　NodePort：在所有安装了Kube-Proxy的节点上打开一个端口，此端口可以代理至后端Pod，可以通过NodePort从集群外部访问集群内的服务，格式为NodeIP:NodePort。·　LoadBalancer：使用云提供商的负载均衡器公开服务，成本较高。·　ExternalName：通过返回定义的CNAME别名，将Service映射到可被DNS解析的其他域名，需要1.7或更高版本kube-dns的支持。</p>
+<p>应用程序部署到Kubernetes后，需要将某些服务发布至Kubernetes集群外，也就是可以被其他人访问或者调用，比较常用的发布方式是IP+端口或使用域名的方式。IP+端口的方式可以用NodePort类型Service进行发布，域名的方式可以使用Ingress（6.3节介绍）进行发布。以NodePort为例，如果将Service的type字段设置为NodePort，则Kubernetes将从—service-nodeport-range参数指定的范围（默认为30000～32767）中自动分配端口，也可以手动指定NodePort，创建该Service后，集群每个节点都将暴露一个端口，通过某个宿主机的IP+端口即可访问后端的应用，也可以前端采用一个反代服务器代理至多个Node节点+端口，防止单个Node节点故障引起的服务不可用。定义一个NodePort类型的Service格式如下（Kubernetes集群安装时Dashboard的访问就是基于NodePort类型的Service进行访问的，6.3节将会讲到如何使用域名访问Kubernetes集群的应用）：</p>
+<p>其他服务访问方式详情参见以下网址：<code>https://kubernetes.io/docs/concepts/services-networking/service/#publishing-services-service-types6.2.8</code>　Kubernetes服务发现Kubernetes支持两种类型的服务发现：环境变量和DNS。1．基于环境变量的服务发现当Pod部署到一个Node节点后，该Node节点上的Kubelet会在该Pod内部设置一组环境变量，这些环境变量是根据活跃的Service生成并以<code>{SERVICE_NAME}_SERVICE_HOST</code>和<code>{SERVICE_NAME}_SERVICE_PORT</code>格式命名的变量，其中服务名都转换为大写字母，“.”和“-”转换为“<code>_</code>”。例如在安装集群后，在kube-system命名空间下安装了一些系统组件，它们的Service如下：</p>
+<p>此时在kube-system命名空间下的任意Pod都会根据上述的Service创建一组变量用于服务发现，比如查看Metrics Server容器的环境变量（由于变量过多，因此可以使用grep过滤KUBE_DNS的变量。如果metrics-server的Pod无法执行命令，可以使用其他Pod）：[插图]注意这些变量可被程序直接使用，用于发现同一个命名空间下的其他服务。但是在创建Pod之前必须先创建其他应用的Service，否则不会生成其他应用Service的变量。</p>
+<p>2．基于DNS的服务发现Kubernetes进行服务发现的另一种方式是基于Kubernetes内部的DNS记录，新版Kubernetes默认使用CoreDNS作为集群的内部DNS，一般CoreDNS的Service地址为Service网段的第10个IP，比如10.96.0.10，端口53，集群内Pod可通过该地址和端口进行Kubernetes内部的服务解析。DNS服务器监听Kubernetes创建的Service，然后给每个Service添加一组DNS记录，集群中的Pod就能通过Kubernetes内部的DNS解析到Service的IP，也就是Service的ClusterIP。例如创建一个含有nslookup命令的容器，测试解析kube-dns的Service（指定的Service名为kube-dns.kube-system，同一个命名空间下可以省略.kube-system）：</p>
+<p>Kubernetes还支持命名端口的DNS SRV（服务）记录，如果一个服务有一个TCP端口，并且该端口的名称为http，则可以使用”<code>_http._tcp.{SERVICE_NAME}.{SERVICE_NAMESPACE}</code>“执行DNS SRV查询，以查询该Service的IP和端口。Kubernetes目前支持环境变量和DNS两种简单的服务发现，两种方式各有优缺点，其中环境变量形式需要开发人员自行实现变量的解析，而基于DNS的服务发现不需要多余的代码，直接通过<code>http://SERVICE_NAME:SERVICE_PORT</code>即可调用其他组件，但是会有一些网络上的消耗。相对于Kubernetes的服务发现，业界更常用的可能是基于Spring Cloud的Eureka，或者是Consul等工具实现微服务的自动发现，不过并不是所有的项目都是基于Spring Cloud全家桶进行开发的，而使用其他工具或Kubernetes环境变量进行服务发现，也会带来实现服务发现逻辑代码时间上的消耗，所以可能基于Kubernetes DNS的服务发现更为简单高效。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/云原生Kubernetes实战/" rel="tag"># 云原生Kubernetes实战</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/08/21/第5章-Kubernetes调度基础/" rel="next" title="第5章 Kubernetes调度基础">
+                <i class="fa fa-chevron-left"></i> 第5章 Kubernetes调度基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/08/21/第7章-Kubernetes配置管理/" rel="prev" title="第7章 Kubernetes配置管理">
+                第7章 Kubernetes配置管理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+            
+              <p class="site-author-name" itemprop="name">CheBin</p>
+              <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">1152</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">77</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history fa-" aria-hidden="true"></i>
+                近期文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li>
+                    <a href="/2024/01/03/意志力/" title="意志力" target="_blank">意志力</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/01/03/成功，动机与目标/" title="成功，动机与目标" target="_blank">成功，动机与目标</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/01/03/掌控习惯/" title="掌控习惯" target="_blank">掌控习惯</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/01/03/自控力/" title="自控力" target="_blank">自控力</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/10/42｜MongoDB高性能：怎么优化MongoDB的查询性能？/" title="42｜MongoDB高性能：怎么优化MongoDB的查询性能？" target="_blank">42｜MongoDB高性能：怎么优化MongoDB的查询性能？</a>
+                  </li>
+                
+              </ul>
+            </div>
+        
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#标签和选择器"><span class="nav-number">1.</span> <span class="nav-text">标签和选择器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义标签"><span class="nav-number">1.1.</span> <span class="nav-text">定义标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择器"><span class="nav-number">1.2.</span> <span class="nav-text">选择器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改标签"><span class="nav-number">1.3.</span> <span class="nav-text">修改标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除标签"><span class="nav-number">1.4.</span> <span class="nav-text">删除标签</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Service"><span class="nav-number">2.</span> <span class="nav-text">Service</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Service的基本概念"><span class="nav-number">2.1.</span> <span class="nav-text">Service的基本概念</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CheBin</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">9m</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">136:05</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>

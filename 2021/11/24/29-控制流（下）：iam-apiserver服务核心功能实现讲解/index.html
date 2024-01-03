@@ -1,0 +1,1872 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="思考并回答以下问题：">
+<meta name="keywords" content="Go语言项目开发实战">
+<meta property="og:type" content="article">
+<meta property="og:title" content="29丨控制流（下）：iam-apiserver服务核心功能实现讲解">
+<meta property="og:url" content="http://yoursite.com/2021/11/24/29-控制流（下）：iam-apiserver服务核心功能实现讲解/index.html">
+<meta property="og:site_name" content="车斌的技术博客">
+<meta property="og:description" content="思考并回答以下问题：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2021/11/24/29-控制流（下）：iam-apiserver服务核心功能实现讲解/1.webp">
+<meta property="og:image" content="http://yoursite.com/2021/11/24/29-控制流（下）：iam-apiserver服务核心功能实现讲解/2.webp">
+<meta property="og:updated_time" content="2023-08-30T08:29:03.727Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="29丨控制流（下）：iam-apiserver服务核心功能实现讲解">
+<meta name="twitter:description" content="思考并回答以下问题：">
+<meta name="twitter:image" content="http://yoursite.com/2021/11/24/29-控制流（下）：iam-apiserver服务核心功能实现讲解/1.webp">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/11/24/29-控制流（下）：iam-apiserver服务核心功能实现讲解/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>29丨控制流（下）：iam-apiserver服务核心功能实现讲解 | 车斌的技术博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">车斌的技术博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">抄写十遍，其义自见</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/24/29-控制流（下）：iam-apiserver服务核心功能实现讲解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CheBin">
+      <meta itemprop="description" content="参与开源才是出路">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="车斌的技术博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">29丨控制流（下）：iam-apiserver服务核心功能实现讲解
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021-11-24 11:16:05" itemprop="dateCreated datePublished" datetime="2021-11-24T11:16:05+08:00">2021-11-24</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2023-08-30 16:29:03" itemprop="dateModified" datetime="2023-08-30T16:29:03+08:00">2023-08-30</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">27k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">24 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>思考并回答以下问题：</p>
+<a id="more"></a>
+<p>上一讲，我介绍了iam-apiserver是如何构建Web服务的。这一讲，我们再来看下iam-apiserver中的核心功能实现。在对这些核心功能的讲解中，我会向你传达我的程序设计思路。</p>
+<p>iam-apiserver中包含了很多优秀的设计思想和实现，这些点可能比较零碎，但我觉得很值得分享给你。我将这些关键代码设计分为3类，分别是应用框架相关的特性、编程规范相关的特性和其他特性。接下来，我们就来详细看看这些设计点，以及它们背后的设计思想。</p>
+<h1 id="应用框架相关的特性"><a href="#应用框架相关的特性" class="headerlink" title="应用框架相关的特性"></a><span style="color:#339AFF;">应用框架相关的特性</span></h1><p>应用框架相关的特性包括三个，分别是优雅关停、健康检查和插件化加载中间件。</p>
+<h2 id="优雅关停"><a href="#优雅关停" class="headerlink" title="优雅关停"></a><span style="color:#00ACC1;">优雅关停</span></h2><p>在讲优雅关停之前，先来看看不优雅的停止服务方式是什么样的。</p>
+<p>当我们需要重启服务时，首先需要停止服务，这时可以通过两种方式来停止我们的服务：</p>
+<ul>
+<li>在Linux终端键入Ctrl+C（其实是发送SIGINT信号）。</li>
+<li>发送SIGTERM信号，例如<code>kill</code>或者<code>systemctl stop</code>等。</li>
+</ul>
+<p>当我们使用以上两种方式停止服务时，都会产生下面两个问题：</p>
+<ul>
+<li>有些请求正在处理，如果服务端直接退出，会造成客户端连接中断，请求失败。</li>
+<li>我们的程序可能需要做一些清理工作，比如等待进程内任务队列的任务执行完成，或者拒绝接受新的消息等。</li>
+</ul>
+<p>这些问题都会对业务造成影响，所以我们需要一种优雅的方式来关停我们的应用。在Go开发中，通常通过拦截SIGINT和SIGTERM信号，来实现优雅关停。当收到这两个信号时，应用进程会做一些清理工作，然后结束阻塞状态，继续执行余下的代码，最后自然退出进程。</p>
+<p>先来看一个简单的优雅关停的示例代码：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"context"</span></span><br><span class="line">    <span class="string">"log"</span></span><br><span class="line">    <span class="string">"net/http"</span></span><br><span class="line">    <span class="string">"os"</span></span><br><span class="line">    <span class="string">"os/signal"</span></span><br><span class="line">    <span class="string">"time"</span></span><br><span class="line"></span><br><span class="line">    <span class="string">"github.com/gin-gonic/gin"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    router := gin.Default()</span><br><span class="line">    router.GET(<span class="string">"/"</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">        time.Sleep(<span class="number">5</span> * time.Second)</span><br><span class="line">        c.String(http.StatusOK, <span class="string">"Welcome Gin Server"</span>)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    srv := &amp;http.Server&#123;</span><br><span class="line">        Addr:    <span class="string">":8080"</span>,</span><br><span class="line">        Handler: router,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">// 将服务在 goroutine 中启动</span></span><br><span class="line">        <span class="keyword">if</span> err := srv.ListenAndServe(); err != <span class="literal">nil</span> &amp;&amp; err != http.ErrServerClosed &#123;</span><br><span class="line">            log.Fatalf(<span class="string">"listen: %s\n"</span>, err)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br><span class="line"></span><br><span class="line">    quit := <span class="built_in">make</span>(<span class="keyword">chan</span> os.Signal)</span><br><span class="line">    signal.Notify(quit, os.Interrupt)</span><br><span class="line">    &lt;-quit <span class="comment">// 阻塞等待接收 channel 数据</span></span><br><span class="line">    log.Println(<span class="string">"Shutdown Server ..."</span>)</span><br><span class="line"></span><br><span class="line">    ctx, cancel := context.WithTimeout(context.Background(), <span class="number">5</span>*time.Second) <span class="comment">// 5s 缓冲时间处理已有请求</span></span><br><span class="line">    <span class="keyword">defer</span> cancel()</span><br><span class="line">    <span class="keyword">if</span> err := srv.Shutdown(ctx); err != <span class="literal">nil</span> &#123; <span class="comment">// 调用 net/http 包提供的优雅关闭函数：Shutdown</span></span><br><span class="line">        log.Fatal(<span class="string">"Server Shutdown:"</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">    log.Println(<span class="string">"Server exiting"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面的代码实现优雅关停的思路如下：</p>
+<p>1，将HTTP服务放在goroutine中运行，程序不阻塞，继续执行。</p>
+<p>2，创建一个无缓冲的channel <code>quit</code>，调用<code>signal.Notify(quit,os.Interrupt)</code>。通过<code>signal.Notify</code>函数调用，可以将进程收到的<code>os.Interrupt</code>（SIGINT）信号，发送给channelquit。</p>
+<p>3，<code>&lt;-quit</code>阻塞当前goroutine（也就是main函数所在的goroutine），等待从channel <code>quit</code>接收关停信号。通过以上步骤，我们成功启动了HTTP服务，并且main函数阻塞，防止启动HTTP服务的goroutine退出。当我们键入Ctrl+C时，进程会收到SIGINT信号，并将该信号发送到channelquit中，这时候<code>&lt;-quit</code>收到了channel另一端传来的数据，结束阻塞状态，程序继续执行。这里，<code>&lt;-quit</code>唯一目的是阻塞当前的goroutine，所以对收到的数据直接丢弃。</p>
+<p>4，打印退出消息，提示准备退出当前服务。</p>
+<p>5，调用net/http包提供的Shutdown方法，Shutdown方法会在指定的时间内处理完现有请求，并返回。</p>
+<p>6，最后，程序执行完<code>log.Println(&quot;Serverexiting&quot;)</code>代码后，退出main函数。</p>
+<p>iam-apiserver也实现了优雅关停，优雅关停思路跟上面的代码类似。具体可以分为三个步骤，流程如下：</p>
+<p>第一步，创建channel用来接收<code>os.Interrupt</code>（SIGINT）和<code>syscall.SIGTERM</code>（SIGKILL）信号。</p>
+<p>代码见internal/pkg/server/signal.go。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> onlyOneSignalHandler = <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> shutdownHandler <span class="keyword">chan</span> os.Signal</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SetupSignalHandler</span><span class="params">()</span> &lt;-<span class="title">chan</span> <span class="title">struct</span></span>&#123;&#125; &#123;</span><br><span class="line">    <span class="built_in">close</span>(onlyOneSignalHandler) <span class="comment">// panics when called twice</span></span><br><span class="line"></span><br><span class="line">    shutdownHandler = <span class="built_in">make</span>(<span class="keyword">chan</span> os.Signal, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">    stop := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;)</span><br><span class="line"></span><br><span class="line">    signal.Notify(shutdownHandler, shutdownSignals...)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        &lt;-shutdownHandler</span><br><span class="line">        <span class="built_in">close</span>(stop)</span><br><span class="line">        &lt;-shutdownHandler</span><br><span class="line">        os.Exit(<span class="number">1</span>) <span class="comment">// second signal. Exit directly.</span></span><br><span class="line">    &#125;()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> stop</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>SetupSignalHandler函数中，通过<code>close(onlyOneSignalHandler)</code>来确保iam-apiserver组件的代码只调用一次SetupSignalHandler函数。否则，可能会因为信号传给了不同的shutdownHandler，而造成信号丢失。</p>
+<p>SetupSignalHandler函数还实现了一个功能：收到一次SIGINT/SIGTERM信号，程序优雅关闭。收到两次SIGINT/SIGTERM信号，程序强制关闭。实现代码如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">    &lt;-shutdownHandler</span><br><span class="line">    <span class="built_in">close</span>(stop)</span><br><span class="line">    &lt;-shutdownHandler</span><br><span class="line">    os.Exit(<span class="number">1</span>) <span class="comment">// second signal. Exit directly.</span></span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure></p>
+<p>这里要注意：<code>signal.Notify(cchan&lt;-os.Signal,sig...os.Signal)</code>函数不会为了向c发送信息而阻塞。也就是说，如果发送时c阻塞了，signal包会直接丢弃信号。为了不丢失信号，我们创建了有缓冲的channel <code>shutdownHandler</code>。</p>
+<p>最后，SetupSignalHandler函数会返回stop，后面的代码可以通过关闭stop来结束代码的阻塞状态。</p>
+<p>第二步，将channel <code>stop</code>传递给启动HTTP（S）、gRPC服务的函数，在函数中以goroutine的方式启动HTTP（S）、gRPC服务，然后执行<code>&lt;-stop</code>阻塞goroutine。</p>
+<p>第三步，当iam-apiserver进程收到SIGINT/SIGTERM信号后，关闭<code>stop</code> channel，继续执行<code>&lt;-stop</code>后的代码，在后面的代码中，我们可以执行一些清理逻辑，或者调用<code>google.golang.org/grpc</code>和net/http包提供的优雅关停函数GracefulStop和Shutdown。例如下面这个代码（位于internal/apiserver/grpc.go文件中）：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *grpcAPIServer)</span> <span class="title">Run</span><span class="params">(stopCh &lt;-<span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">    listen, err := net.Listen(<span class="string">"tcp"</span>, s.address)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatalf(<span class="string">"failed to listen: %s"</span>, err.Error())</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    log.Infof(<span class="string">"Start grpc server at %s"</span>, s.address)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> err := s.Serve(listen); err != <span class="literal">nil</span> &#123;</span><br><span class="line">            log.Fatalf(<span class="string">"failed to start grpc server: %s"</span>, err.Error())</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br><span class="line"></span><br><span class="line">    &lt;-stopCh</span><br><span class="line"></span><br><span class="line">    log.Infof(<span class="string">"Grpc server on %s stopped"</span>, s.address)</span><br><span class="line">    s.GracefulStop()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>除了上面说的方法，iam-apiserver还通过github.com/marmotedu/iam/pkg/shutdown包，实现了另外一种优雅关停方法，这个方法更加友好、更加灵活。实现代码见PrepareRun函数。</p>
+<p><code>github.com/marmotedu/iam/pkg/shutdown</code>包的使用方法如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"time"</span></span><br><span class="line">    <span class="string">"github.com/marmotedu/iam/pkg/shutdown"</span></span><br><span class="line">    <span class="string">"github.com/marmotedu/iam/pkg/shutdown/shutdownmanagers/posixsignal"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// initialize shutdown</span></span><br><span class="line">    gs := shutdown.New()</span><br><span class="line">    <span class="comment">// add posix shutdown manager</span></span><br><span class="line">    gs.AddShutdownManager(posixsignal.NewPosixSignalManager())</span><br><span class="line">    <span class="comment">// add your tasks that implement ShutdownCallback</span></span><br><span class="line">    gs.AddShutdownCallback(shutdown.ShutdownFunc(<span class="function"><span class="keyword">func</span><span class="params">(<span class="keyword">string</span>)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">"Shutdown callback start"</span>)</span><br><span class="line">        time.Sleep(time.Second)</span><br><span class="line">        fmt.Println(<span class="string">"Shutdown callback finished"</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;))</span><br><span class="line">    <span class="comment">// start shutdown managers</span></span><br><span class="line">    <span class="keyword">if</span> err := gs.Start(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        mt.Println(<span class="string">"Start:"</span>, err)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// do other stuff</span></span><br><span class="line">    time.Sleep(time.Hour)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面的代码中，通过<code>gs:=shutdown.New()</code>创建shutdown实例；通过AddShutdownManager方法添加监听的信号；通过AddShutdownCallback方法设置监听到指定信号时，需要执行的回调函数。这些回调函数可以执行一些清理工作。最后，通过Start方法启动shutdown实例。</p>
+<h2 id="健康检查"><a href="#健康检查" class="headerlink" title="健康检查"></a><span style="color:#00ACC1;">健康检查</span></h2><p>通常，我们会根据进程是否存在来判定iam-apiserver是否健康，例如执行<code>ps -ef | grep iam-apiserver</code>。在实际开发中，我发现有时候服务进程仍然存在，但是HTTP服务却不能接收和处理请求，所以更加靠谱的检查方法是，直接请求iam-apiserver的健康检查接口。</p>
+<p>我们可以在启动iam-apiserver进程后，手动调用iam-apiserver健康检查接口进行检查。但还有更方便的方法：启动服务后自动调用健康检查接口。这个方法的具体实现，你可以查看GenericAPIServer提供的ping方法。在ping方法中，你需要注意函数中的如下代码：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">url := fmt.Sprintf(<span class="string">"http://%s/healthz"</span>, s.InsecureServingInfo.Address)</span><br><span class="line"><span class="keyword">if</span> strings.Contains(s.InsecureServingInfo.Address, <span class="string">"0.0.0.0"</span>) &#123;</span><br><span class="line">    url = fmt.Sprintf(<span class="string">"http://127.0.0.1:%s/healthz"</span>, strings.Split(s.InsecureServingInfo.Address, <span class="string">":"</span>)[<span class="number">1</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当HTTP服务监听在所有网卡时，请求IP为127.0.0.1；当HTTP服务监听在指定网卡时，我们需要请求该网卡的IP地址。</p>
+<h2 id="插件化加载中间件"><a href="#插件化加载中间件" class="headerlink" title="插件化加载中间件"></a><span style="color:#00ACC1;">插件化加载中间件</span></h2><p>iam-apiserver支持插件化地加载Gin中间件，通过这种插件机制，我们可以根据需要选择中间件。</p>
+<p>那么，为什么要将中间件做成一种插件化的机制呢？一方面，每个中间件都完成某种功能，这些功能不是所有情况下都需要的；另一方面，中间件是追加在HTTP请求链路上的一个处理函数，会影响API接口的性能。为了保证API接口的性能，我们也需要选择性地加载中间件。</p>
+<p>例如，在测试环境中为了方便Debug，可以选择加载dump中间件。dump中间件可以打印请求包和返回包信息，这些信息可以协助我们Debug。但是在现网环境中，我们不需要dump中间件来协助Debug，而且如果加载了dump中间件，请求时会打印大量的请求信息，严重影响API接口的性能。这时候，我们就期望中间件能够按需加载。</p>
+<p>iam-apiserver通过InstallMiddlewares函数来安装Gin中间件，函数代码如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *GenericAPIServer)</span> <span class="title">InstallMiddlewares</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// necessary middlewares</span></span><br><span class="line">    s.Use(middleware.RequestID())</span><br><span class="line">    s.Use(middleware.Context())</span><br><span class="line"></span><br><span class="line">    <span class="comment">// install custom middlewares</span></span><br><span class="line">    <span class="keyword">for</span> _, m := <span class="keyword">range</span> s.middlewares &#123;</span><br><span class="line">        mw, ok := middleware.Middlewares[m]</span><br><span class="line">        <span class="keyword">if</span> !ok &#123;</span><br><span class="line">            log.Warnf(<span class="string">"can not find middleware: %s"</span>, m)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        log.Infof(<span class="string">"install middleware: %s"</span>, m)</span><br><span class="line">        s.Use(mw)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，安装中间件时，我们不仅安装了一些必备的中间件，还安装了一些可配置的中间件。</p>
+<p>上述代码安装了两个默认的中间件：RequestID和Context。</p>
+<p>RequestID中间件，主要用来在HTTP请求头和返回头中设置X-Request-IDHeader。如果HTTP请求头中没有X-Request-IDHTTP头，则创建64位的UUID，如果有就复用。UUID是调用github.com/satori/go.uuid包提供的NewV4().String()方法来生成的：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rid = uuid.NewV4().String()</span><br></pre></td></tr></table></figure></p>
+<p>另外，这里有个Go常量的设计规范需要你注意：常量要跟该常量相关的功能包放在一起，不要将一个项目的常量都集中放在const这类包中。例如，requestid.go文件中，我们定义了XRequestIDKey=”X-Request-ID”常量，其他地方如果需要使用XRequestIDKey，只需要引入XRequestIDKey所在的包，并使用即可。</p>
+<p>Context中间件，用来在gin.Context中设置requestID和username键，在打印日志时，将gin.Context类型的变量传递给log.L()函数，log.L()函数会在日志输出中输出requestID和username域：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2021-07-09 13:33:21.362 DEBUG   apiserver       v1/user.go:106  get 2 users from backend storage.       &#123;&quot;requestID&quot;: &quot;f8477cf5-4592-4e47-bdcf-82f7bde2e2d0&quot;, &quot;username&quot;: &quot;admin&quot;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>requestID和username字段可以方便我们后期过滤并查看日志。</p>
+<p>除了默认的中间件，iam-apiserver还支持一些可配置的中间件，我们可以通过配置iam-apiserver配置文件中的server.middlewares配置项，来配置这些这些中间件。</p>
+<p>可配置以下中间件：</p>
+<ul>
+<li>recovery：捕获任何panic，并恢复。</li>
+<li>secure：添加一些安全和资源访问相关的HTTP头。</li>
+<li>nocache：禁止客户端缓存HTTP请求的返回结果。</li>
+<li>cors：HTTP请求跨域中间件。</li>
+<li>dump：打印出HTTP请求包和返回包的内容，方便debug。注意，生产环境禁止加载该中间件。</li>
+</ul>
+<p>当然，你还可以根据需要，添加更多的中间件。方法很简单，只需要编写中间件，并将中间件添加到一个map[string]gin.HandlerFunc类型的变量中即可：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">defaultMiddlewares</span><span class="params">()</span> <span class="title">map</span>[<span class="title">string</span>]<span class="title">gin</span>.<span class="title">HandlerFunc</span></span> &#123;      </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">map</span>[<span class="keyword">string</span>]gin.HandlerFunc&#123;                          </span><br><span class="line">        <span class="string">"recovery"</span>:  gin.Recovery(),                            </span><br><span class="line">        <span class="string">"secure"</span>:    Secure,                                </span><br><span class="line">        <span class="string">"options"</span>:   Options,             </span><br><span class="line">        <span class="string">"nocache"</span>:   NoCache,             </span><br><span class="line">        <span class="string">"cors"</span>:      Cors(),                        </span><br><span class="line">        <span class="string">"requestid"</span>: RequestID(),                       </span><br><span class="line">        <span class="string">"logger"</span>:    Logger(),                                                           </span><br><span class="line">        <span class="string">"dump"</span>:      gindump.Dump(),                                                               </span><br><span class="line">    &#125;                          </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上述代码位于internal/pkg/middleware/middleware.go文件中。</p>
+<h1 id="编程规范相关的特性"><a href="#编程规范相关的特性" class="headerlink" title="编程规范相关的特性"></a><span style="color:#339AFF;">编程规范相关的特性</span></h1><p>编程规范相关的特性有四个，分别是API版本、统一的资源元数据、统一的返回、并发处理模板。</p>
+<h2 id="API版本"><a href="#API版本" class="headerlink" title="API版本"></a><span style="color:#00ACC1;">API版本</span></h2><p>RESTfulAPI为了方便以后扩展，都需要支持API版本。在12讲中，我们介绍了API版本号的3种标识方法，iam-apiserver选择了将API版本号放在URL中，例如/v1/secrets。放在URL中的好处是很直观，看API路径就知道版本号。另外，API的路径也可以很好地跟控制层、业务层、模型层的代码路径相映射。例如，密钥资源相关的代码存放位置如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">internal/apiserver/controller/v1/secret/  # &lt;span style=&quot;color:#339AFF;&quot;&gt;控制几层代码存放位置</span><br><span class="line">internal/apiserver/service/v1/secret.go # &lt;span style=&quot;color:#339AFF;&quot;&gt;业务层代码存放位置</span><br><span class="line">github.com/marmotedu/api/apiserver/v1/secret.go # &lt;span style=&quot;color:#339AFF;&quot;&gt;模型层代码存放位置</span><br></pre></td></tr></table></figure></p>
+<p>关于代码存放路径，我还有一些地方想跟你分享。对于Secret资源，通常我们需要提供CRUD接口。</p>
+<ul>
+<li>C：Create（创建Secret）。</li>
+<li>R：Get（获取详情）、List（获取Secret资源列表）。</li>
+<li>U：Update（更新Secret）。</li>
+<li>D：Delete（删除指定的Secret）、DeleteCollection（批量删除Secret）。</li>
+</ul>
+<p>每个接口相互独立，为了减少更新A接口代码时因为误操作影响到B接口代码的情况，这里建议CRUD接口每个接口一个文件，从物理上将不同接口的代码隔离开。这种接口还可以方便我们查找A接口的代码所在位置。例如，Secret控制层相关代码的存放方式如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ls internal/apiserver/controller/v1/secret/</span></span><br><span class="line">create.go  delete_collection.go  delete.go  doc.go  get.go  list.go  secret.go  update.go</span><br></pre></td></tr></table></figure></p>
+<p>业务层和模型层的代码也可以这么组织。iam-apiserver中，因为Secret的业务层和模型层代码比较少，所以我放在了internal/apiserver/service/v1/secret.go和github.com/marmotedu/api/apiserver/v1/secret.go文件中。如果后期Secret业务代码增多，我们也可以修改成下面这种方式：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ls internal/apiserver/service/v1/secret/</span></span><br><span class="line">create.go  delete_collection.go  delete.go  doc.go  get.go  list.go  secret.go  update.go</span><br></pre></td></tr></table></figure></p>
+<p>这里再说个题外话：/v1/secret/和/secret/v1/这两种目录组织方式都可以，你选择一个自己喜欢的就行。</p>
+<p>当我们需要升级API版本时，相关代码可以直接放在v2目录下，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">internal/apiserver/controller/v2/secret/ # &lt;span style=&quot;color:#339AFF;&quot;&gt;v2 版本控制几层代码存放位置</span><br><span class="line">internal/apiserver/service/v2/secret.go # &lt;span style=&quot;color:#339AFF;&quot;&gt;v2 版本业务层代码存放位置</span><br><span class="line">github.com/marmotedu/api/apiserver/v2/secret.go # &lt;span style=&quot;color:#339AFF;&quot;&gt;v2 版本模型层代码存放位置</span><br></pre></td></tr></table></figure></p>
+<p>这样既能够跟v1版本的代码物理隔离开，互不影响，又方便查找v2版本的代码。</p>
+<h2 id="统一的资源元数据"><a href="#统一的资源元数据" class="headerlink" title="统一的资源元数据"></a><span style="color:#00ACC1;">统一的资源元数据</span></h2><p>iam-apiserver设计的一大亮点是，像KubernetesREST资源一样，支持统一的资源元数据。</p>
+<p>iam-apiserver中所有的资源都是REST资源，iam-apiserver将REST资源的属性也进一步规范化了，这里的规范化是指所有的REST资源均支持两种属性：</p>
+<ul>
+<li>公共属性。</li>
+<li>资源自有的属性。</li>
+</ul>
+<p>例如，Secret资源的定义方式如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Secret <span class="keyword">struct</span> &#123;</span><br><span class="line">    <span class="comment">// May add TypeMeta in the future.</span></span><br><span class="line">    <span class="comment">// metav1.TypeMeta `json:",inline"`</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Standard object's metadata.</span></span><br><span class="line">    metav1.ObjectMeta <span class="string">`       json:"metadata,omitempty"`</span></span><br><span class="line">    Username          <span class="keyword">string</span> <span class="string">`json:"username"           gorm:"column:username"  validate:"omitempty"`</span></span><br><span class="line">    SecretID          <span class="keyword">string</span> <span class="string">`json:"secretID"           gorm:"column:secretID"  validate:"omitempty"`</span></span><br><span class="line">    SecretKey         <span class="keyword">string</span> <span class="string">`json:"secretKey"          gorm:"column:secretKey" validate:"omitempty"`</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Required: true</span></span><br><span class="line">    Expires     <span class="keyword">int64</span>  <span class="string">`json:"expires"     gorm:"column:expires"     validate:"omitempty"`</span></span><br><span class="line">    Description <span class="keyword">string</span> <span class="string">`json:"description" gorm:"column:description" validate:"description"`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>资源自有的属性，会因资源不同而不同。这里，我们来重点看一下公共属性ObjectMeta，它的定义如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> ObjectMeta <span class="keyword">struct</span> &#123;</span><br><span class="line">    ID <span class="keyword">uint64</span> <span class="string">`json:"id,omitempty" gorm:"primary_key;AUTO_INCREMENT;column:id"`</span></span><br><span class="line">    InstanceID <span class="keyword">string</span> <span class="string">`json:"instanceID,omitempty" gorm:"unique;column:instanceID;type:varchar(32);not null"`</span></span><br><span class="line">    Name <span class="keyword">string</span> <span class="string">`json:"name,omitempty" gorm:"column:name;type:varchar(64);not null" validate:"name"`</span></span><br><span class="line">    Extend Extend <span class="string">`json:"extend,omitempty" gorm:"-" validate:"omitempty"`</span></span><br><span class="line">    ExtendShadow <span class="keyword">string</span> <span class="string">`json:"-" gorm:"column:extendShadow" validate:"omitempty"`</span></span><br><span class="line">    CreatedAt time.Time <span class="string">`json:"createdAt,omitempty" gorm:"column:createdAt"`</span></span><br><span class="line">    UpdatedAt time.Time <span class="string">`json:"updatedAt,omitempty" gorm:"column:updatedAt"`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>接下来，我来详细介绍公共属性中每个字段的含义及作用。</p>
+<p>1，ID</p>
+<p>这里的ID，映射为MariaDB数据库中的id字段。id字段在一些应用中，会作为资源的唯一标识。但iam-apiserver中没有使用ID作为资源的唯一标识，而是使用了InstanceID。iam-apiserver中ID唯一的作用是跟数据库id字段进行映射，代码中并没有使用到ID。</p>
+<p>2，InstanceID</p>
+<p>InstanceID是资源的唯一标识，格式为-xxxxxx。其中，是资源的英文标识符号，xxxxxx是随机字符串。字符集合为abcdefghijklmnopqrstuvwxyz1234567890，长度&gt;=6，例如secret-yj8m30、user-j4lz3g、policy-3v18jq。</p>
+<p>腾讯云、阿里云、华为云也都是采用这种格式的字符串作为资源唯一标识的。</p>
+<p>InstanceID的生成和更新都是自动化的，通过gorm提供的AfterCreateHooks在记录插入数据库之后，生成并更新到数据库的instanceID字段：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *Secret)</span> <span class="title">AfterCreate</span><span class="params">(tx *gorm.DB)</span> <span class="params">(err error)</span></span> &#123;</span><br><span class="line">    s.InstanceID = idutil.GetInstanceID(s.ID, <span class="string">"secret-"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> tx.Save(s).Error</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面的代码，在Secret记录插入到iam数据库的secret表之后，调用idutil.GetInstanceID生成InstanceID，并通过tx.Save(s)更新到数据库secret表的instanceID字段。</p>
+<p>因为通常情况下，应用中的REST资源只会保存到数据库中的一张表里，这样就能保证应用中每个资源的数据库ID是唯一的。所以GetInstanceID(uiduint64,prefixstring)string函数使用github.com/speps/go-hashids包提供的方法，对这个数据库ID进行哈希，最终得到一个数据库级别的唯一的字符串（例如：3v18jq），并根据传入的prefix，得到资源的InstanceID。</p>
+<p>使用这种方式生成资源的唯一标识，有下面这两个优点：</p>
+<ul>
+<li>数据库级别唯一。</li>
+<li>InstanceID是长度可控的字符串，长度最小是6个字符，但会根据表中的记录个数动态变长。根据我的测试，2176782336条记录以内生成的InstanceID长度都在6个字符以内。长度可控的另外一个好处是方便记忆和传播。</li>
+</ul>
+<p>这里需要你注意：如果同一个资源分别存放在不同的表中，那在使用这种方式时，生成的InstanceID可能相同，不过概率很小，几乎为零。这时候，我们就需要使用分布式ID生成技术。这又是另外一个话题了，这里不再扩展讲解。</p>
+<p>在实际的开发中，不少开发者会使用数据库数字段ID（例如121）和36/64位的UUID（例如20cd59d4-08c6-4e86-a9d4-a0e51c420a04）来作为资源的唯一标识。相较于这两种资源标识方式，使用-xxxxxx这种标识方式具有以下优点：</p>
+<ul>
+<li>看标识名就知道是什么类型的资源，例如：secret-yj8m30说明该资源是secret类型的资源。在实际的排障过程中，能够有效减少误操作。</li>
+<li>长度可控，占用数据库空间小。iam-apiserver的资源标识长度基本可以认为是12个字符（secret/policy是6个字符，再加6位随机字符）。</li>
+<li>如果使用121这类数值作为资源唯一标识，相当于间接向友商透漏系统的规模，是一定要禁止的。</li>
+</ul>
+<p>另外，还有一些系统如Kubernetes中，使用资源名作为资源唯一标识。这种方式有个弊端，就是当系统中同类资源太多时，创建资源很容易重名，你自己想要的名字往往填不了，所以iam-apiserver不采用这种设计方式。</p>
+<p>我们使用instanceID来作为资源的唯一标识，在代码中，就经常需要根据instanceID来查询资源。所以，在数据库中要设置该字段为唯一索引，一方面可以防止instanceID不唯一，另一方面也能加快查询速度。</p>
+<p>3，Name</p>
+<p>Name即资源的名字，我们可以通过名字很容易地辨别一个资源。</p>
+<p>4，Extend、ExtendShadow</p>
+<p>Extend和ExtendShadow是iam-apiserver设计的又一大亮点。</p>
+<p>在实际开发中，我们经常会遇到这个问题：随着业务发展，某个资源需要增加一些属性，这时，我们可能会选择在数据库中新增一个数据库字段。但是，随着业务系统的演进，数据库中的字段越来越多，我们的Code也要做适配，最后就会越来越难维护。</p>
+<p>我们还可能遇到这种情况：我们将上面说的字段保存在数据库中叫meta的字段中，数据库中meta字段的数据格式是{“disable”:true,”tag”:”colin”}。但是，我们如果想在代码中使用这些字段，需要Unmarshal到一个结构体中，例如：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">metaData := <span class="string">`&#123;"disable":true,"tag":"colin"&#125;`</span></span><br><span class="line">meta := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">interface</span>&#123;&#125;)</span><br><span class="line"><span class="keyword">if</span> err := json.Unmarshal([]<span class="keyword">byte</span>(metaData), &amp;meta); err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> err</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>再存入数据中时，又要Marshal成JSON格式的字符串，例如：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">meta := <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">"disable"</span>: <span class="literal">true</span>, <span class="string">"tag"</span>: <span class="string">"colin"</span>&#125;</span><br><span class="line">data, err := json.Marshal(meta)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> err</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>你可以看到，这种Unmarshal和Marshal操作有点繁琐。</p>
+<p>因为每个资源都可能需要用到扩展字段，那么有没有一种通用的解决方案呢？iam-apiserver就通过Extend和ExtendShadow解决了这个问题。</p>
+<p>Extend是Extend类型的字段，Extend类型其实是map[string]interface{}的类型别名。在程序中，我们可以很方便地引用Extend包含的属性，也就是map的key。Extend字段在保存到数据库中时，会自动Marshal成字符串，保存在ExtendShadow字段中。</p>
+<p>ExtendShadow是Extend在数据库中的影子。同样，当从数据库查询数据时，ExtendShadow的值会自动Unmarshal到Extend类型的变量中，供程序使用。</p>
+<p>具体实现方式如下：</p>
+<ul>
+<li>借助gorm提供的BeforeCreate、BeforeUpdateHooks，在插入记录、更新记录时，将Extend的值转换成字符串，保存在ExtendShadow字段中，并最终保存在数据库的ExtendShadow字段中。</li>
+<li>借助gorm提供的AfterFindHooks，在查询数据后，将ExtendShadow的值Unmarshal到Extend字段中，之后程序就可以通过Extend字段来使用其中的属性。</li>
+</ul>
+<p>5，CreatedAt</p>
+<p>资源的创建时间。每个资源在创建时，我们都应该记录资源的创建时间，可以帮助后期进行排障、分析等。</p>
+<p>6，UpdatedAt</p>
+<p>资源的更新时间。每个资源在更新时，我们都应该记录资源的更新时间。资源更新时，该字段由gorm自动更新。</p>
+<p>可以看到，ObjectMeta结构体包含了很多字段，每个字段都完成了很酷的功能。那么，如果把ObjectMeta作为所有资源的公共属性，这些资源就会自带这些能力。</p>
+<p>当然，有些开发者可能会说，User资源其实是不需要user-xxxxxx这种资源标识的，所以InstanceID这个字段其实是无用的字段。但是在我看来，和功能冗余相比，功能规范化、不重复造轮子，以及ObjectMeta的其他功能更加重要。所以，也建议所有的REST资源都使用统一的资源元数据。</p>
+<h2 id="统一的返回"><a href="#统一的返回" class="headerlink" title="统一的返回"></a><span style="color:#00ACC1;">统一的返回</span></h2><p>在18讲中，我们介绍过API的接口返回格式应该是统一的。要想返回一个固定格式的消息，最好的方式就是使用同一个返回函数。因为API接口都是通过同一个函数来返回的，其返回格式自然是统一的。</p>
+<p>IAM项目通过github.com/marmotedu/component-base/pkg/core包提供的WriteResponse函数来返回结果。WriteResponse函数定义如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">WriteResponse</span><span class="params">(c *gin.Context, err error, data <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Errorf(<span class="string">"%#+v"</span>, err)</span><br><span class="line">        coder := errors.ParseCoder(err)</span><br><span class="line">        c.JSON(coder.HTTPStatus(), ErrResponse&#123;</span><br><span class="line">            Code:      coder.Code(),</span><br><span class="line">            Message:   coder.String(),</span><br><span class="line">            Reference: coder.Reference(),</span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    c.JSON(http.StatusOK, data)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以看到，WriteResponse函数会判断err是否为nil。如果不为nil，则将err解析为github.com/marmotedu/errors包中定义的Coder类型的错误，并调用Coder接口提供的Code()、String()、Reference()方法，获取该错误的业务码、对外展示的错误信息和排障文档。如果err为nil，则调用c.JSON返回JSON格式的数据。</p>
+<h2 id="并发处理模板"><a href="#并发处理模板" class="headerlink" title="并发处理模板"></a><span style="color:#00ACC1;">并发处理模板</span></h2><p>在Go项目开发中，经常会遇到这样一种场景：查询列表接口时，查询出了多条记录，但是需要针对每一条记录做一些其他逻辑处理。因为是多条记录，比如100条，处理每条记录延时如果为X毫秒，串行处理完100条记录，整体延时就是<code>100*X</code>毫秒。如果X比较大，那整体处理完的延时是非常高的，会严重影响API接口的性能。</p>
+<p>这时候，我们自然就会想到利用CPU的多核能力，并发来处理这100条记录。这种场景我们在实际开发中经常遇到，有必要抽象成一个并发处理模板，这样以后在查询时，就可以使用这个模板了。</p>
+<p>例如，iam-apiserver中，查询用户列表接口List，还需要返回每个用户所拥有的策略个数。这就用到了并发处理。这里，我试着将其抽象成一个模板，模板如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(u *userService)</span> <span class="title">List</span><span class="params">(ctx context.Context, opts metav1.ListOptions)</span> <span class="params">(*v1.UserList, error)</span></span> &#123;</span><br><span class="line">    users, err := u.store.Users().List(ctx, opts)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.L(ctx).Errorf(<span class="string">"list users from storage failed: %s"</span>, err.Error())</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, errors.WithCode(code.ErrDatabase, err.Error())</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    wg := sync.WaitGroup&#123;&#125;</span><br><span class="line">    errChan := <span class="built_in">make</span>(<span class="keyword">chan</span> error, <span class="number">1</span>)</span><br><span class="line">    finished := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">bool</span>, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> m sync.Map</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Improve query efficiency in parallel</span></span><br><span class="line">    <span class="keyword">for</span> _, user := <span class="keyword">range</span> users.Items &#123;</span><br><span class="line">        wg.Add(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(user *v1.User)</span></span> &#123;</span><br><span class="line">            <span class="keyword">defer</span> wg.Done()</span><br><span class="line"></span><br><span class="line">            <span class="comment">// some cost time process</span></span><br><span class="line">            policies, err := u.store.Policies().List(ctx, user.Name, metav1.ListOptions&#123;&#125;)</span><br><span class="line">            <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">                errChan &lt;- errors.WithCode(code.ErrDatabase, err.Error())</span><br><span class="line"></span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            m.Store(user.ID, &amp;v1.User&#123;</span><br><span class="line">                ...</span><br><span class="line">                Phone:       user.Phone,</span><br><span class="line">                TotalPolicy: policies.TotalCount,</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125;(user)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        wg.Wait()</span><br><span class="line">        <span class="built_in">close</span>(finished)</span><br><span class="line">    &#125;()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">select</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> &lt;-finished:</span><br><span class="line">        <span class="keyword">case</span> err := &lt;-errChan:</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// infos := make([]*v1.User, 0)</span></span><br><span class="line">    infos := <span class="built_in">make</span>([]*v1.User, <span class="number">0</span>, <span class="built_in">len</span>(users.Items))</span><br><span class="line">    <span class="keyword">for</span> _, user := <span class="keyword">range</span> users.Items &#123;</span><br><span class="line">        nfo, _ := m.Load(user.ID)</span><br><span class="line">        infos = <span class="built_in">append</span>(infos, info.(*v1.User))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    log.L(ctx).Debugf(<span class="string">"get %d users from backend storage."</span>, <span class="built_in">len</span>(infos))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> &amp;v1.UserList&#123;ListMeta: users.ListMeta, Items: infos&#125;, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在上面的并发模板中，我实现了并发处理查询结果中的三个功能：</p>
+<p>第一个功能，goroutine报错即返回。goroutine中代码段报错时，会将错误信息写入errChan中。我们通过List函数中的select语句，实现只要有一个goroutine发生错误，即返回：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> &lt;-finished:</span><br><span class="line">    <span class="keyword">case</span> err := &lt;-errChan:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>第二个功能，保持查询顺序。我们从数据库查询出的列表是有顺序的，比如默认按数据库ID字段升序排列，或者我们指定的其他排序方法。在并发处理中，这些顺序会被打断。但为了确保最终返回的结果跟我们预期的排序效果一样，在并发模板中，我们还需要保证最终返回结果跟查询结果保持一致的排序。</p>
+<p>上面的模板中，我们将处理后的记录保存在map中，map的key为数据库ID。并且，在最后按照查询的ID顺序，依次从map中取出ID的记录，例如：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> m sync.Map</span><br><span class="line"><span class="keyword">for</span> _, user := <span class="keyword">range</span> users.Items &#123;</span><br><span class="line">    ... </span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(user *v1.User)</span></span> &#123;</span><br><span class="line">        ...</span><br><span class="line">        m.Store(user.ID, &amp;v1.User&#123;&#125;)</span><br><span class="line">    &#125;(user)</span><br><span class="line">&#125;</span><br><span class="line">...</span><br><span class="line">infos := <span class="built_in">make</span>([]*v1.User, <span class="number">0</span>, <span class="built_in">len</span>(users.Items))</span><br><span class="line"><span class="keyword">for</span> _, user := <span class="keyword">range</span> users.Items &#123;</span><br><span class="line">    info, _ := m.Load(user.ID)</span><br><span class="line">    infos = <span class="built_in">append</span>(infos, info.(*v1.User))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过上面这种方式，可以确保最终返回的结果跟从数据库中查询的结果保持一致的排序。</p>
+<p>第三个功能，并发安全。Go语言中的map不是并发安全的，要想实现并发安全，需要自己实现（如加锁），或者使用sync.Map。上面的模板使用了sync.Map。</p>
+<p>当然了，如果期望List接口能在期望时间内返回，还可以添加超时机制，例如：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> &#123;</span><br><span class="line"><span class="keyword">case</span> &lt;-finished:</span><br><span class="line"><span class="keyword">case</span> err := &lt;-errChan:</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line"><span class="keyword">case</span> &lt;-time.After(time.Duration(<span class="number">30</span> * time.Second)):</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>, fmt.Errorf(<span class="string">"list users timeout after 30 seconds"</span>)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>goroutine虽然很轻量，但还是会消耗资源，如果我们需要处理几百上千的并发，就需要用协程池来复用协程，达到节省资源的目的。有很多优秀的协程包可供我们直接使用，比如ants、tunny等。</p>
+<h1 id="其他特性"><a href="#其他特性" class="headerlink" title="其他特性"></a><span style="color:#339AFF;">其他特性</span></h1><p>除了上面那两大类，这里我还想给你介绍下关键代码设计中的其他特性，包括插件化选择JSON库、调用链实现、数据一致性。</p>
+<h2 id="插件化选择JSON库"><a href="#插件化选择JSON库" class="headerlink" title="插件化选择JSON库"></a><span style="color:#00ACC1;">插件化选择JSON库</span></h2><p>Golang提供的标准JSON解析库encoding/json，在开发高性能、高并发的网络服务时会产生性能问题。所以很多开发者在实际的开发中，往往会选用第三方的高性能JSON解析库，例如jsoniter、easyjson、jsonparser等。</p>
+<p>我见过的很多开发者选择了jsoniter，也有一些开发者使用了easyjson。jsoniter的性能略高于encoding/json。但随着go版本的迭代，encoding/json库的性能也越来越高，jsoniter的性能优势也越来越有限。所以，IAM项目使用了jsoniter库，并准备随时切回encoding/json库。</p>
+<p>为了方便切换不同的JSON包，iam-apiserver采用了一种插件化的机制来使用不同的JSON包。具体是通过使用go的标签编译选择运行的解析库来实现的。</p>
+<p>标签编译就是在源代码里添加标注，通常称之为编译标签（buildtag）。编译标签通过注释的方式在靠近源代码文件顶部的地方添加。gobuild在构建一个包的时候，会读取这个包里的每个源文件并且分析编译便签，这些标签决定了这个源文件是否参与本次编译。例如：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// +build jsoniter</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> json</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> jsoniter <span class="string">"github.com/json-iterator/go"</span></span><br></pre></td></tr></table></figure></p>
+<p>+buildjsoniter就是编译标签。这里要注意，一个源文件可以有多个编译标签，多个编译标签之间是逻辑“与”的关系；一个编译标签可以包括由空格分割的多个标签，这些标签是逻辑“或”的关系。例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// +build linux darwin</span><br><span class="line">// +build 386</span><br></pre></td></tr></table></figure></p>
+<p>这里要注意，编译标签和包的声明之间应该使用空行隔开，否则编译标签会被当作包声明的注释，而不是编译标签。</p>
+<p>那具体来说，我们是如何实现插件化选择JSON库的呢？</p>
+<p>首先，我自定义了一个github.com/marmotedu/component-base/pkg/jsonjson包，来适配encoding/json和json-iterator。github.com/marmotedu/component-base/pkg/json包中有两个文件：</p>
+<ul>
+<li>json.go：映射了encoding/json包的Marshal、Unmarshal、MarshalIndent、NewDecoder、NewEncoder方法。</li>
+<li>jsoniter.go：映射了github.com/json-iterator/go包的Marshal、Unmarshal、MarshalIndent、NewDecoder、NewEncoder。</li>
+</ul>
+<p>json.go和jsoniter.go通过编译标签，让Go编译器在构建代码时选择使用哪一个json文件。</p>
+<p>接着，通过在执行gobuild时指定-tags参数，来选择编译哪个json文件。</p>
+<p>json/json.go、json/jsoniter.go这两个Go文件的顶部，都有一行注释：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// +build !jsoniter</span><br><span class="line"></span><br><span class="line">// +build jsoniter</span><br></pre></td></tr></table></figure></p>
+<p>//+build!jsoniter表示，tags不是jsoniter的时候编译这个Go文件。//+buildjsoniter表示，tags是jsoniter的时候编译这个Go文件。也就是说，这两种条件是互斥的，只有当tags=jsoniter的时候，才会使用json-iterator，其他情况使用encoding/json。</p>
+<p>例如，如果我们想使用包，可以这么编译项目：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> go build -tags=jsoniter</span></span><br></pre></td></tr></table></figure></p>
+<p>在实际开发中，我们需要根据场景来选择合适的JSON库。这里我给你一些建议。</p>
+<p>场景一：结构体序列化和反序列化场景</p>
+<p>在这个场景中，我个人首推的是官方的JSON库。可能你会比较意外，那我就来说说我的理由：</p>
+<p>首先，虽然easyjson的性能压倒了其他所有开源项目，但它有一个最大的缺陷，那就是需要额外使用工具来生成这段代码，而对额外工具的版本控制就增加了运维成本。当然，如果你的团队已经能够很好地处理protobuf了，也是可以用同样的思路来管理easyjson的。</p>
+<p>其次，虽然Go1.8之前，官方JSON库的性能总是被大家吐槽，但现在（1.16.3）官方JSON库的性能已不可同日而语。此外，作为使用最为广泛，而且没有之一的JSON库，官方库的bug是最少的，兼容性也是最好的</p>
+<p>最后，jsoniter的性能虽然依然优于官方，但没有达到逆天的程度。如果你追求的是极致的性能，那么你应该选择easyjson而不是jsoniter。jsoniter近年已经不活跃了，比如说，我前段时间提了一个issue没人回复，于是就上去看了下issue列表，发现居然还遗留着一些2018年的issue。</p>
+<p>场景二：非结构化数据的序列化和反序列化场景</p>
+<p>这个场景下，我们要分高数据利用率和低数据利用率两种情况来看。你可能对数据利用率的高低没啥概念，那我举个例子：JSON数据的正文中，如果说超过四分之一的数据都是业务需要关注和处理的，那就算是高数据利用率。</p>
+<p>在高数据利用率的情况下，我推荐使用jsonvalue。</p>
+<p>至于低数据利用率的情况，还可以根据JSON数据是否需要重新序列化，分成两种情况。</p>
+<p>如果无需重新序列化，这个时候选择jsonparser就行了，因为它的性能实在是耀眼。</p>
+<p>如果需要重新序列化，这种情况下你有两种选择：如果对性能要求相对较低，可以使用jsonvalue；如果对性能的要求高，并且只需要往二进制序列中插入一条数据，那么可以采用jsoniter的Set方法。</p>
+<p>实际操作中，超大JSON数据量，并且同时需要重新序列化的情况非常少，往往是在代理服务器、网关、overlay中继服务等，同时又需要往原数据中注入额外信息的时候。换句话说，jsoniter的适用场景比较有限。</p>
+<p>下面是从10%到60%数据覆盖率下，不同库的操作效率对比（纵坐标单位：μs/op）：</p>
+<img src="/2021/11/24/29-控制流（下）：iam-apiserver服务核心功能实现讲解/1.webp">
+<p>可以看到，当jsoniter的数据利用率达到25%时，和jsonvalue、jsonparser相比就已经没有任何优势；至于jsonvalue，由于对数据做了一次性的全解析，因此解析后的数据存取耗时极少，因此在不同数据覆盖率下的耗时都很稳定。</p>
+<h2 id="调用链实现"><a href="#调用链实现" class="headerlink" title="调用链实现"></a><span style="color:#00ACC1;">调用链实现</span></h2><p>调用链对查日志、排障帮助非常大。所以，在iam-apiserver中也实现了调用链，通过requestID来串联整个调用链。</p>
+<p>具体是通过以下两步来实现的：</p>
+<p>第一步，将ctxcontext.Context类型的变量作为函数的第一个参数，在函数调用时传递。</p>
+<p>第二步，不同函数中，通过log.L(ctxcontext.Context)来记录日志。</p>
+<p>在请求到来时，请求会通过Context中间件处理：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Context</span><span class="params">()</span> <span class="title">gin</span>.<span class="title">HandlerFunc</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">        c.Set(log.KeyRequestID, c.GetString(XRequestIDKey))</span><br><span class="line">        c.Set(log.KeyUsername, c.GetString(UsernameKey))</span><br><span class="line">        c.Next()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在Context中间件中，会在gin.Context类型的变量中设置log.KeyRequestID键，其值为36位的UUID。UUID通过RequestID中间件来生成，并设置在gin请求的Context中。</p>
+<p>RequestID中间件在Context中间件之前被加载，所以在Context中间件被执行时，能够获取到RequestID生成的UUID。</p>
+<p>log.L(ctxcontext.Context)函数在记录日志时，会从头ctx中获取到log.KeyRequestID，并作为一个附加字段随日志打印。</p>
+<p>通过以上方式，我们最终可以形成iam-apiserver的请求调用链，日志示例如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">2021-07-19 19:41:33.472 INFO    apiserver       apiserver/auth.go:205   user `admin` is authenticated.  &#123;&quot;requestID&quot;: &quot;b6c56cd3-d095-4fd5-a928-291a2e33077f&quot;, &quot;username&quot;: &quot;admin&quot;&#125;</span><br><span class="line">2021-07-19 19:41:33.472 INFO    apiserver       policy/create.go:22     create policy function called.  &#123;&quot;requestID&quot;: &quot;b6c56cd3-d095-4fd5-a928-291a2e33077f&quot;, &quot;username&quot;: &quot;admin&quot;&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
+<p>另外，ctxcontext.Context作为函数/方法的第一个参数，还有一个好处是方便后期扩展。例如，如果我们有以下调用关系：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">B</span><span class="params">(name, address <span class="keyword">string</span>)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> fmt.Sprintf(<span class="string">"name: %s, address: %s"</span>, name, address)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">A</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> B(<span class="string">"colin"</span>, <span class="string">"sz"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(A())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面的代码最终调用B函数打印出用户名及其地址。如果随着业务的发展，希望A调用B时，传入用户的电话，B中打印出用户的电话号码。这时候，我们可能会考虑给B函数增加一个电话号参数，例如：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">B</span><span class="params">(name, address, phone <span class="keyword">string</span>)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> fmt.Sprintf(<span class="string">"name: %s, address: %s, phone: %s"</span>, name, address)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果我们后面还要增加年龄、性别等属性呢？按这种方式不断增加B函数的参数，不仅麻烦，而且还要改动所有调用B的函数，工作量也很大。这时候，可以考虑通过ctxcontext.Context来传递这些扩展参数，实现如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"context"</span></span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">B</span><span class="params">(ctx context.Context, name, address <span class="keyword">string</span>)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> fmt.Sprintf(<span class="string">"name: %s, address: %s, phone: %v"</span>, name, address, ctx.Value(<span class="string">"phone"</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">A</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    ctx := context.WithValue(context.TODO(), <span class="string">"phone"</span>, <span class="string">"1812884xxxx"</span>)</span><br><span class="line">    <span class="keyword">return</span> B(ctx, <span class="string">"colin"</span>, <span class="string">"sz"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(A())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这样，我们下次需要新增参数的话，只需要调用context的WithValue方法：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ctx = context.WithValue(ctx, <span class="string">"sex"</span>, <span class="string">"male"</span>)</span><br></pre></td></tr></table></figure></p>
+<p>在B函数中，通过context.Context类型的变量提供的Value方法，从context中获取sexkey即可：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> fmt.Sprintf(<span class="string">"name: %s, address: %s, phone: %v, sex: %v"</span>, name, address, ctx.Value(<span class="string">"phone"</span>), ctx.Value(<span class="string">"sex"</span>))</span><br></pre></td></tr></table></figure></p>
+<h2 id="数据一致性"><a href="#数据一致性" class="headerlink" title="数据一致性"></a><span style="color:#00ACC1;">数据一致性</span></h2><p>为了提高iam-authz-server的响应性能，我将密钥和授权策略信息缓存在iam-authz-server部署机器的内存中。同时，为了实现高可用，我们需要保证iam-authz-server启动的实例个数至少为两个。这时候，我们会面临数据一致性的问题：所有iam-authz-server缓存的数据要一致，并且跟iam-apiserver数据库中保存的一致。iam-apiserver通过如下方式来实现数据一致性：</p>
+<img src="/2021/11/24/29-控制流（下）：iam-apiserver服务核心功能实现讲解/2.webp">
+<p>具体流程如下：</p>
+<p>第一步，iam-authz-server启动时，会通过grpc调用iam-apiserver的GetSecrets和GetPolicies接口，获取所有的密钥和授权策略信息。</p>
+<p>第二步，当我们通过控制台调用iam-apiserver密钥/授权策略的写接口（POST、PUT、DELETE）时，会向Redis的iam.cluster.notifications通道发送SecretChanged/PolicyChanged消息。</p>
+<p>第三步，iam-authz-server会订阅iam.cluster.notifications通道，当监听到有SecretChanged/PolicyChanged消息时，会请求iam-apiserver拉取所有的密钥/授权策略。</p>
+<p>通过Redis的Sub/Pub机制，保证每个iam-authz-server节点的缓存数据跟iam-apiserver数据库中保存的数据一致。所有节点都调用iam-apiserver的同一个接口来拉取数据，通过这种方式保证所有iam-authz-server节点的数据是一致的。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><span style="color:#339AFF;">总结</span></h1><p>今天，我和你分享了iam-apiserver的一些关键功能实现，并介绍了我的设计思路。这里我再简要梳理下。</p>
+<ul>
+<li>为了保证进程关停时，HTTP请求执行完后再断开连接，进程中的任务正常完成，iam-apiserver实现了优雅关停功能。</li>
+<li>为了避免进程存在，但服务没成功启动的异常场景，iam-apiserver实现了健康检查机制。</li>
+<li>Gin中间件可通过配置文件配置，从而实现按需加载的特性。为了能够直接辨别出API的版本，iam-apiserver将API的版本标识放在URL路径中，例如/v1/secrets。</li>
+<li>为了能够最大化地共享功能代码，iam-apiserver抽象出了统一的元数据，每个REST资源都具有这些元数据。</li>
+<li>因为API接口都是通过同一个函数来返回的，其返回格式自然是统一的。</li>
+<li>因为程序中经常需要处理并发逻辑，iam-apiserver抽象出了一个通用的并发模板。为了方便根据需要切换JSON库，我们实现了插件化选择JSON库的功能。</li>
+<li>为了实现调用链功能，iam-apiserver不同函数之间通过ctxcontext.Context来传递RequestID。</li>
+<li>iam-apiserver通过Redis的Sub/Pub机制来保证数据一致性。</li>
+</ul>
+<h1 id="课后练习"><a href="#课后练习" class="headerlink" title="课后练习"></a><span style="color:#339AFF;">课后练习</span></h1><p>1，思考一下，在你的项目开发中，使用过哪些更好的并发处理方式，欢迎你在留言区分享。</p>
+<p>2，试着给iam-apiserver增加一个新的、可配置的Gin中间件，用来实现API限流的效果。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Go语言项目开发实战/" rel="tag"># Go语言项目开发实战</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/11/24/28-控制流（上）：通过iam-apiserver设计，看Web服务的构建/" rel="next" title="28丨控制流（上）：通过iam-apiserver设计，看Web服务的构建">
+                <i class="fa fa-chevron-left"></i> 28丨控制流（上）：通过iam-apiserver设计，看Web服务的构建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/11/24/30-ORM：CURD神器GORM包介绍及实战/" rel="prev" title="30 | ORM：CURD神器GORM包介绍及实战">
+                30 | ORM：CURD神器GORM包介绍及实战 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+            
+              <p class="site-author-name" itemprop="name">CheBin</p>
+              <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">1152</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">77</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history fa-" aria-hidden="true"></i>
+                近期文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li>
+                    <a href="/2024/01/03/意志力/" title="意志力" target="_blank">意志力</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/01/03/成功，动机与目标/" title="成功，动机与目标" target="_blank">成功，动机与目标</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/01/03/掌控习惯/" title="掌控习惯" target="_blank">掌控习惯</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/01/03/自控力/" title="自控力" target="_blank">自控力</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/10/42｜MongoDB高性能：怎么优化MongoDB的查询性能？/" title="42｜MongoDB高性能：怎么优化MongoDB的查询性能？" target="_blank">42｜MongoDB高性能：怎么优化MongoDB的查询性能？</a>
+                  </li>
+                
+              </ul>
+            </div>
+        
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#应用框架相关的特性"><span class="nav-number">1.</span> <span class="nav-text">应用框架相关的特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#优雅关停"><span class="nav-number">1.1.</span> <span class="nav-text">优雅关停</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#健康检查"><span class="nav-number">1.2.</span> <span class="nav-text">健康检查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插件化加载中间件"><span class="nav-number">1.3.</span> <span class="nav-text">插件化加载中间件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编程规范相关的特性"><span class="nav-number">2.</span> <span class="nav-text">编程规范相关的特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#API版本"><span class="nav-number">2.1.</span> <span class="nav-text">API版本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#统一的资源元数据"><span class="nav-number">2.2.</span> <span class="nav-text">统一的资源元数据</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#统一的返回"><span class="nav-number">2.3.</span> <span class="nav-text">统一的返回</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并发处理模板"><span class="nav-number">2.4.</span> <span class="nav-text">并发处理模板</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他特性"><span class="nav-number">3.</span> <span class="nav-text">其他特性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#插件化选择JSON库"><span class="nav-number">3.1.</span> <span class="nav-text">插件化选择JSON库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调用链实现"><span class="nav-number">3.2.</span> <span class="nav-text">调用链实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据一致性"><span class="nav-number">3.3.</span> <span class="nav-text">数据一致性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课后练习"><span class="nav-number">5.</span> <span class="nav-text">课后练习</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CheBin</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">9m</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">136:05</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>

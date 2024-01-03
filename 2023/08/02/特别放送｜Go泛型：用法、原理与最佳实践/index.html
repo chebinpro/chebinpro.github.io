@@ -1,0 +1,1785 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="思考并回答以下问题：">
+<meta name="keywords" content="Go进阶·分布式爬虫实战">
+<meta property="og:type" content="article">
+<meta property="og:title" content="特别放送｜Go泛型：用法、原理与最佳实践">
+<meta property="og:url" content="http://yoursite.com/2023/08/02/特别放送｜Go泛型：用法、原理与最佳实践/index.html">
+<meta property="og:site_name" content="车斌的技术博客">
+<meta property="og:description" content="思考并回答以下问题：">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2023-08-02T07:41:25.578Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="特别放送｜Go泛型：用法、原理与最佳实践">
+<meta name="twitter:description" content="思考并回答以下问题：">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2023/08/02/特别放送｜Go泛型：用法、原理与最佳实践/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>特别放送｜Go泛型：用法、原理与最佳实践 | 车斌的技术博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">车斌的技术博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">抄写十遍，其义自见</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/08/02/特别放送｜Go泛型：用法、原理与最佳实践/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CheBin">
+      <meta itemprop="description" content="参与开源才是出路">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="车斌的技术博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">特别放送｜Go泛型：用法、原理与最佳实践
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2023-08-02 12:23:45 / 修改时间：15:41:25" itemprop="dateCreated datePublished" datetime="2023-08-02T12:23:45+08:00">2023-08-02</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">17k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">15 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>思考并回答以下问题：</p>
+<a id="more"></a>
+<p>泛型一直是自Go语言诞生以来讨论最热烈的话题之一，之前，Go语言因为没有泛型而被很多人吐槽过。经过了多年的设计，我们正式迎来了Go1.18泛型。这节课就让我们来看一看泛型的几个重要问题，你也可以先问一问自己下面几个问题。</p>
+<ul>
+<li>什么是泛型？</li>
+<li>Go为什么需要泛型？</li>
+<li>Go之前为什么没有泛型？</li>
+<li>Go泛型的特性与使用方法是什么？</li>
+</ul>
+<h1 id="什么是泛型？"><a href="#什么是泛型？" class="headerlink" title="什么是泛型？"></a>什么是泛型？</h1><p>泛型编程的核心思想是从具体的、高效的运算中抽象出通用的运算，这些运算可以适用于不同形式的数据，从而能够适用于各种各样的场景。</p>
+<p>显然，泛型是高级语言为了让一段代码拥有更强的抽象能力和表现力而设计出来的。</p>
+<p>许多语言都有对泛型的支持，我们可以看看其他语言是怎么实现泛型的。在Java中对函数进行泛型抽象的代码如下所示。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span>  &lt;E&gt; <span class="function"><span class="keyword">boolean</span> <span class="title">containsElement</span><span class="params">(E [] elements, E element)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (E e : elements)&#123;</span><br><span class="line">        <span class="keyword">if</span>(e.equals(element))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>其中，E代表类型参数，可以指代任何类型。这个函数的功能是查看任意类型的元素是否在对应的数组中。</p>
+<p>Java是通过类型擦除（TypeErasure）来实现泛型的。类型擦除指的是在编译阶段，编译器会将上面的泛型函数实例化为如下的形式。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span>  <span class="keyword">boolean</span> <span class="title">containsElement</span><span class="params">(Object [] elements, Object element)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span> (Object e : elements)&#123;</span><br><span class="line">        <span class="keyword">if</span>(e.equals(element))&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在Java中，java.lang.Object是所有类型的父类。Java编译时的这个特性使得泛型函数并不会实例化为一个具体类型的函数，这导致了程序在运行时需要花费额外的成本处理实际类型与Object之间的转换。</p>
+<p>同时，Java中无处不在的自动装箱和拆箱机制也不可避免地在运行时消耗时间与空间。</p>
+<p>而C++中实现泛型的方式称为模版。我们举一个例子，用C++求两个数的最大值。这里，C++中的模版只存在于编译时，编译时会将模版函数实例化为具体的类型。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt; <span class="function">T <span class="title">myMax</span><span class="params">(T x, T y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (x &gt; y) ? x : y;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; myMax&lt;<span class="keyword">int</span>&gt;(<span class="number">3</span>, <span class="number">7</span>) &lt;&lt; <span class="built_in">endl</span>; </span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; myMax&lt;<span class="keyword">double</span>&gt;(<span class="number">3.0</span>, <span class="number">7.0</span>) &lt;&lt; <span class="built_in">endl</span>; </span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; myMax&lt;<span class="keyword">char</span>&gt;(<span class="string">'g'</span>, <span class="string">'e'</span>) &lt;&lt; <span class="built_in">endl</span>; </span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>例如，myMax会将myMax函数实例化如下。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">myMax</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (x &gt; y) ? x : y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>而myMax会实例化另一个myMax。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">char</span> <span class="title">myMax</span><span class="params">(<span class="keyword">char</span> x, <span class="keyword">char</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> (x &gt; y) ? x : y;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>C++模版的这一特性使得它在编译时存在代码膨胀的问题，减慢了编译的速度。而由于C++允许循环依赖、模版会被实例化多次等问题，编译速度会进一步减慢。</p>
+<p>我们可以看到，泛型在使代码变得抽象的同时，也不可避免地需要花费额外的成本。好在这通常是值得的，因为我们的最终目标就是能够写出更加抽象、更有表现力的高级语言。</p>
+<h1 id="Go为什么需要泛型？"><a href="#Go为什么需要泛型？" class="headerlink" title="Go为什么需要泛型？"></a>Go为什么需要泛型？</h1><p>Go作为强类型语言，在没有泛型之前，在许多场景下书写代码都很繁琐。例如，还是刚才要判断两个数的大小这个例子，在Go中一般需要调用math.Min与math.Max两个函数。然而，由于函数参数定义了float64类型，所以并不适合其他的类型。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Max</span><span class="params">(x, y <span class="keyword">float64</span>)</span> <span class="title">float64</span></span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="title">Min</span><span class="params">(x, y <span class="keyword">float64</span>)</span> <span class="title">float64</span></span></span><br></pre></td></tr></table></figure></p>
+<p>同样的例子还存在于加法操作中，我们无法写出一个能够适用所有类型的加法函数。在过去，每一个类型都需要写一个单独的函数，如下所示。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SumInt64</span><span class="params">(x,y <span class="keyword">int64</span>)</span> <span class="title">int64</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SumInt32</span><span class="params">(x,y <span class="keyword">int32</span>)</span> <span class="title">int32</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SumUint64</span><span class="params">(x,y <span class="keyword">uint64</span>)</span> <span class="title">uint64</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SumUint32</span><span class="params">(x,y <span class="keyword">uint32</span>)</span> <span class="title">uint32</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> x + y</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>过去要解决这种问题，一般会采用gogenerate等工具自动生成代码，或者使用如下接口的方式。但都相对比较繁琐。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Sum</span><span class="params">(a, b <span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">interface</span></span>&#123;&#125; &#123;</span><br><span class="line">    <span class="keyword">switch</span> a.(<span class="keyword">type</span>) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="keyword">int</span>:</span><br><span class="line">        a1 := a.(<span class="keyword">int</span>)</span><br><span class="line">        b1 := b.(<span class="keyword">int</span>)</span><br><span class="line">        <span class="keyword">return</span> a1 + b1</span><br><span class="line">    <span class="keyword">case</span> <span class="keyword">float64</span>:</span><br><span class="line">        a1 := a.(<span class="keyword">float64</span>)</span><br><span class="line">        b1 := b.(<span class="keyword">float64</span>)</span><br><span class="line">        <span class="keyword">return</span> a1 + b1</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>而泛型解决了这一问题。我们以数组的加法为例，通用的泛型加法函数如下所示，这是Go中的新语法。Go1.18后扩展了接口的能力，在这个例子中，Number是类型的集合，用于对类型进行约束，后面我们还会详细介绍。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Number <span class="keyword">interface</span> &#123;</span><br><span class="line">    <span class="keyword">int</span> | <span class="keyword">int64</span> | <span class="keyword">float64</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Sum</span>[<span class="title">T</span> <span class="title">Number</span>]<span class="params">(numbers []T)</span> <span class="title">T</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> total T</span><br><span class="line">    <span class="keyword">for</span> _, x := <span class="keyword">range</span> numbers &#123;</span><br><span class="line">        total += x</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> total</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面的语法可以修改成更简洁的样子，如下。这一个函数适用于int、int64、float64这三个类型数组的加法，而在过去却需要分别书写3个函数。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Sum</span>[<span class="title">T</span> <span class="title">int</span> | <span class="title">int64</span> | <span class="title">float64</span>]<span class="params">(numbers []T)</span> <span class="title">T</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> total T</span><br><span class="line">    <span class="keyword">for</span> _, x := <span class="keyword">range</span> numbers &#123;</span><br><span class="line">        total += x</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> total</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>你可能会问，既然泛型有这么多好处，那为什么之前Go一直都没有实现泛型呢？我们可以从官方文档FAQ中找到问题的答案。总结一下，主要有下面几个方面的原因。</p>
+<ul>
+<li>Go语言专注于软件工程本身，其目的是设计出简单、可读、可扩展的语言。因此一开始为了确保其简单性，就没有将泛型作为语言的设计目标。</li>
+<li>泛型通常会带来额外的成本，这个成本可能来自编译时或者运行时的耗时，还有复杂度的上升。因此设计泛型时，需要做好成本与收益的平衡。Go团队一开始并没有想清楚泛型的最终形态，并且Go的空接口也给了和泛型类似的灵活性，这就降低了泛型的紧迫性。</li>
+</ul>
+<h1 id="泛型的特性与使用方法"><a href="#泛型的特性与使用方法" class="headerlink" title="泛型的特性与使用方法"></a>泛型的特性与使用方法</h1><p>Go1.18引入了泛型之后，一些之前重复的代码就可以用更简单的泛型代码来表示了。Go的泛型有下面这些特点。</p>
+<ul>
+<li>只存在于编译时，并不会在运行时有任何的性能损耗。</li>
+<li>由于存在泛型，在编译时的编译速度会下降。但是由于Go对泛型的限制加上Go依赖管理禁止了循环依赖，Go没有代码膨胀问题，编译速度仍然一骑绝尘。</li>
+<li>与C++不同，Go中的泛型是有类型约束的，它可以限制参数的类型范围。Go中的这种约束是通过扩展接口的能力实现的。</li>
+<li>当前Go的泛型语法还有诸多限制，后续可能会放开。</li>
+</ul>
+<p>要准确地理解泛型这个新概念，我们需要明确一些概念在中英文中的差异，这样才有进一步讨论的基础。我们以下面这个简单的泛型变量HashMap为例，HashMap声明了一个带泛型的哈希表。其中Key可以是int或者string，而Value必须是string或者float。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> hashmap [KEY <span class="keyword">int</span>|<span class="keyword">string</span>, VALUE <span class="keyword">string</span>| <span class="keyword">float64</span>] <span class="keyword">map</span>[KEY]VALUE</span><br></pre></td></tr></table></figure></p>
+<p>在这个例子中，[]括号中的这一串叫做类型参数列表（TypeParameterList），类型参数列表是由多个类型参数组成的，中间用逗号隔开。这个例子中的Key与Value被叫做类型参数（TypeParameter），可以取任意的名字。它们后方的<code>int|string</code>与<code>string|float64</code>叫做类型约束（Constraints）。</p>
+<p>此外，学习泛型时，还有几个重要知识点，分别是：</p>
+<p>1，泛型的声明</p>
+<p>2，泛型的类型约束</p>
+<p>3，泛型的实例化</p>
+<p>4，泛型的自动类型推断</p>
+<p>5，泛型类型参数的操作与限制</p>
+<p>6，泛型类型的转换</p>
+<p>下面我们挨个来介绍一下这些知识点。</p>
+<h1 id="泛型的声明"><a href="#泛型的声明" class="headerlink" title="泛型的声明"></a>泛型的声明</h1><p>我们先来看泛型的声明。泛型可以用在切片、哈希表、结构体、方法、函数、接口等类型中，我们先来看看泛型在各个类型中的表现，就能对泛型的声明方式有大体的了解。</p>
+<ul>
+<li>泛型切片的声明。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Slice1 [T <span class="keyword">int</span>|<span class="keyword">float64</span>|<span class="keyword">string</span>] []T</span><br></pre></td></tr></table></figure>
+<p>该泛型切片可以指代下面的3种切片类型。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> SliceInt []<span class="keyword">int</span></span><br><span class="line"><span class="keyword">type</span> SliceFloat []<span class="keyword">float64</span></span><br><span class="line"><span class="keyword">type</span> SliceInt []<span class="keyword">string</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>泛型哈希表的声明。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Map1 [KEY <span class="keyword">int</span>|<span class="keyword">string</span>, VALUE <span class="keyword">string</span>| <span class="keyword">float64</span>] <span class="keyword">map</span>[KEY]VALUE</span><br></pre></td></tr></table></figure>
+<p>该泛型哈希表可以指代下面的4种切片类型。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Map2 <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">string</span></span><br><span class="line"><span class="keyword">type</span> Map3 <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">float64</span></span><br><span class="line"><span class="keyword">type</span> Map4 <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span></span><br><span class="line"><span class="keyword">type</span> Map5 <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">float64</span></span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>泛型结构体的声明。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Struct1 [T <span class="keyword">string</span>|<span class="keyword">int</span>|<span class="keyword">float64</span>] <span class="keyword">struct</span> &#123;</span><br><span class="line">    Title <span class="keyword">string</span></span><br><span class="line">    Content  T</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该泛型结构体可以指代下面的3种类型。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 结构体</span></span><br><span class="line"><span class="keyword">type</span> Struct3 <span class="keyword">struct</span> &#123;</span><br><span class="line">    Title <span class="keyword">string</span></span><br><span class="line">    Content  <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Struct4 <span class="keyword">struct</span> &#123;</span><br><span class="line">    Title <span class="keyword">string</span></span><br><span class="line">    Content  <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Struct5 <span class="keyword">struct</span> &#123;</span><br><span class="line">    Title <span class="keyword">string</span></span><br><span class="line">    Content  <span class="keyword">float64</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>泛型方法的声明。</li>
+</ul>
+<p>下面的泛型方法可以灵活地对任意类型的Data进行加锁，并执行f函数。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Lockable[T any] <span class="keyword">struct</span> &#123;</span><br><span class="line">    mu sync.Mutex</span><br><span class="line">    data T</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(l *Lockable[T])</span> <span class="title">Do</span><span class="params">(f <span class="keyword">func</span>(*T)</span>)</span> &#123;</span><br><span class="line">    l.mu.Lock()</span><br><span class="line">    <span class="keyword">defer</span> l.mu.Unlock()</span><br><span class="line">    f(&amp;l.data)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>泛型函数的声明。</li>
+</ul>
+<p>下面的函数NoDiff可以判断可变长度数组中的每一个元素是不是都是相同的。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 函数</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NoDiff</span>[<span class="title">V</span> <span class="title">comparable</span>]<span class="params">(vs ...V)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(vs) == <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    v := vs[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> _, x := <span class="keyword">range</span> vs[<span class="number">1</span>:] &#123;</span><br><span class="line">        <span class="keyword">if</span> v != x &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>泛型接口的声明。</li>
+</ul>
+<p>下面的泛型接口可以指代不同类型的方法。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> MyInterface[T <span class="keyword">int</span> | <span class="keyword">string</span>] <span class="keyword">interface</span> &#123;</span><br><span class="line">    WriteOne(data T) T</span><br><span class="line">    ReadOne() T</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>从上面的例子可以看出，不同的泛型声明都有相似的表示形式。无外乎在[]中添加类型参数，然后为类型参数加上类型约束，从而利用类型参数指代多种不同的类型。下面我们来看一看类型约束。</p>
+<h1 id="泛型的类型约束"><a href="#泛型的类型约束" class="headerlink" title="泛型的类型约束"></a>泛型的类型约束</h1><p>正如之前看到的，Go可以为类型参数加上约束。其实我们可以将约束视为类型的类型，这种约束使类型参数成为了一种类型的集合，这个集合可能很大也可能很小。</p>
+<p>Go引入了一些新的符号来表示类型的约束，我们具体来看一看。</p>
+<ul>
+<li>~T表示一个类型集，它包括所有基础类型为T的类型。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~<span class="keyword">int</span></span><br><span class="line">~[]<span class="keyword">byte</span></span><br><span class="line">~<span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">string</span></span><br><span class="line">~<span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line">~<span class="keyword">struct</span>&#123;x <span class="keyword">int</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>举一个例子，typeflagint中的flag是一个新的类型，但是它的基础类型仍然是int。golang.org/x/exp/constraints库也为我们预置了几个类型：Complex、Float、Integer、Ordered、Signed、Unsigned。以Ordered为例，它本身的定义如下，它约束了类型必须可以进行&lt;、&lt;=、&gt;=、&gt;等比较操作。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Ordered <span class="keyword">interface</span> &#123;</span><br><span class="line">    Integer | Float | ~<span class="keyword">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>Comparable为Go中的预定义类型，约束了类型可以进行等于和不等于的判断（==、!==）。</li>
+<li>Any也是Go中的预定义类型，它其实就是空接口的别名，在Go源码中，已经将所有的空接口都替换为了Any。</li>
+<li>T1|T2|…|Tn表示集合类型，它指的是所有这些类型的并集，Tn可以是上方的~T类型、基础类型或者是类型名。</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">uint8</span> | <span class="keyword">uint16</span> | <span class="keyword">uint32</span> | <span class="keyword">uint64</span></span><br><span class="line">~[]<span class="keyword">byte</span> | ~<span class="keyword">string</span></span><br><span class="line"><span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">int</span> | []<span class="keyword">int</span> | [<span class="number">16</span>]<span class="keyword">int</span> | any</span><br><span class="line"><span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125; | ~<span class="keyword">struct</span>&#123;x <span class="keyword">int</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>类型约束是通过接口来实现的，Go1.18放宽了接口的定义，可以在接口中包含类型的集合，如下所示。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> L <span class="keyword">interface</span> &#123;</span><br><span class="line">    Run() error</span><br><span class="line">    Stop()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> M <span class="keyword">interface</span> &#123;</span><br><span class="line">    L</span><br><span class="line">    Step() error</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> N <span class="keyword">interface</span> &#123;</span><br><span class="line">    M</span><br><span class="line">    <span class="keyword">interface</span>&#123; Resume() &#125;</span><br><span class="line">    ~<span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">bool</span></span><br><span class="line">    ~[]<span class="keyword">byte</span> | <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> O <span class="keyword">interface</span> &#123;</span><br><span class="line">    Pause()</span><br><span class="line">    N</span><br><span class="line">    <span class="keyword">string</span></span><br><span class="line">    <span class="keyword">int64</span> | ~<span class="keyword">chan</span> <span class="keyword">int</span> | any</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>接口中用空行分割的类型则标识了类型的交集。在下面这个例子中，约束generic是类型int|~float64与float64的交集，所以generic只能够代表float64类型。所以下例中尝试使用int类型实例化时，编译会报错。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> generic <span class="keyword">interface</span> &#123;</span><br><span class="line">    <span class="keyword">int</span> | ~<span class="keyword">float64</span></span><br><span class="line">    <span class="keyword">float64</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Sum</span>[<span class="title">T</span> <span class="title">generic</span>]<span class="params">(numbers []T)</span> <span class="title">T</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> total T</span><br><span class="line">    <span class="keyword">for</span> _, x := <span class="keyword">range</span> numbers &#123;</span><br><span class="line">        total += x</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> total</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// int does not implement generic (int missing in float64)</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    xs := []<span class="keyword">int</span>&#123;<span class="number">3</span>, <span class="number">5</span>, <span class="number">10</span>&#125;</span><br><span class="line">    total := Sum(xs)</span><br><span class="line">    fmt.Println(total)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>另外，约束虽然靠的是扩展后的接口，但书写却可以简化，像下面两个类型参数列表就是等价的。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[X <span class="keyword">interface</span>&#123;<span class="keyword">string</span>|[]<span class="keyword">byte</span>&#125;, Y <span class="keyword">interface</span>&#123;~<span class="keyword">int</span>&#125;]</span><br><span class="line">[X <span class="keyword">string</span>|[]<span class="keyword">byte</span>, Y ~<span class="keyword">int</span>]</span><br></pre></td></tr></table></figure></p>
+<h1 id="泛型的实例化"><a href="#泛型的实例化" class="headerlink" title="泛型的实例化"></a>泛型的实例化</h1><p>泛型类型必须被实例化才能够使用。和声明一样，让我们看看各个泛型类型是如何被实例化的。</p>
+<ul>
+<li>泛型切片实例化</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Slice1 [T <span class="keyword">int</span>|<span class="keyword">float64</span>|<span class="keyword">string</span>] []T</span><br><span class="line"><span class="keyword">var</span> MySlice1 Slice1[<span class="keyword">int</span>] = []<span class="keyword">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;</span><br><span class="line"><span class="keyword">var</span> MySlice3 Slice1[<span class="keyword">string</span>] = []<span class="keyword">string</span>&#123;<span class="string">"hello"</span>, <span class="string">"small"</span>, <span class="string">"yang"</span>&#125;</span><br><span class="line"><span class="keyword">var</span> MySlice5 Slice1[<span class="keyword">float64</span>] = []<span class="keyword">float64</span>&#123;<span class="number">1.222</span>, <span class="number">3.444</span>, <span class="number">5.666</span>&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>泛型Map实例化</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Map1[KEY <span class="keyword">int</span> | <span class="keyword">string</span>, VALUE <span class="keyword">string</span> | <span class="keyword">float64</span>] <span class="keyword">map</span>[KEY]VALUE</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> MyMap1 Map1[<span class="keyword">int</span>, <span class="keyword">string</span>] = <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">string</span>&#123;</span><br><span class="line">    <span class="number">1</span>: <span class="string">"hello"</span>,</span><br><span class="line">    <span class="number">2</span>: <span class="string">"small"</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> MyMap3 Map1[<span class="keyword">string</span>, <span class="keyword">string</span>] = <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;</span><br><span class="line">    <span class="string">"one"</span>: <span class="string">"hello"</span>,</span><br><span class="line">    <span class="string">"two"</span>: <span class="string">"small"</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>泛型结构体实例化</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Aticle [T <span class="keyword">string</span>|<span class="keyword">int</span>|<span class="keyword">float64</span>] <span class="keyword">struct</span> &#123;</span><br><span class="line">    Title <span class="keyword">string</span></span><br><span class="line">    Content  T</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> s = Aticle[<span class="keyword">string</span>]&#123;</span><br><span class="line">    Title:   <span class="string">"hello"</span>,</span><br><span class="line">    Content: <span class="string">"small"</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 复杂结构体的实例化</span></span><br><span class="line"><span class="keyword">type</span> MyStruct[S <span class="keyword">int</span> | <span class="keyword">string</span>, P <span class="keyword">map</span>[S]<span class="keyword">string</span>] <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name    <span class="keyword">string</span></span><br><span class="line">    Content S</span><br><span class="line">    Job     P</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> MyStruct1 = MyStruct[<span class="keyword">int</span>, <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">string</span>]&#123;</span><br><span class="line">    Name:    <span class="string">"small"</span>,</span><br><span class="line">    Content: <span class="number">1</span>,</span><br><span class="line">    Job:     <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">string</span>&#123;<span class="number">1</span>: <span class="string">"ss"</span>&#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>泛型函数实例化</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 函数实例化</span></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NoDiff</span>[<span class="title">V</span> <span class="title">comparable</span>]<span class="params">(vs ...V)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(vs) == <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    v := vs[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> _, x := <span class="keyword">range</span> vs[<span class="number">1</span>:] &#123;</span><br><span class="line">        <span class="keyword">if</span> v != x &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> NoDiffString = NoDiff[<span class="keyword">string</span>]</span><br><span class="line">    <span class="built_in">println</span>(NoDiffString(<span class="string">"Go"</span>, <span class="string">"go"</span>))   <span class="comment">// false</span></span><br><span class="line">    <span class="built_in">println</span>(NoDiff[<span class="keyword">int</span>](<span class="number">123</span>, <span class="number">123</span>, <span class="number">789</span>)) <span class="comment">// false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数实例化，例子2</span></span><br><span class="line"><span class="keyword">type</span> Ordered <span class="keyword">interface</span> &#123;</span><br><span class="line">    ~<span class="keyword">int</span> | ~<span class="keyword">uint</span> | ~<span class="keyword">int8</span> | ~<span class="keyword">uint8</span> | ~<span class="keyword">int16</span> | ~<span class="keyword">uint16</span> |</span><br><span class="line">        ~<span class="keyword">int32</span> | ~<span class="keyword">uint32</span> | ~<span class="keyword">int64</span> | ~<span class="keyword">uint64</span> | ~<span class="keyword">uintptr</span> |</span><br><span class="line">        ~<span class="keyword">float32</span> | ~<span class="keyword">float64</span> | ~<span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Max</span>[<span class="title">S</span> ~[]<span class="title">E</span>, <span class="title">E</span> <span class="title">Ordered</span>]<span class="params">(vs S)</span> <span class="title">E</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(vs) == <span class="number">0</span> &#123;</span><br><span class="line">        <span class="built_in">panic</span>(<span class="string">"no elements"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> r = vs[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> i := <span class="keyword">range</span> vs[<span class="number">1</span>:] &#123;</span><br><span class="line">        <span class="keyword">if</span> vs[i] &gt; r &#123;</span><br><span class="line">            r = vs[i]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Age <span class="keyword">int</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> ages = []Age&#123;<span class="number">99</span>, <span class="number">12</span>, <span class="number">55</span>, <span class="number">67</span>, <span class="number">32</span>, <span class="number">3</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> langs = []<span class="keyword">string</span>&#123;<span class="string">"C"</span>, <span class="string">"Go"</span>, <span class="string">"C++"</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> maxAge = Max[[]Age, Age]</span><br><span class="line">    <span class="built_in">println</span>(maxAge(ages)) <span class="comment">// 99</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> maxStr = Max[[]<span class="keyword">string</span>, <span class="keyword">string</span>]</span><br><span class="line">    <span class="built_in">println</span>(maxStr(langs)) <span class="comment">// Go</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>泛型方法实例化</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"sync"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Lockable[T any] <span class="keyword">struct</span> &#123;</span><br><span class="line">    mu   sync.Mutex</span><br><span class="line">    data T</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(l *Lockable[T])</span> <span class="title">Do</span><span class="params">(f <span class="keyword">func</span>(*T)</span>)</span> &#123;</span><br><span class="line">    l.mu.Lock()</span><br><span class="line">    <span class="keyword">defer</span> l.mu.Unlock()</span><br><span class="line">    f(&amp;l.data)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> n Lockable[<span class="keyword">uint32</span>]</span><br><span class="line">    n.Do(<span class="function"><span class="keyword">func</span><span class="params">(v *<span class="keyword">uint32</span>)</span></span> &#123;</span><br><span class="line">        *v++</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> f Lockable[<span class="keyword">float64</span>]</span><br><span class="line">    f.Do(<span class="function"><span class="keyword">func</span><span class="params">(v *<span class="keyword">float64</span>)</span></span> &#123;</span><br><span class="line">        *v += <span class="number">1.23</span></span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> b Lockable[<span class="keyword">bool</span>]</span><br><span class="line">    b.Do(<span class="function"><span class="keyword">func</span><span class="params">(v *<span class="keyword">bool</span>)</span></span> &#123;</span><br><span class="line">        *v = !*v</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> bs Lockable[[]<span class="keyword">byte</span>]</span><br><span class="line">    bs.Do(<span class="function"><span class="keyword">func</span><span class="params">(v *[]<span class="keyword">byte</span>)</span></span> &#123;</span><br><span class="line">        *v = <span class="built_in">append</span>(*v, <span class="string">"Go"</span>...)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法实例化，例子2</span></span><br><span class="line"><span class="keyword">type</span> Number <span class="keyword">interface</span> &#123;</span><br><span class="line">    <span class="keyword">int</span> | <span class="keyword">int32</span> | <span class="keyword">int64</span> | <span class="keyword">float64</span> | <span class="keyword">float32</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义一个泛型结构体，表示堆栈</span></span><br><span class="line"><span class="keyword">type</span> Stack[V Number] <span class="keyword">struct</span> &#123;</span><br><span class="line">    size  <span class="keyword">int</span></span><br><span class="line">    value []V</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 加上Push方法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *Stack[V])</span> <span class="title">Push</span><span class="params">(v V)</span></span> &#123;</span><br><span class="line">    s.value = <span class="built_in">append</span>(s.value, v)</span><br><span class="line">    s.size++</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 加上Pop方法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *Stack[V])</span> <span class="title">Pop</span><span class="params">()</span> <span class="title">V</span></span> &#123;</span><br><span class="line">    e := s.value[s.size<span class="number">-1</span>]</span><br><span class="line">    <span class="keyword">if</span> s.size != <span class="number">0</span> &#123;</span><br><span class="line">        s.value = s.value[:s.size<span class="number">-1</span>]</span><br><span class="line">        s.size--</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> e</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"sync"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Lockable[T any] <span class="keyword">struct</span> &#123;</span><br><span class="line">    mu   sync.Mutex</span><br><span class="line">    data T</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(l *Lockable[T])</span> <span class="title">Do</span><span class="params">(f <span class="keyword">func</span>(*T)</span>)</span> &#123;</span><br><span class="line">    l.mu.Lock()</span><br><span class="line">    <span class="keyword">defer</span> l.mu.Unlock()</span><br><span class="line">    f(&amp;l.data)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> n Lockable[<span class="keyword">uint32</span>]</span><br><span class="line">    n.Do(<span class="function"><span class="keyword">func</span><span class="params">(v *<span class="keyword">uint32</span>)</span></span> &#123;</span><br><span class="line">        *v++</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> f Lockable[<span class="keyword">float64</span>]</span><br><span class="line">    f.Do(<span class="function"><span class="keyword">func</span><span class="params">(v *<span class="keyword">float64</span>)</span></span> &#123;</span><br><span class="line">        *v += <span class="number">1.23</span></span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> b Lockable[<span class="keyword">bool</span>]</span><br><span class="line">    b.Do(<span class="function"><span class="keyword">func</span><span class="params">(v *<span class="keyword">bool</span>)</span></span> &#123;</span><br><span class="line">        *v = !*v</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> bs Lockable[[]<span class="keyword">byte</span>]</span><br><span class="line">    bs.Do(<span class="function"><span class="keyword">func</span><span class="params">(v *[]<span class="keyword">byte</span>)</span></span> &#123;</span><br><span class="line">        *v = <span class="built_in">append</span>(*v, <span class="string">"Go"</span>...)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方法实例化，例子2</span></span><br><span class="line"><span class="keyword">type</span> Number <span class="keyword">interface</span> &#123;</span><br><span class="line">    <span class="keyword">int</span> | <span class="keyword">int32</span> | <span class="keyword">int64</span> | <span class="keyword">float64</span> | <span class="keyword">float32</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义一个泛型结构体，表示堆栈</span></span><br><span class="line"><span class="keyword">type</span> Stack[V Number] <span class="keyword">struct</span> &#123;</span><br><span class="line">    size  <span class="keyword">int</span></span><br><span class="line">    value []V</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 加上Push方法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *Stack[V])</span> <span class="title">Push</span><span class="params">(v V)</span></span> &#123;</span><br><span class="line">    s.value = <span class="built_in">append</span>(s.value, v)</span><br><span class="line">    s.size++</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 加上Pop方法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *Stack[V])</span> <span class="title">Pop</span><span class="params">()</span> <span class="title">V</span></span> &#123;</span><br><span class="line">    e := s.value[s.size<span class="number">-1</span>]</span><br><span class="line">    <span class="keyword">if</span> s.size != <span class="number">0</span> &#123;</span><br><span class="line">        s.value = s.value[:s.size<span class="number">-1</span>]</span><br><span class="line">        s.size--</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> e</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>泛型接口实例化</li>
+</ul>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> MyInterface[T <span class="keyword">int</span> | <span class="keyword">string</span>] <span class="keyword">interface</span> &#123;</span><br><span class="line">    WriteOne(data T) T</span><br><span class="line">    ReadOne() T</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Note <span class="keyword">struct</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(n Note)</span> <span class="title">WriteOne</span><span class="params">(one <span class="keyword">string</span>)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"hello"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(n Note)</span> <span class="title">ReadOne</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"small"</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> one MyInterface[<span class="keyword">string</span>] = Note&#123;&#125;</span><br><span class="line">fmt.Println(one.WriteOne(<span class="string">"hello"</span>))</span><br><span class="line">fmt.Println(one.ReadOne())</span><br></pre></td></tr></table></figure>
+<p>从上面泛型实例化的例子中我们可以看出，在实际使用泛型时，我们需要在[]中明确泛型的具体类型，这样编译器就能够为我们生成具体类型的函数或者类型了。不过，每一次都需要在[]中指定类型还是比较繁琐的，好在借助编译器的自动推断能力，我们就可以简化泛型实例化的书写方式。</p>
+<h1 id="泛型的自动类型推断"><a href="#泛型的自动类型推断" class="headerlink" title="泛型的自动类型推断"></a>泛型的自动类型推断</h1><p>以泛型函数实例化为例，借助编译时的自动类型推断，泛型函数的调用可以像调用正常的函数一样自然。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 函数实例化</span></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NoDiff</span>[<span class="title">V</span> <span class="title">comparable</span>]<span class="params">(vs ...V)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(vs) == <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    v := vs[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> _, x := <span class="keyword">range</span> vs[<span class="number">1</span>:] &#123;</span><br><span class="line">        <span class="keyword">if</span> v != x &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="built_in">println</span>(NoDiff(<span class="string">"Go"</span>, <span class="string">"Go"</span>, <span class="string">"Go"</span>))   <span class="comment">// true,自动推断</span></span><br><span class="line">    <span class="built_in">println</span>(NoDiff[<span class="keyword">string</span>](<span class="string">"Go"</span>, <span class="string">"go"</span>)) <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">println</span>(NoDiff(<span class="number">123</span>, <span class="number">123</span>, <span class="number">123</span>, <span class="number">123</span>)) <span class="comment">// true， 自动推断</span></span><br><span class="line">    <span class="built_in">println</span>(NoDiff[<span class="keyword">int</span>](<span class="number">123</span>, <span class="number">123</span>, <span class="number">789</span>)) <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">type</span> A = [<span class="number">2</span>]<span class="keyword">int</span></span><br><span class="line">    <span class="built_in">println</span>(NoDiff(A&#123;&#125;, A&#123;&#125;, A&#123;&#125;))     <span class="comment">// true, 自动推断</span></span><br><span class="line">    <span class="built_in">println</span>(NoDiff(A&#123;&#125;, A&#123;&#125;, A&#123;<span class="number">1</span>, <span class="number">2</span>&#125;)) <span class="comment">// false,自动推断</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">println</span>(NoDiff(<span class="built_in">new</span>(<span class="keyword">int</span>)))           <span class="comment">// true,自动推断</span></span><br><span class="line">    <span class="built_in">println</span>(NoDiff(<span class="built_in">new</span>(<span class="keyword">int</span>), <span class="built_in">new</span>(<span class="keyword">int</span>))) <span class="comment">// false,自动推断</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="泛型类型参数的操作与限制"><a href="#泛型类型参数的操作与限制" class="headerlink" title="泛型类型参数的操作与限制"></a>泛型类型参数的操作与限制</h1><p>在使用泛型的过程中，我们还不可避免地会遇到一个问题，那就是在对类型参数进行操作时，哪些操作是有效的，哪些是无效的？下面我们来看一些类型参数允许的重要操作。</p>
+<ul>
+<li>类型断言</li>
+</ul>
+<p>类型参数本质是扩展了接口的能力实现的，因此它仍然可以进行类型的断言，判断实际的类型以给出不同的操作。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">nel</span>[<span class="title">T</span> <span class="title">int</span> | <span class="title">string</span>]<span class="params">(x any)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> v, ok := x.(T); ok &#123;</span><br><span class="line">        fmt.Printf(<span class="string">"x is a %T\\n"</span>, v)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        fmt.Printf(<span class="string">"x is not a %T\\n"</span>, v)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">wua</span>[<span class="title">T</span> <span class="title">int</span> | <span class="title">string</span>]<span class="params">(x any)</span></span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> v := x.(<span class="keyword">type</span>) &#123;</span><br><span class="line">    <span class="keyword">case</span> T:</span><br><span class="line">        fmt.Println(v)</span><br><span class="line">    <span class="keyword">case</span> <span class="keyword">int</span>:</span><br><span class="line">        fmt.Println(<span class="string">"int"</span>)</span><br><span class="line">    <span class="keyword">case</span> <span class="keyword">string</span>:</span><br><span class="line">        fmt.Println(<span class="string">"string"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>核心类型限制</li>
+</ul>
+<p>由于类型参数是类型的集合，原则上只有当类型参数中的所有类型都可以执行这个操作时，才被认为是有效的。下面这类操作在编译时就会直接报错，因为Any是所有类型的集合，但是并不是所有类型都可以进行加法操作。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// invalid operation: operator + not defined on total (variable of type T constrained by any)</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Sum</span>[<span class="title">T</span> <span class="title">any</span>]<span class="params">(numbers []T)</span> <span class="title">T</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> total T</span><br><span class="line">    <span class="keyword">for</span> _, x := <span class="keyword">range</span> numbers &#123;</span><br><span class="line">        total += x</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> total</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>此外，即便是类型参数中的所有类型都可以执行的操作，在Go中也有一些限制。例如，对于下面的函数类型，调用时必须具有相同的核心类型，否则会在编译时报错。一般来说，如果一个类型参数的所有类型都共享一个相同的底层类型，这个相同的底层类型就被称为类型参数的核心类型。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">foo</span>[<span class="title">F</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span>)</span> | <span class="title">func</span><span class="params">(any)</span>]<span class="params">(f F, x <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    f(x) <span class="comment">// error: invalid operation: cannot call non-function f</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">bar</span>[<span class="title">F</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span>)</span> | <span class="title">func</span><span class="params">(<span class="keyword">int</span>)</span> <span class="title">int</span>]<span class="params">(f F, x <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    f(x) <span class="comment">// error: invalid operation: cannot call non-function f</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Fun <span class="function"><span class="keyword">func</span><span class="params">(<span class="keyword">int</span>)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="title">tag</span>[<span class="title">F</span> <span class="title">func</span><span class="params">(<span class="keyword">int</span>)</span> | <span class="title">Fun</span>]<span class="params">(f F, x <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    f(x) <span class="comment">// okay</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>执行切片的截取操作时，类型参数也必须具有相同的核心类型。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">foo</span>[<span class="title">T</span> []<span class="title">int</span> | [2]<span class="title">int</span>]<span class="params">(c T)</span></span> &#123;</span><br><span class="line">    _ = c[:] <span class="comment">// invalid operation: cannot slice c: T has no core type</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">bar</span>[<span class="title">T</span> [8]<span class="title">int</span> | [2]<span class="title">int</span>]<span class="params">(c T)</span></span> &#123;</span><br><span class="line">    _ = c[:] <span class="comment">// invalid operation: cannot slice c: T has no core type</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>同样的道理也存在于for-range循环中。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">values</span>[<span class="title">T</span> []<span class="title">E</span> | <span class="title">map</span>[<span class="title">int</span>]<span class="title">E</span>, <span class="title">E</span> <span class="title">any</span>]<span class="params">(kvs T)</span> []<span class="title">E</span></span> &#123;</span><br><span class="line">    r := <span class="built_in">make</span>([]E, <span class="number">0</span>, <span class="built_in">len</span>(kvs))</span><br><span class="line">    <span class="comment">// error: cannot range over kvs (T has no core type)</span></span><br><span class="line">    <span class="keyword">for</span> _, v := <span class="keyword">range</span> kvs &#123;</span><br><span class="line">        r = <span class="built_in">append</span>(r, v)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="泛型类型的转换"><a href="#泛型类型的转换" class="headerlink" title="泛型类型的转换"></a>泛型类型的转换</h1><p>类型参数还可以完成类型的转换操作。例如，要想让From类型顺利转换为To类型，必须确保From中的所有类型都能够强制转换为To中的所有类型，只有这样操作才是有效的。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">pet</span>[<span class="title">A</span> ~<span class="title">int32</span> | ~<span class="title">int64</span>, <span class="title">B</span> ~<span class="title">float32</span> | ~<span class="title">float64</span>]<span class="params">(x A, y B)</span></span> &#123;</span><br><span class="line">    x = A(y)</span><br><span class="line">    y = B(x)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">dig</span>[<span class="title">From</span> ~<span class="title">byte</span> | ~<span class="title">rune</span>, <span class="title">To</span> ~<span class="title">string</span> | ~<span class="title">int</span>]<span class="params">(x From)</span> <span class="title">To</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> To(x)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">cov</span>[<span class="title">V</span> ~[]<span class="title">byte</span> | ~[]<span class="title">rune</span>]<span class="params">(x V)</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">string</span>(x)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">voc</span>[<span class="title">V</span> ~[]<span class="title">byte</span> | ~[]<span class="title">rune</span>]<span class="params">(x <span class="keyword">string</span>)</span> <span class="title">V</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> V(x)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">eve</span>[<span class="title">X</span>, <span class="title">Y</span> <span class="title">int</span> | <span class="title">string</span>]<span class="params">(x X)</span> <span class="title">Y</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> Y(x) <span class="comment">// error</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>相似的情况还出现在内置的len函数、make函数、close函数中，这里就不一一赘述了。</p>
+<p>除了转换，当前Go泛型中还有一个重要的限制，就是方法的接受者可以有类型参数，但是方法中不能够有类型参数。例如下面的代码在编译时会直接报错。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> MyThing[T any] <span class="keyword">struct</span> &#123;</span><br><span class="line">    value T</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// syntax error: method must have no type parameters</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m MyThing[T])</span> <span class="title">Perform</span>[<span class="title">R</span> <span class="title">any</span>]<span class="params">(f <span class="keyword">func</span>(T)</span> <span class="title">R</span>) <span class="title">R</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> f(m.value)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">"Hello, playground"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>Go1.18之后，我们期待已经的泛型终于问世了。泛型使Go能够书写更加简单、抽象的代码。但泛型通常也是成本与收益之间的权衡。</p>
+<p>Go的泛型只存在于编译时，它以增加少量编译时间为代价，换来了更方便的代码书写。泛型的使用方法需要重点考虑几个问题，即泛型的声明、泛型的约束、泛型的实例化和泛型的操作。</p>
+<p>Go泛型通过扩展接口的能力实现了类型的集合与约束，但是当前Go中的泛型仍然有不少的限制。在实际使用时，我建议你像往常一样书写代码，当真正需要代码抽象时替换为泛型也不迟。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Go进阶·分布式爬虫实战/" rel="tag"># Go进阶·分布式爬虫实战</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/07/19/zero-admin-3/" rel="next" title="zero-admin-3">
+                <i class="fa fa-chevron-left"></i> zero-admin-3
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/08/02/特别放送｜回头看：如何更好地组织代码？/" rel="prev" title="特别放送｜回头看：如何更好地组织代码？">
+                特别放送｜回头看：如何更好地组织代码？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+            
+              <p class="site-author-name" itemprop="name">CheBin</p>
+              <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">1152</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">28</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">77</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history fa-" aria-hidden="true"></i>
+                近期文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li>
+                    <a href="/2024/01/03/意志力/" title="意志力" target="_blank">意志力</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/01/03/成功，动机与目标/" title="成功，动机与目标" target="_blank">成功，动机与目标</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/01/03/掌控习惯/" title="掌控习惯" target="_blank">掌控习惯</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/01/03/自控力/" title="自控力" target="_blank">自控力</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2023/11/10/42｜MongoDB高性能：怎么优化MongoDB的查询性能？/" title="42｜MongoDB高性能：怎么优化MongoDB的查询性能？" target="_blank">42｜MongoDB高性能：怎么优化MongoDB的查询性能？</a>
+                  </li>
+                
+              </ul>
+            </div>
+        
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是泛型？"><span class="nav-number">1.</span> <span class="nav-text">什么是泛型？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Go为什么需要泛型？"><span class="nav-number">2.</span> <span class="nav-text">Go为什么需要泛型？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#泛型的特性与使用方法"><span class="nav-number">3.</span> <span class="nav-text">泛型的特性与使用方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#泛型的声明"><span class="nav-number">4.</span> <span class="nav-text">泛型的声明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#泛型的类型约束"><span class="nav-number">5.</span> <span class="nav-text">泛型的类型约束</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#泛型的实例化"><span class="nav-number">6.</span> <span class="nav-text">泛型的实例化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#泛型的自动类型推断"><span class="nav-number">7.</span> <span class="nav-text">泛型的自动类型推断</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#泛型类型参数的操作与限制"><span class="nav-number">8.</span> <span class="nav-text">泛型类型参数的操作与限制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#泛型类型的转换"><span class="nav-number">9.</span> <span class="nav-text">泛型类型的转换</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">10.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CheBin</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">9m</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">136:05</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>
