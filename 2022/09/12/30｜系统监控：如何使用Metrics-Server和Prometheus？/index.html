@@ -111,7 +111,6 @@
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/30｜系统监控：如何使用Metrics-Server和Prometheus？/1.png">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/30｜系统监控：如何使用Metrics-Server和Prometheus？/2.png">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/30｜系统监控：如何使用Metrics-Server和Prometheus？/3.png">
 <meta property="og:image" content="http://yoursite.com/2022/09/12/30｜系统监控：如何使用Metrics-Server和Prometheus？/4.png">
@@ -128,7 +127,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="30丨系统监控：如何使用Metrics Server和Prometheus？">
 <meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2022/09/12/30｜系统监控：如何使用Metrics-Server和Prometheus？/1.png">
+<meta name="twitter:image" content="http://yoursite.com/2022/09/12/30｜系统监控：如何使用Metrics-Server和Prometheus？/2.png">
 
 
 
@@ -210,7 +209,7 @@
     </div>
     
       
-        <p class="site-subtitle">抄写十遍，其义自见</p>
+        <p class="site-subtitle">微习惯，每天看1分钟</p>
       
     
     
@@ -545,7 +544,7 @@
 <h1 id="Metrics-Server"><a href="#Metrics-Server" class="headerlink" title="Metrics Server"></a><span style="color:#339AFF;">Metrics Server</span></h1><p>如果你对Linux系统有所了解的话，也许知道有一个命令top能够实时显示当前系统的CPU和内存利用率，它是性能分析和调优的基本工具，非常有用。Kubernetes也提供了类似的命令，就是<code>kubectl top</code>，不过默认情况下这个命令不会生效，必须要安装一个插件Metrics Server才可以。</p>
 <p>Metrics Server是一个专门用来收集Kubernetes核心资源指标（metrics）的工具，它定时从所有节点的kubelet里采集信息，但是对集群的整体性能影响极小，每个节点只大约会占用1m的CPU和2MB的内存，所以性价比非常高。</p>
 <p>下面的这张图来自Kubernetes官网，你可以对Metrics Server的工作方式有个大概了解：它调用kubelet的API拿到节点和Pod的指标，再把这些信息交给apiserver，这样kubectl、HPA就可以利用apiserver来读取指标了：</p>
-<img src="/2022/09/12/30｜系统监控：如何使用Metrics-Server和Prometheus？/1.png">
+
 <p>在Metrics Server的<a href="https://github.com/kubernetes-sigs/metrics-server" target="_blank" rel="noopener">项目网址</a>可以看到它的说明文档和安装步骤，不过如果你已经按照第17讲用kubeadm搭建了Kubernetes集群，就已经具备了全部前提条件，接下来只需要几个简单的操作就可以完成安装。</p>
 <p>Metrics Server的所有依赖都放在了一个YAML描述文件里，你可以使用wget或者curl下载：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml</span><br></pre></td></tr></table></figure></p>
 <p>但是在<code>kubectl apply</code>创建对象之前，我们还有两个准备工作要做。</p>
@@ -750,7 +749,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1156</span>
+                    <span class="site-state-item-count">1199</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -766,6 +765,8 @@
                     
                   
                     
+                    
+                      
                     
                       
                     
@@ -1118,7 +1119,15 @@
                     
                       
                     
-                    <span class="site-state-item-count">78</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">81</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1149,23 +1158,23 @@
                 
                 
                   <li>
-                    <a href="/2024/01/04/04｜项目打包与优化：前端必备的Webpack打包配置详解/" title="04｜项目打包与优化：前端必备的Webpack打包配置详解" target="_blank">04｜项目打包与优化：前端必备的Webpack打包配置详解</a>
+                    <a href="/2024/01/11/结语/" title="结语" target="_blank">结语</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/01/04/03｜路由设计：如何借助Vue-Router设计出更合理的路由？/" title="03｜路由设计：如何借助VueRouter设计出更合理的路由？" target="_blank">03｜路由设计：如何借助VueRouter设计出更合理的路由？</a>
+                    <a href="/2024/01/10/第7章-微习惯策略的八大规则/" title="第7章 微习惯策略的八大规则" target="_blank">第7章 微习惯策略的八大规则</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/01/04/02｜框架搭建：如何用vue-cli搭建一个前端框架？/" title="02｜框架搭建：如何用vue-cli搭建一个前端框架？" target="_blank">02｜框架搭建：如何用vue-cli搭建一个前端框架？</a>
+                    <a href="/2024/01/10/第6章-彻底改变只需八步/" title="第6章 彻底改变只需八步" target="_blank">第6章 彻底改变只需八步</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/01/04/01｜Vue概览：Vue哪些内容是你必须要掌握的？/" title="01｜Vue概览：Vue哪些内容是你必须要掌握的？" target="_blank">01｜Vue概览：Vue哪些内容是你必须要掌握的？</a>
+                    <a href="/2024/01/10/第5章-微习惯的独特之处/" title="第5章 微习惯的独特之处" target="_blank">第5章 微习惯的独特之处</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/01/03/意志力/" title="意志力" target="_blank">意志力</a>
+                    <a href="/2024/01/10/第4章-微习惯策略/" title="第4章 微习惯策略" target="_blank">第4章 微习惯策略</a>
                   </li>
                 
               </ul>
@@ -1226,7 +1235,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9m</span>
+    <span title="站点总字数">9.2m</span>
   
 
   
@@ -1237,7 +1246,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">136:27</span>
+    <span title="站点阅读时长">139:04</span>
   
 </div>
 
