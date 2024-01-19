@@ -103,13 +103,13 @@
 
 
 
-  <meta name="description" content="思考并回答以下问题：  懂索引原理、索引设计和优化技巧。 当面试官问你一个具体问题的时候，你先尽可能问清楚一些约束条件，最常见的就是并发量有多高、数据量有多大、可用性要求多高、一致性要求多高。你可以采用防御性的面试策略，在回答具体方案的时候先自己交代清楚这个方案的约束。">
+  <meta name="description" content="思考并回答以下问题：  当面试官问你一个具体问题的时候，你先尽可能问清楚一些约束条件，最常见的就是并发量有多高、数据量有多大、可用性要求多高、一致性要求多高。你可以采用防御性的面试策略，在回答具体方案的时候先自己交代清楚这个方案的约束。">
 <meta name="keywords" content="后端工程师进阶">
 <meta property="og:type" content="article">
 <meta property="og:title" content="10｜数据库索引：为什么MySQL用B+树而不用B树？">
 <meta property="og:url" content="http://yoursite.com/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
-<meta property="og:description" content="思考并回答以下问题：  懂索引原理、索引设计和优化技巧。 当面试官问你一个具体问题的时候，你先尽可能问清楚一些约束条件，最常见的就是并发量有多高、数据量有多大、可用性要求多高、一致性要求多高。你可以采用防御性的面试策略，在回答具体方案的时候先自己交代清楚这个方案的约束。">
+<meta property="og:description" content="思考并回答以下问题：  当面试官问你一个具体问题的时候，你先尽可能问清楚一些约束条件，最常见的就是并发量有多高、数据量有多大、可用性要求多高、一致性要求多高。你可以采用防御性的面试策略，在回答具体方案的时候先自己交代清楚这个方案的约束。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/1.webp">
 <meta property="og:image" content="http://yoursite.com/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/2.webp">
@@ -121,10 +121,10 @@
 <meta property="og:image" content="http://yoursite.com/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/8.webp">
 <meta property="og:image" content="http://yoursite.com/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/9.webp">
 <meta property="og:image" content="http://yoursite.com/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/10.webp">
-<meta property="og:updated_time" content="2023-12-08T14:39:07.592Z">
+<meta property="og:updated_time" content="2024-01-18T08:30:20.791Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="10｜数据库索引：为什么MySQL用B+树而不用B树？">
-<meta name="twitter:description" content="思考并回答以下问题：  懂索引原理、索引设计和优化技巧。 当面试官问你一个具体问题的时候，你先尽可能问清楚一些约束条件，最常见的就是并发量有多高、数据量有多大、可用性要求多高、一致性要求多高。你可以采用防御性的面试策略，在回答具体方案的时候先自己交代清楚这个方案的约束。">
+<meta name="twitter:description" content="思考并回答以下问题：  当面试官问你一个具体问题的时候，你先尽可能问清楚一些约束条件，最常见的就是并发量有多高、数据量有多大、可用性要求多高、一致性要求多高。你可以采用防御性的面试策略，在回答具体方案的时候先自己交代清楚这个方案的约束。">
 <meta name="twitter:image" content="http://yoursite.com/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/1.webp">
 
 
@@ -454,7 +454,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2023-12-08 22:39:07" itemprop="dateModified" datetime="2023-12-08T22:39:07+08:00">2023-12-08</time>
+                <time title="修改时间：2024-01-18 16:30:20" itemprop="dateModified" datetime="2024-01-18T16:30:20+08:00">2024-01-18</time>
               
             
           </span>
@@ -536,7 +536,6 @@
       
         <p>思考并回答以下问题：</p>
 <ul>
-<li>懂索引原理、索引设计和优化技巧。</li>
 <li>当面试官问你一个具体问题的时候，你先尽可能问清楚一些约束条件，最常见的就是并发量有多高、数据量有多大、可用性要求多高、一致性要求多高。你可以采用防御性的面试策略，在回答具体方案的时候先自己交代清楚这个方案的约束。</li>
 </ul>
 <a id="more"></a>
@@ -818,7 +817,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1200</span>
+                    <span class="site-state-item-count">1213</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1231,23 +1230,23 @@
                 
                 
                   <li>
-                    <a href="/2024/01/13/小说/" title="小说" target="_blank">小说</a>
+                    <a href="/2024/01/17/结语-意志力的未来：收获更多，压力更少——只要你不拖延/" title="结语 意志力的未来：收获更多，压力更少——只要你不拖延" target="_blank">结语 意志力的未来：收获更多，压力更少——只要你不拖延</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/01/11/结语/" title="结语" target="_blank">结语</a>
+                    <a href="/2024/01/17/第10章-节食风暴/" title="第10章 节食风暴" target="_blank">第10章 节食风暴</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/01/10/第7章-微习惯策略的八大规则/" title="第7章 微习惯策略的八大规则" target="_blank">第7章 微习惯策略的八大规则</a>
+                    <a href="/2024/01/17/第9章-养出强大的孩子：自尊对自制/" title="第9章 养出强大的孩子：自尊对自制" target="_blank">第9章 养出强大的孩子：自尊对自制</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/01/10/第6章-彻底改变只需八步/" title="第6章 彻底改变只需八步" target="_blank">第6章 彻底改变只需八步</a>
+                    <a href="/2024/01/17/第8章-超能量帮克莱普顿和卡尔戒酒？/" title="第8章 超能量帮克莱普顿和卡尔戒酒？" target="_blank">第8章 超能量帮克莱普顿和卡尔戒酒？</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/01/10/第5章-微习惯的独特之处/" title="第5章 微习惯的独特之处" target="_blank">第5章 微习惯的独特之处</a>
+                    <a href="/2024/01/17/第7章-深入黑暗之最战胜自己/" title="第7章 深入黑暗之最战胜自己" target="_blank">第7章 深入黑暗之最战胜自己</a>
                   </li>
                 
               </ul>
@@ -1308,7 +1307,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.2m</span>
+    <span title="站点总字数">9.3m</span>
   
 
   
@@ -1319,7 +1318,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">139:12</span>
+    <span title="站点阅读时长">140:18</span>
   
 </div>
 
