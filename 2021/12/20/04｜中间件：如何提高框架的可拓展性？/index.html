@@ -115,12 +115,12 @@
 <meta property="og:image" content="http://yoursite.com/2021/12/20/04｜中间件：如何提高框架的可拓展性？/2.webp">
 <meta property="og:image" content="http://yoursite.com/2021/12/20/04｜中间件：如何提高框架的可拓展性？/3.webp">
 <meta property="og:image" content="http://yoursite.com/2021/12/20/04｜中间件：如何提高框架的可拓展性？/4.webp">
-<meta property="og:image" content="http://yoursite.com/2021/12/20/04｜中间件：如何提高框架的可拓展性？/4.webp">
+<meta property="og:image" content="http://yoursite.com/2021/12/20/04｜中间件：如何提高框架的可拓展性？/5.webp">
 <meta property="og:image" content="http://yoursite.com/2021/12/20/04｜中间件：如何提高框架的可拓展性？/6.webp">
 <meta property="og:image" content="http://yoursite.com/2021/12/20/04｜中间件：如何提高框架的可拓展性？/7.webp">
 <meta property="og:image" content="http://yoursite.com/2021/12/20/04｜中间件：如何提高框架的可拓展性？/8.webp">
 <meta property="og:image" content="http://yoursite.com/2021/12/20/04｜中间件：如何提高框架的可拓展性？/9.webp">
-<meta property="og:updated_time" content="2023-07-20T01:19:49.713Z">
+<meta property="og:updated_time" content="2024-01-26T03:19:37.193Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="04｜中间件：如何提高框架的可拓展性？">
 <meta name="twitter:description" content="思考并回答以下问题：">
@@ -453,7 +453,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2023-07-20 09:19:49" itemprop="dateModified" datetime="2023-07-20T09:19:49+08:00">2023-07-20</time>
+                <time title="修改时间：2024-01-26 11:19:37" itemprop="dateModified" datetime="2024-01-26T11:19:37+08:00">2024-01-26</time>
               
             
           </span>
@@ -565,7 +565,7 @@
 <p>这个Pipeline模型和前面的洋葱模型不一样的点在于，<strong>Middleware不再以下一层的ControllerHandler为参数了，它只需要返回有自身中间件逻辑的ControllerHandler</strong>。</p>
 <p>也就是在框架文件夹中的timeout.go中，我们将Middleware的形式从刚才的：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">TimeoutHandler</span><span class="params">(fun ControllerHandler, d time.Duration)</span> <span class="title">ControllerHandler</span></span> &#123;</span><br><span class="line">    <span class="comment">// 使用函数回调</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(c *Context)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>变成这样：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 超时控制器参数中ControllerHandler结构已经去掉</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Timeout</span><span class="params">(d time.Duration)</span> <span class="title">framework</span>.<span class="title">ControllerHandler</span></span> &#123;</span><br><span class="line">    <span class="comment">// 使用函数回调</span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(c *framework.Context)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>但是在中间件注册的回调函数中，如何调用下一个ControllerHandler呢？在回调函数中，只有framework.Context这个数据结构作为参数。</p>
+<p>但是在中间件注册的回调函数中，如何调用下一个ControllerHandler呢？在回调函数中，只有<code>framework.Context</code>这个数据结构作为参数。</p>
 <p>所以就需要我们在Context这个数据结构中想一些办法了。回顾下目前有的数据结构：Core、Context、Tree、Node、Group。</p>
 <img src="/2021/12/20/04｜中间件：如何提高框架的可拓展性？/3.webp">
 <p>它们基本上都是以Core为中心，在Core中设置路由router，实现了Tree结构，在Tree结构中包含路由节点node；在注册路由的时候，将对应的业务核心处理逻辑handler，放在node结构的handler属性中。</p>
@@ -579,7 +579,7 @@
 <p>第一步，我们需要修改路由节点node。</p>
 <p>在node节点中将原先的Handler，替换为控制器链路Handlers。这样在寻找路由节点的时候，就能找到对应的控制器链路了。修改框架文件夹中存放trie树的trie.go文件：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 代表节点</span></span><br><span class="line"><span class="keyword">type</span> node <span class="keyword">struct</span> &#123;</span><br><span class="line">    ...</span><br><span class="line">    handlers []ControllerHandler <span class="comment">// 中间件+控制器 </span></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>第二步，我们修改Context结构。</p>
-<p>由于我们上文提到，在中间件注册的回调函数中，只有framework.Context这个数据结构作为参数，所以在Context中也需要保存这个控制器链路(handlers)，并且要记录下当前执行到了哪个控制器（index）。修改框架文件夹的context.go文件：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Context代表当前请求上下文</span></span><br><span class="line"><span class="keyword">type</span> Context <span class="keyword">struct</span> &#123;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当前请求的handler链条</span></span><br><span class="line">    handlers []ControllerHandler</span><br><span class="line">    index    <span class="keyword">int</span> <span class="comment">// 当前请求调用到调用链的哪个节点</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>由于我们上文提到，在中间件注册的回调函数中，只有<code>framework.Context</code>这个数据结构作为参数，所以在Context中也需要保存这个控制器链路（handlers），并且要记录下当前执行到了哪个控制器（index）。修改框架文件夹的context.go文件：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Context代表当前请求上下文</span></span><br><span class="line"><span class="keyword">type</span> Context <span class="keyword">struct</span> &#123;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当前请求的handler链条</span></span><br><span class="line">    handlers []ControllerHandler</span><br><span class="line">    index    <span class="keyword">int</span> <span class="comment">// 当前请求调用到调用链的哪个节点</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>第三步，来实现链条调用方式。</p>
 <p>为了控制实现链条的逐步调用，我们为Context实现一个Next方法。这个Next方法每调用一次，就将这个控制器链路的调用控制器，往后移动一步。继续在框架文件夹中的context.go文件里写：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 核心函数，调用context的下一个函数</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(ctx *Context)</span> <span class="title">Next</span><span class="params">()</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    ctx.index++</span><br><span class="line">    <span class="keyword">if</span> ctx.index &lt; <span class="built_in">len</span>(ctx.handlers) &#123;</span><br><span class="line">        <span class="keyword">if</span> err := ctx.handlers[ctx.index](ctx); err != <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> err</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>这里我再啰嗦一下，Next()函数是整个链路执行的重点，要好好理解，它通过维护Context中的一个下标，来控制链路移动，这个下标表示当前调用Next要执行的控制器序列。</p>
@@ -588,7 +588,7 @@
 <li>第一个是在此次请求处理的入口处，即Core的ServeHttp；</li>
 <li>第二个是在每个中间件的逻辑代码中，用于调用下个中间件。</li>
 </ul>
-<img src="/2021/12/20/04｜中间件：如何提高框架的可拓展性？/4.webp">
+<img src="/2021/12/20/04｜中间件：如何提高框架的可拓展性？/5.webp">
 <p>这里要注意，index下标表示当前调用Next要执行的控制器序列，它的<strong>初始值应该为-1，每次调用都会自增1</strong>，这样才能保证第一次调用的时候index为0，定位到控制器链条的下标为0的控制器，即第一个控制器。</p>
 <p>在框架文件夹context.go的初始化Context函数中，代码如下：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// NewContext 初始化一个Context</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewContext</span><span class="params">(r *http.Request, w http.ResponseWriter)</span> *<span class="title">Context</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &amp;Context&#123;</span><br><span class="line">        ...</span><br><span class="line">        index:          <span class="number">-1</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>被调用的第一个地方，在入口处调用的代码，写在框架文件夹中的core.go文件中：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 所有请求都进入这个函数, 这个函数负责路由分发</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *Core)</span> <span class="title">ServeHTTP</span><span class="params">(response http.ResponseWriter, request *http.Request)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 封装自定义context</span></span><br><span class="line">    ctx := NewContext(request, response)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 寻找路由</span></span><br><span class="line">    handlers := c.FindRouteByRequest(request)</span><br><span class="line">    <span class="keyword">if</span> handlers == <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="comment">// 如果没有找到，这里打印日志</span></span><br><span class="line">        ctx.Json(<span class="number">404</span>, <span class="string">"not found"</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 设置context中的handlers字段</span></span><br><span class="line">    ctx.SetHandlers(handlers)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 调用路由函数，如果返回err 代表存在内部错误，返回500状态码</span></span><br><span class="line">    <span class="keyword">if</span> err := ctx.Next(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        ctx.Json(<span class="number">500</span>, <span class="string">"inner error"</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -750,7 +750,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1213</span>
+                    <span class="site-state-item-count">1210</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -766,8 +766,6 @@
                     
                   
                     
-                    
-                      
                     
                       
                     
@@ -1132,7 +1130,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">82</span>
+                      
+                    
+                    <span class="site-state-item-count">84</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1163,23 +1163,23 @@
                 
                 
                   <li>
+                    <a href="/2024/01/25/EasyGoAdmin-GoFrame-EleVue-3/" title="EasyGoAdmin_GoFrame_EleVue-3" target="_blank">EasyGoAdmin_GoFrame_EleVue-3</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/01/25/EasyGoAdmin-GoFrame-EleVue-2/" title="EasyGoAdmin_GoFrame_EleVue-2" target="_blank">EasyGoAdmin_GoFrame_EleVue-2</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/01/25/EasyGoAdmin-GoFrame-EleVue-1/" title="EasyGoAdmin_GoFrame_EleVue-1" target="_blank">EasyGoAdmin_GoFrame_EleVue-1</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/01/23/做饭/" title="做饭" target="_blank">做饭</a>
+                  </li>
+                
+                  <li>
                     <a href="/2024/01/17/结语-意志力的未来：收获更多，压力更少——只要你不拖延/" title="结语 意志力的未来：收获更多，压力更少——只要你不拖延" target="_blank">结语 意志力的未来：收获更多，压力更少——只要你不拖延</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2024/01/17/第10章-节食风暴/" title="第10章 节食风暴" target="_blank">第10章 节食风暴</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2024/01/17/第9章-养出强大的孩子：自尊对自制/" title="第9章 养出强大的孩子：自尊对自制" target="_blank">第9章 养出强大的孩子：自尊对自制</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2024/01/17/第8章-超能量帮克莱普顿和卡尔戒酒？/" title="第8章 超能量帮克莱普顿和卡尔戒酒？" target="_blank">第8章 超能量帮克莱普顿和卡尔戒酒？</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2024/01/17/第7章-深入黑暗之最战胜自己/" title="第7章 深入黑暗之最战胜自己" target="_blank">第7章 深入黑暗之最战胜自己</a>
                   </li>
                 
               </ul>
@@ -1251,7 +1251,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">140:18</span>
+    <span title="站点阅读时长">141:23</span>
   
 </div>
 

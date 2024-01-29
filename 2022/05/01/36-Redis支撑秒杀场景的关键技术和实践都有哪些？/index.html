@@ -112,7 +112,7 @@
 <meta property="og:description" content="思考并回答以下问题：  秒杀第一个特征是瞬时并发访问量非常高，第二个特征是读多写少，而且读操作是简单的查询操作。怎么理解？">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/2022/05/01/36-Redis支撑秒杀场景的关键技术和实践都有哪些？/1.webp">
-<meta property="og:updated_time" content="2023-05-25T06:45:04.922Z">
+<meta property="og:updated_time" content="2024-01-25T01:39:15.223Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="36 | Redis支撑秒杀场景的关键技术和实践都有哪些？">
 <meta name="twitter:description" content="思考并回答以下问题：  秒杀第一个特征是瞬时并发访问量非常高，第二个特征是读多写少，而且读操作是简单的查询操作。怎么理解？">
@@ -445,7 +445,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2023-05-25 14:45:04" itemprop="dateModified" datetime="2023-05-25T14:45:04+08:00">2023-05-25</time>
+                <time title="修改时间：2024-01-25 09:39:15" itemprop="dateModified" datetime="2024-01-25T09:39:15+08:00">2024-01-25</time>
               
             
           </span>
@@ -569,16 +569,16 @@
 <p>1，<strong>支持高并发。</strong>这个很简单，Redis本身高速处理请求的特性就可以支持高并发。而且，如果有多个秒杀商品，我们也可以使用切片集群，用不同的实例保存不同商品的库存，这样就避免，使用单个实例导致所有的秒杀请求都集中在一个实例上的问题了。不过，需要注意的是，当使用切片集群时，我们要先用CRC算法计算不同秒杀商品key对应的Slot，然后，我们在分配Slot和实例对应关系时，才能把不同秒杀商品对应的Slot分配到不同实例上保存。</p>
 <p>2，<strong>保证库存查验和库存扣减原子性执行。</strong>针对这条要求，我们就可以使用Redis的原子操作或是分布式锁这两个功能特性来支撑了。</p>
 <p>我们先来看下Redis是如何基于原子操作来支撑秒杀场景的。</p>
-<h1 id="基于原子操作支撑秒杀场景"><a href="#基于原子操作支撑秒杀场景" class="headerlink" title="基于原子操作支撑秒杀场景"></a><span style="color:#339AFF;">基于原子操作支撑秒杀场景</span></h1><p>在秒杀场景中，一个商品的库存对应了两个信息，分别是总库存量和已秒杀量。这种数据模型正好是一个key（商品ID）对应了两个属性（总库存量和已秒杀量），所以，我们可以使用一个Hash类型的键值对来保存库存的这两个信息，如下所示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">key: itemID</span><br><span class="line">value: &#123;total: N, ordered: M&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="基于原子操作支撑秒杀场景"><a href="#基于原子操作支撑秒杀场景" class="headerlink" title="基于原子操作支撑秒杀场景"></a><span style="color:#00ACC1;">基于原子操作支撑秒杀场景</span></h2><p>在秒杀场景中，一个商品的库存对应了两个信息，分别是总库存量和已秒杀量。这种数据模型正好是一个key（商品ID）对应了两个属性（总库存量和已秒杀量），所以，我们可以使用一个Hash类型的键值对来保存库存的这两个信息，如下所示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">key: itemID</span><br><span class="line">value: &#123;total: N, ordered: M&#125;</span><br></pre></td></tr></table></figure></p>
 <p>其中，itemID是商品的编号，total是总库存量，ordered是已秒杀量。</p>
 <p>因为库存查验和库存扣减这两个操作要保证一起执行，<strong>一个直接的方法就是使用Redis的原子操作。</strong></p>
 <p>我们在第29讲中学习过，原子操作可以是Redis自身提供的原子命令，也可以是Lua脚本。因为库存查验和库存扣减是两个操作，无法用一条命令来完成，所以，我们就需要使用Lua脚本原子性地执行这两个操作。</p>
-<p>那怎么在Lua脚本中实现这两个操作呢？我给你提供一段Lua脚本写的伪代码，它显示了这两个操作的实现。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#获取商品库存信息            </span></span><br><span class="line"><span class="built_in">local</span> counts = redis.call(<span class="string">"HMGET"</span>, KEYS[1], <span class="string">"total"</span>, <span class="string">"ordered"</span>);</span><br><span class="line"><span class="comment">#将总库存转换为数值</span></span><br><span class="line"><span class="built_in">local</span> total = tonumber(counts[1])</span><br><span class="line"><span class="comment">#将已被秒杀的库存转换为数值</span></span><br><span class="line"><span class="built_in">local</span> ordered = tonumber(counts[2])  </span><br><span class="line"><span class="comment">#如果当前请求的库存量加上已被秒杀的库存量仍然小于总库存量，就可以更新库存         </span></span><br><span class="line"><span class="keyword">if</span> ordered + k &lt;= total <span class="keyword">then</span></span><br><span class="line">    <span class="comment">#更新已秒杀的库存量</span></span><br><span class="line">    redis.call(<span class="string">"HINCRBY"</span>,KEYS[1],<span class="string">"ordered"</span>,k)                              <span class="built_in">return</span> k;  </span><br><span class="line">end               </span><br><span class="line"><span class="built_in">return</span> 0</span><br></pre></td></tr></table></figure></p>
+<p>那怎么在Lua脚本中实现这两个操作呢？我给你提供一段Lua脚本写的伪代码，它显示了这两个操作的实现。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#获取商品库存信息            </span></span><br><span class="line"><span class="built_in">local</span> counts = redis.call(<span class="string">"HMGET"</span>, KEYS[1], <span class="string">"total"</span>, <span class="string">"ordered"</span>);</span><br><span class="line"><span class="comment">#将总库存转换为数值</span></span><br><span class="line"><span class="built_in">local</span> total = tonumber(counts[1])</span><br><span class="line"><span class="comment">#将已被秒杀的库存转换为数值</span></span><br><span class="line"><span class="built_in">local</span> ordered = tonumber(counts[2])  </span><br><span class="line"><span class="comment">#如果当前请求的库存量加上已被秒杀的库存量仍然小于总库存量，就可以更新库存         </span></span><br><span class="line"><span class="keyword">if</span> ordered + k &lt;= total <span class="keyword">then</span></span><br><span class="line">   <span class="comment">#更新已秒杀的库存量</span></span><br><span class="line">   redis.call(<span class="string">"HINCRBY"</span>,KEYS[1],<span class="string">"ordered"</span>,k)                             </span><br><span class="line">   <span class="built_in">return</span> k;  </span><br><span class="line">end               </span><br><span class="line"><span class="built_in">return</span> 0</span><br></pre></td></tr></table></figure></p>
 <p>有了Lua脚本后，我们就可以在Redis客户端，使用EVAL命令来执行这个脚本了。</p>
 <p>最后，客户端会根据脚本的返回值，来确定秒杀是成功还是失败了。如果返回值是k，就是成功了；如果是0，就是失败。</p>
 <p>到这里，我们学习了如何使用原子性的Lua脚本来实现库存查验和库存扣减。其实，要想保证库存查验和扣减这两个操作的原子性，我们还有另一种方法，就是<strong>使用分布式锁来保证多个客户端能互斥执行这两个操作</strong>。接下来，我们就来看下如何使用分布式锁来支撑秒杀场景。</p>
-<h1 id="基于分布式锁来支撑秒杀场景"><a href="#基于分布式锁来支撑秒杀场景" class="headerlink" title="基于分布式锁来支撑秒杀场景"></a><span style="color:#339AFF;">基于分布式锁来支撑秒杀场景</span></h1><p><strong>使用分布式锁来支撑秒杀场景的具体做法是，先让客户端向Redis申请分布式锁，只有拿到锁的客户端才能执行库存查验和库存扣减。</strong>这样一来，大量的秒杀请求就会在争夺分布式锁时被过滤掉。而且，库存查验和扣减也不用使用原子操作了，因为多个并发客户端只有一个客户端能够拿到锁，已经保证了客户端并发访问的互斥性。</p>
-<p>你可以看下下面的伪代码，它显示了使用分布式锁来执行库存查验和扣减的过程。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用商品ID作为key</span></span><br><span class="line">key = itemID</span><br><span class="line"><span class="comment">//使用客户端唯一标识作为value</span></span><br><span class="line">val = clientUniqueID</span><br><span class="line"><span class="comment">//申请分布式锁，Timeout是超时时间</span></span><br><span class="line">lock =acquireLock(key, val, Timeout)</span><br><span class="line"><span class="comment">//当拿到锁后，才能进行库存查验和扣减</span></span><br><span class="line"><span class="keyword">if</span>(lock == True) &#123;</span><br><span class="line">	<span class="comment">//库存查验和扣减</span></span><br><span class="line">	availStock = DECR(key, k)</span><br><span class="line">	<span class="comment">//库存已经扣减完了，释放锁，返回秒杀失败</span></span><br><span class="line">	<span class="keyword">if</span> (availStock &lt; <span class="number">0</span>) &#123;</span><br><span class="line">		releaseLock(key, val)</span><br><span class="line">		<span class="keyword">return</span> error</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//库存扣减成功，释放锁</span></span><br><span class="line">	<span class="keyword">else</span>&#123;</span><br><span class="line">		releaseLock(key, val)</span><br><span class="line">		<span class="comment">//订单处理</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//没有拿到锁，直接返回</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="keyword">return</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="基于分布式锁来支撑秒杀场景"><a href="#基于分布式锁来支撑秒杀场景" class="headerlink" title="基于分布式锁来支撑秒杀场景"></a><span style="color:#00ACC1;">基于分布式锁来支撑秒杀场景</span></h2><p><strong>使用分布式锁来支撑秒杀场景的具体做法是，先让客户端向Redis申请分布式锁，只有拿到锁的客户端才能执行库存查验和库存扣减。</strong>这样一来，大量的秒杀请求就会在争夺分布式锁时被过滤掉。而且，库存查验和扣减也不用使用原子操作了，因为多个并发客户端只有一个客户端能够拿到锁，已经保证了客户端并发访问的互斥性。</p>
+<p>你可以看下下面的伪代码，它显示了使用分布式锁来执行库存查验和扣减的过程。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//使用商品ID作为key</span></span><br><span class="line">key = itemID</span><br><span class="line"><span class="comment">//使用客户端唯一标识作为value</span></span><br><span class="line">val = clientUniqueID</span><br><span class="line"><span class="comment">//申请分布式锁，Timeout是超时时间</span></span><br><span class="line">lock =acquireLock(key, val, Timeout)</span><br><span class="line"><span class="comment">//当拿到锁后，才能进行库存查验和扣减</span></span><br><span class="line"><span class="keyword">if</span>(lock == True) &#123;</span><br><span class="line">   <span class="comment">//库存查验和扣减</span></span><br><span class="line">   availStock = DECR(key, k)</span><br><span class="line">   <span class="comment">//库存已经扣减完了，释放锁，返回秒杀失败</span></span><br><span class="line">   <span class="keyword">if</span> (availStock &lt; <span class="number">0</span>) &#123;</span><br><span class="line">      releaseLock(key, val)</span><br><span class="line">      <span class="keyword">return</span> error</span><br><span class="line">   &#125; <span class="keyword">else</span>&#123; <span class="comment">//库存扣减成功，释放锁</span></span><br><span class="line">      releaseLock(key, val)</span><br><span class="line">      <span class="comment">//订单处理</span></span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//没有拿到锁，直接返回</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   <span class="keyword">return</span></span><br></pre></td></tr></table></figure></p>
 <p>需要提醒你的是，在使用分布式锁时，客户端需要先向Redis请求锁，只有请求到了锁，才能进行库存查验等操作，这样一来，客户端在争抢分布式锁时，大部分秒杀请求本身就会因为抢不到锁而被拦截。</p>
 <p>所以，我给你一个小建议，<strong>我们可以使用切片集群中的不同实例来分别保存分布式锁和商品库存信息</strong>。使用这种保存方式后，秒杀请求会首先访问保存分布式锁的实例。如果客户端没有拿到锁，这些客户端就不会查询商品库存，这就可以减轻保存库存信息的实例的压力了。</p>
 <h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a><span style="color:#339AFF;">小结</span></h1><p>这节课，我们学习了Redis在秒杀场景中的具体应用。秒杀场景有2个负载特征，分别是瞬时高并发请求和读多写少。Redis良好的高并发处理能力，以及高效的键值对读写特性，正好可以满足秒杀场景的需求。</p>
@@ -709,7 +709,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1213</span>
+                    <span class="site-state-item-count">1210</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -725,8 +725,6 @@
                     
                   
                     
-                    
-                      
                     
                       
                     
@@ -1091,7 +1089,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">82</span>
+                      
+                    
+                    <span class="site-state-item-count">84</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1122,23 +1122,23 @@
                 
                 
                   <li>
+                    <a href="/2024/01/25/EasyGoAdmin-GoFrame-EleVue-3/" title="EasyGoAdmin_GoFrame_EleVue-3" target="_blank">EasyGoAdmin_GoFrame_EleVue-3</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/01/25/EasyGoAdmin-GoFrame-EleVue-2/" title="EasyGoAdmin_GoFrame_EleVue-2" target="_blank">EasyGoAdmin_GoFrame_EleVue-2</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/01/25/EasyGoAdmin-GoFrame-EleVue-1/" title="EasyGoAdmin_GoFrame_EleVue-1" target="_blank">EasyGoAdmin_GoFrame_EleVue-1</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/01/23/做饭/" title="做饭" target="_blank">做饭</a>
+                  </li>
+                
+                  <li>
                     <a href="/2024/01/17/结语-意志力的未来：收获更多，压力更少——只要你不拖延/" title="结语 意志力的未来：收获更多，压力更少——只要你不拖延" target="_blank">结语 意志力的未来：收获更多，压力更少——只要你不拖延</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2024/01/17/第10章-节食风暴/" title="第10章 节食风暴" target="_blank">第10章 节食风暴</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2024/01/17/第9章-养出强大的孩子：自尊对自制/" title="第9章 养出强大的孩子：自尊对自制" target="_blank">第9章 养出强大的孩子：自尊对自制</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2024/01/17/第8章-超能量帮克莱普顿和卡尔戒酒？/" title="第8章 超能量帮克莱普顿和卡尔戒酒？" target="_blank">第8章 超能量帮克莱普顿和卡尔戒酒？</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2024/01/17/第7章-深入黑暗之最战胜自己/" title="第7章 深入黑暗之最战胜自己" target="_blank">第7章 深入黑暗之最战胜自己</a>
                   </li>
                 
               </ul>
@@ -1164,7 +1164,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#秒杀场景的负载特征对支撑系统的要求"><span class="nav-number">1.</span> <span class="nav-text">秒杀场景的负载特征对支撑系统的要求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis可以在秒杀场景的哪些环节发挥作用？"><span class="nav-number">2.</span> <span class="nav-text">Redis可以在秒杀场景的哪些环节发挥作用？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis的哪些方法可以支撑秒杀场景？"><span class="nav-number">3.</span> <span class="nav-text">Redis的哪些方法可以支撑秒杀场景？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基于原子操作支撑秒杀场景"><span class="nav-number">4.</span> <span class="nav-text">基于原子操作支撑秒杀场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基于分布式锁来支撑秒杀场景"><span class="nav-number">5.</span> <span class="nav-text">基于分布式锁来支撑秒杀场景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#每课一问"><span class="nav-number">7.</span> <span class="nav-text">每课一问</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#秒杀场景的负载特征对支撑系统的要求"><span class="nav-number">1.</span> <span class="nav-text">秒杀场景的负载特征对支撑系统的要求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis可以在秒杀场景的哪些环节发挥作用？"><span class="nav-number">2.</span> <span class="nav-text">Redis可以在秒杀场景的哪些环节发挥作用？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis的哪些方法可以支撑秒杀场景？"><span class="nav-number">3.</span> <span class="nav-text">Redis的哪些方法可以支撑秒杀场景？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基于原子操作支撑秒杀场景"><span class="nav-number">3.1.</span> <span class="nav-text">基于原子操作支撑秒杀场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于分布式锁来支撑秒杀场景"><span class="nav-number">3.2.</span> <span class="nav-text">基于分布式锁来支撑秒杀场景</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#每课一问"><span class="nav-number">5.</span> <span class="nav-text">每课一问</span></a></li></ol></div>
             
 
           </div>
@@ -1210,7 +1210,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">140:18</span>
+    <span title="站点阅读时长">141:23</span>
   
 </div>
 

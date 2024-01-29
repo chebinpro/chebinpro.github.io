@@ -103,20 +103,18 @@
 
 
 
-  <meta name="description" content="思考并回答以下问题：  总结一下，这章作者最主要想表达什么观点？">
+  <meta name="description" content="思考并回答以下问题：">
 <meta name="keywords" content="Go语言趣学指南">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第21章 结构">
 <meta property="og:url" content="http://yoursite.com/2021/09/16/第21章-结构/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
-<meta property="og:description" content="思考并回答以下问题：  总结一下，这章作者最主要想表达什么观点？">
+<meta property="og:description" content="思考并回答以下问题：">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2021/09/16/第21章-结构/1.png">
-<meta property="og:updated_time" content="2021-09-23T08:04:15.350Z">
+<meta property="og:updated_time" content="2024-01-26T02:27:25.579Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第21章 结构">
-<meta name="twitter:description" content="思考并回答以下问题：  总结一下，这章作者最主要想表达什么观点？">
-<meta name="twitter:image" content="http://yoursite.com/2021/09/16/第21章-结构/1.png">
+<meta name="twitter:description" content="思考并回答以下问题：">
 
 
 
@@ -445,7 +443,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2021-09-23 16:04:15" itemprop="dateModified" datetime="2021-09-23T16:04:15+08:00">2021-09-23</time>
+                <time title="修改时间：2024-01-26 10:27:25" itemprop="dateModified" datetime="2024-01-26T10:27:25+08:00">2024-01-26</time>
               
             
           </span>
@@ -491,7 +489,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">7.3k</span>
+                <span title="本文字数">8k</span>
               
 
               
@@ -526,9 +524,6 @@
 
       
         <p>思考并回答以下问题：</p>
-<ul>
-<li>总结一下，这章作者最主要想表达什么观点？</li>
-</ul>
 <a id="more"></a>
 <p>在Go语言中，值用于表示状态，如“一扇门是开着的还是关上的”，而函数和方法则用于表示行为，也就是针对状态的动作，如“打开一扇门”。</p>
 <p>假设有多扇门可以独立地打开或者关闭，那么将它们的状态和行为绑定在一起将会有所帮助。此外，编程语言还允许将“门”这一具体内容进一步抽象成能够打开的东西这一概念，这样就可以在炎热的夏天把窗和门这样能够打开的东西全部打开。</p>
@@ -552,20 +547,15 @@
 <blockquote>
 <p>注意：使用Print类函数可以打印出结构的内容。</p>
 </blockquote>
-<p>好奇号火星探测器从布莱德柏利着陆点开始它的火星探索旅程，该着陆点位于南纬4°35’22.2”，东经137°26’30.1”。代码清单21-1使用十进制度方式表示纬度和经度，在这种表示方式中，正数纬度表示北纬，而正数经度则表示东经，如图21-1所示。</p>
-<blockquote>
-<p>图21-1 以十进制度表示</p>
-</blockquote>
-<img src="/2021/09/16/第21章-结构/1.png">
 <p>速查21-1</p>
 <ul>
 <li>1，与独立的变量相比，使用结构有什么优势？</li>
-<li>2，布莱德柏利着陆点比火星的“海平面”低大概4400米。如果curiosity结构有一个altitude（海拔）字段，那么你该如何将它赋值为-4400？</li>
+<li>2，如果curiosity结构有一个altitude（海拔）字段，那么你该如何将它赋值为-4400？</li>
 </ul>
 <p>速查21-1答案</p>
 <ul>
 <li>1，结构可以把相关的值组合在一起，使它们更容易传递并且不易出错。</li>
-<li>2，curiosity.altitude = -4400</li>
+<li>2，<code>curiosity.altitude = -4400</code></li>
 </ul>
 <h1 id="通过类型复用结构"><a href="#通过类型复用结构" class="headerlink" title="通过类型复用结构"></a><span style="color:#339AFF;">通过类型复用结构</span></h1><p>如果你需要在多个结构中使用同一个字段，那么可以像第13章中的celsius类型那样，为结构定义相应的类型。作为例子，代码清单21-2通过location类型演示了如何将勇气号火星探测器和机遇号火星探测器分别放置于哥伦比亚纪念站和挑战者纪念站。</p>
 <blockquote>
@@ -604,7 +594,7 @@
 </ul>
 <h1 id="结构被复制"><a href="#结构被复制" class="headerlink" title="结构被复制"></a><span style="color:#339AFF;">结构被复制</span></h1><p>正如代码清单21-6所示，当好奇号火星探测器从布莱德柏利着陆点向东行进至耶洛奈夫湾时，布莱德柏利着陆点的位置就如同现实中一样，不会发生任何变化。这是因为curiosity变量在初始化时复制了bradbury变量包含的值，所以这两个结构发生的变化不会对对方产生任何影响。</p>
 <blockquote>
-<p>代码清单21-6赋值将建立相应的副本：struct-value.go</p>
+<p>代码清单21-6 赋值将建立相应的副本：struct-value.go</p>
 </blockquote>
 <figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">bradbury := location&#123;<span class="number">-4.5895</span>, <span class="number">137.4417</span>&#125;</span><br><span class="line">curiosity := bradbury</span><br><span class="line"></span><br><span class="line">curiosity.long += <span class="number">0.0106</span> <span class="comment">// 向东行进至耶洛奈夫湾</span></span><br><span class="line"></span><br><span class="line">fmt.Println(bradbury, curiosity) <span class="comment">// &#123;-4.5895 137.4417&#125; &#123;-4.5895 137.4523&#125;</span></span><br></pre></td></tr></table></figure>
 <p>速查21-4</p>
@@ -647,9 +637,9 @@
 <p>代码清单21-10 定制location结构中的字段：json-tags.go</p>
 </blockquote>
 <figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> location <span class="keyword">struct</span> &#123;</span><br><span class="line">    Lat  <span class="keyword">float64</span> <span class="string">`json:"latitude"`</span></span><br><span class="line">    Long <span class="keyword">float64</span> <span class="string">`json:"longitude"`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">curiosity := location&#123;<span class="number">-4.5895</span>, <span class="number">137.4417</span>&#125;</span><br><span class="line"></span><br><span class="line">bytes, err := json.Marshal(curiosity)</span><br><span class="line">exitOnError(err)</span><br><span class="line"></span><br><span class="line">fmt.Println(<span class="keyword">string</span>(bytes))</span><br></pre></td></tr></table></figure>
-<p>正如代码清单21-10所示，结构标签实际上就是一段与结构字段相关联的字符串。这里之所以使用被、包围的原始字符串字面量而不使用被””包围的普通字符串字面量，只是为了省下一些使用反斜杠转义引号的功夫而已。具体来说，如果我们把上例中的结构标签从原始字符串字面量改成普通字符串字面量，那么就需要把它改写成更难读也更麻烦的”json：\”latitude*才行。</p>
-<p>结构标签的格式为key：”value”，其中键的名称通常是某个包的名称。例如，为了定制Lat字段在JSON编码和XML编码时的输出，我们可以将该字段的结构标签设置成’json:”latitude”xml:”latitude”‘</p>
-<p>另外，正如名称“结构标签”所暗示的那样，这一特性只适用于结构中的字段，虽然json.Marshal函数除了能够编码结构，还能够编码其他类型。</p>
+<p>正如代码清单21-10所示，结构标签实际上就是一段与结构字段相关联的字符串。这里之所以使用被&#96;&#96;包围的原始字符串字面量而不使用被<code>&quot;&quot;</code>包围的普通字符串字面量，只是为了省下一些使用反斜杠转义引号的功夫而已。具体来说，如果我们把上例中的结构标签从原始字符串字面量改成普通字符串字面量，那么就需要把它改写成更难读也更麻烦的<code>&quot;json:\&quot;latitude\&quot;&quot;</code>才行。</p>
+<p>结构标签的格式为<code>key:&quot;value&quot;</code>，其中键的名称通常是某个包的名称。例如，为了定制Lat字段在JSON编码和XML编码时的输出，我们可以将该字段的结构标签设置成&#96;<code>json:&quot;latitude&quot;xml:&quot;latitude&quot;</code>&#96;。</p>
+<p>另外，正如名称“结构标签”所暗示的那样，这一特性只适用于结构中的字段，虽然<code>json.Marshal</code>函数除了能够编码结构，还能够编码其他类型。</p>
 <p>速查21-7</p>
 <ul>
 <li>为什么在编码JSON数据的时候，Lat字段和Long字段必须以大写字母开头？</li>
@@ -667,8 +657,9 @@
 </ul>
 <p>为了检验你是否已经掌握了上述知识，请尝试完成以下实验。</p>
 <p><strong>实验：landing.go</strong></p>
-<p>请编写一个程序，它能够以JSON格式打印出代码清单21-8中3台探测器的着陆点。被打印的JSON数据必须包含每个着陆点的名称，并使用代码清单21-10中展示的结构标签特性。<br>此外，请使用json包中的MarshalIndent函数让打印输出变得更加美观和易读。</p>
-
+<p>请编写一个程序，它能够以JSON格式打印出代码清单21-8中3台探测器的着陆点。被打印的JSON数据必须包含每个着陆点的名称，并使用代码清单21-10中展示的结构标签特性。</p>
+<p>此外，请使用json包中的MarshalIndent函数让打印输出变得更加美观和易读。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"encoding/json"</span></span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"os"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">type</span> location <span class="keyword">struct</span> &#123;</span><br><span class="line">        Name <span class="keyword">string</span>  <span class="string">`json:"name"`</span></span><br><span class="line">        Lat  <span class="keyword">float64</span> <span class="string">`json:"latitude"`</span></span><br><span class="line">        Long <span class="keyword">float64</span> <span class="string">`json:"longitude"`</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    locations := []location&#123;</span><br><span class="line">        &#123;Name: <span class="string">"Bradbury Landing"</span>, Lat: <span class="number">-4.5895</span>, Long: <span class="number">137.4417</span>&#125;,</span><br><span class="line">        &#123;Name: <span class="string">"Columbia Memorial Station"</span>, Lat: <span class="number">-14.5684</span>, Long: <span class="number">175.472636</span>&#125;,</span><br><span class="line">        &#123;Name: <span class="string">"Challenger Memorial Station"</span>, Lat: <span class="number">-1.9462</span>, Long: <span class="number">354.4734</span>&#125;,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    bytes, err := json.MarshalIndent(locations, <span class="string">""</span>, <span class="string">"  "</span>)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(err)</span><br><span class="line">        os.Exit(<span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fmt.Println(<span class="keyword">string</span>(bytes))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -787,7 +778,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1213</span>
+                    <span class="site-state-item-count">1210</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -803,8 +794,6 @@
                     
                   
                     
-                    
-                      
                     
                       
                     
@@ -1169,7 +1158,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">82</span>
+                      
+                    
+                    <span class="site-state-item-count">84</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1200,23 +1191,23 @@
                 
                 
                   <li>
+                    <a href="/2024/01/25/EasyGoAdmin-GoFrame-EleVue-3/" title="EasyGoAdmin_GoFrame_EleVue-3" target="_blank">EasyGoAdmin_GoFrame_EleVue-3</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/01/25/EasyGoAdmin-GoFrame-EleVue-2/" title="EasyGoAdmin_GoFrame_EleVue-2" target="_blank">EasyGoAdmin_GoFrame_EleVue-2</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/01/25/EasyGoAdmin-GoFrame-EleVue-1/" title="EasyGoAdmin_GoFrame_EleVue-1" target="_blank">EasyGoAdmin_GoFrame_EleVue-1</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/01/23/做饭/" title="做饭" target="_blank">做饭</a>
+                  </li>
+                
+                  <li>
                     <a href="/2024/01/17/结语-意志力的未来：收获更多，压力更少——只要你不拖延/" title="结语 意志力的未来：收获更多，压力更少——只要你不拖延" target="_blank">结语 意志力的未来：收获更多，压力更少——只要你不拖延</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2024/01/17/第10章-节食风暴/" title="第10章 节食风暴" target="_blank">第10章 节食风暴</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2024/01/17/第9章-养出强大的孩子：自尊对自制/" title="第9章 养出强大的孩子：自尊对自制" target="_blank">第9章 养出强大的孩子：自尊对自制</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2024/01/17/第8章-超能量帮克莱普顿和卡尔戒酒？/" title="第8章 超能量帮克莱普顿和卡尔戒酒？" target="_blank">第8章 超能量帮克莱普顿和卡尔戒酒？</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2024/01/17/第7章-深入黑暗之最战胜自己/" title="第7章 深入黑暗之最战胜自己" target="_blank">第7章 深入黑暗之最战胜自己</a>
                   </li>
                 
               </ul>
@@ -1288,7 +1279,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">140:18</span>
+    <span title="站点阅读时长">141:23</span>
   
 </div>
 

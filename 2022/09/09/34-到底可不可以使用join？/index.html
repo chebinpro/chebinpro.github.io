@@ -116,7 +116,7 @@
 <meta property="og:image" content="http://yoursite.com/2022/09/09/34-到底可不可以使用join？/3.webp">
 <meta property="og:image" content="http://yoursite.com/2022/09/09/34-到底可不可以使用join？/4.webp">
 <meta property="og:image" content="http://yoursite.com/2022/09/09/34-到底可不可以使用join？/5.webp">
-<meta property="og:updated_time" content="2022-11-07T13:45:28.270Z">
+<meta property="og:updated_time" content="2024-01-25T06:03:50.678Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="34 | 到底可不可以使用join？">
 <meta name="twitter:description" content="思考并回答以下问题：  所以你在判断要不要使用join语句时，就是看explain结果里面，Extra字段里面有没有出现“Block Nested Loop”字样。出现了还要使用吗？ 在决定哪个表做驱动表的时候，应该是两个表按照各自的条件过滤，过滤完成之后，计算参与join的各个字段的总数据量，数据量小的那个表，就是“小表”，应该作为驱动表。怎么理解？ 如果你的join语句很慢，就把join_bu">
@@ -449,7 +449,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2022-11-07 21:45:28" itemprop="dateModified" datetime="2022-11-07T21:45:28+08:00">2022-11-07</time>
+                <time title="修改时间：2024-01-25 14:03:50" itemprop="dateModified" datetime="2024-01-25T14:03:50+08:00">2024-01-25</time>
               
             
           </span>
@@ -595,7 +595,7 @@
 <p>你可以先设想一下这个问题，继续使用图2的算法，是不是可以得到正确的结果呢？如果只看结果的话，这个算法是正确的，而且这个算法也有一个名字，叫做“Simple Nested-Loop Join”。</p>
 <p>但是，这样算来，这个SQL请求就要扫描表t2多达100次，总共扫描100*1000=10万行。</p>
 <p>这还只是两个小表，如果t1和t2都是10万行的表（当然了，这也还是属于小表的范围），就要扫描100亿行，这个算法看上去太“笨重”了。</p>
-<p>当然，MySQL也没有使用这个Simple Nested-Loop Join算法，而是使用了另一个叫作<code>“Block Nested-Loop Join”</code>的算法，简称BNL。</p>
+<p>当然，MySQL也没有使用这个Simple Nested-Loop Join算法，而是使用了另一个叫作“Block Nested-Loop Join”的算法，简称BNL。</p>
 <h1 id="Block-Nested-Loop-Join"><a href="#Block-Nested-Loop-Join" class="headerlink" title="Block Nested-Loop Join"></a><span style="color:#339AFF;">Block Nested-Loop Join</span></h1><p>这时候，被驱动表上没有可用的索引，算法的流程是这样的：</p>
 <p>1，把表t1的数据读入线程内存join_buffer中，由于我们这个语句中写的是<code>select *</code>，因此是把整个表t1放入了内存；</p>
 <p>2，扫描表t2，把表t2中的每一行取出来，跟join_buffer中的数据做对比，满足join条件的，作为结果集的一部分返回。</p>
@@ -802,7 +802,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1213</span>
+                    <span class="site-state-item-count">1210</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -818,8 +818,6 @@
                     
                   
                     
-                    
-                      
                     
                       
                     
@@ -1184,7 +1182,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">82</span>
+                      
+                    
+                    <span class="site-state-item-count">84</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1215,23 +1215,23 @@
                 
                 
                   <li>
+                    <a href="/2024/01/25/EasyGoAdmin-GoFrame-EleVue-3/" title="EasyGoAdmin_GoFrame_EleVue-3" target="_blank">EasyGoAdmin_GoFrame_EleVue-3</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/01/25/EasyGoAdmin-GoFrame-EleVue-2/" title="EasyGoAdmin_GoFrame_EleVue-2" target="_blank">EasyGoAdmin_GoFrame_EleVue-2</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/01/25/EasyGoAdmin-GoFrame-EleVue-1/" title="EasyGoAdmin_GoFrame_EleVue-1" target="_blank">EasyGoAdmin_GoFrame_EleVue-1</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/01/23/做饭/" title="做饭" target="_blank">做饭</a>
+                  </li>
+                
+                  <li>
                     <a href="/2024/01/17/结语-意志力的未来：收获更多，压力更少——只要你不拖延/" title="结语 意志力的未来：收获更多，压力更少——只要你不拖延" target="_blank">结语 意志力的未来：收获更多，压力更少——只要你不拖延</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2024/01/17/第10章-节食风暴/" title="第10章 节食风暴" target="_blank">第10章 节食风暴</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2024/01/17/第9章-养出强大的孩子：自尊对自制/" title="第9章 养出强大的孩子：自尊对自制" target="_blank">第9章 养出强大的孩子：自尊对自制</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2024/01/17/第8章-超能量帮克莱普顿和卡尔戒酒？/" title="第8章 超能量帮克莱普顿和卡尔戒酒？" target="_blank">第8章 超能量帮克莱普顿和卡尔戒酒？</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2024/01/17/第7章-深入黑暗之最战胜自己/" title="第7章 深入黑暗之最战胜自己" target="_blank">第7章 深入黑暗之最战胜自己</a>
                   </li>
                 
               </ul>
@@ -1303,7 +1303,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">140:18</span>
+    <span title="站点阅读时长">141:23</span>
   
 </div>
 

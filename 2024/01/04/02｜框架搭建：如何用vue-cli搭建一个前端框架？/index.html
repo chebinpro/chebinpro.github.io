@@ -111,7 +111,7 @@
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2024-01-08T02:23:04.873Z">
+<meta property="og:updated_time" content="2024-01-22T09:30:57.308Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="02｜框架搭建：如何用vue-cli搭建一个前端框架？">
 <meta name="twitter:description" content="思考并回答以下问题：">
@@ -443,7 +443,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2024-01-08 10:23:04" itemprop="dateModified" datetime="2024-01-08T10:23:04+08:00">2024-01-08</time>
+                <time title="修改时间：2024-01-22 17:30:57" itemprop="dateModified" datetime="2024-01-22T17:30:57+08:00">2024-01-22</time>
               
             
           </span>
@@ -489,7 +489,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.9k</span>
+                <span title="本文字数">2.8k</span>
               
 
               
@@ -525,9 +525,24 @@
       
         <p>思考并回答以下问题：</p>
 <a id="more"></a>
+<p>前端框架有很多，比方说iView admin和vue-cli，它们都是基于Vue.js实现的。不过前者更适合搭配使用iView UI组件库，实现后台管理系统，不太匹配我们的项目要求。</p>
 <p>使用vue-cli可以快速搭建Vue开发环境以及对应的Webpack配置，它是Vue的命令行工具，同时也是一个完整的Vue项目核心构成，适用于各类开发平台前端框架的搭建。有了vue-cli脚手架，就能帮你告别冗杂的自我搭建过程。我们只需要根据业务需求，直接在项目框架中进行页面模块和路由的编写和配置，就可以非常便捷地实现项目的功能需求。</p>
-<h1 id="Node与NPM搭建"><a href="#Node与NPM搭建" class="headerlink" title="Node与NPM搭建"></a>Node与NPM搭建</h1><p>了解了vue-cli脚手架之后，我们就操练起来。“工欲善其事，必先利其器”，对于框架的搭建来说，什么是它的“器”呢？那就是你的本机环境，它类似于一个培养皿，环境配置好了，就可以直接利用命令来实现脚手架的搭建了。前面我们已经说过，vue-cli是Vue的命令行工具，整个安装过程我们要在应用NPM包管理工具进行操作，所以我们需要先安装Node.js。Node.js安装成功之后，我们就可以使用NPM进行搭建了。那我们已经在第四节课Vue概览中详细讲了安装的过程，在这节课我补充一些内容，方便你更好地应用。选好版本以后，我们把安装包下载到本地，双击按操作步骤安装即可。这里要注意一下Windows和macOS系统的差异。对于Windows系统，你需要单独进行一个环境的配置，在你的Node目录文件下，创建两个文件夹，分别为node_cache和node_global。之后在你的系统配置中，配置环境变量，新建系统变量，按下图进行配置。接下来就是编辑系统变量path。让我们新建两个变量，一个是Node的位置路径，另一个是设置的NODE_PATH，参考下图进行编辑即可。然后，我们还需要设置用户变量path，值就是node_global的路径，如下图所示。完成上述步骤以后，你可以直接在cmd中执行后面的命令。node-v：查看Node版本号npm-v：查看NPM版本号执行命令后，如果你看到了版本号，就说明我们的配置成功了。如果你根据我演示的顺序来操作，安装环节还是很好实现的。</p>
-<h1 id="vue-cli搭建"><a href="#vue-cli搭建" class="headerlink" title="vue-cli搭建"></a>vue-cli搭建</h1><p>此时你的环境已经准备好了，接下来就是激动人心的实操搭建环节。第一步全局安装vue-cli第一步，先在你电脑工作空间中创建一个放置项目的文件夹，所有命令操作一定要保证在该文件路径下。建议你在自己熟悉的开发工具中打开项目文件夹，我这里是直接用的VSCode。</p>
+<h1 id="Node与NPM搭建"><a href="#Node与NPM搭建" class="headerlink" title="Node与NPM搭建"></a>Node与NPM搭建</h1><p>了解了vue-cli脚手架之后，我们就操练起来。“工欲善其事，必先利其器”，对于框架的搭建来说，什么是它的“器”呢？那就是你的本机环境，它类似于一个培养皿，环境配置好了，就可以直接利用命令来实现脚手架的搭建了。</p>
+<p>前面我们已经说过，vue-cli是Vue的命令行工具，整个安装过程我们要在应用NPM包管理工具进行操作，所以我们需要先安装Node.js。Node.js安装成功之后，我们就可以使用NPM进行搭建了。</p>
+<p>那我们已经在第四节课Vue概览中详细讲了安装的过程，在这节课我补充一些内容，方便你更好地应用。</p>
+<p>选好版本以后，我们把安装包下载到本地，双击按操作步骤安装即可。这里要注意一下Windows和macOS系统的差异。</p>
+<p>对于Windows系统，你需要单独进行一个环境的配置，在你的Node目录文件下，创建两个文件夹，分别为node_cache和node_global。</p>
+<p>之后在你的系统配置中，配置环境变量，新建系统变量，按下图进行配置。</p>
+<p>接下来就是编辑系统变量path。让我们新建两个变量，一个是Node的位置路径，另一个是设置的NODE_PATH，参考下图进行编辑即可。</p>
+<p>然后，我们还需要设置用户变量path，值就是node_global的路径，如下图所示。</p>
+<p>完成上述步骤以后，你可以直接在cmd中执行后面的命令。</p>
+<ul>
+<li>node-v：查看Node版本号</li>
+<li>npm-v：查看NPM版本号</li>
+</ul>
+<p>执行命令后，如果你看到了版本号，就说明我们的配置成功了。如果你根据我演示的顺序来操作，安装环节还是很好实现的。</p>
+<h1 id="vue-cli搭建"><a href="#vue-cli搭建" class="headerlink" title="vue-cli搭建"></a>vue-cli搭建</h1><p>此时你的环境已经准备好了，接下来就是激动人心的实操搭建环节。</p>
+<h2 id="第一步全局安装vue-cli"><a href="#第一步全局安装vue-cli" class="headerlink" title="第一步全局安装vue-cli"></a>第一步全局安装vue-cli</h2><p>第一步，先在你电脑工作空间中创建一个放置项目的文件夹，所有命令操作一定要保证在该文件路径下。建议你在自己熟悉的开发工具中打开项目文件夹，我这里是直接用的VSCode。</p>
 <p>我们在VSCode中打开一个新的终端，此时路径已经在目标文件下了，全局安装vue-cli。</p>
 <p>命令执行完成之后，此时你可以在终端中直接运行vue-V，看到版本号之后，就代表已经安装成功了。</p>
 <p>第二步：使用Webpack构建项目</p>
@@ -548,8 +563,7 @@
 <p>我们定位到图片的红框这里的代码，改变&#123;&#123;msg&#125;&#125;的值为“你好，Python_Word”。</p>
 <p>完成修改，直接在我们的浏览器内观察页面变化，你能看到页面内容已经更换了，效果如下。</p>
 <p>如法炮制，你想再单独做几个页面是不是也很容易呢？课程结束之后就赶快操练起来吧！</p>
-<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>好了，到这里我们就快速搭建完了vue-cli框架，并且还做了”HelloWord”级别的页面修改实践。这节课也接近尾声了，相信整个过程你一定有所收获，让我们一起来回顾其中几个重点知识。</p>
-<p>我们先探讨了企业项目开发为什么采取“前后端分离”的模式。这种模式不管在项目管理上，还是开发管理上都具备大量的优势，所以我们的Python全栈课程要告别“前后端不分离”模式，采用“前后端分离”模式，让前端与后端代码“各司其职”。由此我们必须要掌握前端框架的快速搭建能力。</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>好了，到这里我们就快速搭建完了vue-cli框架，并且还做了”Hello Word”级别的页面修改实践。这节课也接近尾声了，相信整个过程你一定有所收获，让我们一起来回顾其中几个重点知识。</p>
 <p>在vue-cli脚手架搭建之前，我们还需要安装配置Node环境，这里你一定要注意自己的操作系统类型。“培养皿”准备完成后，我们应用NPM（包管理工具）进行命令搭建，你要重点关注用Webpack进行项目搭建时的那几个选项。</p>
 <p>跟着我演示的步骤，把工具安装配置好还是挺容易的。完成构建之后，先别着急去启动项目，因为这时我们还没有安装依赖，所以别忘了先在项目目录下执行npminstall命令。完成这些步骤后，再运行npmrundev，就可以在你的浏览器中看到项目视图了。</p>
 <p>我们在课程的最后一起梳理了路由、页面组件、HelloWord等更改实践，我们必须要清晰各个层级的关系，通过简单的HelloWord.vue最基础的结构，相信你一定可以举一反三，顺便检测和巩固我们先导课程中学到的Vue基础知识。</p>
@@ -674,7 +688,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1213</span>
+                    <span class="site-state-item-count">1210</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -690,8 +704,6 @@
                     
                   
                     
-                    
-                      
                     
                       
                     
@@ -1056,7 +1068,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">82</span>
+                      
+                    
+                    <span class="site-state-item-count">84</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1087,23 +1101,23 @@
                 
                 
                   <li>
+                    <a href="/2024/01/25/EasyGoAdmin-GoFrame-EleVue-3/" title="EasyGoAdmin_GoFrame_EleVue-3" target="_blank">EasyGoAdmin_GoFrame_EleVue-3</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/01/25/EasyGoAdmin-GoFrame-EleVue-2/" title="EasyGoAdmin_GoFrame_EleVue-2" target="_blank">EasyGoAdmin_GoFrame_EleVue-2</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/01/25/EasyGoAdmin-GoFrame-EleVue-1/" title="EasyGoAdmin_GoFrame_EleVue-1" target="_blank">EasyGoAdmin_GoFrame_EleVue-1</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/01/23/做饭/" title="做饭" target="_blank">做饭</a>
+                  </li>
+                
+                  <li>
                     <a href="/2024/01/17/结语-意志力的未来：收获更多，压力更少——只要你不拖延/" title="结语 意志力的未来：收获更多，压力更少——只要你不拖延" target="_blank">结语 意志力的未来：收获更多，压力更少——只要你不拖延</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2024/01/17/第10章-节食风暴/" title="第10章 节食风暴" target="_blank">第10章 节食风暴</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2024/01/17/第9章-养出强大的孩子：自尊对自制/" title="第9章 养出强大的孩子：自尊对自制" target="_blank">第9章 养出强大的孩子：自尊对自制</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2024/01/17/第8章-超能量帮克莱普顿和卡尔戒酒？/" title="第8章 超能量帮克莱普顿和卡尔戒酒？" target="_blank">第8章 超能量帮克莱普顿和卡尔戒酒？</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2024/01/17/第7章-深入黑暗之最战胜自己/" title="第7章 深入黑暗之最战胜自己" target="_blank">第7章 深入黑暗之最战胜自己</a>
                   </li>
                 
               </ul>
@@ -1129,7 +1143,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Node与NPM搭建"><span class="nav-number">1.</span> <span class="nav-text">Node与NPM搭建</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vue-cli搭建"><span class="nav-number">2.</span> <span class="nav-text">vue-cli搭建</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第一个HelloWorld-vue实践"><span class="nav-number">3.</span> <span class="nav-text">第一个HelloWorld.vue实践</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">5.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Node与NPM搭建"><span class="nav-number">1.</span> <span class="nav-text">Node与NPM搭建</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#vue-cli搭建"><span class="nav-number">2.</span> <span class="nav-text">vue-cli搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第一步全局安装vue-cli"><span class="nav-number">2.1.</span> <span class="nav-text">第一步全局安装vue-cli</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第一个HelloWorld-vue实践"><span class="nav-number">3.</span> <span class="nav-text">第一个HelloWorld.vue实践</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">5.</span> <span class="nav-text">思考题</span></a></li></ol></div>
             
 
           </div>
@@ -1175,7 +1189,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">140:18</span>
+    <span title="站点阅读时长">141:23</span>
   
 </div>
 

@@ -117,7 +117,7 @@
 <meta property="og:image" content="http://yoursite.com/2023/07/04/3-熟悉路由/4.png">
 <meta property="og:image" content="http://yoursite.com/2023/07/04/3-熟悉路由/5.png">
 <meta property="og:image" content="http://yoursite.com/2023/07/04/3-熟悉路由/7.png">
-<meta property="og:updated_time" content="2023-07-10T08:01:11.521Z">
+<meta property="og:updated_time" content="2024-01-25T08:49:43.111Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="3-熟悉路由">
 <meta name="twitter:description" content="思考并回答以下问题：">
@@ -450,7 +450,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2023-07-10 16:01:11" itemprop="dateModified" datetime="2023-07-10T16:01:11+08:00">2023-07-10</time>
+                <time title="修改时间：2024-01-25 16:49:43" itemprop="dateModified" datetime="2024-01-25T16:49:43+08:00">2024-01-25</time>
               
             
           </span>
@@ -545,10 +545,10 @@
 <p>上面的代码在Gin引擎实例中，定义不同的几个“入口”，进入之后会经过一系列处理最终返回给客户端一些JSON或HTML响应数据。如果你还记得我们如何测试咱们的控制器的，就会注意到我们会在URL中输入不同的相对路径，也就是/、/query、/query-binding之类的。下图描述其大致的请求-路由对应关系。</p>
 <img src="/2023/07/04/3-熟悉路由/1.png">
 <p>因此，我们注册路由，本质上就是将请求的URL路径与对应的处理函数映射起来。</p>
-<p>上一个实验简单介绍了一下Gin框架中IRoutes接口，这里我们再回顾一下，其定义如下（这里只保留了路由相关方法）。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> IRoutes <span class="keyword">interface</span> &#123;</span><br><span class="line">  <span class="comment">// 路由方法</span></span><br><span class="line">    Handle(<span class="keyword">string</span>, <span class="keyword">string</span>, ...HandlerFunc) IRoutes</span><br><span class="line">    Any(<span class="keyword">string</span>, ...HandlerFunc) IRoutes</span><br><span class="line">    GET(<span class="keyword">string</span>, ...HandlerFunc) IRoutes</span><br><span class="line">    POST(<span class="keyword">string</span>, ...HandlerFunc) IRoutes</span><br><span class="line">    DELETE(<span class="keyword">string</span>, ...HandlerFunc) IRoutes</span><br><span class="line">    PATCH(<span class="keyword">string</span>, ...HandlerFunc) IRoutes</span><br><span class="line">    PUT(<span class="keyword">string</span>, ...HandlerFunc) IRoutes</span><br><span class="line">    OPTIONS(<span class="keyword">string</span>, ...HandlerFunc) IRoutes</span><br><span class="line">    HEAD(<span class="keyword">string</span>, ...HandlerFunc) IRoutes</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上一个实验简单介绍了一下Gin框架中IRoutes接口，这里我们再回顾一下，其定义如下（这里只保留了路由相关方法）。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> IRoutes <span class="keyword">interface</span> &#123;</span><br><span class="line">    <span class="comment">// 路由方法</span></span><br><span class="line">    Handle(<span class="keyword">string</span>, <span class="keyword">string</span>, ...HandlerFunc) IRoutes</span><br><span class="line">    Any(<span class="keyword">string</span>, ...HandlerFunc) IRoutes</span><br><span class="line">    GET(<span class="keyword">string</span>, ...HandlerFunc) IRoutes</span><br><span class="line">    POST(<span class="keyword">string</span>, ...HandlerFunc) IRoutes</span><br><span class="line">    DELETE(<span class="keyword">string</span>, ...HandlerFunc) IRoutes</span><br><span class="line">    PATCH(<span class="keyword">string</span>, ...HandlerFunc) IRoutes</span><br><span class="line">    PUT(<span class="keyword">string</span>, ...HandlerFunc) IRoutes</span><br><span class="line">    OPTIONS(<span class="keyword">string</span>, ...HandlerFunc) IRoutes</span><br><span class="line">    HEAD(<span class="keyword">string</span>, ...HandlerFunc) IRoutes</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>在Gin框架中注册路由，只需要调用IRoutes对应的方法。Gin框架开发团队很贴心，已经将大部分常见的HTTP方法（GET、POST、DELETE、PATCH、PUT、OPTIONS、HEAD）内置到了标准路由库中，可以通过类似<code>app.GET(&quot;/path/to/route&quot;, func(c *gin.Context) {...})</code>的方式调用。如果一个HTTP请求的URL路径和HTTP方法都匹配到该路由时，就会被分发到对应的控制器处理函数里。</p>
 <p>这里我们简单提及其中两个特殊的方法，Handle、Any。Handle跟内置方法用法类似，主要多了第一个参数，也就是HTTP方法，它的主要目的是注册不是很常见的HTTP方法，例如CONNECT等；Any也类似，但它包含了所有的HTTP方法，也就是说，当一个请求只要URL路径能匹配到该路由，就会直接分发到对应的控制器处理函数里。</p>
-<h1 id="动态路由"><a href="#动态路由" class="headerlink" title="动态路由"></a><span style="color:#339AFF;">动态路由</span></h1><p>动态路由（Dynamic Routing）在Gin框架（甚至是所有Web框架）中是非常重要的概念，因为很多大型网站（例如电商）中的URL是不固定的，而且一些重要信息（例如产品ID）都会被嵌入到URL中。处理这种重复数据结构、处理逻辑的场景，正是动态路由所擅长的。之前的回顾的其中一个路由路径，/:id正是动态路由。</p>
+<h1 id="动态路由"><a href="#动态路由" class="headerlink" title="动态路由"></a><span style="color:#339AFF;">动态路由</span></h1><p>动态路由（Dynamic Routing）在Gin框架（甚至是所有Web框架）中是非常重要的概念，因为很多大型网站（例如电商）中的URL是不固定的，而且一些重要信息（例如产品ID）都会被嵌入到URL中。处理这种重复数据结构、处理逻辑的场景，正是动态路由所擅长的。之前的回顾的其中一个路由路径，<code>/:id</code>正是动态路由。</p>
 <p>Gin框架中的动态路由有两种定义方式：</p>
 <ul>
 <li>冒号 + 参数名，表示<strong>非空参数</strong>。例如/:id，可以匹配/1001，不能匹配/或/1001/sku1。</li>
@@ -564,7 +564,7 @@
 <p>成功启动后，更改URL相对路径为/users/zhangsan，结果如下。</p>
 <img src="/2023/07/04/3-熟悉路由/3.png">
 <p>成功获得了张三的用户信息。</p>
-<p>那么当我们试图获取李四的信息会如何呢？同样，URL相对路径更高为/users/lisi，结果如下。</p>
+<p>那么当我们试图获取李四的信息会如何呢？同样，URL相对路径更改为/users/lisi，结果如下。</p>
 <img src="/2023/07/04/3-熟悉路由/4.png">
 <p>返回了404找不到用户的响应。这是符合预期的。</p>
 <p>这里可以思考一下，如果试图获取/users、/users/会怎样。先根据自己的判断猜测结果，然后自己更改URL为/users、/users/再试试。</p>
@@ -710,7 +710,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1213</span>
+                    <span class="site-state-item-count">1210</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -726,8 +726,6 @@
                     
                   
                     
-                    
-                      
                     
                       
                     
@@ -1092,7 +1090,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">82</span>
+                      
+                    
+                    <span class="site-state-item-count">84</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1123,23 +1123,23 @@
                 
                 
                   <li>
+                    <a href="/2024/01/25/EasyGoAdmin-GoFrame-EleVue-3/" title="EasyGoAdmin_GoFrame_EleVue-3" target="_blank">EasyGoAdmin_GoFrame_EleVue-3</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/01/25/EasyGoAdmin-GoFrame-EleVue-2/" title="EasyGoAdmin_GoFrame_EleVue-2" target="_blank">EasyGoAdmin_GoFrame_EleVue-2</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/01/25/EasyGoAdmin-GoFrame-EleVue-1/" title="EasyGoAdmin_GoFrame_EleVue-1" target="_blank">EasyGoAdmin_GoFrame_EleVue-1</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/01/23/做饭/" title="做饭" target="_blank">做饭</a>
+                  </li>
+                
+                  <li>
                     <a href="/2024/01/17/结语-意志力的未来：收获更多，压力更少——只要你不拖延/" title="结语 意志力的未来：收获更多，压力更少——只要你不拖延" target="_blank">结语 意志力的未来：收获更多，压力更少——只要你不拖延</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2024/01/17/第10章-节食风暴/" title="第10章 节食风暴" target="_blank">第10章 节食风暴</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2024/01/17/第9章-养出强大的孩子：自尊对自制/" title="第9章 养出强大的孩子：自尊对自制" target="_blank">第9章 养出强大的孩子：自尊对自制</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2024/01/17/第8章-超能量帮克莱普顿和卡尔戒酒？/" title="第8章 超能量帮克莱普顿和卡尔戒酒？" target="_blank">第8章 超能量帮克莱普顿和卡尔戒酒？</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2024/01/17/第7章-深入黑暗之最战胜自己/" title="第7章 深入黑暗之最战胜自己" target="_blank">第7章 深入黑暗之最战胜自己</a>
                   </li>
                 
               </ul>
@@ -1211,7 +1211,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">140:18</span>
+    <span title="站点阅读时长">141:23</span>
   
 </div>
 
