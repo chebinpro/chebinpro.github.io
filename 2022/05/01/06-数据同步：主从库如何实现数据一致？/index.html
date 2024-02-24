@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,30 +104,30 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="Redis核心技术与实战">
 <meta property="og:type" content="article">
 <meta property="og:title" content="06 | 数据同步：主从库如何实现数据一致？">
-<meta property="og:url" content="http://yoursite.com/2022/05/01/06-数据同步：主从库如何实现数据一致？/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/05/01/06-%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%EF%BC%9A%E4%B8%BB%E4%BB%8E%E5%BA%93%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/05/01/06-数据同步：主从库如何实现数据一致？/1.webp">
-<meta property="og:image" content="http://yoursite.com/2022/05/01/06-数据同步：主从库如何实现数据一致？/2.webp">
-<meta property="og:image" content="http://yoursite.com/2022/05/01/06-数据同步：主从库如何实现数据一致？/3.webp">
-<meta property="og:image" content="http://yoursite.com/2022/05/01/06-数据同步：主从库如何实现数据一致？/4.webp">
-<meta property="og:image" content="http://yoursite.com/2022/05/01/06-数据同步：主从库如何实现数据一致？/5.webp">
-<meta property="og:updated_time" content="2022-11-03T07:33:56.525Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/05/01/06-%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%EF%BC%9A%E4%B8%BB%E4%BB%8E%E5%BA%93%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%EF%BC%9F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2022/05/01/06-%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%EF%BC%9A%E4%B8%BB%E4%BB%8E%E5%BA%93%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%EF%BC%9F/2.webp">
+<meta property="og:image" content="http://yoursite.com/2022/05/01/06-%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%EF%BC%9A%E4%B8%BB%E4%BB%8E%E5%BA%93%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%EF%BC%9F/3.webp">
+<meta property="og:image" content="http://yoursite.com/2022/05/01/06-%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%EF%BC%9A%E4%B8%BB%E4%BB%8E%E5%BA%93%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%EF%BC%9F/4.webp">
+<meta property="og:image" content="http://yoursite.com/2022/05/01/06-%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%EF%BC%9A%E4%B8%BB%E4%BB%8E%E5%BA%93%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%EF%BC%9F/5.webp">
+<meta property="article:published_time" content="2022-05-01T06:54:34.000Z">
+<meta property="article:modified_time" content="2022-11-03T07:33:56.525Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Redis核心技术与实战">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="06 | 数据同步：主从库如何实现数据一致？">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2022/05/01/06-数据同步：主从库如何实现数据一致？/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2022/05/01/06-%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%EF%BC%9A%E4%B8%BB%E4%BB%8E%E5%BA%93%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%EF%BC%9F/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/05/01/06-数据同步：主从库如何实现数据一致？/">
+  <link rel="canonical" href="http://yoursite.com/2022/05/01/06-数据同步：主从库如何实现数据一致？/"/>
 
 
 
@@ -176,7 +176,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -237,7 +237,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -254,7 +254,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -271,7 +271,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -288,7 +288,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -305,7 +305,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -316,7 +316,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -336,7 +336,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -386,16 +388,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/05/01/06-数据同步：主从库如何实现数据一致？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/05/01/06-%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%EF%BC%9A%E4%B8%BB%E4%BB%8E%E5%BA%93%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -495,7 +497,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">5.4k</span>
+                <span title="本文字数">8.3k</span>
               
 
               
@@ -509,7 +511,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">5 分钟</span>
+                <span title="阅读时长">8 分钟</span>
               
             </div>
           
@@ -530,7 +532,7 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>前两节课，我们学习了AOF和RDB，如果Redis发生了宕机，它们可以分别通过回放日志和重新读入RDB文件的方式恢复数据，从而保证尽量少丢失数据，提升可靠性。</p>
 <p>不过，即使用了这两种方法，也依然存在服务不可用的问题。比如说，我们在实际使用时只运行了一个Redis实例，那么，如果这个实例宕机了，它在恢复期间，是无法服务新来的数据存取请求的。</p>
 <p>那我们总说的Redis具有高可靠性，又是什么意思呢？其实，这里有两层含义：一是<strong>数据尽量少丢失</strong>，二是<strong>服务尽量少中断</strong>。AOF和RDB保证了前者，而对于后者，Redis的做法就是<strong>增加副本冗余量</strong>，将一份数据同时保存在多个实例上。即使有一个实例出现了故障，需要过一段时间才能恢复，其他实例也可以对外提供服务，不会影响业务使用。</p>
@@ -543,7 +545,7 @@
 <blockquote>
 <p>Redis主从库和读写分离</p>
 </blockquote>
-<img src="/2022/05/01/06-数据同步：主从库如何实现数据一致？/1.webp">
+<img src="/2022/05/01/06-%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%EF%BC%9A%E4%B8%BB%E4%BB%8E%E5%BA%93%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%EF%BC%9F/1.webp" class="">
 <p>那么，为什么要采用读写分离的方式呢？</p>
 <p>你可以设想一下，如果在上图中，不管是主库还是从库，都能接收客户端的写操作，那么，一个直接的问题就是：如果客户端对同一个数据（例如k1）前后修改了三次，每一次的修改请求都发送到不同的实例上，在不同的实例上执行，那么，这个数据在这三个实例上的副本就不一致了（分别是v1、v2和v3）。在读取这个数据的时候，就可能读取到旧的值。</p>
 <p>如果我们非要保持这个数据在三个实例上一致，就要涉及到加锁、实例间协商是否完成修改等一系列操作，但这会带来巨额的开销，当然是不太能接受的。</p>
@@ -551,12 +553,11 @@
 <p>那么，主从库同步是如何完成的呢？主库数据是一次性传给从库，还是分批同步？要是主从库间的网络断连了，数据还能保持一致吗？这节课，我就和你聊聊主从库同步的原理，以及应对网络断连风险的方案。</p>
 <p>好了，我们先来看看主从库间的第一次同步是如何进行的，这也是Redis实例建立主从库模式后的规定动作。</p>
 <h1 id="主从库间如何进行第一次同步？"><a href="#主从库间如何进行第一次同步？" class="headerlink" title="主从库间如何进行第一次同步？"></a><span style="color:#339AFF;">主从库间如何进行第一次同步？</span></h1><p>当我们启动多个Redis实例的时候，它们相互之间就可以通过replicaof（Redis 5.0之前使用slaveof）命令形成主库和从库的关系，之后会按照三个阶段完成数据的第一次同步。</p>
-<p>例如，现在有实例1（ip：172.16.19.3）和实例2（ip：172.16.19.5），我们在实例2上执行以下这个命令后，实例2就变成了实例1的从库，并从实例1上复制数据：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">replicaof  172.16.19.3  6379</span><br></pre></td></tr></table></figure></p>
-<p>接下来，我们就要学习主从库间数据第一次同步的三个阶段了。你可以先看一下下面这张图，有个整体感知，接下来我再具体介绍。</p>
+<p>例如，现在有实例1（ip：172.16.19.3）和实例2（ip：172.16.19.5），我们在实例2上执行以下这个命令后，实例2就变成了实例1的从库，并从实例1上复制数据：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">replicaof  172.16.19.3  6379</span><br></pre></td></tr></table></figure><br>接下来，我们就要学习主从库间数据第一次同步的三个阶段了。你可以先看一下下面这张图，有个整体感知，接下来我再具体介绍。</p>
 <blockquote>
 <p>主从库第一次同步的流程</p>
 </blockquote>
-<img src="/2022/05/01/06-数据同步：主从库如何实现数据一致？/2.webp">
+<img src="/2022/05/01/06-%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%EF%BC%9A%E4%B8%BB%E4%BB%8E%E5%BA%93%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%EF%BC%9F/2.webp" class="">
 <p>第一阶段是主从库间建立连接、协商同步的过程，主要是为全量复制做准备。在这一步，<strong>从库和主库建立起连接，并告诉主库即将进行同步，主库确认回复后，主从库间就可以开始同步了</strong>。</p>
 <p>具体来说，从库给主库发送psync命令，表示要进行数据同步，主库根据这个命令的参数来启动复制。psync命令包含了<strong>主库的runID</strong>和<strong>复制进度offset</strong>两个参数。</p>
 <ul>
@@ -573,12 +574,11 @@
 <p>如果从库数量很多，而且都要和主库进行全量复制的话，就会导致主库忙于fork子进程生成RDB文件，进行数据全量同步。fork这个操作会阻塞主线程处理正常请求，从而导致主库响应应用程序的请求速度变慢。此外，传输RDB文件也会占用主库的网络带宽，同样会给主库的资源使用带来压力。那么，有没有好的解决方法可以分担主库压力呢？</p>
 <p>其实是有的，这就是“主-从-从”模式。</p>
 <p>在刚才介绍的主从库模式中，所有的从库都是和主库连接，所有的全量复制也都是和主库进行的。现在，我们可以<strong>通过“主-从-从”模式将主库生成RDB和传输RDB的压力，以级联的方式分散到从库上</strong>。</p>
-<p>简单来说，我们在部署主从集群的时候，可以手动选择一个从库（比如选择内存资源配置较高的从库），用于级联其他的从库。然后，我们可以再选择一些从库（例如三分之一的从库），在这些从库上执行如下命令，让它们和刚才所选的从库，建立起主从关系。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">replicaof  所选从库的IP 6379</span><br></pre></td></tr></table></figure></p>
-<p>这样一来，这些从库就会知道，在进行同步时，不用再和主库进行交互了，只要和级联的从库进行写操作同步就行了，这就可以减轻主库上的压力，如下图所示：</p>
+<p>简单来说，我们在部署主从集群的时候，可以手动选择一个从库（比如选择内存资源配置较高的从库），用于级联其他的从库。然后，我们可以再选择一些从库（例如三分之一的从库），在这些从库上执行如下命令，让它们和刚才所选的从库，建立起主从关系。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">replicaof  所选从库的IP 6379</span><br></pre></td></tr></table></figure><br>这样一来，这些从库就会知道，在进行同步时，不用再和主库进行交互了，只要和级联的从库进行写操作同步就行了，这就可以减轻主库上的压力，如下图所示：</p>
 <blockquote>
 <p>级联的“主-从-从”模式</p>
 </blockquote>
-<img src="/2022/05/01/06-数据同步：主从库如何实现数据一致？/3.webp">
+<img src="/2022/05/01/06-%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%EF%BC%9A%E4%B8%BB%E4%BB%8E%E5%BA%93%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%EF%BC%9F/3.webp" class="">
 <p>好了，到这里，我们了解了主从库间通过全量复制实现数据同步的过程，以及通过“主-从-从”模式分担主库压力的方式。那么，一旦主从库完成了全量复制，它们之间就会一直维护一个网络连接，主库会通过这个连接将后续陆续收到的命令操作再同步给从库，这个过程也称为<strong>基于长连接的命令传播</strong>，可以避免频繁建立连接的开销。</p>
 <p>听上去好像很简单，但不可忽视的是，这个过程中存在着风险点，最常见的就是<strong>网络断连或阻塞</strong>。如果网络断连，主从库之间就无法进行命令传播了，从库的数据自然也就没办法和主库保持一致了，客户端就可能从从库读到旧数据。</p>
 <p>接下来，我们就来聊聊网络断连后的解决办法。</p>
@@ -592,7 +592,7 @@
 <blockquote>
 <p>Redisrepl_backlog_buffer的使用</p>
 </blockquote>
-<img src="/2022/05/01/06-数据同步：主从库如何实现数据一致？/4.webp">
+<img src="/2022/05/01/06-%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%EF%BC%9A%E4%B8%BB%E4%BB%8E%E5%BA%93%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%EF%BC%9F/4.webp" class="">
 <p>主从库的连接恢复之后，从库首先会给主库发送psync命令，并把自己当前的slave_repl_offset发给主库，主库会判断自己的master_repl_offset和slave_repl_offset之间的差距。</p>
 <p>在网络断连阶段，主库可能会收到新的写操作命令，所以，一般来说，master_repl_offset会大于slave_repl_offset。此时，主库只用把master_repl_offset和slave_repl_offset之间的命令操作同步给从库就行。</p>
 <p>就像刚刚示意图的中间部分，主库和从库之间相差了putde和putdf两个操作，在增量复制时，主库只需要把它们同步给从库，就行了。</p>
@@ -600,7 +600,7 @@
 <blockquote>
 <p>Redis增量复制流程</p>
 </blockquote>
-<img src="/2022/05/01/06-数据同步：主从库如何实现数据一致？/5.webp">
+<img src="/2022/05/01/06-%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%EF%BC%9A%E4%B8%BB%E4%BB%8E%E5%BA%93%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%EF%BC%9F/5.webp" class="">
 <p>不过，有一个地方我要强调一下，因为repl_backlog_buffer是一个环形缓冲区，所以在缓冲区写满后，主库会继续写入，此时，就会覆盖掉之前写入的操作。<strong>如果从库的读取速度比较慢，就有可能导致从库还未读取的操作被主库新写的操作覆盖了，这会导致主从库间的数据不一致。</strong></p>
 <p>因此，我们要想办法避免这一情况，一般而言，我们可以调整repl_backlog_size这个参数。这个参数和所需的缓冲空间大小有关。缓冲空间的计算公式是：缓冲空间大小=主库写入命令速度<em>操作大小-主从库间网络传输命令速度</em>操作大小。在实际应用中，考虑到可能存在一些突发的请求压力，我们通常需要把这个缓冲空间扩大一倍，即repl_backlog_size=缓冲空间大小*2，这也就是repl_backlog_size的最终值。</p>
 <p>举个例子，如果主库每秒写入2000个操作，每个操作的大小为2KB，网络每秒能传输1000个操作，那么，有1000个操作需要缓冲起来，这就至少需要2MB的缓冲空间。否则，新写的命令就会覆盖掉旧操作了。为了应对可能的突发压力，我们最终把repl_backlog_size设为4MB。</p>
@@ -634,7 +634,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Redis核心技术与实战/" rel="tag"># Redis核心技术与实战</a>
+            <a href="/tags/Redis%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/" rel="tag"># Redis核心技术与实战</a>
           
         </div>
       
@@ -647,7 +647,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/05/01/05-内存快照：宕机后，Redis如何实现快速恢复？/" rel="next" title="05 | 内存快照：宕机后，Redis如何实现快速恢复？">
+              <a href="/2022/05/01/05-%E5%86%85%E5%AD%98%E5%BF%AB%E7%85%A7%EF%BC%9A%E5%AE%95%E6%9C%BA%E5%90%8E%EF%BC%8CRedis%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%BF%AB%E9%80%9F%E6%81%A2%E5%A4%8D%EF%BC%9F/" rel="next" title="05 | 内存快照：宕机后，Redis如何实现快速恢复？">
                 <i class="fa fa-chevron-left"></i> 05 | 内存快照：宕机后，Redis如何实现快速恢复？
               </a>
             
@@ -657,7 +657,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/05/01/07-哨兵机制：主库挂了，如何不间断服务？/" rel="prev" title="07 | 哨兵机制：主库挂了，如何不间断服务？">
+              <a href="/2022/05/01/07-%E5%93%A8%E5%85%B5%E6%9C%BA%E5%88%B6%EF%BC%9A%E4%B8%BB%E5%BA%93%E6%8C%82%E4%BA%86%EF%BC%8C%E5%A6%82%E4%BD%95%E4%B8%8D%E9%97%B4%E6%96%AD%E6%9C%8D%E5%8A%A1%EF%BC%9F/" rel="prev" title="07 | 哨兵机制：主库挂了，如何不间断服务？">
                 07 | 哨兵机制：主库挂了，如何不间断服务？ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -717,7 +717,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -728,9 +730,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -742,26 +744,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -833,7 +819,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1008,115 +994,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1147,23 +1025,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1189,7 +1067,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#主从库间如何进行第一次同步？"><span class="nav-number">1.</span> <span class="nav-text">主从库间如何进行第一次同步？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主从级联模式分担全量复制时的主库压力"><span class="nav-number">2.</span> <span class="nav-text">主从级联模式分担全量复制时的主库压力</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主从库间网络断了怎么办？"><span class="nav-number">3.</span> <span class="nav-text">主从库间网络断了怎么办？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#每课一问"><span class="nav-number">5.</span> <span class="nav-text">每课一问</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BB%E4%BB%8E%E5%BA%93%E9%97%B4%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E7%AC%AC%E4%B8%80%E6%AC%A1%E5%90%8C%E6%AD%A5%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">主从库间如何进行第一次同步？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BB%E4%BB%8E%E7%BA%A7%E8%81%94%E6%A8%A1%E5%BC%8F%E5%88%86%E6%8B%85%E5%85%A8%E9%87%8F%E5%A4%8D%E5%88%B6%E6%97%B6%E7%9A%84%E4%B8%BB%E5%BA%93%E5%8E%8B%E5%8A%9B"><span class="nav-number">2.</span> <span class="nav-text">主从级联模式分担全量复制时的主库压力</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BB%E4%BB%8E%E5%BA%93%E9%97%B4%E7%BD%91%E7%BB%9C%E6%96%AD%E4%BA%86%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">主从库间网络断了怎么办？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AF%8F%E8%AF%BE%E4%B8%80%E9%97%AE"><span class="nav-number">5.</span> <span class="nav-text">每课一问</span></a></li></ol></div>
             
 
           </div>
@@ -1224,7 +1102,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1235,12 +1113,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1248,7 +1126,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

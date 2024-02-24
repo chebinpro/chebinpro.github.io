@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,37 +104,37 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="Kubernetes in Action">
 <meta property="og:type" content="article">
 <meta property="og:title" content="7-ConfigMap和Secret：配置应用程序">
-<meta property="og:url" content="http://yoursite.com/2022/10/01/7-ConfigMap和Secret：配置应用程序/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/10/01/7-ConfigMap%E5%92%8CSecret%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/7-ConfigMap和Secret：配置应用程序/1.png">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/7-ConfigMap和Secret：配置应用程序/2.png">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/7-ConfigMap和Secret：配置应用程序/3.png">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/7-ConfigMap和Secret：配置应用程序/4.png">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/7-ConfigMap和Secret：配置应用程序/5.png">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/7-ConfigMap和Secret：配置应用程序/6.png">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/7-ConfigMap和Secret：配置应用程序/7.png">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/7-ConfigMap和Secret：配置应用程序/8.png">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/7-ConfigMap和Secret：配置应用程序/9.png">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/7-ConfigMap和Secret：配置应用程序/10.png">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/7-ConfigMap和Secret：配置应用程序/11.png">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/7-ConfigMap和Secret：配置应用程序/12.png">
-<meta property="og:updated_time" content="2023-08-18T10:23:43.531Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/7-ConfigMap%E5%92%8CSecret%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/1.png">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/7-ConfigMap%E5%92%8CSecret%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/2.png">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/7-ConfigMap%E5%92%8CSecret%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/3.png">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/7-ConfigMap%E5%92%8CSecret%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/4.png">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/7-ConfigMap%E5%92%8CSecret%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/5.png">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/7-ConfigMap%E5%92%8CSecret%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/6.png">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/7-ConfigMap%E5%92%8CSecret%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/7.png">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/7-ConfigMap%E5%92%8CSecret%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/8.png">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/7-ConfigMap%E5%92%8CSecret%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/9.png">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/7-ConfigMap%E5%92%8CSecret%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/10.png">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/7-ConfigMap%E5%92%8CSecret%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/11.png">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/7-ConfigMap%E5%92%8CSecret%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/12.png">
+<meta property="article:published_time" content="2022-10-01T01:59:15.000Z">
+<meta property="article:modified_time" content="2023-08-18T10:23:43.531Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Kubernetes in Action">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="7-ConfigMap和Secret：配置应用程序">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2022/10/01/7-ConfigMap和Secret：配置应用程序/1.png">
+<meta name="twitter:image" content="http://yoursite.com/2022/10/01/7-ConfigMap%E5%92%8CSecret%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/1.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/10/01/7-ConfigMap和Secret：配置应用程序/">
+  <link rel="canonical" href="http://yoursite.com/2022/10/01/7-ConfigMap和Secret：配置应用程序/"/>
 
 
 
@@ -183,7 +183,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -244,7 +244,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -261,7 +261,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -278,7 +278,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -295,7 +295,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -312,7 +312,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -323,7 +323,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -343,7 +343,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -393,16 +395,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/10/01/7-ConfigMap和Secret：配置应用程序/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/10/01/7-ConfigMap%E5%92%8CSecret%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -502,7 +504,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">23k</span>
+                <span title="本文字数">55k</span>
               
 
               
@@ -516,7 +518,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">21 分钟</span>
+                <span title="阅读时长">50 分钟</span>
               
             </div>
           
@@ -537,7 +539,7 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>【本章内容涵盖】</p>
 <ul>
 <li>更改容器的主进程</li>
@@ -561,48 +563,42 @@
 <p>接下来的几节中将会介绍这些方法。开始介绍之前，首先从安全角度观察一下配置选项。尽管绝大多数配置选项并未包含敏感信息，少量配置依旧可能含有证书、私钥，以及其他需要保持安全的相似数据。该类型数据需要被特殊对待。这也是为何Kubernetes提供另一种称作Secret的一级对象的原因。我们将在本章节末尾学习到它。</p>
 <h1 id="向容器传递命令行参数"><a href="#向容器传递命令行参数" class="headerlink" title="向容器传递命令行参数"></a><span style="color:#339AFF;">向容器传递命令行参数</span></h1><p>迄今为止所有示例中容器运行的命令都是镜像中默认定义的。Kubernetes可在pod的容器中定义并覆盖命令以满足运行不同的可执行程序，或者是以不同的命令来运行不同的可执行程序，或者是以不同的命令行参数集运行。现在我们来看一下应该如何操作。</p>
 <h2 id="在Docker中定义命令与参数"><a href="#在Docker中定义命令与参数" class="headerlink" title="在Docker中定义命令与参数"></a><span style="color:#00ACC1;">在Docker中定义命令与参数</span></h2><p>首先需要阐明的是，容器中运行的完整指令由两部分组成：命令与参数。</p>
-<p><strong><font size="4">了解ENTRYPOINT与CMD</font></strong></p>
+<p><strong><font size=4>了解ENTRYPOINT与CMD</font></strong></p>
 <p>Dockerfle中的两种指令分别定义命令与参数这两个部分：</p>
 <ul>
 <li>ENTRYPOINT定义容器启动时被调用的可执行程序。</li>
 <li>CMD指定传递给ENTRYPOINT的参数。</li>
 </ul>
-<p>尽管可以直接使用CMD指令指定镜像运行时想要执行的命令，正确的做法依旧是借助ENTRYPOINT指令，仅仅用CMD指定所需的默认参数。这样，镜像可以直接运行，无须添加任何参数：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker run &lt;image&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>或者是添加一些参数，覆盖Dockerfile中任何由CMD指定的默认参数值：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker run &lt;image&gt; &lt;arguments&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p><strong><font size="4">了解shell与exec形式的区别</font></strong></p>
+<p>尽管可以直接使用CMD指令指定镜像运行时想要执行的命令，正确的做法依旧是借助ENTRYPOINT指令，仅仅用CMD指定所需的默认参数。这样，镜像可以直接运行，无须添加任何参数：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run &lt;image&gt;</span></span><br></pre></td></tr></table></figure><br>或者是添加一些参数，覆盖Dockerfile中任何由CMD指定的默认参数值：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run &lt;image&gt; &lt;arguments&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p><strong><font size=4>了解shell与exec形式的区别</font></strong></p>
 <p>上述两条指令均支持以下两种形式：</p>
 <ul>
 <li>shell形式——如<code>ENTRYPOINT node app.js</code>。</li>
 <li>exec形式——如<code>ENTRYPOINT [&quot;node&quot;, &quot;app.js&quot;]</code>。</li>
 </ul>
 <p>两者的区别在于指定的命令是否是在shell中被调用。</p>
-<p>对于第2章中创建的kubia镜像，如果使用exec形式的ENTRYPOINT指令：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ENTRYPOINT ["node", "app.js"]</span><br></pre></td></tr></table></figure></p>
-<p>可以从容器中的运行进程列表看出：这里是直接运行node进程，而并非在shell中执行。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker <span class="built_in">exec</span> 4675d ps x</span></span><br><span class="line">PID TTY STAT TIME  COMMAND</span><br><span class="line">1    ?   Ssl  0:00  node app.js </span><br><span class="line">12   ?   Rs   0:00  ps x</span><br></pre></td></tr></table></figure></p>
-<p>如果采用shell形式（<code>ENTRYPOINT node app.js</code>），容器进程如下所示：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker <span class="built_in">exec</span> -it e4bad ps x</span></span><br><span class="line">PID TTY STAT TIME  COMMAND</span><br><span class="line">1    ?   Ss   0:00  /bin/sh -c node app.js</span><br><span class="line">7    ?   Sl   0:00  node app.js</span><br><span class="line">13   ?   Rs+  0:00  ps x</span><br></pre></td></tr></table></figure></p>
-<p>可以看出，主进程（PID 1）是shell进程而非node进程，node进程（PID 7）于shell中启动。shell进程往往是多余的，因此通常可以直接采用exec形式的ENTRYPOINT指令。</p>
-<p><strong><font size="4">可配置化fortune镜像中的间隔参数</font></strong></p>
+<p>对于第2章中创建的kubia镜像，如果使用exec形式的ENTRYPOINT指令：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ENTRYPOINT [&quot;node&quot;, &quot;app.js&quot;]</span><br></pre></td></tr></table></figure><br>可以从容器中的运行进程列表看出：这里是直接运行node进程，而并非在shell中执行。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker <span class="built_in">exec</span> 4675d ps x</span></span><br><span class="line">PID TTY STAT TIME  COMMAND</span><br><span class="line">1    ?   Ssl  0:00  node app.js </span><br><span class="line">12   ?   Rs   0:00  ps x</span><br></pre></td></tr></table></figure><br>如果采用shell形式（<code>ENTRYPOINT node app.js</code>），容器进程如下所示：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker <span class="built_in">exec</span> -it e4bad ps x</span></span><br><span class="line">PID TTY STAT TIME  COMMAND</span><br><span class="line">1    ?   Ss   0:00  /bin/sh -c node app.js</span><br><span class="line">7    ?   Sl   0:00  node app.js</span><br><span class="line">13   ?   Rs+  0:00  ps x</span><br></pre></td></tr></table></figure><br>可以看出，主进程（PID 1）是shell进程而非node进程，node进程（PID 7）于shell中启动。shell进程往往是多余的，因此通常可以直接采用exec形式的ENTRYPOINT指令。</p>
+<p><strong><font size=4>可配置化fortune镜像中的间隔参数</font></strong></p>
 <p>让我们通过修改fortune脚本与镜像Dockerfile使循环的延迟间隔可配置。如下面这段代码所示，在fortune脚本中添加VARIABLE变量并用第一个命令行参数对其初始化。</p>
 <blockquote>
 <p>代码清单7.1 通过参数可配置化fortune脚本中的循环间隔：fortune-args/fortuneloop.sh</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">trap "exit" SIGINT</span><br><span class="line">INTERVAL=$1 # changed</span><br><span class="line">echo Configured to generate new fortune every $INTERVAL seconds # changed</span><br><span class="line">mkdir -p /var/htdocs</span><br><span class="line">while :</span><br><span class="line">do</span><br><span class="line">    echo $(date) Writing fortune to /var/htdocs/index.html</span><br><span class="line">    /usr/games/fortune &gt; /var/htdocs/index.html</span><br><span class="line">    sleep $INTERVAL # changed</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line">trap &quot;exit&quot; SIGINT</span><br><span class="line">INTERVAL=$1 # changed</span><br><span class="line">echo Configured to generate new fortune every $INTERVAL seconds # changed</span><br><span class="line">mkdir -p /var/htdocs</span><br><span class="line">while :</span><br><span class="line">do</span><br><span class="line">    echo $(date) Writing fortune to /var/htdocs/index.html</span><br><span class="line">    /usr/games/fortune &gt; /var/htdocs/index.html</span><br><span class="line">    sleep $INTERVAL # changed</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
 <p>你应该已经添加或修改了标记的行。现在修改Dockerfile，采用exec形式的ENTRYPOINT指令，以及利用CMD设置间隔的默认值为10，如下面的代码清单所示。</p>
 <blockquote>
 <p>代码清单7.2 修改fortune镜像的Dockerfile：fortune-args/Dockerfile</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">FROM ubuntu:latest</span><br><span class="line">RUN apt-get update ; apt-get -y install fortune </span><br><span class="line">ADD fortuneloop.sh /bin/fortuneloop.sh</span><br><span class="line">ENTRYPOINT ["/bin/fortuneloop.sh"] # exec形式的ENTRYPOIN指令</span><br><span class="line">CMD ["10"] # 可执行程序的默认参数</span><br></pre></td></tr></table></figure>
-<p>现在可以重新构建镜像并推送至Docker Hub。这里将镜像的tag由latest修改为args：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker build -t docker.io/luksa/fortune:args</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> docker push docker.io/luksa/fortune:args</span></span><br></pre></td></tr></table></figure></p>
-<p>可以用Docker在本地启动该镜像并进行测试：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker run -it docker.io/luksa/fortune:args</span></span><br><span class="line">Configured to generate new fortune every 10 seconds</span><br><span class="line">Fri May 19 10:39:44 UTC 2017 Writing fortune to /var/htdocs/index.html</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">FROM ubuntu:latest</span><br><span class="line">RUN apt-get update ; apt-get -y install fortune </span><br><span class="line">ADD fortuneloop.sh /bin/fortuneloop.sh</span><br><span class="line">ENTRYPOINT [&quot;/bin/fortuneloop.sh&quot;] # exec形式的ENTRYPOIN指令</span><br><span class="line">CMD [&quot;10&quot;] # 可执行程序的默认参数</span><br></pre></td></tr></table></figure>
+<p>现在可以重新构建镜像并推送至Docker Hub。这里将镜像的tag由latest修改为args：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker build -t docker.io/luksa/fortune:args</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker push docker.io/luksa/fortune:args</span></span><br></pre></td></tr></table></figure><br>可以用Docker在本地启动该镜像并进行测试：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run -it docker.io/luksa/fortune:args</span></span><br><span class="line">Configured to generate new fortune every 10 seconds</span><br><span class="line">Fri May 19 10:39:44 UTC 2017 Writing fortune to /var/htdocs/index.html</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>注意 可以通过Ctrl+C组合键来停止脚本。</p>
 </blockquote>
-<p>也可以传递一个间隔参数覆盖默认睡眠间隔值：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker run -it docker.io/luksa/fortune:args 15</span></span><br><span class="line">Configured to generate new fortune every 15 seconds</span><br></pre></td></tr></table></figure></p>
-<p>现在可以确保镜像能够正确应用传递给它的参数。让我们来看一下在pod中如何使用它。</p>
+<p>也可以传递一个间隔参数覆盖默认睡眠间隔值：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run -it docker.io/luksa/fortune:args 15</span></span><br><span class="line">Configured to generate new fortune every 15 seconds</span><br></pre></td></tr></table></figure><br>现在可以确保镜像能够正确应用传递给它的参数。让我们来看一下在pod中如何使用它。</p>
 <h2 id="在Kubernetes中覆盖命令和参数"><a href="#在Kubernetes中覆盖命令和参数" class="headerlink" title="在Kubernetes中覆盖命令和参数"></a><span style="color:#00ACC1;">在Kubernetes中覆盖命令和参数</span></h2><p>在Kubernetes中定义容器时，镜像的ENTRYPOINT和CMD均可以被覆盖，仅需在容器定义中设置属性command和args的值，如下面的代码清单所示。</p>
 <blockquote>
 <p>代码清单7.3 指定自定义命令与参数的pod定义</p>
 </blockquote>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr"> containers:</span></span><br><span class="line"><span class="attr"> - image:</span> <span class="string">some/image</span></span><br><span class="line"><span class="attr">   command:</span> <span class="string">["/bin/command"]</span></span><br><span class="line"><span class="attr">   args:</span> <span class="string">["arg1","arg2","arg3"]</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"> <span class="attr">containers:</span></span><br><span class="line"> <span class="bullet">-</span> <span class="attr">image:</span> <span class="string">some/image</span></span><br><span class="line">   <span class="attr">command:</span> [<span class="string">&quot;/bin/command&quot;</span>]</span><br><span class="line">   <span class="attr">args:</span> [<span class="string">&quot;arg1&quot;</span>,<span class="string">&quot;arg2&quot;</span>,<span class="string">&quot;arg3&quot;</span>]</span><br></pre></td></tr></table></figure>
 <p>绝大多数情况下，只需要设置自定义参数。命令一般很少被覆盖，除非针对一些未定义ENTRYPOINT的通用镜像，例如busybox。</p>
 <blockquote>
 <p>注意 command和args字段在pod创建后无法被修改。</p>
@@ -634,14 +630,14 @@
 </tbody>
 </table>
 </div>
-<p><strong><font size="4">用自定义间隔值运行fortune pod</font></strong></p>
+<p><strong><font size=4>用自定义间隔值运行fortune pod</font></strong></p>
 <p>为了能够用自定义的延迟间隔值运行fortune pod，首先复制文件fortune-pod.yaml并重命名为fortune-pod-args.yaml，然后修改它，如下面的代码清单所示。</p>
 <blockquote>
 <p>代码清单7.4 在pod定义中传递参数值：fortune-pod-args.yaml</p>
 </blockquote>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span> </span><br><span class="line"><span class="attr"> name:</span> <span class="string">fortune2s</span> <span class="comment"># 修改pod名称</span></span><br><span class="line"><span class="attr"> spec:</span> </span><br><span class="line"><span class="attr">  containers:</span></span><br><span class="line"><span class="attr">  - image:</span> <span class="string">luksa/fortune:args</span> <span class="comment"># fortune:latest替换为fortune:args</span></span><br><span class="line"><span class="attr">    args:</span> <span class="string">["2"]</span> <span class="comment"># 该参数值使得脚本每隔两秒生成一个新fortune</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">html-generator</span></span><br><span class="line"><span class="attr">    volumeMounts:</span></span><br><span class="line"><span class="attr">    - name:</span> <span class="string">html</span></span><br><span class="line"><span class="attr">      mountPath:</span> <span class="string">/var/htdocs</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span> </span><br><span class="line"> <span class="attr">name:</span> <span class="string">fortune2s</span> <span class="comment"># 修改pod名称</span></span><br><span class="line"> <span class="attr">spec:</span> </span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">image:</span> <span class="string">luksa/fortune:args</span> <span class="comment"># fortune:latest替换为fortune:args</span></span><br><span class="line">    <span class="attr">args:</span> [<span class="string">&quot;2&quot;</span>] <span class="comment"># 该参数值使得脚本每隔两秒生成一个新fortune</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">html-generator</span></span><br><span class="line">    <span class="attr">volumeMounts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">html</span></span><br><span class="line">      <span class="attr">mountPath:</span> <span class="string">/var/htdocs</span></span><br></pre></td></tr></table></figure>
 <p>现在你已经在容器定义中添加了args数组参数，可以尝试创建该pod。数组值会在pod运行时作为命令行参数传递给容器。</p>
-<p>少量参数值的设置可以使用上述的数组表示。多参数值情况下可以采用如下标记：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">args:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">foo</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">bar</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">"15"</span></span><br></pre></td></tr></table></figure></p>
+<p>少量参数值的设置可以使用上述的数组表示。多参数值情况下可以采用如下标记：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">args:</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">foo</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">bar</span></span><br><span class="line"><span class="bullet">-</span> <span class="string">&quot;15&quot;</span></span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>提示 字符串值无须用引号标记，数值需要。</p>
 </blockquote>
@@ -650,22 +646,22 @@
 <blockquote>
 <p>图7.1 每个容器都可设置环境变量</p>
 </blockquote>
-<img src="/2022/10/01/7-ConfigMap和Secret：配置应用程序/1.png">
+<img src="/2022/10/01/7-ConfigMap%E5%92%8CSecret%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/1.png" class="">
 <blockquote>
 <p>注意 与容器的命令和参数设置相同，环境变量列表无法在pod创建后被修改。</p>
 </blockquote>
-<p><strong><font size="4">通过环境变量配置化fortune镜像中的间隔值</font></strong></p>
+<p><strong><font size=4>通过环境变量配置化fortune镜像中的间隔值</font></strong></p>
 <p>让我们再来看一下如何通过环境变量使fortuneloop.sh脚本中的睡眠间隔值可配置化，具体如下面的代码清单所示。</p>
 <blockquote>
 <p>代码清单7.5 通过环境变量配置化fortune脚本中的间隔值：fortune-env/fortuneloop.sh</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">trap "exit" SIGINT</span><br><span class="line">echo Configured to generate new fortune every $INTERVAL seconds</span><br><span class="line">mkdir -p /var/htdocs</span><br><span class="line">while: </span><br><span class="line">do</span><br><span class="line">    echo $(date) writing fortune to /var/htdocs/index.html</span><br><span class="line">    /usr/games/fortune &gt; /var/htdocs/index.html</span><br><span class="line">    sleep $INTERVAL</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line">trap &quot;exit&quot; SIGINT</span><br><span class="line">echo Configured to generate new fortune every $INTERVAL seconds</span><br><span class="line">mkdir -p /var/htdocs</span><br><span class="line">while: </span><br><span class="line">do</span><br><span class="line">    echo $(date) writing fortune to /var/htdocs/index.html</span><br><span class="line">    /usr/games/fortune &gt; /var/htdocs/index.html</span><br><span class="line">    sleep $INTERVAL</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
 <p>当前的应用仅是一个简单的shell脚本，只需要移除脚本中INTERVAL初始化所在的行即可。如果应用由Java编写，需要使用<code>System.getenv(“INTERVAL&quot;)</code>，同样地，对应到Node.JS与Python中分别是<code>process.env.INTERVAL</code>与<code>os.environ[&#39;INTERVAL&#39;]</code>。</p>
 <h2 id="在容器定义中指定环境变量"><a href="#在容器定义中指定环境变量" class="headerlink" title="在容器定义中指定环境变量"></a><span style="color:#00ACC1;">在容器定义中指定环境变量</span></h2><p>构建完新镜像（镜像的tag变更为luksa/fortune:env）并推送至Docker Hub之后，可以通过创建一个新pod来运行它。如下面的代码清单所示，在容器定义中写入环境变量以传递给脚本。</p>
 <blockquote>
 <p>代码清单7.6 在pod中指定环境变量：fortune-pod-env.yaml</p>
 </blockquote>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr"> containers:</span></span><br><span class="line"><span class="attr"> - image:</span> <span class="string">luksa/fortune:env</span> </span><br><span class="line"><span class="attr">  env:</span> <span class="comment"># 在环境变量列表中添加一个新变量</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">INTBRVAL</span></span><br><span class="line"><span class="attr">    value:</span> <span class="string">"30"</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">html-generator</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"> <span class="attr">containers:</span></span><br><span class="line"> <span class="bullet">-</span> <span class="attr">image:</span> <span class="string">luksa/fortune:env</span> </span><br><span class="line">  <span class="attr">env:</span> <span class="comment"># 在环境变量列表中添加一个新变量</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">INTBRVAL</span></span><br><span class="line">    <span class="attr">value:</span> <span class="string">&quot;30&quot;</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">html-generator</span></span><br></pre></td></tr></table></figure>
 <p>正如前面提到的，环境变量被设置在pod的容器定义中，并非是pod级别。</p>
 <blockquote>
 <p>注意 不要忘记在每个容器中，Kubenetes会自动暴露相同命名空间下每个service对应的环境变量。这些环境变量基本上可以被看作自动注入的配置。</p>
@@ -674,7 +670,7 @@
 <blockquote>
 <p>代码清单7.7 在环境变量值中引用另一个变量</p>
 </blockquote>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">env:</span></span><br><span class="line"><span class="attr">- name:</span> <span class="string">FIRST_VAR</span></span><br><span class="line"><span class="attr">  value:</span> <span class="string">"foo"</span></span><br><span class="line"><span class="attr">- name:</span> <span class="string">SECOND_VAR</span></span><br><span class="line"><span class="attr">  value:</span> <span class="string">"$(FIRST_VAR)bar"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">env:</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">FIRST_VAR</span></span><br><span class="line">  <span class="attr">value:</span> <span class="string">&quot;foo&quot;</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">SECOND_VAR</span></span><br><span class="line">  <span class="attr">value:</span> <span class="string">&quot;$(FIRST_VAR)bar&quot;</span></span><br></pre></td></tr></table></figure>
 <p>SECOND_VAR的值是”foobar”。7.2节中介绍的command和args属性值同样可以像这样引用环境变量，这将在7.4.5节中被使用到。</p>
 <h2 id="了解硬编码环境变量的不足之处"><a href="#了解硬编码环境变量的不足之处" class="headerlink" title="了解硬编码环境变量的不足之处"></a><span style="color:#00ACC1;">了解硬编码环境变量的不足之处</span></h2><p>pod定义硬编码意味着需要有效区分生产环境与开发过程中的pod定义。为了能在多个环境下复用pod的定义，需要将配置从pod定义描述中解耦出来。幸运的是，你可以通过一种叫作ConfigMap的资源对象完成解耦，用valueFrom字段替代value字段使ConfigMap成为环境变量值的来源。接下来将学习到这一用法。</p>
 <h1 id="利用ConfigMap解耦配置"><a href="#利用ConfigMap解耦配置" class="headerlink" title="利用ConfigMap解耦配置"></a><span style="color:#339AFF;">利用ConfigMap解耦配置</span></h1><p>应用配置的关键在于能够在多个环境中区分配置选项，将配置从应用程序源码中分离，可频繁变更配置值。如果将pod定义描述看作是应用程序源代码，显然需要将配置移出pod定义。微服务架构下正是如此，该架构定义了如何将多个个体组件组合成功能系统。</p>
@@ -683,41 +679,36 @@
 <blockquote>
 <p>图7.2 pod通过环境变量与ConfigMap卷使用ConfigMap</p>
 </blockquote>
-<img src="/2022/10/01/7-ConfigMap和Secret：配置应用程序/2.png">
+<img src="/2022/10/01/7-ConfigMap%E5%92%8CSecret%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/2.png" class="">
 <p>当然，应用程序同样可以通过KubernetesRestAPI按需直接读取ConfigMap的内容。不过除非是需求如此，应尽可能使你的应用保持对Kubernetes的无感知。<br>不管应用具体是如何使用ConfigMap的，将配置存放在独立的资源对象中有助于在不同环境（开发、测试、质量保障和生产等，下拥有多份同名配置清单。pod是通过名称引用ConfigMap的，因此可以在多环境下使用相同的pod定义描述，同时保持不同的配置值以适应不同环境（如图7.3所示）。</p>
 <blockquote>
 <p>图7.3 同环境下的同名ConfigMap</p>
 </blockquote>
-<img src="/2022/10/01/7-ConfigMap和Secret：配置应用程序/3.png">
+<img src="/2022/10/01/7-ConfigMap%E5%92%8CSecret%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/3.png" class="">
 <h2 id="创建ConfigMap"><a href="#创建ConfigMap" class="headerlink" title="创建ConfigMap"></a><span style="color:#00ACC1;">创建ConfigMap</span></h2><p>了解一下如何在pod中使用ConfigMap。首先从最简单的例子开始，先创建一个仅包含单一键的映射，并用它填充之前示例中的环境变量INTERVAL。这里将使用指令kubectlcreateconfigmap创建ConfigMap，而非通用指令kubectlcreate-f。</p>
-<p><strong><font size="4">使用指令kubectl创建ConfigMap</font></strong></p>
-<p>利用kubectl创建ConfigMap的映射条目时可以指定字面量或者存储在磁盘上的文件。先创建一个简单的字面量条目：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">kubectlcreateconfigmapfortune-config--from-literal=sleep-interval=25configmap<span class="string">"fortune-config"</span>created</span></span><br></pre></td></tr></table></figure></p>
-<p>注意ConfigMap中的键名必须是一个合法的DNS子域，仅包含数字字母、破折号、下画线以及圆点。首位的圆点符号是可选的。</p>
+<p><strong><font size=4>使用指令kubectl创建ConfigMap</font></strong></p>
+<p>利用kubectl创建ConfigMap的映射条目时可以指定字面量或者存储在磁盘上的文件。先创建一个简单的字面量条目：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">kubectlcreateconfigmapfortune-config--from-literal=sleep-interval=25configmap<span class="string">&quot;fortune-config&quot;</span>created</span></span><br></pre></td></tr></table></figure><br>注意ConfigMap中的键名必须是一个合法的DNS子域，仅包含数字字母、破折号、下画线以及圆点。首位的圆点符号是可选的。</p>
 <p>通过这条命令创建了一个叫作fortune-config的ConfigMap，仅包含单映射条目sleep-interval=25（如图7.4所示）。</p>
 <blockquote>
 <p>图7.4 ConfigMapfortune-config包含单映射条目</p>
 </blockquote>
-<img src="/2022/10/01/7-ConfigMap和Secret：配置应用程序/4.png">
-<p>ConfigMap一般包含多个映射条目。通过添加多个—from-literal参数可创建包含多条目的ConfigMap：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">kubectlcreateconfigmapmyconfigmap</span></span><br><span class="line">》--from-literal=foo=bar--from-literal=bar=baz--from-literal=one=two</span><br></pre></td></tr></table></figure></p>
-<p>让我们观察一下通过kubectl创建的ConfigMap的YAML格式的定义描述，如下所示。</p>
+<img src="/2022/10/01/7-ConfigMap%E5%92%8CSecret%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/4.png" class="">
+<p>ConfigMap一般包含多个映射条目。通过添加多个—from-literal参数可创建包含多条目的ConfigMap：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">kubectlcreateconfigmapmyconfigmap</span></span><br><span class="line">》--from-literal=foo=bar--from-literal=bar=baz--from-literal=one=two</span><br></pre></td></tr></table></figure><br>让我们观察一下通过kubectl创建的ConfigMap的YAML格式的定义描述，如下所示。</p>
 <blockquote>
 <p>代码清单7.8 ConfigMap定义</p>
 </blockquote>
-<p>这没有什么特别的。编写这个YAML文件很容易，除了metadata中的名称无须指定其他字段，然后通过KubernetesAPI创建对应的ConfigMap：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">kubectlcreate-ffortune-config.yaml</span></span><br></pre></td></tr></table></figure></p>
-<p><strong><font size="4">从文件内容创建ConfigMap条目</font></strong></p>
-<p>ConfigMap同样可以存储粗粒度的配置数据，比如完整的配置文件。kubectlcreateconfigmap命令支持从磁盘上读取文件，并将文件内容单独存储为ConfigMap中的条目：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">kubectlcreateconfigmapmy-config--from-file=config-file.conf</span></span><br></pre></td></tr></table></figure></p>
-<p>运行上述命令时，kubectl会在当前目录下查找config-file.conf文件，并将文件内容存储在ConfigMap中以config-file.conf为键名的条目下。当然也可以手动指定键名：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">kubectlcreateconfigmapmy-config--from-file=customkey=config-file.conf</span></span><br></pre></td></tr></table></figure></p>
-<p>这条命令会将文件内容存在键名为customkey的条目下。与使用字面量时相同，多次使用—from-file参数可增加多个文件条目。</p>
-<p><strong><font size="4">从文件夹创建ConfigMap</font></strong></p>
-<p>除单独引入每个文件外，甚至可以引入某一文件夹中的所有文件：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">kubect1createconfigmapmy-config--from-file=/path/to/dir</span></span><br></pre></td></tr></table></figure></p>
-<p>这种情况下，kubectl会为文件夹中的每个文件单独创建条目，仅限于那些文件名可作为合法ConfigMap键名的文件。</p>
-<p><strong><font size="4">合并不同选项</font></strong></p>
+<p>这没有什么特别的。编写这个YAML文件很容易，除了metadata中的名称无须指定其他字段，然后通过KubernetesAPI创建对应的ConfigMap：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">kubectlcreate-ffortune-config.yaml</span></span><br></pre></td></tr></table></figure></p>
+<p><strong><font size=4>从文件内容创建ConfigMap条目</font></strong></p>
+<p>ConfigMap同样可以存储粗粒度的配置数据，比如完整的配置文件。kubectlcreateconfigmap命令支持从磁盘上读取文件，并将文件内容单独存储为ConfigMap中的条目：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">kubectlcreateconfigmapmy-config--from-file=config-file.conf</span></span><br></pre></td></tr></table></figure><br>运行上述命令时，kubectl会在当前目录下查找config-file.conf文件，并将文件内容存储在ConfigMap中以config-file.conf为键名的条目下。当然也可以手动指定键名：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">kubectlcreateconfigmapmy-config--from-file=customkey=config-file.conf</span></span><br></pre></td></tr></table></figure><br>这条命令会将文件内容存在键名为customkey的条目下。与使用字面量时相同，多次使用—from-file参数可增加多个文件条目。</p>
+<p><strong><font size=4>从文件夹创建ConfigMap</font></strong></p>
+<p>除单独引入每个文件外，甚至可以引入某一文件夹中的所有文件：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">kubect1createconfigmapmy-config--from-file=/path/to/dir</span></span><br></pre></td></tr></table></figure><br>这种情况下，kubectl会为文件夹中的每个文件单独创建条目，仅限于那些文件名可作为合法ConfigMap键名的文件。</p>
+<p><strong><font size=4>合并不同选项</font></strong></p>
 <p>创建ConfigMap时可以混合使用这里提到的所有选项（注意这里的文件并未包含在本书的代码归档中一如果想要尝试这条命令需自行创建）：</p>
 <p>这里的ConfigMap创建自多种选项：完整文件夹、单独文件、自定义键名的条目下的文件（替代文件名作键名）以及字面量。图7.5显示了所有源选项以及最终的ConfigMap。</p>
 <blockquote>
 <p>图7.5 从文件、文件夹以及字面量创建ConfigMap</p>
 </blockquote>
-<img src="/2022/10/01/7-ConfigMap和Secret：配置应用程序/5.png">
+<img src="/2022/10/01/7-ConfigMap%E5%92%8CSecret%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/5.png" class="">
 <h2 id="给容器传递ConfigMap条目作为环境变量"><a href="#给容器传递ConfigMap条目作为环境变量" class="headerlink" title="给容器传递ConfigMap条目作为环境变量"></a><span style="color:#00ACC1;">给容器传递ConfigMap条目作为环境变量</span></h2><p>如何将映射中的值传递给pod的容器？有三种方法。首先尝试最为简单的一种一设置环境变量，将会使用到7.5.3节中提到的valueFrom字段。pod的定义描述如下面的代码清单所示。</p>
 <blockquote>
 <p>代码清单7.9 通过配置文件注入环境变量的pod：</p>
@@ -727,8 +718,8 @@
 <blockquote>
 <p>图7.6 给容器的环境变量传递ConfigMap的条目</p>
 </blockquote>
-<img src="/2022/10/01/7-ConfigMap和Secret：配置应用程序/6.png">
-<p><strong><font size="4">在pod中引用不存在的ConfigMap</font></strong></p>
+<img src="/2022/10/01/7-ConfigMap%E5%92%8CSecret%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/6.png" class="">
+<p><strong><font size=4>在pod中引用不存在的ConfigMap</font></strong></p>
 <p>你可能会好奇如果创建pod时引用的ConfgMap不存在会发生什么？Kubernetes会正常调度pod并尝试运行所有的容器。然而引用不存在的ConfigMap的容器会启动失败，其余容器能正常启动。如果之后创建了这个缺失的ConfigMap，失败容器会自动启动，无须重新创建pod。</p>
 <blockquote>
 <p>注意 可以标记对ConfigMap的引用是可选的（设置configMapKeyRef.optional：true）。这样，即便ConfigMap不存在，容器也能正常启动。</p>
@@ -749,17 +740,17 @@
 <blockquote>
 <p>图7.7传递ConfigMap的条目作为命令行参数</p>
 </blockquote>
-<img src="/2022/10/01/7-ConfigMap和Secret：配置应用程序/7.png">
+<img src="/2022/10/01/7-ConfigMap%E5%92%8CSecret%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/7.png" class="">
 <p>代码清单7.11展示了如何在YAML文件中做到这一点。</p>
 <blockquote>
 <p>代码清单7.11 使用ConfigMap条目作为参数值：fortune-pod-args-configmap.yaml</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 <p>环境变量的定义与之前相同，需通过$（ENV_VARIABLE_NAME）将环境变量的值注入参数值。</p>
 <h2 id="使用configMap卷将条目暴露为文件"><a href="#使用configMap卷将条目暴露为文件" class="headerlink" title="使用configMap卷将条目暴露为文件"></a><span style="color:#00ACC1;">使用configMap卷将条目暴露为文件</span></h2><p>环境变量或者命令行参数值作为配置值通常适用于变量值较短的场景。由于ConfigMap中可以包含完整的配置文件内容，当你想要将其暴露给容器时，可以借助前面章节提到过的一种称为configMap卷的特殊卷格式。</p>
 <p>configMap卷会将ConfigMap中的每个条目均暴露成一个文件。运行在容器中的进程可通过读取文件内容获得对应的条目值。</p>
 <p>尽管这种方法主要适用于传递较大的配置文件给容器，同样可以用于传递较短的变量值。</p>
-<p><strong><font size="4">创建ConfigMap</font></strong></p>
+<p><strong><font size=4>创建ConfigMap</font></strong></p>
 <p>这里不再修改脚本fortuneloop.sh，将尝试另一个不同的示例，使用配置文件配置运行在fortunepod的Web服务器容器中的Nginxweb服务器。如果想要让Nginx服务器压缩传递给客户端的响应，Nginx的配置文件需开启压缩配置，如下面的代码清单所示。</p>
 <blockquote>
 <p>代码清单7.12 开启gzip压缩的Nginx配置文件：my-nginx-config.conf</p>
@@ -769,93 +760,88 @@
 <blockquote>
 <p>图7.8 configmap-files文件夹及文件的内容</p>
 </blockquote>
-<img src="/2022/10/01/7-ConfigMap和Secret：配置应用程序/8.png">
-<p>从文件夹创建ConfigMap：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">kubectlcreateconfigmapfortune-config--from-file=configmap-filesconfigmap<span class="string">"fortune-config"</span>created</span></span><br></pre></td></tr></table></figure></p>
-<p>下面的代码清单展示了ConfigMap的YAML格式内容。</p>
+<img src="/2022/10/01/7-ConfigMap%E5%92%8CSecret%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/8.png" class="">
+<p>从文件夹创建ConfigMap：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">kubectlcreateconfigmapfortune-config--from-file=configmap-filesconfigmap<span class="string">&quot;fortune-config&quot;</span>created</span></span><br></pre></td></tr></table></figure><br>下面的代码清单展示了ConfigMap的YAML格式内容。</p>
 <blockquote>
 <p>代码清单7.13 从文件创建的ConfigMap的YAML格式定义</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>注意 所有条目第一行最后的管道符号表示后续的条目值是多行字面量。</p>
 </blockquote>
 <p>ConfigMap包含两个条目，条目的键名与文件名相同。接下来将在pod的容器中使用该ConfigMap。</p>
-<p><strong><font size="4">在卷内使用ConfigMap的条目</font></strong></p>
+<p><strong><font size=4>在卷内使用ConfigMap的条目</font></strong></p>
 <p>创建包含ConfigMap条目内容的卷只需要创建一个引用ConfigMap名称的卷并挂载到容器中。已经学会了如何创建及挂载卷，接下来要学习的仅是如何用ConfigMap的条目初始化卷。</p>
 <p>Nginx需读取配置文件/etc/nginx/nginx.conf，而Nginx镜像内的这个文件包含默认配置，并不想完全覆盖这个配置文件。幸运的是，默认配置文件会自动嵌入子文件夹/etc/nginx/conf.d/下的所有.conf文件，因此只需要将你的配置文件置于该子文件夹中即可。图7.9展示了如何做到这一点。</p>
 <p>pod的定义描述如代码清单7.14所示（省略无关部分，完整文件可以在代码归档中找到）。</p>
 <blockquote>
 <p>图7.9 ConfigMap条目作为容器卷中的文件</p>
 </blockquote>
-<img src="/2022/10/01/7-ConfigMap和Secret：配置应用程序/9.png">
+<img src="/2022/10/01/7-ConfigMap%E5%92%8CSecret%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/9.png" class="">
 <blockquote>
 <p>代码清单7.14 pod挂载ConfigMap条目作为文件：fortune-pod-configmao-volume.yaml</p>
 </blockquote>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 <p>pod定义中包含了引用fortune-config ConfigMap的卷，需要被挂载到文件夹/etc/nginx/conf.d下让Nginx服务器使用它。</p>
-<p><strong><font size="4">检查Nginx是否使用被挂载的配置文件</font></strong></p>
+<p><strong><font size=4>检查Nginx是否使用被挂载的配置文件</font></strong></p>
 <p>现在的web服务器应该已经被配置为会压缩响应，可以将localhost：8080转发到pod的80端口，利用curl检查服务器响应来验证配置是否生效，如下面的代码清单所示。</p>
 <blockquote>
 <p>代码清单7.15 观察nginx响应是否被压缩</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p><strong><font size="4">检查被挂载的configMap卷的内容</font></strong></p>
-<p>服务器响应说明配置成功生效。现在来看一下文件夹/etc/nginx/conf.d下的内容：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">kubectlexecfortune-configmap-volume-cweb-serverl8/etc/nginx/conf.d</span></span><br><span class="line">my-nginx-config.conf</span><br><span class="line">sleep-interval</span><br></pre></td></tr></table></figure></p>
-<p>ConfigMap的两个条目均作为文件置于这一文件夹下。条目sleep-interval对应的文件也被包含在内，然而它只会被fortuneloop容器所使用。可以创建两个不同的ConfigMap，—个用以配置容器fortuneloop，另一个用来配置web-server，然而采用多个ConfigMap去分别配置同一pod中的不同容器的做法是不好的。毕竟同一pod中的容器是紧密联系的，需要被当作整体单元来配置。</p>
-<p><strong><font size="4">卷内暴露指定的ConfigMap条目</font></strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<p><strong><font size=4>检查被挂载的configMap卷的内容</font></strong></p>
+<p>服务器响应说明配置成功生效。现在来看一下文件夹/etc/nginx/conf.d下的内容：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">kubectlexecfortune-configmap-volume-cweb-serverl8/etc/nginx/conf.d</span></span><br><span class="line">my-nginx-config.conf</span><br><span class="line">sleep-interval</span><br></pre></td></tr></table></figure><br>ConfigMap的两个条目均作为文件置于这一文件夹下。条目sleep-interval对应的文件也被包含在内，然而它只会被fortuneloop容器所使用。可以创建两个不同的ConfigMap，—个用以配置容器fortuneloop，另一个用来配置web-server，然而采用多个ConfigMap去分别配置同一pod中的不同容器的做法是不好的。毕竟同一pod中的容器是紧密联系的，需要被当作整体单元来配置。</p>
+<p><strong><font size=4>卷内暴露指定的ConfigMap条目</font></strong></p>
 <p>幸运的是，可以创建仅包含ConfigMap中部分条目的configMap卷一本示例中的条目my-nginx-config.conf。这样容器fortuneloop不会受到影响，条目sleep-interval会作为环境变量传递给容器而不是以卷的方式。</p>
 <p>通过卷的items属性能够指定哪些条目会被暴露作为configMap卷中的文件，如下面的代码清单所示。</p>
 <blockquote>
 <p>代码清单7.16 ConfigMap的指定条目挂载至pod的文件夹：fortunepod-configmap-volume-with-tmes.yaml</p>
 </blockquote>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 <p>指定单个条目时需同时设置条目的键名称以及对应的文件名。如果采用上面的配置文件创建pod，/etc/nginx/conf.d文件夹是比较千净的，仅包含所需的gzip.conf文件。</p>
-<p><strong><font size="4">挂载某一文件夹会隐藏该文件夹中已存在的文件</font></strong></p>
+<p><strong><font size=4>挂载某一文件夹会隐藏该文件夹中已存在的文件</font></strong></p>
 <p>这里有一件重要的事情需要讨论。在当前与此前的示例中，将卷挂载至某个文件夹，意味着容器镜像中/etc/nginx/conf.d文件夹下原本存在的任何文件都会被隐藏。</p>
 <p>Linux系统挂载文件系统至非空文件夹时通常表现如此。文件夹中只会包含被挂载文件系统中的文件，即便文件夹中原本的文件是不可访问的也是同样如此。</p>
 <p>本示例中，这种现象并不会带来比较糟糕的副作用。不过假设挂载文件夹是letc，该文件夹通常包含不少重要文件。由于letc下的所有文件不存在，容器极大可能会损坏。如果你希望添加文件至某个文件夹如/etc，绝不能采用这种方法。</p>
-<p><strong><font size="4">ConfigMap独立条目作为文件被挂载且不隐藏文件夹中的其他文件</font></strong></p>
+<p><strong><font size=4>ConfigMap独立条目作为文件被挂载且不隐藏文件夹中的其他文件</font></strong></p>
 <p>顺理成章，你会好奇如何能挂载ConfigMap对应文件至现有文件夹的同时不会隐藏现有文件。volumeMount额外的subPath字段可以被用作挂载卷中的某个独立文件或者是文件夹，无须挂载完整卷。图7.10的形象化解释可能更加容易理解。</p>
 <p>假设拥有一个包含文件myconfig.conf的configMap卷，希望能将其添加为/etc文件夹下的文件someconfig.conf。通过属性subPath可以将该文件挂载的同时又不影响文件夹中的其他文件。pod定义中的相关部分如下面的代码清单所示。</p>
 <blockquote>
 <p>图7.10 挂载卷中的单独文件</p>
 </blockquote>
-<img src="/2022/10/01/7-ConfigMap和Secret：配置应用程序/10.png">
+<img src="/2022/10/01/7-ConfigMap%E5%92%8CSecret%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/10.png" class="">
 <blockquote>
 <p>代码清单7.17 pod挂载ConfigMap的指定条目至特定文件</p>
 </blockquote>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="string">挂载至某一文件，</span></span><br><span class="line"><span class="attr">containers:</span></span><br><span class="line"><span class="string">而不是文件夹</span></span><br><span class="line"><span class="attr">-image:</span><span class="string">some/image</span></span><br><span class="line"><span class="attr">volumeMounts:</span></span><br><span class="line"><span class="attr">-name:</span><span class="string">myvolume</span></span><br><span class="line"></span><br><span class="line"><span class="string">仅挂载指定的条目myconfig.conf，并非完整的卷</span></span><br><span class="line"><span class="attr">mountPath:</span><span class="string">/etc/someconfig.conf&lt;subPath:myconfig.conf</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="string">挂载至某一文件，</span></span><br><span class="line"><span class="attr">containers:</span></span><br><span class="line"><span class="string">而不是文件夹</span></span><br><span class="line"><span class="string">-image:some/image</span></span><br><span class="line"><span class="attr">volumeMounts:</span></span><br><span class="line"><span class="string">-name:myvolume</span></span><br><span class="line"></span><br><span class="line"><span class="string">仅挂载指定的条目myconfig.conf，并非完整的卷</span></span><br><span class="line"><span class="string">mountPath:/etc/someconfig.conf&lt;subPath:myconfig.conf</span></span><br></pre></td></tr></table></figure>
 <p>挂载任意一种卷时均可以使用subPath属性。可以选择挂载部分卷而不是挂载完整的卷。不过这种独立文件的挂载方式会带来文件更新上的缺陷，你会在接下来的小节中学习到更多的相关知识，在这里还是先要说一些文件权限问题对configMap卷的讨论进行收尾。</p>
-<p><strong><font size="4">为configMap卷中的文件设置权限</font></strong></p>
+<p><strong><font size=4>为configMap卷中的文件设置权限</font></strong></p>
 <p>configMap卷中所有文件的权限默认被设置为644（-rw-r-r—）。可以通过卷规格定义中的defaultMode属性改变默认权限，如下面的代码清单所示。</p>
 <blockquote>
 <p>代码清单7.18设置权限：fortune-pod-configmap-volume-defaultMode.yaml</p>
 </blockquote>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 <p>ConfigMap通常被用作存储非敏感数据，不过依旧可能希望仅限于文件拥有者的用户和组可读写，正如上面的例子所示。</p>
 <h2 id="更新应用配置且不重启应用程序"><a href="#更新应用配置且不重启应用程序" class="headerlink" title="更新应用配置且不重启应用程序"></a><span style="color:#00ACC1;">更新应用配置且不重启应用程序</span></h2><p>在此之前提到过，使用环境变量或者命令行参数作为配置源的弊端在于无法在进程运行时更新配置。将ConfigMap暴露为卷可以达到配置热更新的效果，无须重新创建pod或者重启容器。</p>
 <p>ConfigMap被更新之后，卷中引用它的所有文件也会相应更新，进程发现文件被改变之后进行重载。Kubernetes同样支持文件更新之后手动通知容器。</p>
 <blockquote>
 <p>警告 请注意笔者在写这段的时候，更新ConfigMap之后对应文件的更新耗时会出人意料地长（往往需要数分钟）。</p>
 </blockquote>
-<p><strong><font size="4">修改ConfigMap</font></strong></p>
-<p>现在来瞧一瞧如何修改ConfigMap，同时运行在pod中的进程会重载configMap卷中对应的文件。你需要修改前面示例中的Nginx配置文件，使得Nginx能够在不重启pod的前提下应用新配置。尝试用kubectledit命令修改ConfigMapfortune-config来关闭gzip压缩：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl edit configmap fortune-config</span></span><br></pre></td></tr></table></figure></p>
-<p>编辑器打开，行gzipon改为gzipoff，保存文件后关闭编辑器。ConfigMap被更新不久之后会自动更新卷中的对应文件。用kubectlexec命令打印出该文件内容进行确认：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl <span class="built_in">exec</span> fortune-configmap-volume -c web-server cat /etc/nginx/conf.d/my-nginx-config.conf</span></span><br></pre></td></tr></table></figure></p>
-<p>若尚未看到文件内容被更新，可稍等一会儿后重试。文件更新过程需要一段时间。最终你会看到配置文件的变化，然而发现这对Nginx并没有什么影响，这是因为Nginx不会去监听文件的变化并自动重载。</p>
-<p><strong><font size="4">通知Nginx重载配置</font></strong></p>
-<p>Nginx会持续压缩响应直到你通过以下命令主动通知它：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">kubectlexecfortune-configmap-volume-cweb-server--nginx-sreload</span></span><br></pre></td></tr></table></figure></p>
-<p>现在再次用curl命令访问服务器后会发现响应不再被压缩（响应头中未包含Content-Encoding：gzip）。在无须重启容器或者重建pod的同时有效修改了应用配置。</p>
-<p><strong><font size="4">了解文件被自动更新的过程</font></strong></p>
+<p><strong><font size=4>修改ConfigMap</font></strong></p>
+<p>现在来瞧一瞧如何修改ConfigMap，同时运行在pod中的进程会重载configMap卷中对应的文件。你需要修改前面示例中的Nginx配置文件，使得Nginx能够在不重启pod的前提下应用新配置。尝试用kubectledit命令修改ConfigMapfortune-config来关闭gzip压缩：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl edit configmap fortune-config</span></span><br></pre></td></tr></table></figure><br>编辑器打开，行gzipon改为gzipoff，保存文件后关闭编辑器。ConfigMap被更新不久之后会自动更新卷中的对应文件。用kubectlexec命令打印出该文件内容进行确认：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl <span class="built_in">exec</span> fortune-configmap-volume -c web-server <span class="built_in">cat</span> /etc/nginx/conf.d/my-nginx-config.conf</span></span><br></pre></td></tr></table></figure><br>若尚未看到文件内容被更新，可稍等一会儿后重试。文件更新过程需要一段时间。最终你会看到配置文件的变化，然而发现这对Nginx并没有什么影响，这是因为Nginx不会去监听文件的变化并自动重载。</p>
+<p><strong><font size=4>通知Nginx重载配置</font></strong></p>
+<p>Nginx会持续压缩响应直到你通过以下命令主动通知它：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">kubectlexecfortune-configmap-volume-cweb-server--nginx-sreload</span></span><br></pre></td></tr></table></figure><br>现在再次用curl命令访问服务器后会发现响应不再被压缩（响应头中未包含Content-Encoding：gzip）。在无须重启容器或者重建pod的同时有效修改了应用配置。</p>
+<p><strong><font size=4>了解文件被自动更新的过程</font></strong></p>
 <p>你可能会疑惑在Kubernetes更新完configMap卷中的所有文件之前，应用是否会监听到文件变化并主动进行重载。幸运的是，这不会发生，所有的文件会被自动一次性更新。Kubernetes通过符号链接做到这一点。如果尝试列出configMap卷挂载位置的所有文件，会看到如下内容。</p>
 <blockquote>
 <p>代码清单7.19 被挂载的configMap卷中的文件</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">kubectlexec-itfortune-configmap-volume-cweb-server--ls-lA</span></span><br><span class="line">/etc/nginx/conf.d</span><br><span class="line">total4</span><br><span class="line">drwxr-xr-x</span><br><span class="line">...12:15..4984_09_04_12_15_06.865837643</span><br><span class="line">lrwXrwXrwX</span><br><span class="line">...12:15..data-&gt;..4984_09_04_12_15_06.865837643</span><br><span class="line">1rwxrwxrwx</span><br><span class="line">12:15my-nginx-config.conf-&gt;.data/my-nginx-config.conf</span><br><span class="line">1rwxrwxrwx...12:15sleep-interval-&gt;.data/sleep-interval</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">kubectlexec-itfortune-configmap-volume-cweb-server--ls-lA</span></span><br><span class="line">/etc/nginx/conf.d</span><br><span class="line">total4</span><br><span class="line">drwxr-xr-x</span><br><span class="line">...12:15..4984_09_04_12_15_06.865837643</span><br><span class="line">lrwXrwXrwX</span><br><span class="line">...12:15..data-&gt;..4984_09_04_12_15_06.865837643</span><br><span class="line">1rwxrwxrwx</span><br><span class="line">12:15my-nginx-config.conf-&gt;.data/my-nginx-config.conf</span><br><span class="line">1rwxrwxrwx...12:15sleep-interval-&gt;.data/sleep-interval</span><br></pre></td></tr></table></figure>
 <p>可以看到，被挂载的configMap卷中的文件是..data文件夹中文件的符号链接，而..data文件夹同样是..4984_09_04_something的符号链接。每当ConfigMap被更新后，Kubernetes会创建一个这样的文件夹，写入所有文件并重新将符号..data链接至新文件夹，通过这种方式可以一次性修改所有文件。</p>
-<p><strong><font size="4">挂载至已存在文件夹的文件不会被更新</font></strong></p>
+<p><strong><font size=4>挂载至已存在文件夹的文件不会被更新</font></strong></p>
 <p>涉及到更新configMap卷需要提出一个警告：如果挂载的是容器中的单个文件而不是完整的卷，ConfigMap更新之后对应的文件不会被更新！至少在写本章节的时候表现如此。</p>
 <p>如果现在你需要挂载单个文件并且在修改源ConfigMap的同时会自动修改这个文件，一种方案是挂载完整卷至不同的文件夹并创建指向所需文件的符号链接。符号链接可以原生创建在容器镜像中，也可以在容器启动时创建。</p>
-<p><strong><font size="4">了解更新ConfigMap的影响</font></strong></p>
+<p><strong><font size=4>了解更新ConfigMap的影响</font></strong></p>
 <p>容器的一个比较重要的特性是其不变性，从同一镜像启动的多个容器之间不存在任何差异。那么通过修改被运行容器所使用的ConfigMap来打破这种不变性的行为是否是错误的？</p>
 <p>关键点在于应用是否支持重载配置。ConfigMap更新之后创建的pod会使用新配置，而之前的pod依旧使用旧配置，这会导致运行中的不同实例的配置不同。这也不仅限于新pod，如果pod中的容器因为某种原因重启了，新进程同样会使用新配置。因此，如果应用不支持主动重载配置，那么修改某些运行pod所使用的ConfigMap并不是一个好主意。</p>
 <p>如果应用支持主动重载配置，那么修改ConfigMap的行为就算不了什么。不过有一点仍需注意，由于configMap卷中文件的更新行为对于所有运行中示例而言不是同步的，因此不同pod中的文件可能会在长达一分钟的时间内出现不一致的情况。</p>
@@ -874,14 +860,14 @@
 <p>第5章中已经使用过Secret以存储Ingress资源的TLS证书。接下来将更深入地探讨Secret的细节。</p>
 <h2 id="默认令牌Secret介绍"><a href="#默认令牌Secret介绍" class="headerlink" title="默认令牌Secret介绍"></a><span style="color:#00ACC1;">默认令牌Secret介绍</span></h2><p>首先来分析一种默认被挂载至所有容器的Secret，对任意一个pod使用命令kubectldescribepod，输出往往包含如下信息：</p>
 <p>每个pod都会被自动挂载上一个secret卷，这个卷引用的是前面kubectldescribe输出中的一个叫作default-token-cfee9的Secret。由于Secret也是资源对象，因此可以通过kubectlgetsecrets命令从Secret列表中找到这个default-tokenSecret：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">kubectlgetsecrets</span></span><br><span class="line">NAME</span><br><span class="line">TYPE</span><br><span class="line">DATAAGE</span><br><span class="line">default-token-cfee9kubernetes.io/service-account-token</span><br><span class="line">39d</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">kubectlgetsecrets</span></span><br><span class="line">NAME</span><br><span class="line">TYPE</span><br><span class="line">DATAAGE</span><br><span class="line">default-token-cfee9kubernetes.io/service-account-token</span><br><span class="line">39d</span><br></pre></td></tr></table></figure>
 <p>同样可以使用kubectldescribe多了解一下这个Secret，如下面的代码清单所示。</p>
 <blockquote>
 <p>代码清单7.20 描述一个Secret</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">kubectldescribesecrets</span></span><br><span class="line">Name:default-token-cfee9</span><br><span class="line">Namespace:default</span><br><span class="line">Labels:</span><br><span class="line">Annota</span><br><span class="line">ations:kubernetes.io/service-account.name=default</span><br><span class="line">kubern</span><br><span class="line">kubernetes.io/service-account.uid=cc04bb39-b53f-42010af00237</span><br><span class="line">TYpe:</span><br><span class="line">kubernetes.io/service-account-token</span><br><span class="line">Data</span><br><span class="line">ca.crt:1139bytes</span><br><span class="line">包含三个</span><br><span class="line">namespace:7bytes</span><br><span class="line">条目</span><br><span class="line">token:eyJhbGci0iJSUzIlNiIsInR5cCI6IkpXVCJ9...</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">kubectldescribesecrets</span></span><br><span class="line">Name:default-token-cfee9</span><br><span class="line">Namespace:default</span><br><span class="line">Labels:</span><br><span class="line">Annota</span><br><span class="line">ations:kubernetes.io/service-account.name=default</span><br><span class="line">kubern</span><br><span class="line">kubernetes.io/service-account.uid=cc04bb39-b53f-42010af00237</span><br><span class="line">TYpe:</span><br><span class="line">kubernetes.io/service-account-token</span><br><span class="line">Data</span><br><span class="line">ca.crt:1139bytes</span><br><span class="line">包含三个</span><br><span class="line">namespace:7bytes</span><br><span class="line">条目</span><br><span class="line">token:eyJhbGci0iJSUzIlNiIsInR5cCI6IkpXVCJ9...</span><br></pre></td></tr></table></figure>
 <p>可以看出这个Secret包含三个条目一ca.crt、namespace与token，包含了从pod内部安全访问KubenetesAPI服务器所需的全部信息。尽管你希望做到应用程序对Kubenetes的完全无感知，然而在除了直连Kubenetes别无他法的情况下，你将会使用到secret卷提供的文件。</p>
-<p>kubectldescribepod命令会显示secret卷被挂载的位置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Mounts:</span><br><span class="line">/var/run/secrets/kubernetes.io/serviceaccountfromdefault-token-cfee9</span><br></pre></td></tr></table></figure></p>
+<p>kubectldescribepod命令会显示secret卷被挂载的位置：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Mounts:</span><br><span class="line">/var/run/secrets/kubernetes.io/serviceaccountfromdefault-token-cfee9</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>注意 default-tokenSecret默认会被挂载至每个容器。可以通过设置pod定义中的automountServiceAccountToken字段为false，或者设置pod使用的服务账户中的相同字段为false来关闭这种默认行为（本书后面会对服务账户进行讲解）。</p>
 </blockquote>
@@ -889,14 +875,10 @@
 <blockquote>
 <p>图7.11 default-tokenSecret被自动创建且对应的卷被自动挂载到每个pod上</p>
 </blockquote>
-<img src="/2022/10/01/7-ConfigMap和Secret：配置应用程序/11.png">
-<p>我们已经说过Secret类似于ConfigMap，由于该Secret包含三个条目，可通过kubectlexec观察到被secret卷挂载的文件夹下包含三个文件：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">kubectlexecmypodls/var/run/secrets/kubernetes.io/serviceaccount/</span></span><br><span class="line">ca.crt</span><br><span class="line">namespace</span><br><span class="line">token</span><br></pre></td></tr></table></figure></p>
-<p>下一章中将会看到应用程序是如何使用这些文件来访问API服务器的。</p>
+<img src="/2022/10/01/7-ConfigMap%E5%92%8CSecret%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/11.png" class="">
+<p>我们已经说过Secret类似于ConfigMap，由于该Secret包含三个条目，可通过kubectlexec观察到被secret卷挂载的文件夹下包含三个文件：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">kubectlexecmypodls/var/run/secrets/kubernetes.io/serviceaccount/</span></span><br><span class="line">ca.crt</span><br><span class="line">namespace</span><br><span class="line">token</span><br></pre></td></tr></table></figure><br>下一章中将会看到应用程序是如何使用这些文件来访问API服务器的。</p>
 <h2 id="创建Secret"><a href="#创建Secret" class="headerlink" title="创建Secret"></a><span style="color:#00ACC1;">创建Secret</span></h2><p>现在你将创建自己地小型Secret。改进fortune-serving的Nginx容器的配置，使其能够服务于HTTPS流量。你需要创建私钥和证书，由于需要确保私钥的安全性，可将其与证书同时存入Secret。</p>
-<p>首先在本地机器上生成证书与私钥文件，当然也可以直接使用本书代码归档中的相应文件（fortune-https文件夹下的证书与密钥文件）：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">opensalgenrsa-outhttps.key2048</span></span><br><span class="line"><span class="meta">$</span><span class="bash">opensalreq-new-x509-keyhttps.key-outhttps.cert-days3650-subj</span></span><br><span class="line">/CN=www.kubia-example.com</span><br></pre></td></tr></table></figure></p>
-<p>现在为了帮助你更好地理解Secret，额外创建一个内容为字符串bar的虚拟文件foo。过会儿你就会理解为何要这样做：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">echobar&gt;foo</span></span><br></pre></td></tr></table></figure></p>
-<p>现在使用kubectlcreatesecret命令由这三个文件创建Secret：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<p>与创建ConfigMap的过程类似，这里创建了一个名为fortune-https的genericSecret，它包含有两个条目：https.key和https.cert，分别对应于两个同名文件的内容。如前所述，同样可以用—from-file=fortune-https囊括整个文件夹中的所有文件，替代单独指定每个文件的创建方式。</p>
+<p>首先在本地机器上生成证书与私钥文件，当然也可以直接使用本书代码归档中的相应文件（fortune-https文件夹下的证书与密钥文件）：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">opensalgenrsa-outhttps.key2048</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">opensalreq-new-x509-keyhttps.key-outhttps.cert-days3650-subj</span></span><br><span class="line">/CN=www.kubia-example.com</span><br></pre></td></tr></table></figure><br>现在为了帮助你更好地理解Secret，额外创建一个内容为字符串bar的虚拟文件foo。过会儿你就会理解为何要这样做：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">echobar&gt;foo</span></span><br></pre></td></tr></table></figure><br>现在使用kubectlcreatesecret命令由这三个文件创建Secret：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>与创建ConfigMap的过程类似，这里创建了一个名为fortune-https的genericSecret，它包含有两个条目：https.key和https.cert，分别对应于两个同名文件的内容。如前所述，同样可以用—from-file=fortune-https囊括整个文件夹中的所有文件，替代单独指定每个文件的创建方式。</p>
 <blockquote>
 <p>注意 这里创建了一个genericSecret，在此之前你可能在第5章通过kubectlcreatesecrettls创建过一个tlsSecret。两种方式创建的Secret的条目名称不同。</p>
 </blockquote>
@@ -904,12 +886,12 @@
 <blockquote>
 <p>代码清单7.21 Secret的YAML格式定义</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">kubectlgetsecretfortune-https-oyaml</span></span><br><span class="line">apiVersion:vl</span><br><span class="line">data:</span><br><span class="line">foo:YmFyCg==</span><br><span class="line">https.cert:LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURCekNDQ...https.key:LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSU1FcE...kind:Secret</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">kubectlgetsecretfortune-https-oyaml</span></span><br><span class="line">apiVersion:vl</span><br><span class="line">data:</span><br><span class="line">foo:YmFyCg==</span><br><span class="line">https.cert:LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURCekNDQ...https.key:LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSU1FcE...kind:Secret</span><br></pre></td></tr></table></figure>
 <p>将其与之前创建的ConfigMap的YAML格式定义做对比：</p>
 <blockquote>
 <p>代码清单7.22Config的YAML格式定义</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 <p>注意到两者的区别了吗？Secre备目的内容会被以Base64格式编码，而ConfigMap直接以纯文本展示。这种区别导致在处理YAML和JSON格式的Secret时会稍许有些麻烦，需要在设置和读取相关条目时对内容进行编解码。</p>
 <p>为二进制数据创建Secret</p>
 <p>采用Base64编码的原因很简单Secret的条目可以涵盖二进制数据，而不仅仅是纯文本。Base64编码可以将二进制数据转换为纯文本以YAML或JSON格式展示。</p>
@@ -918,25 +900,24 @@
 <blockquote>
 <p>代码清单7.23 通过stringData字段向Secret添加纯文本条目值</p>
 </blockquote>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">kind:</span><span class="string">Secret</span></span><br><span class="line"><span class="string">stringData可被用来设置</span></span><br><span class="line"><span class="attr">apiVersion:</span><span class="string">v1</span></span><br><span class="line"><span class="string">非二进制数据</span></span><br><span class="line"><span class="attr">stringData:</span></span><br><span class="line"><span class="string">可以看出值未被Base64编码</span></span><br><span class="line"><span class="attr">foo:</span><span class="string">plaintext</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line"><span class="string">https.cert:LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURCekNDQ...</span></span><br><span class="line"><span class="string">https.key:LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcE...</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">kind:Secret</span></span><br><span class="line"><span class="string">stringData可被用来设置</span></span><br><span class="line"><span class="string">apiVersion:v1</span></span><br><span class="line"><span class="string">非二进制数据</span></span><br><span class="line"><span class="attr">stringData:</span></span><br><span class="line"><span class="string">可以看出值未被Base64编码</span></span><br><span class="line"><span class="string">foo:plaintext</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line"><span class="string">https.cert:LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSURCekNDQ...</span></span><br><span class="line"><span class="string">https.key:LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcE...</span></span><br></pre></td></tr></table></figure>
 <p>stringData字段是只写的（注意：是只写，非只读），可以被用来设置条目值。通过kubectlget-oyaml获取Secret的YAML格式定义时，不会显示stringData字段。相反，stringData字段中的所有条目（如上面示例中的foo条目）会被Base64编码之展示在data字段下。</p>
 <p>在pod中读取Secret条目</p>
 <p>通过secret卷将Secret暴露给容器之后，Secret条目的值会被解码镇实形式（纯文本或二进制）写入对应的文件。通过环境变量暴露Secret条目亦是如此。在这两种情况下，应用程序均无须主动解码，可直接读取文件内容或者查找环境变量。</p>
 <h2 id="在pod中使用Secret"><a href="#在pod中使用Secret" class="headerlink" title="在pod中使用Secret"></a><span style="color:#00ACC1;">在pod中使用Secret</span></h2><p>fortune-ht8pscre已经包含了证书与密钥文件，接下来需要做的是配置Nginx服务器去使用它们。</p>
 <p>修改fortune-configConfigMap以开启HTTPS</p>
-<p>为了开启HTTPS，需要再次修改这个ConfigMap对应的配置条目：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">kubectleditconfigmapfortune-config</span></span><br></pre></td></tr></table></figure></p>
-<p>文本编辑器打开后，修改条目my-nginx-config.con的内容，如下面的代码清单所示。</p>
+<p>为了开启HTTPS，需要再次修改这个ConfigMap对应的配置条目：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">kubectleditconfigmapfortune-config</span></span><br></pre></td></tr></table></figure><br>文本编辑器打开后，修改条目my-nginx-config.con的内容，如下面的代码清单所示。</p>
 <blockquote>
 <p>代码清单7.24 修改fortune-configConfigMap的数据</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 <p>上面配置了服务器从/etc/nginx/certs中读取证书与密钥文件，因此之后需要将secret卷挂载于此。</p>
 <p>挂载fortune-secret至pod</p>
 <p>接下来需要创建一个新的fortune-httpspod，将含有证书与密钥的secret卷挂载至pod中的web-server容器，如下面的代码清单所示。</p>
 <blockquote>
 <p>代码清单7.25 fortune-httpspod的YAML格式定义：fortune-pod-https.yaml</p>
 </blockquote>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 <p>图7.12形象化地展示了上述YAML格式定义中的各组件及其相互关系。Secretdefault-token以及卷、卷挂载并不包含在这一定义中，因为这些组件被自动加入pod定义，图中不予展示。</p>
 <blockquote>
 <p>注意 与configMap卷相同，secret卷同样支持通过defaultModes属性指定卷中文件的默认权限。</p>
@@ -946,14 +927,13 @@
 <blockquote>
 <p>图7.12 组合了ConligMap录密钥运行tortune-heapspod</p>
 </blockquote>
-<img src="/2022/10/01/7-ConfigMap和Secret：配置应用程序/12.png">
+<img src="/2022/10/01/7-ConfigMap%E5%92%8CSecret%EF%BC%9A%E9%85%8D%E7%BD%AE%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/12.png" class="">
 <p>若服务器配置正确，会得到一个响应，检查响应中服务器证书是否与之前生成的证书匹配。curl命令添加选项-v开启详细日志，如下面的代码清单所示。</p>
 <blockquote>
 <p>代码清单7.26 显示Nginx发送的服务器证书</p>
 </blockquote>
 <p>Secret卷存储于内存</p>
-<p>通过挂载secret卷至文件夹/etc/nginx/certs将证书与私钥成功传递给容器。secret卷采用内存文件系统列出容器的挂载点，如下面的代码清单所示。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">kubectlexecfortune-https-cweb-server--mountIgrepcerts</span></span><br><span class="line">tmpfson/etc/nginx/certstypetmpfs(ro,relatime)</span><br></pre></td></tr></table></figure></p>
-<p>由于使用的是tmpfs，存储在Secret中的数据不会写入磁盘，这样就无法被窃取。</p>
+<p>通过挂载secret卷至文件夹/etc/nginx/certs将证书与私钥成功传递给容器。secret卷采用内存文件系统列出容器的挂载点，如下面的代码清单所示。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">kubectlexecfortune-https-cweb-server--mountIgrepcerts</span></span><br><span class="line">tmpfson/etc/nginx/certstypetmpfs(ro,relatime)</span><br></pre></td></tr></table></figure><br>由于使用的是tmpfs，存储在Secret中的数据不会写入磁盘，这样就无法被窃取。</p>
 <p>通过环境变量暴露Secret条目</p>
 <p>除卷之外，Secret的独立条目可作为环境变量被暴露，就像ConfigMap中sleep-interval条目做的那样。举个例子，若想将Secret中的键foo暴露为环境变量FOO_SECRET，需要在容器定义中添加如下片段。</p>
 <p>代码清单7.27Secret条目暴露为环境变量</p>
@@ -971,14 +951,13 @@
 <li>pod定义中的imagePullSecrets字段引用该Secret。</li>
 </ul>
 <p>创建用于Docker镜像仓库鉴权的Secret</p>
-<p>创建一个包含Docker镜像仓库鉴权证书的Secret与7.5.3节中创建genericSecret并没有什么不同。同样使用kubectlcreatesecret命令，仅仅是类型与参数选项的不同：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">kubectlcreatesecretdocker-registrymyDocker Hubsecret\</span></span><br><span class="line">--docker-username=myusername--docker-password=mypassword\</span><br><span class="line">--docker-email=my.email@provider..com</span><br></pre></td></tr></table></figure></p>
-<p>这里创建了一个docker-registry类型的myDocker HubsecretSecret，创建时需指定Docker Hub的用户名、密码以及邮箱。通过kubectldescribe观察新建Secret的内容时会发现仅有一个条目.dockercfg，相当于用户主目录下的.dockercfg文件。该文件通常在运行dockerlogin命令时由Docker自动创建。</p>
+<p>创建一个包含Docker镜像仓库鉴权证书的Secret与7.5.3节中创建genericSecret并没有什么不同。同样使用kubectlcreatesecret命令，仅仅是类型与参数选项的不同：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$</span><span class="language-bash">kubectlcreatesecretdocker-registrymyDocker Hubsecret\</span></span><br><span class="line"><span class="language-bash">--docker-username=myusername--docker-password=mypassword\</span></span><br><span class="line"><span class="language-bash">--docker-email=my.email@provider..com</span></span><br></pre></td></tr></table></figure><br>这里创建了一个docker-registry类型的myDocker HubsecretSecret，创建时需指定Docker Hub的用户名、密码以及邮箱。通过kubectldescribe观察新建Secret的内容时会发现仅有一个条目.dockercfg，相当于用户主目录下的.dockercfg文件。该文件通常在运行dockerlogin命令时由Docker自动创建。</p>
 <p>在pod定义中使用docker-registrySecret</p>
 <p>为了Kubernetes从私有镜像仓库拉取镜像时能够使用Secret，需要在pod定义中指定docker-registrySecret的名称，如下面的代码清单所示。</p>
 <blockquote>
 <p>代码清单7.28 指定镜像拉取Secret的pod定义：pod-with-private-image.yaml</p>
 </blockquote>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 <p>上述pod定义中，字段imagePullSecrets引用了myDocker HubsecretSecret。建议你尝试一下这个特性，因为很可能在不久之后就会与私有镜像打交道。</p>
 <p>不需要为每个pod指定镜像拉取Secret</p>
 <p>假设某系统中通常运行大量pod，你可能会好奇是否需要为每个pod都添加相同的镜像拉取Secret。幸运的是，情况并非如此。第12章中将会学习到如何通过添加Secret至ServiceAccount使所有pod都能自动添加上镜像拉取Secret。</p>
@@ -1027,7 +1006,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/10/01/6-卷：将磁盘挂载到容器/" rel="next" title="6-卷：将磁盘挂载到容器">
+              <a href="/2022/10/01/6-%E5%8D%B7%EF%BC%9A%E5%B0%86%E7%A3%81%E7%9B%98%E6%8C%82%E8%BD%BD%E5%88%B0%E5%AE%B9%E5%99%A8/" rel="next" title="6-卷：将磁盘挂载到容器">
                 <i class="fa fa-chevron-left"></i> 6-卷：将磁盘挂载到容器
               </a>
             
@@ -1037,7 +1016,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/10/01/8-从应用访问pod元数据以及其他资源/" rel="prev" title="8-从应用访问pod元数据以及其他资源">
+              <a href="/2022/10/01/8-%E4%BB%8E%E5%BA%94%E7%94%A8%E8%AE%BF%E9%97%AEpod%E5%85%83%E6%95%B0%E6%8D%AE%E4%BB%A5%E5%8F%8A%E5%85%B6%E4%BB%96%E8%B5%84%E6%BA%90/" rel="prev" title="8-从应用访问pod元数据以及其他资源">
                 8-从应用访问pod元数据以及其他资源 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -1097,7 +1076,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -1108,9 +1089,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1122,26 +1103,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -1213,7 +1178,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1388,115 +1353,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1527,23 +1384,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1569,7 +1426,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#配置容器化应用程序"><span class="nav-number">1.</span> <span class="nav-text">配置容器化应用程序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#向容器传递命令行参数"><span class="nav-number">2.</span> <span class="nav-text">向容器传递命令行参数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在Docker中定义命令与参数"><span class="nav-number">2.1.</span> <span class="nav-text">在Docker中定义命令与参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Kubernetes中覆盖命令和参数"><span class="nav-number">2.2.</span> <span class="nav-text">在Kubernetes中覆盖命令和参数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为容器设置环境变量"><span class="nav-number">3.</span> <span class="nav-text">为容器设置环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在容器定义中指定环境变量"><span class="nav-number">3.1.</span> <span class="nav-text">在容器定义中指定环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在环境变量值中引用其他环境变量"><span class="nav-number">3.2.</span> <span class="nav-text">在环境变量值中引用其他环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#了解硬编码环境变量的不足之处"><span class="nav-number">3.3.</span> <span class="nav-text">了解硬编码环境变量的不足之处</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#利用ConfigMap解耦配置"><span class="nav-number">4.</span> <span class="nav-text">利用ConfigMap解耦配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ConfigMap介绍"><span class="nav-number">4.1.</span> <span class="nav-text">ConfigMap介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建ConfigMap"><span class="nav-number">4.2.</span> <span class="nav-text">创建ConfigMap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#给容器传递ConfigMap条目作为环境变量"><span class="nav-number">4.3.</span> <span class="nav-text">给容器传递ConfigMap条目作为环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一次性传递ConfigMap的所有条目作为环境变量"><span class="nav-number">4.4.</span> <span class="nav-text">一次性传递ConfigMap的所有条目作为环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#传递ConfigMap条目作为命令行参数"><span class="nav-number">4.5.</span> <span class="nav-text">传递ConfigMap条目作为命令行参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用configMap卷将条目暴露为文件"><span class="nav-number">4.6.</span> <span class="nav-text">使用configMap卷将条目暴露为文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新应用配置且不重启应用程序"><span class="nav-number">4.7.</span> <span class="nav-text">更新应用配置且不重启应用程序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Secret给容器传递敏感数据"><span class="nav-number">5.</span> <span class="nav-text">使用Secret给容器传递敏感数据</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍Secret"><span class="nav-number">5.1.</span> <span class="nav-text">介绍Secret</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#默认令牌Secret介绍"><span class="nav-number">5.2.</span> <span class="nav-text">默认令牌Secret介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建Secret"><span class="nav-number">5.3.</span> <span class="nav-text">创建Secret</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对比ConfigMap与Secret"><span class="nav-number">5.4.</span> <span class="nav-text">对比ConfigMap与Secret</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在pod中使用Secret"><span class="nav-number">5.5.</span> <span class="nav-text">在pod中使用Secret</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本章小结"><span class="nav-number">6.</span> <span class="nav-text">本章小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%AE%B9%E5%99%A8%E5%8C%96%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="nav-number">1.</span> <span class="nav-text">配置容器化应用程序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%91%E5%AE%B9%E5%99%A8%E4%BC%A0%E9%80%92%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0"><span class="nav-number">2.</span> <span class="nav-text">向容器传递命令行参数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8Docker%E4%B8%AD%E5%AE%9A%E4%B9%89%E5%91%BD%E4%BB%A4%E4%B8%8E%E5%8F%82%E6%95%B0"><span class="nav-number">2.1.</span> <span class="nav-text">在Docker中定义命令与参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8Kubernetes%E4%B8%AD%E8%A6%86%E7%9B%96%E5%91%BD%E4%BB%A4%E5%92%8C%E5%8F%82%E6%95%B0"><span class="nav-number">2.2.</span> <span class="nav-text">在Kubernetes中覆盖命令和参数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E5%AE%B9%E5%99%A8%E8%AE%BE%E7%BD%AE%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">3.</span> <span class="nav-text">为容器设置环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E5%AE%B9%E5%99%A8%E5%AE%9A%E4%B9%89%E4%B8%AD%E6%8C%87%E5%AE%9A%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">3.1.</span> <span class="nav-text">在容器定义中指定环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%80%BC%E4%B8%AD%E5%BC%95%E7%94%A8%E5%85%B6%E4%BB%96%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">3.2.</span> <span class="nav-text">在环境变量值中引用其他环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%86%E8%A7%A3%E7%A1%AC%E7%BC%96%E7%A0%81%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E7%9A%84%E4%B8%8D%E8%B6%B3%E4%B9%8B%E5%A4%84"><span class="nav-number">3.3.</span> <span class="nav-text">了解硬编码环境变量的不足之处</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%A9%E7%94%A8ConfigMap%E8%A7%A3%E8%80%A6%E9%85%8D%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">利用ConfigMap解耦配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ConfigMap%E4%BB%8B%E7%BB%8D"><span class="nav-number">4.1.</span> <span class="nav-text">ConfigMap介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAConfigMap"><span class="nav-number">4.2.</span> <span class="nav-text">创建ConfigMap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%99%E5%AE%B9%E5%99%A8%E4%BC%A0%E9%80%92ConfigMap%E6%9D%A1%E7%9B%AE%E4%BD%9C%E4%B8%BA%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">4.3.</span> <span class="nav-text">给容器传递ConfigMap条目作为环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E6%AC%A1%E6%80%A7%E4%BC%A0%E9%80%92ConfigMap%E7%9A%84%E6%89%80%E6%9C%89%E6%9D%A1%E7%9B%AE%E4%BD%9C%E4%B8%BA%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="nav-number">4.4.</span> <span class="nav-text">一次性传递ConfigMap的所有条目作为环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E9%80%92ConfigMap%E6%9D%A1%E7%9B%AE%E4%BD%9C%E4%B8%BA%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0"><span class="nav-number">4.5.</span> <span class="nav-text">传递ConfigMap条目作为命令行参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8configMap%E5%8D%B7%E5%B0%86%E6%9D%A1%E7%9B%AE%E6%9A%B4%E9%9C%B2%E4%B8%BA%E6%96%87%E4%BB%B6"><span class="nav-number">4.6.</span> <span class="nav-text">使用configMap卷将条目暴露为文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E5%BA%94%E7%94%A8%E9%85%8D%E7%BD%AE%E4%B8%94%E4%B8%8D%E9%87%8D%E5%90%AF%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="nav-number">4.7.</span> <span class="nav-text">更新应用配置且不重启应用程序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Secret%E7%BB%99%E5%AE%B9%E5%99%A8%E4%BC%A0%E9%80%92%E6%95%8F%E6%84%9F%E6%95%B0%E6%8D%AE"><span class="nav-number">5.</span> <span class="nav-text">使用Secret给容器传递敏感数据</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8DSecret"><span class="nav-number">5.1.</span> <span class="nav-text">介绍Secret</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E4%BB%A4%E7%89%8CSecret%E4%BB%8B%E7%BB%8D"><span class="nav-number">5.2.</span> <span class="nav-text">默认令牌Secret介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BASecret"><span class="nav-number">5.3.</span> <span class="nav-text">创建Secret</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E6%AF%94ConfigMap%E4%B8%8ESecret"><span class="nav-number">5.4.</span> <span class="nav-text">对比ConfigMap与Secret</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8pod%E4%B8%AD%E4%BD%BF%E7%94%A8Secret"><span class="nav-number">5.5.</span> <span class="nav-text">在pod中使用Secret</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%AC%E7%AB%A0%E5%B0%8F%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">本章小结</span></a></li></ol></div>
             
 
           </div>
@@ -1604,7 +1461,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1615,12 +1472,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1628,7 +1485,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

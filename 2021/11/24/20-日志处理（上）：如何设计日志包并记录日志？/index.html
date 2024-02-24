@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,31 +104,31 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="Go语言项目开发实战">
 <meta property="og:type" content="article">
 <meta property="og:title" content="20 | 日志处理（上）：如何设计日志包并记录日志？">
-<meta property="og:url" content="http://yoursite.com/2021/11/24/20-日志处理（上）：如何设计日志包并记录日志？/index.html">
+<meta property="og:url" content="http://yoursite.com/2021/11/24/20-%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86%EF%BC%88%E4%B8%8A%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E6%97%A5%E5%BF%97%E5%8C%85%E5%B9%B6%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2021/11/24/20-日志处理（上）：如何设计日志包并记录日志？/1.webp">
-<meta property="og:image" content="http://yoursite.com/2021/11/24/20-日志处理（上）：如何设计日志包并记录日志？/2.webp">
-<meta property="og:image" content="http://yoursite.com/2021/11/24/20-日志处理（上）：如何设计日志包并记录日志？/3.webp">
-<meta property="og:image" content="http://yoursite.com/2021/11/24/20-日志处理（上）：如何设计日志包并记录日志？/4.webp">
-<meta property="og:image" content="http://yoursite.com/2021/11/24/20-日志处理（上）：如何设计日志包并记录日志？/4.webp">
-<meta property="og:image" content="http://yoursite.com/2021/11/24/20-日志处理（上）：如何设计日志包并记录日志？/5.webp">
-<meta property="og:updated_time" content="2022-10-11T11:04:55.833Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2021/11/24/20-%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86%EF%BC%88%E4%B8%8A%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E6%97%A5%E5%BF%97%E5%8C%85%E5%B9%B6%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97%EF%BC%9F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2021/11/24/20-%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86%EF%BC%88%E4%B8%8A%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E6%97%A5%E5%BF%97%E5%8C%85%E5%B9%B6%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97%EF%BC%9F/2.webp">
+<meta property="og:image" content="http://yoursite.com/2021/11/24/20-%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86%EF%BC%88%E4%B8%8A%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E6%97%A5%E5%BF%97%E5%8C%85%E5%B9%B6%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97%EF%BC%9F/3.webp">
+<meta property="og:image" content="http://yoursite.com/2021/11/24/20-%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86%EF%BC%88%E4%B8%8A%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E6%97%A5%E5%BF%97%E5%8C%85%E5%B9%B6%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97%EF%BC%9F/4.webp">
+<meta property="og:image" content="http://yoursite.com/2021/11/24/20-%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86%EF%BC%88%E4%B8%8A%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E6%97%A5%E5%BF%97%E5%8C%85%E5%B9%B6%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97%EF%BC%9F/4.webp">
+<meta property="og:image" content="http://yoursite.com/2021/11/24/20-%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86%EF%BC%88%E4%B8%8A%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E6%97%A5%E5%BF%97%E5%8C%85%E5%B9%B6%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97%EF%BC%9F/5.webp">
+<meta property="article:published_time" content="2021-11-24T03:08:04.000Z">
+<meta property="article:modified_time" content="2022-10-11T11:04:55.833Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Go语言项目开发实战">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="20 | 日志处理（上）：如何设计日志包并记录日志？">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2021/11/24/20-日志处理（上）：如何设计日志包并记录日志？/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2021/11/24/20-%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86%EF%BC%88%E4%B8%8A%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E6%97%A5%E5%BF%97%E5%8C%85%E5%B9%B6%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97%EF%BC%9F/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2021/11/24/20-日志处理（上）：如何设计日志包并记录日志？/">
+  <link rel="canonical" href="http://yoursite.com/2021/11/24/20-日志处理（上）：如何设计日志包并记录日志？/"/>
 
 
 
@@ -177,7 +177,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -238,7 +238,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -255,7 +255,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -272,7 +272,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -289,7 +289,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -306,7 +306,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -317,7 +317,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -337,7 +337,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -387,16 +389,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/24/20-日志处理（上）：如何设计日志包并记录日志？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/24/20-%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86%EF%BC%88%E4%B8%8A%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E6%97%A5%E5%BF%97%E5%8C%85%E5%B9%B6%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -496,7 +498,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">12k</span>
+                <span title="本文字数">28k</span>
               
 
               
@@ -510,7 +512,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">11 分钟</span>
+                <span title="阅读时长">25 分钟</span>
               
             </div>
           
@@ -531,7 +533,7 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>在做Go项目开发时，除了处理错误之外，我们必须要做的另外一件事是记录日志。通过记录日志，可以完成一些基本功能，比如开发、测试期间的Debug，故障排除，数据分析，监控告警，以及记录发生的事件等。</p>
 <p>要实现这些功能，首先我们需要一个优秀的日志包。另外，我还发现不少Go项目开发者记录日志很随意，输出的日志并不能有效定位到问题。所以，我们还需要知道怎么更好地记录日志，这就需要一个日志记录规范。</p>
 <p>有了优秀的日志包和日志记录规范，我们就能很快地定位到问题，获取足够的信息，并完成后期的数据分析和监控告警，也可以很方便地进行调试了。这一讲，我就来详细介绍下，如何设计日志包和日志记录规范。</p>
@@ -549,7 +551,7 @@
 <p>2，支持不同的日志级别</p>
 <p>不同的日志级别代表不同的日志类型，例如：Error级别的日志，说明日志是错误类型，在排障时，会首先查看错误级别的日志。Warn级别日志说明出现异常，但还不至于影响程序运行，如果程序执行的结果不符合预期，则可以参考Warn级别的日志，定位出异常所在。Info级别的日志，可以协助我们Debug，并记录一些有用的信息，供后期进行分析。</p>
 <p>通常一个日志包至少要实现6个级别，我给你提供了一张表格，按优先级从低到高排列如下：</p>
-<img src="/2021/11/24/20-日志处理（上）：如何设计日志包并记录日志？/1.webp">
+<img src="/2021/11/24/20-%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86%EF%BC%88%E4%B8%8A%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E6%97%A5%E5%BF%97%E5%8C%85%E5%B9%B6%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97%EF%BC%9F/1.webp" class="">
 <p>有些日志包，例如logrus，还支持Trace日志级别。Trace级别比Debug级别还低，能够打印更细粒度的日志信息。在我看来，Trace级别不是必须的，你可以根据需要自行选择。</p>
 <p>打印日志时，一个日志调用其实具有两个属性：</p>
 <ul>
@@ -557,7 +559,7 @@
 <li>开关级别：启动应用程序时，期望哪些输出级别的日志被打印。例如，使用glog时-v=4，说明了只有日志级别高于4的日志才会被打印。</li>
 </ul>
 <p>如果开关级别设置为L，只有输出级别&gt;=L时，日志才会被打印。例如，开关级别为Warn，则只会记录Warn、Error、Panic和Fatal级别的日志。具体的输出关系如下图所示：</p>
-<img src="/2021/11/24/20-日志处理（上）：如何设计日志包并记录日志？/2.webp">
+<img src="/2021/11/24/20-%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86%EF%BC%88%E4%B8%8A%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E6%97%A5%E5%BF%97%E5%8C%85%E5%B9%B6%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97%EF%BC%9F/2.webp" class="">
 <p>3，支持自定义配置</p>
 <p>不同的运行环境，需要不同的日志输出配置，例如：开发测试环境为了能够方便地Debug，需要设置日志级别为Debug级别；现网环境为了提高应用程序的性能，则需要设置日志级别为Info级别。又比如，现网环境为了方便日志采集，通常会输出JSON格式的日志；开发测试环境为了方便查看日志，会输出TEXT格式的日志。</p>
 <p>所以，我们的日志包需要能够被配置，还要不同环境采用不同的配置。通过配置，可以在不重新编译代码的情况下，改变记录日志的行为。</p>
@@ -568,23 +570,19 @@
 <p>日志格式也是我们要考虑的一个点，一个好的日志格式，不仅方便查看日志，还能方便一些日志采集组件采集日志，并对接类似Elasticsearch这样的日志搜索引擎。</p>
 <p>一个日志包至少需要提供以下两种格式：</p>
 <ul>
-<li>TEXT格式：TEXT格式的日志具有良好的可读性，可以方便我们在开发联调阶段查看日志，例如：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2020-12-02T01:16:18+08:00 INFO example.go:11 std log</span><br><span class="line">2020-12-02T01:16:18+08:00 DEBUG example.go:13 change std log to debug level</span><br></pre></td></tr></table></figure>
-</li>
+<li>TEXT格式：TEXT格式的日志具有良好的可读性，可以方便我们在开发联调阶段查看日志，例如：<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2020-12-02T01:16:18+08:00 INFO example.go:11 std log</span><br><span class="line">2020-12-02T01:16:18+08:00 DEBUG example.go:13 change std log to debug level</span><br></pre></td></tr></table></figure></li>
 </ul>
 <ul>
-<li>JSON格式：JSON格式的日志可以记录更详细的信息，日志中包含一些通用的或自定义的字段，可供日后的查询、分析使用，而且可以很方便地供filebeat、logstash这类日志采集工具采集并上报。下面是JSON格式的日志：<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">"level"</span>:<span class="string">"DEBUG"</span>,<span class="attr">"time"</span>:<span class="string">"2020-12-02T01:16:18+08:00"</span>,<span class="attr">"file"</span>:<span class="string">"example.go:15"</span>,<span class="attr">"func"</span>:<span class="string">"main.main"</span>,<span class="attr">"message"</span>:<span class="string">"log in json format"</span>&#125;</span><br><span class="line">&#123;<span class="attr">"level"</span>:<span class="string">"INFO"</span>,<span class="attr">"time"</span>:<span class="string">"2020-12-02T01:16:18+08:00"</span>,<span class="attr">"file"</span>:<span class="string">"example.go:16"</span>,<span class="attr">"func"</span>:<span class="string">"main.main"</span>,<span class="attr">"message"</span>:<span class="string">"another log in json format"</span>&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<li>JSON格式：JSON格式的日志可以记录更详细的信息，日志中包含一些通用的或自定义的字段，可供日后的查询、分析使用，而且可以很方便地供filebeat、logstash这类日志采集工具采集并上报。下面是JSON格式的日志：<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;level&quot;</span><span class="punctuation">:</span><span class="string">&quot;DEBUG&quot;</span><span class="punctuation">,</span><span class="attr">&quot;time&quot;</span><span class="punctuation">:</span><span class="string">&quot;2020-12-02T01:16:18+08:00&quot;</span><span class="punctuation">,</span><span class="attr">&quot;file&quot;</span><span class="punctuation">:</span><span class="string">&quot;example.go:15&quot;</span><span class="punctuation">,</span><span class="attr">&quot;func&quot;</span><span class="punctuation">:</span><span class="string">&quot;main.main&quot;</span><span class="punctuation">,</span><span class="attr">&quot;message&quot;</span><span class="punctuation">:</span><span class="string">&quot;log in json format&quot;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;level&quot;</span><span class="punctuation">:</span><span class="string">&quot;INFO&quot;</span><span class="punctuation">,</span><span class="attr">&quot;time&quot;</span><span class="punctuation">:</span><span class="string">&quot;2020-12-02T01:16:18+08:00&quot;</span><span class="punctuation">,</span><span class="attr">&quot;file&quot;</span><span class="punctuation">:</span><span class="string">&quot;example.go:16&quot;</span><span class="punctuation">,</span><span class="attr">&quot;func&quot;</span><span class="punctuation">:</span><span class="string">&quot;main.main&quot;</span><span class="punctuation">,</span><span class="attr">&quot;message&quot;</span><span class="punctuation">:</span><span class="string">&quot;another log in json format&quot;</span><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+我建议在开发联调阶段使用TEXT格式的日志，在现网环境使用JSON格式的日志。一个优秀的日志库，例如logrus，除了提供基本的输出格式外，还应该允许开发者自定义日志输出格式。</li>
 </ul>
-<p>我建议在开发联调阶段使用TEXT格式的日志，在现网环境使用JSON格式的日志。一个优秀的日志库，例如logrus，除了提供基本的输出格式外，还应该允许开发者自定义日志输出格式。</p>
 <p>2，能够按级别分类输出</p>
 <p>为了能够快速定位到需要的日志，一个比较好的做法是将日志按级别分类输出，至少错误级别的日志可以输出到独立的文件中。这样，出现问题时，可以直接查找错误文件定位问题。例如，glog就支持分类输出，如下图所示：</p>
-<img src="/2021/11/24/20-日志处理（上）：如何设计日志包并记录日志？/3.webp">
+<img src="/2021/11/24/20-%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86%EF%BC%88%E4%B8%8A%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E6%97%A5%E5%BF%97%E5%8C%85%E5%B9%B6%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97%EF%BC%9F/3.webp" class="">
 <p>3，支持结构化日志</p>
-<p>结构化日志（Structured Logging），就是使用JSON或者其他编码方式使日志结构化，这样可以方便后续使用Filebeat、Logstash Shipper等各种工具，对日志进行采集、过滤、分析和查找。就像下面这个案例，使用zap进行日志打印：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"time"</span></span><br><span class="line"></span><br><span class="line">    <span class="string">"go.uber.org/zap"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    logger, _ := zap.NewProduction()</span><br><span class="line">    <span class="keyword">defer</span> logger.Sync() <span class="comment">// flushes buffer, if any</span></span><br><span class="line">    url := <span class="string">"http://marmotedu.com"</span></span><br><span class="line">    <span class="comment">// 结构化日志打印</span></span><br><span class="line">    logger.Sugar().Infow(<span class="string">"failed to fetch URL"</span>, <span class="string">"url"</span>, url, <span class="string">"attempt"</span>, <span class="number">3</span>, <span class="string">"backoff"</span>, time.Second)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 非结构化日志打印</span></span><br><span class="line">    logger.Sugar().Infof(<span class="string">"failed to fetch URL: %s"</span>, url)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>上述代码输出为：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">"level"</span>:<span class="string">"info"</span>,<span class="attr">"ts"</span>:<span class="number">1607303966.9903321</span>,<span class="attr">"caller"</span>:<span class="string">"zap/structured_log.go:14"</span>,<span class="attr">"msg"</span>:<span class="string">"failed to fetch URL"</span>,<span class="attr">"url"</span>:<span class="string">"http://marmotedu.com"</span>,<span class="attr">"attempt"</span>:<span class="number">3</span>,<span class="attr">"backoff"</span>:<span class="number">1</span>&#125;</span><br><span class="line">&#123;<span class="attr">"level"</span>:<span class="string">"info"</span>,<span class="attr">"ts"</span>:<span class="number">1607303966.9904354</span>,<span class="attr">"caller"</span>:<span class="string">"zap/structured_log.go:17"</span>,<span class="attr">"msg"</span>:<span class="string">"failed to fetch URL: http://marmotedu.com"</span>&#125;</span><br></pre></td></tr></table></figure></p>
-<p>4，支持日志轮转</p>
+<p>结构化日志（Structured Logging），就是使用JSON或者其他编码方式使日志结构化，这样可以方便后续使用Filebeat、Logstash Shipper等各种工具，对日志进行采集、过滤、分析和查找。就像下面这个案例，使用zap进行日志打印：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;time&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;go.uber.org/zap&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    logger, _ := zap.NewProduction()</span><br><span class="line">    <span class="keyword">defer</span> logger.Sync() <span class="comment">// flushes buffer, if any</span></span><br><span class="line">    url := <span class="string">&quot;http://marmotedu.com&quot;</span></span><br><span class="line">    <span class="comment">// 结构化日志打印</span></span><br><span class="line">    logger.Sugar().Infow(<span class="string">&quot;failed to fetch URL&quot;</span>, <span class="string">&quot;url&quot;</span>, url, <span class="string">&quot;attempt&quot;</span>, <span class="number">3</span>, <span class="string">&quot;backoff&quot;</span>, time.Second)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 非结构化日志打印</span></span><br><span class="line">    logger.Sugar().Infof(<span class="string">&quot;failed to fetch URL: %s&quot;</span>, url)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>上述代码输出为：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;level&quot;</span><span class="punctuation">:</span><span class="string">&quot;info&quot;</span><span class="punctuation">,</span><span class="attr">&quot;ts&quot;</span><span class="punctuation">:</span><span class="number">1607303966.9903321</span><span class="punctuation">,</span><span class="attr">&quot;caller&quot;</span><span class="punctuation">:</span><span class="string">&quot;zap/structured_log.go:14&quot;</span><span class="punctuation">,</span><span class="attr">&quot;msg&quot;</span><span class="punctuation">:</span><span class="string">&quot;failed to fetch URL&quot;</span><span class="punctuation">,</span><span class="attr">&quot;url&quot;</span><span class="punctuation">:</span><span class="string">&quot;http://marmotedu.com&quot;</span><span class="punctuation">,</span><span class="attr">&quot;attempt&quot;</span><span class="punctuation">:</span><span class="number">3</span><span class="punctuation">,</span><span class="attr">&quot;backoff&quot;</span><span class="punctuation">:</span><span class="number">1</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;level&quot;</span><span class="punctuation">:</span><span class="string">&quot;info&quot;</span><span class="punctuation">,</span><span class="attr">&quot;ts&quot;</span><span class="punctuation">:</span><span class="number">1607303966.9904354</span><span class="punctuation">,</span><span class="attr">&quot;caller&quot;</span><span class="punctuation">:</span><span class="string">&quot;zap/structured_log.go:17&quot;</span><span class="punctuation">,</span><span class="attr">&quot;msg&quot;</span><span class="punctuation">:</span><span class="string">&quot;failed to fetch URL: http://marmotedu.com&quot;</span><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure><br>4，支持日志轮转</p>
 <p>在一个大型项目中，一天可能会产生几十个G的日志。为了防止日志把磁盘空间占满，导致服务器或者程序异常，就需要确保日志大小达到一定量级时，对日志进行切割、压缩，并转存。</p>
-<p>如何切割呢？你可以按照日志大小进行切割，也可以按日期切割。日志的切割、压缩和转存功能可以基于GitHub上一些优秀的开源包来封装，例如：<a href>lumberjack</a>可以支持按大小和日期归档日志，<a href>file-rotatelogs</a>支持按小时数进行日志切割。</p>
+<p>如何切割呢？你可以按照日志大小进行切割，也可以按日期切割。日志的切割、压缩和转存功能可以基于GitHub上一些优秀的开源包来封装，例如：<a href="">lumberjack</a>可以支持按大小和日期归档日志，<a href="">file-rotatelogs</a>支持按小时数进行日志切割。</p>
 <p>对于日志轮转功能，其实我不建议在日志包中添加，因为这会增加日志包的复杂度，我更建议的做法是借助其他的工具来实现日志轮转。例如，在Linux系统中可以使用Logrotate来轮转日志。Logrotate功能强大，是一个专业的日志轮转工具。</p>
 <p>5，具备Hook能力</p>
 <p>Hook能力可以使我们对日志内容进行自定义处理。例如，当某个级别的日志产生时，发送邮件或者调用告警接口进行告警。很多优秀的开源日志包提供了Hook能力，例如logrus和zap。</p>
@@ -593,13 +591,12 @@
 <p>1，支持颜色输出</p>
 <p>在开发、测试时开启颜色输出，不同级别的日志会被不同颜色标识，这样我们可以很轻松地发现一些Error、Warn级别的日志，方便开发调试。发布到生产环境时，可以关闭颜色输出，以提高性能。</p>
 <p>2，兼容标准库log包</p>
-<p>一些早期的Go项目大量使用了标准库log包，如果我们的日志库能够兼容标准库log包，我们就可以很容易地替换掉标准库log包。例如，logrus就兼容标准库log包。这里，我们来看一个使用了标准库log包的代码：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"log"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    log.Print(<span class="string">"call Print: line1"</span>)</span><br><span class="line">    log.Println(<span class="string">"call Println: line2"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>只需要使用<code>log &quot;github.com/sirupsen/logrus&quot;</code>替换<code>&quot;log&quot;</code>就可以完成标准库log包的切换：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    log <span class="string">"github.com/sirupsen/logrus"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    log.Print(<span class="string">"call Print: line1"</span>)</span><br><span class="line">    log.Println(<span class="string">"call Println: line2"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>一些早期的Go项目大量使用了标准库log包，如果我们的日志库能够兼容标准库log包，我们就可以很容易地替换掉标准库log包。例如，logrus就兼容标准库log包。这里，我们来看一个使用了标准库log包的代码：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;log&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    log.Print(<span class="string">&quot;call Print: line1&quot;</span>)</span><br><span class="line">    log.Println(<span class="string">&quot;call Println: line2&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>只需要使用<code>log &quot;github.com/sirupsen/logrus&quot;</code>替换<code>&quot;log&quot;</code>就可以完成标准库log包的切换：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    log <span class="string">&quot;github.com/sirupsen/logrus&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    log.Print(<span class="string">&quot;call Print: line1&quot;</span>)</span><br><span class="line">    log.Println(<span class="string">&quot;call Println: line2&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>3，支持输出到不同的位置</p>
 <p>在分布式系统中，一个服务会被部署在多台机器上，这时候如果我们要查看日志，就需要分别登录不同的机器查看，非常麻烦。我们更希望将日志统一投递到Elasticsearch上，在Elasticsearch上查看日志。</p>
 <p>我们还可能需要从日志中分析某个接口的调用次数、某个用户的请求次数等信息，这就需要我们能够对日志进行处理。一般的做法是将日志投递到Kafka，数据处理服务消费Kafka中保存的日志，从而分析出调用次数等信息。</p>
 <p>以上两种场景，分别需要把日志投递到Elasticsearch、Kafka等组件，如果我们的日志包支持将日志投递到不同的目的端，那会是一项非常让人期待的功能：</p>
-<img src="/2021/11/24/20-日志处理（上）：如何设计日志包并记录日志？/4.webp">
+<img src="/2021/11/24/20-%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86%EF%BC%88%E4%B8%8A%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E6%97%A5%E5%BF%97%E5%8C%85%E5%B9%B6%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97%EF%BC%9F/4.webp" class="">
 <p>如果日志不支持投递到不同的下游组件，例如Elasticsearch、Kafka、Fluentd、Logstash等位置，也可以通过Filebeat采集磁盘上的日志文件，进而投递到下游组件。</p>
 <h1 id="设计日志包时需要关注的点"><a href="#设计日志包时需要关注的点" class="headerlink" title="设计日志包时需要关注的点"></a><span style="color:#339AFF;">设计日志包时需要关注的点</span></h1><p>上面，我们介绍了日志包具备的功能，这些功能可以指导我们完成日志包设计。这里，我们再来看下设计日志包时，我们还需要关注的几个层面：</p>
 <ul>
@@ -622,11 +619,10 @@
 <li><strong>在分支语句处打印日志</strong>。在分支语句处打印日志，可以判断出代码走了哪个分支，有助于判断请求的下一跳，继而继续排查问题。</li>
 <li><strong>写操作必须打印日志</strong>。写操作最可能会引起比较严重的业务故障，写操作打印日志，可以在出问题时找到关键信息。</li>
 <li><strong>在循环中打印日志要慎重</strong>。如果循环次数过多，会导致打印大量的日志，严重拖累代码的性能，建议的办法是在循环中记录要点，在循环外面总结打印出来。</li>
-<li><strong>在错误产生的最原始位置打印日志</strong>。对于嵌套的Error，可在Error产生的最初位置打印Error日志，上层如果不需要添加必要的信息，可以直接返回下层的Error。我给你举个例子：<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"flag"</span></span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line"></span><br><span class="line">    <span class="string">"github.com/golang/glog"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    flag.Parse()</span><br><span class="line">    <span class="keyword">defer</span> glog.Flush()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> err := loadConfig(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        glog.Error(err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">loadConfig</span><span class="params">()</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> decodeConfig() <span class="comment">// 直接返回</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">decodeConfig</span><span class="params">()</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> err := readConfig(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> fmt.Errorf(<span class="string">"could not decode configuration data for user %s: %v"</span>, <span class="string">"colin"</span>, err) <span class="comment">// 添加必要的信息，用户名称</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">readConfig</span><span class="params">()</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    glog.Errorf(<span class="string">"read: end of input."</span>)</span><br><span class="line">    <span class="keyword">return</span> fmt.Errorf(<span class="string">"read: end of input"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
+<li><strong>在错误产生的最原始位置打印日志</strong>。对于嵌套的Error，可在Error产生的最初位置打印Error日志，上层如果不需要添加必要的信息，可以直接返回下层的Error。我给你举个例子：<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;flag&quot;</span></span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;github.com/golang/glog&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    flag.Parse()</span><br><span class="line">    <span class="keyword">defer</span> glog.Flush()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> err := loadConfig(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        glog.Error(err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">loadConfig</span><span class="params">()</span></span> <span class="type">error</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> decodeConfig() <span class="comment">// 直接返回</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">decodeConfig</span><span class="params">()</span></span> <span class="type">error</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> err := readConfig(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> fmt.Errorf(<span class="string">&quot;could not decode configuration data for user %s: %v&quot;</span>, <span class="string">&quot;colin&quot;</span>, err) <span class="comment">// 添加必要的信息，用户名称</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">readConfig</span><span class="params">()</span></span> <span class="type">error</span> &#123;</span><br><span class="line">    glog.Errorf(<span class="string">&quot;read: end of input.&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> fmt.Errorf(<span class="string">&quot;read: end of input&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+通过在最初产生错误的位置打印日志，我们可以很方便地追踪到日志的根源，进而在上层追加一些必要的信息。这可以让我们了解到该错误产生的影响，有助于排障。另外，直接返回下层日志，还可以减少重复的日志打印。</li>
 </ul>
-<p>通过在最初产生错误的位置打印日志，我们可以很方便地追踪到日志的根源，进而在上层追加一些必要的信息。这可以让我们了解到该错误产生的影响，有助于排障。另外，直接返回下层日志，还可以减少重复的日志打印。</p>
-<p>当代码调用第三方包的函数，且第三方包函数出错时，会打印错误信息。比如：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> err := os.Chdir(<span class="string">"/root"</span>); err != <span class="literal">nil</span> &#123;</span><br><span class="line">    log.Errorf(<span class="string">"change dir failed: %v"</span>, err)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当代码调用第三方包的函数，且第三方包函数出错时，会打印错误信息。比如：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> err := os.Chdir(<span class="string">&quot;/root&quot;</span>); err != <span class="literal">nil</span> &#123;</span><br><span class="line">    log.Errorf(<span class="string">&quot;change dir failed: %v&quot;</span>, err)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h2 id="在哪个日志级别打印日志？"><a href="#在哪个日志级别打印日志？" class="headerlink" title="在哪个日志级别打印日志？"></a><span style="color:#00ACC1;">在哪个日志级别打印日志？</span></h2><p>不同级别的日志，具有不同的意义，能实现不同的功能，在开发中，我们应该根据目的，在合适的级别记录日志，这里我同样给你一些建议。</p>
 <p>1，Debug级别</p>
 <p>为了获取足够的信息进行Debug，通常会在Debug级别打印很多日志。例如，可以打印整个HTTP请求的请求Body或者响应Body。</p>
@@ -644,7 +640,7 @@
 <p>6，Fatal级别</p>
 <p>Fatal是最高级别的日志，这个级别的日志说明问题已经相当严重，严重到程序无法继续运行，通常是系统级的错误。在开发中也很少使用，除非我们觉得某个错误发生时，整个程序无法继续运行。</p>
 <p>这里用一张图来总结下，如何选择Debug、Info、Warn、Error、Panic、Fatal这几种日志级别。</p>
-<img src="/2021/11/24/20-日志处理（上）：如何设计日志包并记录日志？/4.webp">
+<img src="/2021/11/24/20-%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86%EF%BC%88%E4%B8%8A%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E6%97%A5%E5%BF%97%E5%8C%85%E5%B9%B6%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97%EF%BC%9F/4.webp" class="">
 <h2 id="如何记录日志内容？"><a href="#如何记录日志内容？" class="headerlink" title="如何记录日志内容？"></a><span style="color:#00ACC1;">如何记录日志内容？</span></h2><p>关于如何记录日志内容，我有几条建议：</p>
 <ul>
 <li>在记录日志时，不要输出一些敏感信息，例如密码、密钥等。</li>
@@ -668,7 +664,7 @@
 <h1 id="拓展内容：分布式日志解决方案（EFK-ELK）"><a href="#拓展内容：分布式日志解决方案（EFK-ELK）" class="headerlink" title="拓展内容：分布式日志解决方案（EFK/ELK）"></a><span style="color:#339AFF;">拓展内容：分布式日志解决方案（EFK/ELK）</span></h1><p>前面我们介绍了设计日志包和记录日志的规范，除此之外，还有一个问题你应该了解，那就是：我们记录的日志如何收集、处理和展示。</p>
 <p>在实际Go项目开发中，为了实现高可用，同一个服务至少需要部署两个实例，通过轮询的负载均衡策略转发请求。另外，一个应用又可能包含多个服务。假设我们的应用包含两个服务，每个服务部署两个实例，如果应用出故障，我们可能需要登陆4（2x2）台服务器查看本地的日志文件，定位问题，非常麻烦，会增加故障恢复时间。所以在真实的企业场景中，我们会将这些日志统一收集并展示。</p>
 <p>在业界，日志的收集、处理和展示，早已经有了一套十分流行的日志解决方案：EFK（Elasticsearch+Filebeat+Kibana）或者ELK（Elasticsearch+Logstash+Kibana），EFK可以理解为ELK的演进版，把日志收集组件从Logstash替换成了Filebeat。用Filebeat替换Logstash，主要原因是Filebeat更轻量级，占用的资源更少。关于日志处理架构，你可以参考这张图。</p>
-<img src="/2021/11/24/20-日志处理（上）：如何设计日志包并记录日志？/5.webp">
+<img src="/2021/11/24/20-%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86%EF%BC%88%E4%B8%8A%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E6%97%A5%E5%BF%97%E5%8C%85%E5%B9%B6%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97%EF%BC%9F/5.webp" class="">
 <p>通过log包将日志记录在本地文件中（*.log文件），再通过Shipper收集到Kafka中。Shipper可以根据需要灵活选择，常见的Shipper有LogstashShipper、Flume、Fluentd、Filebeat。其中Filebeat和LogstashShipper用得最多。Shipper没有直接将日志投递到Logstashindexer，或者Elasticsearch，是因为Kafka能够支持更大的吞吐量，起到削峰填谷的作用。</p>
 <p>Kafka中的日志消息会被Logstash indexer消费，处理后投递到Elasticsearch中存储起来。Elasticsearch是实时全文搜索和分析引擎，提供搜集、分析、存储数据三大功能。Elasticsearch中存储的日志，可以通过Kibana提供的图形界面来展示。Kibana是一个基于Web的图形界面，用于搜索、分析和可视化存储在Elasticsearch中的日志数据。</p>
 <p>Logstash负责采集、转换和过滤日志。它支持几乎任何类型的日志，包括系统日志、错误日志和自定义应用程序日志。Logstash又分为Logstash Shipper和Logstash indexer。其中，Logstash Shipper监控并收集日志，并将日志内容发送到Logstash indexer，然后Logstash indexer过滤日志，并将日志提交给Elasticsearch。</p>
@@ -706,7 +702,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Go语言项目开发实战/" rel="tag"># Go语言项目开发实战</a>
+            <a href="/tags/Go%E8%AF%AD%E8%A8%80%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98/" rel="tag"># Go语言项目开发实战</a>
           
         </div>
       
@@ -719,8 +715,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/11/24/19-错误处理（下）：如何设计错误包？/" rel="next" title="19 | 错误处理（下）：如何设计错误包？">
-                <i class="fa fa-chevron-left"></i> 19 | 错误处理（下）：如何设计错误包？
+              <a href="/2021/11/24/19-%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86%EF%BC%88%E4%B8%8B%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E9%94%99%E8%AF%AF%E5%8C%85%EF%BC%9F/" rel="next" title="19丨错误处理（下）：如何设计错误包？">
+                <i class="fa fa-chevron-left"></i> 19丨错误处理（下）：如何设计错误包？
               </a>
             
           </div>
@@ -729,7 +725,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/11/24/21-日志处理（下）：手把手教你从0编写一个日志包/" rel="prev" title="21 | 日志处理（下）：手把手教你从0编写一个日志包">
+              <a href="/2021/11/24/21-%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86%EF%BC%88%E4%B8%8B%EF%BC%89%EF%BC%9A%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E4%BB%8E0%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E6%97%A5%E5%BF%97%E5%8C%85/" rel="prev" title="21 | 日志处理（下）：手把手教你从0编写一个日志包">
                 21 | 日志处理（下）：手把手教你从0编写一个日志包 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -789,7 +785,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -800,9 +798,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -814,26 +812,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -905,7 +887,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1080,115 +1062,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1219,23 +1093,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1261,7 +1135,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#如何设计日志包"><span class="nav-number">1.</span> <span class="nav-text">如何设计日志包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础功能"><span class="nav-number">1.1.</span> <span class="nav-text">基础功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高级功能"><span class="nav-number">1.2.</span> <span class="nav-text">高级功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可选功能"><span class="nav-number">1.3.</span> <span class="nav-text">可选功能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设计日志包时需要关注的点"><span class="nav-number">2.</span> <span class="nav-text">设计日志包时需要关注的点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何记录日志？"><span class="nav-number">3.</span> <span class="nav-text">如何记录日志？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在何处打印日志？"><span class="nav-number">3.1.</span> <span class="nav-text">在何处打印日志？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在哪个日志级别打印日志？"><span class="nav-number">3.2.</span> <span class="nav-text">在哪个日志级别打印日志？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何记录日志内容？"><span class="nav-number">3.3.</span> <span class="nav-text">如何记录日志内容？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#记录日志的“最佳”实践总结"><span class="nav-number">4.</span> <span class="nav-text">记录日志的“最佳”实践总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#拓展内容：分布式日志解决方案（EFK-ELK）"><span class="nav-number">5.</span> <span class="nav-text">拓展内容：分布式日志解决方案（EFK/ELK）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课后练习"><span class="nav-number">7.</span> <span class="nav-text">课后练习</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E6%97%A5%E5%BF%97%E5%8C%85"><span class="nav-number">1.</span> <span class="nav-text">如何设计日志包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E5%8A%9F%E8%83%BD"><span class="nav-number">1.1.</span> <span class="nav-text">基础功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E5%8A%9F%E8%83%BD"><span class="nav-number">1.2.</span> <span class="nav-text">高级功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E9%80%89%E5%8A%9F%E8%83%BD"><span class="nav-number">1.3.</span> <span class="nav-text">可选功能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%97%A5%E5%BF%97%E5%8C%85%E6%97%B6%E9%9C%80%E8%A6%81%E5%85%B3%E6%B3%A8%E7%9A%84%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">设计日志包时需要关注的点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">如何记录日志？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E4%BD%95%E5%A4%84%E6%89%93%E5%8D%B0%E6%97%A5%E5%BF%97%EF%BC%9F"><span class="nav-number">3.1.</span> <span class="nav-text">在何处打印日志？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E5%93%AA%E4%B8%AA%E6%97%A5%E5%BF%97%E7%BA%A7%E5%88%AB%E6%89%93%E5%8D%B0%E6%97%A5%E5%BF%97%EF%BC%9F"><span class="nav-number">3.2.</span> <span class="nav-text">在哪个日志级别打印日志？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97%E5%86%85%E5%AE%B9%EF%BC%9F"><span class="nav-number">3.3.</span> <span class="nav-text">如何记录日志内容？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97%E7%9A%84%E2%80%9C%E6%9C%80%E4%BD%B3%E2%80%9D%E5%AE%9E%E8%B7%B5%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">记录日志的“最佳”实践总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8B%93%E5%B1%95%E5%86%85%E5%AE%B9%EF%BC%9A%E5%88%86%E5%B8%83%E5%BC%8F%E6%97%A5%E5%BF%97%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%EF%BC%88EFK-ELK%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">拓展内容：分布式日志解决方案（EFK&#x2F;ELK）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0"><span class="nav-number">7.</span> <span class="nav-text">课后练习</span></a></li></ol></div>
             
 
           </div>
@@ -1296,7 +1170,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1307,12 +1181,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1320,7 +1194,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

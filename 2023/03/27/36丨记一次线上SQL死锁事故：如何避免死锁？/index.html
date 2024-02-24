@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,30 +104,30 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="MySQL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="36丨记一次线上SQL死锁事故：如何避免死锁？">
-<meta property="og:url" content="http://yoursite.com/2023/03/27/36丨记一次线上SQL死锁事故：如何避免死锁？/index.html">
+<meta property="og:url" content="http://yoursite.com/2023/03/27/36%E4%B8%A8%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%BA%BF%E4%B8%8ASQL%E6%AD%BB%E9%94%81%E4%BA%8B%E6%95%85%EF%BC%9A%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2023/03/27/36丨记一次线上SQL死锁事故：如何避免死锁？/1.webp">
-<meta property="og:image" content="http://yoursite.com/2023/03/27/36丨记一次线上SQL死锁事故：如何避免死锁？/2.webp">
-<meta property="og:image" content="http://yoursite.com/2023/03/27/36丨记一次线上SQL死锁事故：如何避免死锁？/3.webp">
-<meta property="og:image" content="http://yoursite.com/2023/03/27/36丨记一次线上SQL死锁事故：如何避免死锁？/4.webp">
-<meta property="og:image" content="http://yoursite.com/2023/03/27/36丨记一次线上SQL死锁事故：如何避免死锁？/5.webp">
-<meta property="og:updated_time" content="2023-08-30T03:23:55.188Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2023/03/27/36%E4%B8%A8%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%BA%BF%E4%B8%8ASQL%E6%AD%BB%E9%94%81%E4%BA%8B%E6%95%85%EF%BC%9A%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81%EF%BC%9F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2023/03/27/36%E4%B8%A8%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%BA%BF%E4%B8%8ASQL%E6%AD%BB%E9%94%81%E4%BA%8B%E6%95%85%EF%BC%9A%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81%EF%BC%9F/2.webp">
+<meta property="og:image" content="http://yoursite.com/2023/03/27/36%E4%B8%A8%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%BA%BF%E4%B8%8ASQL%E6%AD%BB%E9%94%81%E4%BA%8B%E6%95%85%EF%BC%9A%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81%EF%BC%9F/3.webp">
+<meta property="og:image" content="http://yoursite.com/2023/03/27/36%E4%B8%A8%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%BA%BF%E4%B8%8ASQL%E6%AD%BB%E9%94%81%E4%BA%8B%E6%95%85%EF%BC%9A%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81%EF%BC%9F/4.webp">
+<meta property="og:image" content="http://yoursite.com/2023/03/27/36%E4%B8%A8%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%BA%BF%E4%B8%8ASQL%E6%AD%BB%E9%94%81%E4%BA%8B%E6%95%85%EF%BC%9A%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81%EF%BC%9F/5.webp">
+<meta property="article:published_time" content="2023-03-27T03:12:21.000Z">
+<meta property="article:modified_time" content="2023-08-30T03:23:55.188Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="36丨记一次线上SQL死锁事故：如何避免死锁？">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2023/03/27/36丨记一次线上SQL死锁事故：如何避免死锁？/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2023/03/27/36%E4%B8%A8%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%BA%BF%E4%B8%8ASQL%E6%AD%BB%E9%94%81%E4%BA%8B%E6%95%85%EF%BC%9A%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81%EF%BC%9F/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2023/03/27/36丨记一次线上SQL死锁事故：如何避免死锁？/">
+  <link rel="canonical" href="http://yoursite.com/2023/03/27/36丨记一次线上SQL死锁事故：如何避免死锁？/"/>
 
 
 
@@ -176,7 +176,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -237,7 +237,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -254,7 +254,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -271,7 +271,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -288,7 +288,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -305,7 +305,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -316,7 +316,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -336,7 +336,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -386,16 +388,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/03/27/36丨记一次线上SQL死锁事故：如何避免死锁？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/03/27/36%E4%B8%A8%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%BA%BF%E4%B8%8ASQL%E6%AD%BB%E9%94%81%E4%BA%8B%E6%95%85%EF%BC%9A%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -495,7 +497,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">3.7k</span>
+                <span title="本文字数">8.5k</span>
               
 
               
@@ -509,7 +511,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">3 分钟</span>
+                <span title="阅读时长">8 分钟</span>
               
             </div>
           
@@ -530,27 +532,22 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>今天我们来聊聊死锁，开始之前，先分享个小故事，相信你可能遇到过，或能从中获得一点启发。</p>
 <p>之前我参与过一个项目，在项目初期，我们是没有将读写表分离的，而是基于一个主库完成读写操作。在业务量逐渐增大的时候，我们偶尔会收到系统的异常报警信息，DBA通知我们数据库出现了死锁异常。</p>
 <p>按理说业务开始是比较简单的，就是新增订单、修改订单、查询订单等操作，那为什么会出现死锁呢？经过日志分析，我们发现是作为幂等性校验的一张表经常出现死锁异常。我们和DBA讨论之后，初步怀疑是索引导致的死锁问题。后来我们在开发环境中模拟了相关操作，果然重现了该死锁异常。</p>
-<p>接下来我们就通过实战来重现下该业务死锁异常。首先，创建一张订单记录表，该表主要用于校验订单重复创建：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`order_record`</span>  (</span><br><span class="line">    <span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</span><br><span class="line">    <span class="string">`order_no`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`status`</span> <span class="built_in">int</span>(<span class="number">4</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`create_date`</span> datetime(<span class="number">0</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>) <span class="keyword">USING</span> BTREE,</span><br><span class="line">    <span class="keyword">INDEX</span> <span class="string">`idx_order_status`</span>(<span class="string">`order_no`</span>,<span class="string">`status`</span>) <span class="keyword">USING</span> BTREE</span><br><span class="line">) <span class="keyword">ENGINE</span> = <span class="keyword">InnoDB</span></span><br></pre></td></tr></table></figure></p>
-<p>为了能重现该问题，我们先将事务设置为手动提交。这里要注意一下，MySQL数据库和Oracle提交事务不太一样，MySQL数据库默认情况下是自动提交事务，我们可以通过以下命令行查看自动提交事务是否开启：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like <span class="string">'autocommit'</span>;</span><br><span class="line">+---------------+-------+</span><br><span class="line">| Variable_name | Value |</span><br><span class="line">+---------------+-------+</span><br><span class="line">| autocommit    | ON    |</span><br><span class="line">+---------------+-------+</span><br><span class="line">1 row <span class="keyword">in</span> <span class="built_in">set</span> (0.01 sec)</span><br></pre></td></tr></table></figure></p>
-<p>下面就操作吧，先将MySQL数据库的事务提交设置为手动提交，通过以下命令行可以关闭自动提交事务：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; <span class="built_in">set</span> autocommit = 0;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br></pre></td></tr></table></figure></p>
-<p>订单在做幂等性校验时，先是通过订单号检查订单是否存在，如果不存在则新增订单记录。知道具体的逻辑之后，我们再来模拟创建产生死锁的运行SQL语句。首先，我们模拟新建两个订单，并按照以下顺序执行幂等性校验SQL语句（垂直方向代表执行的时间顺序）：</p>
-<img src="/2023/03/27/36丨记一次线上SQL死锁事故：如何避免死锁？/1.webp">
+<p>接下来我们就通过实战来重现下该业务死锁异常。首先，创建一张订单记录表，该表主要用于校验订单重复创建：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `order_record`  (</span><br><span class="line">    `id` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT,</span><br><span class="line">    `order_no` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    `status` <span class="type">int</span>(<span class="number">4</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    `create_date` datetime(<span class="number">0</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (`id`) <span class="keyword">USING</span> BTREE,</span><br><span class="line">    INDEX `idx_order_status`(`order_no`,`status`) <span class="keyword">USING</span> BTREE</span><br><span class="line">) ENGINE <span class="operator">=</span> InnoDB</span><br></pre></td></tr></table></figure><br>为了能重现该问题，我们先将事务设置为手动提交。这里要注意一下，MySQL数据库和Oracle提交事务不太一样，MySQL数据库默认情况下是自动提交事务，我们可以通过以下命令行查看自动提交事务是否开启：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like <span class="string">&#x27;autocommit&#x27;</span>;</span><br><span class="line">+---------------+-------+</span><br><span class="line">| Variable_name | Value |</span><br><span class="line">+---------------+-------+</span><br><span class="line">| autocommit    | ON    |</span><br><span class="line">+---------------+-------+</span><br><span class="line">1 row <span class="keyword">in</span> <span class="built_in">set</span> (0.01 sec)</span><br></pre></td></tr></table></figure><br>下面就操作吧，先将MySQL数据库的事务提交设置为手动提交，通过以下命令行可以关闭自动提交事务：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; <span class="built_in">set</span> autocommit = 0;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br></pre></td></tr></table></figure><br>订单在做幂等性校验时，先是通过订单号检查订单是否存在，如果不存在则新增订单记录。知道具体的逻辑之后，我们再来模拟创建产生死锁的运行SQL语句。首先，我们模拟新建两个订单，并按照以下顺序执行幂等性校验SQL语句（垂直方向代表执行的时间顺序）：</p>
+<img src="/2023/03/27/36%E4%B8%A8%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%BA%BF%E4%B8%8ASQL%E6%AD%BB%E9%94%81%E4%BA%8B%E6%95%85%EF%BC%9A%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81%EF%BC%9F/1.webp" class="">
 <p>此时，我们会发现两个事务已经进入死锁状态。我们可以在information_schema数据库中查询到具体的死锁情况，如下图所示：</p>
-<img src="/2023/03/27/36丨记一次线上SQL死锁事故：如何避免死锁？/2.webp">
+<img src="/2023/03/27/36%E4%B8%A8%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%BA%BF%E4%B8%8ASQL%E6%AD%BB%E9%94%81%E4%BA%8B%E6%95%85%EF%BC%9A%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81%EF%BC%9F/2.webp" class="">
 <p>看到这，你可能会想，<span style="color:red">为什么SELECT要加forupdate排他锁，而不是使用共享锁呢？</span>试想下，如果是两个订单号一样的请求同时进来，就有可能出现幻读。也就是说，一开始事务A中的查询没有该订单号，后来事务B新增了一个该订单号的记录，此时事务A再新增一条该订单号记录，就会创建重复的订单记录。面对这种情况，我们可以使用锁间隙算法来防止幻读。</p>
 <h1 id="死锁是如何产生的？"><a href="#死锁是如何产生的？" class="headerlink" title="死锁是如何产生的？"></a><span style="color:#339AFF;">死锁是如何产生的？</span></h1><p>上面我们说到了锁间隙，在第33讲中，我已经讲过了并发事务中的锁机制以及行锁的具体实现算法，不妨回顾一下。</p>
 <p>行锁的具体实现算法有三种：recordlock、gap lock以及next-key lock。recordlock是专门对索引项加锁；gap lock是对索引项之间的间隙加锁；next-key lock则是前面两种的组合，对索引项以其之间的间隙加锁。</p>
 <p>只在可重复读或以上隔离级别下的特定操作才会取得gap lock或next-key lock，在Select、Update和Delete时，除了基于唯一索引的查询之外，其它索引查询时都会获取gap lock或next-key lock，即锁住其扫描的范围。主键索引也属于唯一索引，所以主键索引是不会使用gap lock或next-key lock。</p>
 <p>在MySQL中，gap lock默认是开启的，即innodb_locks_unsafe_for_binlog参数值是disable的，且MySQL中默认的是RR事务隔离级别。</p>
-<p>当我们执行以下查询SQL时，由于order_no列为非唯一索引，此时又是RR事务隔离级别，所以SELECT的加锁类型为gap lock，这里的gap范围是(4,+∞）。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">id</span> <span class="keyword">FROM</span> demo.order_record <span class="keyword">where</span> order_no = <span class="number">4</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure></p>
-<p>执行查询SQL语句获取的gap lock并不会导致阻塞，而当我们执行以下插入SQL时，会在插入间隙上再次获取插入意向锁。插入意向锁其实也是一种gap锁，它与gap lock是冲突的，所以当其它事务持有该间隙的gap lock时，需要等待其它事务释放gap lock之后，才能获取到插入意向锁。</p>
-<p>以上事务A和事务B都持有间隙(4,+∞）的gap锁，而接下来的插入操作为了获取到插入意向锁，都在等待对方事务的gap锁释放，于是就造成了循环等待，导致死锁。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> demo.order_record(order_no, <span class="keyword">status</span>, create_date) <span class="keyword">VALUES</span> (<span class="number">5</span>, <span class="number">1</span>, <span class="string">'2019-07-13 10:57:03'</span>);</span><br></pre></td></tr></table></figure></p>
-<p>我们可以通过以下锁的兼容矩阵图，来查看锁的兼容性：</p>
-<img src="/2023/03/27/36丨记一次线上SQL死锁事故：如何避免死锁？/3.webp">
+<p>当我们执行以下查询SQL时，由于order_no列为非唯一索引，此时又是RR事务隔离级别，所以SELECT的加锁类型为gap lock，这里的gap范围是(4,+∞）。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> id <span class="keyword">FROM</span> demo.order_record <span class="keyword">where</span> order_no <span class="operator">=</span> <span class="number">4</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure><br>执行查询SQL语句获取的gap lock并不会导致阻塞，而当我们执行以下插入SQL时，会在插入间隙上再次获取插入意向锁。插入意向锁其实也是一种gap锁，它与gap lock是冲突的，所以当其它事务持有该间隙的gap lock时，需要等待其它事务释放gap lock之后，才能获取到插入意向锁。</p>
+<p>以上事务A和事务B都持有间隙(4,+∞）的gap锁，而接下来的插入操作为了获取到插入意向锁，都在等待对方事务的gap锁释放，于是就造成了循环等待，导致死锁。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> demo.order_record(order_no, status, create_date) <span class="keyword">VALUES</span> (<span class="number">5</span>, <span class="number">1</span>, <span class="string">&#x27;2019-07-13 10:57:03&#x27;</span>);</span><br></pre></td></tr></table></figure><br>我们可以通过以下锁的兼容矩阵图，来查看锁的兼容性：</p>
+<img src="/2023/03/27/36%E4%B8%A8%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%BA%BF%E4%B8%8ASQL%E6%AD%BB%E9%94%81%E4%BA%8B%E6%95%85%EF%BC%9A%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81%EF%BC%9F/3.webp" class="">
 <h1 id="避免死锁的措施"><a href="#避免死锁的措施" class="headerlink" title="避免死锁的措施"></a><span style="color:#339AFF;">避免死锁的措施</span></h1><p>知道了死锁问题源自哪儿，就可以找到合适的方法来避免它了。</p>
 <p>避免死锁最直观的方法就是在两个事务相互等待时，当一个事务的等待时间超过设置的某一阈值，就对这个事务进行回滚，另一个事务就可以继续执行了。这种方法简单有效，在InnoDB中，参数innodb_lock_wait_timeout是用来设置超时时间的。</p>
 <p>另外，我们还可以将order_no列设置为唯一索引列。虽然不能防止幻读，但我们可以利用它的唯一性来保证订单记录不重复创建，这种方式唯一的缺点就是当遇到重复创建订单时会抛出异常。</p>
@@ -560,9 +557,9 @@
 <p>接下来，我们再来了解一个出现死锁的场景。</p>
 <p>我们讲过，InnoDB存储引擎的主键索引为聚簇索引，其它索引为辅助索引。如果我们之前使用辅助索引来更新数据库，就需要修改为使用聚簇索引来更新数据库。如果两个更新事务使用了不同的辅助索引，或一个使用了辅助索引，一个使用了聚簇索引，就都有可能导致锁资源的循环等待。由于本身两个事务是互斥，也就构成了以上死锁的四个必要条件了。</p>
 <p>我们还是以上面的这个订单记录表来重现下聚簇索引和辅助索引更新时，循环等待锁资源导致的死锁问题：</p>
-<img src="/2023/03/27/36丨记一次线上SQL死锁事故：如何避免死锁？/4.webp">
+<img src="/2023/03/27/36%E4%B8%A8%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%BA%BF%E4%B8%8ASQL%E6%AD%BB%E9%94%81%E4%BA%8B%E6%95%85%EF%BC%9A%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81%EF%BC%9F/4.webp" class="">
 <p>出现死锁的步骤：</p>
-<img src="/2023/03/27/36丨记一次线上SQL死锁事故：如何避免死锁？/5.webp">
+<img src="/2023/03/27/36%E4%B8%A8%E8%AE%B0%E4%B8%80%E6%AC%A1%E7%BA%BF%E4%B8%8ASQL%E6%AD%BB%E9%94%81%E4%BA%8B%E6%95%85%EF%BC%9A%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81%EF%BC%9F/5.webp" class="">
 <p>综上可知，在更新操作时，我们应该尽量使用主键来更新表字段，这样可以有效避免一些不必要的死锁发生。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><span style="color:#339AFF;">总结</span></h1><p>数据库发生死锁的概率并不是很大，一旦遇到了，就一定要彻查具体原因，尽快找出解决方案，老实说，过程不简单。我们只有先对MySQL的InnoDB存储引擎有足够的了解，才能剖析出造成死锁的具体原因。</p>
 <p>例如，以上我例举的两种发生死锁的场景，一个考验的是我们对锁算法的了解，另外一个考验则是我们对聚簇索引和辅助索引的熟悉程度。</p>
@@ -609,7 +606,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2023/03/22/28丨从磁盘I-O的角度理解SQL查询的成本/" rel="next" title="28丨从磁盘I/O的角度理解SQL查询的成本">
+              <a href="/2023/03/22/28%E4%B8%A8%E4%BB%8E%E7%A3%81%E7%9B%98I-O%E7%9A%84%E8%A7%92%E5%BA%A6%E7%90%86%E8%A7%A3SQL%E6%9F%A5%E8%AF%A2%E7%9A%84%E6%88%90%E6%9C%AC/" rel="next" title="28丨从磁盘I/O的角度理解SQL查询的成本">
                 <i class="fa fa-chevron-left"></i> 28丨从磁盘I/O的角度理解SQL查询的成本
               </a>
             
@@ -619,7 +616,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2023/03/28/29丨为什么没有理想的索引？/" rel="prev" title="29丨为什么没有理想的索引？">
+              <a href="/2023/03/28/29%E4%B8%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E6%B2%A1%E6%9C%89%E7%90%86%E6%83%B3%E7%9A%84%E7%B4%A2%E5%BC%95%EF%BC%9F/" rel="prev" title="29丨为什么没有理想的索引？">
                 29丨为什么没有理想的索引？ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -679,7 +676,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -690,9 +689,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -704,26 +703,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -795,7 +778,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -970,115 +953,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1109,23 +984,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1151,7 +1026,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#死锁是如何产生的？"><span class="nav-number">1.</span> <span class="nav-text">死锁是如何产生的？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#避免死锁的措施"><span class="nav-number">2.</span> <span class="nav-text">避免死锁的措施</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其它常见的SQL死锁问题"><span class="nav-number">3.</span> <span class="nav-text">其它常见的SQL死锁问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">5.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AD%BB%E9%94%81%E6%98%AF%E5%A6%82%E4%BD%95%E4%BA%A7%E7%94%9F%E7%9A%84%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">死锁是如何产生的？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%81%BF%E5%85%8D%E6%AD%BB%E9%94%81%E7%9A%84%E6%8E%AA%E6%96%BD"><span class="nav-number">2.</span> <span class="nav-text">避免死锁的措施</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%E5%B8%B8%E8%A7%81%E7%9A%84SQL%E6%AD%BB%E9%94%81%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">其它常见的SQL死锁问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">5.</span> <span class="nav-text">思考题</span></a></li></ol></div>
             
 
           </div>
@@ -1186,7 +1061,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1197,12 +1072,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1210,7 +1085,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

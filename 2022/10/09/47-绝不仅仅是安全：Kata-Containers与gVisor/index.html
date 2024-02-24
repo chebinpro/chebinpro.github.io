@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,31 +104,31 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="深入剖析Kubernetes">
 <meta property="og:type" content="article">
 <meta property="og:title" content="47丨绝不仅仅是安全：KataContainers与gVisor">
-<meta property="og:url" content="http://yoursite.com/2022/10/09/47-绝不仅仅是安全：Kata-Containers与gVisor/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/10/09/47-%E7%BB%9D%E4%B8%8D%E4%BB%85%E4%BB%85%E6%98%AF%E5%AE%89%E5%85%A8%EF%BC%9AKata-Containers%E4%B8%8EgVisor/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/10/09/47-绝不仅仅是安全：Kata-Containers与gVisor/1.webp">
-<meta property="og:image" content="http://yoursite.com/2022/10/09/47-绝不仅仅是安全：Kata-Containers与gVisor/2.webp">
-<meta property="og:image" content="http://yoursite.com/2022/10/09/47-绝不仅仅是安全：Kata-Containers与gVisor/3.webp">
-<meta property="og:image" content="http://yoursite.com/2022/10/09/47-绝不仅仅是安全：Kata-Containers与gVisor/4.webp">
-<meta property="og:image" content="http://yoursite.com/2022/10/09/47-绝不仅仅是安全：Kata-Containers与gVisor/5.webp">
-<meta property="og:image" content="http://yoursite.com/2022/10/09/47-绝不仅仅是安全：Kata-Containers与gVisor/6.webp">
-<meta property="og:updated_time" content="2023-08-26T13:20:41.994Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/10/09/47-%E7%BB%9D%E4%B8%8D%E4%BB%85%E4%BB%85%E6%98%AF%E5%AE%89%E5%85%A8%EF%BC%9AKata-Containers%E4%B8%8EgVisor/1.webp">
+<meta property="og:image" content="http://yoursite.com/2022/10/09/47-%E7%BB%9D%E4%B8%8D%E4%BB%85%E4%BB%85%E6%98%AF%E5%AE%89%E5%85%A8%EF%BC%9AKata-Containers%E4%B8%8EgVisor/2.webp">
+<meta property="og:image" content="http://yoursite.com/2022/10/09/47-%E7%BB%9D%E4%B8%8D%E4%BB%85%E4%BB%85%E6%98%AF%E5%AE%89%E5%85%A8%EF%BC%9AKata-Containers%E4%B8%8EgVisor/3.webp">
+<meta property="og:image" content="http://yoursite.com/2022/10/09/47-%E7%BB%9D%E4%B8%8D%E4%BB%85%E4%BB%85%E6%98%AF%E5%AE%89%E5%85%A8%EF%BC%9AKata-Containers%E4%B8%8EgVisor/4.webp">
+<meta property="og:image" content="http://yoursite.com/2022/10/09/47-%E7%BB%9D%E4%B8%8D%E4%BB%85%E4%BB%85%E6%98%AF%E5%AE%89%E5%85%A8%EF%BC%9AKata-Containers%E4%B8%8EgVisor/5.webp">
+<meta property="og:image" content="http://yoursite.com/2022/10/09/47-%E7%BB%9D%E4%B8%8D%E4%BB%85%E4%BB%85%E6%98%AF%E5%AE%89%E5%85%A8%EF%BC%9AKata-Containers%E4%B8%8EgVisor/6.webp">
+<meta property="article:published_time" content="2022-10-09T13:41:58.000Z">
+<meta property="article:modified_time" content="2023-08-26T13:20:41.994Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="深入剖析Kubernetes">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="47丨绝不仅仅是安全：KataContainers与gVisor">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2022/10/09/47-绝不仅仅是安全：Kata-Containers与gVisor/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2022/10/09/47-%E7%BB%9D%E4%B8%8D%E4%BB%85%E4%BB%85%E6%98%AF%E5%AE%89%E5%85%A8%EF%BC%9AKata-Containers%E4%B8%8EgVisor/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/10/09/47-绝不仅仅是安全：Kata-Containers与gVisor/">
+  <link rel="canonical" href="http://yoursite.com/2022/10/09/47-绝不仅仅是安全：Kata-Containers与gVisor/"/>
 
 
 
@@ -177,7 +177,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -238,7 +238,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -255,7 +255,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -272,7 +272,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -289,7 +289,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -306,7 +306,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -317,7 +317,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -337,7 +337,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -387,16 +389,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/10/09/47-绝不仅仅是安全：Kata-Containers与gVisor/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/10/09/47-%E7%BB%9D%E4%B8%8D%E4%BB%85%E4%BB%85%E6%98%AF%E5%AE%89%E5%85%A8%EF%BC%9AKata-Containers%E4%B8%8EgVisor/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -496,7 +498,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">4.3k</span>
+                <span title="本文字数">5.7k</span>
               
 
               
@@ -510,7 +512,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">4 分钟</span>
+                <span title="阅读时长">5 分钟</span>
               
             </div>
           
@@ -531,37 +533,37 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>在上一篇文章中，我为你详细地讲解了kubelet和CRI的设计和具体的工作原理。而在讲解CRI的诞生背景时，我也提到过，这其中的一个重要推动力，就是基于虚拟化或者独立内核的安全容器项目的逐渐成熟。</p>
 <p>使用虚拟化技术来做一个像Docker一样的容器项目，并不是一个新鲜的主意。早在Docker项目发布之后，Google公司就开源了一个实验性的项目，叫作novm。这，可以算是试图使用常规的虚拟化技术来运行Docker镜像的第一次尝试。不过，novm在开源后不久，就被放弃了，这对于Google公司来说或许不算是什么新鲜事，但是novm的昙花一现，还是激发出了很多内核开发者的灵感。</p>
 <p>所以在2015年，几乎在同一个星期，IntelOTC（OpenSourceTechnologyCenter）和国内的HyperHQ团队同时开源了两个基于虚拟化技术的容器实现，分别叫做IntelClearContainer和runV项目。</p>
 <p>而在2017年，借着Kubernetes的东风，这两个相似的容器运行时项目在中立基金会的撮合下最终合并，就成了现在大家耳熟能详的KataContainers项目。由于KataContainers的本质就是一个精简后的轻量级虚拟机，所以它的特点，就是“像虚拟机一样安全，像容器一样敏捷”。</p>
 <p>而在2018年，Google公司则发布了一个名叫gVisor的项目。gVisor项目给容器进程配置一个用Go语言实现的、运行在用户态的、极小的“独立内核”。这个内核对容器进程暴露Linux内核ABI，扮演着“GuestKernel”的角色，从而达到了将容器和宿主机隔离开的目的。</p>
 <p>不难看到，无论是KataContainers，还是gVisor，它们实现安全容器的方法其实是殊途同归的。这两种容器实现的本质，都是给进程分配了一个独立的操作系统内核，从而避免了让容器共享宿主机的内核。这样，容器进程能够看到的攻击面，就从整个宿主机内核变成了一个极小的、独立的、以容器为单位的内核，从而有效解决了容器进程发生“逃逸”或者夺取整个宿主机的控制权的问题。这个原理，可以用如下所示的示意图来表示清楚。</p>
-<img src="/2022/10/09/47-绝不仅仅是安全：Kata-Containers与gVisor/1.webp">
+<img src="/2022/10/09/47-%E7%BB%9D%E4%B8%8D%E4%BB%85%E4%BB%85%E6%98%AF%E5%AE%89%E5%85%A8%EF%BC%9AKata-Containers%E4%B8%8EgVisor/1.webp" class="">
 <p>而它们的区别在于，KataContainers使用的是传统的虚拟化技术，通过虚拟硬件模拟出了一台“小虚拟机”，然后在这个小虚拟机里安装了一个裁剪后的Linux内核来实现强隔离。</p>
 <p>而gVisor的做法则更加激进，Google的工程师直接用Go语言“模拟”出了一个运行在用户态的操作系统内核，然后通过这个模拟的内核来代替容器进程向宿主机发起有限的、可控的系统调用。</p>
 <p>接下来，我就来为你详细解读一下KataContainers和gVisor具体的设计原理。</p>
 <p>首先，我们来看KataContainers。它的工作原理可以用如下所示的示意图来描述。</p>
-<img src="/2022/10/09/47-绝不仅仅是安全：Kata-Containers与gVisor/2.webp">
+<img src="/2022/10/09/47-%E7%BB%9D%E4%B8%8D%E4%BB%85%E4%BB%85%E6%98%AF%E5%AE%89%E5%85%A8%EF%BC%9AKata-Containers%E4%B8%8EgVisor/2.webp" class="">
 <p>我们前面说过，KataContainers的本质，就是一个轻量化虚拟机。所以当你启动一个KataContainers之后，你其实就会看到一个正常的虚拟机在运行。这也就意味着，一个标准的虚拟机管理程序（VirtualMachineManager,VMM）是运行KataContainers必备的一个组件。在我们上面图中，使用的VMM就是Qemu。</p>
 <p>而使用了虚拟机作为进程的隔离环境之后，KataContainers原生就带有了Pod的概念。即：这个KataContainers启动的虚拟机，就是一个Pod；而用户定义的容器，就是运行在这个轻量级虚拟机里的进程。在具体实现上，KataContainers的虚拟机里会有一个特殊的Init进程负责管理虚拟机里面的用户容器，并且只为这些容器开启MountNamespace。所以，这些用户容器之间，原生就是共享Network以及其他Namespace的。</p>
 <p>此外，为了跟上层编排框架比如Kubernetes进行对接，KataContainers项目会启动一系列跟用户容器对应的shim进程，来负责操作这些用户容器的生命周期。当然，这些操作，实际上还是要靠虚拟机里的Init进程来帮你做到。</p>
 <p>而在具体的架构上，KataContainers的实现方式同一个正常的虚拟机其实也非常类似。这里的原理，可以用如下所示的一幅示意图来表示。</p>
-<img src="/2022/10/09/47-绝不仅仅是安全：Kata-Containers与gVisor/3.webp">
+<img src="/2022/10/09/47-%E7%BB%9D%E4%B8%8D%E4%BB%85%E4%BB%85%E6%98%AF%E5%AE%89%E5%85%A8%EF%BC%9AKata-Containers%E4%B8%8EgVisor/3.webp" class="">
 <p>可以看到，当KataContainers运行起来之后，虚拟机里的用户进程（容器），实际上只能看到虚拟机里的、被裁减过的GuestKernel，以及通过Hypervisor虚拟出来的硬件设备。</p>
 <p>而为了能够对这个虚拟机的I/O性能进行优化，KataContainers也会通过vhost技术（比如：vhost-user）来实现Guest与Host之间的高效的网络通信，并且使用PCIPassthrough（PCI穿透）技术来让Guest里的进程直接访问到宿主机上的物理设备。这些架构设计与实现，其实跟常规虚拟机的优化手段是基本一致的。</p>
 <p>相比之下，gVisor的设计其实要更加“激进”一些。它的原理，可以用如下所示的示意图来表示清楚。</p>
-<img src="/2022/10/09/47-绝不仅仅是安全：Kata-Containers与gVisor/4.webp">
+<img src="/2022/10/09/47-%E7%BB%9D%E4%B8%8D%E4%BB%85%E4%BB%85%E6%98%AF%E5%AE%89%E5%85%A8%EF%BC%9AKata-Containers%E4%B8%8EgVisor/4.webp" class="">
 <p>gVisor工作的核心，在于它为应用进程、也就是用户容器，启动了一个名叫Sentry的进程。而Sentry进程的主要职责，就是提供一个传统的操作系统内核的能力，即：运行用户程序，执行系统调用。所以说，Sentry并不是使用Go语言重新实现了一个完整的Linux内核，而只是一个对应用进程“冒充”内核的系统组件。</p>
 <p>在这种设计思想下，我们就不难理解，Sentry其实需要自己实现一个完整的Linux内核网络栈，以便处理应用进程的通信请求。然后，把封装好的二层帧直接发送给Kubernetes设置的Pod的NetworkNamespace即可。</p>
 <p>此外，Sentry对于Volume的操作，则需要通过9p协议交给一个叫做Gofer的代理进程来完成。Gofer会代替应用进程直接操作宿主机上的文件，并依靠seccomp机制将自己的能力限制在最小集，从而防止恶意应用进程通过Gofer来从容器中“逃逸”出去。</p>
 <p>而在具体的实现上，gVisor的Sentry进程，其实还分为两种不同的实现方式。这里的工作原理，可以用下面的示意图来描述清楚。</p>
-<img src="/2022/10/09/47-绝不仅仅是安全：Kata-Containers与gVisor/5.webp">
+<img src="/2022/10/09/47-%E7%BB%9D%E4%B8%8D%E4%BB%85%E4%BB%85%E6%98%AF%E5%AE%89%E5%85%A8%EF%BC%9AKata-Containers%E4%B8%8EgVisor/5.webp" class="">
 <p>第一种实现方式，是使用Ptrace机制来拦截用户应用的系统调用（SystemCall），然后把这些系统调用交给Sentry来进行处理。</p>
 <p>这个过程，对于应用进程来说，是完全透明的。而Sentry接下来，则会扮演操作系统的角色，在用户态执行用户程序，然后仅在需要的时候，才向宿主机发起Sentry自己所需要执行的系统调用。这，就是gVisor对用户应用进程进行强隔离的主要手段。不过，Ptrace进行系统调用拦截的性能实在是太差，仅能供Demo时使用。</p>
 <p>而第二种实现方式，则更加具有普适性。它的工作原理如下图所示。</p>
-<img src="/2022/10/09/47-绝不仅仅是安全：Kata-Containers与gVisor/6.webp">
+<img src="/2022/10/09/47-%E7%BB%9D%E4%B8%8D%E4%BB%85%E4%BB%85%E6%98%AF%E5%AE%89%E5%85%A8%EF%BC%9AKata-Containers%E4%B8%8EgVisor/6.webp" class="">
 <p>在这种实现里，Sentry会使用KVM来进行系统调用的拦截，这个性能比Ptrace就要好很多了。</p>
 <p>当然，为了能够做到这一点，Sentry进程就必须扮演一个GuestKernel的角色，负责执行用户程序，发起系统调用。而这些系统调用被KVM拦截下来，还是继续交给Sentry进行处理。只不过在这时候，Sentry就切换成了一个普通的宿主机进程的角色，来向宿主机发起它所需要的系统调用。</p>
 <p>可以看到，在这种实现里，Sentry并不会真的像虚拟机那样去虚拟出硬件设备、安装Guest操作系统。它只是借助KVM进行系统调用的拦截，以及处理地址空间切换等细节。</p>
@@ -600,7 +602,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/深入剖析Kubernetes/" rel="tag"># 深入剖析Kubernetes</a>
+            <a href="/tags/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90Kubernetes/" rel="tag"># 深入剖析Kubernetes</a>
           
         </div>
       
@@ -613,7 +615,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/10/09/46-解读CRI与容器运行时/" rel="next" title="46丨解读CRI与容器运行时">
+              <a href="/2022/10/09/46-%E8%A7%A3%E8%AF%BBCRI%E4%B8%8E%E5%AE%B9%E5%99%A8%E8%BF%90%E8%A1%8C%E6%97%B6/" rel="next" title="46丨解读CRI与容器运行时">
                 <i class="fa fa-chevron-left"></i> 46丨解读CRI与容器运行时
               </a>
             
@@ -623,7 +625,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/10/09/48-Prometheus、Metrics-Server与Kubernetes监控体系/" rel="prev" title="48丨Prometheus、Metrics Server与Kubernetes监控体系">
+              <a href="/2022/10/09/48-Prometheus%E3%80%81Metrics-Server%E4%B8%8EKubernetes%E7%9B%91%E6%8E%A7%E4%BD%93%E7%B3%BB/" rel="prev" title="48丨Prometheus、Metrics Server与Kubernetes监控体系">
                 48丨Prometheus、Metrics Server与Kubernetes监控体系 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -683,7 +685,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -694,9 +698,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -708,26 +712,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -799,7 +787,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -974,115 +962,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1113,23 +993,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1155,7 +1035,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">1.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">2.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">思考题</span></a></li></ol></div>
             
 
           </div>
@@ -1190,7 +1070,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1201,12 +1081,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1214,7 +1094,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

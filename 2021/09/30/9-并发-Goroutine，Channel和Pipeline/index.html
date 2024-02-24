@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,24 +104,24 @@
 
 
   <meta name="description" content="思考并回答以下问题：  总结一下，这章作者最主要想表达什么观点？">
-<meta name="keywords" content="Mastering Go">
 <meta property="og:type" content="article">
 <meta property="og:title" content="9-并发-Goroutine，Channel和Pipeline">
-<meta property="og:url" content="http://yoursite.com/2021/09/30/9-并发-Goroutine，Channel和Pipeline/index.html">
+<meta property="og:url" content="http://yoursite.com/2021/09/30/9-%E5%B9%B6%E5%8F%91-Goroutine%EF%BC%8CChannel%E5%92%8CPipeline/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：  总结一下，这章作者最主要想表达什么观点？">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-03-24T09:47:52.327Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-09-30T05:41:30.000Z">
+<meta property="article:modified_time" content="2022-03-24T09:47:52.327Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Mastering Go">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="9-并发-Goroutine，Channel和Pipeline">
-<meta name="twitter:description" content="思考并回答以下问题：  总结一下，这章作者最主要想表达什么观点？">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2021/09/30/9-并发-Goroutine，Channel和Pipeline/">
+  <link rel="canonical" href="http://yoursite.com/2021/09/30/9-并发-Goroutine，Channel和Pipeline/"/>
 
 
 
@@ -170,7 +170,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -231,7 +231,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -248,7 +248,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -265,7 +265,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -282,7 +282,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -299,7 +299,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -310,7 +310,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -330,7 +330,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -380,16 +382,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/09/30/9-并发-Goroutine，Channel和Pipeline/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/09/30/9-%E5%B9%B6%E5%8F%91-Goroutine%EF%BC%8CChannel%E5%92%8CPipeline/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -489,7 +491,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">11k</span>
+                <span title="本文字数">16k</span>
               
 
               
@@ -503,7 +505,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">10 分钟</span>
+                <span title="阅读时长">15 分钟</span>
               
             </div>
           
@@ -527,7 +529,7 @@
 <ul>
 <li>总结一下，这章作者最主要想表达什么观点？</li>
 </ul>
-<a id="more"></a>
+<span id="more"></span>
 <p>上一章我们讨论了Go系统编程，包括Go函数和与操作系统通信的技术。前一章未涉及的两个系统编程领域是并发编程以及创建和管理多个线程。这两个主题将在本章和下一章中讨论。</p>
 <p>GO提供了自己独特而新颖的方式来实现并发，这就是协程和通道。协程Goroutine是Go程序中可独立执行的最小实体单元，而通道Channel是Goroutine间并发且有效地获取数据的方式，从而允许goroutine具有引用点并相互通信。Go中的所有内容都是使用goroutines执行的，这是完全合理的，因为Go是一种并发编程语言。因此，当Go程序开始执行时，它的单个goroutine调用main()函数，该函数执行实际的程序。</p>
 <h1 id="关于进程，线程和Go协程"><a href="#关于进程，线程和Go协程" class="headerlink" title="关于进程，线程和Go协程"></a>关于进程，线程和Go协程</h1><p>进程是包含计算机指令，用户数据和系统数据的程序执行环境，以及包含其运行时获得的其他类型资源。而程序是一个文件，其中包含用于初始化进程的指令和用户数据部分的指令和数据。<br>线程相对于进程是更加小巧而轻量的实体，线程由进程创建且包含自己的控制流和栈，线程和进程的区别在于：进程是正在运行的二进制文件，而线程是进程的子集。</p>
@@ -542,32 +544,26 @@
 <h1 id="Goroutines"><a href="#Goroutines" class="headerlink" title="Goroutines"></a>Goroutines</h1><p>在Go语言中使用go关键字后跟函数名称或定义完整的匿名函数即可开启一个新的Goroutine，使用go关键字调用函数后会立即返回，该函数在后台作为Goroutine运行，程序的其余部分继续执行</p>
 <p>但是，如上所述，您无法控制您的Goroutine的执行顺序，因为这取决于操作系统的调度程序，Go调度程序以及操作系统的负载。</p>
 <h2 id="创建一个Goroutine"><a href="#创建一个Goroutine" class="headerlink" title="创建一个Goroutine"></a>创建一个Goroutine</h2><p>在本小节中，您将学习两种创建goroutine的方法。第一种方法是使用常规的函数，而第二种方法是使用匿名函数-这两种方法其实是类似的。</p>
-<p>本小节所展示的程序文件为simple.go，它分为三个部分。simple.go的第一部分代码如下：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span>(</span><br><span class="line"><span class="string">"fmt"</span> <span class="string">"time'</span></span><br><span class="line"><span class="string">func function()&#123;</span></span><br><span class="line"><span class="string">for i:=e;i&lt;10;i++&#123; fmt.Print(i)</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">fmt.Println()</span></span><br></pre></td></tr></table></figure></p>
-<p>除了import包之外，上面的代码定义了一个名为function（）的函数，该函数将在下面的代码内使用。</p>
-<p>接下来是simple.go的第二部分代码：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">go</span> function()</span><br></pre></td></tr></table></figure></p>
-<p>上面的代码启用一个新的Goroutine来运行function（）函数。然后主程序会继续执行，而function（）函数开始在后台运行。<br>simple.go的最后一部分代码如下：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">for</span> i:=<span class="number">10</span>;i&lt;<span class="number">20</span>;i++&#123; fmt.Print(i，”“)</span><br><span class="line">&#125;</span><br><span class="line">&#125;()</span><br><span class="line">time.Sleep(<span class="number">1</span>* time.Second)</span><br></pre></td></tr></table></figure></p>
-<p>如上所示，您也可以使用匿名函数创建Goroutine。此方法适合相对较小的功能。如果函数体有大量代码，最好使用go关键字创建常规函数来执行它。</p>
+<p>本小节所展示的程序文件为simple.go，它分为三个部分。simple.go的第一部分代码如下：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"><span class="keyword">import</span>(</span><br><span class="line"><span class="string">&quot;fmt&quot;</span> <span class="string">&quot;time&#x27;</span></span><br><span class="line"><span class="string">func function()&#123;</span></span><br><span class="line"><span class="string">for i:=e;i&lt;10;i++&#123; fmt.Print(i)</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">fmt.Println()</span></span><br></pre></td></tr></table></figure><br>除了import包之外，上面的代码定义了一个名为function（）的函数，该函数将在下面的代码内使用。</p>
+<p>接下来是simple.go的第二部分代码：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">go</span> function()</span><br></pre></td></tr></table></figure><br>上面的代码启用一个新的Goroutine来运行function（）函数。然后主程序会继续执行，而function（）函数开始在后台运行。<br>simple.go的最后一部分代码如下：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="keyword">for</span> i:=<span class="number">10</span>;i&lt;<span class="number">20</span>;i++&#123; fmt.Print(i，”“)</span><br><span class="line">&#125;</span><br><span class="line">&#125;()</span><br><span class="line">time.Sleep(<span class="number">1</span>* time.Second)</span><br></pre></td></tr></table></figure><br>如上所示，您也可以使用匿名函数创建Goroutine。此方法适合相对较小的功能。如果函数体有大量代码，最好使用go关键字创建常规函数来执行它。</p>
 <p>正如您将在下一节中看到的，您可以按照自己的方式创建多个Goroutine，当然也可以使用for循环。</p>
-<p>执行simple.go两次后的输出如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ gorun simple.go</span><br><span class="line">10 11 12 13 14 0123456789 15 16 17 18 19</span><br><span class="line">$ gorun simple.go</span><br><span class="line">1011 12 13 14 15 16 17 18 19 8123456789</span><br></pre></td></tr></table></figure></p>
-<p>尽管您想要的程序是对于同一个输入有相同的输出，但从上面的执行结果来看，两次的输出并不是相同的。我们可以总结一下：在不做额外工作的自然情况下我们是无法控制Goroutine的执行顺序的，如果要控制它，我们需要编写额外的代码。在下一章我们将学习到这部分内容。</p>
-<h1 id="优雅地结束goroutines"><a href="#优雅地结束goroutines" class="headerlink" title="优雅地结束goroutines"></a>优雅地结束goroutines</h1><p>本节内容将介绍如何使用go标准库中的sync包来解决上一节提到的<br>Goroutine中的任务还未执行完成，main（）函数就提前结束的问题。本节的代码文件为syncGo.go，我们基于上一节的create.go来扩展syncGo.go。<br>syncGo.go的第一部分代码如下：<br>package main<br>import(<br>“flag’ “fmt” “svnc’<br>如上所示，我们不再需要time包，我们将使用sync包中的功能来等待所有的Goroutine执行完成。<br>在第10章“并发-高级主题”中，我们将会学习两种方式来对Goroutine进行超时处理。syncGo.go的第二部分代码如下：<br>func main(){<br>n := flag.Int(“n”，20,”Number of goroutines”) flag.Parse()<br>count := *n<br>fmt.Printf(“Going to create %d goroutines.\n”, count)<br>var waitGroup sync.WaitGroup<br>在上面的代码中，我们定义了sync.WaitGroup类型的变量，查看sync包的源码我们可以发现，waitgroup.go文件位于sync目录中，sync.WaitGroup的定义只不过是一个包含三个字段的结构体：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> WaitGroup <span class="keyword">struct</span> &#123;</span><br><span class="line">noCopynoCopy state1[<span class="number">12</span>]<span class="keyword">byte</span> sema <span class="keyword">uint32</span> &#125;</span><br></pre></td></tr></table></figure></p>
-<p>syncGo.go的输出将显示有关sync.WaitGroup变量工作方式的更多信息。 syncGo.go的第三部分代码如下：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fmt.Printf(<span class="string">"%#v\n"</span>,waitGroup)</span><br><span class="line"><span class="keyword">for</span> i :=<span class="number">0</span>;i&lt;count;i++&#123; waitGroup.Add(<span class="number">1</span>)</span><br><span class="line"><span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(xint)</span></span>&#123;</span><br><span class="line"><span class="keyword">defer</span> waitGroup.Done() fmt.Printf(<span class="string">"%d"</span>，x) &#125;(i)</span><br><span class="line">]</span><br></pre></td></tr></table></figure></p>
-<p>在这里，您可以使用for循环创建所需数量的Goroutine。（当然，也可以写多个顺序的Go语句。）<br>每次调用sync.Add（）都会增加sync.WaitGroup变量中的计数器。需要注意的是，在go语句之前调用sync.Add（1）非常重要，以防止出现任何竞争条件。当每个Goroutine完成其工作时，将执行sync.Done（）函数，以减少相同的计数器。<br>syncGo.go的最后一部分代码如下：<br>fmt.Printf(“%#v\n”, waitGroup) waitGroup.Wait()<br>fmt.Println(“\nExiting…”) ]<br>sync.Wait（）调用将阻塞，直到sync.WaitGroup变量中的计数器为零，从而保证所有Goroutine能执行完成。<br>syncGo.go的输出如下：</p>
+<p>执行simple.go两次后的输出如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ gorun simple.go</span><br><span class="line">10 11 12 13 14 0123456789 15 16 17 18 19</span><br><span class="line">$ gorun simple.go</span><br><span class="line">1011 12 13 14 15 16 17 18 19 8123456789</span><br></pre></td></tr></table></figure><br>尽管您想要的程序是对于同一个输入有相同的输出，但从上面的执行结果来看，两次的输出并不是相同的。我们可以总结一下：在不做额外工作的自然情况下我们是无法控制Goroutine的执行顺序的，如果要控制它，我们需要编写额外的代码。在下一章我们将学习到这部分内容。</p>
+<h1 id="优雅地结束goroutines"><a href="#优雅地结束goroutines" class="headerlink" title="优雅地结束goroutines"></a>优雅地结束goroutines</h1><p>本节内容将介绍如何使用go标准库中的sync包来解决上一节提到的<br>Goroutine中的任务还未执行完成，main（）函数就提前结束的问题。本节的代码文件为syncGo.go，我们基于上一节的create.go来扩展syncGo.go。<br>syncGo.go的第一部分代码如下：<br>package main<br>import(<br>“flag’ “fmt” “svnc’<br>如上所示，我们不再需要time包，我们将使用sync包中的功能来等待所有的Goroutine执行完成。<br>在第10章“并发-高级主题”中，我们将会学习两种方式来对Goroutine进行超时处理。syncGo.go的第二部分代码如下：<br>func main(){<br>n := flag.Int(“n”，20,”Number of goroutines”) flag.Parse()<br>count := *n<br>fmt.Printf(“Going to create %d goroutines.\n”, count)<br>var waitGroup sync.WaitGroup<br>在上面的代码中，我们定义了sync.WaitGroup类型的变量，查看sync包的源码我们可以发现，waitgroup.go文件位于sync目录中，sync.WaitGroup的定义只不过是一个包含三个字段的结构体：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> WaitGroup <span class="keyword">struct</span> &#123;</span><br><span class="line">noCopynoCopy state1[<span class="number">12</span>]<span class="type">byte</span> sema <span class="type">uint32</span> &#125;</span><br></pre></td></tr></table></figure><br>syncGo.go的输出将显示有关sync.WaitGroup变量工作方式的更多信息。 syncGo.go的第三部分代码如下：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">fmt.Printf(<span class="string">&quot;%#v\n&quot;</span>,waitGroup)</span><br><span class="line"><span class="keyword">for</span> i :=<span class="number">0</span>;i&lt;count;i++&#123; waitGroup.Add(<span class="number">1</span>)</span><br><span class="line"><span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(xint)</span></span>&#123;</span><br><span class="line"><span class="keyword">defer</span> waitGroup.Done() fmt.Printf(<span class="string">&quot;%d&quot;</span>，x) &#125;(i)</span><br><span class="line">]</span><br></pre></td></tr></table></figure><br>在这里，您可以使用for循环创建所需数量的Goroutine。（当然，也可以写多个顺序的Go语句。）<br>每次调用sync.Add（）都会增加sync.WaitGroup变量中的计数器。需要注意的是，在go语句之前调用sync.Add（1）非常重要，以防止出现任何竞争条件。当每个Goroutine完成其工作时，将执行sync.Done（）函数，以减少相同的计数器。<br>syncGo.go的最后一部分代码如下：<br>fmt.Printf(“%#v\n”, waitGroup) waitGroup.Wait()<br>fmt.Println(“\nExiting…”) ]<br>sync.Wait（）调用将阻塞，直到sync.WaitGroup变量中的计数器为零，从而保证所有Goroutine能执行完成。<br>syncGo.go的输出如下：</p>
 <p>$ gorun syncGo.go<br>Going to create 20 goroutines.<br>sync. WaitGroup{noCopy:sync.noCopy{},state1:[12]uint8{0x0,0x0, sync.WaitGroup{noCopy:sync.noCopy{},state1:[12]uint8{0x0,0x0, 197891011121314151617012518463<br>Exiting…<br>$ go run syncGo.go -n 30<br>Going to create 30 goroutines.<br>sync.WaitGroup{noCopy:sync.noCopy{},state1:[12]uint8{0x0,0x0, 1 0 4 5 17 7 8 9 10 11 12 13 2 sync.waitGroup{noCopy:sync.noCopy 29 15 6 27 24 25 16 22 14 23 18 26 3 19 20 28 21<br>Exiting..<br>$ go run syncGo.go -n30<br>Going to create 30 goroutines.<br>sync.WaitGroup{noCopy:sync.noCopy{},state1:[12]uint8{0x0，0x0 sync.WaitGroup{noCopy:sync.noCopy{}, state1:[12]uint8{0x0,0x0, 29178 2 9 10 11 12 4 13 15 8 6 5 22 25 23 16 28 26 20 19 24 2 Exiting.<br>syncGo.go的输出因执行情况而异。另外，当Goroutines的数量为30时，一些Goroutine可能会在第二个fmt.Printf（“%#v\n”，waitGroup）语句之前完成它们的工作。最后需要注意sync.WaitGroup中的state1字段是一个保存计数器的元素，该计数器根据sync.Add（）和sync.Done（）调用而增加和减少。</p>
 <p>当Add（）和Done（）的数量不匹配时会发生什么？<br>当sync.Add（）和sync.Done（）调用的数量相等时，程序会正常运行。但是，本节将告诉您当调用数量不一致时会发生什么。<br>假如我们执行sync.Add（）的次数大于执行sync.Done（）的次数，这种情况下，通过在第一个fmt.Printf（“%#v\n”，waitGroup）之前添加<br>waitGroup.Add（1）语句，然后执行gorun的输出如下：<br>$ go run syncGo.go Going to create 20 goroutines. sync.WaitGroup</p>
 <p>Channel（通道）<br>通道是Go提供的一种通信机制，允许Goroutines之间进行数据传输。但也有一些明确的规则，首先，每个通道只允许交换指定类型的数据，也称为通道的元素类型，其次，要使通道正常运行，还需要保证通道有数据接收方。使用chan关键字即可声明一个新通道，且可以使用close（）函数来关闭通道。<br>最后，有一个非常重要的细节当您使用通道作为函数参数时，您可以指定其方向；也就是说，该通道是用于发送数据或是接收数据。</p>
 <p>通道的写入<br>这小节的代码将教您怎样往通道写入数据。写x值到c通道如同c《-x一样容易。这个箭头表示值的方向，只要x和c是相同的类型用这个表达式就不会有问题。这节的示例保存在writech.go中，并分三部分介绍。<br>writech.go的第一段代码如下：<br>package main<br>import(<br>“fmt” “time’<br>func writeToChannel(c chan int, x int){ fmt Println(x)<br>c&lt;-x<br>close(c)<br>fmt.Println(x)<br>]<br>chan关键字是用于声明函数参数c是一个通道，并且伴随通道（int）类型。c《-x表达式允许您写x值到c通道，并<br>用close（）函数关闭这个通道；那样就不会再和它通信了。<br>writeCh.go 的第二部分代码如下：<br>func main(){<br>C:=make(chan int)<br>上面的代码定义了一个名为c的通道变量，第一次在这章使用make（）函数和chan关键字。所有的通道都有一个指定的类型。<br>writeCh.go 的其余代码如下：<br>go writeToChannel(c，10) time.Sleep(1* time.Second)<br>这里以goroutine的方式执行writeToChannel（）函数并调用 time.Sleep（）来给writeToChannel（）函数足够的时间来执行。 执行writech.go将产生如下输出：</p>
 <p>$go run writeCh.go 10<br>奇怪的是writeToChannel（）函数只打印了一次给定的值。这是由于第二个fmt.Println（x）表达式没有执行。一旦您理解了通道的工作原理，这个原因就非常简单了：c《-x表达式阻塞了writeChannel（）函数下面的执行，因为没人读取c通道内写入的值。所以，当<br>time.Sleep（1* time.Second）表达式结束的时候，程序没有等待writeChannel（）就结束了。<br>下节将说明怎么从通道读数据。</p>
 <p>从通道接收数据<br>这小节，您将了解到如何从通道读取数据。您可以执行《-c从名为c的通道读取一个值。如此，箭头方向是从通道到外部。<br>我将使用名为readch.go的程序帮您理解怎样从通道读取数据，并它分为三部分介绍。<br>readCh.go 的第一段代码如下：<br>package main<br>import(<br>“fmt” “time’ )<br>func writeToChannel(c chan int, x int){ fmt.Print1n(“1”，x)<br>C&lt;-x<br>close(c)<br>fmt.Println(“2”，x)<br>1<br>writeToChannel（）函数的实现与之前一样。 readch.go的第二部分如下：<br>func main(){<br>c :=make(chan int)<br>go writeToChannel(c，10) time.Sleep(1<em> time.Second) fmt.Println(“Read:”,&lt;-c) time.Sleep(1</em> time.Second)<br>上面的代码，使用《-c语法从c通道读取数据。如果您想要保存数据到名为k的变量而不只是打印它的话，您可以使用k：=《-c表达式。第二个time.Sleep（1*time.Second）语句给您时间来读取通道数据。<br>readch.go的最后一段代码如下：</p>
-<p>]<br>_,ok:=&lt;-c<br>if ok{<br>fmt. Println(“Channel is open!”) }else {<br>fmt.Println(“Channel is closed!”) ]<br>从上面的代码，您能看到一个判断一个通道是打开还是关闭的技巧。当通道关闭时，当前代码运行的还不错。但是，如果通道被打开，这里的代码就会丢弃从通道读取的值，因为在_，ok：=《-c语句中使用了字符。如果您也想在通道打开时读取通道的值，就使用一个有意义的变量名代替。<br>执行readch.go产生如下输出：<br>$go run readCh.go 110<br>Read:10<br>Channel is closed! $go run readCh.go 110<br>210<br>Read:10<br>Channel is closed!<br>尽管输出不确定，但writeToChannel（）函数的两个fmt-》Println（x）表达式都被执行了，因为当您从通道读取数据时，它就被解除阻塞了。</p>
+<p>]<br><em>,ok:=&lt;-c<br>if ok{<br>fmt. Println(“Channel is open!”) }else {<br>fmt.Println(“Channel is closed!”) ]<br>从上面的代码，您能看到一个判断一个通道是打开还是关闭的技巧。当通道关闭时，当前代码运行的还不错。但是，如果通道被打开，这里的代码就会丢弃从通道读取的值，因为在</em>，ok：=《-c语句中使用了字符。如果您也想在通道打开时读取通道的值，就使用一个有意义的变量名代替。<br>执行readch.go产生如下输出：<br>$go run readCh.go 110<br>Read:10<br>Channel is closed! $go run readCh.go 110<br>210<br>Read:10<br>Channel is closed!<br>尽管输出不确定，但writeToChannel（）函数的两个fmt-》Println（x）表达式都被执行了，因为当您从通道读取数据时，它就被解除阻塞了。</p>
 <p>通道作为函数参数传递<br>虽然readch.go和writech.go没有使用这一功能，但Go允许您在把通道作为函数的参数时指定它的方向；那就是它是否用于读取或写入数据。通道有两种类型，无向通道和默认的双向通道。<br>查看下面两个函数代码：<br>func f1(c chan int,xint){ fmt. Println(x)<br>C&lt;-X<br>)<br>func f2(c chan&lt;-int,xint){ fmt.Println(x)<br>c&lt;-x<br>1<br>虽然两个函数实现了相同的功能，但它们的定义略有不同。f2（）函数的 chan关键字右侧有个《-符号。这说明过c通道只能用于写数据。如果Go代码试图从一个只读通道（只发通道）读取数据的话，Go编译器就会产生如下错误信息：</p>
 <h1 id="command-line-arguments"><a href="#command-line-arguments" class="headerlink" title="command-line-arguments"></a>command-line-arguments</h1><p>a.go:19:11:invalid operation: range in (recevie from send-only<br>同样，有下面的函数定义：<br>func f1(out chan int64,in chan int64){ fmt.Println(x)<br>c&lt;-X<br>1<br>func f2(out chan&lt;- int64,in &lt;-chan int64){ fmt.Println(x)<br>C&lt;-X<br>1<br>f2定义含有名为in的只读通道和out的只写通道。如果您试图向函数的一个只读通道（只收通道）参数写数据和关闭它时，会得到如下错误信息：</p>
 <h1 id="command-line-arguments-1"><a href="#command-line-arguments-1" class="headerlink" title="command-line-arguments"></a>command-line-arguments</h1><p>a.go:13:7:invalid operation: out &lt;- i(send to receive-only type a.go:15:7:invalid operation: close(out)(cannot close receive-on</p>
 <p>管道<br>管道是一个虚拟的方法用来连接goroutines和通道，使一个goroutine的输出成为另一个的输入，使用通道传递数据。<br>使用管道的一个好处是程序中有不变的数据流，因此goroutine和通道不必等所有都就绪才开始执行。另外，因为您不必把所有内容都保存为变量，就节省了变量和内存空间的使用。最后，管道简化了程序设计并提升了维护性。<br>我们使用pipeline.go代码来说明管道的使用。这个程序分六部分来介绍。pipeling.go程序执行的任务是在给定范围内产生随机数，当任何数字随机出现第二次时就结束。但在终止前，程序将打印第一个随机数出现第二次之前的所有随机数之和。您需要三个函数来连接程序的通道。程序的逻辑在这三个函数中，但数据流在管道的通道内。<br>这个程序有两个通道。第一个（通道A）用于从第一个函数获取随机数并发送它们到第二个函数。第二个（通道B）被第二个函数用来发送可接受的随机数到第三个函数。第三个函数负责从通道B获取数据，并计算结果和展示。<br>pipeline.go 的第一段代码如下：<br>package main<br>import(<br>“fmt’<br>“math/rand’ “os<br>“strconv”<br>“time’ )<br>var CLOSEA = false<br>var DATA = make(map[int]bool)<br>因为second（）函数需要通过一种方式告诉first（）函数关闭第一个通道，所以我使用一个全局变量CLOSEA来处理。CLOSEA变量只在first（）函数中检查，并只能在second（）函数中修改。<br>pipeline.go的第二段代码如下：</p>
 <p>func random(min, max int) int{<br>return rand.Intn(max-min)+min ]<br>func first(min,max int, out chan&lt;- int){ for {<br>if CLOSEA {<br>close(out)<br>return<br>1<br>out &lt;- random(min,max)<br>}<br>1<br>上面的代码展示了random和first函数的实现。您已经对<br>random（）函数比较熟悉了，它在一定范围内产生随机数。但真正有趣的是first（）函数。它使用for循环持续运行，直到CLOSEA变为true。那样的话，它就关闭out通道。<br>pipeline.go的第三段代码如下：<br>func second(out chan&lt;- int, in &lt;-chan int){ for x :=range in{<br>fmt.Print(x,””)<br>_,ok :=DATA[x]<br>]<br>if ok {<br>CLOSEA=true }else {<br>DATA[x]=true out&lt;-x<br>1]<br>1<br>fmt. Println()<br>close(out)<br>second（）函数从in通道接收数据，并发送该数据到out通道。但是，second（）函数一旦发现DATAmap中已经存在了该随机数，它就把CLOSEA全局变量设为true并停止发送任何数据到out通道。然后，它就关闭out通道。<br>pipeline.go的第四段代码如下：</p>
-<p>func third(in &lt;-chan int){<br>var sum int<br>sum=e<br>for x2:=range in {<br>sum=sum +x2<br>1<br>fmt. Println(“The sum of the random numbers is %d\n”, sum) 1<br>third函数持续从in通道读取数据。当通道被second（）函数关闭时，for循环停止获取数据，函数打印输出。从这很清楚的看到<br>second（）函数控制许多事情。<br>pipeline.go的第五段代码如下：<br>func main(){<br>if len(os.Args)!=3{<br>fmt.Println(“Need two integer paramters!”) Os.Exit(1)<br>}<br>n1,_:=strconv.Atoi(os.Args[1])<br>n2,_:=strconv.Atoi(os.Args[2])<br>if n1&gt;n2{<br>fmt.Printf(“%d should be smaller than %d\n”, n1,n2) return<br>}<br>pipeline.go 的最后一段如下：<br>rand.Seed(time.Now().UnixNano()) A :=make(chan int)<br>B :=make(chan int)<br>1<br>go first(n1，n2，A) go second(B,A)<br>third(B)<br>这里，定义了需要的通道，并执行两个goroutines和一个函<br>数。third（）函数阻止main返回，因为它不作为goroutine执行。执行pipeline.go产生如下输出：</p>
+<p>func third(in &lt;-chan int){<br>var sum int<br>sum=e<br>for x2:=range in {<br>sum=sum +x2<br>1<br>fmt. Println(“The sum of the random numbers is %d\n”, sum) 1<br>third函数持续从in通道读取数据。当通道被second（）函数关闭时，for循环停止获取数据，函数打印输出。从这很清楚的看到<br>second（）函数控制许多事情。<br>pipeline.go的第五段代码如下：<br>func main(){<br>if len(os.Args)!=3{<br>fmt.Println(“Need two integer paramters!”) Os.Exit(1)<br>}<br>n1,<em>:=strconv.Atoi(os.Args[1])<br>n2,</em>:=strconv.Atoi(os.Args[2])<br>if n1&gt;n2{<br>fmt.Printf(“%d should be smaller than %d\n”, n1,n2) return<br>}<br>pipeline.go 的最后一段如下：<br>rand.Seed(time.Now().UnixNano()) A :=make(chan int)<br>B :=make(chan int)<br>1<br>go first(n1，n2，A) go second(B,A)<br>third(B)<br>这里，定义了需要的通道，并执行两个goroutines和一个函<br>数。third（）函数阻止main返回，因为它不作为goroutine执行。执行pipeline.go产生如下输出：</p>
 <p>$go run pipeline.go 110<br>22<br>The sum of the random numbers is 2 $go run pipeline.go 110<br>9784 3 3<br>The sum of the random numbers is 31 $go run pipeline.go 110<br>169 7 1<br>The sum of the random numbers is 23 $go run pipeline.go 1020<br>1619 16<br>The sum of the random numbers is 35 $go run pipeline.go1020<br>10 1617 11 15 10<br>The sum of the random numbers is 69 $go run pipeline.go 1020<br>12 11 14 15 10 15<br>Thesum of the random numbers is 62<br>这里重点是尽管first函数按自己的节奏持续产生随机数，并且<br>second（）函数把它们打印在屏幕上，不需要的随机数也就是已经出现的随机数，不会发送给third（）函数，因此就不会包含在最终的总和中。</p>
-<p>其他学习资源<br>访问以下有用资源：<br>sync包的文档页在<a href="http://golang.org/pkg/sync" target="_blank" rel="noopener">http://golang.org/pkg/sync</a>.<br>。还是sync包的文档页。关注sync.Mutext和sync.RWMutex类型，它们将在下章出现。</p>
+<p>其他学习资源<br>访问以下有用资源：<br>sync包的文档页在<a href="http://golang.org/pkg/sync">http://golang.org/pkg/sync</a>.<br>。还是sync包的文档页。关注sync.Mutext和sync.RWMutex类型，它们将在下章出现。</p>
 <p>练习题<br>。创建一个管道来读取文本文件，找到每个文件里给定短语的出现次数，并计算所有文件中该短语出现的总数。<br>。创建一个管道来计算给定范围的所有自然数的平方和。<br>。从simple.go程序总移除time.Sleep（1*time.Second）表达式，看看会发生什么。为什么？<br>。修改pipeling.go的代码来创建一个管道，用五个函数和适当的通道。<br>。修改pipleline.go代码来找出当您忘记关闭first（）函数中的out通道时会发生什么。</p>
 <p>本章小结<br>在这章里，您了解到了许多Go的独特功能，包括goroutines，通道和管道。另外，您学到了使用sync包提供的功能来给goroutines提供足够的时间去完成它们的任务。最后，您了解到了通道可以作为函数的参数。这允许开发者创建数据流管道。<br>下章将通过介绍select关键字来继续讨论Go的并发。这个关键字可以让通道执行许多有趣的任务，我想您会真正的被它的强大所震惊。之后，您将看到两个技巧，用于处理一个或多个因为某些原因而超时的goroutines。然后，您将了解空通道，信号通道，通道的通道和缓冲通道，还有context包。<br>在下章您也会了解到共享内存，它是同一个Unix进程中的线程间共享信息的传统方式，它也适用于goroutines。不过，共享内存在Go开发者中并不流行，因为Go提供了更好，更安全和更快速的方法给goroutines来交换数据。</p>
 
@@ -606,7 +602,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/09/30/8-Go-Unix系统编程/" rel="next" title="8-Go Unix系统编程">
+              <a href="/2021/09/30/8-Go-Unix%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/" rel="next" title="8-Go Unix系统编程">
                 <i class="fa fa-chevron-left"></i> 8-Go Unix系统编程
               </a>
             
@@ -616,7 +612,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/09/30/10-Go并发-进阶讨论/" rel="prev" title="10-Go并发-进阶讨论">
+              <a href="/2021/09/30/10-Go%E5%B9%B6%E5%8F%91-%E8%BF%9B%E9%98%B6%E8%AE%A8%E8%AE%BA/" rel="prev" title="10-Go并发-进阶讨论">
                 10-Go并发-进阶讨论 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -676,7 +672,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -687,9 +685,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -701,26 +699,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -792,7 +774,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -967,115 +949,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1106,23 +980,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1148,7 +1022,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#关于进程，线程和Go协程"><span class="nav-number">1.</span> <span class="nav-text">关于进程，线程和Go协程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Go调度器"><span class="nav-number">1.1.</span> <span class="nav-text">Go调度器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#并发与并行"><span class="nav-number">1.2.</span> <span class="nav-text">并发与并行</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Goroutines"><span class="nav-number">2.</span> <span class="nav-text">Goroutines</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建一个Goroutine"><span class="nav-number">2.1.</span> <span class="nav-text">创建一个Goroutine</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优雅地结束goroutines"><span class="nav-number">3.</span> <span class="nav-text">优雅地结束goroutines</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#command-line-arguments"><span class="nav-number">4.</span> <span class="nav-text">command-line-arguments</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#command-line-arguments-1"><span class="nav-number">5.</span> <span class="nav-text">command-line-arguments</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E4%BA%8E%E8%BF%9B%E7%A8%8B%EF%BC%8C%E7%BA%BF%E7%A8%8B%E5%92%8CGo%E5%8D%8F%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">关于进程，线程和Go协程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Go%E8%B0%83%E5%BA%A6%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">Go调度器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B9%B6%E5%8F%91%E4%B8%8E%E5%B9%B6%E8%A1%8C"><span class="nav-number">1.2.</span> <span class="nav-text">并发与并行</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Goroutines"><span class="nav-number">2.</span> <span class="nav-text">Goroutines</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAGoroutine"><span class="nav-number">2.1.</span> <span class="nav-text">创建一个Goroutine</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E9%9B%85%E5%9C%B0%E7%BB%93%E6%9D%9Fgoroutines"><span class="nav-number">3.</span> <span class="nav-text">优雅地结束goroutines</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#command-line-arguments"><span class="nav-number">4.</span> <span class="nav-text">command-line-arguments</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#command-line-arguments-1"><span class="nav-number">5.</span> <span class="nav-text">command-line-arguments</span></a></li></ol></div>
             
 
           </div>
@@ -1183,7 +1057,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1194,12 +1068,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1207,7 +1081,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

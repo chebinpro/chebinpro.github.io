@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,28 +104,28 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="Go进阶·分布式爬虫实战">
 <meta property="og:type" content="article">
 <meta property="og:title" content="12｜分布式系统设计：数据一致性与故障容错的纠葛">
-<meta property="og:url" content="http://yoursite.com/2022/11/18/12｜分布式系统设计：数据一致性与故障容错的纠葛/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/11/18/12%EF%BD%9C%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%EF%BC%9A%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E6%95%85%E9%9A%9C%E5%AE%B9%E9%94%99%E7%9A%84%E7%BA%A0%E8%91%9B/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/11/18/12｜分布式系统设计：数据一致性与故障容错的纠葛/1.jpeg">
-<meta property="og:image" content="http://yoursite.com/2022/11/18/12｜分布式系统设计：数据一致性与故障容错的纠葛/2.jpeg">
-<meta property="og:image" content="http://yoursite.com/2022/11/18/12｜分布式系统设计：数据一致性与故障容错的纠葛/3.jpeg">
-<meta property="og:updated_time" content="2023-08-02T09:51:20.700Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/11/18/12%EF%BD%9C%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%EF%BC%9A%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E6%95%85%E9%9A%9C%E5%AE%B9%E9%94%99%E7%9A%84%E7%BA%A0%E8%91%9B/1.jpeg">
+<meta property="og:image" content="http://yoursite.com/2022/11/18/12%EF%BD%9C%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%EF%BC%9A%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E6%95%85%E9%9A%9C%E5%AE%B9%E9%94%99%E7%9A%84%E7%BA%A0%E8%91%9B/2.jpeg">
+<meta property="og:image" content="http://yoursite.com/2022/11/18/12%EF%BD%9C%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%EF%BC%9A%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E6%95%85%E9%9A%9C%E5%AE%B9%E9%94%99%E7%9A%84%E7%BA%A0%E8%91%9B/3.jpeg">
+<meta property="article:published_time" content="2022-11-18T06:57:52.000Z">
+<meta property="article:modified_time" content="2023-08-02T09:51:20.700Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Go进阶·分布式爬虫实战">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="12｜分布式系统设计：数据一致性与故障容错的纠葛">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2022/11/18/12｜分布式系统设计：数据一致性与故障容错的纠葛/1.jpeg">
+<meta name="twitter:image" content="http://yoursite.com/2022/11/18/12%EF%BD%9C%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%EF%BC%9A%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E6%95%85%E9%9A%9C%E5%AE%B9%E9%94%99%E7%9A%84%E7%BA%A0%E8%91%9B/1.jpeg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/11/18/12｜分布式系统设计：数据一致性与故障容错的纠葛/">
+  <link rel="canonical" href="http://yoursite.com/2022/11/18/12｜分布式系统设计：数据一致性与故障容错的纠葛/"/>
 
 
 
@@ -174,7 +174,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -235,7 +235,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -252,7 +252,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -269,7 +269,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -286,7 +286,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -303,7 +303,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -314,7 +314,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -334,7 +334,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -384,16 +386,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/11/18/12｜分布式系统设计：数据一致性与故障容错的纠葛/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/11/18/12%EF%BD%9C%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%EF%BC%9A%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E6%95%85%E9%9A%9C%E5%AE%B9%E9%94%99%E7%9A%84%E7%BA%A0%E8%91%9B/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -493,7 +495,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">7.2k</span>
+                <span title="本文字数">11k</span>
               
 
               
@@ -507,7 +509,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">7 分钟</span>
+                <span title="阅读时长">10 分钟</span>
               
             </div>
           
@@ -528,7 +530,7 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>前面几节课，我们介绍了微服务为什么是一种自然演进的架构，也讨论了微服务架构伴随而来的问题。</p>
 <p>微服务可以分散到多个机器中，它本身是分布式架构的一种特例，所以自然也面临着和分布式架构同样的问题。除了我们之前介绍的可观测性等问题之外，微服务还面临着分布式架构所面临的核心难题：数据一致性和可用性问题。</p>
 <p>这节课，我们还是循序渐进地看看，随着系统的发展，为什么必然会面临数据一致性问题，又怎么在实践中解决这类问题。</p>
@@ -547,7 +549,7 @@
 <li>第二种情况：Alice与Bob访问数据时，数据已经同步到FollowerA和FollowerB，因此Alice和Bob可以同时看到最新的比分数据。</li>
 <li>第三种情况：如下图所示，Alice访问FollowerA时，数据已经同步到FollowerA，因此Alice看到的是最新的比分数据。但是Bob访问访问FollowerB时，数据还未同步到FollowerB，所以Bob得到的是过时的数据。更糟糕的是，由于网络中断等原因，数据同步的时间是不可控的，也就是说，Bob什么时候能看到数据是不确定的。此外，如果Alice再次访问，也可能会访问到FollowerB，再次得到过时的数据。</li>
 </ul>
-<img src="/2022/11/18/12｜分布式系统设计：数据一致性与故障容错的纠葛/1.jpeg">
+<img src="/2022/11/18/12%EF%BD%9C%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%EF%BC%9A%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E6%95%85%E9%9A%9C%E5%AE%B9%E9%94%99%E7%9A%84%E7%BA%A0%E8%91%9B/1.jpeg" class="">
 <p>上面第三种情况就是数据不一致的具体体现，而且在实际生产环境中其实是经常发生的。这种情况在有些场景下是让人难以接受的，想想在银行转账和查看银行余额时遇到这类问题，你会有什么反应？</p>
 <p>数据一致性问题，本质上是分布式架构相比单个程序而言有着巨大的不确定性。在分布式系统中会遇到下面这些问题。</p>
 <ul>
@@ -583,9 +585,8 @@
 <li>Ephemeral（临时的），此类Znode要么被显式删除，要么被自动删除（系统检测到会话中止时）。</li>
 </ul>
 <p>为了引用给定的Znode，我们使用标准的Unix符号表示文件系统路径。例如，我们使用/A/B/C表示ZnodeC的路径，其中C的父节点为B，B的父节点为A，除Ephemeral节点外，所有节点都可以有子节点。Znode命名规则为：name+序列号。一个新Znode的序列号永远不会小于其父Znode之下的其他Znode的序列号。</p>
-<img src="/2022/11/18/12｜分布式系统设计：数据一致性与故障容错的纠葛/2.jpeg">
-<p>ZooKeeper提供了对用户友好的API用于操作Znode，这些API包括了：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create(path, data, flags)</span><br><span class="line"><span class="built_in">delete</span>(path, version) </span><br><span class="line">exists(path, watch)</span><br><span class="line">getData(path, watch)</span><br><span class="line">setData(path, data, version) </span><br><span class="line">getChildren(path, watch)</span><br><span class="line">sync()</span><br></pre></td></tr></table></figure></p>
-<p>ZooKeeper对数据的一致性有一些重要的保证：</p>
+<img src="/2022/11/18/12%EF%BD%9C%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%EF%BC%9A%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E6%95%85%E9%9A%9C%E5%AE%B9%E9%94%99%E7%9A%84%E7%BA%A0%E8%91%9B/2.jpeg" class="">
+<p>ZooKeeper提供了对用户友好的API用于操作Znode，这些API包括了：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create(path, data, flags)</span><br><span class="line"><span class="built_in">delete</span>(path, version) </span><br><span class="line">exists(path, watch)</span><br><span class="line">getData(path, watch)</span><br><span class="line">setData(path, data, version) </span><br><span class="line">getChildren(path, watch)</span><br><span class="line">sync()</span><br></pre></td></tr></table></figure><br>ZooKeeper对数据的一致性有一些重要的保证：</p>
 <ul>
 <li>ZooKeeper进行的所有写操作都是线性一致的，可以保证优先顺序；</li>
 <li>每一个客户端的操作都是FIFO顺序执行的。</li>
@@ -593,7 +594,7 @@
 <p>对ZooKeeper进行读操作时，因为可以直接在Follower中执行，所以确实有可能读到过时的数据。针对这个问题，ZooKeeper提供了sync()方法来实现读的线性一致性。此外，通过允许读取操作返回过时数据，ZooKeeper可以实现每秒数十万次操作，适用于多读而少写的场景。</p>
 <p>基于分布式协调服务的特性，我们可以在应用服务中构建分布式锁，进行配置管理，并完成服务发现的工作。</p>
 <h1 id="分布式锁"><a href="#分布式锁" class="headerlink" title="分布式锁"></a>分布式锁</h1><p>基于ZooKeeper可以实现分布式锁，这是基于写操作的线性一致性保证。它的基本思想是每个客户端都创建一个Znode，所有的Znode形成一个单调有序的队列，而排在队列前面的客户端能够优先获得锁，其余客户端陷入等待。</p>
-<p>当锁释放时，下一个序号最低的Znode能够获得锁，这种机制还能够避免惊群效应，其伪代码如下所示：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">acquire lock:</span><br><span class="line">     n = create(<span class="string">"app/lock/request-"</span>, <span class="string">""</span>, empheral|sequential)</span><br><span class="line">   retry:</span><br><span class="line">     requests = getChildren(l, <span class="literal">false</span>)</span><br><span class="line">     <span class="keyword">if</span> n is lowest znode in requests:</span><br><span class="line">       <span class="keyword">return</span></span><br><span class="line">     p = <span class="string">"request-%d"</span> % n - <span class="number">1</span></span><br><span class="line">     <span class="keyword">if</span> exists(p, watch = True)</span><br><span class="line">       <span class="keyword">goto</span> retry</span><br><span class="line"></span><br><span class="line">    watch_event:</span><br><span class="line">       <span class="keyword">goto</span> retry</span><br></pre></td></tr></table></figure></p>
+<p>当锁释放时，下一个序号最低的Znode能够获得锁，这种机制还能够避免惊群效应，其伪代码如下所示：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">acquire lock:</span><br><span class="line">     n = create(<span class="string">&quot;app/lock/request-&quot;</span>, <span class="string">&quot;&quot;</span>, empheral|sequential)</span><br><span class="line">   retry:</span><br><span class="line">     requests = getChildren(l, <span class="literal">false</span>)</span><br><span class="line">     <span class="keyword">if</span> n is lowest znode in requests:</span><br><span class="line">       <span class="keyword">return</span></span><br><span class="line">     p = <span class="string">&quot;request-%d&quot;</span> % n - <span class="number">1</span></span><br><span class="line">     <span class="keyword">if</span> exists(p, watch = True)</span><br><span class="line">       <span class="keyword">goto</span> retry</span><br><span class="line"></span><br><span class="line">    watch_event:</span><br><span class="line">       <span class="keyword">goto</span> retry</span><br></pre></td></tr></table></figure></p>
 <h1 id="配置管理"><a href="#配置管理" class="headerlink" title="配置管理"></a>配置管理</h1><p>分布式协调服务也可以实现分布式系统中的动态配置。当服务启动时，连接ZooKeeper获取配置信息，让ZooKeeper与服务保持连接。当配置发生变更时，通知所有连接的进程，获取最新的配置信息。</p>
 <h1 id="服务发现"><a href="#服务发现" class="headerlink" title="服务发现"></a>服务发现</h1><p>在分布式系统中，服务可能随时扩容、重建或者销毁。因此，当服务启动时，需要自动注册自己的IP等信息到注册中心。这样客户端可以获取最新的服务信息，并采取负载均衡策略将请求均匀打到下游服务。</p>
 <p>服务发现的另一个场景是监听服务的变化。例如调度器为了实现合理的调度，会监控Worker服务数量的变化，并及时调整任务的分配。这样，当一个Worker崩溃时，就能够及时将Worker上的任务转移到其他Worker中了。</p>
@@ -612,7 +613,7 @@
 <p>在比特币白皮书中，中本聪阐述了一种他称之为“比特币”的系统及其实现方式。比特币系统被设计为分布式的网络，每个节点都有一份完全相同的账薄，任何人都可以直接验证区块链中的信息，不依靠任何第三方组织就能完成交易并保证交易的安全性。</p>
 <p>比特币系统结合了现代密码学、应用数学和计算机科学的最新成果，解决了在陌生人社会（即便存在恶意的欺骗者）达成共识的难题。信任问题的解决极大地降低了社会的交易成本，会带来一场深刻的社会变革。</p>
 <p>比特币中使用了PoW（proofofwork，工作量证明）来保证比特币网络分布式记账的一致性。早在1993年，美国计算机科学家、哈佛大学教授辛西娅·德沃克（CynthiaDwork）首次提出了工作量证明思想，主要用来解决垃圾邮件的问题。该机制要求邮件发送者必须计算出某个数学难题的答案，以此证明他确实执行了一定程度的计算工作，借此提高垃圾邮件的发送成本。1999年，马库斯·雅各布松（MarkusJakobsson）正式提出了“proofofwork”概念。中本聪将PoW算法引入到区块链中，巧妙地解决了共识难题。</p>
-<img src="/2022/11/18/12｜分布式系统设计：数据一致性与故障容错的纠葛/3.jpeg">
+<img src="/2022/11/18/12%EF%BD%9C%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%EF%BC%9A%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7%E4%B8%8E%E6%95%85%E9%9A%9C%E5%AE%B9%E9%94%99%E7%9A%84%E7%BA%A0%E8%91%9B/3.jpeg" class="">
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>好了，总结一下。微服务系统作为分布式系统的特例，面临着一些核心困难的问题：即数据的一致性和可用性问题。随着业务量和数据量的膨胀，传统的关系型数据库的主从复制架构显示出解决这些问题的劣势，我们面临着网络分区、网络延迟、服务崩溃导致的数据丢失、数据过时等问题。</p>
 <p>现代一些的新型分布式系统（例如NoSQL数据库MongoDB）通常利用共识算法解决了上面的问题，具有更好的扩展能力和可用性。但CAP理论告诉我们，在分布式系统中通常需要在数据一致性与可用性之间做权衡。我们还知道了数据一致性有多种级别，最常见的为最终一致性、线性一致性、强一致性，其中线性一致性能够推导出强一致性，而强一致性能够保证不会读取到过时的数据。</p>
 <p>有多种算法可以解决分布式系统可用性与数据一致性，其中比较有名的是Paxos、Raft、Zab算法。我们可以借助这些算法实现可靠的服务，并在此基础上实现诸多分布式协调的场景，例如选主、服务发现、分布式锁等。</p>
@@ -641,7 +642,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Go进阶·分布式爬虫实战/" rel="tag"># Go进阶·分布式爬虫实战</a>
+            <a href="/tags/Go%E8%BF%9B%E9%98%B6%C2%B7%E5%88%86%E5%B8%83%E5%BC%8F%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98/" rel="tag"># Go进阶·分布式爬虫实战</a>
           
         </div>
       
@@ -654,7 +655,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/11/18/11｜微服务挑战：微服务治理体系与实践/" rel="next" title="11｜微服务挑战：微服务治理体系与实践">
+              <a href="/2022/11/18/11%EF%BD%9C%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%8C%91%E6%88%98%EF%BC%9A%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86%E4%BD%93%E7%B3%BB%E4%B8%8E%E5%AE%9E%E8%B7%B5/" rel="next" title="11｜微服务挑战：微服务治理体系与实践">
                 <i class="fa fa-chevron-left"></i> 11｜微服务挑战：微服务治理体系与实践
               </a>
             
@@ -664,7 +665,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/11/18/13｜智慧之火：详解分布式容错共识算法/" rel="prev" title="13｜智慧之火：详解分布式容错共识算法">
+              <a href="/2022/11/18/13%EF%BD%9C%E6%99%BA%E6%85%A7%E4%B9%8B%E7%81%AB%EF%BC%9A%E8%AF%A6%E8%A7%A3%E5%88%86%E5%B8%83%E5%BC%8F%E5%AE%B9%E9%94%99%E5%85%B1%E8%AF%86%E7%AE%97%E6%B3%95/" rel="prev" title="13｜智慧之火：详解分布式容错共识算法">
                 13｜智慧之火：详解分布式容错共识算法 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -724,7 +725,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -735,9 +738,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -749,26 +752,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -840,7 +827,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1015,115 +1002,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1154,23 +1033,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1196,7 +1075,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据一致性的诞生背景"><span class="nav-number">1.</span> <span class="nav-text">数据一致性的诞生背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CAP定理"><span class="nav-number">2.</span> <span class="nav-text">CAP定理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#共识算法"><span class="nav-number">3.</span> <span class="nav-text">共识算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分布式协调服务"><span class="nav-number">4.</span> <span class="nav-text">分布式协调服务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分布式锁"><span class="nav-number">5.</span> <span class="nav-text">分布式锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#配置管理"><span class="nav-number">6.</span> <span class="nav-text">配置管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务发现"><span class="nav-number">7.</span> <span class="nav-text">服务发现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#无信网络中的共识问题"><span class="nav-number">8.</span> <span class="nav-text">无信网络中的共识问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课后题"><span class="nav-number">10.</span> <span class="nav-text">课后题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E4%B8%80%E8%87%B4%E6%80%A7%E7%9A%84%E8%AF%9E%E7%94%9F%E8%83%8C%E6%99%AF"><span class="nav-number">1.</span> <span class="nav-text">数据一致性的诞生背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CAP%E5%AE%9A%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">CAP定理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B1%E8%AF%86%E7%AE%97%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">共识算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E5%8D%8F%E8%B0%83%E6%9C%8D%E5%8A%A1"><span class="nav-number">4.</span> <span class="nav-text">分布式协调服务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="nav-number">5.</span> <span class="nav-text">分布式锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86"><span class="nav-number">6.</span> <span class="nav-text">配置管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0"><span class="nav-number">7.</span> <span class="nav-text">服务发现</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%97%A0%E4%BF%A1%E7%BD%91%E7%BB%9C%E4%B8%AD%E7%9A%84%E5%85%B1%E8%AF%86%E9%97%AE%E9%A2%98"><span class="nav-number">8.</span> <span class="nav-text">无信网络中的共识问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BE%E5%90%8E%E9%A2%98"><span class="nav-number">10.</span> <span class="nav-text">课后题</span></a></li></ol></div>
             
 
           </div>
@@ -1231,7 +1110,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1242,12 +1121,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1255,7 +1134,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

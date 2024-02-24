@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,28 +104,28 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="Go进阶·分布式爬虫实战">
 <meta property="og:type" content="article">
 <meta property="og:title" content="28｜调度引擎：负载均衡与调度器实战">
-<meta property="og:url" content="http://yoursite.com/2023/01/27/28｜调度引擎：负载均衡与调度器实战/index.html">
+<meta property="og:url" content="http://yoursite.com/2023/01/27/28%EF%BD%9C%E8%B0%83%E5%BA%A6%E5%BC%95%E6%93%8E%EF%BC%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E4%B8%8E%E8%B0%83%E5%BA%A6%E5%99%A8%E5%AE%9E%E6%88%98/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2023/01/27/28｜调度引擎：负载均衡与调度器实战/1.webp">
-<meta property="og:image" content="http://yoursite.com/2023/01/27/28｜调度引擎：负载均衡与调度器实战/2.webp">
-<meta property="og:image" content="http://yoursite.com/2023/01/27/28｜调度引擎：负载均衡与调度器实战/3.webp">
-<meta property="og:updated_time" content="2023-07-31T02:24:17.810Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2023/01/27/28%EF%BD%9C%E8%B0%83%E5%BA%A6%E5%BC%95%E6%93%8E%EF%BC%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E4%B8%8E%E8%B0%83%E5%BA%A6%E5%99%A8%E5%AE%9E%E6%88%98/1.webp">
+<meta property="og:image" content="http://yoursite.com/2023/01/27/28%EF%BD%9C%E8%B0%83%E5%BA%A6%E5%BC%95%E6%93%8E%EF%BC%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E4%B8%8E%E8%B0%83%E5%BA%A6%E5%99%A8%E5%AE%9E%E6%88%98/2.webp">
+<meta property="og:image" content="http://yoursite.com/2023/01/27/28%EF%BD%9C%E8%B0%83%E5%BA%A6%E5%BC%95%E6%93%8E%EF%BC%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E4%B8%8E%E8%B0%83%E5%BA%A6%E5%99%A8%E5%AE%9E%E6%88%98/3.webp">
+<meta property="article:published_time" content="2023-01-27T03:12:12.000Z">
+<meta property="article:modified_time" content="2023-07-31T02:24:17.810Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Go进阶·分布式爬虫实战">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="28｜调度引擎：负载均衡与调度器实战">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2023/01/27/28｜调度引擎：负载均衡与调度器实战/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2023/01/27/28%EF%BD%9C%E8%B0%83%E5%BA%A6%E5%BC%95%E6%93%8E%EF%BC%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E4%B8%8E%E8%B0%83%E5%BA%A6%E5%99%A8%E5%AE%9E%E6%88%98/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2023/01/27/28｜调度引擎：负载均衡与调度器实战/">
+  <link rel="canonical" href="http://yoursite.com/2023/01/27/28｜调度引擎：负载均衡与调度器实战/"/>
 
 
 
@@ -174,7 +174,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -235,7 +235,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -252,7 +252,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -269,7 +269,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -286,7 +286,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -303,7 +303,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -314,7 +314,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -334,7 +334,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -384,16 +386,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/01/27/28｜调度引擎：负载均衡与调度器实战/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/01/27/28%EF%BD%9C%E8%B0%83%E5%BA%A6%E5%BC%95%E6%93%8E%EF%BC%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E4%B8%8E%E8%B0%83%E5%BA%A6%E5%99%A8%E5%AE%9E%E6%88%98/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -493,7 +495,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">9.9k</span>
+                <span title="本文字数">33k</span>
               
 
               
@@ -507,7 +509,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">9 分钟</span>
+                <span title="阅读时长">30 分钟</span>
               
             </div>
           
@@ -528,7 +530,7 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>在上一节课程中，我们实战了广度优先搜索算法，不过我们对网站的爬取都是在一个协程中进行的。在真实的实践场景中，我们常常需要爬取多个初始网站，我们希望能够同时爬取这些网站。这就需要合理调度和组织爬虫任务了。因此，这节课的重点就是实战任务调度的高并发模型，使资源得到充分的利用。</p>
 <h1 id="实战调度引擎"><a href="#实战调度引擎" class="headerlink" title="实战调度引擎"></a><span style="color:#339AFF;">实战调度引擎</span></h1><p>首先，我们新建一个文件夹engine用于存储调度引擎的代码，核心的调度逻辑位于ScheduleEngine.Run中。这部分的完整代码位于tagv0.1.4，你可以对照代码进行查看。</p>
 <p>调度引擎主要目标是完成下面几个功能：</p>
@@ -536,38 +538,26 @@
 <p>2，执行调度任务，通过一定的调度算法将任务调度到合适的worker中执行；</p>
 <p>3，创建指定数量的worker，完成实际任务的处理；</p>
 <p>4，创建数据处理协程，对爬取到的数据进行进一步处理。</p>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *ScheduleEngine)</span> <span class="title">Run</span><span class="params">()</span></span> &#123;</span><br><span class="line">    requestCh := <span class="built_in">make</span>(<span class="keyword">chan</span> *collect.Request)</span><br><span class="line">    workerCh := <span class="built_in">make</span>(<span class="keyword">chan</span> *collect.Request)</span><br><span class="line">    out := <span class="built_in">make</span>(<span class="keyword">chan</span> collect.ParseResult)</span><br><span class="line">    s.requestCh = requestCh</span><br><span class="line">    s.workerCh = workerCh</span><br><span class="line">    s.out = out</span><br><span class="line">    <span class="keyword">go</span> s.Schedule()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *ScheduleEngine)</span></span> Run() &#123;</span><br><span class="line">    requestCh := <span class="built_in">make</span>(<span class="keyword">chan</span> *collect.Request)</span><br><span class="line">    workerCh := <span class="built_in">make</span>(<span class="keyword">chan</span> *collect.Request)</span><br><span class="line">    out := <span class="built_in">make</span>(<span class="keyword">chan</span> collect.ParseResult)</span><br><span class="line">    s.requestCh = requestCh</span><br><span class="line">    s.workerCh = workerCh</span><br><span class="line">    s.out = out</span><br><span class="line">    <span class="keyword">go</span> s.Schedule()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Run方法首先初始化了三个通道。其中，requestCh负责接收请求，workerCh负责分配任务给worker，out负责处理爬取后的数据，完成下一步的存储操作。schedule函数会创建调度程序，负责的是调度的核心逻辑。</p>
 <p>第一步我们来看看schedule函数如何接收任务并完成任务的调度。</p>
 <p>schedule函数如下所示，其中，requestCh通道接收来自外界的请求，并将请求存储到reqQueue队列中。workerCh通道负责传送任务，后面每一个worker将获取该通道的内容，并执行对应的操作。</p>
-<p>在这里，我们使用了for语句，让调度器循环往复地获取外界的爬虫任务，并将任务分发到worker中。如果任务队列reqQueue大于0，意味着有爬虫任务，这时我们获取队列中第一个任务，并将其剔除出队列。最后ch&lt;-req会将任务发送到workerCh通道中，等待worker接收。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *Schedule)</span> <span class="title">Schedule</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> reqQueue = s.Seeds</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">for</span> &#123;</span><br><span class="line">            <span class="keyword">var</span> req *collect.Request</span><br><span class="line">            <span class="keyword">var</span> ch <span class="keyword">chan</span> *collect.Request</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(reqQueue) &gt; <span class="number">0</span> &#123;</span><br><span class="line">                req = reqQueue[<span class="number">0</span>]</span><br><span class="line">                reqQueue = reqQueue[<span class="number">1</span>:]</span><br><span class="line">                ch = s.workerCh</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">select</span> &#123;</span><br><span class="line">            <span class="keyword">case</span> r := &lt;-s.requestCh:</span><br><span class="line">                reqQueue = <span class="built_in">append</span>(reqQueue, r)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">case</span> ch &lt;- req:</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>通道还有一个特性，就是我们往nil通道中写入数据会陷入到堵塞的状态。因此，如果reqQueue为空，这时req和ch都是nil，当前协程就会陷入到堵塞的状态，直到接收到新的请求才会被唤醒。</p>
-<p>我们可以用一个例子来验证这一特性：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> ch <span class="keyword">chan</span> *<span class="keyword">int</span></span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        &lt;-ch</span><br><span class="line">    &#125;()</span><br><span class="line">    <span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> ch &lt;- <span class="literal">nil</span>:</span><br><span class="line">        fmt.Println(<span class="string">"it's time"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在这个例子中，运行后会出现死锁，因为当前程序全部陷入到了无限堵塞的状态。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatal error: all goroutines are asleep - deadlock!</span><br></pre></td></tr></table></figure></p>
-<p>调度引擎除了启动schedule函数，还需要安排多个实际干活的worker程序。</p>
-<p>下一步，让我们创建指定数量的worker，完成实际任务的处理。其中WorkCount为执行任务的数量，可以灵活地去配置。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *ScheduleEngine)</span> <span class="title">Run</span><span class="params">()</span></span> &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">go</span> s.Schedule()</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; s.WorkCount; i++ &#123;</span><br><span class="line">        <span class="keyword">go</span> s.CreateWork()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这里的CreateWork创建出实际处理任务的函数，它又细分为下面几个步骤：</p>
+<p>在这里，我们使用了for语句，让调度器循环往复地获取外界的爬虫任务，并将任务分发到worker中。如果任务队列reqQueue大于0，意味着有爬虫任务，这时我们获取队列中第一个任务，并将其剔除出队列。最后ch&lt;-req会将任务发送到workerCh通道中，等待worker接收。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *Schedule)</span></span> Schedule() &#123;</span><br><span class="line">    <span class="keyword">var</span> reqQueue = s.Seeds</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">for</span> &#123;</span><br><span class="line">            <span class="keyword">var</span> req *collect.Request</span><br><span class="line">            <span class="keyword">var</span> ch <span class="keyword">chan</span> *collect.Request</span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">len</span>(reqQueue) &gt; <span class="number">0</span> &#123;</span><br><span class="line">                req = reqQueue[<span class="number">0</span>]</span><br><span class="line">                reqQueue = reqQueue[<span class="number">1</span>:]</span><br><span class="line">                ch = s.workerCh</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">select</span> &#123;</span><br><span class="line">            <span class="keyword">case</span> r := &lt;-s.requestCh:</span><br><span class="line">                reqQueue = <span class="built_in">append</span>(reqQueue, r)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">case</span> ch &lt;- req:</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>通道还有一个特性，就是我们往nil通道中写入数据会陷入到堵塞的状态。因此，如果reqQueue为空，这时req和ch都是nil，当前协程就会陷入到堵塞的状态，直到接收到新的请求才会被唤醒。</p>
+<p>我们可以用一个例子来验证这一特性：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> ch <span class="keyword">chan</span> *<span class="type">int</span></span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        &lt;-ch</span><br><span class="line">    &#125;()</span><br><span class="line">    <span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> ch &lt;- <span class="literal">nil</span>:</span><br><span class="line">        fmt.Println(<span class="string">&quot;it&#x27;s time&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>在这个例子中，运行后会出现死锁，因为当前程序全部陷入到了无限堵塞的状态。<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatal error: all goroutines are asleep - deadlock!</span><br></pre></td></tr></table></figure><br>调度引擎除了启动schedule函数，还需要安排多个实际干活的worker程序。</p>
+<p>下一步，让我们创建指定数量的worker，完成实际任务的处理。其中WorkCount为执行任务的数量，可以灵活地去配置。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *ScheduleEngine)</span></span> Run() &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">go</span> s.Schedule()</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; s.WorkCount; i++ &#123;</span><br><span class="line">        <span class="keyword">go</span> s.CreateWork()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这里的CreateWork创建出实际处理任务的函数，它又细分为下面几个步骤：</p>
 <ul>
 <li><code>←s.workerCh</code>接收到调度器分配的任务；</li>
 <li><code>s.fetcher.Get</code>访问服务器，<code>r.ParseFunc</code>解析服务器返回的数据；</li>
 <li><code>s.out←result</code>将返回的数据发送到out通道中，方便后续的处理。</li>
 </ul>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *Schedule)</span> <span class="title">CreateWork</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        r := &lt;-s.workerCh</span><br><span class="line">        body, err := s.Fetcher.Get(r)</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">            s.Logger.Error(<span class="string">"can't fetch "</span>,</span><br><span class="line">                zap.Error(err),</span><br><span class="line">            )</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        &#125;</span><br><span class="line">        result := r.ParseFunc(body, r)</span><br><span class="line">        s.out &lt;- result</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>最后一步，我们需要单独安排一个函数来处理爬取并解析后的数据结构，完整的函数如下：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *Schedule)</span> <span class="title">HandleResult</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        <span class="keyword">select</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> result := &lt;-s.out:</span><br><span class="line">            <span class="keyword">for</span> _, req := <span class="keyword">range</span> result.Requesrts &#123;</span><br><span class="line">                s.requestCh &lt;- req</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> _, item := <span class="keyword">range</span> result.Items &#123;</span><br><span class="line">                <span class="comment">// todo: store</span></span><br><span class="line">                s.Logger.Sugar().Info(<span class="string">"get result"</span>, item)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在HandleResult函数中，&lt;-s.out接收所有worker解析后的数据，其中要进一步爬取的Requests列表将全部发送回s.requestCh通道，而result.Items里包含了我们实际希望得到的结果，所以我们先用日志把结果打印出来。</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *Schedule)</span></span> CreateWork() &#123;</span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        r := &lt;-s.workerCh</span><br><span class="line">        body, err := s.Fetcher.Get(r)</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">            s.Logger.Error(<span class="string">&quot;can&#x27;t fetch &quot;</span>,</span><br><span class="line">                zap.Error(err),</span><br><span class="line">            )</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        &#125;</span><br><span class="line">        result := r.ParseFunc(body, r)</span><br><span class="line">        s.out &lt;- result</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最后一步，我们需要单独安排一个函数来处理爬取并解析后的数据结构，完整的函数如下：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *Schedule)</span></span> HandleResult() &#123;</span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        <span class="keyword">select</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> result := &lt;-s.out:</span><br><span class="line">            <span class="keyword">for</span> _, req := <span class="keyword">range</span> result.Requesrts &#123;</span><br><span class="line">                s.requestCh &lt;- req</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">for</span> _, item := <span class="keyword">range</span> result.Items &#123;</span><br><span class="line">                <span class="comment">// todo: store</span></span><br><span class="line">                s.Logger.Sugar().Info(<span class="string">&quot;get result&quot;</span>, item)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>在HandleResult函数中，&lt;-s.out接收所有worker解析后的数据，其中要进一步爬取的Requests列表将全部发送回s.requestCh通道，而result.Items里包含了我们实际希望得到的结果，所以我们先用日志把结果打印出来。</p>
 <p>最后，让我们用之前介绍的爬取豆瓣小组的例子来验证调度器的功能。</p>
-<p>在main函数中，生成初始网址列表作为种子任务。构建engine.Schedule，设置worker的数量，采集器Fetcher和日志Logger，并调用s.Run()运行调度器。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> seeds []*collect.Request</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt;= <span class="number">0</span>; i += <span class="number">25</span> &#123;</span><br><span class="line">        str := fmt.Sprintf(<span class="string">"&lt;https://www.douban.com/group/szsh/discussion?start=%d&gt;"</span>, i)</span><br><span class="line">        seeds = <span class="built_in">append</span>(seeds, &amp;collect.Request&#123;</span><br><span class="line">            Url:       str,</span><br><span class="line">            WaitTime:  <span class="number">1</span> * time.Second,</span><br><span class="line">            Cookie:    <span class="string">"xxx"</span>,</span><br><span class="line">            ParseFunc: doubangroup.ParseURL,</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> f collect.Fetcher = &amp;collect.BrowserFetch&#123;</span><br><span class="line">        Timeout: <span class="number">3000</span> * time.Millisecond,</span><br><span class="line">        Logger:  logger,</span><br><span class="line">        Proxy:   p,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    s := engine.Schedule&#123;</span><br><span class="line">        WorkCount: <span class="number">5</span>,</span><br><span class="line">        Logger:    logger,</span><br><span class="line">        Fetcher:   f,</span><br><span class="line">        Seeds:     seeds,</span><br><span class="line">    &#125;</span><br><span class="line">    s.Run()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>输出结果为：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">"level"</span>:<span class="string">"INFO"</span>,<span class="attr">"ts"</span>:<span class="string">"2022-10-19T00:55:54.281+0800"</span>,<span class="attr">"caller"</span>:<span class="string">"engine/schedule.go:78"</span>,<span class="attr">"msg"</span>:<span class="string">"get result: &lt;https://www.douban.com/group/topic/276978032/&gt;"</span>&#125;</span><br><span class="line">&#123;<span class="attr">"level"</span>:<span class="string">"INFO"</span>,<span class="attr">"ts"</span>:<span class="string">"2022-10-19T00:55:54.355+0800"</span>,<span class="attr">"caller"</span>:<span class="string">"engine/schedule.go:78"</span>,<span class="attr">"msg"</span>:<span class="string">"get result: &lt;https://www.douban.com/group/topic/276973871/&gt;"</span>&#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="函数式选项模式"><a href="#函数式选项模式" class="headerlink" title="函数式选项模式"></a><span style="color:#339AFF;">函数式选项模式</span></h1><p>在上面的例子中，我们初始化engine.Schedule时将一系列的参数传递到了结构体当中。在实践中可能会有几十个参数等着我们赋值，从面向对象的角度来看，不同参数的灵活组合可能会带来不同的调度器类型。在实践中为了方便使用，开发者可能会创建非常多的API来满足不同场景的需要，如下所示：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基本调度器</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewBaseSchedule</span><span class="params">()</span> *<span class="title">Schedule</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &amp;Schedule&#123;</span><br><span class="line">        WorkCount: <span class="number">1</span>,</span><br><span class="line">        Fetcher：baseFetch,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 多worker调度器</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewMultiWorkSchedule</span><span class="params">(workCount <span class="keyword">int</span>)</span> *<span class="title">Schedule</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &amp;Schedule&#123;</span><br><span class="line">        WorkCount: workCount,</span><br><span class="line">        Fetcher：baseFetch,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 代理调度器</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewProxySchedule</span><span class="params">(proxy <span class="keyword">string</span>)</span> *<span class="title">Schedule</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &amp;Schedule&#123;</span><br><span class="line">        WorkCount: <span class="number">1</span>,</span><br><span class="line">        Fetcher：proxyFetch(proxy),</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>随着参数的不断增多，这种API会变得越来越多，这就增加了开发者的心理负担。</p>
-<p>另一种使用方式就是传递一个统一的Config配置结构，如下所示。这种方式只需要创建单个API，但是需要在内部对所有的变量进行判断，繁琐且不优雅。对于使用者来说，也很难确定自己需要使用哪一个字段。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Config <span class="keyword">struct</span> &#123;</span><br><span class="line">    WorkCount <span class="keyword">int</span></span><br><span class="line">    Fetcher   collect.Fetcher</span><br><span class="line">    Logger    *zap.Logger</span><br><span class="line">    Seeds     []*collect.Request</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewSchedule</span><span class="params">(c *Config)</span> *<span class="title">Schedule</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> s = &amp;Schedule&#123;&#125;</span><br><span class="line">    <span class="keyword">if</span> c.Seeds != <span class="literal">nil</span> &#123;</span><br><span class="line">        s.Seeds = c.Seeds</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> c.Fetcher != <span class="literal">nil</span> &#123;</span><br><span class="line">        s.Fetcher = c.Fetcher</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> c.Logger != <span class="literal">nil</span> &#123;</span><br><span class="line">        s.Logger = c.Logger</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> s</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>那么有没有方法可以更加优雅地处理这种多参数配置问题呢？</p>
+<p>在main函数中，生成初始网址列表作为种子任务。构建engine.Schedule，设置worker的数量，采集器Fetcher和日志Logger，并调用s.Run()运行调度器。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> seeds []*collect.Request</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt;= <span class="number">0</span>; i += <span class="number">25</span> &#123;</span><br><span class="line">        str := fmt.Sprintf(<span class="string">&quot;&lt;https://www.douban.com/group/szsh/discussion?start=%d&gt;&quot;</span>, i)</span><br><span class="line">        seeds = <span class="built_in">append</span>(seeds, &amp;collect.Request&#123;</span><br><span class="line">            Url:       str,</span><br><span class="line">            WaitTime:  <span class="number">1</span> * time.Second,</span><br><span class="line">            Cookie:    <span class="string">&quot;xxx&quot;</span>,</span><br><span class="line">            ParseFunc: doubangroup.ParseURL,</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> f collect.Fetcher = &amp;collect.BrowserFetch&#123;</span><br><span class="line">        Timeout: <span class="number">3000</span> * time.Millisecond,</span><br><span class="line">        Logger:  logger,</span><br><span class="line">        Proxy:   p,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    s := engine.Schedule&#123;</span><br><span class="line">        WorkCount: <span class="number">5</span>,</span><br><span class="line">        Logger:    logger,</span><br><span class="line">        Fetcher:   f,</span><br><span class="line">        Seeds:     seeds,</span><br><span class="line">    &#125;</span><br><span class="line">    s.Run()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>输出结果为：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;level&quot;</span><span class="punctuation">:</span><span class="string">&quot;INFO&quot;</span><span class="punctuation">,</span><span class="attr">&quot;ts&quot;</span><span class="punctuation">:</span><span class="string">&quot;2022-10-19T00:55:54.281+0800&quot;</span><span class="punctuation">,</span><span class="attr">&quot;caller&quot;</span><span class="punctuation">:</span><span class="string">&quot;engine/schedule.go:78&quot;</span><span class="punctuation">,</span><span class="attr">&quot;msg&quot;</span><span class="punctuation">:</span><span class="string">&quot;get result: &lt;https://www.douban.com/group/topic/276978032/&gt;&quot;</span><span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#123;</span><span class="attr">&quot;level&quot;</span><span class="punctuation">:</span><span class="string">&quot;INFO&quot;</span><span class="punctuation">,</span><span class="attr">&quot;ts&quot;</span><span class="punctuation">:</span><span class="string">&quot;2022-10-19T00:55:54.355+0800&quot;</span><span class="punctuation">,</span><span class="attr">&quot;caller&quot;</span><span class="punctuation">:</span><span class="string">&quot;engine/schedule.go:78&quot;</span><span class="punctuation">,</span><span class="attr">&quot;msg&quot;</span><span class="punctuation">:</span><span class="string">&quot;get result: &lt;https://www.douban.com/group/topic/276973871/&gt;&quot;</span><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="函数式选项模式"><a href="#函数式选项模式" class="headerlink" title="函数式选项模式"></a><span style="color:#339AFF;">函数式选项模式</span></h1><p>在上面的例子中，我们初始化engine.Schedule时将一系列的参数传递到了结构体当中。在实践中可能会有几十个参数等着我们赋值，从面向对象的角度来看，不同参数的灵活组合可能会带来不同的调度器类型。在实践中为了方便使用，开发者可能会创建非常多的API来满足不同场景的需要，如下所示：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基本调度器</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewBaseSchedule</span><span class="params">()</span></span> *Schedule &#123;</span><br><span class="line">    <span class="keyword">return</span> &amp;Schedule&#123;</span><br><span class="line">        WorkCount: <span class="number">1</span>,</span><br><span class="line">        Fetcher：baseFetch,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 多worker调度器</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewMultiWorkSchedule</span><span class="params">(workCount <span class="type">int</span>)</span></span> *Schedule &#123;</span><br><span class="line">    <span class="keyword">return</span> &amp;Schedule&#123;</span><br><span class="line">        WorkCount: workCount,</span><br><span class="line">        Fetcher：baseFetch,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 代理调度器</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewProxySchedule</span><span class="params">(proxy <span class="type">string</span>)</span></span> *Schedule &#123;</span><br><span class="line">    <span class="keyword">return</span> &amp;Schedule&#123;</span><br><span class="line">        WorkCount: <span class="number">1</span>,</span><br><span class="line">        Fetcher：proxyFetch(proxy),</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>随着参数的不断增多，这种API会变得越来越多，这就增加了开发者的心理负担。</p>
+<p>另一种使用方式就是传递一个统一的Config配置结构，如下所示。这种方式只需要创建单个API，但是需要在内部对所有的变量进行判断，繁琐且不优雅。对于使用者来说，也很难确定自己需要使用哪一个字段。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Config <span class="keyword">struct</span> &#123;</span><br><span class="line">    WorkCount <span class="type">int</span></span><br><span class="line">    Fetcher   collect.Fetcher</span><br><span class="line">    Logger    *zap.Logger</span><br><span class="line">    Seeds     []*collect.Request</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewSchedule</span><span class="params">(c *Config)</span></span> *Schedule &#123;</span><br><span class="line">    <span class="keyword">var</span> s = &amp;Schedule&#123;&#125;</span><br><span class="line">    <span class="keyword">if</span> c.Seeds != <span class="literal">nil</span> &#123;</span><br><span class="line">        s.Seeds = c.Seeds</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> c.Fetcher != <span class="literal">nil</span> &#123;</span><br><span class="line">        s.Fetcher = c.Fetcher</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> c.Logger != <span class="literal">nil</span> &#123;</span><br><span class="line">        s.Logger = c.Logger</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">return</span> s</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>那么有没有方法可以更加优雅地处理这种多参数配置问题呢？</p>
 <p>RobPike在2014年的一篇博客中提到了一种优雅的处理方法叫做函数式选项模式(FunctionalOptions)。这种模式展示了闭包函数的有趣用途，目前在很多开源库中都能看到它的身影，我们项目中使用的日志库Zap也使用了这种模式。下面我以上面schedule的配置为例来说明函数式选项模式（完整代码请查看tagv0.1.5）。</p>
-<p>第一步，我们要对schedule结构进行改造，把可以配置的参数放入到options结构中：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Schedule <span class="keyword">struct</span> &#123;</span><br><span class="line">    requestCh <span class="keyword">chan</span> *collect.Request</span><br><span class="line">    workerCh  <span class="keyword">chan</span> *collect.Request</span><br><span class="line">    out       <span class="keyword">chan</span> collect.ParseResult</span><br><span class="line">    options</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> options <span class="keyword">struct</span> &#123;</span><br><span class="line">    WorkCount <span class="keyword">int</span></span><br><span class="line">    Fetcher   collect.Fetcher</span><br><span class="line">    Logger    *zap.Logger</span><br><span class="line">    Seeds     []*collect.Request</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>第二步，我们需要书写一系列的闭包函数，这些函数的返回值是一个参数为options的函数：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Option <span class="function"><span class="keyword">func</span><span class="params">(opts *options)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="title">WithLogger</span><span class="params">(logger *zap.Logger)</span> <span class="title">Option</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(opts *options)</span></span> &#123;</span><br><span class="line">        opts.Logger = logger</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">WithFetcher</span><span class="params">(fetcher collect.Fetcher)</span> <span class="title">Option</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(opts *options)</span></span> &#123;</span><br><span class="line">        opts.Fetcher = fetcher</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">WithWorkCount</span><span class="params">(workCount <span class="keyword">int</span>)</span> <span class="title">Option</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(opts *options)</span></span> &#123;</span><br><span class="line">        opts.WorkCount = workCount</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">WithSeeds</span><span class="params">(seed []*collect.Request)</span> <span class="title">Option</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(opts *options)</span></span> &#123;</span><br><span class="line">        opts.Seeds = seed</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>第三步，创建一个生成schedule的新函数，函数参数为Option的可变参数列表。defaultOptions为默认的Option，代表默认的参数列表，然后循环遍历可变函数参数列表并执行。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewSchedule</span><span class="params">(opts ...Option)</span> *<span class="title">Schedule</span></span> &#123;</span><br><span class="line">    options := defaultOptions</span><br><span class="line">    <span class="keyword">for</span> _, opt := <span class="keyword">range</span> opts &#123;</span><br><span class="line">        opt(&amp;options)</span><br><span class="line">    &#125;</span><br><span class="line">    s := &amp;Schedule&#123;&#125;</span><br><span class="line">    s.options = options</span><br><span class="line">    <span class="keyword">return</span> s</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>第四步，在main函数中调用NewSchedule。让我们来看看函数式选项模式的效果：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    s := engine.NewSchedule(</span><br><span class="line">        engine.WithFetcher(f),</span><br><span class="line">        engine.WithLogger(logger),</span><br><span class="line">        engine.WithWorkCount(<span class="number">5</span>),</span><br><span class="line">        engine.WithSeeds(seeds),</span><br><span class="line">    )</span><br><span class="line">    s.Run()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>从这个例子中，我们可以看到函数式选项模式的好处：</p>
+<p>第一步，我们要对schedule结构进行改造，把可以配置的参数放入到options结构中：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Schedule <span class="keyword">struct</span> &#123;</span><br><span class="line">    requestCh <span class="keyword">chan</span> *collect.Request</span><br><span class="line">    workerCh  <span class="keyword">chan</span> *collect.Request</span><br><span class="line">    out       <span class="keyword">chan</span> collect.ParseResult</span><br><span class="line">    options</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> options <span class="keyword">struct</span> &#123;</span><br><span class="line">    WorkCount <span class="type">int</span></span><br><span class="line">    Fetcher   collect.Fetcher</span><br><span class="line">    Logger    *zap.Logger</span><br><span class="line">    Seeds     []*collect.Request</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>第二步，我们需要书写一系列的闭包函数，这些函数的返回值是一个参数为options的函数：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Option <span class="function"><span class="keyword">func</span><span class="params">(opts *options)</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">WithLogger</span><span class="params">(logger *zap.Logger)</span></span> Option &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(opts *options)</span></span> &#123;</span><br><span class="line">        opts.Logger = logger</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">WithFetcher</span><span class="params">(fetcher collect.Fetcher)</span></span> Option &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(opts *options)</span></span> &#123;</span><br><span class="line">        opts.Fetcher = fetcher</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">WithWorkCount</span><span class="params">(workCount <span class="type">int</span>)</span></span> Option &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(opts *options)</span></span> &#123;</span><br><span class="line">        opts.WorkCount = workCount</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">WithSeeds</span><span class="params">(seed []*collect.Request)</span></span> Option &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(opts *options)</span></span> &#123;</span><br><span class="line">        opts.Seeds = seed</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>第三步，创建一个生成schedule的新函数，函数参数为Option的可变参数列表。defaultOptions为默认的Option，代表默认的参数列表，然后循环遍历可变函数参数列表并执行。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewSchedule</span><span class="params">(opts ...Option)</span></span> *Schedule &#123;</span><br><span class="line">    options := defaultOptions</span><br><span class="line">    <span class="keyword">for</span> _, opt := <span class="keyword">range</span> opts &#123;</span><br><span class="line">        opt(&amp;options)</span><br><span class="line">    &#125;</span><br><span class="line">    s := &amp;Schedule&#123;&#125;</span><br><span class="line">    s.options = options</span><br><span class="line">    <span class="keyword">return</span> s</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>第四步，在main函数中调用NewSchedule。让我们来看看函数式选项模式的效果：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    s := engine.NewSchedule(</span><br><span class="line">        engine.WithFetcher(f),</span><br><span class="line">        engine.WithLogger(logger),</span><br><span class="line">        engine.WithWorkCount(<span class="number">5</span>),</span><br><span class="line">        engine.WithSeeds(seeds),</span><br><span class="line">    )</span><br><span class="line">    s.Run()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>从这个例子中，我们可以看到函数式选项模式的好处：</p>
 <ul>
 <li>API具有可扩展性，高度可配置化，新增参数不会破坏现有代码；</li>
 <li>参数列表非常简洁，并且可以使用默认的参数；</li>
@@ -576,20 +566,19 @@
 </ul>
 <p>刚才，我们实战了fan-in和fan-out高并发模型，并深度使用了通道和select的机制。接下来让我们更进一步，看一下实现通道和select机制的原理，掌握这种高并发模型的底层图像。</p>
 <h1 id="通道的底层原理"><a href="#通道的底层原理" class="headerlink" title="通道的底层原理"></a><span style="color:#339AFF;">通道的底层原理</span></h1><p>通道的实现并没有想象中复杂。它利用互斥锁实现了并发安全，只不过Go运行时为我们屏蔽了底层的细节。通道包括两种类型，一种是无缓冲的通道，另一种是带缓冲区的通道。通道的结构如下：</p>
-<img src="/2023/01/27/28｜调度引擎：负载均衡与调度器实战/1.webp">
+<img src="/2023/01/27/28%EF%BD%9C%E8%B0%83%E5%BA%A6%E5%BC%95%E6%93%8E%EF%BC%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E4%B8%8E%E8%B0%83%E5%BA%A6%E5%99%A8%E5%AE%9E%E6%88%98/1.webp" class="">
 <p>可以看到，通道中包含了数据的类型、大小、数量，堵塞协程队列，以及用于缓存区的诸多字段。</p>
 <p>我们先来看看无缓冲区的通道是怎么实现的。</p>
 <h2 id="无缓冲区的通道"><a href="#无缓冲区的通道" class="headerlink" title="无缓冲区的通道"></a><span style="color:#00ACC1;">无缓冲区的通道</span></h2><p>通道需要有多个协程分别完成读和写的功能，这样才能保证数据传输是顺畅的。对于无缓冲区的通道来说，如果有一个协程正在将数据写入通道，但是当前没有协程读取数据，那么写入协程将立即陷入到休眠状态。写入协程堵塞之前协程会被封装到sudog结构中，并存储到写入的堵塞队列sendq中，之后协程陷入休眠。</p>
 <p>之前我们介绍过，协程的堵塞是位于用户态的，协程切换时，运行时会保存当前协程的状态、并调用gopark函数切换到g0完成新一轮的调度。如果之后有协程读取数据，那么读取协程会立即读取sendq队列中第一个等待的协程，并将该协程对应的元素拷贝到读取协程中，同时调用goready唤醒写入协程，将写入协程放入到可运行队列中等待被调度器调度。</p>
-<img src="/2023/01/27/28｜调度引擎：负载均衡与调度器实战/2.webp">
+<img src="/2023/01/27/28%EF%BD%9C%E8%B0%83%E5%BA%A6%E5%BC%95%E6%93%8E%EF%BC%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E4%B8%8E%E8%B0%83%E5%BA%A6%E5%99%A8%E5%AE%9E%E6%88%98/2.webp" class="">
 <h2 id="带缓冲区的通道"><a href="#带缓冲区的通道" class="headerlink" title="带缓冲区的通道"></a><span style="color:#00ACC1;">带缓冲区的通道</span></h2><p>而对于带缓冲区的通道来说，假设缓存队列的数量为N，那么如果写入的数据量不大于N，写入协程就不会陷入到休眠状态，所有数据都会存储在缓冲队列中。</p>
 <p>缓冲队列可以在一定程度上削峰填谷，加快处理速度。但是如果写入速度始终大于读取数据，那么缓冲区迟早也有写满的时候，到时候仍然会陷入堵塞，只是延迟了问题的暴露并带来内存的浪费。因此缓冲区的容量不可以过大，我们可以根据实际情况给出一个经验值。例如上面的爬虫案例中，我们就可以给接收任务的requestCh通道加上缓存区，先将缓存区设置为500，这样就不会频繁堵塞住调度器了。</p>
 <p>对于有缓存的通道，存储在buf中的数据虽然是线性的数组，但是这些数组和序号recvx、recvq模拟了一个环形队列。recvx可以定位到buf是从哪个位置读取的通道中的元素，而sendx则能够找到写入时放入buf的位置，这样做主要是为了再次利用已经使用过的空间。从recvx到sendx的距离qcount就是通道队列中的元素数量。</p>
-<img src="/2023/01/27/28｜调度引擎：负载均衡与调度器实战/3.webp">
+<img src="/2023/01/27/28%EF%BD%9C%E8%B0%83%E5%BA%A6%E5%BC%95%E6%93%8E%EF%BC%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E4%B8%8E%E8%B0%83%E5%BA%A6%E5%99%A8%E5%AE%9E%E6%88%98/3.webp" class="">
 <h2 id="Select机制的底层原理"><a href="#Select机制的底层原理" class="headerlink" title="Select机制的底层原理"></a><span style="color:#00ACC1;">Select机制的底层原理</span></h2><p>在前面的实战案例中，我们还看到了大量channel与select结合使用的场景。</p>
 <p>受到通道特性的限制，如果单个通道被堵塞，协程就无法继续执行了。那有没有一种机制可以像网络中的多路复用一样，监听多个通道，使后续处理协程能够及时地运行？</p>
-<p>其实就和网络中把select用于Socket的多路复用机制一样，Go中也可以用select语句实现这样的多路复用机制。select语句中的每一个case都对应着一个待处理的读取或写入通道。举个简单实用的例子，下面的程序如果800毫秒之后也接受不到通道c中的数据，定时器time.After就会接收到数据，从而打印timeout。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> &lt;-c:</span><br><span class="line">        fmt.Println(<span class="string">"random 01"</span>)</span><br><span class="line">    <span class="keyword">case</span> &lt;-time.After(<span class="number">800</span> * time.Millisecond):</span><br><span class="line">        fmt.Println(<span class="string">"timeout"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>借助select可以实现许多有表现力的设计，那select是如何工作的呢？</p>
+<p>其实就和网络中把select用于Socket的多路复用机制一样，Go中也可以用select语句实现这样的多路复用机制。select语句中的每一个case都对应着一个待处理的读取或写入通道。举个简单实用的例子，下面的程序如果800毫秒之后也接受不到通道c中的数据，定时器time.After就会接收到数据，从而打印timeout。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> &lt;-c:</span><br><span class="line">        fmt.Println(<span class="string">&quot;random 01&quot;</span>)</span><br><span class="line">    <span class="keyword">case</span> &lt;-time.After(<span class="number">800</span> * time.Millisecond):</span><br><span class="line">        fmt.Println(<span class="string">&quot;timeout&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>借助select可以实现许多有表现力的设计，那select是如何工作的呢？</p>
 <p>Select底层调用了selectgo函数，它的工作可以分为三个部分：</p>
 <ul>
 <li>第一部分涉及到遍历。selectgo首先循环查找当前准备就绪的通道，如果能够找到，则正常进行后续处理。在具体的实现方式上，由于select内部的scases数组存储了所有需要管理的通道，所以很容易想到循环遍历scases，最终找到可用的通道。不过这可能导致一个问题，那就是如果前面的通道始终有数据，后面的通道将永远得不到执行的机会。为了解决这一问题，Go语言为select加入了随机性，会利用洗牌算法随机打散数组顺序，保证了所有通道都有执行的机会。</li>
@@ -621,7 +610,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Go进阶·分布式爬虫实战/" rel="tag"># Go进阶·分布式爬虫实战</a>
+            <a href="/tags/Go%E8%BF%9B%E9%98%B6%C2%B7%E5%88%86%E5%B8%83%E5%BC%8F%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98/" rel="tag"># Go进阶·分布式爬虫实战</a>
           
         </div>
       
@@ -634,7 +623,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2023/01/27/27｜掘地三尺：实战深度与广度优先搜索算法/" rel="next" title="27｜掘地三尺：实战深度与广度优先搜索算法">
+              <a href="/2023/01/27/27%EF%BD%9C%E6%8E%98%E5%9C%B0%E4%B8%89%E5%B0%BA%EF%BC%9A%E5%AE%9E%E6%88%98%E6%B7%B1%E5%BA%A6%E4%B8%8E%E5%B9%BF%E5%BA%A6%E4%BC%98%E5%85%88%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95/" rel="next" title="27｜掘地三尺：实战深度与广度优先搜索算法">
                 <i class="fa fa-chevron-left"></i> 27｜掘地三尺：实战深度与广度优先搜索算法
               </a>
             
@@ -644,7 +633,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2023/01/27/29｜细节决定成败：切片与哈希表的陷阱与原理/" rel="prev" title="29｜细节决定成败：切片与哈希表的陷阱与原理">
+              <a href="/2023/01/27/29%EF%BD%9C%E7%BB%86%E8%8A%82%E5%86%B3%E5%AE%9A%E6%88%90%E8%B4%A5%EF%BC%9A%E5%88%87%E7%89%87%E4%B8%8E%E5%93%88%E5%B8%8C%E8%A1%A8%E7%9A%84%E9%99%B7%E9%98%B1%E4%B8%8E%E5%8E%9F%E7%90%86/" rel="prev" title="29｜细节决定成败：切片与哈希表的陷阱与原理">
                 29｜细节决定成败：切片与哈希表的陷阱与原理 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -704,7 +693,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -715,9 +706,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -729,26 +720,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -820,7 +795,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -995,115 +970,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1134,23 +1001,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1176,7 +1043,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#实战调度引擎"><span class="nav-number">1.</span> <span class="nav-text">实战调度引擎</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数式选项模式"><span class="nav-number">2.</span> <span class="nav-text">函数式选项模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通道的底层原理"><span class="nav-number">3.</span> <span class="nav-text">通道的底层原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#无缓冲区的通道"><span class="nav-number">3.1.</span> <span class="nav-text">无缓冲区的通道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#带缓冲区的通道"><span class="nav-number">3.2.</span> <span class="nav-text">带缓冲区的通道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Select机制的底层原理"><span class="nav-number">3.3.</span> <span class="nav-text">Select机制的底层原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课后题"><span class="nav-number">5.</span> <span class="nav-text">课后题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E6%88%98%E8%B0%83%E5%BA%A6%E5%BC%95%E6%93%8E"><span class="nav-number">1.</span> <span class="nav-text">实战调度引擎</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%BD%E6%95%B0%E5%BC%8F%E9%80%89%E9%A1%B9%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">函数式选项模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9A%E9%81%93%E7%9A%84%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">通道的底层原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E7%BC%93%E5%86%B2%E5%8C%BA%E7%9A%84%E9%80%9A%E9%81%93"><span class="nav-number">3.1.</span> <span class="nav-text">无缓冲区的通道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%A6%E7%BC%93%E5%86%B2%E5%8C%BA%E7%9A%84%E9%80%9A%E9%81%93"><span class="nav-number">3.2.</span> <span class="nav-text">带缓冲区的通道</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Select%E6%9C%BA%E5%88%B6%E7%9A%84%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86"><span class="nav-number">3.3.</span> <span class="nav-text">Select机制的底层原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BE%E5%90%8E%E9%A2%98"><span class="nav-number">5.</span> <span class="nav-text">课后题</span></a></li></ol></div>
             
 
           </div>
@@ -1211,7 +1078,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1222,12 +1089,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1235,7 +1102,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

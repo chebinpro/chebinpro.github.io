@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,37 +104,37 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="Kubernetes入门实战课">
 <meta property="og:type" content="article">
 <meta property="og:title" content="21丨Ingress：集群进出流量的总管">
-<meta property="og:url" content="http://yoursite.com/2022/09/12/21｜Ingress：集群进出流量的总管/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/09/12/21%EF%BD%9CIngress%EF%BC%9A%E9%9B%86%E7%BE%A4%E8%BF%9B%E5%87%BA%E6%B5%81%E9%87%8F%E7%9A%84%E6%80%BB%E7%AE%A1/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/21｜Ingress：集群进出流量的总管/1.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/21｜Ingress：集群进出流量的总管/2.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/21｜Ingress：集群进出流量的总管/3.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/21｜Ingress：集群进出流量的总管/4.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/21｜Ingress：集群进出流量的总管/5.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/21｜Ingress：集群进出流量的总管/6.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/21｜Ingress：集群进出流量的总管/7.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/21｜Ingress：集群进出流量的总管/8.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/21｜Ingress：集群进出流量的总管/9.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/21｜Ingress：集群进出流量的总管/10.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/21｜Ingress：集群进出流量的总管/11.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/21｜Ingress：集群进出流量的总管/12.webp">
-<meta property="og:updated_time" content="2023-09-04T10:16:14.730Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/21%EF%BD%9CIngress%EF%BC%9A%E9%9B%86%E7%BE%A4%E8%BF%9B%E5%87%BA%E6%B5%81%E9%87%8F%E7%9A%84%E6%80%BB%E7%AE%A1/1.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/21%EF%BD%9CIngress%EF%BC%9A%E9%9B%86%E7%BE%A4%E8%BF%9B%E5%87%BA%E6%B5%81%E9%87%8F%E7%9A%84%E6%80%BB%E7%AE%A1/2.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/21%EF%BD%9CIngress%EF%BC%9A%E9%9B%86%E7%BE%A4%E8%BF%9B%E5%87%BA%E6%B5%81%E9%87%8F%E7%9A%84%E6%80%BB%E7%AE%A1/3.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/21%EF%BD%9CIngress%EF%BC%9A%E9%9B%86%E7%BE%A4%E8%BF%9B%E5%87%BA%E6%B5%81%E9%87%8F%E7%9A%84%E6%80%BB%E7%AE%A1/4.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/21%EF%BD%9CIngress%EF%BC%9A%E9%9B%86%E7%BE%A4%E8%BF%9B%E5%87%BA%E6%B5%81%E9%87%8F%E7%9A%84%E6%80%BB%E7%AE%A1/5.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/21%EF%BD%9CIngress%EF%BC%9A%E9%9B%86%E7%BE%A4%E8%BF%9B%E5%87%BA%E6%B5%81%E9%87%8F%E7%9A%84%E6%80%BB%E7%AE%A1/6.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/21%EF%BD%9CIngress%EF%BC%9A%E9%9B%86%E7%BE%A4%E8%BF%9B%E5%87%BA%E6%B5%81%E9%87%8F%E7%9A%84%E6%80%BB%E7%AE%A1/7.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/21%EF%BD%9CIngress%EF%BC%9A%E9%9B%86%E7%BE%A4%E8%BF%9B%E5%87%BA%E6%B5%81%E9%87%8F%E7%9A%84%E6%80%BB%E7%AE%A1/8.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/21%EF%BD%9CIngress%EF%BC%9A%E9%9B%86%E7%BE%A4%E8%BF%9B%E5%87%BA%E6%B5%81%E9%87%8F%E7%9A%84%E6%80%BB%E7%AE%A1/9.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/21%EF%BD%9CIngress%EF%BC%9A%E9%9B%86%E7%BE%A4%E8%BF%9B%E5%87%BA%E6%B5%81%E9%87%8F%E7%9A%84%E6%80%BB%E7%AE%A1/10.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/21%EF%BD%9CIngress%EF%BC%9A%E9%9B%86%E7%BE%A4%E8%BF%9B%E5%87%BA%E6%B5%81%E9%87%8F%E7%9A%84%E6%80%BB%E7%AE%A1/11.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/21%EF%BD%9CIngress%EF%BC%9A%E9%9B%86%E7%BE%A4%E8%BF%9B%E5%87%BA%E6%B5%81%E9%87%8F%E7%9A%84%E6%80%BB%E7%AE%A1/12.webp">
+<meta property="article:published_time" content="2022-09-12T10:37:35.000Z">
+<meta property="article:modified_time" content="2023-09-04T10:16:14.730Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Kubernetes入门实战课">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="21丨Ingress：集群进出流量的总管">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2022/09/12/21｜Ingress：集群进出流量的总管/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2022/09/12/21%EF%BD%9CIngress%EF%BC%9A%E9%9B%86%E7%BE%A4%E8%BF%9B%E5%87%BA%E6%B5%81%E9%87%8F%E7%9A%84%E6%80%BB%E7%AE%A1/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/09/12/21｜Ingress：集群进出流量的总管/">
+  <link rel="canonical" href="http://yoursite.com/2022/09/12/21｜Ingress：集群进出流量的总管/"/>
 
 
 
@@ -183,7 +183,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -244,7 +244,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -261,7 +261,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -278,7 +278,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -295,7 +295,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -312,7 +312,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -323,7 +323,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -343,7 +343,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -393,16 +395,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/12/21｜Ingress：集群进出流量的总管/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/12/21%EF%BD%9CIngress%EF%BC%9A%E9%9B%86%E7%BE%A4%E8%BF%9B%E5%87%BA%E6%B5%81%E9%87%8F%E7%9A%84%E6%80%BB%E7%AE%A1/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -502,7 +504,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">8.7k</span>
+                <span title="本文字数">21k</span>
               
 
               
@@ -516,7 +518,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">8 分钟</span>
+                <span title="阅读时长">19 分钟</span>
               
             </div>
           
@@ -537,7 +539,7 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>上次课里我们学习了Service对象，它是Kubernetes内置的负载均衡机制，使用静态IP地址代理动态变化的Pod，支持域名访问和服务发现，是微服务架构必需的基础设施。</p>
 <p>Service很有用，但也只能说是“基础设施”，它对网络流量的管理方案还是太简单，离复杂的现代应用架构需求还有很大的差距，所以Kubernetes就在Service之上又提出了一个新的概念：Ingress。</p>
 <p>比起Service，Ingress更接近实际业务，对它的开发、应用和讨论也是社区里最火爆的，今天我们就来看看Ingress，还有与它关联的Ingress Controller、Ingress Class等对象。</p>
@@ -545,13 +547,13 @@
 <blockquote>
 <p>Service工作原理示意图</p>
 </blockquote>
-<img src="/2022/09/12/21｜Ingress：集群进出流量的总管/1.webp">
+<img src="/2022/09/12/21%EF%BD%9CIngress%EF%BC%9A%E9%9B%86%E7%BE%A4%E8%BF%9B%E5%87%BA%E6%B5%81%E9%87%8F%E7%9A%84%E6%80%BB%E7%AE%A1/1.webp" class="">
 <p>但在四层上的负载均衡功能还是太有限了，只能够依据IP地址和端口号做一些简单的判断和组合，而我们现在的绝大多数应用都是跑在七层的HTTP/HTTPS协议上的，有更多的高级路由条件，比如主机名、URI、请求头、证书等等，而这些在TCP/IP网络栈里是根本看不见的。</p>
 <p>Service还有一个缺点，它比较适合代理集群内部的服务。如果想要把服务暴露到集群外部，就只能使用NodePort或者LoadBalancer这两种方式，而它们都缺乏足够的灵活性，难以管控，这就导致了一种很无奈的局面：我们的服务空有一身本领，却没有合适的机会走出去大展拳脚。</p>
 <p>该怎么解决这个问题呢？</p>
 <p>Kubernetes还是沿用了Service的思路，既然Service是四层的负载均衡，那么我再引入一个新的API对象，在七层上做负载均衡是不是就可以了呢？</p>
 <p><strong>不过除了七层负载均衡，这个对象还应该承担更多的职责，也就是作为流量的总入口，统管集群的进出口数据</strong>，“扇入”“扇出”流量（也就是我们常说的“南北向”），让外部用户能够安全、顺畅、便捷地访问内部服务：</p>
-<img src="/2022/09/12/21｜Ingress：集群进出流量的总管/2.webp">
+<img src="/2022/09/12/21%EF%BD%9CIngress%EF%BC%9A%E9%9B%86%E7%BE%A4%E8%BF%9B%E5%87%BA%E6%B5%81%E9%87%8F%E7%9A%84%E6%80%BB%E7%AE%A1/2.webp" class="">
 <p>所以，这个API对象就顺理成章地被命名为Ingress，意思就是集群内外边界上的入口。</p>
 <h1 id="为什么要有Ingress-Controller"><a href="#为什么要有Ingress-Controller" class="headerlink" title="为什么要有Ingress Controller"></a><span style="color:#339AFF;">为什么要有Ingress Controller</span></h1><p>再对比一下Service我们就能更透彻地理解Ingress。</p>
 <p>Ingress可以说是在七层上另一种形式的Service，它同样会代理一些后端的Pod，也有一些路由规则来定义流量应该如何分配、转发，只不过这些规则都使用的是HTTP/HTTPS协议。</p>
@@ -562,10 +564,10 @@
 <p>这就造成了Ingress Controller“百花齐放”的盛况。</p>
 <p>由于Ingress Controller把守了集群流量的关键入口，掌握了它就拥有了控制集群应用的“话语权”，所以众多公司纷纷入场，精心打造自己的Ingress Controller，意图在Kubernetes流量进出管理这个领域占有一席之地。</p>
 <p>这些实现中最著名的，就是老牌的反向代理和负载均衡软件Nginx了。从Ingress Controller的描述上我们也可以看到，HTTP层面的流量管理、安全控制等功能其实就是经典的反向代理，而Nginx则是其中稳定性最好、性能最高的产品，所以它也理所当然成为了Kubernetes里应用得最广泛的Ingress Controller。</p>
-<p>不过，因为Nginx是开源的，谁都可以基于源码做二次开发，所以它又有很多的变种，比如社区的<a href="https://github.com/kubernetes/ingress-nginx" target="_blank" rel="noopener">Kubernetes Ingress Controller</a>、Nginx公司自己的<a href="https://github.com/nginxinc/kubernetes-ingress" target="_blank" rel="noopener">Nginx Ingress Controller</a>、还有基于OpenResty的<a href="https://github.com/Kong/kubernetes-ingress-controller" target="_blank" rel="noopener">Kong Ingress Controller</a>等等。</p>
+<p>不过，因为Nginx是开源的，谁都可以基于源码做二次开发，所以它又有很多的变种，比如社区的<a href="https://github.com/kubernetes/ingress-nginx">Kubernetes Ingress Controller</a>、Nginx公司自己的<a href="https://github.com/nginxinc/kubernetes-ingress">Nginx Ingress Controller</a>、还有基于OpenResty的<a href="https://github.com/Kong/kubernetes-ingress-controller">Kong Ingress Controller</a>等等。</p>
 <p>根据Docker Hub上的统计，<strong>Nginx公司的开发实现是下载量最多的Ingress Controller</strong>，所以我将以它为例，讲解Ingress和Ingress Controller的用法。</p>
 <p>下面的这张图就来自Nginx官网，比较清楚地展示了Ingress Controller在Kubernetes集群里的地位：</p>
-<img src="/2022/09/12/21｜Ingress：集群进出流量的总管/3.webp">
+<img src="/2022/09/12/21%EF%BD%9CIngress%EF%BC%9A%E9%9B%86%E7%BE%A4%E8%BF%9B%E5%87%BA%E6%B5%81%E9%87%8F%E7%9A%84%E6%80%BB%E7%AE%A1/3.webp" class="">
 <h1 id="为什么要有Ingress-Class"><a href="#为什么要有Ingress-Class" class="headerlink" title="为什么要有Ingress Class"></a><span style="color:#339AFF;">为什么要有Ingress Class</span></h1><p>那么到现在，有了Ingress和Ingress Controller，我们是不是就可以完美地管理集群的进出流量了呢？</p>
 <p>最初Kubernetes也是这么想的，一个集群里有一个Ingress Controller，再给它配上许多不同的Ingress规则，应该就可以解决请求的路由和分发问题了。</p>
 <p>但随着Ingress在实践中的大量应用，很多用户发现这种用法会带来一些问题，比如：</p>
@@ -577,12 +579,11 @@
 </ul>
 <p>所以，Kubernetes就又提出了一个Ingress Class的概念，让它插在Ingress和Ingress Controller中间，作为流量规则和控制器的协调人，解除了Ingress和Ingress Controller的强绑定关系。</p>
 <p>现在，<strong>Kubernetes用户可以转向管理Ingress Class，用它来定义不同的业务逻辑分组，简化Ingress规则的复杂度</strong>。比如说，我们可以用Class A处理博客流量、Class B处理短视频流量、Class C处理购物流量。</p>
-<img src="/2022/09/12/21｜Ingress：集群进出流量的总管/4.webp">
+<img src="/2022/09/12/21%EF%BD%9CIngress%EF%BC%9A%E9%9B%86%E7%BE%A4%E8%BF%9B%E5%87%BA%E6%B5%81%E9%87%8F%E7%9A%84%E6%80%BB%E7%AE%A1/4.webp" class="">
 <p>这些Ingress和Ingress Controller彼此独立，不会发生冲突，所以上面的那些问题也就随着Ingress Class的引入迎刃而解了。</p>
 <h1 id="如何使用YAML描述Ingress-Ingress-Class"><a href="#如何使用YAML描述Ingress-Ingress-Class" class="headerlink" title="如何使用YAML描述Ingress/Ingress Class"></a><span style="color:#339AFF;">如何使用YAML描述Ingress/Ingress Class</span></h1><p>我们花了比较多的篇幅学习Ingress、Ingress Controller、Ingress Class这三个对象，全是理论，你可能觉得学得有点累。但这也是没办法的事情，毕竟现实的业务就是这么复杂，而且这个设计架构也是社区经过长期讨论后达成的一致结论，是我们目前能获得的最佳解决方案。</p>
 <p>好，了解了这三个概念之后，我们就可以来看看如何为它们编写YAML描述文件了。</p>
-<p>和之前学习Deployment、Service对象一样，首先应当用命令<code>kubectl api-resources</code>查看它们的基本信息，输出列在这里了：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kubectl api-resources</span><br><span class="line"></span><br><span class="line">NAME             SHORTNAMES       APIVERSION              NAMESPACED   KIND</span><br><span class="line">ingresses           ing          networking.k8s.io/v1      <span class="literal">true</span>        Ingress</span><br><span class="line">Ingressclasses                   networking.k8s.io/v1      <span class="literal">false</span>       Ingress Class</span><br></pre></td></tr></table></figure></p>
-<p>你可以看到，Ingress和Ingress Class的apiVersion都是“<strong>networking.k8s.io/v1</strong>”，而且Ingress有一个简写“ing”，但Ingress Controller怎么找不到呢？</p>
+<p>和之前学习Deployment、Service对象一样，首先应当用命令<code>kubectl api-resources</code>查看它们的基本信息，输出列在这里了：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">kubectl api-resources</span><br><span class="line"></span><br><span class="line">NAME             SHORTNAMES       APIVERSION              NAMESPACED   KIND</span><br><span class="line">ingresses           ing          networking.k8s.io/v1      <span class="literal">true</span>        Ingress</span><br><span class="line">Ingressclasses                   networking.k8s.io/v1      <span class="literal">false</span>       Ingress Class</span><br></pre></td></tr></table></figure><br>你可以看到，Ingress和Ingress Class的apiVersion都是“<strong>networking.k8s.io/v1</strong>”，而且Ingress有一个简写“ing”，但Ingress Controller怎么找不到呢？</p>
 <p>这是因为Ingress Controller和其他两个对象不太一样，它不只是描述文件，是一个要实际干活、处理流量的应用程序，而应用程序在Kubernetes里早就有对象来管理了，那就是Deployment和DaemonSet，所以我们只需要再学习Ingress和Ingress Class的用法就可以了。</p>
 <p>先看Ingress。</p>
 <p>Ingress也是可以使用<code>kubectl create</code>来创建样板文件的，和Service类似，它也需要用两个附加参数：</p>
@@ -590,27 +591,23 @@
 <li><code>--class</code>，指定Ingress从属的Ingress Class对象。</li>
 <li><code>--rule</code>，指定路由规则，基本形式是“URI=Service”，也就是说是访问HTTP路径就转发到对应的Service对象，再由Service对象转发给后端的Pod。</li>
 </ul>
-<p>好，现在我们就执行命令，看看Ingress到底长什么样：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> out=<span class="string">"--dry-run=client -o yaml"</span></span><br><span class="line">kubectl create ing ngx-ing --rule=<span class="string">"ngx.test/=ngx-svc:80"</span> --class=ngx-ink <span class="variable">$out</span></span><br></pre></td></tr></table></figure></p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Ingress</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">ngx-ing</span></span><br><span class="line">  </span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"></span><br><span class="line">  <span class="string">Ingress</span> <span class="attr">ClassName:</span> <span class="string">ngx-ink</span></span><br><span class="line">  </span><br><span class="line"><span class="attr">  rules:</span></span><br><span class="line"><span class="attr">  - host:</span> <span class="string">ngx.test</span></span><br><span class="line"><span class="attr">    http:</span></span><br><span class="line"><span class="attr">      paths:</span></span><br><span class="line"><span class="attr">      - path:</span> <span class="string">/</span></span><br><span class="line"><span class="attr">        pathType:</span> <span class="string">Exact</span></span><br><span class="line"><span class="attr">        backend:</span></span><br><span class="line"><span class="attr">          service:</span></span><br><span class="line"><span class="attr">            name:</span> <span class="string">ngx-svc</span></span><br><span class="line"><span class="attr">            port:</span></span><br><span class="line"><span class="attr">              number:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure>
+<p>好，现在我们就执行命令，看看Ingress到底长什么样：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> out=<span class="string">&quot;--dry-run=client -o yaml&quot;</span></span><br><span class="line">kubectl create ing ngx-ing --rule=<span class="string">&quot;ngx.test/=ngx-svc:80&quot;</span> --class=ngx-ink <span class="variable">$out</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Ingress</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">ngx-ing</span></span><br><span class="line">  </span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">Ingress ClassName:</span> <span class="string">ngx-ink</span></span><br><span class="line">  </span><br><span class="line">  <span class="attr">rules:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">host:</span> <span class="string">ngx.test</span></span><br><span class="line">    <span class="attr">http:</span></span><br><span class="line">      <span class="attr">paths:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">path:</span> <span class="string">/</span></span><br><span class="line">        <span class="attr">pathType:</span> <span class="string">Exact</span></span><br><span class="line">        <span class="attr">backend:</span></span><br><span class="line">          <span class="attr">service:</span></span><br><span class="line">            <span class="attr">name:</span> <span class="string">ngx-svc</span></span><br><span class="line">            <span class="attr">port:</span></span><br><span class="line">              <span class="attr">number:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure>
 <p>在这份Ingress的YAML里，有两个关键字段：“Ingress ClassName”和“rules”，分别对应了命令行参数，含义还是比较好理解的。</p>
 <p>只是“rules”的格式比较复杂，嵌套层次很深。不过仔细点看就会发现它是把路由规则拆散了，有host和httppath，在path里又指定了路径的匹配方式，可以是精确匹配（Exact）或者是前缀匹配（Prefix），再用backend来指定转发的目标Service对象。</p>
 <p>不过我个人觉得，IngressYAML里的描述还不如<code>kubectl create</code>命令行里的<code>--rule</code>参数来得直观易懂，而且YAML里的字段太多也很容易弄错，建议你还是让kubectl来自动生成规则，然后再略作修改比较好。</p>
 <p>有了Ingress对象，那么与它关联的Ingress Class是什么样的呢？</p>
 <p>其实Ingress Class本身并没有什么实际的功能，只是起到联系Ingress和Ingress Controller的作用，所以它的定义非常简单，在“spec”里只有一个必需的字段“controller”，表示要使用哪个Ingress Controller，具体的名字就要看实现文档了。</p>
-<p>比如，如果我要用Nginx开发的Ingress Controller，那么就要用名字“nginx.org/ingress-controller”：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Ingress</span> <span class="string">Class</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">ngx-ink</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  controller:</span> <span class="string">nginx.org/ingress-controller</span></span><br></pre></td></tr></table></figure></p>
-<p>Ingress和Service、Ingress Class的关系我也画成了一张图，方便你参考：</p>
-<img src="/2022/09/12/21｜Ingress：集群进出流量的总管/5.webp">
+<p>比如，如果我要用Nginx开发的Ingress Controller，那么就要用名字“nginx.org/ingress-controller”：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Ingress</span> <span class="string">Class</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">ngx-ink</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">controller:</span> <span class="string">nginx.org/ingress-controller</span></span><br></pre></td></tr></table></figure><br>Ingress和Service、Ingress Class的关系我也画成了一张图，方便你参考：</p>
+<img src="/2022/09/12/21%EF%BD%9CIngress%EF%BC%9A%E9%9B%86%E7%BE%A4%E8%BF%9B%E5%87%BA%E6%B5%81%E9%87%8F%E7%9A%84%E6%80%BB%E7%AE%A1/5.webp" class="">
 <h1 id="如何在Kubernetes里使用Ingress-Ingress-Class"><a href="#如何在Kubernetes里使用Ingress-Ingress-Class" class="headerlink" title="如何在Kubernetes里使用Ingress/Ingress Class"></a><span style="color:#339AFF;">如何在Kubernetes里使用Ingress/Ingress Class</span></h1><p>因为Ingress Class很小，所以我把它与Ingress合成了一个YAML文件，让我们用<code>kubectl apply</code>创建这两个对象：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f ingress.yml</span><br></pre></td></tr></table></figure></p>
-<p>然后我们用<code>kubectl get</code>来查看对象的状态：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl get Ingress Class</span><br><span class="line">kubectl get ing</span><br></pre></td></tr></table></figure></p>
-<img src="/2022/09/12/21｜Ingress：集群进出流量的总管/6.webp">
-<p>命令<code>kubectl describe</code>可以看到更详细的Ingress信息：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe ing ngx-ing</span><br></pre></td></tr></table></figure></p>
-<img src="/2022/09/12/21｜Ingress：集群进出流量的总管/7.webp">
+<p>然后我们用<code>kubectl get</code>来查看对象的状态：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl get Ingress Class</span><br><span class="line">kubectl get ing</span><br></pre></td></tr></table></figure><br><img src="/2022/09/12/21%EF%BD%9CIngress%EF%BC%9A%E9%9B%86%E7%BE%A4%E8%BF%9B%E5%87%BA%E6%B5%81%E9%87%8F%E7%9A%84%E6%80%BB%E7%AE%A1/6.webp" class=""></p>
+<p>命令<code>kubectl describe</code>可以看到更详细的Ingress信息：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe ing ngx-ing</span><br></pre></td></tr></table></figure><br><img src="/2022/09/12/21%EF%BD%9CIngress%EF%BC%9A%E9%9B%86%E7%BE%A4%E8%BF%9B%E5%87%BA%E6%B5%81%E9%87%8F%E7%9A%84%E6%80%BB%E7%AE%A1/7.webp" class=""></p>
 <p>可以看到，Ingress对象的路由规则Host/Path就是在YAML里设置的域名“ngx.test/”，而且已经关联了第20讲里创建的Service对象，还有Service后面的两个Pod。</p>
 <p>另外，不要对Ingress里“Defaultbackend”的错误提示感到惊讶，在找不到路由的时候，它被设计用来提供一个默认的后端服务，但不设置也不会有什么问题，所以大多数时候我们都忽略它。</p>
 <h1 id="如何在Kubernetes里使用Ingress-Controller"><a href="#如何在Kubernetes里使用Ingress-Controller" class="headerlink" title="如何在Kubernetes里使用Ingress Controller"></a><span style="color:#339AFF;">如何在Kubernetes里使用Ingress Controller</span></h1><p>准备好了Ingress和Ingress Class，接下来我们就需要部署真正处理路由规则的Ingress Controller。</p>
-<p>你可以在GitHub上找到<a href="https://github.com/nginxinc/kubernetes-ingress" target="_blank" rel="noopener">NginxIngress Controller</a>的项目，因为它以Pod的形式运行在Kubernetes里，所以同时支持Deployment和DaemonSet两种部署方式。这里我选择的是Deployment，相关的YAML也都在我们<a href="https://github.com/chronolaw/k8s_study/tree/master/ingress" target="_blank" rel="noopener">课程</a>的项目里复制了一份。</p>
-<p>Nginx Ingress Controller的安装略微麻烦一些，有很多个YAML需要执行，但如果只是做简单的试验，就只需要用到4个YAML：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f common/ns-and-sa.yaml</span><br><span class="line">kubectl apply -f rbac/rbac.yaml</span><br><span class="line">kubectl apply -f common/nginx-config.yaml</span><br><span class="line">kubectl apply -f common/default-server-secret.yaml</span><br></pre></td></tr></table></figure></p>
-<p>前两条命令为Ingress Controller创建了一个独立的名字空间“nginx-ingress”，还有相应的账号和权限，这是为了访问apiserver获取Service、Endpoint信息用的；后两条则是创建了一个ConfigMap和Secret，用来配置HTTP/HTTPS服务。</p>
+<p>你可以在GitHub上找到<a href="https://github.com/nginxinc/kubernetes-ingress">NginxIngress Controller</a>的项目，因为它以Pod的形式运行在Kubernetes里，所以同时支持Deployment和DaemonSet两种部署方式。这里我选择的是Deployment，相关的YAML也都在我们<a href="https://github.com/chronolaw/k8s_study/tree/master/ingress">课程</a>的项目里复制了一份。</p>
+<p>Nginx Ingress Controller的安装略微麻烦一些，有很多个YAML需要执行，但如果只是做简单的试验，就只需要用到4个YAML：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f common/ns-and-sa.yaml</span><br><span class="line">kubectl apply -f rbac/rbac.yaml</span><br><span class="line">kubectl apply -f common/nginx-config.yaml</span><br><span class="line">kubectl apply -f common/default-server-secret.yaml</span><br></pre></td></tr></table></figure><br>前两条命令为Ingress Controller创建了一个独立的名字空间“nginx-ingress”，还有相应的账号和权限，这是为了访问apiserver获取Service、Endpoint信息用的；后两条则是创建了一个ConfigMap和Secret，用来配置HTTP/HTTPS服务。</p>
 <p>部署Ingress Controller不需要我们自己从头编写Deployment，Nginx已经为我们提供了示例YAML，但创建之前为了适配我们自己的应用还必须要做几处小改动：</p>
 <ul>
 <li>metadata里的name要改成自己的名字，比如ngx-kic-dep。</li>
@@ -618,20 +615,16 @@
 <li>containers.image可以改用apline版本，加快下载速度，比如nginx/nginx-ingress:2.2-alpine。</li>
 <li>最下面的args要加上<code>-ingress-class=ngx-ink</code>，也就是前面创建的Ingress Class的名字，这是让Ingress Controller管理Ingress的关键。</li>
 </ul>
-<p>修改完之后，Ingress Controller的YAML大概是这个样子：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">ngx-kic-dep</span></span><br><span class="line"><span class="attr">  namespace:</span> <span class="string">nginx-ingress</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  replicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line"><span class="attr">    matchLabels:</span></span><br><span class="line"><span class="attr">      app:</span> <span class="string">ngx-kic-dep</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  template:</span></span><br><span class="line"><span class="attr">    metadata:</span></span><br><span class="line"><span class="attr">      labels:</span></span><br><span class="line"><span class="attr">        app:</span> <span class="string">ngx-kic-dep</span></span><br><span class="line">    <span class="string">...</span></span><br><span class="line"><span class="attr">    spec:</span></span><br><span class="line"><span class="attr">      containers:</span></span><br><span class="line"><span class="attr">      - image:</span> <span class="string">nginx/nginx-ingress:2.2-alpine</span></span><br><span class="line">        <span class="string">...</span></span><br><span class="line"><span class="attr">        args:</span></span><br><span class="line"><span class="bullet">          -</span> <span class="bullet">-ingress-class=ngx-ink</span></span><br></pre></td></tr></table></figure></p>
-<p>有了Ingress Controller，这些API对象的关联就更复杂了，你可以用下面的这张图来看出它们是如何使用对象名字联系起来的：</p>
-<img src="/2022/09/12/21｜Ingress：集群进出流量的总管/8.webp">
-<p>确认Ingress Controller的YAML修改完毕之后，就可以用<code>kubectl apply</code>创建对象：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f kic.yml</span><br></pre></td></tr></table></figure></p>
-<p>注意Ingress Controller位于名字空间“nginx-ingress”，所以查看状态需要用“<code>-n</code>”参数显式指定，否则我们只能看到“default”名字空间里的Pod：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl get deploy -n nginx-ingress</span><br><span class="line">kubectl get pod -n nginx-ingress</span><br></pre></td></tr></table></figure></p>
-<img src="/2022/09/12/21｜Ingress：集群进出流量的总管/9.webp">
+<p>修改完之后，Ingress Controller的YAML大概是这个样子：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">ngx-kic-dep</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">nginx-ingress</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">ngx-kic-dep</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">ngx-kic-dep</span></span><br><span class="line">    <span class="string">...</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">image:</span> <span class="string">nginx/nginx-ingress:2.2-alpine</span></span><br><span class="line">        <span class="string">...</span></span><br><span class="line">        <span class="attr">args:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="string">-ingress-class=ngx-ink</span></span><br></pre></td></tr></table></figure><br>有了Ingress Controller，这些API对象的关联就更复杂了，你可以用下面的这张图来看出它们是如何使用对象名字联系起来的：</p>
+<img src="/2022/09/12/21%EF%BD%9CIngress%EF%BC%9A%E9%9B%86%E7%BE%A4%E8%BF%9B%E5%87%BA%E6%B5%81%E9%87%8F%E7%9A%84%E6%80%BB%E7%AE%A1/8.webp" class="">
+<p>确认Ingress Controller的YAML修改完毕之后，就可以用<code>kubectl apply</code>创建对象：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f kic.yml</span><br></pre></td></tr></table></figure><br>注意Ingress Controller位于名字空间“nginx-ingress”，所以查看状态需要用“<code>-n</code>”参数显式指定，否则我们只能看到“default”名字空间里的Pod：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">kubectl get deploy -n nginx-ingress</span><br><span class="line">kubectl get pod -n nginx-ingress</span><br></pre></td></tr></table></figure></p>
+<img src="/2022/09/12/21%EF%BD%9CIngress%EF%BC%9A%E9%9B%86%E7%BE%A4%E8%BF%9B%E5%87%BA%E6%B5%81%E9%87%8F%E7%9A%84%E6%80%BB%E7%AE%A1/9.webp" class="">
 <p>现在Ingress Controller就算是运行起来了。</p>
 <p>不过还有最后一道工序，因为Ingress Controller本身也是一个Pod，想要向外提供服务还是要依赖于Service对象。所以你至少还要再为它定义一个Service，使用NodePort或者LoadBalancer暴露端口，才能真正把集群的内外流量打通。这个工作就交给你课下自己去完成了。</p>
 <p>这里，我就用第15讲里提到的命令<code>kubectl port-forward</code>，它可以直接把本地的端口映射到Kubernetes集群的某个Pod里，在测试验证的时候非常方便。</p>
-<p>下面这条命令就把本地的8080端口映射到了Ingress ControllerPod的80端口：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl port-forward -n nginx-ingress ngx-kic-dep-8859b7b86-cplgp 8080:80 &amp;</span><br></pre></td></tr></table></figure></p>
-<img src="/2022/09/12/21｜Ingress：集群进出流量的总管/10.webp">
+<p>下面这条命令就把本地的8080端口映射到了Ingress ControllerPod的80端口：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl port-forward -n nginx-ingress ngx-kic-dep-8859b7b86-cplgp 8080:80 &amp;</span><br></pre></td></tr></table></figure><br><img src="/2022/09/12/21%EF%BD%9CIngress%EF%BC%9A%E9%9B%86%E7%BE%A4%E8%BF%9B%E5%87%BA%E6%B5%81%E9%87%8F%E7%9A%84%E6%80%BB%E7%AE%A1/10.webp" class=""></p>
 <p>我们在curl发测试请求的时候需要注意，因为Ingress的路由规则是HTTP协议，所以就不能用IP地址的方式访问，必须要用域名、URI。</p>
-<p>你可以修改/etc/hosts来手工添加域名解析，也可以使用<code>--resolve</code>参数，指定域名的解析规则，比如在这里我就把“ngx.test”强制解析到“127.0.0.1”，也就是被<code>kubectl port-forward</code>转发的本地地址：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --resolve ngx.test:8080:127.0.0.1 http://ngx.test:8080</span><br></pre></td></tr></table></figure></p>
-<img src="/2022/09/12/21｜Ingress：集群进出流量的总管/11.webp">
+<p>你可以修改/etc/hosts来手工添加域名解析，也可以使用<code>--resolve</code>参数，指定域名的解析规则，比如在这里我就把“ngx.test”强制解析到“127.0.0.1”，也就是被<code>kubectl port-forward</code>转发的本地地址：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --resolve ngx.test:8080:127.0.0.1 http://ngx.test:8080</span><br></pre></td></tr></table></figure><br><img src="/2022/09/12/21%EF%BD%9CIngress%EF%BC%9A%E9%9B%86%E7%BE%A4%E8%BF%9B%E5%87%BA%E6%B5%81%E9%87%8F%E7%9A%84%E6%80%BB%E7%AE%A1/11.webp" class=""></p>
 <p>把这个访问结果和上一节课里的Service对比一下，你会发现最终效果是一样的，都是把请求转发到了集群内部的Pod，但Ingress的路由规则不再是IP地址，而是HTTP协议里的域名、URI等要素。</p>
 <h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a><span style="color:#339AFF;">小结</span></h1><p>我们学习了Kubernetes里七层的反向代理和负载均衡对象，包括Ingress、Ingress Controller、Ingress Class，它们联合起来管理了集群的进出流量，是集群入口的总管。</p>
 <p>1，Service是四层负载均衡，能力有限，所以就出现了Ingress，它基于HTTP/HTTPS协议定义路由规则。</p>
@@ -642,7 +635,7 @@
 <p>此外，Ingress Controller通常还有很多的其他功能，比如TLS终止、网络应用防火墙、限流限速、流量拆分、身份认证、访问控制等等，完全可以认为它是一个全功能的反向代理或者网关，感兴趣的话你可以找找这方面的资料。</p>
 <h1 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a><span style="color:#339AFF;">课下作业</span></h1><p>1，四层负载均衡（Service）与七层负载均衡（Ingress）有哪些异同点？</p>
 <p>2，你认为Ingress Controller作为集群的流量入口还应该做哪些事情？</p>
-<img src="/2022/09/12/21｜Ingress：集群进出流量的总管/12.webp">
+<img src="/2022/09/12/21%EF%BD%9CIngress%EF%BC%9A%E9%9B%86%E7%BE%A4%E8%BF%9B%E5%87%BA%E6%B5%81%E9%87%8F%E7%9A%84%E6%80%BB%E7%AE%A1/12.webp" class="">
       
     </div>
 
@@ -665,7 +658,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Kubernetes入门实战课/" rel="tag"># Kubernetes入门实战课</a>
+            <a href="/tags/Kubernetes%E5%85%A5%E9%97%A8%E5%AE%9E%E6%88%98%E8%AF%BE/" rel="tag"># Kubernetes入门实战课</a>
           
         </div>
       
@@ -678,7 +671,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/09/12/20｜Service：微服务架构的应对之道/" rel="next" title="20丨Service：微服务架构的应对之道">
+              <a href="/2022/09/12/20%EF%BD%9CService%EF%BC%9A%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84%E7%9A%84%E5%BA%94%E5%AF%B9%E4%B9%8B%E9%81%93/" rel="next" title="20丨Service：微服务架构的应对之道">
                 <i class="fa fa-chevron-left"></i> 20丨Service：微服务架构的应对之道
               </a>
             
@@ -688,7 +681,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/09/12/22｜实战演练：玩转Kubernetes（2）/" rel="prev" title="22丨实战演练：玩转Kubernetes（2）">
+              <a href="/2022/09/12/22%EF%BD%9C%E5%AE%9E%E6%88%98%E6%BC%94%E7%BB%83%EF%BC%9A%E7%8E%A9%E8%BD%ACKubernetes%EF%BC%882%EF%BC%89/" rel="prev" title="22丨实战演练：玩转Kubernetes（2）">
                 22丨实战演练：玩转Kubernetes（2） <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -748,7 +741,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -759,9 +754,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -773,26 +768,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -864,7 +843,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1039,115 +1018,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1178,23 +1049,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1220,7 +1091,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么要有Ingress"><span class="nav-number">1.</span> <span class="nav-text">为什么要有Ingress</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么要有Ingress-Controller"><span class="nav-number">2.</span> <span class="nav-text">为什么要有Ingress Controller</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么要有Ingress-Class"><span class="nav-number">3.</span> <span class="nav-text">为什么要有Ingress Class</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何使用YAML描述Ingress-Ingress-Class"><span class="nav-number">4.</span> <span class="nav-text">如何使用YAML描述Ingress/Ingress Class</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何在Kubernetes里使用Ingress-Ingress-Class"><span class="nav-number">5.</span> <span class="nav-text">如何在Kubernetes里使用Ingress/Ingress Class</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何在Kubernetes里使用Ingress-Controller"><span class="nav-number">6.</span> <span class="nav-text">如何在Kubernetes里使用Ingress Controller</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">7.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课下作业"><span class="nav-number">8.</span> <span class="nav-text">课下作业</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89Ingress"><span class="nav-number">1.</span> <span class="nav-text">为什么要有Ingress</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89Ingress-Controller"><span class="nav-number">2.</span> <span class="nav-text">为什么要有Ingress Controller</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89Ingress-Class"><span class="nav-number">3.</span> <span class="nav-text">为什么要有Ingress Class</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8YAML%E6%8F%8F%E8%BF%B0Ingress-Ingress-Class"><span class="nav-number">4.</span> <span class="nav-text">如何使用YAML描述Ingress&#x2F;Ingress Class</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8Kubernetes%E9%87%8C%E4%BD%BF%E7%94%A8Ingress-Ingress-Class"><span class="nav-number">5.</span> <span class="nav-text">如何在Kubernetes里使用Ingress&#x2F;Ingress Class</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8Kubernetes%E9%87%8C%E4%BD%BF%E7%94%A8Ingress-Controller"><span class="nav-number">6.</span> <span class="nav-text">如何在Kubernetes里使用Ingress Controller</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BE%E4%B8%8B%E4%BD%9C%E4%B8%9A"><span class="nav-number">8.</span> <span class="nav-text">课下作业</span></a></li></ol></div>
             
 
           </div>
@@ -1255,7 +1126,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1266,12 +1137,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1279,7 +1150,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

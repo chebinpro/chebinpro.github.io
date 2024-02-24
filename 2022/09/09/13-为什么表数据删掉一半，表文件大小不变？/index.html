@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,30 +104,30 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="MySQL实战45讲">
 <meta property="og:type" content="article">
 <meta property="og:title" content="13 | 为什么表数据删掉一半，表文件大小不变？">
-<meta property="og:url" content="http://yoursite.com/2022/09/09/13-为什么表数据删掉一半，表文件大小不变？/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/09/09/13-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A1%A8%E6%95%B0%E6%8D%AE%E5%88%A0%E6%8E%89%E4%B8%80%E5%8D%8A%EF%BC%8C%E8%A1%A8%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%E4%B8%8D%E5%8F%98%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/09/09/13-为什么表数据删掉一半，表文件大小不变？/1.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/09/13-为什么表数据删掉一半，表文件大小不变？/2.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/09/13-为什么表数据删掉一半，表文件大小不变？/3.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/09/13-为什么表数据删掉一半，表文件大小不变？/4.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/09/13-为什么表数据删掉一半，表文件大小不变？/5.webp">
-<meta property="og:updated_time" content="2022-09-14T06:50:49.888Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/09/09/13-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A1%A8%E6%95%B0%E6%8D%AE%E5%88%A0%E6%8E%89%E4%B8%80%E5%8D%8A%EF%BC%8C%E8%A1%A8%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%E4%B8%8D%E5%8F%98%EF%BC%9F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/09/13-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A1%A8%E6%95%B0%E6%8D%AE%E5%88%A0%E6%8E%89%E4%B8%80%E5%8D%8A%EF%BC%8C%E8%A1%A8%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%E4%B8%8D%E5%8F%98%EF%BC%9F/2.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/09/13-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A1%A8%E6%95%B0%E6%8D%AE%E5%88%A0%E6%8E%89%E4%B8%80%E5%8D%8A%EF%BC%8C%E8%A1%A8%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%E4%B8%8D%E5%8F%98%EF%BC%9F/3.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/09/13-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A1%A8%E6%95%B0%E6%8D%AE%E5%88%A0%E6%8E%89%E4%B8%80%E5%8D%8A%EF%BC%8C%E8%A1%A8%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%E4%B8%8D%E5%8F%98%EF%BC%9F/4.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/09/13-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A1%A8%E6%95%B0%E6%8D%AE%E5%88%A0%E6%8E%89%E4%B8%80%E5%8D%8A%EF%BC%8C%E8%A1%A8%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%E4%B8%8D%E5%8F%98%EF%BC%9F/5.webp">
+<meta property="article:published_time" content="2022-09-09T09:48:01.000Z">
+<meta property="article:modified_time" content="2022-09-14T06:50:49.888Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="MySQL实战45讲">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="13 | 为什么表数据删掉一半，表文件大小不变？">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2022/09/09/13-为什么表数据删掉一半，表文件大小不变？/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2022/09/09/13-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A1%A8%E6%95%B0%E6%8D%AE%E5%88%A0%E6%8E%89%E4%B8%80%E5%8D%8A%EF%BC%8C%E8%A1%A8%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%E4%B8%8D%E5%8F%98%EF%BC%9F/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/09/09/13-为什么表数据删掉一半，表文件大小不变？/">
+  <link rel="canonical" href="http://yoursite.com/2022/09/09/13-为什么表数据删掉一半，表文件大小不变？/"/>
 
 
 
@@ -176,7 +176,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -237,7 +237,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -254,7 +254,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -271,7 +271,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -288,7 +288,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -305,7 +305,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -316,7 +316,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -336,7 +336,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -386,16 +388,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/09/13-为什么表数据删掉一半，表文件大小不变？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/09/13-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A1%A8%E6%95%B0%E6%8D%AE%E5%88%A0%E6%8E%89%E4%B8%80%E5%8D%8A%EF%BC%8C%E8%A1%A8%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%E4%B8%8D%E5%8F%98%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -495,7 +497,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">5.2k</span>
+                <span title="本文字数">8.7k</span>
               
 
               
@@ -509,7 +511,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">5 分钟</span>
+                <span title="阅读时长">8 分钟</span>
               
             </div>
           
@@ -530,7 +532,7 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>经常会有同学来问我，我的数据库占用空间太大，我把一个最大的表删掉了一半的数据，怎么表文件的大小还是没变？</p>
 <p>那么今天，我就和你聊聊数据库表的空间回收，看看如何解决这个问题。</p>
 <p>这里，我们还是针对MySQL中应用最广泛的InnoDB引擎展开讨论。一个InnoDB表包含两部分，即：表结构定义和数据。在MySQL8.0版本以前，表结构是存在以.frm为后缀的文件里。而MySQL8.0版本，则已经允许把表结构定义放在系统数据表中了。因为表结构定义占用的空间很小，所以我们今天主要讨论的是表数据。</p>
@@ -547,7 +549,7 @@
 <blockquote>
 <p>图1 B+树索引示意图</p>
 </blockquote>
-<img src="/2022/09/09/13-为什么表数据删掉一半，表文件大小不变？/1.webp">
+<img src="/2022/09/09/13-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A1%A8%E6%95%B0%E6%8D%AE%E5%88%A0%E6%8E%89%E4%B8%80%E5%8D%8A%EF%BC%8C%E8%A1%A8%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%E4%B8%8D%E5%8F%98%EF%BC%9F/1.webp" class="">
 <p>假设，我们要删掉R4这个记录，InnoDB引擎只会把R4这个记录标记为删除。如果之后要再插入一个ID在300和600之间的记录时，可能会复用这个位置。但是，磁盘文件的大小并不会缩小。</p>
 <p>现在，你已经知道了InnoDB的数据是按页存储的，那么如果我们删掉了一个数据页上的所有记录，会怎么样？</p>
 <p>答案是，整个数据页就可以被复用了。</p>
@@ -563,7 +565,7 @@
 <blockquote>
 <p>图2 插入数据导致页分裂</p>
 </blockquote>
-<img src="/2022/09/09/13-为什么表数据删掉一半，表文件大小不变？/2.webp">
+<img src="/2022/09/09/13-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A1%A8%E6%95%B0%E6%8D%AE%E5%88%A0%E6%8E%89%E4%B8%80%E5%8D%8A%EF%BC%8C%E8%A1%A8%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%E4%B8%8D%E5%8F%98%EF%BC%9F/2.webp" class="">
 <p>可以看到，由于pageA满了，再插入一个ID是550的数据时，就不得不再申请一个新的页面pageB来保存数据了。页分裂完成后，pageA的末尾就留下了空洞（注意：实际上，可能不止1个记录的位置是空洞）。</p>
 <p>另外，更新索引上的值，可以理解为删除一个旧的值，再插入一个新值。不难理解，这也是会造成空洞的。</p>
 <p>也就是说，经过大量增删改的表，都是可能是存在空洞的。所以，如果能够把这些空洞去掉，就能达到收缩表空间的目的。</p>
@@ -575,7 +577,7 @@
 <blockquote>
 <p>图3 改锁表DDL</p>
 </blockquote>
-<img src="/2022/09/09/13-为什么表数据删掉一半，表文件大小不变？/3.webp">
+<img src="/2022/09/09/13-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A1%A8%E6%95%B0%E6%8D%AE%E5%88%A0%E6%8E%89%E4%B8%80%E5%8D%8A%EF%BC%8C%E8%A1%A8%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%E4%B8%8D%E5%8F%98%EF%BC%9F/3.webp" class="">
 <p>显然，花时间最多的步骤是往临时表插入数据的过程，如果在这个过程中，有新的数据要写入到表A的话，就会造成数据丢失。因此，在整个DDL过程中，表A中不能有更新。也就是说，这个DDL不是Online的。</p>
 <p>而在MySQL5.6版本开始引入的OnlineDDL，对这个操作流程做了优化。</p>
 <p>我给你简单描述一下引入了OnlineDDL之后，重建表的流程：</p>
@@ -587,7 +589,7 @@
 <blockquote>
 <p>图4 OnlineDDL</p>
 </blockquote>
-<img src="/2022/09/09/13-为什么表数据删掉一半，表文件大小不变？/4.webp">
+<img src="/2022/09/09/13-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A1%A8%E6%95%B0%E6%8D%AE%E5%88%A0%E6%8E%89%E4%B8%80%E5%8D%8A%EF%BC%8C%E8%A1%A8%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%E4%B8%8D%E5%8F%98%EF%BC%9F/4.webp" class="">
 <p>可以看到，与图3过程的不同之处在于，由于日志文件记录和重放操作这个功能的存在，这个方案在重建表的过程中，允许对表A做增删改操作。这也就是OnlineDDL名字的来源。</p>
 <p>我记得有同学在第6篇讲表锁的文章《全局锁和表锁：给表加个字段怎么索这么多阻碍？》的评论区留言说，DDL之前是要拿MDL写锁的，这样还能叫OnlineDDL吗？</p>
 <p>确实，图4的流程中，alter语句在启动的时候需要获取MDL写锁，但是这个写锁在真正拷贝数据之前就退化成读锁了。</p>
@@ -600,13 +602,10 @@
 <p>在图4中，根据表A重建出来的数据是放在“tmp_file”里的，这个临时文件是InnoDB在内部创建出来的。整个DDL过程都在InnoDB内部完成。对于server层来说，没有把数据挪动到临时表，是一个“原地”操作，这就是“inplace”名称的来源。</p>
 <p>所以，我现在问你，如果你有一个1TB的表，现在磁盘间是1.2TB，能不能做一个inplace的DDL呢？</p>
 <p>答案是不能。因为，tmp_file也是要占用临时空间的。</p>
-<p>我们重建表的这个语句<code>alter table t engine=InnoDB</code>，其实隐含的意思是：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t <span class="keyword">engine</span>=<span class="keyword">innodb</span>,ALGORITHM=inplace;</span><br></pre></td></tr></table></figure></p>
-<p>跟inplace对应的就是拷贝表的方式了，用法是：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t <span class="keyword">engine</span>=<span class="keyword">innodb</span>,ALGORITHM=copy;</span><br></pre></td></tr></table></figure></p>
-<p>当你使用ALGORITHM=copy的时候，表示的是强制拷贝表，对应的流程就是图3的操作过程。</p>
+<p>我们重建表的这个语句<code>alter table t engine=InnoDB</code>，其实隐含的意思是：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t engine<span class="operator">=</span>innodb,ALGORITHM<span class="operator">=</span>inplace;</span><br></pre></td></tr></table></figure><br>跟inplace对应的就是拷贝表的方式了，用法是：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t engine<span class="operator">=</span>innodb,ALGORITHM<span class="operator">=</span><span class="keyword">copy</span>;</span><br></pre></td></tr></table></figure><br>当你使用ALGORITHM=copy的时候，表示的是强制拷贝表，对应的流程就是图3的操作过程。</p>
 <p>但我这样说你可能会觉得，inplace跟Online是不是就是一个意思？</p>
 <p>其实不是的，只是在重建表这个逻辑中刚好是这样而已。</p>
-<p>比如，如果我要给InnoDB表的一个字段加全文索引，写法是：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t <span class="keyword">add</span> FULLTEXT(field_name);</span><br></pre></td></tr></table></figure></p>
-<p>这个过程是inplace的，但会阻塞增删改操作，是非Online的。</p>
+<p>比如，如果我要给InnoDB表的一个字段加全文索引，写法是：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t <span class="keyword">add</span> FULLTEXT(field_name);</span><br></pre></td></tr></table></figure><br>这个过程是inplace的，但会阻塞增删改操作，是非Online的。</p>
 <p>如果说这两个逻辑之间的关系是什么的话，可以概括为：</p>
 <p>1，DDL过程如果是Online的，就一定是inplace的；</p>
 <p>2，反过来未必，也就是说inplace的DDL，有可能不是Online的。截止到MySQL8.0，添加全文索引（FULL TEXT index）和空间索引(SPATIAL index)就属于这种情况。</p>
@@ -627,7 +626,7 @@
 <p>你觉得可能是什么原因呢？</p>
 <h1 id="上期问题时间"><a href="#上期问题时间" class="headerlink" title="上期问题时间"></a><span style="color:#339AFF;">上期问题时间</span></h1><p>在上期文章最后，我留给你的问题是，如果一个高配的机器，redolog设置太小，会发生什么情况。</p>
 <p>每次事务提交都要写redolog，如果设置太小，很快就会被写满，也就是下面这个图的状态，这个“环”将很快被写满，writepos一直追着CP。</p>
-<img src="/2022/09/09/13-为什么表数据删掉一半，表文件大小不变？/5.webp">
+<img src="/2022/09/09/13-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A1%A8%E6%95%B0%E6%8D%AE%E5%88%A0%E6%8E%89%E4%B8%80%E5%8D%8A%EF%BC%8C%E8%A1%A8%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F%E4%B8%8D%E5%8F%98%EF%BC%9F/5.webp" class="">
 <p>这时候系统不得不停止所有更新，去推进checkpoint。</p>
 <p>这时，你看到的现象就是磁盘压力很小，但是数据库出现间歇性的性能下跌。</p>
 <p>评论区留言点赞板：@某、人给了一个形象的描述，而且提到了，在这种情况下，连changebuffer的优化也失效了。因为checkpoint一直要往前推，这个操作就会触发merge操作，然后又进一步地触发刷脏页操作；有几个同学提到了内存淘汰脏页，对应的redolog的操作，这个我们会在后面的文章中展开，大家可以先看一下@melon同学的描述了解一下；@算不出流源提到了“动态平衡”，其实只要出现了这种“平衡”，意味着本应该后台的操作，就已经影响了业务应用，属于有损失的平衡。确认放弃笔记？放弃后所记笔记将不保留。新功能上线，你的历史笔记已初始化为私密笔记，是否一键批量公开？批量公开的笔记不会为你同步至部落公开同步至部落取消完成0/2000划线笔记复制</p>
@@ -654,7 +653,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/MySQL实战45讲/" rel="tag"># MySQL实战45讲</a>
+            <a href="/tags/MySQL%E5%AE%9E%E6%88%9845%E8%AE%B2/" rel="tag"># MySQL实战45讲</a>
           
         </div>
       
@@ -667,7 +666,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/09/09/12-为什么我的MySQL会“抖”一下？/" rel="next" title="12 | 为什么我的MySQL会“抖”一下？">
+              <a href="/2022/09/09/12-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E7%9A%84MySQL%E4%BC%9A%E2%80%9C%E6%8A%96%E2%80%9D%E4%B8%80%E4%B8%8B%EF%BC%9F/" rel="next" title="12 | 为什么我的MySQL会“抖”一下？">
                 <i class="fa fa-chevron-left"></i> 12 | 为什么我的MySQL会“抖”一下？
               </a>
             
@@ -677,7 +676,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/09/09/14-count-这么慢，我该怎么办？/" rel="prev" title="14 | count(*)这么慢，我该怎么办？">
+              <a href="/2022/09/09/14-count-%E8%BF%99%E4%B9%88%E6%85%A2%EF%BC%8C%E6%88%91%E8%AF%A5%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F/" rel="prev" title="14 | count(*)这么慢，我该怎么办？">
                 14 | count(*)这么慢，我该怎么办？ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -737,7 +736,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -748,9 +749,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -762,26 +763,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -853,7 +838,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1028,115 +1013,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1167,23 +1044,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1209,7 +1086,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#参数innodb-file-per-table"><span class="nav-number">1.</span> <span class="nav-text">参数innodb_file_per_table</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据删除流程"><span class="nav-number">2.</span> <span class="nav-text">数据删除流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重建表"><span class="nav-number">3.</span> <span class="nav-text">重建表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Online和inplace"><span class="nav-number">4.</span> <span class="nav-text">Online和inplace</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#上期问题时间"><span class="nav-number">6.</span> <span class="nav-text">上期问题时间</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%82%E6%95%B0innodb-file-per-table"><span class="nav-number">1.</span> <span class="nav-text">参数innodb_file_per_table</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%88%A0%E9%99%A4%E6%B5%81%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">数据删除流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8D%E5%BB%BA%E8%A1%A8"><span class="nav-number">3.</span> <span class="nav-text">重建表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Online%E5%92%8Cinplace"><span class="nav-number">4.</span> <span class="nav-text">Online和inplace</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8A%E6%9C%9F%E9%97%AE%E9%A2%98%E6%97%B6%E9%97%B4"><span class="nav-number">6.</span> <span class="nav-text">上期问题时间</span></a></li></ol></div>
             
 
           </div>
@@ -1244,7 +1121,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1255,12 +1132,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1268,7 +1145,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

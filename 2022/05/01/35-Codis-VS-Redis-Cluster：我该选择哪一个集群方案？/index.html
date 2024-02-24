@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,33 +104,33 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="Redis核心技术与实战">
 <meta property="og:type" content="article">
 <meta property="og:title" content="35 | Codis VS Redis Cluster：我该选择哪一个集群方案？">
-<meta property="og:url" content="http://yoursite.com/2022/05/01/35-Codis-VS-Redis-Cluster：我该选择哪一个集群方案？/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/05/01/35-Codis-VS-Redis-Cluster%EF%BC%9A%E6%88%91%E8%AF%A5%E9%80%89%E6%8B%A9%E5%93%AA%E4%B8%80%E4%B8%AA%E9%9B%86%E7%BE%A4%E6%96%B9%E6%A1%88%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/05/01/35-Codis-VS-Redis-Cluster：我该选择哪一个集群方案？/1.webp">
-<meta property="og:image" content="http://yoursite.com/2022/05/01/35-Codis-VS-Redis-Cluster：我该选择哪一个集群方案？/2.webp">
-<meta property="og:image" content="http://yoursite.com/2022/05/01/35-Codis-VS-Redis-Cluster：我该选择哪一个集群方案？/3.webp">
-<meta property="og:image" content="http://yoursite.com/2022/05/01/35-Codis-VS-Redis-Cluster：我该选择哪一个集群方案？/4.webp">
-<meta property="og:image" content="http://yoursite.com/2022/05/01/35-Codis-VS-Redis-Cluster：我该选择哪一个集群方案？/5.webp">
-<meta property="og:image" content="http://yoursite.com/2022/05/01/35-Codis-VS-Redis-Cluster：我该选择哪一个集群方案？/6.webp">
-<meta property="og:image" content="http://yoursite.com/2022/05/01/35-Codis-VS-Redis-Cluster：我该选择哪一个集群方案？/7.webp">
-<meta property="og:image" content="http://yoursite.com/2022/05/01/35-Codis-VS-Redis-Cluster：我该选择哪一个集群方案？/8.webp">
-<meta property="og:updated_time" content="2022-11-05T15:47:36.568Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/05/01/35-Codis-VS-Redis-Cluster%EF%BC%9A%E6%88%91%E8%AF%A5%E9%80%89%E6%8B%A9%E5%93%AA%E4%B8%80%E4%B8%AA%E9%9B%86%E7%BE%A4%E6%96%B9%E6%A1%88%EF%BC%9F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2022/05/01/35-Codis-VS-Redis-Cluster%EF%BC%9A%E6%88%91%E8%AF%A5%E9%80%89%E6%8B%A9%E5%93%AA%E4%B8%80%E4%B8%AA%E9%9B%86%E7%BE%A4%E6%96%B9%E6%A1%88%EF%BC%9F/2.webp">
+<meta property="og:image" content="http://yoursite.com/2022/05/01/35-Codis-VS-Redis-Cluster%EF%BC%9A%E6%88%91%E8%AF%A5%E9%80%89%E6%8B%A9%E5%93%AA%E4%B8%80%E4%B8%AA%E9%9B%86%E7%BE%A4%E6%96%B9%E6%A1%88%EF%BC%9F/3.webp">
+<meta property="og:image" content="http://yoursite.com/2022/05/01/35-Codis-VS-Redis-Cluster%EF%BC%9A%E6%88%91%E8%AF%A5%E9%80%89%E6%8B%A9%E5%93%AA%E4%B8%80%E4%B8%AA%E9%9B%86%E7%BE%A4%E6%96%B9%E6%A1%88%EF%BC%9F/4.webp">
+<meta property="og:image" content="http://yoursite.com/2022/05/01/35-Codis-VS-Redis-Cluster%EF%BC%9A%E6%88%91%E8%AF%A5%E9%80%89%E6%8B%A9%E5%93%AA%E4%B8%80%E4%B8%AA%E9%9B%86%E7%BE%A4%E6%96%B9%E6%A1%88%EF%BC%9F/5.webp">
+<meta property="og:image" content="http://yoursite.com/2022/05/01/35-Codis-VS-Redis-Cluster%EF%BC%9A%E6%88%91%E8%AF%A5%E9%80%89%E6%8B%A9%E5%93%AA%E4%B8%80%E4%B8%AA%E9%9B%86%E7%BE%A4%E6%96%B9%E6%A1%88%EF%BC%9F/6.webp">
+<meta property="og:image" content="http://yoursite.com/2022/05/01/35-Codis-VS-Redis-Cluster%EF%BC%9A%E6%88%91%E8%AF%A5%E9%80%89%E6%8B%A9%E5%93%AA%E4%B8%80%E4%B8%AA%E9%9B%86%E7%BE%A4%E6%96%B9%E6%A1%88%EF%BC%9F/7.webp">
+<meta property="og:image" content="http://yoursite.com/2022/05/01/35-Codis-VS-Redis-Cluster%EF%BC%9A%E6%88%91%E8%AF%A5%E9%80%89%E6%8B%A9%E5%93%AA%E4%B8%80%E4%B8%AA%E9%9B%86%E7%BE%A4%E6%96%B9%E6%A1%88%EF%BC%9F/8.webp">
+<meta property="article:published_time" content="2022-05-01T08:32:41.000Z">
+<meta property="article:modified_time" content="2022-11-05T15:47:36.568Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Redis核心技术与实战">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="35 | Codis VS Redis Cluster：我该选择哪一个集群方案？">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2022/05/01/35-Codis-VS-Redis-Cluster：我该选择哪一个集群方案？/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2022/05/01/35-Codis-VS-Redis-Cluster%EF%BC%9A%E6%88%91%E8%AF%A5%E9%80%89%E6%8B%A9%E5%93%AA%E4%B8%80%E4%B8%AA%E9%9B%86%E7%BE%A4%E6%96%B9%E6%A1%88%EF%BC%9F/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/05/01/35-Codis-VS-Redis-Cluster：我该选择哪一个集群方案？/">
+  <link rel="canonical" href="http://yoursite.com/2022/05/01/35-Codis-VS-Redis-Cluster：我该选择哪一个集群方案？/"/>
 
 
 
@@ -179,7 +179,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -240,7 +240,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -257,7 +257,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -274,7 +274,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -291,7 +291,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -308,7 +308,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -319,7 +319,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -339,7 +339,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -389,16 +391,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/05/01/35-Codis-VS-Redis-Cluster：我该选择哪一个集群方案？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/05/01/35-Codis-VS-Redis-Cluster%EF%BC%9A%E6%88%91%E8%AF%A5%E9%80%89%E6%8B%A9%E5%93%AA%E4%B8%80%E4%B8%AA%E9%9B%86%E7%BE%A4%E6%96%B9%E6%A1%88%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -498,7 +500,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">7.8k</span>
+                <span title="本文字数">11k</span>
               
 
               
@@ -512,7 +514,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">7 分钟</span>
+                <span title="阅读时长">10 分钟</span>
               
             </div>
           
@@ -533,8 +535,8 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
-<p>Redis的切片集群使用多个实例保存数据，能够很好地应对大数据量的场景。在<a href="/2022/05/01/08-哨兵集群：哨兵挂了，主从库还能切换吗？/" title="第8讲">第8讲</a>中，我们学习了Redis官方提供的切片集群方案Redis Cluster，这为你掌握切片集群打下了基础。今天，我再来带你进阶一下，我们来学习下Redis Cluster方案正式发布前，业界已经广泛使用的Codis。</p>
+<span id="more"></span>
+<p>Redis的切片集群使用多个实例保存数据，能够很好地应对大数据量的场景。在<a href="/2022/05/01/08-%E5%93%A8%E5%85%B5%E9%9B%86%E7%BE%A4%EF%BC%9A%E5%93%A8%E5%85%B5%E6%8C%82%E4%BA%86%EF%BC%8C%E4%B8%BB%E4%BB%8E%E5%BA%93%E8%BF%98%E8%83%BD%E5%88%87%E6%8D%A2%E5%90%97%EF%BC%9F/" title="08 | 哨兵集群：哨兵挂了，主从库还能切换吗？">第8讲</a>中，我们学习了Redis官方提供的切片集群方案Redis Cluster，这为你掌握切片集群打下了基础。今天，我再来带你进阶一下，我们来学习下Redis Cluster方案正式发布前，业界已经广泛使用的Codis。</p>
 <p>我会具体讲解Codis的关键技术实现原理，同时将Codis和Redis Cluster进行对比，帮你选出最佳的集群方案。</p>
 <p>好了，话不多说，我们先来学习下Codis的整体架构和流程。</p>
 <h1 id="Codis的整体架构和基本流程"><a href="#Codis的整体架构和基本流程" class="headerlink" title="Codis的整体架构和基本流程"></a><span style="color:#339AFF;">Codis的整体架构和基本流程</span></h1><p>Codis集群中包含了4类关键组件。</p>
@@ -545,24 +547,24 @@
 <li>codis dashboard和codisfe：共同组成了集群管理工具。其中，codis dashboard负责执行集群管理工作，包括增删codis server、codis proxy和进行数据迁移。而codisfe负责提供dashboard的Web操作界面，便于我们直接在Web界面上进行集群管理。</li>
 </ul>
 <p>我用一张图来展示下Codis集群的架构和关键组件。</p>
-<img src="/2022/05/01/35-Codis-VS-Redis-Cluster：我该选择哪一个集群方案？/1.webp">
+<img src="/2022/05/01/35-Codis-VS-Redis-Cluster%EF%BC%9A%E6%88%91%E8%AF%A5%E9%80%89%E6%8B%A9%E5%93%AA%E4%B8%80%E4%B8%AA%E9%9B%86%E7%BE%A4%E6%96%B9%E6%A1%88%EF%BC%9F/1.webp" class="">
 <p>我来给你具体解释一下Codis是如何处理请求的。</p>
 <p>首先，为了让集群能接收并处理请求，我们要先使用codis dashboard设置codis server和codis proxy的访问地址，完成设置后，codis server和codis proxy才会开始接收连接。</p>
 <p>然后，当客户端要读写数据时，客户端直接和codis proxy建立连接。你可能会担心，既然客户端连接的是proxy，是不是需要修改客户端，才能访问proxy？其实，你不用担心，codis proxy本身支持Redis的RESP交互协议，所以，客户端访问codis proxy时，和访问原生的Redis实例没有什么区别，这样一来，原本连接单实例的客户端就可以轻松地和Codis集群建立起连接了。</p>
 <p>最后，codis proxy接收到请求，就会查询请求数据和codis server的映射关系，并把请求转发给相应的codis server进行处理。当codis server处理完请求后，会把结果返回给codis proxy，proxy再把数据返回给客户端。</p>
 <p>我来用一张图展示这个处理流程：</p>
-<img src="/2022/05/01/35-Codis-VS-Redis-Cluster：我该选择哪一个集群方案？/2.webp">
+<img src="/2022/05/01/35-Codis-VS-Redis-Cluster%EF%BC%9A%E6%88%91%E8%AF%A5%E9%80%89%E6%8B%A9%E5%93%AA%E4%B8%80%E4%B8%AA%E9%9B%86%E7%BE%A4%E6%96%B9%E6%A1%88%EF%BC%9F/2.webp" class="">
 <p>好了，了解了Codis集群架构和基本流程后，接下来，我就围绕影响切片集群使用效果的4方面技术因素：数据分布、集群扩容和数据迁移、客户端兼容性、可靠性保证，来和你聊聊它们的具体设计选择和原理，帮你掌握Codis的具体用法。</p>
 <h1 id="Codis的关键技术原理"><a href="#Codis的关键技术原理" class="headerlink" title="Codis的关键技术原理"></a><span style="color:#339AFF;">Codis的关键技术原理</span></h1><p>一旦我们使用了切片集群，面临的第一个问题就是，<strong>数据是怎么在多个实例上分布的</strong>。</p>
 <h2 id="数据如何在集群里分布？"><a href="#数据如何在集群里分布？" class="headerlink" title="数据如何在集群里分布？"></a><span style="color:#339AFF;">数据如何在集群里分布？</span></h2><p>在Codis集群中，一个数据应该保存在哪个codis server上，这是通过逻辑槽（Slot）映射来完成的，具体来说，总共分成两步。</p>
 <p>第一步，Codis集群一共有1024个Slot，编号依次是0到1023。我们可以把这些Slot手动分配给codis server，每个server上包含一部分Slot。当然，我们也可以让codis dashboard进行自动分配，例如，dashboard把1024个Slot在所有server上均分。</p>
 <p>第二步，当客户端要读写数据时，会使用CRC32算法计算数据key的哈希值，并把这个哈希值对1024取模。而取模后的值，则对应Slot的编号。此时，根据第一步分配的Slot和server对应关系，我们就可以知道数据保存在哪个server上了。</p>
 <p>我来举个例子。下图显示的就是数据、Slot和codis server的映射保存关系。其中，Slot0和1被分配到了server1，Slot2分配到server2，Slot1022和1023被分配到server8。当客户端访问key1和key2时，这两个数据的CRC32值对1024取模后，分别是1和1022。因此，它们会被保存在Slot1和Slot1022上，而Slot1和Slot1022已经被分配到codis server1和8上了。这样一来，key1和key2的保存位置就很清楚了。</p>
-<img src="/2022/05/01/35-Codis-VS-Redis-Cluster：我该选择哪一个集群方案？/3.webp">
+<img src="/2022/05/01/35-Codis-VS-Redis-Cluster%EF%BC%9A%E6%88%91%E8%AF%A5%E9%80%89%E6%8B%A9%E5%93%AA%E4%B8%80%E4%B8%AA%E9%9B%86%E7%BE%A4%E6%96%B9%E6%A1%88%EF%BC%9F/3.webp" class="">
 <p>数据key和Slot的映射关系是客户端在读写数据前直接通过CRC32计算得到的，而Slot和codis server的映射关系是通过分配完成的，所以就需要用一个存储系统保存下来，否则，如果集群有故障了，映射关系就会丢失。</p>
 <p>我们把Slot和codis server的映射关系称为数据路由表（简称路由表）。我们在codis dashboard上分配好路由表后，dashboard会把路由表发送给codis proxy，同时，dashboard也会把路由表保存在Zookeeper中。codis-proxy会把路由表缓存在本地，当它接收到客户端请求后，直接查询本地的路由表，就可以完成正确的请求转发了。</p>
 <p>你可以看下这张图，它显示了路由表的分配和使用过程。</p>
-<img src="/2022/05/01/35-Codis-VS-Redis-Cluster：我该选择哪一个集群方案？/4.webp">
+<img src="/2022/05/01/35-Codis-VS-Redis-Cluster%EF%BC%9A%E6%88%91%E8%AF%A5%E9%80%89%E6%8B%A9%E5%93%AA%E4%B8%80%E4%B8%AA%E9%9B%86%E7%BE%A4%E6%96%B9%E6%A1%88%EF%BC%9F/4.webp" class="">
 <p>在数据分布的实现方法上，Codis和Redis Cluster很相似，都采用了key映射到Slot、Slot再分配到实例上的机制。</p>
 <p>但是，这里有一个明显的区别，我来解释一下。</p>
 <p>Codis中的路由表是我们通过codis dashboard分配和修改的，并被保存在Zookeeper集群中。一旦数据位置发生变化（例如有实例增减），路由表被修改了，codisdashbaord就会把修改后的路由表发送给codis proxy，proxy就可以根据最新的路由信息转发请求了。</p>
@@ -578,7 +580,7 @@
 <p>2，目的server确认收到数据后，会给源server返回确认消息。这时，源server会在本地将刚才迁移的数据删除。</p>
 <p>3，第一步和第二步就是单个数据的迁移过程。Codis会不断重复这个迁移过程，直到要迁移的Slot中的数据全部迁移完成。</p>
 <p>我画了下面这张图，显示了数据迁移的流程，你可以看下加深理解。</p>
-<img src="/2022/05/01/35-Codis-VS-Redis-Cluster：我该选择哪一个集群方案？/5.webp">
+<img src="/2022/05/01/35-Codis-VS-Redis-Cluster%EF%BC%9A%E6%88%91%E8%AF%A5%E9%80%89%E6%8B%A9%E5%93%AA%E4%B8%80%E4%B8%AA%E9%9B%86%E7%BE%A4%E6%96%B9%E6%A1%88%EF%BC%9F/5.webp" class="">
 <p>针对刚才介绍的单个数据的迁移过程，Codis实现了两种迁移模式，分别是同步迁移和异步迁移，我们来具体看下。</p>
 <p>同步迁移是指，在数据从源server发送给目的server的过程中，源server是阻塞的，无法处理新的请求操作。这种模式很容易实现，但是迁移过程中会涉及多个操作（包括数据在源server序列化、网络传输、在目的server反序列化，以及在源server删除），如果迁移的数据是一个bigkey，源server就会阻塞较长时间，无法及时处理用户请求。</p>
 <p>为了避免数据迁移阻塞源server，Codis实现的第二种迁移模式就是异步迁移。异步迁移的关键特点有两个。</p>
@@ -593,7 +595,7 @@
 <p>因为在Codis集群中，客户端是和codis proxy直接连接的，所以，当客户端增加时，一个proxy无法支撑大量的请求操作，此时，我们就需要增加proxy。</p>
 <p>增加proxy比较容易，我们直接启动proxy，再通过codis dashboard把proxy加入集群就行。</p>
 <p>此时，codis proxy的访问连接信息都会保存在Zookeeper上。所以，当新增了proxy后，Zookeeper上会有最新的访问列表，客户端也就可以从Zookeeper上读取proxy访问列表，把请求发送给新增的proxy。这样一来，客户端的访问压力就可以在多个proxy上分担处理了，如下图所示：</p>
-<img src="/2022/05/01/35-Codis-VS-Redis-Cluster：我该选择哪一个集群方案？/6.webp">
+<img src="/2022/05/01/35-Codis-VS-Redis-Cluster%EF%BC%9A%E6%88%91%E8%AF%A5%E9%80%89%E6%8B%A9%E5%93%AA%E4%B8%80%E4%B8%AA%E9%9B%86%E7%BE%A4%E6%96%B9%E6%A1%88%EF%BC%9F/6.webp" class="">
 <p>好了，到这里，我们就了解了Codis集群中的数据分布、集群扩容和数据迁移的方法，这都是切片集群中的关键机制。</p>
 <p>不过，因为集群提供的功能和单实例提供的功能不同，所以，我们在应用集群时，不仅要关注切片集群中的关键机制，还需要关注客户端的使用。这里就有一个问题了：业务应用采用的客户端能否直接和集群交互呢？接下来，我们就来聊下这个问题。</p>
 <h1 id="集群客户端需要重新开发吗？"><a href="#集群客户端需要重新开发吗？" class="headerlink" title="集群客户端需要重新开发吗？"></a><span style="color:#339AFF;">集群客户端需要重新开发吗？</span></h1><p>使用Redis单实例时，客户端只要符合RESP协议，就可以和实例进行交互和读写数据。但是，在使用切片集群时，有些功能是和单实例不一样的，比如集群中的数据迁移操作，在单实例上是没有的，而且迁移过程中，数据访问请求可能要被重定向（例如Redis Cluster中的MOVE命令）。</p>
@@ -607,13 +609,13 @@
 <p>codis server其实就是Redis实例，只不过增加了和集群操作相关的命令。Redis的主从复制机制和哨兵机制在codis server上都是可以使用的，所以，Codis就使用主从集群来保证codis server的可靠性。简单来说就是，Codis给每个server配置从库，并使用哨兵机制进行监控，当发生故障时，主从库可以进行切换，从而保证了server的可靠性。</p>
 <p>在这种配置情况下，每个server就成为了一个servergroup，每个group中是一主多从的server。数据分布使用的Slot，也是按照group的粒度进行分配的。同时，codis proxy在转发请求时，也是按照数据所在的Slot和group的对应关系，把写请求发到相应group的主库，读请求发到group中的主库或从库上。</p>
 <p>下图展示的是配置了servergroup的Codis集群架构。在Codis集群中，我们通过部署servergroup和哨兵集群，实现codis server的主从切换，提升集群可靠性。</p>
-<img src="/2022/05/01/35-Codis-VS-Redis-Cluster：我该选择哪一个集群方案？/7.webp">
+<img src="/2022/05/01/35-Codis-VS-Redis-Cluster%EF%BC%9A%E6%88%91%E8%AF%A5%E9%80%89%E6%8B%A9%E5%93%AA%E4%B8%80%E4%B8%AA%E9%9B%86%E7%BE%A4%E6%96%B9%E6%A1%88%EF%BC%9F/7.webp" class="">
 <p>因为codis proxy和Zookeeper这两个组件是搭配在一起使用的，所以，接下来，我们再来看下这两个组件的可靠性。</p>
 <p>在Codis集群设计时，proxy上的信息源头都是来自Zookeeper（例如路由表）。而Zookeeper集群使用多个实例来保存数据，只要有超过半数的Zookeeper实例可以正常工作，Zookeeper集群就可以提供服务，也可以保证这些数据的可靠性。</p>
 <p>所以，codis proxy使用Zookeeper集群保存路由表，可以充分利用Zookeeper的高可靠性保证来确保codis proxy的可靠性，不用再做额外的工作了。当codis proxy发生故障后，直接重启proxy就行。重启后的proxy，可以通过codis dashboard从Zookeeper集群上获取路由表，然后，就可以接收客户端请求进行转发了。这样的设计，也降低了Codis集群本身的开发复杂度。</p>
 <p>对于codis dashboard和codisfe来说，它们主要提供配置管理和管理员手工操作，负载压力不大，所以，它们的可靠性可以不用额外进行保证了。</p>
 <h1 id="切片集群方案选择建议"><a href="#切片集群方案选择建议" class="headerlink" title="切片集群方案选择建议"></a><span style="color:#339AFF;">切片集群方案选择建议</span></h1><p>到这里，Codis和Redis Cluster这两种切片集群方案我们就学完了，我把它们的区别总结在了一张表里，你可以对比看下。</p>
-<img src="/2022/05/01/35-Codis-VS-Redis-Cluster：我该选择哪一个集群方案？/8.webp">
+<img src="/2022/05/01/35-Codis-VS-Redis-Cluster%EF%BC%9A%E6%88%91%E8%AF%A5%E9%80%89%E6%8B%A9%E5%93%AA%E4%B8%80%E4%B8%AA%E9%9B%86%E7%BE%A4%E6%96%B9%E6%A1%88%EF%BC%9F/8.webp" class="">
 <p>最后，在实际应用的时候，对于这两种方案，我们该怎么选择呢？我再给你提4条建议。</p>
 <p>1，从稳定性和成熟度来看，Codis应用得比较早，在业界已经有了成熟的生产部署。虽然Codis引入了proxy和Zookeeper，增加了集群复杂度，但是，proxy的无状态设计和Zookeeper自身的稳定性，也给Codis的稳定使用提供了保证。而Redis Cluster的推出时间晚于Codis，相对来说，成熟度要弱于Codis，如果你想选择一个成熟稳定的方案，Codis更加合适些。</p>
 <p>2，从业务应用客户端兼容性来看，连接单实例的客户端可以直接连接codis proxy，而原本连接单实例的客户端要想连接Redis Cluster的话，就需要开发新功能。所以，如果你的业务应用中大量使用了单实例的客户端，而现在想应用切片集群的话，建议你选择Codis，这样可以避免修改业务应用中的客户端。</p>
@@ -651,7 +653,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Redis核心技术与实战/" rel="tag"># Redis核心技术与实战</a>
+            <a href="/tags/Redis%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/" rel="tag"># Redis核心技术与实战</a>
           
         </div>
       
@@ -664,7 +666,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/05/01/34-第23-33讲课后思考题答案及常见问题答疑/" rel="next" title="34 | 第23~33讲课后思考题答案及常见问题答疑">
+              <a href="/2022/05/01/34-%E7%AC%AC23-33%E8%AE%B2%E8%AF%BE%E5%90%8E%E6%80%9D%E8%80%83%E9%A2%98%E7%AD%94%E6%A1%88%E5%8F%8A%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E7%AD%94%E7%96%91/" rel="next" title="34 | 第23~33讲课后思考题答案及常见问题答疑">
                 <i class="fa fa-chevron-left"></i> 34 | 第23~33讲课后思考题答案及常见问题答疑
               </a>
             
@@ -674,7 +676,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/05/01/36-Redis支撑秒杀场景的关键技术和实践都有哪些？/" rel="prev" title="36 | Redis支撑秒杀场景的关键技术和实践都有哪些？">
+              <a href="/2022/05/01/36-Redis%E6%94%AF%E6%92%91%E7%A7%92%E6%9D%80%E5%9C%BA%E6%99%AF%E7%9A%84%E5%85%B3%E9%94%AE%E6%8A%80%E6%9C%AF%E5%92%8C%E5%AE%9E%E8%B7%B5%E9%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/" rel="prev" title="36 | Redis支撑秒杀场景的关键技术和实践都有哪些？">
                 36 | Redis支撑秒杀场景的关键技术和实践都有哪些？ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -734,7 +736,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -745,9 +749,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -759,26 +763,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -850,7 +838,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1025,115 +1013,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1164,23 +1044,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1206,7 +1086,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Codis的整体架构和基本流程"><span class="nav-number">1.</span> <span class="nav-text">Codis的整体架构和基本流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Codis的关键技术原理"><span class="nav-number">2.</span> <span class="nav-text">Codis的关键技术原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据如何在集群里分布？"><span class="nav-number">2.1.</span> <span class="nav-text">数据如何在集群里分布？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集群扩容和数据迁移如何进行？"><span class="nav-number">2.2.</span> <span class="nav-text">集群扩容和数据迁移如何进行？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#集群客户端需要重新开发吗？"><span class="nav-number">3.</span> <span class="nav-text">集群客户端需要重新开发吗？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#怎么保证集群可靠性？"><span class="nav-number">4.</span> <span class="nav-text">怎么保证集群可靠性？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#切片集群方案选择建议"><span class="nav-number">5.</span> <span class="nav-text">切片集群方案选择建议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#每课一问"><span class="nav-number">7.</span> <span class="nav-text">每课一问</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Codis%E7%9A%84%E6%95%B4%E4%BD%93%E6%9E%B6%E6%9E%84%E5%92%8C%E5%9F%BA%E6%9C%AC%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">Codis的整体架构和基本流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Codis%E7%9A%84%E5%85%B3%E9%94%AE%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">Codis的关键技术原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%A6%82%E4%BD%95%E5%9C%A8%E9%9B%86%E7%BE%A4%E9%87%8C%E5%88%86%E5%B8%83%EF%BC%9F"><span class="nav-number">2.1.</span> <span class="nav-text">数据如何在集群里分布？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E6%89%A9%E5%AE%B9%E5%92%8C%E6%95%B0%E6%8D%AE%E8%BF%81%E7%A7%BB%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%EF%BC%9F"><span class="nav-number">2.2.</span> <span class="nav-text">集群扩容和数据迁移如何进行？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9B%86%E7%BE%A4%E5%AE%A2%E6%88%B7%E7%AB%AF%E9%9C%80%E8%A6%81%E9%87%8D%E6%96%B0%E5%BC%80%E5%8F%91%E5%90%97%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">集群客户端需要重新开发吗？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E9%9B%86%E7%BE%A4%E5%8F%AF%E9%9D%A0%E6%80%A7%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">怎么保证集群可靠性？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%87%E7%89%87%E9%9B%86%E7%BE%A4%E6%96%B9%E6%A1%88%E9%80%89%E6%8B%A9%E5%BB%BA%E8%AE%AE"><span class="nav-number">5.</span> <span class="nav-text">切片集群方案选择建议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AF%8F%E8%AF%BE%E4%B8%80%E9%97%AE"><span class="nav-number">7.</span> <span class="nav-text">每课一问</span></a></li></ol></div>
             
 
           </div>
@@ -1241,7 +1121,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1252,12 +1132,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1265,7 +1145,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,26 +104,26 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="Go语言第一课">
 <meta property="og:type" content="article">
 <meta property="og:title" content="32｜并发：聊聊Goroutine调度器的原理">
-<meta property="og:url" content="http://yoursite.com/2023/01/02/32｜并发：聊聊Goroutine调度器的原理/index.html">
+<meta property="og:url" content="http://yoursite.com/2023/01/02/32%EF%BD%9C%E5%B9%B6%E5%8F%91%EF%BC%9A%E8%81%8A%E8%81%8AGoroutine%E8%B0%83%E5%BA%A6%E5%99%A8%E7%9A%84%E5%8E%9F%E7%90%86/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2023/01/02/32｜并发：聊聊Goroutine调度器的原理/1.webp">
-<meta property="og:updated_time" content="2023-02-26T06:28:27.978Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2023/01/02/32%EF%BD%9C%E5%B9%B6%E5%8F%91%EF%BC%9A%E8%81%8A%E8%81%8AGoroutine%E8%B0%83%E5%BA%A6%E5%99%A8%E7%9A%84%E5%8E%9F%E7%90%86/1.webp">
+<meta property="article:published_time" content="2023-01-02T00:05:55.000Z">
+<meta property="article:modified_time" content="2023-02-26T06:28:27.978Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Go语言第一课">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="32｜并发：聊聊Goroutine调度器的原理">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2023/01/02/32｜并发：聊聊Goroutine调度器的原理/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2023/01/02/32%EF%BD%9C%E5%B9%B6%E5%8F%91%EF%BC%9A%E8%81%8A%E8%81%8AGoroutine%E8%B0%83%E5%BA%A6%E5%99%A8%E7%9A%84%E5%8E%9F%E7%90%86/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2023/01/02/32｜并发：聊聊Goroutine调度器的原理/">
+  <link rel="canonical" href="http://yoursite.com/2023/01/02/32｜并发：聊聊Goroutine调度器的原理/"/>
 
 
 
@@ -172,7 +172,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -233,7 +233,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -250,7 +250,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -267,7 +267,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -284,7 +284,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -301,7 +301,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -312,7 +312,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -332,7 +332,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -382,16 +384,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/01/02/32｜并发：聊聊Goroutine调度器的原理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/01/02/32%EF%BD%9C%E5%B9%B6%E5%8F%91%EF%BC%9A%E8%81%8A%E8%81%8AGoroutine%E8%B0%83%E5%BA%A6%E5%99%A8%E7%9A%84%E5%8E%9F%E7%90%86/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -491,7 +493,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">9.4k</span>
+                <span title="本文字数">23k</span>
               
 
               
@@ -505,7 +507,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">9 分钟</span>
+                <span title="阅读时长">21 分钟</span>
               
             </div>
           
@@ -526,7 +528,7 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>上一讲我们学习了并发的基本概念和Go的并发方案，也就是Goroutine的一些基本使用和注意事项。对于大多数Gopher来说，这些内容作为Go并发入门已经是足够了。</p>
 <p>但毕竟Go没有采用基于线程的并发模型，可能很多Gopher都好奇Go运行时究竟是如何将一个个Goroutine调度到CPU上执行的。当然，Goroutine的调度本来是Go语言核心开发团队才应该关注的事情，大多数Gopher们无需关心。但就我个人的学习和实践经验而言，我觉得了解Goroutine的调度模型和原理，能够帮助我们编写出更高质量的Go代码。</p>
 <p>因此，在这一讲中，我想和你一起简单探究一下Goroutine调度器的原理和演化历史。</p>
@@ -542,7 +544,7 @@
 <p>首先我们来看最初的<strong>G-M模型</strong>。</p>
 <p>2012年3月28日，Go1.0正式发布。在这个版本中，Go开发团队实现了一个简单的Goroutine调度器。在这个调度器中，每个Goroutine对应于运行时中的一个抽象结构：G(Goroutine)，而被视作“物理CPU”的操作系统线程，则被抽象为另外一个结构：M(machine)。</p>
 <p>调度器的工作就是将G调度到M上去运行。为了更好地控制程序中活跃的M的数量，调度器引入了GOMAXPROCS变量来表示Go调度器可见的“处理器”的最大数量。</p>
-<p>这个模型实现起来比较简单，也能正常工作，但是却存在着诸多问题。前英特尔黑带级工程师、现谷歌工程师德米特里·维尤科夫（<a href="https://github.com/dvyukov" target="_blank" rel="noopener">Dmitry Vyukov</a>）在其《<a href="https://docs.google.com/document/d/1TTj4T2JO42uD5ID9e89oa0sLKhJYD0Y_kqxDv3I3XMw/edit#!" target="_blank" rel="noopener">Scalable Go Scheduler Design</a>》一文中指出了<strong>G-M</strong>模型的一个重要不足：限制了Go并发程序的伸缩性，尤其是对那些有高吞吐或并行计算需求的服务程序。</p>
+<p>这个模型实现起来比较简单，也能正常工作，但是却存在着诸多问题。前英特尔黑带级工程师、现谷歌工程师德米特里·维尤科夫（<a href="https://github.com/dvyukov">Dmitry Vyukov</a>）在其《<a href="https://docs.google.com/document/d/1TTj4T2JO42uD5ID9e89oa0sLKhJYD0Y_kqxDv3I3XMw/edit#!">Scalable Go Scheduler Design</a>》一文中指出了<strong>G-M</strong>模型的一个重要不足：限制了Go并发程序的伸缩性，尤其是对那些有高吞吐或并行计算需求的服务程序。</p>
 <p>这个问题主要体现在这几个方面：</p>
 <ul>
 <li>单一全局互斥锁(Sched.Lock)和集中状态存储的存在，导致所有Goroutine相关操作，比如创建、重新调度等，都要上锁；</li>
@@ -550,12 +552,12 @@
 <li>每个M都做内存缓存，导致内存占用过高，数据局部性较差；</li>
 <li>由于系统调用（syscall）而形成的频繁的工作线程阻塞和解除阻塞，导致额外的性能损耗。</li>
 </ul>
-<p>为了解决这些问题，德米特里·维尤科夫又亲自操刀改进了Go调度器，在Go1.1版本中实现了<strong>G-P-M调度模型</strong>和<a href="http://supertech.csail.mit.edu/papers/steal.pdf" target="_blank" rel="noopener">work stealing</a>算法，这个模型一直沿用至今。模型如下图所示：</p>
-<img src="/2023/01/02/32｜并发：聊聊Goroutine调度器的原理/1.webp">
+<p>为了解决这些问题，德米特里·维尤科夫又亲自操刀改进了Go调度器，在Go1.1版本中实现了<strong>G-P-M调度模型</strong>和<a href="http://supertech.csail.mit.edu/papers/steal.pdf">work stealing</a>算法，这个模型一直沿用至今。模型如下图所示：</p>
+<img src="/2023/01/02/32%EF%BD%9C%E5%B9%B6%E5%8F%91%EF%BC%9A%E8%81%8A%E8%81%8AGoroutine%E8%B0%83%E5%BA%A6%E5%99%A8%E7%9A%84%E5%8E%9F%E7%90%86/1.webp" class="">
 <p>有人说过：“<strong>计算机科学领域的任何问题都可以通过增加一个间接的中间层来解决</strong>”，德米特里·维尤科夫的G-P-M模型恰是这一理论的践行者。你可以看到，德米特里·维尤科夫通过向G-M模型中增加了一个P，让Go调度器具有很好的伸缩性。</p>
 <p>P是一个“逻辑Proccessor”，每个G（Goroutine）要想真正运行起来，首先需要被分配一个P，也就是进入到P的本地运行队列（localrunq）中。对于G来说，P就是运行它的“CPU”，可以说：<strong>在G的眼里只有P</strong>。但从Go调度器的视角来看，真正的“CPU”是M，只有将P和M绑定，才能让P的runq中的G真正运行起来。</p>
 <p>G-P-M模型的实现算是Go调度器的一大进步，但调度器仍然有一个令人头疼的问题，那就是<strong>不支持抢占式调度</strong>，这导致一旦某个G中出现死循环的代码逻辑，那么G将永久占用分配给它的P和M，而位于同一个P中的其他G将得不到调度，出现“饿死”的情况。</p>
-<p>更为严重的是，当只有一个P（GOMAXPROCS=1）时，整个Go程序中的其他G都将“饿死”。于是德米特里·维尤科夫又提出了《<a href="https://docs.google.com/document/d/1ETuA2IOmnaQ4j81AtTGT40Y4_Jr6_IDASEKg0t0dBR8/edit#!" target="_blank" rel="noopener">Go Preemptive Scheduler Design</a>》并在<strong>Go1.2中实现了基于协作的“抢占式”调度</strong>。</p>
+<p>更为严重的是，当只有一个P（GOMAXPROCS=1）时，整个Go程序中的其他G都将“饿死”。于是德米特里·维尤科夫又提出了《<a href="https://docs.google.com/document/d/1ETuA2IOmnaQ4j81AtTGT40Y4_Jr6_IDASEKg0t0dBR8/edit#!">Go Preemptive Scheduler Design</a>》并在<strong>Go1.2中实现了基于协作的“抢占式”调度</strong>。</p>
 <p>这个抢占式调度的原理就是，Go编译器在每个函数或方法的入口处加上了一段额外的代码(<code>runtime.morestack_noctxt</code>)，让运行时有机会在这段代码中检查是否需要执行抢占调度。</p>
 <p>这种解决方案只能说局部解决了“饿死”问题，只在有函数调用的地方才能插入“抢占”代码（埋点），对于没有函数调用而是纯算法循环计算的G，Go调度器依然无法抢占。</p>
 <p>比如，死循环等并没有给编译器插入抢占代码的机会，这就会导致GC在等待所有Goroutine停止时的等待时间过长，从而导致GC延迟，内存占用瞬间冲高；甚至在一些特殊情况下，导致在STW（stoptheworld）时死锁。</p>
@@ -573,12 +575,10 @@
 <li>P:代表逻辑processor，P的数量决定了系统内最大可并行的G的数量，P的最大作用还是其拥有的各种G对象队列、链表、一些缓存和状态；</li>
 <li>M:M代表着真正的执行计算资源。在绑定有效的P后，进入一个调度循环，而调度循环的机制大致是从P的本地运行队列以及全局队列中获取G，切换到G的执行栈上并执行G的函数，调用goexit做清理工作并回到M，如此反复。M并不保留G状态，这是G可以跨M调度的基础。</li>
 </ul>
-<p>我这里也给出了G、P、M定义的代码片段（注意：我们这里使用的是Go1.12.7版本，随着Go演化，结构体中的字段定义可能会有不同），你也可以看一看：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//src/runtime/runtime2.go</span></span><br><span class="line"><span class="keyword">type</span> g <span class="keyword">struct</span> &#123;</span><br><span class="line">    stack      stack   <span class="comment">// offset known to runtime/cgo</span></span><br><span class="line">    sched      gobuf</span><br><span class="line">    goid       <span class="keyword">int64</span></span><br><span class="line">    gopc       <span class="keyword">uintptr</span> <span class="comment">// pc of go statement that created this goroutine</span></span><br><span class="line">    startpc    <span class="keyword">uintptr</span> <span class="comment">// pc of goroutine function</span></span><br><span class="line">    ... ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> p <span class="keyword">struct</span> &#123;</span><br><span class="line">    lock mutex</span><br><span class="line"></span><br><span class="line">    id          <span class="keyword">int32</span></span><br><span class="line">    status      <span class="keyword">uint32</span> <span class="comment">// one of pidle/prunning/...</span></span><br><span class="line">  </span><br><span class="line">    mcache      *mcache</span><br><span class="line">    racectx     <span class="keyword">uintptr</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Queue of runnable goroutines. Accessed without lock.</span></span><br><span class="line">    runqhead <span class="keyword">uint32</span></span><br><span class="line">    runqtail <span class="keyword">uint32</span></span><br><span class="line">    runq     [<span class="number">256</span>]guintptr</span><br><span class="line"></span><br><span class="line">    runnext guintptr</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Available G's (status == Gdead)</span></span><br><span class="line">    gfree    *g</span><br><span class="line">    gfreecnt <span class="keyword">int32</span></span><br><span class="line"></span><br><span class="line">    ... ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> m <span class="keyword">struct</span> &#123;</span><br><span class="line">    g0            *g     <span class="comment">// goroutine with scheduling stack</span></span><br><span class="line">    mstartfn      <span class="function"><span class="keyword">func</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    <span class="title">curg</span>          *<span class="title">g</span>     // <span class="title">current</span> <span class="title">running</span> <span class="title">goroutine</span></span></span><br><span class="line"><span class="function">    ... ...</span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure></p>
-<p>而Goroutine调度器的目标，就是公平合理地将各个G调度到P上“运行”，下面我们重点看看G是如何被调度的。</p>
+<p>我这里也给出了G、P、M定义的代码片段（注意：我们这里使用的是Go1.12.7版本，随着Go演化，结构体中的字段定义可能会有不同），你也可以看一看：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//src/runtime/runtime2.go</span></span><br><span class="line"><span class="keyword">type</span> g <span class="keyword">struct</span> &#123;</span><br><span class="line">    stack      stack   <span class="comment">// offset known to runtime/cgo</span></span><br><span class="line">    sched      gobuf</span><br><span class="line">    goid       <span class="type">int64</span></span><br><span class="line">    gopc       <span class="type">uintptr</span> <span class="comment">// pc of go statement that created this goroutine</span></span><br><span class="line">    startpc    <span class="type">uintptr</span> <span class="comment">// pc of goroutine function</span></span><br><span class="line">    ... ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> p <span class="keyword">struct</span> &#123;</span><br><span class="line">    lock mutex</span><br><span class="line"></span><br><span class="line">    id          <span class="type">int32</span></span><br><span class="line">    status      <span class="type">uint32</span> <span class="comment">// one of pidle/prunning/...</span></span><br><span class="line">  </span><br><span class="line">    mcache      *mcache</span><br><span class="line">    racectx     <span class="type">uintptr</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Queue of runnable goroutines. Accessed without lock.</span></span><br><span class="line">    runqhead <span class="type">uint32</span></span><br><span class="line">    runqtail <span class="type">uint32</span></span><br><span class="line">    runq     [<span class="number">256</span>]guintptr</span><br><span class="line"></span><br><span class="line">    runnext guintptr</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Available G&#x27;s (status == Gdead)</span></span><br><span class="line">    gfree    *g</span><br><span class="line">    gfreecnt <span class="type">int32</span></span><br><span class="line"></span><br><span class="line">    ... ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> m <span class="keyword">struct</span> &#123;</span><br><span class="line">    g0            *g     <span class="comment">// goroutine with scheduling stack</span></span><br><span class="line">    mstartfn      <span class="function"><span class="keyword">func</span><span class="params">()</span></span></span><br><span class="line">    curg          *g     <span class="comment">// current running goroutine</span></span><br><span class="line">    ... ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>而Goroutine调度器的目标，就是公平合理地将各个G调度到P上“运行”，下面我们重点看看G是如何被调度的。</p>
 <h2 id="G被抢占调度"><a href="#G被抢占调度" class="headerlink" title="G被抢占调度"></a><span style="color:#00ACC1;">G被抢占调度</span></h2><p>我们先来说常规情况，也就是如果某个G没有进行系统调用（syscall）、没有进行I/O操作、没有阻塞在一个channel操作上，调度器是如何让G停下来并调度下一个可运行的G的呢？</p>
 <p>答案就是：G是被抢占调度的。</p>
-<p>前面说过，除非极端的无限循环，否则只要G调用函数，Go运行时就有了抢占G的机会。Go程序启动时，运行时会去启动一个名为sysmon的M（一般称为监控线程），这个M的特殊之处在于它不需要绑定P就可以运行（以g0这个G的形式），这个M在整个Go程序的运行过程中至关重要，你可以看下我对sysmon被创建的部分代码以及sysmon的执行逻辑摘录：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//$GOROOT/src/runtime/proc.go</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// The main goroutine.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">     ... ...</span><br><span class="line">    systemstack(<span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        newm(sysmon, <span class="literal">nil</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    .... ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Always runs without a P, so write barriers are not allowed.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//go:nowritebarrierrec</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sysmon</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// If a heap span goes unused for 5 minutes after a garbage collection,</span></span><br><span class="line">    <span class="comment">// we hand it back to the operating system.</span></span><br><span class="line">    scavengelimit := <span class="keyword">int64</span>(<span class="number">5</span> * <span class="number">60</span> * <span class="number">1e9</span>)</span><br><span class="line">    ... ...</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>  .... &#123;</span><br><span class="line">        ... ...</span><br><span class="line">        <span class="comment">// retake P's blocked in syscalls</span></span><br><span class="line">        <span class="comment">// and preempt long running G's</span></span><br><span class="line">        <span class="keyword">if</span> retake(now) != <span class="number">0</span> &#123;</span><br><span class="line">            idle = <span class="number">0</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            idle++</span><br><span class="line">        &#125;</span><br><span class="line">       ... ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>我们看到，sysmon每20us~10ms启动一次，sysmon主要完成了这些工作：</p>
+<p>前面说过，除非极端的无限循环，否则只要G调用函数，Go运行时就有了抢占G的机会。Go程序启动时，运行时会去启动一个名为sysmon的M（一般称为监控线程），这个M的特殊之处在于它不需要绑定P就可以运行（以g0这个G的形式），这个M在整个Go程序的运行过程中至关重要，你可以看下我对sysmon被创建的部分代码以及sysmon的执行逻辑摘录：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//$GOROOT/src/runtime/proc.go</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// The main goroutine.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">     ... ...</span><br><span class="line">    systemstack(<span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        newm(sysmon, <span class="literal">nil</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    .... ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Always runs without a P, so write barriers are not allowed.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//go:nowritebarrierrec</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sysmon</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// If a heap span goes unused for 5 minutes after a garbage collection,</span></span><br><span class="line">    <span class="comment">// we hand it back to the operating system.</span></span><br><span class="line">    scavengelimit := <span class="type">int64</span>(<span class="number">5</span> * <span class="number">60</span> * <span class="number">1e9</span>)</span><br><span class="line">    ... ...</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>  .... &#123;</span><br><span class="line">        ... ...</span><br><span class="line">        <span class="comment">// retake P&#x27;s blocked in syscalls</span></span><br><span class="line">        <span class="comment">// and preempt long running G&#x27;s</span></span><br><span class="line">        <span class="keyword">if</span> retake(now) != <span class="number">0</span> &#123;</span><br><span class="line">            idle = <span class="number">0</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            idle++</span><br><span class="line">        &#125;</span><br><span class="line">       ... ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>我们看到，sysmon每20us~10ms启动一次，sysmon主要完成了这些工作：</p>
 <ul>
 <li>释放闲置超过5分钟的span内存；</li>
 <li>如果超过2分钟没有垃圾回收，强制执行；</li>
@@ -586,12 +586,11 @@
 <li>向长时间运行的G任务发出抢占调度；</li>
 <li>收回因syscall长时间阻塞的P；</li>
 </ul>
-<p>我们看到sysmon将“向长时间运行的G任务发出抢占调度”，这个事情由函数retake实施：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// $GOROOT/src/runtime/proc.go</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// forcePreemptNS is the time slice given to a G before it is</span></span><br><span class="line"><span class="comment">// preempted.</span></span><br><span class="line"><span class="keyword">const</span> forcePreemptNS = <span class="number">10</span> * <span class="number">1000</span> * <span class="number">1000</span> <span class="comment">// 10ms</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">retake</span><span class="params">(now <span class="keyword">int64</span>)</span> <span class="title">uint32</span></span> &#123;</span><br><span class="line">    ... ...</span><br><span class="line">    <span class="comment">// Preempt G if it's running for too long.</span></span><br><span class="line">    t := <span class="keyword">int64</span>(_p_.schedtick)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">int64</span>(pd.schedtick) != t &#123;</span><br><span class="line">        pd.schedtick = <span class="keyword">uint32</span>(t)</span><br><span class="line">        pd.schedwhen = now</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> pd.schedwhen+forcePreemptNS &gt; now &#123;</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    &#125;</span><br><span class="line">    preemptone(_p_)</span><br><span class="line">    ... ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">preemptone</span><span class="params">(_p_ *p)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    mp := _p_.m.ptr()</span><br><span class="line">    <span class="keyword">if</span> mp == <span class="literal">nil</span> || mp == getg().m &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    gp := mp.curg</span><br><span class="line">    <span class="keyword">if</span> gp == <span class="literal">nil</span> || gp == mp.g0 &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    gp.preempt = <span class="literal">true</span> <span class="comment">//设置被抢占标志</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Every call in a go routine checks for stack overflow by</span></span><br><span class="line">    <span class="comment">// comparing the current stack pointer to gp-&gt;stackguard0.</span></span><br><span class="line">    <span class="comment">// Setting gp-&gt;stackguard0 to StackPreempt folds</span></span><br><span class="line">    <span class="comment">// preemption into the normal stack overflow check.</span></span><br><span class="line">    gp.stackguard0 = stackPreempt</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>从上面的代码中，我们可以看出，如果一个G任务运行10ms，sysmon就会认为它的运行时间太久而发出抢占式调度的请求。一旦G的抢占标志位被设为true，那么等到这个G下一次调用函数或方法时，运行时就可以将G抢占并移出运行状态，放入队列中，等待下一次被调度。</p>
+<p>我们看到sysmon将“向长时间运行的G任务发出抢占调度”，这个事情由函数retake实施：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// $GOROOT/src/runtime/proc.go</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// forcePreemptNS is the time slice given to a G before it is</span></span><br><span class="line"><span class="comment">// preempted.</span></span><br><span class="line"><span class="keyword">const</span> forcePreemptNS = <span class="number">10</span> * <span class="number">1000</span> * <span class="number">1000</span> <span class="comment">// 10ms</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">retake</span><span class="params">(now <span class="type">int64</span>)</span></span> <span class="type">uint32</span> &#123;</span><br><span class="line">    ... ...</span><br><span class="line">    <span class="comment">// Preempt G if it&#x27;s running for too long.</span></span><br><span class="line">    t := <span class="type">int64</span>(_p_.schedtick)</span><br><span class="line">    <span class="keyword">if</span> <span class="type">int64</span>(pd.schedtick) != t &#123;</span><br><span class="line">        pd.schedtick = <span class="type">uint32</span>(t)</span><br><span class="line">        pd.schedwhen = now</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> pd.schedwhen+forcePreemptNS &gt; now &#123;</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    &#125;</span><br><span class="line">    preemptone(_p_)</span><br><span class="line">    ... ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">preemptone</span><span class="params">(_p_ *p)</span></span> <span class="type">bool</span> &#123;</span><br><span class="line">    mp := _p_.m.ptr()</span><br><span class="line">    <span class="keyword">if</span> mp == <span class="literal">nil</span> || mp == getg().m &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    gp := mp.curg</span><br><span class="line">    <span class="keyword">if</span> gp == <span class="literal">nil</span> || gp == mp.g0 &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    gp.preempt = <span class="literal">true</span> <span class="comment">//设置被抢占标志</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Every call in a go routine checks for stack overflow by</span></span><br><span class="line">    <span class="comment">// comparing the current stack pointer to gp-&gt;stackguard0.</span></span><br><span class="line">    <span class="comment">// Setting gp-&gt;stackguard0 to StackPreempt folds</span></span><br><span class="line">    <span class="comment">// preemption into the normal stack overflow check.</span></span><br><span class="line">    gp.stackguard0 = stackPreempt</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>从上面的代码中，我们可以看出，如果一个G任务运行10ms，sysmon就会认为它的运行时间太久而发出抢占式调度的请求。一旦G的抢占标志位被设为true，那么等到这个G下一次调用函数或方法时，运行时就可以将G抢占并移出运行状态，放入队列中，等待下一次被调度。</p>
 <p>不过，除了这个常规调度之外，还有两个特殊情况下G的调度方法。</p>
-<p><strong><font size="4">第一种：channel阻塞或网络I/O情况下的调度。</font></strong></p>
+<p><strong><font size=4>第一种：channel阻塞或网络I/O情况下的调度。</font></strong></p>
 <p>如果G被阻塞在某个channel操作或网络I/O操作上时，G会被放置到某个等待（wait）队列中，而M会尝试运行P的下一个可运行的G。如果这个时候P没有可运行的G供M运行，那么M将解绑P，并进入挂起状态。当I/O操作完成或channel操作完成，在等待队列中的G会被唤醒，标记为可运行（runnable），并被放入到某P的队列中，绑定一个M后继续执行。</p>
-<p><strong><font size="4">第二种：系统调用阻塞情况下的调度。</font></strong></p>
+<p><strong><font size=4>第二种：系统调用阻塞情况下的调度。</font></strong></p>
 <p>如果G被阻塞在某个系统调用（systemcall）上，那么不光G会阻塞，执行这个G的M也会解绑P，与G一起进入挂起状态。如果此时有空闲的M，那么P就会和它绑定，并继续执行其他G；如果没有空闲的M，但仍然有其他G要去执行，那么Go运行时就会创建一个新M（线程）。</p>
 <p>当系统调用返回后，阻塞在这个系统调用上的G会尝试获取一个可用的P，如果没有可用的P，那么G会被标记为runnable，之前的那个挂起的M将再次进入挂起状态。</p>
 <h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a><span style="color:#339AFF;">小结</span></h1><p>基于Goroutine的并发设计离不开一个高效的生产级调度器。Goroutine调度器演进了十余年，先后经历了G-M模型、G-P-M模型和workstealing算法、协作式的抢占调度以及基于信号的异步抢占等改进与优化，目前Goroutine调度器相对稳定和成熟，可以适合绝大部分生产场合。</p>
@@ -599,8 +598,7 @@
 <p>M是Go代码运行的真实载体，包括Goroutine调度器自身的逻辑也是在M中运行的。</p>
 <p>P在G-P-M模型中占据核心地位，它拥有待调度的G的队列，同时M要想运行G必须绑定一个P。一个G被调度执行的时间不能过长，超过特定长的时间后，G会被设置为可抢占，并在下一次执行函数或方法时被Go运行时移出运行状态。</p>
 <p>如果G被阻塞在某个channel操作或网络I/O操作上时，M可以不被阻塞，这避免了大量创建M导致的开销。但如果G因慢系统调用而阻塞，那么M也会一起阻塞，但在阻塞前会与P解绑，P会尝试与其他M绑定继续运行其他G。但若没有现成的M，Go运行时会建立新的M，这也是系统调用可能导致系统线程数量增加的原因，你一定要注意这一点。</p>
-<h1 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a><span style="color:#339AFF;">思考题</span></h1><p>为了让你更好理解Goroutine调度原理，我这里留个思考题。请看下面代码：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">deadloop</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">go</span> deadloop()</span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        time.Sleep(time.Second * <span class="number">1</span>)</span><br><span class="line">        fmt.Println(<span class="string">"I got scheduled!"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>我的问题是：</p>
+<h1 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a><span style="color:#339AFF;">思考题</span></h1><p>为了让你更好理解Goroutine调度原理，我这里留个思考题。请看下面代码：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">deadloop</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">go</span> deadloop()</span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        time.Sleep(time.Second * <span class="number">1</span>)</span><br><span class="line">        fmt.Println(<span class="string">&quot;I got scheduled!&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>我的问题是：</p>
 <p>1，在一个拥有多核处理器的主机上，使用Go 1.13.x版本运行这个示例代码，你在命令行终端上是否能看到“I got scheduled!”输出呢？也就是main goroutine在创建deadloop goroutine之后是否能继续得到调度呢？</p>
 <p>2，我们通过什么方法可以让上面示例中的main goroutine，在创建dead loop goroutine之后无法继续得到调度？</p>
 
@@ -626,7 +624,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Go语言第一课/" rel="tag"># Go语言第一课</a>
+            <a href="/tags/Go%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%80%E8%AF%BE/" rel="tag"># Go语言第一课</a>
           
         </div>
       
@@ -639,7 +637,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2023/01/02/31｜并发：Go的并发方案实现方案是怎样的？/" rel="next" title="31｜并发：Go的并发方案实现方案是怎样的？">
+              <a href="/2023/01/02/31%EF%BD%9C%E5%B9%B6%E5%8F%91%EF%BC%9AGo%E7%9A%84%E5%B9%B6%E5%8F%91%E6%96%B9%E6%A1%88%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%A1%88%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84%EF%BC%9F/" rel="next" title="31｜并发：Go的并发方案实现方案是怎样的？">
                 <i class="fa fa-chevron-left"></i> 31｜并发：Go的并发方案实现方案是怎样的？
               </a>
             
@@ -649,7 +647,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2023/01/02/33｜并发：小channel中蕴含大智慧/" rel="prev" title="33｜并发：小channel中蕴含大智慧">
+              <a href="/2023/01/02/33%EF%BD%9C%E5%B9%B6%E5%8F%91%EF%BC%9A%E5%B0%8Fchannel%E4%B8%AD%E8%95%B4%E5%90%AB%E5%A4%A7%E6%99%BA%E6%85%A7/" rel="prev" title="33｜并发：小channel中蕴含大智慧">
                 33｜并发：小channel中蕴含大智慧 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -709,7 +707,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -720,9 +720,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -734,26 +734,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -825,7 +809,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1000,115 +984,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1139,23 +1015,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1181,7 +1057,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Goroutine调度器"><span class="nav-number">1.</span> <span class="nav-text">Goroutine调度器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Goroutine调度器模型与演化过程"><span class="nav-number">2.</span> <span class="nav-text">Goroutine调度器模型与演化过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#深入G-P-M模型"><span class="nav-number">3.</span> <span class="nav-text">深入G-P-M模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#G、P和M"><span class="nav-number">3.1.</span> <span class="nav-text">G、P和M</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#G被抢占调度"><span class="nav-number">3.2.</span> <span class="nav-text">G被抢占调度</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">5.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Goroutine%E8%B0%83%E5%BA%A6%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">Goroutine调度器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Goroutine%E8%B0%83%E5%BA%A6%E5%99%A8%E6%A8%A1%E5%9E%8B%E4%B8%8E%E6%BC%94%E5%8C%96%E8%BF%87%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">Goroutine调度器模型与演化过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%B1%E5%85%A5G-P-M%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">深入G-P-M模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#G%E3%80%81P%E5%92%8CM"><span class="nav-number">3.1.</span> <span class="nav-text">G、P和M</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#G%E8%A2%AB%E6%8A%A2%E5%8D%A0%E8%B0%83%E5%BA%A6"><span class="nav-number">3.2.</span> <span class="nav-text">G被抢占调度</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">5.</span> <span class="nav-text">思考题</span></a></li></ol></div>
             
 
           </div>
@@ -1216,7 +1092,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1227,12 +1103,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1240,7 +1116,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

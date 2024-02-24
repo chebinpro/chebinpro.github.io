@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,26 +104,26 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="后端存储实战课">
 <meta property="og:type" content="article">
 <meta property="og:title" content="15丨MySQL存储海量数据的最后一招：分库分表">
-<meta property="og:url" content="http://yoursite.com/2023/03/01/15丨MySQL存储海量数据的最后一招：分库分表/index.html">
+<meta property="og:url" content="http://yoursite.com/2023/03/01/15%E4%B8%A8MySQL%E5%AD%98%E5%82%A8%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AE%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E6%8B%9B%EF%BC%9A%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2023/03/01/15丨MySQL存储海量数据的最后一招：分库分表/1.webp">
-<meta property="og:updated_time" content="2023-03-11T10:29:57.580Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2023/03/01/15%E4%B8%A8MySQL%E5%AD%98%E5%82%A8%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AE%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E6%8B%9B%EF%BC%9A%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/1.webp">
+<meta property="article:published_time" content="2023-03-01T02:35:56.000Z">
+<meta property="article:modified_time" content="2023-03-11T10:29:57.580Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="后端存储实战课">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="15丨MySQL存储海量数据的最后一招：分库分表">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2023/03/01/15丨MySQL存储海量数据的最后一招：分库分表/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2023/03/01/15%E4%B8%A8MySQL%E5%AD%98%E5%82%A8%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AE%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E6%8B%9B%EF%BC%9A%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2023/03/01/15丨MySQL存储海量数据的最后一招：分库分表/">
+  <link rel="canonical" href="http://yoursite.com/2023/03/01/15丨MySQL存储海量数据的最后一招：分库分表/"/>
 
 
 
@@ -172,7 +172,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -233,7 +233,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -250,7 +250,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -267,7 +267,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -284,7 +284,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -301,7 +301,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -312,7 +312,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -332,7 +332,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -382,16 +384,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/03/01/15丨MySQL存储海量数据的最后一招：分库分表/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/03/01/15%E4%B8%A8MySQL%E5%AD%98%E5%82%A8%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AE%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E6%8B%9B%EF%BC%9A%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -462,7 +464,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/存储/" itemprop="url" rel="index"><span itemprop="name">存储</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/%E5%AD%98%E5%82%A8/" itemprop="url" rel="index"><span itemprop="name">存储</span></a></span>
 
                 
                 
@@ -491,7 +493,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">4k</span>
+                <span title="本文字数">5.2k</span>
               
 
               
@@ -505,7 +507,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">4 分钟</span>
+                <span title="阅读时长">5 分钟</span>
               
             </div>
           
@@ -526,7 +528,7 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>从这节课开始，我们课程将进入最后一部分“海量数据篇”，这节课也是我们最后一节主要讲MySQL的课程。解决海量数据的问题，必须要用到分布式的存储集群，因为MySQL本质上是一个单机数据库，所以很多场景下不是太适合存TB级别以上的数据。</p>
 <p>但是，绝大部分的电商大厂，它的在线交易这部分的业务，比如说，订单、支付相关的系统，还是舍弃不了MySQL，原因是，<strong>只有MySQL这类关系型数据库，才能提供金融级的事务保证</strong>。我们之前也讲过分布式事务，那些新的分布式数据库提供的所谓的分布式事务，多少都有点儿残血，目前还达不到这些交易类系统对数据一致性的要求。</p>
 <p>那既然MySQL支持不了这么大的数据量，这么高的并发，还必须要用它，怎么解决这个问题呢？还是按照我上节课跟你说的思想，分片，也就是拆分数据。1TB的数据，一个库撑不住，我把它拆成100个库，每个库就只有10GB的数据了，这不就可以了么？这种拆分就是所谓的MySQL分库分表。</p>
@@ -558,7 +560,7 @@
 <p>需要注意的一点是，哈希分片算法能够分得足够均匀的前提条件是，用户ID后几位数字必须是均匀分布的。比如说，你在生成用户ID的时候，自定义了一个用户ID的规则，最后一位0是男性，1是女性，这样的用户ID哈希出来可能就没那么均匀，可能会出现热点。</p>
 <p>还有一种分片的方法：查表法。查表法其实就是没有分片算法，决定某个Sharding Key落在哪个分片上，全靠人为来分配，分配的结果记录在一张表里面。每次执行查询的时候，先去表里查一下要找的数据在哪个分片中。</p>
 <p>查表法的好处就是灵活，怎么分都可以，你用上面两种分片算法都没法分均匀的情况下，就可以用查表法，人为地来把数据分均匀了。查表法还有一个特好的地方是，它的分片是可以随时改变的。比如我发现某个分片已经是热点了，那我可以把这个分片再拆成几个分片，或者把这个分片的数据移到其他分片中去，然后修改一下分片映射表，就可以在线完成数据拆分了。</p>
-<img src="/2023/03/01/15丨MySQL存储海量数据的最后一招：分库分表/1.webp">
+<img src="/2023/03/01/15%E4%B8%A8MySQL%E5%AD%98%E5%82%A8%E6%B5%B7%E9%87%8F%E6%95%B0%E6%8D%AE%E7%9A%84%E6%9C%80%E5%90%8E%E4%B8%80%E6%8B%9B%EF%BC%9A%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8/1.webp" class="">
 <p>但你需要注意的是，分片映射表本身的数据不能太多，否则这个表反而成为热点和性能瓶颈了。查表法相对其他两种分片算法来说，缺点是需要二次查询，实现起来更复杂，性能上也稍微慢一些。但是，分片映射表可以通过缓存来加速查询，实际性能并不会慢很多。</p>
 <h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a><span style="color:#339AFF;">小结</span></h1><p>对MySQL这样的单机数据库来说，分库分表是应对海量数据和高并发的最后一招，分库分表之后，将会对数据查询有非常大的限制。</p>
 <p>分多少个库需要用并发量来预估，分多少表需要用数据量来预估。选择Sharding Key的时候，一定要能兼容业务最常用的查询条件，让查询尽量落在一个分片中，分片之后无法兼容的查询，可以把数据同步到其他存储中去，来解决这个问题。</p>
@@ -589,7 +591,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/后端存储实战课/" rel="tag"># 后端存储实战课</a>
+            <a href="/tags/%E5%90%8E%E7%AB%AF%E5%AD%98%E5%82%A8%E5%AE%9E%E6%88%98%E8%AF%BE/" rel="tag"># 后端存储实战课</a>
           
         </div>
       
@@ -602,7 +604,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2023/03/01/14丨订单数据越来越多，数据库越来越慢该怎么办？/" rel="next" title="14丨订单数据越来越多，数据库越来越慢该怎么办？">
+              <a href="/2023/03/01/14%E4%B8%A8%E8%AE%A2%E5%8D%95%E6%95%B0%E6%8D%AE%E8%B6%8A%E6%9D%A5%E8%B6%8A%E5%A4%9A%EF%BC%8C%E6%95%B0%E6%8D%AE%E5%BA%93%E8%B6%8A%E6%9D%A5%E8%B6%8A%E6%85%A2%E8%AF%A5%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F/" rel="next" title="14丨订单数据越来越多，数据库越来越慢该怎么办？">
                 <i class="fa fa-chevron-left"></i> 14丨订单数据越来越多，数据库越来越慢该怎么办？
               </a>
             
@@ -612,7 +614,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2023/03/01/16丨用Redis构建缓存集群的最佳实践有哪些？/" rel="prev" title="16丨用Redis构建缓存集群的最佳实践有哪些？">
+              <a href="/2023/03/01/16%E4%B8%A8%E7%94%A8Redis%E6%9E%84%E5%BB%BA%E7%BC%93%E5%AD%98%E9%9B%86%E7%BE%A4%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/" rel="prev" title="16丨用Redis构建缓存集群的最佳实践有哪些？">
                 16丨用Redis构建缓存集群的最佳实践有哪些？ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -672,7 +674,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -683,9 +687,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -697,26 +701,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -788,7 +776,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -963,115 +951,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1102,23 +982,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1144,7 +1024,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#如何规划分库分表？"><span class="nav-number">1.</span> <span class="nav-text">如何规划分库分表？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何选择Sharding-Key？"><span class="nav-number">2.</span> <span class="nav-text">如何选择Sharding Key？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何选择分片算法？"><span class="nav-number">3.</span> <span class="nav-text">如何选择分片算法？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">5.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%A7%84%E5%88%92%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">如何规划分库分表？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9Sharding-Key%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">如何选择Sharding Key？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9%E5%88%86%E7%89%87%E7%AE%97%E6%B3%95%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">如何选择分片算法？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">5.</span> <span class="nav-text">思考题</span></a></li></ol></div>
             
 
           </div>
@@ -1179,7 +1059,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1190,12 +1070,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1203,7 +1083,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,34 +104,34 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="后端工程师进阶">
 <meta property="og:type" content="article">
 <meta property="og:title" content="32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？">
-<meta property="og:url" content="http://yoursite.com/2023/11/09/32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？/index.html">
+<meta property="og:url" content="http://yoursite.com/2023/11/09/32%EF%BD%9C%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%EF%BC%9A%E6%80%8E%E4%B9%88%E6%B7%98%E6%B1%B0%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87%E6%89%8D%E4%B8%8D%E4%BC%9A%E4%B8%8B%E9%99%8D%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？/1.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？/2.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？/3.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？/4.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？/5.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？/6.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？/7.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？/8.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？/9.webp">
-<meta property="og:updated_time" content="2023-11-17T02:31:43.077Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/32%EF%BD%9C%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%EF%BC%9A%E6%80%8E%E4%B9%88%E6%B7%98%E6%B1%B0%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87%E6%89%8D%E4%B8%8D%E4%BC%9A%E4%B8%8B%E9%99%8D%EF%BC%9F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/32%EF%BD%9C%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%EF%BC%9A%E6%80%8E%E4%B9%88%E6%B7%98%E6%B1%B0%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87%E6%89%8D%E4%B8%8D%E4%BC%9A%E4%B8%8B%E9%99%8D%EF%BC%9F/2.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/32%EF%BD%9C%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%EF%BC%9A%E6%80%8E%E4%B9%88%E6%B7%98%E6%B1%B0%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87%E6%89%8D%E4%B8%8D%E4%BC%9A%E4%B8%8B%E9%99%8D%EF%BC%9F/3.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/32%EF%BD%9C%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%EF%BC%9A%E6%80%8E%E4%B9%88%E6%B7%98%E6%B1%B0%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87%E6%89%8D%E4%B8%8D%E4%BC%9A%E4%B8%8B%E9%99%8D%EF%BC%9F/4.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/32%EF%BD%9C%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%EF%BC%9A%E6%80%8E%E4%B9%88%E6%B7%98%E6%B1%B0%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87%E6%89%8D%E4%B8%8D%E4%BC%9A%E4%B8%8B%E9%99%8D%EF%BC%9F/5.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/32%EF%BD%9C%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%EF%BC%9A%E6%80%8E%E4%B9%88%E6%B7%98%E6%B1%B0%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87%E6%89%8D%E4%B8%8D%E4%BC%9A%E4%B8%8B%E9%99%8D%EF%BC%9F/6.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/32%EF%BD%9C%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%EF%BC%9A%E6%80%8E%E4%B9%88%E6%B7%98%E6%B1%B0%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87%E6%89%8D%E4%B8%8D%E4%BC%9A%E4%B8%8B%E9%99%8D%EF%BC%9F/7.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/32%EF%BD%9C%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%EF%BC%9A%E6%80%8E%E4%B9%88%E6%B7%98%E6%B1%B0%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87%E6%89%8D%E4%B8%8D%E4%BC%9A%E4%B8%8B%E9%99%8D%EF%BC%9F/8.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/32%EF%BD%9C%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%EF%BC%9A%E6%80%8E%E4%B9%88%E6%B7%98%E6%B1%B0%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87%E6%89%8D%E4%B8%8D%E4%BC%9A%E4%B8%8B%E9%99%8D%EF%BC%9F/9.webp">
+<meta property="article:published_time" content="2023-11-09T09:10:06.000Z">
+<meta property="article:modified_time" content="2023-11-17T02:31:43.077Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="后端工程师进阶">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2023/11/09/32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2023/11/09/32%EF%BD%9C%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%EF%BC%9A%E6%80%8E%E4%B9%88%E6%B7%98%E6%B1%B0%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87%E6%89%8D%E4%B8%8D%E4%BC%9A%E4%B8%8B%E9%99%8D%EF%BC%9F/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2023/11/09/32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？/">
+  <link rel="canonical" href="http://yoursite.com/2023/11/09/32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？/"/>
 
 
 
@@ -180,7 +180,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -241,7 +241,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -258,7 +258,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -275,7 +275,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -292,7 +292,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -309,7 +309,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -320,7 +320,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -340,7 +340,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -390,16 +392,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/09/32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/09/32%EF%BD%9C%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%EF%BC%9A%E6%80%8E%E4%B9%88%E6%B7%98%E6%B1%B0%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87%E6%89%8D%E4%B8%8D%E4%BC%9A%E4%B8%8B%E9%99%8D%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -499,7 +501,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">5.5k</span>
+                <span title="本文字数">10k</span>
               
 
               
@@ -513,7 +515,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">5 分钟</span>
+                <span title="阅读时长">9 分钟</span>
               
             </div>
           
@@ -534,34 +536,34 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>今天我们来聊一个使用缓存的时候绕不开的话题——如何淘汰键值对？</p>
 <p>这个问题在面试中也很常见。大多数人都能把八股文背好，也就是常见的LRU之类的策略都能回答出来。而它在面试中的独特优势，就是能够根据业务设计出花样繁多的解决方案。如果你能在面试中用上这些方案，就能给面试官留下很深刻的印象。</p>
 <p>那么我们先从“为什么要淘汰”这个问题开始学习。</p>
 <h1 id="为什么要淘汰？"><a href="#为什么要淘汰？" class="headerlink" title="为什么要淘汰？"></a><span style="color:#339AFF;">为什么要淘汰？</span></h1><p>我们日常在使用缓存的时候，都会尝试控制整个缓存的开销，尤其是本地缓存的内存开销。比如说线上偶尔会遇到本地缓存了太多数据，导致应用内存不足的问题。如果是Java这种垃圾回收的语言，那么你就会遇到频繁地垃圾回收甚至fullGC之类的问题。</p>
 <p>所以用缓存肯定要控制住缓存的内存使用量。而这就会引出一个问题，万一我达到了内存使用上限，但是我又需要加入新的键值对，怎么办？最保守的做法就是直接报错，那么你就没有办法缓存新的数据了。后续如果缓存中已有的数据过期了，你就能缓存新的数据了。</p>
-<img src="/2023/11/09/32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？/1.webp">
+<img src="/2023/11/09/32%EF%BD%9C%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%EF%BC%9A%E6%80%8E%E4%B9%88%E6%B7%98%E6%B1%B0%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87%E6%89%8D%E4%B8%8D%E4%BC%9A%E4%B8%8B%E9%99%8D%EF%BC%9F/1.webp" class="">
 <p>但是大多数的业务是不能接受这种方案的，因为这一类的业务认为已经在缓存中的数据可能用不上了，虽然还没有过期，但是还是可以考虑淘汰掉，腾出空间来存放新的数据。这些新的数据比老的数据有更大的可能性被使用。</p>
 <h1 id="淘汰算法"><a href="#淘汰算法" class="headerlink" title="淘汰算法"></a><span style="color:#339AFF;">淘汰算法</span></h1><p>最有名的淘汰算法是LRU和LFU。除了这两种，还有最佳置换算法（OPT）和先进先出置换算法（FIFO）等，但是用得都不如LRU和LFU多，所以这里主要聊LRU和LFU这两种。</p>
 <h2 id="LRU"><a href="#LRU" class="headerlink" title="LRU"></a><span style="color:#00ACC1;">LRU</span></h2><p>LRU（Least Recently Used）是指最近最少使用算法。也就是说，缓存容量不足的时候，就从所有的key里面挑出一个最近一段时间最长时间未使用的key。</p>
 <p>这个算法从实现上来说很简单，只需要把key用额外的链表连起来，然后每次被访问到的key都挪到队尾，那么队首就是最近最长时间未访问过的key。也可以反过来，每次访问过的挪到队首，那么队尾就是最近最久未访问过的key。比如说你可以借助Java的LinkedHashMap轻易实现LRU算法。</p>
-<img src="/2023/11/09/32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？/2.webp">
+<img src="/2023/11/09/32%EF%BD%9C%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%EF%BC%9A%E6%80%8E%E4%B9%88%E6%B7%98%E6%B1%B0%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87%E6%89%8D%E4%B8%8D%E4%BC%9A%E4%B8%8B%E9%99%8D%EF%BC%9F/2.webp" class="">
 <p>这里访问是一个含糊的说法，你可以认为读写都是访问，也可以认为只有写是访问。所以有个LRU的变种是只有在写的时候，才会挪动这个key，读并不会，也就是它倾向于保留写频繁的数据。</p>
 <h2 id="LFU"><a href="#LFU" class="headerlink" title="LFU"></a><span style="color:#00ACC1;">LFU</span></h2><p>LFU（Least Frequently Used）是最不经常使用算法，它是根据对象的使用次数来确定淘汰对象的，每次都是将使用次数最低的淘汰掉。所以基本的思路就是按照访问频率来给所有的对象排序。每次要淘汰的时候，就从使用次数最少的对象里面找出一个淘汰掉。</p>
 <p>如果有好几个对象的访问频次恰好相等，而且又是最低的，那么你可以自由决策如何淘汰。标准做法是淘汰最先插入的，不过也有一些实现就是随机删一个，又或者删掉排序位置最小的那个。实现的基本思路就是每次读写的时候，对象上面的次数都加1，然后调整位置。</p>
-<img src="/2023/11/09/32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？/3.webp">
+<img src="/2023/11/09/32%EF%BD%9C%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%EF%BC%9A%E6%80%8E%E4%B9%88%E6%B7%98%E6%B1%B0%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87%E6%89%8D%E4%B8%8D%E4%BC%9A%E4%B8%8B%E9%99%8D%EF%BC%9F/3.webp" class="">
 <p>这个算法也有一些变种。最主要的变种是统计一段时间内的访问次数而不是整个生命周期的次数。比如说每个对象都只统计近一个小时内的访问次数。但是这种变种的实现复杂度就要高很多。</p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a><span style="color:#00ACC1;">小结</span></h2><p>在实践中，一般是优先考虑LRU。这主要是因为LRU对时间局部性突出的应用非常友好，而大多数的应用场景都满足时间局部性的要求。</p>
 <p>但是LRU在一些特殊的场景下，表现也不好。最典型的场景就是访问历史记录，因为越是历史悠久的，越有可能已经被你淘汰了。另外一个场景是遍历，遍历的时候，当次被遍历到对象总是不会被淘汰掉，而实际上，已经被遍历的对象反而应该被淘汰掉，腾出空间给尚未遍历的对象。</p>
-<img src="/2023/11/09/32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？/4.webp">
+<img src="/2023/11/09/32%EF%BD%9C%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%EF%BC%9A%E6%80%8E%E4%B9%88%E6%B7%98%E6%B1%B0%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87%E6%89%8D%E4%B8%8D%E4%BC%9A%E4%B8%8B%E9%99%8D%EF%BC%9F/4.webp" class="">
 <p>例如，图中遍历到key5的时候会触发淘汰，把key4淘汰了。紧接着遍历key4，会把key3淘汰了。以此类推，最终结果就是缓存完全没命中。</p>
 <h1 id="Redis支持的淘汰算法"><a href="#Redis支持的淘汰算法" class="headerlink" title="Redis支持的淘汰算法"></a><span style="color:#339AFF;">Redis支持的淘汰算法</span></h1><p>Redis支持很多种淘汰算法，你可以通过maxmemory选项来控制Redis的整个内存使用量，还可以通过指定maxmemory_policy来设置淘汰算法。</p>
-<img src="/2023/11/09/32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？/5.webp">
+<img src="/2023/11/09/32%EF%BD%9C%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%EF%BC%9A%E6%80%8E%E4%B9%88%E6%B7%98%E6%B1%B0%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87%E6%89%8D%E4%B8%8D%E4%BC%9A%E4%B8%8B%E9%99%8D%EF%BC%9F/5.webp" class="">
 <p>另外，你没有办法控制某些key的最大内存使用量，比如说某个业务最多缓存100M的数据，你只能控制整个Redis实例的内存使用量。</p>
-<img src="/2023/11/09/32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？/6.webp">
+<img src="/2023/11/09/32%EF%BD%9C%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%EF%BC%9A%E6%80%8E%E4%B9%88%E6%B7%98%E6%B1%B0%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87%E6%89%8D%E4%B8%8D%E4%BC%9A%E4%B8%8B%E9%99%8D%EF%BC%9F/6.webp" class="">
 <p>但是我们可以通过控制某个业务允许的键值对数量和单一键值对最大内存来间接控制业务在Redis上的内存使用量。比如说某个业务只允许有10000个键值对，每个键值对不能超过1KB，那么它的整个内存使用量就不会超过10MB。</p>
 <p>你可以考虑在Redis中额外记录一个键值对数量，同时监听键值对的删除命令。当新加入某个键值对的时候，键值对数量加一。当某个键值对被删除的时候，键值对减一，那么就算键值对自然过期被淘汰，你还是能够得到通知。</p>
-<img src="/2023/11/09/32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？/7.webp">
+<img src="/2023/11/09/32%EF%BD%9C%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%EF%BC%9A%E6%80%8E%E4%B9%88%E6%B7%98%E6%B1%B0%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87%E6%89%8D%E4%B8%8D%E4%BC%9A%E4%B8%8B%E9%99%8D%EF%BC%9F/7.webp" class="">
 <p>注意，你要区分一下你这个键值对是一个全新的键值对，还是已有这个键但是值被修改了。在后一种情况下，你并不需要更新键值对的数量。</p>
 <p>这种机制很复杂，如果你想把我在后面提到的那些算法用在Redis上，就得编写一些比较复杂的lua脚本。</p>
 <h1 id="面试准备"><a href="#面试准备" class="headerlink" title="面试准备"></a><span style="color:#339AFF;">面试准备</span></h1><p>在面试缓存淘汰之前，你需要了解清楚公司内的一些情况。</p>
@@ -584,7 +586,7 @@
 <h1 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a><span style="color:#339AFF;">基本思路</span></h1><p>最好的面试思路还是把优化缓存淘汰策略作为保证系统高性能的一环。这里就可以用对比说明策略，就是在优化之前缓存命中率或者响应时间有多差，而在优化之后，缓存命中率提高了多少或者响应时间下降了多少。</p>
 <p>这里我用优先淘汰代价低的案例，给你展示如何回答。</p>
 <blockquote>
-<p>为了进一步提高系统的性能，我还尝试过优化缓存。早期我们有一个业务，用到了一个本地缓存。这个本地缓存使用的淘汰算法是LRU，最开始我们都觉得这个算法没什么问题。后来业务反馈，说有几个大客户一直抱怨自己的查询时快时慢。一听到时快时慢，我就可以确定应该是缓存出了问题。<br><br>经过排查我们发现原来这个缓存执行LRU的时候有时会把大客户的数据淘汰掉。而偏偏大客户的数据实时计算很慢，所以一旦没有命中缓存，响应时间就会暴增。<br><br>后来我进一步梳理业务，一方面考虑进一步增大缓存的可用内存。另外一方面，设计了灵活的淘汰策略，在淘汰的时候优先淘汰小客户的数据。<br><br>这样做的好处就是优先保证了大客户的用户体验，平均响应时间下降了40%。而小客户因为本身计算就很快，所以影响也不是很大。</p>
+<p>为了进一步提高系统的性能，我还尝试过优化缓存。早期我们有一个业务，用到了一个本地缓存。这个本地缓存使用的淘汰算法是LRU，最开始我们都觉得这个算法没什么问题。后来业务反馈，说有几个大客户一直抱怨自己的查询时快时慢。一听到时快时慢，我就可以确定应该是缓存出了问题。<br><br/>经过排查我们发现原来这个缓存执行LRU的时候有时会把大客户的数据淘汰掉。而偏偏大客户的数据实时计算很慢，所以一旦没有命中缓存，响应时间就会暴增。<br><br/>后来我进一步梳理业务，一方面考虑进一步增大缓存的可用内存。另外一方面，设计了灵活的淘汰策略，在淘汰的时候优先淘汰小客户的数据。<br><br/>这样做的好处就是优先保证了大客户的用户体验，平均响应时间下降了40%。而小客户因为本身计算就很快，所以影响也不是很大。</p>
 </blockquote>
 <p>当然，从实践角度来说，针对不同业务调整淘汰策略取得的收益是比较小的。但是站在面试的角度，这也算是一个比较新奇的优化点，倒是可以用用。</p>
 <p>除了你主动提起，面试官也可能主动询问，比如从怎么安全使用缓存这个点切入。“安全”强调的就是你用缓存不能影响到别人，那么控制缓存的内存使用量就是一个关键的环节。所以这种时候你应该这样回答：</p>
@@ -605,7 +607,7 @@
 <h1 id="亮点方案"><a href="#亮点方案" class="headerlink" title="亮点方案"></a><span style="color:#339AFF;">亮点方案</span></h1><p>在实践中，同一个公司内部业务的重要性都是有区别的。就算是同一个业务内部，不同用户的重要性也是有区别的。所以针对业务设计淘汰策略的一个核心思路就是根据业务的重要性来设计。</p>
 <p>比如说某个服务同时服务于VIP用户和普通用户，那么完全可以在缓存触发淘汰的时候，先把普通用户的数据淘汰了。所以可以考虑为每一个键值对绑定一个优先级，每次缓存要执行淘汰的时候，就从先淘汰优先级最低的数据。</p>
 <p>这个方案在Redis落地基本上就是在前面提到的控制键值对数量的基础上，引入一个按照优先级进行排序的有序集合，那么有序集合里元素个数就是键值对个数。在每次触发淘汰的时候，从有序集合里面取出来一个key，再把对应的键值对删除。</p>
-<img src="/2023/11/09/32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？/8.webp">
+<img src="/2023/11/09/32%EF%BD%9C%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%EF%BC%9A%E6%80%8E%E4%B9%88%E6%B7%98%E6%B1%B0%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87%E6%89%8D%E4%B8%8D%E4%BC%9A%E4%B8%8B%E9%99%8D%EF%BC%9F/8.webp" class="">
 <p>你可以先简单介绍一下这个方案。</p>
 <blockquote>
 <p>之前我在业务里面使用过一个按照优先级来淘汰的策略。我们的业务有一个特点，就是数据有很鲜明的重要性之分。所以对于我们来说，应该尽可能保证优先级高的数据都在缓存中。所以在触发了淘汰的时候，我们希望先淘汰优先级比较低的缓存。所以我在Redis上利用有序集合设计了一个控制键值对数量，并且按照优先级来淘汰键值对的机制。这个有序集合是使用数据的优先级来排序的，也就是用优先级作为score。</p>
@@ -614,7 +616,7 @@
 <blockquote>
 <p>增加一个键值对就要执行一个lua脚本。在这个脚本里面，它会先检测有序集合里面的元素个数有没有超过允许的键值对数量上限，如果没有超过，就写入键值对，再把key加入有序集合。如果超过了上限，那么就从有序集合里面拿出第一个key，删除这个key对应的键值对。</p>
 </blockquote>
-<img src="/2023/11/09/32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？/9.webp">
+<img src="/2023/11/09/32%EF%BD%9C%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%EF%BC%9A%E6%80%8E%E4%B9%88%E6%B7%98%E6%B1%B0%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87%E6%89%8D%E4%B8%8D%E4%BC%9A%E4%B8%8B%E9%99%8D%EF%BC%9F/9.webp" class="">
 <p>然后补充怎么在键值对过期的时候，维护有序集合。</p>
 <blockquote>
 <p>同时监听Redis上的删除事件，每次收到删除事件，就把有序集合中对应的key删除。</p>
@@ -662,7 +664,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/后端工程师进阶/" rel="tag"># 后端工程师进阶</a>
+            <a href="/tags/%E5%90%8E%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%9B%E9%98%B6/" rel="tag"># 后端工程师进阶</a>
           
         </div>
       
@@ -675,7 +677,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2023/11/09/31｜缓存过期：为什么Redis不立刻删除已经过期的数据？/" rel="next" title="31｜缓存过期：为什么Redis不立刻删除已经过期的数据？">
+              <a href="/2023/11/09/31%EF%BD%9C%E7%BC%93%E5%AD%98%E8%BF%87%E6%9C%9F%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88Redis%E4%B8%8D%E7%AB%8B%E5%88%BB%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8F%E8%BF%87%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%9F/" rel="next" title="31｜缓存过期：为什么Redis不立刻删除已经过期的数据？">
                 <i class="fa fa-chevron-left"></i> 31｜缓存过期：为什么Redis不立刻删除已经过期的数据？
               </a>
             
@@ -685,7 +687,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2023/11/09/33｜缓存模式：缓存模式能不能解决缓存一致性问题？/" rel="prev" title="33｜缓存模式：缓存模式能不能解决缓存一致性问题？">
+              <a href="/2023/11/09/33%EF%BD%9C%E7%BC%93%E5%AD%98%E6%A8%A1%E5%BC%8F%EF%BC%9A%E7%BC%93%E5%AD%98%E6%A8%A1%E5%BC%8F%E8%83%BD%E4%B8%8D%E8%83%BD%E8%A7%A3%E5%86%B3%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9F/" rel="prev" title="33｜缓存模式：缓存模式能不能解决缓存一致性问题？">
                 33｜缓存模式：缓存模式能不能解决缓存一致性问题？ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -745,7 +747,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -756,9 +760,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -770,26 +774,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -861,7 +849,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1036,115 +1024,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1175,23 +1055,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1217,7 +1097,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么要淘汰？"><span class="nav-number">1.</span> <span class="nav-text">为什么要淘汰？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#淘汰算法"><span class="nav-number">2.</span> <span class="nav-text">淘汰算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LRU"><span class="nav-number">2.1.</span> <span class="nav-text">LRU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LFU"><span class="nav-number">2.2.</span> <span class="nav-text">LFU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">2.3.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis支持的淘汰算法"><span class="nav-number">3.</span> <span class="nav-text">Redis支持的淘汰算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面试准备"><span class="nav-number">4.</span> <span class="nav-text">面试准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本思路"><span class="nav-number">5.</span> <span class="nav-text">基本思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#亮点方案"><span class="nav-number">6.</span> <span class="nav-text">亮点方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#先淘汰大对象"><span class="nav-number">6.1.</span> <span class="nav-text">先淘汰大对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#先淘汰小对象"><span class="nav-number">6.2.</span> <span class="nav-text">先淘汰小对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#低热度优先"><span class="nav-number">6.3.</span> <span class="nav-text">低热度优先</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面试思路总结"><span class="nav-number">7.</span> <span class="nav-text">面试思路总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">8.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%B7%98%E6%B1%B0%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">为什么要淘汰？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B7%98%E6%B1%B0%E7%AE%97%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">淘汰算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#LRU"><span class="nav-number">2.1.</span> <span class="nav-text">LRU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LFU"><span class="nav-number">2.2.</span> <span class="nav-text">LFU</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">2.3.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis%E6%94%AF%E6%8C%81%E7%9A%84%E6%B7%98%E6%B1%B0%E7%AE%97%E6%B3%95"><span class="nav-number">3.</span> <span class="nav-text">Redis支持的淘汰算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87"><span class="nav-number">4.</span> <span class="nav-text">面试准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E8%B7%AF"><span class="nav-number">5.</span> <span class="nav-text">基本思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%AE%E7%82%B9%E6%96%B9%E6%A1%88"><span class="nav-number">6.</span> <span class="nav-text">亮点方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%88%E6%B7%98%E6%B1%B0%E5%A4%A7%E5%AF%B9%E8%B1%A1"><span class="nav-number">6.1.</span> <span class="nav-text">先淘汰大对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%88%E6%B7%98%E6%B1%B0%E5%B0%8F%E5%AF%B9%E8%B1%A1"><span class="nav-number">6.2.</span> <span class="nav-text">先淘汰小对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%8E%E7%83%AD%E5%BA%A6%E4%BC%98%E5%85%88"><span class="nav-number">6.3.</span> <span class="nav-text">低热度优先</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E6%80%9D%E8%B7%AF%E6%80%BB%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">面试思路总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">8.</span> <span class="nav-text">思考题</span></a></li></ol></div>
             
 
           </div>
@@ -1252,7 +1132,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1263,12 +1143,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1276,7 +1156,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

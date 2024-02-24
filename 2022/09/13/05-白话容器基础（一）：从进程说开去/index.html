@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,26 +104,26 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="深入剖析Kubernetes">
 <meta property="og:type" content="article">
 <meta property="og:title" content="05 | 白话容器基础（一）：从进程说开去">
-<meta property="og:url" content="http://yoursite.com/2022/09/13/05-白话容器基础（一）：从进程说开去/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/09/13/05-%E7%99%BD%E8%AF%9D%E5%AE%B9%E5%99%A8%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E4%BB%8E%E8%BF%9B%E7%A8%8B%E8%AF%B4%E5%BC%80%E5%8E%BB/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/09/13/05-白话容器基础（一）：从进程说开去/1.webp">
-<meta property="og:updated_time" content="2023-08-17T16:31:50.777Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/09/13/05-%E7%99%BD%E8%AF%9D%E5%AE%B9%E5%99%A8%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E4%BB%8E%E8%BF%9B%E7%A8%8B%E8%AF%B4%E5%BC%80%E5%8E%BB/1.webp">
+<meta property="article:published_time" content="2022-09-13T08:54:12.000Z">
+<meta property="article:modified_time" content="2023-08-17T16:31:50.777Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="深入剖析Kubernetes">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="05 | 白话容器基础（一）：从进程说开去">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2022/09/13/05-白话容器基础（一）：从进程说开去/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2022/09/13/05-%E7%99%BD%E8%AF%9D%E5%AE%B9%E5%99%A8%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E4%BB%8E%E8%BF%9B%E7%A8%8B%E8%AF%B4%E5%BC%80%E5%8E%BB/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/09/13/05-白话容器基础（一）：从进程说开去/">
+  <link rel="canonical" href="http://yoursite.com/2022/09/13/05-白话容器基础（一）：从进程说开去/"/>
 
 
 
@@ -172,7 +172,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -233,7 +233,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -250,7 +250,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -267,7 +267,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -284,7 +284,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -301,7 +301,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -312,7 +312,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -332,7 +332,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -382,16 +384,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/13/05-白话容器基础（一）：从进程说开去/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/13/05-%E7%99%BD%E8%AF%9D%E5%AE%B9%E5%99%A8%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E4%BB%8E%E8%BF%9B%E7%A8%8B%E8%AF%B4%E5%BC%80%E5%8E%BB/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -491,7 +493,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.9k</span>
+                <span title="本文字数">4.9k</span>
               
 
               
@@ -505,7 +507,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">3 分钟</span>
+                <span title="阅读时长">4 分钟</span>
               
             </div>
           
@@ -526,28 +528,24 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <blockquote>
 <p>容器本身没有价值，有价值的是“容器编排”。</p>
 </blockquote>
 <p>而<strong>容器技术的核心功能，就是通过约束和修改进程的动态表现，从而为其创造出一个“边界”。</strong></p>
 <p>对于Docker等大多数Linux容器来说，<strong>Cgroups技术</strong>是用来制造约束的主要手段，而<strong>Namespace技术</strong>则是用来修改进程视图的主要方法。</p>
 <p>假设你已经有了一个Linux操作系统上的Docker项目在运行，比如我的环境是Ubuntu 16.04和Docker CE 18.05。</p>
-<p>接下来，让我们首先创建一个容器来试试。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -it busybox /bin/sh</span><br><span class="line">/ <span class="comment">#</span></span><br></pre></td></tr></table></figure></p>
-<p>这个命令是Docker项目最重要的一个操作，即大名鼎鼎的<code>docker run</code>。</p>
+<p>接下来，让我们首先创建一个容器来试试。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -it busybox /bin/sh</span><br><span class="line">/ <span class="comment">#</span></span><br></pre></td></tr></table></figure><br>这个命令是Docker项目最重要的一个操作，即大名鼎鼎的<code>docker run</code>。</p>
 <p>而<code>-it</code>参数告诉了Docker项目在启动容器后，需要给我们分配一个文本输入/输出环境，也就是TTY，跟容器的标准输入相关联，这样我们就可以和这个Docker容器进行交互了。而/bin/sh就是我们要在Docker容器里运行的程序。</p>
 <p>所以，上面这条指令翻译成人类的语言就是：请帮我启动一个容器，在容器里执行/bin/sh，并且给我分配一个命令行终端跟这个容器交互。</p>
 <p>这样，我的Ubuntu 16.04机器就变成了一个宿主机，而一个运行着/bin/sh的容器，就跑在了这个宿主机里面。</p>
-<p>此时，如果我们在容器里执行一下ps指令，就会发现一些更有趣的事情：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/ <span class="comment"># ps</span></span><br><span class="line">PID  USER   TIME COMMAND</span><br><span class="line">  1 root   0:00 /bin/sh</span><br><span class="line">  10 root   0:00 ps</span><br></pre></td></tr></table></figure></p>
-<p>可以看到，我们在Docker里最开始执行的/bin/sh，就是这个容器内部的第1号进程（PID=1），而这个容器里一共只有两个进程在运行。这就意味着，前面执行的/bin/sh，以及我们刚刚执行的ps，已经被Docker隔离在了一个跟宿主机完全不同的世界当中。</p>
+<p>此时，如果我们在容器里执行一下ps指令，就会发现一些更有趣的事情：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/ <span class="comment"># ps</span></span><br><span class="line">PID  USER   TIME COMMAND</span><br><span class="line">  1 root   0:00 /bin/sh</span><br><span class="line">  10 root   0:00 ps</span><br></pre></td></tr></table></figure><br>可以看到，我们在Docker里最开始执行的/bin/sh，就是这个容器内部的第1号进程（PID=1），而这个容器里一共只有两个进程在运行。这就意味着，前面执行的/bin/sh，以及我们刚刚执行的ps，已经被Docker隔离在了一个跟宿主机完全不同的世界当中。</p>
 <p>这究竟是怎么做到的呢？</p>
 <p>本来，每当我们在宿主机上运行了一个/bin/sh程序，操作系统都会给它分配一个进程编号，比如PID=100。这个编号是进程的唯一标识，就像员工的工牌一样。所以PID=100，可以粗略地理解为这个/bin/sh是我们公司里的第100号员工，而第1号员工就自然是比尔·盖茨这样统领全局的人物。</p>
 <p>而现在，我们要通过Docker把这个/bin/sh程序运行在一个容器当中。这时候，Docker就会在这个第100号员工入职时给他施一个“障眼法”，让他永远看不到前面的其他99个员工，更看不到比尔·盖茨。这样，他就会错误地以为自己就是公司里的第1号员工。</p>
 <p>这种机制，其实就是对被隔离应用的进程空间做了手脚，使得这些进程只能看到重新计算过的进程编号，比如PID=1。可实际上，他们在宿主机的操作系统里，还是原来的第100号进程。</p>
-<p><strong>这种技术，就是Linux里面的Namespace机制。</strong>而Namespace的使用方式也非常有意思：它其实只是Linux创建新进程的一个可选参数。我们知道，在Linux系统中创建进程的系统调用是<code>clone()</code>，比如：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> pid = clone(main_function, stack_size, SIGCHLD, <span class="literal">NULL</span>);</span><br></pre></td></tr></table></figure></p>
-<p>这个系统调用就会为我们创建一个新的进程，并且返回它的进程号pid。</p>
-<p>而当我们用<code>clone()</code>系统调用创建一个新进程时，就可以在参数中指定CLONE_NEWPID参数，比如：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> pid = clone(main_function, stack_size, CLONE_NEWPID | SIGCHLD, <span class="literal">NULL</span>);</span><br></pre></td></tr></table></figure></p>
-<p>这时，新创建的这个进程将会“看到”一个全新的进程空间，在这个进程空间里，它的PID是1。之所以说“看到”，是因为这只是一个“障眼法”，在宿主机真实的进程空间里，这个进程的PID还是真实的数值，比如100。</p>
+<p><strong>这种技术，就是Linux里面的Namespace机制。</strong>而Namespace的使用方式也非常有意思：它其实只是Linux创建新进程的一个可选参数。我们知道，在Linux系统中创建进程的系统调用是<code>clone()</code>，比如：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> pid = clone(main_function, stack_size, SIGCHLD, <span class="literal">NULL</span>); </span><br></pre></td></tr></table></figure><br>这个系统调用就会为我们创建一个新的进程，并且返回它的进程号pid。</p>
+<p>而当我们用<code>clone()</code>系统调用创建一个新进程时，就可以在参数中指定CLONE_NEWPID参数，比如：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> pid = clone(main_function, stack_size, CLONE_NEWPID | SIGCHLD, <span class="literal">NULL</span>); </span><br></pre></td></tr></table></figure><br>这时，新创建的这个进程将会“看到”一个全新的进程空间，在这个进程空间里，它的PID是1。之所以说“看到”，是因为这只是一个“障眼法”，在宿主机真实的进程空间里，这个进程的PID还是真实的数值，比如100。</p>
 <p>当然，我们还可以多次执行上面的<code>clone()</code>调用，这样就会创建多个PID Namespace，而每个Namespace里的应用进程，都会认为自己是当前容器里的第1号进程，它们既看不到宿主机里真正的进程空间，也看不到其他PID Namespace里的具体情况。</p>
 <p>而<strong>除了我们刚刚用到的PID Namespace，Linux操作系统还提供了Mount、UTS、IPC、Network和User这些Namespace，用来对各种不同的进程上下文进行“障眼法”操作。</strong></p>
 <p>比如，Mount Namespace，用于让被隔离进程只看到当前Namespace里的挂载点信息；Network Namespace，用于让被隔离进程看到当前Namespace里的网络设备和配置。</p>
@@ -555,7 +553,7 @@
 <p>所以，Docker容器这个听起来玄而又玄的概念，实际上是在创建容器进程时，指定了这个进程所需要启用的一组Namespace参数。这样，容器就只能“看”到当前Namespace所限定的资源、文件、设备、状态，或者配置。而对于宿主机以及其他不相关的程序，它就完全看不到了。</p>
 <p><strong>所以说，容器，其实是一种特殊的进程而已</strong>。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><span style="color:#339AFF;">总结</span></h1><p>谈到为“进程划分一个独立空间”的思想，相信你一定会联想到虚拟机。而且，你应该还看过一张虚拟机和容器的对比图。</p>
-<img src="/2022/09/13/05-白话容器基础（一）：从进程说开去/1.webp">
+<img src="/2022/09/13/05-%E7%99%BD%E8%AF%9D%E5%AE%B9%E5%99%A8%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E4%BB%8E%E8%BF%9B%E7%A8%8B%E8%AF%B4%E5%BC%80%E5%8E%BB/1.webp" class="">
 <p>这幅图的左边，画出了虚拟机的工作原理。其中，名为Hypervisor的软件是虚拟机最主要的部分。它通过硬件虚拟化功能，模拟出了运行一个操作系统需要的各种硬件，比如CPU、内存、I/O设备等等。然后，它在这些虚拟的硬件上安装了一个新的操作系统，即Guest OS。</p>
 <p>这样，用户的应用进程就可以运行在这个虚拟的机器中，它能看到的自然也只有Guest OS的文件和目录，以及这个机器里的虚拟设备。这就是为什么虚拟机也能起到将不同的应用进程相互隔离的作用。</p>
 <p>而这幅图的右边，则用一个名为Docker Engine的软件替换了Hypervisor。这也是为什么，很多人会把Docker项目称为“轻量级”虚拟化技术的原因，实际上就是把虚拟机的概念套在了容器上。</p>
@@ -587,7 +585,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/深入剖析Kubernetes/" rel="tag"># 深入剖析Kubernetes</a>
+            <a href="/tags/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90Kubernetes/" rel="tag"># 深入剖析Kubernetes</a>
           
         </div>
       
@@ -600,7 +598,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/09/12/33｜视频：高级篇实操总结/" rel="next" title="33丨视频：高级篇实操总结">
+              <a href="/2022/09/12/33%EF%BD%9C%E8%A7%86%E9%A2%91%EF%BC%9A%E9%AB%98%E7%BA%A7%E7%AF%87%E5%AE%9E%E6%93%8D%E6%80%BB%E7%BB%93/" rel="next" title="33丨视频：高级篇实操总结">
                 <i class="fa fa-chevron-left"></i> 33丨视频：高级篇实操总结
               </a>
             
@@ -610,7 +608,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/09/13/06-白话容器基础（二）：隔离与限制/" rel="prev" title="06 | 白话容器基础（二）：隔离与限制">
+              <a href="/2022/09/13/06-%E7%99%BD%E8%AF%9D%E5%AE%B9%E5%99%A8%E5%9F%BA%E7%A1%80%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E9%9A%94%E7%A6%BB%E4%B8%8E%E9%99%90%E5%88%B6/" rel="prev" title="06 | 白话容器基础（二）：隔离与限制">
                 06 | 白话容器基础（二）：隔离与限制 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -670,7 +668,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -681,9 +681,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -695,26 +695,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -786,7 +770,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -961,115 +945,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1100,23 +976,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1142,7 +1018,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">1.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">2.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">思考题</span></a></li></ol></div>
             
 
           </div>
@@ -1177,7 +1053,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1188,12 +1064,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1201,7 +1077,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

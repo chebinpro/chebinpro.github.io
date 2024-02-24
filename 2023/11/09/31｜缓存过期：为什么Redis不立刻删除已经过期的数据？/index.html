@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,35 +104,35 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="后端工程师进阶">
 <meta property="og:type" content="article">
 <meta property="og:title" content="31｜缓存过期：为什么Redis不立刻删除已经过期的数据？">
-<meta property="og:url" content="http://yoursite.com/2023/11/09/31｜缓存过期：为什么Redis不立刻删除已经过期的数据？/index.html">
+<meta property="og:url" content="http://yoursite.com/2023/11/09/31%EF%BD%9C%E7%BC%93%E5%AD%98%E8%BF%87%E6%9C%9F%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88Redis%E4%B8%8D%E7%AB%8B%E5%88%BB%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8F%E8%BF%87%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/31｜缓存过期：为什么Redis不立刻删除已经过期的数据？/1.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/31｜缓存过期：为什么Redis不立刻删除已经过期的数据？/2.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/31｜缓存过期：为什么Redis不立刻删除已经过期的数据？/3.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/31｜缓存过期：为什么Redis不立刻删除已经过期的数据？/4.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/31｜缓存过期：为什么Redis不立刻删除已经过期的数据？/5.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/31｜缓存过期：为什么Redis不立刻删除已经过期的数据？/6.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/31｜缓存过期：为什么Redis不立刻删除已经过期的数据？/7.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/31｜缓存过期：为什么Redis不立刻删除已经过期的数据？/8.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/31｜缓存过期：为什么Redis不立刻删除已经过期的数据？/9.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/31｜缓存过期：为什么Redis不立刻删除已经过期的数据？/10.webp">
-<meta property="og:updated_time" content="2023-11-16T08:25:02.225Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/31%EF%BD%9C%E7%BC%93%E5%AD%98%E8%BF%87%E6%9C%9F%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88Redis%E4%B8%8D%E7%AB%8B%E5%88%BB%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8F%E8%BF%87%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%9F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/31%EF%BD%9C%E7%BC%93%E5%AD%98%E8%BF%87%E6%9C%9F%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88Redis%E4%B8%8D%E7%AB%8B%E5%88%BB%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8F%E8%BF%87%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%9F/2.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/31%EF%BD%9C%E7%BC%93%E5%AD%98%E8%BF%87%E6%9C%9F%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88Redis%E4%B8%8D%E7%AB%8B%E5%88%BB%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8F%E8%BF%87%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%9F/3.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/31%EF%BD%9C%E7%BC%93%E5%AD%98%E8%BF%87%E6%9C%9F%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88Redis%E4%B8%8D%E7%AB%8B%E5%88%BB%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8F%E8%BF%87%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%9F/4.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/31%EF%BD%9C%E7%BC%93%E5%AD%98%E8%BF%87%E6%9C%9F%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88Redis%E4%B8%8D%E7%AB%8B%E5%88%BB%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8F%E8%BF%87%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%9F/5.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/31%EF%BD%9C%E7%BC%93%E5%AD%98%E8%BF%87%E6%9C%9F%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88Redis%E4%B8%8D%E7%AB%8B%E5%88%BB%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8F%E8%BF%87%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%9F/6.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/31%EF%BD%9C%E7%BC%93%E5%AD%98%E8%BF%87%E6%9C%9F%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88Redis%E4%B8%8D%E7%AB%8B%E5%88%BB%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8F%E8%BF%87%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%9F/7.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/31%EF%BD%9C%E7%BC%93%E5%AD%98%E8%BF%87%E6%9C%9F%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88Redis%E4%B8%8D%E7%AB%8B%E5%88%BB%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8F%E8%BF%87%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%9F/8.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/31%EF%BD%9C%E7%BC%93%E5%AD%98%E8%BF%87%E6%9C%9F%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88Redis%E4%B8%8D%E7%AB%8B%E5%88%BB%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8F%E8%BF%87%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%9F/9.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/31%EF%BD%9C%E7%BC%93%E5%AD%98%E8%BF%87%E6%9C%9F%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88Redis%E4%B8%8D%E7%AB%8B%E5%88%BB%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8F%E8%BF%87%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%9F/10.webp">
+<meta property="article:published_time" content="2023-11-09T09:09:59.000Z">
+<meta property="article:modified_time" content="2023-11-16T08:25:02.225Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="后端工程师进阶">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="31｜缓存过期：为什么Redis不立刻删除已经过期的数据？">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2023/11/09/31｜缓存过期：为什么Redis不立刻删除已经过期的数据？/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2023/11/09/31%EF%BD%9C%E7%BC%93%E5%AD%98%E8%BF%87%E6%9C%9F%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88Redis%E4%B8%8D%E7%AB%8B%E5%88%BB%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8F%E8%BF%87%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%9F/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2023/11/09/31｜缓存过期：为什么Redis不立刻删除已经过期的数据？/">
+  <link rel="canonical" href="http://yoursite.com/2023/11/09/31｜缓存过期：为什么Redis不立刻删除已经过期的数据？/"/>
 
 
 
@@ -181,7 +181,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -242,7 +242,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -259,7 +259,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -276,7 +276,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -293,7 +293,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -310,7 +310,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -321,7 +321,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -341,7 +341,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -391,16 +393,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/09/31｜缓存过期：为什么Redis不立刻删除已经过期的数据？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/09/31%EF%BD%9C%E7%BC%93%E5%AD%98%E8%BF%87%E6%9C%9F%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88Redis%E4%B8%8D%E7%AB%8B%E5%88%BB%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8F%E8%BF%87%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -500,7 +502,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">8.2k</span>
+                <span title="本文字数">14k</span>
               
 
               
@@ -514,7 +516,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">7 分钟</span>
+                <span title="阅读时长">13 分钟</span>
               
             </div>
           
@@ -535,7 +537,7 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>今天我们来讨论一个全新的话题——缓存。</p>
 <p>缓存在实践中、面试中的重要性不言而喻。应该说，缓存用好了就能解决你大部分的性能问题。反过来，如果缓存没有用好，那么系统性能是不可能好的。</p>
 <p>缓存在面试中也分成两个方向：一个是理论上缓存的设计，包括Redis的原理；一个是在实践中使用缓存的案例，聚焦在怎么使用缓存，怎么解决一致性问题。</p>
@@ -543,7 +545,7 @@
 <h1 id="缓存命中率"><a href="#缓存命中率" class="headerlink" title="缓存命中率"></a><span style="color:#339AFF;">缓存命中率</span></h1><p>缓存命中率是我们用来衡量缓存效果的关键指标。它的计算方式是缓存命中次数除以查询总次数。</p>
 <p>在实践中，你要努力把缓存命中率提高到90%以上。不过，缓存命中率也受到业务模式的影响，有一些业务是没有办法做到90%以上的。</p>
 <p>比如说有一些场景是缓存计算时间很长的结果，但是大部分请求都是小请求，也就是都不会命中缓存，这种时候缓存命中率可能连一半都没有。但是因为这些小请求计算很快，所以走实时计算响应时间也能接受，而且实时计算的数据更加准确。</p>
-<img src="/2023/11/09/31｜缓存过期：为什么Redis不立刻删除已经过期的数据？/1.webp">
+<img src="/2023/11/09/31%EF%BD%9C%E7%BC%93%E5%AD%98%E8%BF%87%E6%9C%9F%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88Redis%E4%B8%8D%E7%AB%8B%E5%88%BB%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8F%E8%BF%87%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%9F/1.webp" class="">
 <h1 id="实现过期机制的一般思路"><a href="#实现过期机制的一般思路" class="headerlink" title="实现过期机制的一般思路"></a><span style="color:#339AFF;">实现过期机制的一般思路</span></h1><p>从系统设计的角度来说，过期之类的机制可以考虑使用四种思路来实现。</p>
 <ul>
 <li>定时删除：是指针对每一个需要被删除的对象启动一个计时器，到期之后直接删除。</li>
@@ -552,7 +554,7 @@
 <li>定期删除：是指每隔一段时间就遍历对象，找到已经过期的对象删除掉。</li>
 </ul>
 <p>针对这四种思路的优缺点，你可以参考下面的表格。</p>
-<img src="/2023/11/09/31｜缓存过期：为什么Redis不立刻删除已经过期的数据？/2.webp">
+<img src="/2023/11/09/31%EF%BD%9C%E7%BC%93%E5%AD%98%E8%BF%87%E6%9C%9F%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88Redis%E4%B8%8D%E7%AB%8B%E5%88%BB%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8F%E8%BF%87%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%9F/2.webp" class="">
 <p>大部分的缓存框架，比如Redis，它们都使用了懒惰删除和定期删除结合的策略。定时删除和延迟队列对于缓存这种场景来说，性能太差。</p>
 <h1 id="面试准备"><a href="#面试准备" class="headerlink" title="面试准备"></a><span style="color:#339AFF;">面试准备</span></h1><p>你在面试前，需要弄清楚一些信息。</p>
 <ul>
@@ -591,13 +593,13 @@
 <p>1，延迟队列的本身开销很大，尤其是在key很多的情况下。</p>
 <p>2，修改过期时间需要调整延迟队列中各个key的顺序。</p>
 <p>3，延迟队列一般需要一个线程配合使用，如果引入这个线程，那么Redis就需要做更多并发控制，性能会下降。</p>
-<img src="/2023/11/09/31｜缓存过期：为什么Redis不立刻删除已经过期的数据？/3.webp">
+<img src="/2023/11/09/31%EF%BD%9C%E7%BC%93%E5%AD%98%E8%BF%87%E6%9C%9F%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88Redis%E4%B8%8D%E7%AB%8B%E5%88%BB%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8F%E8%BF%87%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%9F/3.webp" class="">
 <p>总的来说，你在回答的时候可以抓住关键点<strong>性能</strong>来回答。</p>
 <blockquote>
 <p>理论上来说，并不是做不到，只不过代价比较高昂不值得而已。<br>最简单的做法就是使用定时器，但是定时器本身开销太大，还得考虑在更新过期时间的时候重置定时器。另外一种思路就是使用延迟队列，但是延迟队列本身开销也很大，修改过期时间也要调整延迟队列，还要引入大量的并发控制。<br>综合来看，并不值得。而定期删除和懒惰删除的策略虽然看上去可能浪费内存，但是这个浪费很少，并且对响应时间也没那么大的影响。既然没办法立刻删除，只能定期删除，那么我们怎么控制这个开销呢？</p>
 </blockquote>
 <h2 id="Redis是怎么控制定期删除开销的？"><a href="#Redis是怎么控制定期删除开销的？" class="headerlink" title="Redis是怎么控制定期删除开销的？"></a><span style="color:#00ACC1;">Redis是怎么控制定期删除开销的？</span></h2><p>假如说现在Redis有100万key，那么显然Redis在定期删除过期key的时候，是不可能遍历完这100万个key的。而Redis也确实没有遍历全部的key，简单来说Redis会在每一个循环中遍历DB。如果当次定期删除循环没有遍历完全部DB，那么下一个循环就会从当次最后遍历的DB的下一个继续遍历下去。</p>
-<img src="/2023/11/09/31｜缓存过期：为什么Redis不立刻删除已经过期的数据？/4.webp">
+<img src="/2023/11/09/31%EF%BD%9C%E7%BC%93%E5%AD%98%E8%BF%87%E6%9C%9F%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88Redis%E4%B8%8D%E7%AB%8B%E5%88%BB%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8F%E8%BF%87%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%9F/4.webp" class="">
 <p>针对每一个DB，都会有这样一个步骤。</p>
 <p>1，如果DB里存放的key都没有设置过期时间，那么遍历下一个DB。</p>
 <p>2，从设置了过期时间的key中抽一批，默认一批是25个。</p>
@@ -613,7 +615,7 @@
 <blockquote>
 <p>随机只是为了保证每个key都有一定概率被抽查到。假设说我们在每个DB内部都是从头遍历的话，那么如果每次遍历到中间，就没时间了，那么DB后面的key你可能永远也遍历不到。</p>
 </blockquote>
-<img src="/2023/11/09/31｜缓存过期：为什么Redis不立刻删除已经过期的数据？/5.webp">
+<img src="/2023/11/09/31%EF%BD%9C%E7%BC%93%E5%AD%98%E8%BF%87%E6%9C%9F%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88Redis%E4%B8%8D%E7%AB%8B%E5%88%BB%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8F%E8%BF%87%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%9F/5.webp" class="">
 <p>你可以进一步总结大部分缓存控制开销的套路，也就是<strong>控制时间或者控制个数</strong>。</p>
 <blockquote>
 <p>在一些本地缓存的实现里面，也基本上会控制住这个开销。但是做法会比较简单。一种做法是循环的每个迭代都检测执行时间，超过某个阈值了就中断循环。另外一种做法是遍历够了就结束，比如说固定遍历10000个。当然也可以考虑两种策略混合使用。</p>
@@ -621,7 +623,7 @@
 <p>实际上，Redis抽样key的算法变过几次，不过这部分内容在面试中是不会考察的，所以准备面试的话其实不需要深入了解。但是如果你想要参考Redis来设计本地缓存，那么就可以深入了解一下。</p>
 <h2 id="如何控制定期删除的频率？"><a href="#如何控制定期删除的频率？" class="headerlink" title="如何控制定期删除的频率？"></a><span style="color:#00ACC1;">如何控制定期删除的频率？</span></h2><p>在Redis里面，定期删除的频率可以通过hz参数来控制。不过hz控制的是所有的后台任务，并不是单独控制这一个定期删除循环。</p>
 <p>假如说hz的值是N，那么就意味着每1/N秒就会执行一次后台任务。举例来说，如果hz=10，那么就意味着每100ms执行一次后台任务。</p>
-<img src="/2023/11/09/31｜缓存过期：为什么Redis不立刻删除已经过期的数据？/6.webp">
+<img src="/2023/11/09/31%EF%BD%9C%E7%BC%93%E5%AD%98%E8%BF%87%E6%9C%9F%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88Redis%E4%B8%8D%E7%AB%8B%E5%88%BB%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8F%E8%BF%87%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%9F/6.webp" class="">
 <p>正常来说，Redis这个值不要超过100。越大就意味着后台任务执行的频率越高，CPU使用率越高。</p>
 <p>与之对应的是一个dynamic-hz选项。在开启了这个选项之后，hz的值会被认为是一个基数，而实际的值是Redis自己动态计算的。</p>
 <p>所以如果面试官问到了如何控制这个频率，你就可以回答hz和dynamic-hz。</p>
@@ -631,7 +633,7 @@
 <p>在这之后有一个问题，就是Redis在使用了主从集群的时候，如果查询从库，有没有可能查询到过期的数据？</p>
 <h2 id="从库处理过期key"><a href="#从库处理过期key" class="headerlink" title="从库处理过期key"></a><span style="color:#00ACC1;">从库处理过期key</span></h2><p>在Redis3.2之前有一个非常著名的Bug，就是你在从库查询一个key的时候，即便这个key已经过期，但是你还是能够拿到数据。后来这个Bug在3.2修复了。当下如果你在从库上查询key，而这个key已经过期了，那么Redis从库会返回给你NULL。</p>
 <p>注意，从库和主库的区别是，主库发现key过期后会执行删除操作。但是从库不会，从库会等待主库的删除命令。</p>
-<img src="/2023/11/09/31｜缓存过期：为什么Redis不立刻删除已经过期的数据？/7.webp">
+<img src="/2023/11/09/31%EF%BD%9C%E7%BC%93%E5%AD%98%E8%BF%87%E6%9C%9F%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88Redis%E4%B8%8D%E7%AB%8B%E5%88%BB%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8F%E8%BF%87%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%9F/7.webp" class="">
 <p>有时候面试官可能会问你，如果一个key过期了，那么还能不能拿到这个key的值？这时候你就应该知道，面试官问的是这个Bug，你区分回答3.2之前的行为和3.2之后的行为就可以。</p>
 <blockquote>
 <p>在Redis的3.2版本之前，如果读从库的话，是有可能读取到已经过期的key。后来在3.2版本之后这个Bug就被修复了。不过从库上的懒惰删除特性和主库不一样。主库上的懒惰删除是在发现key已经过期之后，就直接删除了。但是在从库上，即便key已经过期了，它也不会删除，只是会给你返回一个NULL值。</p>
@@ -642,12 +644,12 @@
 <p>RDB简单来说就是快照文件，也就是当Redis执行SAVE或者BGSAVE命令的时候，就会把内存里的所有数据都写入RDB文件里。后续主库可以载入这个文件来恢复数据，从库也可以利用这个文件来完成数据同步。对于RDB来说，一句话总结就是<strong>主库不读不写，从库原封不动</strong>。</p>
 <p>也就是说，在生成RDB的时候，主库会忽略已经过期的key。在主库加载RDB的时候，也会忽略RDB中已经过期的key。而从库则是整个RDB都加载进来，因为从库在加载完RDB之后，很快就能从主库里面收到删除的指令，从而删除这个过期的key。</p>
 <p>AOF是之前我们就提到过的AppendOnlyFile。Redis用这个文件来逐条记录执行的修改数据的命令。不管Redis是定期删除，还是懒惰删除过期key，<strong>Redis都会记录一条DEL命令</strong>。</p>
-<img src="/2023/11/09/31｜缓存过期：为什么Redis不立刻删除已经过期的数据？/8.webp">
+<img src="/2023/11/09/31%EF%BD%9C%E7%BC%93%E5%AD%98%E8%BF%87%E6%9C%9F%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88Redis%E4%B8%8D%E7%AB%8B%E5%88%BB%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8F%E8%BF%87%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%9F/8.webp" class="">
 <p>因为每一条修改命令都要记录，所以AOF就会很大。这时候Redis就会考虑重写整个AOF，也就是直接把整个内存中的数据写下来，写完就可以把之前的AOF文件都删了。在重写过程中，Redis会忽略已经过期的key。</p>
 <h1 id="亮点方案"><a href="#亮点方案" class="headerlink" title="亮点方案"></a><span style="color:#339AFF;">亮点方案</span></h1><p>这一次的亮点方案我给你准备了理论和实践两方面的内容。理论上是讨论该如何确定一个合理的过期时间，而实践方面我给你三个有特色的过期时间案例。</p>
 <h2 id="如何确定过期时间？"><a href="#如何确定过期时间？" class="headerlink" title="如何确定过期时间？"></a><span style="color:#00ACC1;">如何确定过期时间？</span></h2><p>确定过期时间是那种看起来很简单，但是如果之前没有认真思考过就会栽跟头的问题。在回答这个问题之前，你可以想到，如果缓存容量足够大，那么缓存就可以设置成永不过期，所有的请求都会百分百命中。但是问题是我们没有足够的资源。</p>
 <p>所以在实践中就是根据你希望的缓存命中率来确定缓存过期时间。缓存命中率越高，就需要越多的缓存容量，越长的过期时间。</p>
-<img src="/2023/11/09/31｜缓存过期：为什么Redis不立刻删除已经过期的数据？/9.webp">
+<img src="/2023/11/09/31%EF%BD%9C%E7%BC%93%E5%AD%98%E8%BF%87%E6%9C%9F%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88Redis%E4%B8%8D%E7%AB%8B%E5%88%BB%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8F%E8%BF%87%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%9F/9.webp" class="">
 <p>所以你要<strong>先揭示这三者之间的关系</strong>，然后通过一个简单的例子说明你是如何确定具体的过期时间的。</p>
 <blockquote>
 <p>一般我们是根据缓存容量和缓存命中率确定过期时间的。正常来说，越高缓存命中率，需要越多的缓存容量，越长的过期时间。所以最佳的做法还是通过模拟线上流量来做测试，不断延长过期时间，直到满足命中率的要求。当然，也可以从业务场景出发。比如说，当某个数据被查询出来以后，用户大概率在接下来的三十分钟内再次使用这个对象，那么就可以把过期时间设置成30分钟。</p>
@@ -693,7 +695,7 @@
 <li>从库是怎么处理过期key的？查询返回NULL，删除等主库命令。</li>
 <li>Redis持久化怎么处理过期key？对于RDB来说，主库不读不写，从库原封不动。对于AOF来说，正常追加DEL命令，重写则是不管。</li>
 </ul>
-<img src="/2023/11/09/31｜缓存过期：为什么Redis不立刻删除已经过期的数据？/10.webp">
+<img src="/2023/11/09/31%EF%BD%9C%E7%BC%93%E5%AD%98%E8%BF%87%E6%9C%9F%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88Redis%E4%B8%8D%E7%AB%8B%E5%88%BB%E5%88%A0%E9%99%A4%E5%B7%B2%E7%BB%8F%E8%BF%87%E6%9C%9F%E7%9A%84%E6%95%B0%E6%8D%AE%EF%BC%9F/10.webp" class="">
 <h1 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a><span style="color:#339AFF;">思考题</span></h1><p>1，你有没有用过本地缓存？你知道它是如何删除过期key的吗？</p>
 <p>2，你有没有遇到过动态确定过期时间的场景？比如说根据请求特征、计算时间、重要性、优先级等，为同一个业务场景的不同请求设置不同的过期时间。</p>
 
@@ -719,7 +721,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/后端工程师进阶/" rel="tag"># 后端工程师进阶</a>
+            <a href="/tags/%E5%90%8E%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%9B%E9%98%B6/" rel="tag"># 后端工程师进阶</a>
           
         </div>
       
@@ -732,7 +734,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2023/11/06/模拟面试｜消息队列面试思路一图懂/" rel="next" title="模拟面试｜消息队列面试思路一图懂">
+              <a href="/2023/11/06/%E6%A8%A1%E6%8B%9F%E9%9D%A2%E8%AF%95%EF%BD%9C%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E9%9D%A2%E8%AF%95%E6%80%9D%E8%B7%AF%E4%B8%80%E5%9B%BE%E6%87%82/" rel="next" title="模拟面试｜消息队列面试思路一图懂">
                 <i class="fa fa-chevron-left"></i> 模拟面试｜消息队列面试思路一图懂
               </a>
             
@@ -742,7 +744,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2023/11/09/32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？/" rel="prev" title="32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？">
+              <a href="/2023/11/09/32%EF%BD%9C%E7%BC%93%E5%AD%98%E6%B7%98%E6%B1%B0%E7%AD%96%E7%95%A5%EF%BC%9A%E6%80%8E%E4%B9%88%E6%B7%98%E6%B1%B0%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87%E6%89%8D%E4%B8%8D%E4%BC%9A%E4%B8%8B%E9%99%8D%EF%BC%9F/" rel="prev" title="32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？">
                 32｜缓存淘汰策略：怎么淘汰缓存命中率才不会下降？ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -802,7 +804,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -813,9 +817,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -827,26 +831,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -918,7 +906,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1093,115 +1081,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1232,23 +1112,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1274,7 +1154,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#缓存命中率"><span class="nav-number">1.</span> <span class="nav-text">缓存命中率</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现过期机制的一般思路"><span class="nav-number">2.</span> <span class="nav-text">实现过期机制的一般思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面试准备"><span class="nav-number">3.</span> <span class="nav-text">面试准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本思路"><span class="nav-number">4.</span> <span class="nav-text">基本思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么不立刻删除？"><span class="nav-number">4.1.</span> <span class="nav-text">为什么不立刻删除？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis是怎么控制定期删除开销的？"><span class="nav-number">4.2.</span> <span class="nav-text">Redis是怎么控制定期删除开销的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何控制定期删除的频率？"><span class="nav-number">4.3.</span> <span class="nav-text">如何控制定期删除的频率？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从库处理过期key"><span class="nav-number">4.4.</span> <span class="nav-text">从库处理过期key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#持久化处理过期key"><span class="nav-number">4.5.</span> <span class="nav-text">持久化处理过期key</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#亮点方案"><span class="nav-number">5.</span> <span class="nav-text">亮点方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何确定过期时间？"><span class="nav-number">5.1.</span> <span class="nav-text">如何确定过期时间？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#确定过期时间的案例"><span class="nav-number">5.2.</span> <span class="nav-text">确定过期时间的案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高并发幂等方案中Redis的过期时间"><span class="nav-number">5.3.</span> <span class="nav-text">高并发幂等方案中Redis的过期时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#热点数据过期时间"><span class="nav-number">5.4.</span> <span class="nav-text">热点数据过期时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#预加载与超短过期时间"><span class="nav-number">5.5.</span> <span class="nav-text">预加载与超短过期时间</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面试思路总结"><span class="nav-number">6.</span> <span class="nav-text">面试思路总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">7.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E5%91%BD%E4%B8%AD%E7%8E%87"><span class="nav-number">1.</span> <span class="nav-text">缓存命中率</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E8%BF%87%E6%9C%9F%E6%9C%BA%E5%88%B6%E7%9A%84%E4%B8%80%E8%88%AC%E6%80%9D%E8%B7%AF"><span class="nav-number">2.</span> <span class="nav-text">实现过期机制的一般思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87"><span class="nav-number">3.</span> <span class="nav-text">面试准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E8%B7%AF"><span class="nav-number">4.</span> <span class="nav-text">基本思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%AB%8B%E5%88%BB%E5%88%A0%E9%99%A4%EF%BC%9F"><span class="nav-number">4.1.</span> <span class="nav-text">为什么不立刻删除？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis%E6%98%AF%E6%80%8E%E4%B9%88%E6%8E%A7%E5%88%B6%E5%AE%9A%E6%9C%9F%E5%88%A0%E9%99%A4%E5%BC%80%E9%94%80%E7%9A%84%EF%BC%9F"><span class="nav-number">4.2.</span> <span class="nav-text">Redis是怎么控制定期删除开销的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%8E%A7%E5%88%B6%E5%AE%9A%E6%9C%9F%E5%88%A0%E9%99%A4%E7%9A%84%E9%A2%91%E7%8E%87%EF%BC%9F"><span class="nav-number">4.3.</span> <span class="nav-text">如何控制定期删除的频率？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E5%BA%93%E5%A4%84%E7%90%86%E8%BF%87%E6%9C%9Fkey"><span class="nav-number">4.4.</span> <span class="nav-text">从库处理过期key</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96%E5%A4%84%E7%90%86%E8%BF%87%E6%9C%9Fkey"><span class="nav-number">4.5.</span> <span class="nav-text">持久化处理过期key</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%AE%E7%82%B9%E6%96%B9%E6%A1%88"><span class="nav-number">5.</span> <span class="nav-text">亮点方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%A1%AE%E5%AE%9A%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4%EF%BC%9F"><span class="nav-number">5.1.</span> <span class="nav-text">如何确定过期时间？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A1%AE%E5%AE%9A%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4%E7%9A%84%E6%A1%88%E4%BE%8B"><span class="nav-number">5.2.</span> <span class="nav-text">确定过期时间的案例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AB%98%E5%B9%B6%E5%8F%91%E5%B9%82%E7%AD%89%E6%96%B9%E6%A1%88%E4%B8%ADRedis%E7%9A%84%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4"><span class="nav-number">5.3.</span> <span class="nav-text">高并发幂等方案中Redis的过期时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%83%AD%E7%82%B9%E6%95%B0%E6%8D%AE%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4"><span class="nav-number">5.4.</span> <span class="nav-text">热点数据过期时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%84%E5%8A%A0%E8%BD%BD%E4%B8%8E%E8%B6%85%E7%9F%AD%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4"><span class="nav-number">5.5.</span> <span class="nav-text">预加载与超短过期时间</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E6%80%9D%E8%B7%AF%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">面试思路总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">7.</span> <span class="nav-text">思考题</span></a></li></ol></div>
             
 
           </div>
@@ -1309,7 +1189,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1320,12 +1200,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1333,7 +1213,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

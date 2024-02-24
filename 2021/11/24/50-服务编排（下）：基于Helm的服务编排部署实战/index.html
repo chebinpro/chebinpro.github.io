@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,27 +104,27 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="Go语言项目开发实战">
 <meta property="og:type" content="article">
 <meta property="og:title" content="50丨服务编排（下）：基于Helm的服务编排部署实战">
-<meta property="og:url" content="http://yoursite.com/2021/11/24/50-服务编排（下）：基于Helm的服务编排部署实战/index.html">
+<meta property="og:url" content="http://yoursite.com/2021/11/24/50-%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%EF%BC%88%E4%B8%8B%EF%BC%89%EF%BC%9A%E5%9F%BA%E4%BA%8EHelm%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%E9%83%A8%E7%BD%B2%E5%AE%9E%E6%88%98/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2021/11/24/50-服务编排（下）：基于Helm的服务编排部署实战/1.webp">
-<meta property="og:image" content="http://yoursite.com/2021/11/24/50-服务编排（下）：基于Helm的服务编排部署实战/2.webp">
-<meta property="og:updated_time" content="2023-08-28T07:13:24.465Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2021/11/24/50-%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%EF%BC%88%E4%B8%8B%EF%BC%89%EF%BC%9A%E5%9F%BA%E4%BA%8EHelm%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%E9%83%A8%E7%BD%B2%E5%AE%9E%E6%88%98/1.webp">
+<meta property="og:image" content="http://yoursite.com/2021/11/24/50-%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%EF%BC%88%E4%B8%8B%EF%BC%89%EF%BC%9A%E5%9F%BA%E4%BA%8EHelm%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%E9%83%A8%E7%BD%B2%E5%AE%9E%E6%88%98/2.webp">
+<meta property="article:published_time" content="2021-11-24T03:43:02.000Z">
+<meta property="article:modified_time" content="2023-08-28T07:13:24.465Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Go语言项目开发实战">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="50丨服务编排（下）：基于Helm的服务编排部署实战">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2021/11/24/50-服务编排（下）：基于Helm的服务编排部署实战/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2021/11/24/50-%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%EF%BC%88%E4%B8%8B%EF%BC%89%EF%BC%9A%E5%9F%BA%E4%BA%8EHelm%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%E9%83%A8%E7%BD%B2%E5%AE%9E%E6%88%98/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2021/11/24/50-服务编排（下）：基于Helm的服务编排部署实战/">
+  <link rel="canonical" href="http://yoursite.com/2021/11/24/50-服务编排（下）：基于Helm的服务编排部署实战/"/>
 
 
 
@@ -173,7 +173,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -234,7 +234,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -251,7 +251,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -268,7 +268,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -285,7 +285,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -302,7 +302,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -313,7 +313,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -333,7 +333,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -383,16 +385,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/24/50-服务编排（下）：基于Helm的服务编排部署实战/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/24/50-%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%EF%BC%88%E4%B8%8B%EF%BC%89%EF%BC%9A%E5%9F%BA%E4%BA%8EHelm%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%E9%83%A8%E7%BD%B2%E5%AE%9E%E6%88%98/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -492,7 +494,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">8.8k</span>
+                <span title="本文字数">27k</span>
               
 
               
@@ -506,7 +508,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">8 分钟</span>
+                <span title="阅读时长">24 分钟</span>
               
             </div>
           
@@ -527,48 +529,39 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>上一讲，我介绍了Helm的基础知识，并带着你部署了一个简单的应用。掌握Helm的基础知识之后，今天我们就来实战下，一起通过Helm部署一个IAM应用。</p>
 <p>通过Helm部署IAM应用，首先需要制作IAMChart包，然后通过Chart包来一键部署IAM应用。在实际开发中，我们需要将应用部署在不同的环境中，所以我也会给你演示下如何在多环境中部署IAM应用。</p>
 <h1 id="制作IAMChart包"><a href="#制作IAMChart包" class="headerlink" title="制作IAMChart包"></a><span style="color:#339AFF;">制作IAMChart包</span></h1><p>在部署IAM应用之前，我们首先需要制作一个IAMChart包。</p>
-<p>我们假设IAM项目源码根目录为<code>${IAM_ROOT}</code>，进入<code>${IAM_ROOT}/deployments</code>目录，在该目录下创建Chart包。具体创建流程分为四个步骤，下面我来详细介绍下。</p>
+<p>我们假设IAM项目源码根目录为<code>$&#123;IAM_ROOT&#125;</code>，进入<code>$&#123;IAM_ROOT&#125;/deployments</code>目录，在该目录下创建Chart包。具体创建流程分为四个步骤，下面我来详细介绍下。</p>
 <p>第一步，创建一个模板Chart。</p>
 <p>Chart是一个组织在文件目录中的集合，目录名称就是Chart名称（没有版本信息）。你可以看看这个Chart开发指南，它介绍了如何开发你自己的Chart。</p>
-<p>不过，这里你也可以使用helmcreate命令来快速创建一个模板Chart，并基于该Chart进行修改，得到你自己的Chart。创建命令如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> helm create iam</span></span><br></pre></td></tr></table></figure></p>
-<p>helmcreateiam会在当前目录下生成一个iam目录，里面存放的就是Chart文件。Chart目录结构及文件如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> tree -FC iam/</span></span><br><span class="line">├── charts/                            # [可选]: 该目录中放置当前Chart依赖的其他Chart</span><br><span class="line">├── Chart.yaml                         # YAML文件，用于描述Chart的基本信息，包括名称版本等</span><br><span class="line">├── templates/                         # [可选]: 部署文件模版目录，模版使用的值来自values.yaml和由Tiller提供的值</span><br><span class="line">│   ├── deployment.yaml                # Kubernetes Deployment object</span><br><span class="line">│   ├── _helpers.tpl                   # 用于修改Kubernetes objcet配置的模板</span><br><span class="line">│   ├── hpa.yaml                       # Kubernetes HPA object</span><br><span class="line">│   ├── ingress.yaml                   # Kubernetes Ingress object</span><br><span class="line">│   ├── NOTES.txt                      # [可选]: 放置Chart的使用指南</span><br><span class="line">│   ├── serviceaccount.yaml</span><br><span class="line">│   ├── service.yaml</span><br><span class="line">│   └── tests/                         # 定义了一些测试资源</span><br><span class="line">│       └── test-connection.yaml</span><br><span class="line">└── values.yaml                        # Chart的默认配置文件</span><br></pre></td></tr></table></figure></p>
-<p>上面的目录中，有两个比较重要的文件：</p>
+<p>不过，这里你也可以使用helmcreate命令来快速创建一个模板Chart，并基于该Chart进行修改，得到你自己的Chart。创建命令如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">helm create iam</span></span><br></pre></td></tr></table></figure><br>helmcreateiam会在当前目录下生成一个iam目录，里面存放的就是Chart文件。Chart目录结构及文件如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">tree -FC iam/</span></span><br><span class="line">├── charts/                            # [可选]: 该目录中放置当前Chart依赖的其他Chart</span><br><span class="line">├── Chart.yaml                         # YAML文件，用于描述Chart的基本信息，包括名称版本等</span><br><span class="line">├── templates/                         # [可选]: 部署文件模版目录，模版使用的值来自values.yaml和由Tiller提供的值</span><br><span class="line">│   ├── deployment.yaml                # Kubernetes Deployment object</span><br><span class="line">│   ├── _helpers.tpl                   # 用于修改Kubernetes objcet配置的模板</span><br><span class="line">│   ├── hpa.yaml                       # Kubernetes HPA object</span><br><span class="line">│   ├── ingress.yaml                   # Kubernetes Ingress object</span><br><span class="line">│   ├── NOTES.txt                      # [可选]: 放置Chart的使用指南</span><br><span class="line">│   ├── serviceaccount.yaml</span><br><span class="line">│   ├── service.yaml</span><br><span class="line">│   └── tests/                         # 定义了一些测试资源</span><br><span class="line">│       └── test-connection.yaml</span><br><span class="line">└── values.yaml                        # Chart的默认配置文件</span><br></pre></td></tr></table></figure><br>上面的目录中，有两个比较重要的文件：</p>
 <ul>
 <li>Chart.yaml文件</li>
 <li>templates目录</li>
 </ul>
 <p>下面我来详细介绍下这两个文件。我们先来看Chart.yaml文件。</p>
-<p>Chart.yaml用来描述Chart的基本信息，包括名称、版本等，内容如下：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">Chart</span> <span class="string">API</span> <span class="string">版本</span> <span class="string">（必需）</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">Chart名称</span> <span class="string">（必需）</span></span><br><span class="line"><span class="attr">version:</span> <span class="string">语义化版本（必需）</span></span><br><span class="line"><span class="attr">kubeVersion:</span> <span class="string">兼容Kubernetes版本的语义化版本（可选）</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">对这个项目的一句话描述（可选）</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">Chart类型</span> <span class="string">（可选）</span></span><br><span class="line"><span class="attr">keywords:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">关于项目的一组关键字（可选）</span></span><br><span class="line"><span class="attr">home:</span> <span class="string">项目home页面的URL</span> <span class="string">（可选）</span></span><br><span class="line"><span class="attr">sources:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">项目源码的URL列表（可选）</span></span><br><span class="line"><span class="attr">dependencies:</span> <span class="comment"># chart 必要条件列表 （可选）</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">Chart名称</span> <span class="string">(nginx)</span></span><br><span class="line"><span class="attr">    version:</span> <span class="string">Chart版本</span> <span class="string">("1.2.3")</span></span><br><span class="line"><span class="attr">    repository:</span> <span class="string">（可选）仓库URL</span> <span class="string">("https://example.com/charts")</span> <span class="string">或别名</span> <span class="string">("@repo-name")</span></span><br><span class="line"><span class="attr">    condition:</span> <span class="string">（可选）</span> <span class="string">解析为布尔值的YAML路径，用于启用/禁用Chart(e.g.</span> <span class="string">subchart1.enabled</span> <span class="string">)</span></span><br><span class="line"><span class="attr">    tags:</span> <span class="comment"># （可选）</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">用于一次启用/禁用</span> <span class="string">一组Chart的tag</span></span><br><span class="line"><span class="attr">    import-values:</span> <span class="comment"># （可选）</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">ImportValue</span> <span class="string">保存源值到导入父键的映射。每项可以是字符串或者一对子/父列表项</span></span><br><span class="line"><span class="attr">    alias:</span> <span class="string">（可选）</span> <span class="string">Chart中使用的别名。当你要多次添加相同的Chart时会很有用</span></span><br><span class="line"><span class="attr">maintainers:</span> <span class="comment"># （可选）</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">维护者名字</span> <span class="string">（每个维护者都需要）</span></span><br><span class="line"><span class="attr">    email:</span> <span class="string">维护者邮箱</span> <span class="string">（每个维护者可选）</span></span><br><span class="line"><span class="attr">    url:</span> <span class="string">维护者URL</span> <span class="string">（每个维护者可选）</span></span><br><span class="line"><span class="attr">icon:</span> <span class="string">用作icon的SVG或PNG图片URL</span> <span class="string">（可选）</span></span><br><span class="line"><span class="attr">appVersion:</span> <span class="string">包含的应用版本（可选）。不需要是语义化，建议使用引号</span></span><br><span class="line"><span class="attr">deprecated:</span> <span class="string">不被推荐的Chart（可选，布尔值）</span></span><br><span class="line"><span class="attr">annotations:</span></span><br><span class="line"><span class="attr">  example:</span> <span class="string">按名称输入的批注列表</span> <span class="string">（可选）.</span></span><br></pre></td></tr></table></figure></p>
-<p>我们再来看下templates目录这个文件。</p>
-<p>templates目录中包含了应用中各个Kubernetes资源的YAML格式资源定义模板，例如：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  labels:</span></span><br><span class="line"><span class="attr">    app:</span> <span class="string">&#123;&#123;</span> <span class="string">.Values.pump.name</span> <span class="string">&#125;&#125;</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">&#123;&#123;</span> <span class="string">.Values.pump.name</span> <span class="string">&#125;&#125;</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  ports:</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">http</span></span><br><span class="line"><span class="attr">    protocol:</span> <span class="string">TCP</span></span><br><span class="line">    <span class="string">&#123;&#123;-</span> <span class="string">toYaml</span> <span class="string">.Values.pump.service.http|</span> <span class="string">nindent</span> <span class="number">4</span> <span class="string">&#125;&#125;</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line"><span class="attr">    app:</span> <span class="string">&#123;&#123;</span> <span class="string">.Values.pump.name</span> <span class="string">&#125;&#125;</span></span><br><span class="line"><span class="attr">  sessionAffinity:</span> <span class="string">None</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">&#123;&#123;</span> <span class="string">.Values.serviceType</span> <span class="string">&#125;&#125;</span></span><br></pre></td></tr></table></figure></p>
-<p>&#123;&#123;.Values.pump.name&#125;&#125;会被deployments/iam/values.yaml文件中pump.name的值替换。上面的模版语法扩展了Gotext/template包的语法：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这种方式定义的模版，会去除test模版尾部所有的空行</span></span><br><span class="line"><span class="string">&#123;&#123;-</span> <span class="string">define</span> <span class="string">"test"</span><span class="string">&#125;&#125;</span></span><br><span class="line"><span class="string">模版内容</span></span><br><span class="line"><span class="string">&#123;&#123;-</span> <span class="string">end&#125;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 去除test模版头部的第一个空行</span></span><br><span class="line"><span class="string">&#123;&#123;-</span> <span class="string">template</span> <span class="string">"test"</span> <span class="string">&#125;&#125;</span></span><br></pre></td></tr></table></figure></p>
-<p>下面是用于YAML文件前置空格的语法：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这种方式定义的模版，会去除test模版头部和尾部所有的空行</span></span><br><span class="line"><span class="string">&#123;&#123;-</span> <span class="string">define</span> <span class="string">"test"</span> <span class="bullet">-&#125;&#125;</span></span><br><span class="line"><span class="string">模版内容</span></span><br><span class="line"><span class="string">&#123;&#123;-</span> <span class="string">end</span> <span class="bullet">-&#125;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 可以在test模版每一行的头部增加4个空格，用于YAML文件的对齐</span></span><br><span class="line"><span class="string">&#123;&#123;</span> <span class="string">include</span> <span class="string">"test"</span> <span class="string">| indent 4&#125;&#125;</span></span><br></pre></td></tr></table></figure></p>
-<p>最后，这里有三点需要你注意：</p>
+<p>Chart.yaml用来描述Chart的基本信息，包括名称、版本等，内容如下：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">Chart</span> <span class="string">API</span> <span class="string">版本</span> <span class="string">（必需）</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">Chart名称</span> <span class="string">（必需）</span></span><br><span class="line"><span class="attr">version:</span> <span class="string">语义化版本（必需）</span></span><br><span class="line"><span class="attr">kubeVersion:</span> <span class="string">兼容Kubernetes版本的语义化版本（可选）</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">对这个项目的一句话描述（可选）</span></span><br><span class="line"><span class="attr">type:</span> <span class="string">Chart类型</span> <span class="string">（可选）</span></span><br><span class="line"><span class="attr">keywords:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">关于项目的一组关键字（可选）</span></span><br><span class="line"><span class="attr">home:</span> <span class="string">项目home页面的URL</span> <span class="string">（可选）</span></span><br><span class="line"><span class="attr">sources:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">项目源码的URL列表（可选）</span></span><br><span class="line"><span class="attr">dependencies:</span> <span class="comment"># chart 必要条件列表 （可选）</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Chart名称</span> <span class="string">(nginx)</span></span><br><span class="line">    <span class="attr">version:</span> <span class="string">Chart版本</span> <span class="string">(&quot;1.2.3&quot;)</span></span><br><span class="line">    <span class="attr">repository:</span> <span class="string">（可选）仓库URL</span> <span class="string">(&quot;https://example.com/charts&quot;)</span> <span class="string">或别名</span> <span class="string">(&quot;@repo-name&quot;)</span></span><br><span class="line">    <span class="attr">condition:</span> <span class="string">（可选）</span> <span class="string">解析为布尔值的YAML路径，用于启用/禁用Chart(e.g.</span> <span class="string">subchart1.enabled</span> <span class="string">)</span></span><br><span class="line">    <span class="attr">tags:</span> <span class="comment"># （可选）</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">用于一次启用/禁用</span> <span class="string">一组Chart的tag</span></span><br><span class="line">    <span class="attr">import-values:</span> <span class="comment"># （可选）</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">ImportValue</span> <span class="string">保存源值到导入父键的映射。每项可以是字符串或者一对子/父列表项</span></span><br><span class="line">    <span class="attr">alias:</span> <span class="string">（可选）</span> <span class="string">Chart中使用的别名。当你要多次添加相同的Chart时会很有用</span></span><br><span class="line"><span class="attr">maintainers:</span> <span class="comment"># （可选）</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">维护者名字</span> <span class="string">（每个维护者都需要）</span></span><br><span class="line">    <span class="attr">email:</span> <span class="string">维护者邮箱</span> <span class="string">（每个维护者可选）</span></span><br><span class="line">    <span class="attr">url:</span> <span class="string">维护者URL</span> <span class="string">（每个维护者可选）</span></span><br><span class="line"><span class="attr">icon:</span> <span class="string">用作icon的SVG或PNG图片URL</span> <span class="string">（可选）</span></span><br><span class="line"><span class="attr">appVersion:</span> <span class="string">包含的应用版本（可选）。不需要是语义化，建议使用引号</span></span><br><span class="line"><span class="attr">deprecated:</span> <span class="string">不被推荐的Chart（可选，布尔值）</span></span><br><span class="line"><span class="attr">annotations:</span></span><br><span class="line">  <span class="attr">example:</span> <span class="string">按名称输入的批注列表</span> <span class="string">（可选）.</span></span><br></pre></td></tr></table></figure><br>我们再来看下templates目录这个文件。</p>
+<p>templates目录中包含了应用中各个Kubernetes资源的YAML格式资源定义模板，例如：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> &#123;&#123; <span class="string">.Values.pump.name</span> &#125;&#125;</span><br><span class="line">  <span class="attr">name:</span> &#123;&#123; <span class="string">.Values.pump.name</span> &#125;&#125;</span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">http</span></span><br><span class="line">    <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">    &#123;&#123;<span class="bullet">-</span> <span class="string">toYaml</span> <span class="string">.Values.pump.service.http|</span> <span class="string">nindent</span> <span class="number">4</span> &#125;&#125;</span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app:</span> &#123;&#123; <span class="string">.Values.pump.name</span> &#125;&#125;</span><br><span class="line">  <span class="attr">sessionAffinity:</span> <span class="string">None</span></span><br><span class="line">  <span class="attr">type:</span> &#123;&#123; <span class="string">.Values.serviceType</span> &#125;&#125;</span><br></pre></td></tr></table></figure><br>&#123;&#123;.Values.pump.name&#125;&#125;会被deployments/iam/values.yaml文件中pump.name的值替换。上面的模版语法扩展了Gotext/template包的语法：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这种方式定义的模版，会去除test模版尾部所有的空行</span></span><br><span class="line">&#123;&#123;<span class="bullet">-</span> <span class="string">define</span> <span class="string">&quot;test&quot;</span>&#125;&#125;</span><br><span class="line"><span class="string">模版内容</span></span><br><span class="line">&#123;&#123;<span class="bullet">-</span> <span class="string">end</span>&#125;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 去除test模版头部的第一个空行</span></span><br><span class="line">&#123;&#123;<span class="bullet">-</span> <span class="string">template</span> <span class="string">&quot;test&quot;</span> &#125;&#125;</span><br></pre></td></tr></table></figure><br>下面是用于YAML文件前置空格的语法：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这种方式定义的模版，会去除test模版头部和尾部所有的空行</span></span><br><span class="line">&#123;&#123;<span class="bullet">-</span> <span class="string">define</span> <span class="string">&quot;test&quot;</span> <span class="string">-</span>&#125;&#125;</span><br><span class="line"><span class="string">模版内容</span></span><br><span class="line">&#123;&#123;<span class="bullet">-</span> <span class="string">end</span> <span class="string">-</span>&#125;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 可以在test模版每一行的头部增加4个空格，用于YAML文件的对齐</span></span><br><span class="line">&#123;&#123; <span class="string">include</span> <span class="string">&quot;test&quot;</span> <span class="string">|</span> <span class="string">indent</span> <span class="number">4</span>&#125;&#125;</span><br></pre></td></tr></table></figure><br>最后，这里有三点需要你注意：</p>
 <ul>
 <li>Chart名称必须是小写字母和数字，单词之间可以使用横杠<code>-</code>分隔，Chart名称中不能用大写字母，也不能用下划线，<code>.</code>号也不行。</li>
 <li>尽可能使用SemVer2来表示版本号。</li>
 <li>YAML文件应该按照双空格的形式缩进（一定不要使用tab键）。</li>
 </ul>
 <p>第二步，编辑iam目录下的Chart文件。</p>
-<p>我们可以基于helmcreate生成的模板Chart来构建自己的Chart包。这里我们添加了创建iam-apiserver、iam-authz-server、iam-pump、iamctl服务需要的YAML格式的Kubernetes资源文件模板：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> ls -1 iam/templates/*.yaml</span></span><br><span class="line">iam/templates/hpa.yaml                                   # Kubernetes HPA模板文件</span><br><span class="line">iam/templates/iam-apiserver-deployment.yaml              # iam-apiserver服务deployment模板文件</span><br><span class="line">iam/templates/iam-apiserver-service.yaml                 # iam-apiserver服务service模板文件</span><br><span class="line">iam/templates/iam-authz-server-deployment.yaml           # iam-authz-server服务deployment模板文件</span><br><span class="line">iam/templates/iam-authz-server-service.yaml              # iam-authz-server服务service模板文件</span><br><span class="line">iam/templates/iamctl-deployment.yaml                     # iamctl服务deployment模板文件</span><br><span class="line">iam/templates/iam-pump-deployment.yaml                   # iam-pump服务deployment模板文件</span><br><span class="line">iam/templates/iam-pump-service.yaml                      # iam-pump服务service模板文件</span><br></pre></td></tr></table></figure></p>
-<p>模板的具体内容，你可以查看deployments/iam/templates/。</p>
-<p>在编辑Chart时，我们可以通过<code>helm lint</code>验证格式是否正确，例如：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> helm lint iam</span></span><br><span class="line">==&gt; Linting iam</span><br><span class="line"></span><br><span class="line">1 chart(s) linted, 0 chart(s) failed</span><br></pre></td></tr></table></figure></p>
-<p>0chart(s)failed说明当前IamChart包是通过校验的。</p>
+<p>我们可以基于helmcreate生成的模板Chart来构建自己的Chart包。这里我们添加了创建iam-apiserver、iam-authz-server、iam-pump、iamctl服务需要的YAML格式的Kubernetes资源文件模板：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">ls</span> -1 iam/templates/*.yaml</span></span><br><span class="line">iam/templates/hpa.yaml                                   # Kubernetes HPA模板文件</span><br><span class="line">iam/templates/iam-apiserver-deployment.yaml              # iam-apiserver服务deployment模板文件</span><br><span class="line">iam/templates/iam-apiserver-service.yaml                 # iam-apiserver服务service模板文件</span><br><span class="line">iam/templates/iam-authz-server-deployment.yaml           # iam-authz-server服务deployment模板文件</span><br><span class="line">iam/templates/iam-authz-server-service.yaml              # iam-authz-server服务service模板文件</span><br><span class="line">iam/templates/iamctl-deployment.yaml                     # iamctl服务deployment模板文件</span><br><span class="line">iam/templates/iam-pump-deployment.yaml                   # iam-pump服务deployment模板文件</span><br><span class="line">iam/templates/iam-pump-service.yaml                      # iam-pump服务service模板文件</span><br></pre></td></tr></table></figure><br>模板的具体内容，你可以查看deployments/iam/templates/。</p>
+<p>在编辑Chart时，我们可以通过<code>helm lint</code>验证格式是否正确，例如：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">helm lint iam</span></span><br><span class="line">==&gt; Linting iam</span><br><span class="line"></span><br><span class="line">1 chart(s) linted, 0 chart(s) failed</span><br></pre></td></tr></table></figure><br>0chart(s)failed说明当前IamChart包是通过校验的。</p>
 <p>第三步，修改Chart的配置文件，添加自定义配置。</p>
 <p>我们可以编辑deployments/iam/values.yaml文件，定制自己的配置。具体配置你可以参考deployments/iam/values.yaml。</p>
 <p>在修改values.yaml文件时，你可以参考下面这些最佳实践。</p>
 <ul>
 <li>变量名称以小写字母开头，单词按驼峰区分，例如chickenNoodleSoup。</li>
 <li>给所有字符串类型的值加上引号。</li>
-<li>为了避免整数转换问题，将整型存储为字符串更好，并用<code></code>在模板中将字符串转回整型。</li>
-<li>values.yaml中定义的每个属性都应该文档化。文档字符串应该以它要描述的属性开头，并至少给出一句描述。例如：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> serverHost is the host name <span class="keyword">for</span> the webserver</span></span><br><span class="line">serverHost: example</span><br><span class="line"><span class="meta">#</span><span class="bash"> serverPort is the HTTP listener port <span class="keyword">for</span> the webserver</span></span><br><span class="line">serverPort: 9191</span><br></pre></td></tr></table></figure>
-</li>
+<li>为了避免整数转换问题，将整型存储为字符串更好，并用<code>&#123;&#123;int$value&#125;&#125;</code>在模板中将字符串转回整型。</li>
+<li>values.yaml中定义的每个属性都应该文档化。文档字符串应该以它要描述的属性开头，并至少给出一句描述。例如：<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">serverHost is the host name <span class="keyword">for</span> the webserver</span></span><br><span class="line">serverHost: example</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">serverPort is the HTTP listener port <span class="keyword">for</span> the webserver</span></span><br><span class="line">serverPort: 9191</span><br></pre></td></tr></table></figure>
+这里需要注意，所有的Helm内置变量都以大写字母开头，以便与用户定义的value进行区分，例如.Release.Name、.Capabilities.KubeVersion。</li>
 </ul>
-<p>这里需要注意，所有的Helm内置变量都以大写字母开头，以便与用户定义的value进行区分，例如.Release.Name、.Capabilities.KubeVersion。</p>
 <p>为了安全，values.yaml中只配置Kubernetes资源相关的配置项，例如Deployment副本数、Service端口等。至于iam-apiserver、iam-authz-server、iam-pump、iamctl组件的配置文件，我们创建单独的ConfigMap，并在Deployment中引用。</p>
 <p>第四步，打包Chart，并上传到Chart仓库中。</p>
 <p>这是一个可选步骤，可以根据你的实际需要来选择。如果想了解具体操作，你可以查看Helmchart仓库获取更多信息。</p>
@@ -581,29 +574,18 @@
 <li>Redis配置：environment.sh文件中以REDIS_开头的变量。</li>
 <li>MongoDB配置：environment.sh文件中以MONGO_开头的变量。</li>
 </ul>
-<p>第二步，创建IAM应用的配置文件。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> <span class="variable">$&#123;IAM_ROOT&#125;</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> make gen.defaultconfigs <span class="comment"># 生成iam-apiserver、iam-authz-server、iam-pump、iamctl组件的默认配置文件</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> make gen.ca <span class="comment"># 生成 CA 证书</span></span></span><br></pre></td></tr></table></figure></p>
-<p>上面的命令会将IAM的配置文件存放在目录<code>${IAM_ROOT}/_output/configs/</code>下。</p>
+<p>第二步，创建IAM应用的配置文件。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> <span class="variable">$&#123;IAM_ROOT&#125;</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make gen.defaultconfigs <span class="comment"># 生成iam-apiserver、iam-authz-server、iam-pump、iamctl组件的默认配置文件</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make gen.ca <span class="comment"># 生成 CA 证书</span></span></span><br></pre></td></tr></table></figure><br>上面的命令会将IAM的配置文件存放在目录<code>$&#123;IAM_ROOT&#125;/_output/configs/</code>下。</p>
 <p>第三步，创建iam命名空间。</p>
-<p>我们将IAM应用涉及到的各类资源都创建在iam命名空间中。将IAM资源创建在独立的命名空间中，不仅方便维护，还可以有效避免影响其他Kubernetes资源。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl create namespace iam</span></span><br></pre></td></tr></table></figure></p>
-<p>第四步，将IAM各服务的配置文件，以ConfigMap资源的形式保存在Kubernetes集群中。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl -n iam create configmap iam --from-file=<span class="variable">$&#123;IAM_ROOT&#125;</span>/_output/configs/</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> kubectl -n iam get configmap iam</span></span><br><span class="line">NAME   DATA   AGE</span><br><span class="line">iam    4      13s</span><br></pre></td></tr></table></figure></p>
-<p>第五步，将IAM各服务使用的证书文件，以ConfigMap资源的形式保存在Kubernetes集群中。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl -n iam create configmap iam-cert --from-file=<span class="variable">$&#123;IAM_ROOT&#125;</span>/_output/cert</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> kubectl -n iam get configmap iam-cert</span></span><br><span class="line">NAME       DATA   AGE</span><br><span class="line">iam-cert   14     12s</span><br></pre></td></tr></table></figure></p>
-<p>第六步，创建镜像仓库访问密钥。</p>
+<p>我们将IAM应用涉及到的各类资源都创建在iam命名空间中。将IAM资源创建在独立的命名空间中，不仅方便维护，还可以有效避免影响其他Kubernetes资源。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create namespace iam</span></span><br></pre></td></tr></table></figure><br>第四步，将IAM各服务的配置文件，以ConfigMap资源的形式保存在Kubernetes集群中。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl -n iam create configmap iam --from-file=<span class="variable">$&#123;IAM_ROOT&#125;</span>/_output/configs/</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl -n iam get configmap iam</span></span><br><span class="line">NAME   DATA   AGE</span><br><span class="line">iam    4      13s</span><br></pre></td></tr></table></figure><br>第五步，将IAM各服务使用的证书文件，以ConfigMap资源的形式保存在Kubernetes集群中。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl -n iam create configmap iam-cert --from-file=<span class="variable">$&#123;IAM_ROOT&#125;</span>/_output/cert</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl -n iam get configmap iam-cert</span></span><br><span class="line">NAME       DATA   AGE</span><br><span class="line">iam-cert   14     12s</span><br></pre></td></tr></table></figure><br>第六步，创建镜像仓库访问密钥。</p>
 <p>在准备阶段，我们开通了腾讯云镜像仓库服务，并创建了用户10000099``xxxx，密码为iam59!z$。</p>
-<p>接下来，我们就可以创建docker-registrysecret了。Kubernetes在下载Docker镜像时，需要docker-registrysecret来进行认证。创建命令如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl -n iam create secret docker-registry ccr-registry --docker-server=ccr.ccs.tencentyun.com --docker-username=10000099xxxx --docker-password=<span class="string">'iam59!z$'</span></span></span><br></pre></td></tr></table></figure></p>
-<p>第七步，创建Docker镜像，并Push到镜像仓库。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> make push REGISTRY_PREFIX=ccr.ccs.tencentyun.com/marmotedu VERSION=v1.1.0</span></span><br></pre></td></tr></table></figure></p>
-<p>第八步，安装IAMChart包。</p>
-<p>在49讲里，我介绍了4种安装Chart包的方法。这里，我们通过未打包的IAMChart路径来安装，安装方法如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> <span class="variable">$&#123;IAM_ROOT&#125;</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> helm -n iam install iam deployments/iam</span></span><br><span class="line">NAME: iam</span><br><span class="line">LAST DEPLOYED: Sat Aug 21 17:46:56 2021</span><br><span class="line">NAMESPACE: iam</span><br><span class="line">STATUS: deployed</span><br><span class="line">REVISION: 1</span><br><span class="line">TEST SUITE: None</span><br></pre></td></tr></table></figure></p>
-<p>执行<code>helm install</code>后，Kubernetes会自动部署应用，等到IAM应用的Pod都处在Running状态时，说明IAM应用已经成功安装：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl -n iam get pods|grep iam</span></span><br><span class="line">iam-apiserver-cb4ff955-hs827        1/1     Running   0          66s</span><br><span class="line">iam-authz-server-7fccc7db8d-chwnn   1/1     Running   0          66s</span><br><span class="line">iam-pump-78b57b4464-rrlbf           1/1     Running   0          66s</span><br><span class="line">iamctl-59fdc4995-xrzhn              1/1     Running   0          66s</span><br></pre></td></tr></table></figure></p>
-<p>第九步，测试IAM应用。</p>
-<p>我们通过<code>helm install</code>在iam命令空间下创建了一个测试Deploymentiamctl。你可以登陆iamctlDeployment所创建出来的Pod，执行一些运维操作和冒烟测试。登陆命令如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl -n iam <span class="built_in">exec</span> -it `kubectl -n iam get pods -l app=iamctl | awk <span class="string">'/iamctl/&#123;print $1&#125;'</span>` -- bash</span></span><br></pre></td></tr></table></figure></p>
-<p>登陆到iamctl-xxxxxxxxxx-xxxxxPod中后，你就可以执行运维操作和冒烟测试了。</p>
+<p>接下来，我们就可以创建docker-registrysecret了。Kubernetes在下载Docker镜像时，需要docker-registrysecret来进行认证。创建命令如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl -n iam create secret docker-registry ccr-registry --docker-server=ccr.ccs.tencentyun.com --docker-username=10000099xxxx --docker-password=<span class="string">&#x27;iam59!z$&#x27;</span></span></span><br></pre></td></tr></table></figure><br>第七步，创建Docker镜像，并Push到镜像仓库。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make push REGISTRY_PREFIX=ccr.ccs.tencentyun.com/marmotedu VERSION=v1.1.0</span></span><br></pre></td></tr></table></figure><br>第八步，安装IAMChart包。</p>
+<p>在49讲里，我介绍了4种安装Chart包的方法。这里，我们通过未打包的IAMChart路径来安装，安装方法如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> <span class="variable">$&#123;IAM_ROOT&#125;</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">helm -n iam install iam deployments/iam</span></span><br><span class="line">NAME: iam</span><br><span class="line">LAST DEPLOYED: Sat Aug 21 17:46:56 2021</span><br><span class="line">NAMESPACE: iam</span><br><span class="line">STATUS: deployed</span><br><span class="line">REVISION: 1</span><br><span class="line">TEST SUITE: None</span><br></pre></td></tr></table></figure><br>执行<code>helm install</code>后，Kubernetes会自动部署应用，等到IAM应用的Pod都处在Running状态时，说明IAM应用已经成功安装：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl -n iam get pods|grep iam</span></span><br><span class="line">iam-apiserver-cb4ff955-hs827        1/1     Running   0          66s</span><br><span class="line">iam-authz-server-7fccc7db8d-chwnn   1/1     Running   0          66s</span><br><span class="line">iam-pump-78b57b4464-rrlbf           1/1     Running   0          66s</span><br><span class="line">iamctl-59fdc4995-xrzhn              1/1     Running   0          66s</span><br></pre></td></tr></table></figure><br>第九步，测试IAM应用。</p>
+<p>我们通过<code>helm install</code>在iam命令空间下创建了一个测试Deploymentiamctl。你可以登陆iamctlDeployment所创建出来的Pod，执行一些运维操作和冒烟测试。登陆命令如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl -n iam <span class="built_in">exec</span> -it `kubectl -n iam get pods -l app=iamctl | awk <span class="string">&#x27;/iamctl/&#123;print $1&#125;&#x27;</span>` -- bash</span></span><br></pre></td></tr></table></figure><br>登陆到iamctl-xxxxxxxxxx-xxxxxPod中后，你就可以执行运维操作和冒烟测试了。</p>
 <p>先来看运维操作。iamctl工具以子命令的方式对外提供功能，你可以使用它提供的各类功能，如下图所示：</p>
-<img src="/2021/11/24/50-服务编排（下）：基于Helm的服务编排部署实战/1.webp">
-<p>再来看冒烟测试：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> <span class="built_in">cd</span> /opt/iam/scripts/install</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> ./test.sh iam::<span class="built_in">test</span>::smoke</span></span><br></pre></td></tr></table></figure></p>
-<p>如果./test.shiam::test::smoke命令打印的输出中，最后一行为congratulations,smoketestpassed!字符串，就说明IAM应用安装成功。如下图所示：</p>
-<img src="/2021/11/24/50-服务编排（下）：基于Helm的服务编排部署实战/2.webp">
-<p>第十步，销毁EKS集群的资源。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl delete namespace iam</span></span><br></pre></td></tr></table></figure></p>
-<p>你可以根据需要选择是否删除EKS集群，如果不需要了就可以选择删除。</p>
+<img src="/2021/11/24/50-%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%EF%BC%88%E4%B8%8B%EF%BC%89%EF%BC%9A%E5%9F%BA%E4%BA%8EHelm%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%E9%83%A8%E7%BD%B2%E5%AE%9E%E6%88%98/1.webp" class="">
+<p>再来看冒烟测试：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">cd</span> /opt/iam/scripts/install</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">./test.sh iam::<span class="built_in">test</span>::smoke</span></span><br></pre></td></tr></table></figure><br>如果./test.shiam::test::smoke命令打印的输出中，最后一行为congratulations,smoketestpassed!字符串，就说明IAM应用安装成功。如下图所示：</p>
+<img src="/2021/11/24/50-%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%EF%BC%88%E4%B8%8B%EF%BC%89%EF%BC%9A%E5%9F%BA%E4%BA%8EHelm%E7%9A%84%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%E9%83%A8%E7%BD%B2%E5%AE%9E%E6%88%98/2.webp" class="">
+<p>第十步，销毁EKS集群的资源。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl delete namespace iam</span></span><br></pre></td></tr></table></figure><br>你可以根据需要选择是否删除EKS集群，如果不需要了就可以选择删除。</p>
 <h1 id="IAM应用多环境部署"><a href="#IAM应用多环境部署" class="headerlink" title="IAM应用多环境部署"></a><span style="color:#339AFF;">IAM应用多环境部署</span></h1><p>在实际的项目开发中，我们需要将IAM应用部署到不同的环境中，不同环境的配置文件是不同的，那么IAM项目是如何进行多环境部署的呢？</p>
 <p>IAM项目在configs目录下创建了多个Helm values文件（格式为values-{envName}-env.yaml）：</p>
 <ul>
@@ -611,7 +593,7 @@
 <li>values-pre-env.yaml，预发环境Helm values文件。</li>
 <li>values-prod-env.yaml，生产环境Helm values文件。</li>
 </ul>
-<p>在部署IAM应用时，我们在命令行指定<code>-f</code>参数，例如：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> helm -n iam install -f configs/values-test-env.yaml iam deployments/iam <span class="comment"># 安装到测试环境。</span></span></span><br></pre></td></tr></table></figure></p>
+<p>在部署IAM应用时，我们在命令行指定<code>-f</code>参数，例如：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">helm -n iam install -f configs/values-test-env.yaml iam deployments/iam <span class="comment"># 安装到测试环境。</span></span></span><br></pre></td></tr></table></figure></p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><span style="color:#339AFF;">总结</span></h1><p>这一讲，我们通过helmcreateiam创建了一个模板Chart，并基于这个模板Chart包进行了二次开发，最终创建了IAM应用的HelmChart包：deployments/iam。</p>
 <p>有了HelmChart包，我们就可以通过<code>helm -n iam install iam deployments/iam</code>命令来一键部署好整个IAM应用。当IAM应用中的所有Pod都处在Running状态后，说明IAM应用被成功部署。</p>
 <p>最后，我们可以登录iamctl容器，执行<code>test.shiam::test::smoke</code>命令，来对IAM应用进行冒烟测试。</p>
@@ -640,7 +622,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Go语言项目开发实战/" rel="tag"># Go语言项目开发实战</a>
+            <a href="/tags/Go%E8%AF%AD%E8%A8%80%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98/" rel="tag"># Go语言项目开发实战</a>
           
         </div>
       
@@ -653,7 +635,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/11/24/49-服务编排（上）：Helm服务编排基础知识/" rel="next" title="49 | 服务编排（上）：Helm服务编排基础知识">
+              <a href="/2021/11/24/49-%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%EF%BC%88%E4%B8%8A%EF%BC%89%EF%BC%9AHelm%E6%9C%8D%E5%8A%A1%E7%BC%96%E6%8E%92%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" rel="next" title="49 | 服务编排（上）：Helm服务编排基础知识">
                 <i class="fa fa-chevron-left"></i> 49 | 服务编排（上）：Helm服务编排基础知识
               </a>
             
@@ -663,7 +645,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/11/24/51-基于GitHub-Actions的CI实战/" rel="prev" title="51|基于GitHub Actions的CI实战">
+              <a href="/2021/11/24/51-%E5%9F%BA%E4%BA%8EGitHub-Actions%E7%9A%84CI%E5%AE%9E%E6%88%98/" rel="prev" title="51|基于GitHub Actions的CI实战">
                 51|基于GitHub Actions的CI实战 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -723,7 +705,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -734,9 +718,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -748,26 +732,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -839,7 +807,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1014,115 +982,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1153,23 +1013,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1195,7 +1055,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#制作IAMChart包"><span class="nav-number">1.</span> <span class="nav-text">制作IAMChart包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IAMChart部署"><span class="nav-number">2.</span> <span class="nav-text">IAMChart部署</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IAM应用多环境部署"><span class="nav-number">3.</span> <span class="nav-text">IAM应用多环境部署</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课后练习"><span class="nav-number">5.</span> <span class="nav-text">课后练习</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%B6%E4%BD%9CIAMChart%E5%8C%85"><span class="nav-number">1.</span> <span class="nav-text">制作IAMChart包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IAMChart%E9%83%A8%E7%BD%B2"><span class="nav-number">2.</span> <span class="nav-text">IAMChart部署</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IAM%E5%BA%94%E7%94%A8%E5%A4%9A%E7%8E%AF%E5%A2%83%E9%83%A8%E7%BD%B2"><span class="nav-number">3.</span> <span class="nav-text">IAM应用多环境部署</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0"><span class="nav-number">5.</span> <span class="nav-text">课后练习</span></a></li></ol></div>
             
 
           </div>
@@ -1230,7 +1090,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1241,12 +1101,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1254,7 +1114,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,46 +104,46 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="后端工程师进阶">
 <meta property="og:type" content="article">
 <meta property="og:title" content="34｜缓存一致性问题：高并发服务如何保证缓存一致性？">
-<meta property="og:url" content="http://yoursite.com/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/index.html">
+<meta property="og:url" content="http://yoursite.com/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/1.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/2.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/3.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/4.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/5.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/6.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/7.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/8.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/9.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/10.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/11.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/12.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/13.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/14.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/15.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/16.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/17.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/18.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/19.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/20.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/21.png">
-<meta property="og:updated_time" content="2023-11-17T02:28:10.515Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/2.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/3.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/4.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/5.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/6.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/7.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/8.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/9.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/10.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/11.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/12.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/13.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/14.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/15.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/16.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/17.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/18.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/19.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/20.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/21.png">
+<meta property="article:published_time" content="2023-11-09T09:10:24.000Z">
+<meta property="article:modified_time" content="2023-11-17T02:28:10.515Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="后端工程师进阶">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="34｜缓存一致性问题：高并发服务如何保证缓存一致性？">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/">
+  <link rel="canonical" href="http://yoursite.com/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/"/>
 
 
 
@@ -192,7 +192,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -253,7 +253,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -270,7 +270,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -287,7 +287,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -304,7 +304,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -321,7 +321,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -332,7 +332,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -352,7 +352,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -402,16 +404,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -511,7 +513,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">6.6k</span>
+                <span title="本文字数">17k</span>
               
 
               
@@ -525,7 +527,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">6 分钟</span>
+                <span title="阅读时长">16 分钟</span>
               
             </div>
           
@@ -546,13 +548,12 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>今天我们来聊一个面试缓存必然会涉及的一个问题：怎么保证数据一致性？</p>
 <p>上一节课我详细分析了各个缓存模式，你会发现这些缓存模式要么存在数据丢失的可能，要么在某一段时间内总是会不一致。那么有没有能够彻底解决缓存一致性的方案呢？</p>
 <p>这节课我就带你分析各种可行的解决方案，并且告诉你这些方案在保障数据一致性上，究竟能够做到什么地步。</p>
 <p>为了方便你理解后面的内容，我们先来看double-check模式。</p>
-<h1 id="double-check模式"><a href="#double-check模式" class="headerlink" title="double-check模式"></a><span style="color:#339AFF;">double-check模式</span></h1><p>double-check是并发里为了兼顾并发安全和性能经常采用的一种代码模式。它的基本思路可以总结为检查、加锁、检查，所以也叫做double-check。double-check经常用在使用读写锁的场景。这里我用伪代码来描述它的基本思路。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">doubleCheck</span><span class="params">()</span></span> &#123;</span><br><span class="line">    rlock() <span class="comment">// 加读锁</span></span><br><span class="line">    <span class="keyword">if</span> !checkSomething() &#123;</span><br><span class="line">        <span class="comment">// 执行一些动作</span></span><br><span class="line">        <span class="keyword">return</span> </span><br><span class="line">    &#125;</span><br><span class="line">    runlock() <span class="comment">// 释放读锁</span></span><br><span class="line">    lock()</span><br><span class="line">    <span class="keyword">if</span> !checkSomething() &#123;</span><br><span class="line">        <span class="comment">// 执行一些动作</span></span><br><span class="line">        <span class="keyword">return</span> </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 执行另外一些动作</span></span><br><span class="line">    lock()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>比如，先加读锁检测数据是否存在，如果存在就直接返回，否则就释放读锁，加写锁，再次检查数据是否存在，存在就直接返回，不存在就根据业务计算数据并返回。</p>
+<h1 id="double-check模式"><a href="#double-check模式" class="headerlink" title="double-check模式"></a><span style="color:#339AFF;">double-check模式</span></h1><p>double-check是并发里为了兼顾并发安全和性能经常采用的一种代码模式。它的基本思路可以总结为检查、加锁、检查，所以也叫做double-check。double-check经常用在使用读写锁的场景。这里我用伪代码来描述它的基本思路。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">doubleCheck</span><span class="params">()</span></span> &#123;</span><br><span class="line">    rlock() <span class="comment">// 加读锁</span></span><br><span class="line">    <span class="keyword">if</span> !checkSomething() &#123;</span><br><span class="line">        <span class="comment">// 执行一些动作</span></span><br><span class="line">        <span class="keyword">return</span> </span><br><span class="line">    &#125;</span><br><span class="line">    runlock() <span class="comment">// 释放读锁</span></span><br><span class="line">    lock()</span><br><span class="line">    <span class="keyword">if</span> !checkSomething() &#123;</span><br><span class="line">        <span class="comment">// 执行一些动作</span></span><br><span class="line">        <span class="keyword">return</span> </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 执行另外一些动作</span></span><br><span class="line">    lock()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>比如，先加读锁检测数据是否存在，如果存在就直接返回，否则就释放读锁，加写锁，再次检查数据是否存在，存在就直接返回，不存在就根据业务计算数据并返回。</p>
 <p>double-check还有一些变种。第一个变种是在第一次检查的时候，什么锁都不加，这个变种一般用在分布式锁下，因为分布式锁没有读锁。另外一个变种是用原子操作来取代读锁，但是前提是你用原子操作就可以完成检查。</p>
 <p>一般来说，你可以把double-check作为自己优化并发代码的一个措施，纳入到整个性能优化方案里面。</p>
 <h1 id="面试准备"><a href="#面试准备" class="headerlink" title="面试准备"></a><span style="color:#339AFF;">面试准备</span></h1><p>这里我先来问你几个问题。</p>
@@ -573,8 +574,8 @@
 <blockquote>
 <p>要想彻底解决数据一致性问题，就首先要搞清楚数据不一致的两个来源。第一个是操作部分失败，第二个是并发更新。</p>
 </blockquote>
-<h2 id="源自操作部分失败"><a href="#源自操作部分失败" class="headerlink" title="源自操作部分失败"></a><span style="color:#00ACC1;">源自操作部分失败</span></h2><p>这个是最难解决的。之前你在<a href="/2023/11/03/18｜分布式事务：如何同时保证分库分表、ACID和高性能？/" title="分布式事务">分布式事务</a>、<a href="/2023/11/06/26｜消息不丢失：生产者收到写入成功响应后消息一定不会丢失吗？/" title="消息丢失">消息丢失</a>两节课里面已经看到了类似的问题，也就是在分布式环境下，你很难保证多个操作要么都成功，要么都失败。而在更新数据的时候，即便是最简单的模型，也是要求你更新数据库和更新缓存要么都成功，要么都失败。</p>
-<img src="/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/1.webp">
+<h2 id="源自操作部分失败"><a href="#源自操作部分失败" class="headerlink" title="源自操作部分失败"></a><span style="color:#00ACC1;">源自操作部分失败</span></h2><p>这个是最难解决的。之前你在<a href="/2023/11/03/18%EF%BD%9C%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1%EF%BC%9A%E5%A6%82%E4%BD%95%E5%90%8C%E6%97%B6%E4%BF%9D%E8%AF%81%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E3%80%81ACID%E5%92%8C%E9%AB%98%E6%80%A7%E8%83%BD%EF%BC%9F/" title="18｜分布式事务：如何同时保证分库分表、ACID和高性能？">分布式事务</a>、<a href="/2023/11/06/26%EF%BD%9C%E6%B6%88%E6%81%AF%E4%B8%8D%E4%B8%A2%E5%A4%B1%EF%BC%9A%E7%94%9F%E4%BA%A7%E8%80%85%E6%94%B6%E5%88%B0%E5%86%99%E5%85%A5%E6%88%90%E5%8A%9F%E5%93%8D%E5%BA%94%E5%90%8E%E6%B6%88%E6%81%AF%E4%B8%80%E5%AE%9A%E4%B8%8D%E4%BC%9A%E4%B8%A2%E5%A4%B1%E5%90%97%EF%BC%9F/" title="26｜消息不丢失：生产者收到写入成功响应后消息一定不会丢失吗？">消息丢失</a>两节课里面已经看到了类似的问题，也就是在分布式环境下，你很难保证多个操作要么都成功，要么都失败。而在更新数据的时候，即便是最简单的模型，也是要求你更新数据库和更新缓存要么都成功，要么都失败。</p>
+<img src="/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/1.webp" class="">
 <p>显然，这是一个分布式事务问题。那么通过前面的学习，你应该知道已有的分布式事务里面，追求的都是最终一致性。即便你认为XA事务能够解决一致性问题，但是缓存基本上没有支持XA事务的。</p>
 <p>好在缓存有点特殊。所以在这节课的后面我给出了一个结合本地事务和分布式锁的无限接近强一致性的方案。所以这里的结论就是，源自部分失败造成的数据不一致是不可避免的。</p>
 <blockquote>
@@ -589,7 +590,7 @@
 <blockquote>
 <p>另外一个导致数据不一致的原因是并发操作，比如说多个线程同时更新数据库和缓存，在这种情况下有可能先更新数据库的线程后更新缓存，导致数据不一致。</p>
 </blockquote>
-<img src="/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/2.webp">
+<img src="/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/2.webp" class="">
 <p>然后你可以解释这个是可以解决的。</p>
 <blockquote>
 <p>并发操作的数据不一致问题，是可以解决的。比如说在缓存模式里面，WriteBack就可以，虽然它会丢数据。又或者使用分布式锁，也可以控制并发更新。</p>
@@ -604,18 +605,18 @@
 <p>分布式锁中有很多细节可以作为你的亮点方案，所以我们最后再聊，这里我们先来看消息队列和版本号的方案。</p>
 <h2 id="消息队列"><a href="#消息队列" class="headerlink" title="消息队列"></a><span style="color:#00ACC1;">消息队列</span></h2><p>既然使用分布式锁是为了保证同一时刻只有一个线程在更新数据，那么为什么不让更新请求都跑到消息队列上排个队呢？</p>
 <p>思路也很简单，就是结合之前在有序消息里面讲到的方案，让针对同一个业务的更新请求保持有序。消费者挨个将消息取出来，然后更新数据库和缓存。这种做法一样能够保证在同一时刻对同一个数据只有一个线程在更新。</p>
-<img src="/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/3.webp">
+<img src="/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/3.webp" class="">
 <blockquote>
 <p>针对一些可以异步更新数据的场景，可以考虑将更新请求都发送到消息队列上。但是要注意的是，同一个业务的消息必须是有序的，不然更新数据会出错。消费者在取出消息之后，执行更新。而且消费者在更新失败之后，可以多次重试，对业务也没有什么影响。这个方案也是追求最终一致性的，强一致性还是用不了。</p>
 </blockquote>
 <p>这里有一个变种，就是先更新数据库，再发送消息到消息队列，让消费者去更新缓存。</p>
-<img src="/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/4.webp">
+<img src="/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/4.webp" class="">
 <p>但是如果消费者依赖消息中的数据来更新缓存，那么就会有并发问题，因为先更新数据库的不一定先发消息。</p>
-<img src="/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/5.webp">
+<img src="/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/5.webp" class="">
 <p>所以最多就是把消息当成一个触发器，收到消息就去更新缓存，但是是查询数据库中的数据来执行更新。但是我个人认为，既然要先更新数据库，为什么不用缓存模式中的RefreshAhead，引入Canal之类的来更新缓存呢，这样效果更好。</p>
 <h2 id="版本号"><a href="#版本号" class="headerlink" title="版本号"></a><span style="color:#00ACC1;">版本号</span></h2><p>版本号也能解决并发更新的问题。它的基本思路就是每一次更新版本号都要加一，然后低版本数据不能覆盖高版本的数据。</p>
 <p>在这种思路之下，前面在缓存模式里面出现过的很多数据不一致的场景，都能得到解决。比如说在CacheAside里面，加上版本号之后，就不会出现不一致的问题了。</p>
-<img src="/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/6.webp">
+<img src="/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/6.webp" class="">
 <blockquote>
 <p>另外一个思路是使用版本号来控制并发更新，每个数据都有一个对应的版本号，在更新的时候版本号都要加一。每一次在更新的时候都要比较版本号，版本号低的数据不能覆盖版本号高的数据。</p>
 </blockquote>
@@ -625,26 +626,26 @@
 </blockquote>
 <p>事实上，在正常的面试中，你能分析清楚数据不一致的两个根源，然后回答出消息队列和版本号两个方案，已经算是答得比较好的了。不过有一个问题，我觉得还是要进一步介绍一下，防止你在面试的时候被问住，那就是在多级缓存里面怎么更新的问题。</p>
 <h2 id="多级缓存"><a href="#多级缓存" class="headerlink" title="多级缓存"></a><span style="color:#00ACC1;">多级缓存</span></h2><p>多级缓存是指你在业务中使用了多个缓存，比如说本地缓存 + Redis + 数据库的架构。</p>
-<img src="/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/7.webp">
+<img src="/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/7.webp" class="">
 <p>在这种架构下，更新数据的时候，需要考虑更新本地缓存、Redis和数据库的顺序。</p>
 <p>首先你可以明确的一点是，<strong>数据库是最准确的数据源，所以你肯定是优先更新数据库的</strong>。剩下的无非就是先更新本地缓存还是先更新Redis的事情了。</p>
 <p>坦白说，如果只是考虑数据一致性的问题，你随便更新哪个都会不一致。硬要矮个子里面挑高个的，我认为更新本地缓存应该先于Redis。</p>
 <blockquote>
 <p>在使用本地缓存和Redis缓存的时候，我的更新顺序是，先更新数据库，再更新本地缓存，最后更新Redis。先更新数据库是因为数据库应该是最准确的数据源。<br>其次更新本地缓存，理由有三个：一是更新本地缓存几乎不会失败；二是查询的时候是先查询本地缓存的，先更新本地缓存可以确保用户能够拿到最新的数据；三是即便后续Redis更新失败，因为本地缓存中数据是存在的，所以也不会查询到Redis中不一致的数据。</p>
 </blockquote>
-<img src="/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/8.webp">
+<img src="/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/8.webp" class="">
 <p>从上面这个图你也可以看出来，引入了本地缓存和Redis缓存之后，数据不一致性的概率就更加大了，你可以按照前面几节课我分析各种不一致场景的思路去分析，我就不重复了。</p>
 <h1 id="亮点方案"><a href="#亮点方案" class="headerlink" title="亮点方案"></a><span style="color:#339AFF;">亮点方案</span></h1><h2 id="一致性哈希和缓存"><a href="#一致性哈希和缓存" class="headerlink" title="一致性哈希和缓存"></a><span style="color:#00ACC1;">一致性哈希和缓存</span></h2><p>这个亮点方案你在微服务部分已经见过了，这一次是进一步深入讨论。你先回顾一下一致性哈希负载均衡算法和本地缓存的方案。</p>
 <p>这个方案主要解决的是并发更新的问题，因为它通过哈希负载均衡算法做到某一个key只有一个服务端节点在处理。因此你将本地缓存换成Redis也一样可以。</p>
-<img src="/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/9.webp">
+<img src="/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/9.webp" class="">
 <p>你在面试缓存一致性的时候也不要忘记提起这个方案。但是我没有细说一个点，就是怎么更新数据？因为即便是同一个key的请求都落在同一个节点上，依旧存在并发更新的问题。这个时候你就需要使用到缓存模式中的singleflight模式了。你在介绍完基本方案之后，要注意提一下这个。</p>
 <blockquote>
 <p>在使用了这种负载均衡算法之后，更新缓存的时候要使用singleflight模式，那么就可以做到同一个key一定落在同一个节点上，并且这个节点上最多只有一个线程在更新数据。如果有多个更新请求，那么它们会轮流更新数据库和缓存。</p>
 </blockquote>
-<img src="/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/10.webp">
+<img src="/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/10.webp" class="">
 <p>此外，当时我也提到一个问题，在节点上线或者下线的时候，就会引起不一致的问题，那么怎么解决呢？</p>
 <p>我们先来看节点下线。节点下线其实是最好处理的，因为下线之后，新的请求都会被打到另外一个节点上，也就是只有一个节点在处理某个key的请求。但是如果节点上线，也就是扩容的话，就会引起不一致的问题。</p>
-<img src="/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/11.webp">
+<img src="/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/11.webp" class="">
 <p>解决的思路其实也很简单，既然问题出在新节点加入之后的短时间内，有两个节点在处理写请求，那么停掉一个就可以了。所以你在介绍完基本想法以及可能存在数据不一致的问题之后，补充这个说明。</p>
 <blockquote>
 <p>解决这种数据不一致的思路也很简单，就是在新节点上线的一小段时间内，不要读写缓存，等待老节点上的请求自然返回。你可以预想一下，如果你们公司的响应时间是要求在1s以内，那么新节点上来的头2s，就可以不用读写缓存。虽然这两秒的请求响应时间会很差，但是也能避开数据不一致的问题。</p>
@@ -653,11 +654,11 @@
 <p>除了这些以外，还有一个分布式锁的亮点方案，你也可以进一步聊一聊。</p>
 <h1 id="分布式锁方案"><a href="#分布式锁方案" class="headerlink" title="分布式锁方案"></a><span style="color:#339AFF;">分布式锁方案</span></h1><p>分布式锁方案很多人用，但是很少有人给你解释清楚里面的弯弯绕绕。这里我先给你解释安全、性能不错，但是一致性比较差的思路，再给你介绍无限接近强一致性、但是隐患比较多的思路。</p>
 <h2 id="思路一：先本地事务，后分布式锁"><a href="#思路一：先本地事务，后分布式锁" class="headerlink" title="思路一：先本地事务，后分布式锁"></a><span style="color:#00ACC1;">思路一：先本地事务，后分布式锁</span></h2><p>这个思路是先执行本地事务，然后加分布式锁，删除缓存，释放分布式锁。</p>
-<img src="/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/12.webp">
+<img src="/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/12.webp" class="">
 <p>显然，如果单纯这样做，肯定会有不一致的问题，你可以看一下示意图。</p>
-<img src="/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/13.webp">
+<img src="/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/13.webp" class="">
 <p>为了避免这个并发更新的问题，你需要在缓存未命中回查数据库的时候，加上分布式锁。</p>
-<img src="/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/14.webp">
+<img src="/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/14.webp" class="">
 <p>所以你抓住先本地事务，后分布式锁的顺序来回答。</p>
 <blockquote>
 <p>我之前用过分布式锁来尝试解决并发更新的问题，基本思路是先执行本地事务，在事务提交之后加分布式锁，然后删除缓存。而在读请求来了的时候，先读缓存。如果缓存未命中，再加分布式锁，然后从数据中加载数据回写缓存，再释放分布式锁。</p>
@@ -666,20 +667,20 @@
 <blockquote>
 <p>当然，这里也可以进一步优化，在读请求缓存未命中加上了分布式锁之后，再次读一下缓存，看看有没有别的线程已经加载好了数据。</p>
 </blockquote>
-<img src="/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/15.webp">
+<img src="/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/15.webp" class="">
 <p>显然，这个只解决了并发更新的问题。你可能想到了，既然我有一个本地事务，那么我能不能在本地事务还没提交的时候，就把缓存删除？这也就是我们的第二个思路。</p>
 <h2 id="思路二：先删除缓存，再提交事务"><a href="#思路二：先删除缓存，再提交事务" class="headerlink" title="思路二：先删除缓存，再提交事务"></a><span style="color:#00ACC1;">思路二：先删除缓存，再提交事务</span></h2><p>这一个思路的核心是把删除缓存的操作放在数据库事务里，你可以看一下基本思路图。</p>
-<img src="/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/16.webp">
+<img src="/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/16.webp" class="">
 <p>你在面试的时候先简要介绍思路。</p>
 <blockquote>
 <p>另外一个思路是尝试在数据库提交事务之前就删除缓存。它的思路是先开启本地事务，执行事务操作。然后获取分布式锁，删除缓存。紧接着提交事务，释放分布式锁。当然，在缓存未命中回查的时候，还是要先加分布式锁，避免并发更新的问题。</p>
 </blockquote>
-<img src="/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/17.webp">
+<img src="/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/17.webp" class="">
 <p>回答到这里，如果面试官反应灵敏，他就可能会追问你删除缓存和提交事务两个动作的失败问题，那么你就回答这两种情况。</p>
 <blockquote>
 <p>有两种主要失败场景。一是删除失败了，那么事务不会提交，数据是一致的。二是删除成功了，事务提交失败了，数据依旧是一致的，也就是多删了一次缓存而已。</p>
 </blockquote>
-<img src="/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/18.webp">
+<img src="/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/18.webp" class="">
 <p>那么这个做法是不是强一致性的呢？答案是无限接近强一致性。</p>
 <blockquote>
 <p>这种解决思路已经非常非常接近强一致性了。不过这里有两个条件，如果满足了就可以认为是达成了强一致性的效果。<br>第一，分布式锁本身必须是可靠的，也就是一个线程拿了分布式锁，其他线程绝对不可能拿到同一个分布式锁。<br>第二，在删除缓存超时的时候会继续重试直到确认删除成功。</p>
@@ -688,16 +689,16 @@
 <blockquote>
 <p>这一个方案最大的缺点就是本地事务比较容易超时。比如说分布式锁被人抢占了，那么在等待分布式锁的时候，就可能超时。当然，如果本身网络不稳定导致一直无法删除缓存，也会引起本地事务超时。</p>
 </blockquote>
-<img src="/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/19.webp">
+<img src="/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/19.webp" class="">
 <p>超时问题其实有方案来缓解。</p>
 <blockquote>
 <p>可以考虑先加分布式锁，再开启本地事务，然后删除缓存，提交事务，最后释放分布式锁。代价就是分布式锁的持有时间变长了。并且删除缓存本身依旧在本地事务里面，还是可能导致本地事务超时。</p>
 </blockquote>
-<img src="/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/20.webp">
+<img src="/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/20.webp" class="">
 <p>整个方案里面，你几乎都是在围绕分布式锁来做文章，所以面试话题十有八九会被引导到分布式锁上，课程后面会有详细分析，你要结合在一起学习。</p>
 <h1 id="面试思路总结"><a href="#面试思路总结" class="headerlink" title="面试思路总结"></a><span style="color:#339AFF;">面试思路总结</span></h1><p>这一节课我们介绍了double-check，然后在面试思路里面分析了引起不一致的两个根源：操作部分失败和并发操作。总的来说，并发操作容易解决，比如说使用缓存模式就很容易解决并发更新的问题，除此之外使用消息队列或者版本号也同样可以解决问题。</p>
 <p>然后我进一步讨论了负载均衡那一节课里引入的一致性哈希负载均衡算法和缓存结合使用的方案，重点讨论了使用分布式锁来解决一致性问题的两个思路。第一个思路比较中规中矩，先提交本地事务，再加分布式删除缓存。第二个思路能达成一种无限接近强一致性的效果，核心是先删除缓存，再提交事务，但是它严重依赖分布式锁的可靠性。</p>
-<img src="/2023/11/09/34｜缓存一致性问题：高并发服务如何保证缓存一致性？/21.png">
+<img src="/2023/11/09/34%EF%BD%9C%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9A%E9%AB%98%E5%B9%B6%E5%8F%91%E6%9C%8D%E5%8A%A1%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%EF%BC%9F/21.png" class="">
 <h1 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a><span style="color:#339AFF;">思考题</span></h1><ul>
 <li>在分布式方案的思路二里面，我是说先提交事务，再释放分布式锁，那么顺序能不能反过来？</li>
 <li>有一种使用分布式锁的方案是先加分布式锁，然后执行本地事务并且提交，最后删除缓存，释放分布式锁。这种方案有什么缺点？有没有什么场景可能出现数据不一致？</li>
@@ -725,7 +726,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/后端工程师进阶/" rel="tag"># 后端工程师进阶</a>
+            <a href="/tags/%E5%90%8E%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%9B%E9%98%B6/" rel="tag"># 后端工程师进阶</a>
           
         </div>
       
@@ -738,7 +739,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2023/11/09/33｜缓存模式：缓存模式能不能解决缓存一致性问题？/" rel="next" title="33｜缓存模式：缓存模式能不能解决缓存一致性问题？">
+              <a href="/2023/11/09/33%EF%BD%9C%E7%BC%93%E5%AD%98%E6%A8%A1%E5%BC%8F%EF%BC%9A%E7%BC%93%E5%AD%98%E6%A8%A1%E5%BC%8F%E8%83%BD%E4%B8%8D%E8%83%BD%E8%A7%A3%E5%86%B3%E7%BC%93%E5%AD%98%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98%EF%BC%9F/" rel="next" title="33｜缓存模式：缓存模式能不能解决缓存一致性问题？">
                 <i class="fa fa-chevron-left"></i> 33｜缓存模式：缓存模式能不能解决缓存一致性问题？
               </a>
             
@@ -748,7 +749,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2023/11/09/35｜缓存问题：怎么解决缓存穿透、击穿和雪崩问题？/" rel="prev" title="35｜缓存问题：怎么解决缓存穿透、击穿和雪崩问题？">
+              <a href="/2023/11/09/35%EF%BD%9C%E7%BC%93%E5%AD%98%E9%97%AE%E9%A2%98%EF%BC%9A%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F%E3%80%81%E5%87%BB%E7%A9%BF%E5%92%8C%E9%9B%AA%E5%B4%A9%E9%97%AE%E9%A2%98%EF%BC%9F/" rel="prev" title="35｜缓存问题：怎么解决缓存穿透、击穿和雪崩问题？">
                 35｜缓存问题：怎么解决缓存穿透、击穿和雪崩问题？ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -808,7 +809,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -819,9 +822,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -833,26 +836,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -924,7 +911,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1099,115 +1086,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1238,23 +1117,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1280,7 +1159,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#double-check模式"><span class="nav-number">1.</span> <span class="nav-text">double-check模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面试准备"><span class="nav-number">2.</span> <span class="nav-text">面试准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本思路"><span class="nav-number">3.</span> <span class="nav-text">基本思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#不一致的根源"><span class="nav-number">3.1.</span> <span class="nav-text">不一致的根源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源自操作部分失败"><span class="nav-number">3.2.</span> <span class="nav-text">源自操作部分失败</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源自并发操作"><span class="nav-number">3.3.</span> <span class="nav-text">源自并发操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决方案"><span class="nav-number">4.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#消息队列"><span class="nav-number">4.1.</span> <span class="nav-text">消息队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#版本号"><span class="nav-number">4.2.</span> <span class="nav-text">版本号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多级缓存"><span class="nav-number">4.3.</span> <span class="nav-text">多级缓存</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#亮点方案"><span class="nav-number">5.</span> <span class="nav-text">亮点方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一致性哈希和缓存"><span class="nav-number">5.1.</span> <span class="nav-text">一致性哈希和缓存</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分布式锁方案"><span class="nav-number">6.</span> <span class="nav-text">分布式锁方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#思路一：先本地事务，后分布式锁"><span class="nav-number">6.1.</span> <span class="nav-text">思路一：先本地事务，后分布式锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#思路二：先删除缓存，再提交事务"><span class="nav-number">6.2.</span> <span class="nav-text">思路二：先删除缓存，再提交事务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面试思路总结"><span class="nav-number">7.</span> <span class="nav-text">面试思路总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">8.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#double-check%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">double-check模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">面试准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E8%B7%AF"><span class="nav-number">3.</span> <span class="nav-text">基本思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8D%E4%B8%80%E8%87%B4%E7%9A%84%E6%A0%B9%E6%BA%90"><span class="nav-number">3.1.</span> <span class="nav-text">不一致的根源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BA%90%E8%87%AA%E6%93%8D%E4%BD%9C%E9%83%A8%E5%88%86%E5%A4%B1%E8%B4%A5"><span class="nav-number">3.2.</span> <span class="nav-text">源自操作部分失败</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BA%90%E8%87%AA%E5%B9%B6%E5%8F%91%E6%93%8D%E4%BD%9C"><span class="nav-number">3.3.</span> <span class="nav-text">源自并发操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">4.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="nav-number">4.1.</span> <span class="nav-text">消息队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%89%88%E6%9C%AC%E5%8F%B7"><span class="nav-number">4.2.</span> <span class="nav-text">版本号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98"><span class="nav-number">4.3.</span> <span class="nav-text">多级缓存</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%AE%E7%82%B9%E6%96%B9%E6%A1%88"><span class="nav-number">5.</span> <span class="nav-text">亮点方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7%E5%93%88%E5%B8%8C%E5%92%8C%E7%BC%93%E5%AD%98"><span class="nav-number">5.1.</span> <span class="nav-text">一致性哈希和缓存</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E6%96%B9%E6%A1%88"><span class="nav-number">6.</span> <span class="nav-text">分布式锁方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E4%B8%80%EF%BC%9A%E5%85%88%E6%9C%AC%E5%9C%B0%E4%BA%8B%E5%8A%A1%EF%BC%8C%E5%90%8E%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="nav-number">6.1.</span> <span class="nav-text">思路一：先本地事务，后分布式锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%9D%E8%B7%AF%E4%BA%8C%EF%BC%9A%E5%85%88%E5%88%A0%E9%99%A4%E7%BC%93%E5%AD%98%EF%BC%8C%E5%86%8D%E6%8F%90%E4%BA%A4%E4%BA%8B%E5%8A%A1"><span class="nav-number">6.2.</span> <span class="nav-text">思路二：先删除缓存，再提交事务</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E6%80%9D%E8%B7%AF%E6%80%BB%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">面试思路总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">8.</span> <span class="nav-text">思考题</span></a></li></ol></div>
             
 
           </div>
@@ -1315,7 +1194,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1326,12 +1205,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1339,7 +1218,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

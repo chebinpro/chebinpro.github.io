@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,26 +104,26 @@
 
 
   <meta name="description" content="思考并回答以下问题：  使用yield还需要再循环一次，怎么理解？ yield和两个foreach在一起。怎么理解？">
-<meta name="keywords" content="PHP">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PHP性能优化利器：生成器yield理解">
-<meta property="og:url" content="http://yoursite.com/2020/01/14/PHP性能优化利器：生成器yield理解/index.html">
+<meta property="og:url" content="http://yoursite.com/2020/01/14/PHP%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%88%A9%E5%99%A8%EF%BC%9A%E7%94%9F%E6%88%90%E5%99%A8yield%E7%90%86%E8%A7%A3/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：  使用yield还需要再循环一次，怎么理解？ yield和两个foreach在一起。怎么理解？">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2020/01/14/PHP性能优化利器：生成器yield理解/1.png">
-<meta property="og:updated_time" content="2020-08-06T03:49:12.806Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2020/01/14/PHP%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%88%A9%E5%99%A8%EF%BC%9A%E7%94%9F%E6%88%90%E5%99%A8yield%E7%90%86%E8%A7%A3/1.png">
+<meta property="article:published_time" content="2020-01-14T03:15:56.000Z">
+<meta property="article:modified_time" content="2020-08-06T03:49:12.806Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="PHP">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PHP性能优化利器：生成器yield理解">
-<meta name="twitter:description" content="思考并回答以下问题：  使用yield还需要再循环一次，怎么理解？ yield和两个foreach在一起。怎么理解？">
-<meta name="twitter:image" content="http://yoursite.com/2020/01/14/PHP性能优化利器：生成器yield理解/1.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/01/14/PHP%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%88%A9%E5%99%A8%EF%BC%9A%E7%94%9F%E6%88%90%E5%99%A8yield%E7%90%86%E8%A7%A3/1.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/01/14/PHP性能优化利器：生成器yield理解/">
+  <link rel="canonical" href="http://yoursite.com/2020/01/14/PHP性能优化利器：生成器yield理解/"/>
 
 
 
@@ -172,7 +172,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -233,7 +233,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -250,7 +250,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -267,7 +267,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -284,7 +284,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -301,7 +301,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -312,7 +312,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -332,7 +332,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -382,16 +384,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/14/PHP性能优化利器：生成器yield理解/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/14/PHP%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%88%A9%E5%99%A8%EF%BC%9A%E7%94%9F%E6%88%90%E5%99%A8yield%E7%90%86%E8%A7%A3/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -410,7 +412,7 @@
 
           
             <i class="fa fa-thumb-tack"></i>
-            <font color="FF0000">置顶</font>
+            <font color=FF0000>置顶</font>
             <span class="post-meta-divider">|</span>
           
 
@@ -495,7 +497,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">9.9k</span>
+                <span title="本文字数">45k</span>
               
 
               
@@ -509,7 +511,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">9 分钟</span>
+                <span title="阅读时长">41 分钟</span>
               
             </div>
           
@@ -534,7 +536,7 @@
 <li>使用yield还需要再循环一次，怎么理解？</li>
 <li>yield和两个foreach在一起。怎么理解？</li>
 </ul>
-<a id="more"></a>
+<span id="more"></span>
 <p>如果是做Python或者C#的小伙伴，对于生成器应该不陌生。但很多PHP开发者或许都不知道生成器这个功能，可能是因为生成器是PHP5.5.0才引入的功能，也可以是生成器作用不是很明显。但是，生成器功能的确非常有用。</p>
 <h1 id="优点"><a href="#优点" class="headerlink" title="优点"></a><span style="color:#339AFF;">优点</span></h1><ul>
 <li>生成器会对PHP应用的性能有非常大的影响。</li>
@@ -543,7 +545,7 @@
 </ul>
 <p>那么，这些神奇的功能究竟是如何做到的？我们先来举个例子。</p>
 <h1 id="概念引入"><a href="#概念引入" class="headerlink" title="概念引入"></a><span style="color:#339AFF;">概念引入</span></h1><p>首先，放下生成器概念的包袱，来看一个简单的PHP函数：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createRange</span><span class="params">($number)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    $data = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>($i = <span class="number">0</span>; $i &lt; $number; $i++)</span><br><span class="line">    &#123;</span><br><span class="line">        $data[] = time();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> $data;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createRange</span>(<span class="params"><span class="variable">$number</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="variable">$data</span> = [];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="variable">$i</span> = <span class="number">0</span>; <span class="variable">$i</span> &lt; <span class="variable">$number</span>; <span class="variable">$i</span>++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="variable">$data</span>[] = <span class="title function_ invoke__">time</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$data</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这是一个非常常见的PHP函数，我们在处理一些数组的时候经常会使用。这里的代码也非常简单：</p>
 <ul>
 <li>1.我们创建一个函数。</li>
@@ -551,18 +553,18 @@
 <li>3.for循环执行完毕，把$data返回出去。</li>
 </ul>
 <p>再写一个函数，把这个函数的返回值循环打印出来：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$result = createRange(<span class="number">10</span>); <span class="comment">// 这里调用上面我们创建的函数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span>($result <span class="keyword">as</span> $value)</span><br><span class="line">&#123;</span><br><span class="line">    sleep(<span class="number">1</span>); <span class="comment">// 这里停顿1秒，我们后续有用</span></span><br><span class="line">    <span class="keyword">echo</span> $value.<span class="string">'&lt;br/&gt;'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$result</span> = <span class="title function_ invoke__">createRange</span>(<span class="number">10</span>); <span class="comment">// 这里调用上面我们创建的函数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span>(<span class="variable">$result</span> <span class="keyword">as</span> <span class="variable">$value</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="title function_ invoke__">sleep</span>(<span class="number">1</span>); <span class="comment">// 这里停顿1秒，我们后续有用</span></span><br><span class="line">    <span class="keyword">echo</span> <span class="variable">$value</span>.<span class="string">&#x27;&lt;br/&gt;&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>我们在浏览器里面看一下运行结果：</p>
-<img src="/2020/01/14/PHP性能优化利器：生成器yield理解/1.png">
+<img src="/2020/01/14/PHP%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E5%88%A9%E5%99%A8%EF%BC%9A%E7%94%9F%E6%88%90%E5%99%A8yield%E7%90%86%E8%A7%A3/1.png" class="">
 <p>这里非常完美，没有任何问题。（当然sleep(1)效果你们看不出来）</p>
 <h1 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a><span style="color:#339AFF;">生成器</span></h1><p>我们注意到，在调用函数createRange的时候给$number的传值是10，一个很小的数字。假设，现在传递一个值<span style="color:red">10000000（1000万）</span>。</p>
 <p>那么，在函数createRange里面，for循环就需要执行1000万次。且有1000万个值被放到$data里面，而$data数组在是被放在内存内。所以，在调用函数时候会占用大量内存。</p>
 <p>这里，生成器就可以大显身手了。</p>
 <h2 id="创建生成器"><a href="#创建生成器" class="headerlink" title="创建生成器"></a><span style="color:#00ACC1;">创建生成器</span></h2><p>我们直接修改代码，你们注意观察：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createRange</span><span class="params">($number)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>($i = <span class="number">0</span>; $i &lt; $number; $i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">yield</span> time();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createRange</span>(<span class="params"><span class="variable">$number</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="variable">$i</span> = <span class="number">0</span>; <span class="variable">$i</span> &lt; <span class="variable">$number</span>; <span class="variable">$i</span>++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">yield</span> <span class="title function_ invoke__">time</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>看下这段和刚刚很像的代码，我们删除了数组$data，而且也没有返回任何内容，而是在time()之前使用了一个关键字yield。</p>
 <h2 id="使用生成器"><a href="#使用生成器" class="headerlink" title="使用生成器"></a><span style="color:#00ACC1;">使用生成器</span></h2><p>我们再运行一下第二段代码：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$result = createRange(<span class="number">10</span>); <span class="comment">// 这里调用上面我们创建的函数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span>($result <span class="keyword">as</span> $value)</span><br><span class="line">&#123;</span><br><span class="line">    sleep(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">echo</span> $value.<span class="string">'&lt;br /&gt;'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$result</span> = <span class="title function_ invoke__">createRange</span>(<span class="number">10</span>); <span class="comment">// 这里调用上面我们创建的函数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span>(<span class="variable">$result</span> <span class="keyword">as</span> <span class="variable">$value</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="title function_ invoke__">sleep</span>(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">echo</span> <span class="variable">$value</span>.<span class="string">&#x27;&lt;br /&gt;&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>我们奇迹般的发现了，输出的值和第一次没有使用生成器的不一样。这里的值（时间戳）中间间隔了1秒。</p>
 <p>这里的间隔一秒其实就是sleep(1)造成的后果。但是为什么第一次没有间隔？那是因为：</p>
 <ul>
@@ -572,7 +574,7 @@
 <p>到这里，你应该对生成器有点儿头绪。</p>
 <h2 id="深入理解生成器"><a href="#深入理解生成器" class="headerlink" title="深入理解生成器"></a><span style="color:#00ACC1;">深入理解生成器</span></h2><p><strong>代码剖析</strong></p>
 <p>下面我们来对于刚刚的代码进行剖析。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createRange</span><span class="params">($number)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>($i = <span class="number">0</span>; $i &lt; $number; $i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">yield</span> time();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$result = createRange(<span class="number">10</span>); <span class="comment">// 这里调用上面我们创建的函数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span>($result <span class="keyword">as</span> $value)</span><br><span class="line">&#123;</span><br><span class="line">    sleep(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">echo</span> $value.<span class="string">'&lt;br /&gt;'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">createRange</span>(<span class="params"><span class="variable">$number</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="variable">$i</span> = <span class="number">0</span>; <span class="variable">$i</span> &lt; <span class="variable">$number</span>; <span class="variable">$i</span>++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">yield</span> <span class="title function_ invoke__">time</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$result</span> = <span class="title function_ invoke__">createRange</span>(<span class="number">10</span>); <span class="comment">// 这里调用上面我们创建的函数</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span>(<span class="variable">$result</span> <span class="keyword">as</span> <span class="variable">$value</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="title function_ invoke__">sleep</span>(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">echo</span> <span class="variable">$value</span>.<span class="string">&#x27;&lt;br /&gt;&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>我们来还原一下代码执行过程。</p>
 <ul>
 <li>1.首先调用createRange函数，传入参数10，但是for值执行了一次然后停止了，并且告诉foreach第一次循环可以用的值。</li>
@@ -592,17 +594,15 @@
 <h2 id="读取超大文件"><a href="#读取超大文件" class="headerlink" title="读取超大文件"></a><span style="color:#00ACC1;">读取超大文件</span></h2><p>PHP开发很多时候都要读取大文件，比如csv文件、text文件，或者一些日志文件。这些文件如果很大，比如5个G。这时，直接一次性把所有的内容读取到内存中计算不太现实。</p>
 <p>这里生成器就可以派上用场啦。简单看个例子：读取text文件。</p>
 <p>我们创建一个text文本文档，并在其中输入几行文字，示范读取。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">header(<span class="string">"content-type:text/html;charset=utf-8"</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">readTxt</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment"># code...</span></span><br><span class="line">    $handle = fopen(<span class="string">"./test.txt"</span>, <span class="string">'rb'</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (feof($handle)===<span class="keyword">false</span>) &#123;</span><br><span class="line">        <span class="comment"># code...</span></span><br><span class="line">        <span class="keyword">yield</span> fgets($handle);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fclose($handle);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span> (readTxt() <span class="keyword">as</span> $key =&gt; $value) &#123;</span><br><span class="line">    <span class="comment"># code...</span></span><br><span class="line">    <span class="keyword">echo</span> $value.<span class="string">'&lt;br /&gt;'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="title function_ invoke__">header</span>(<span class="string">&quot;content-type:text/html;charset=utf-8&quot;</span>);</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">readTxt</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment"># code...</span></span><br><span class="line">    <span class="variable">$handle</span> = <span class="title function_ invoke__">fopen</span>(<span class="string">&quot;./test.txt&quot;</span>, <span class="string">&#x27;rb&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (<span class="title function_ invoke__">feof</span>(<span class="variable">$handle</span>)===<span class="literal">false</span>) &#123;</span><br><span class="line">        <span class="comment"># code...</span></span><br><span class="line">        <span class="keyword">yield</span> <span class="title function_ invoke__">fgets</span>(<span class="variable">$handle</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="title function_ invoke__">fclose</span>(<span class="variable">$handle</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span> (<span class="title function_ invoke__">readTxt</span>() <span class="keyword">as</span> <span class="variable">$key</span> =&gt; <span class="variable">$value</span>) &#123;</span><br><span class="line">    <span class="comment"># code...</span></span><br><span class="line">    <span class="keyword">echo</span> <span class="variable">$value</span>.<span class="string">&#x27;&lt;br /&gt;&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>通过上图的输出结果我们可以看出代码完全正常。</p>
 <p>但是，背后的代码执行规则却一点儿也不一样。使用生成器读取文件，第一次读取了第一行，第二次读取了第二行，以此类推，每次被加载到内存中的文字只有一行，大大的减小了内存的使用。</p>
 <p>这样，即使读取上G的文本也不用担心，完全可以像读取很小文件一样编写代码。</p>
 <h2 id="百万级别的访问量"><a href="#百万级别的访问量" class="headerlink" title="百万级别的访问量"></a><span style="color:#00ACC1;">百万级别的访问量</span></h2><p>yield生成器是php5.5之后出现的，yield提供了一种更容易的方法来实现简单的迭代对象，相比较定义类实现Iterator接口的方式，性能开销和复杂性大大降低。</p>
 <p>yield生成器允许你在foreach代码块中写代码来迭代一组数据而不需要在内存中创建一个数组。</p>
-<p>使用示例：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment"> * 计算平方数列 </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> $start </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> $stop </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> Generator </span></span><br><span class="line"><span class="comment"> */</span>  </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">squares</span><span class="params">($start, $stop)</span> </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">if</span> ($start &lt; $stop) </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">for</span> ($i = $start; $i &lt;= $stop; $i++) </span><br><span class="line">        &#123;  </span><br><span class="line">            <span class="keyword">yield</span> $i =&gt; $i * $i;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">for</span> ($i = $start; $i &gt;= $stop; $i--) </span><br><span class="line">        &#123;  </span><br><span class="line">            <span class="keyword">yield</span> $i =&gt; $i * $i; <span class="comment">//迭代生成数组： 键=》值  </span></span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">foreach</span> (squares(<span class="number">3</span>, <span class="number">15</span>) <span class="keyword">as</span> $n =&gt; $square) </span><br><span class="line">&#123;  </span><br><span class="line">    <span class="keyword">echo</span> $n . ‘squared is‘ . $square . ‘&lt;br&gt;‘;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>输出：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">3 squared is 9  </span><br><span class="line">4 squared is 16  </span><br><span class="line">5 squared is 25  </span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
-<p>示例2：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//对某一数组进行加权处理  </span></span><br><span class="line">$numbers = <span class="keyword">array</span>(‘nike‘ =&gt; <span class="number">200</span>, ‘jordan‘ =&gt; <span class="number">500</span>, ‘adiads‘ =&gt; <span class="number">800</span>);  </span><br><span class="line">  </span><br><span class="line"><span class="comment">//通常方法，如果是百万级别的访问量，这种方法会占用极大内存  </span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">rand_weight</span><span class="params">($numbers)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    $total = <span class="number">0</span>;  </span><br><span class="line">    <span class="keyword">foreach</span> ($numbers <span class="keyword">as</span> $number =&gt; $weight) </span><br><span class="line">    &#123;  </span><br><span class="line">        $total += $weight;  </span><br><span class="line">        $distribution[$number] = $total;  </span><br><span class="line">    &#125;  </span><br><span class="line">    $rand = mt_rand(<span class="number">0</span>, $total<span class="number">-1</span>);  </span><br><span class="line">  </span><br><span class="line">    <span class="keyword">foreach</span> ($distribution <span class="keyword">as</span> $num =&gt; $weight) </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">if</span> ($rand &lt; $weight) <span class="keyword">return</span> $num;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">//改用yield生成器  </span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mt_rand_weight</span><span class="params">($numbers)</span> </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    $total = <span class="number">0</span>;  </span><br><span class="line">    <span class="keyword">foreach</span> ($numbers <span class="keyword">as</span> $number =&gt; $weight) </span><br><span class="line">    &#123;  </span><br><span class="line">        $total += $weight;  </span><br><span class="line">        <span class="keyword">yield</span> $number =&gt; $total;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mt_rand_generator</span><span class="params">($numbers)</span>  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    $total = array_sum($numbers);  </span><br><span class="line">    $rand = mt_rand(<span class="number">0</span>, $total <span class="number">-1</span>);  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">foreach</span> (mt_rand_weight($numbers) <span class="keyword">as</span> $num =&gt; $weight) </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">if</span> ($rand &lt; $weight) <span class="keyword">return</span> $num;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="Laravel-ElasticSearch"><a href="#Laravel-ElasticSearch" class="headerlink" title="Laravel + ElasticSearch"></a><span style="color:#00ACC1;">Laravel + ElasticSearch</span></h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 迁移用户数据到es</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> $container</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> $logger</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> $type</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">syncUsersToEs</span><span class="params">($container, $logger, $type)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">list</span>($builder, $currentTime) = [</span><br><span class="line">        $container-&gt;get(ClientBuilderFactory::class)-&gt;create(),</span><br><span class="line">        time(),</span><br><span class="line">    ];</span><br><span class="line"></span><br><span class="line">    $client = $builder-&gt;setHosts([env(<span class="string">'ES_HOSTS'</span>, <span class="string">''</span>)])-&gt;build();</span><br><span class="line"></span><br><span class="line">    $esFun = <span class="function"><span class="keyword">function</span> <span class="params">($data, $client)</span> <span class="title">use</span> <span class="params">($type)</span> </span>&#123;</span><br><span class="line">        $list = [];</span><br><span class="line">        <span class="keyword">foreach</span> ($data <span class="keyword">as</span> $k =&gt; $va) </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (count($list) &gt;= <span class="number">500</span>) </span><br><span class="line">            &#123;</span><br><span class="line">                $client-&gt;bulk([</span><br><span class="line">                    <span class="string">'index'</span> =&gt; Users::ES_INDEX_NAME,</span><br><span class="line">                    <span class="string">'type'</span> =&gt; <span class="string">'users'</span>,</span><br><span class="line">                    <span class="string">'body'</span> =&gt; $list</span><br><span class="line">                ]);</span><br><span class="line">                $list = [];</span><br><span class="line">            &#125; <span class="keyword">else</span> </span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">switch</span> ($type) </span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">// 更新基础数据字段的值</span></span><br><span class="line">                    <span class="keyword">case</span> <span class="string">'update'</span>:</span><br><span class="line">                        array_push(</span><br><span class="line">                            $list,</span><br><span class="line">                            [</span><br><span class="line">                                <span class="string">'update'</span> =&gt;</span><br><span class="line">                                    [</span><br><span class="line">                                        <span class="string">'_id'</span> =&gt; (int)$va[<span class="string">'id'</span>],</span><br><span class="line">                                        <span class="string">'_index'</span> =&gt; Users::ES_INDEX_NAME,</span><br><span class="line">                                        <span class="string">'_type'</span> =&gt; <span class="string">'_doc'</span>,</span><br><span class="line">                                    ]</span><br><span class="line">                            ],</span><br><span class="line">                            [<span class="string">'doc'</span> =&gt; $va]</span><br><span class="line">                        );</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 把对应的新增用户注入es</span></span><br><span class="line">                    <span class="keyword">case</span> <span class="string">'create'</span>:</span><br><span class="line">                        array_push(</span><br><span class="line">                            $list,</span><br><span class="line">                            [</span><br><span class="line">                                <span class="string">'create'</span> =&gt;</span><br><span class="line">                                    [</span><br><span class="line">                                        <span class="string">'_id'</span> =&gt; (int)$va[<span class="string">'id'</span>],</span><br><span class="line">                                        <span class="string">'_index'</span> =&gt; Users::ES_INDEX_NAME,</span><br><span class="line">                                        <span class="string">'_type'</span> =&gt; <span class="string">'_doc'</span>,</span><br><span class="line">                                    ]</span><br><span class="line">                            ],</span><br><span class="line">                            $va</span><br><span class="line">                        );</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">empty</span>($list)) </span><br><span class="line">        &#123;</span><br><span class="line">            $res = $client-&gt;bulk([<span class="string">'index'</span> =&gt; Videos::ES_INDEX_NAME, <span class="string">'type'</span> =&gt; <span class="string">'sv_videos'</span>, <span class="string">'body'</span> =&gt; $list]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">unset</span>($list);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> ($type) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 添加新用户到es中</span></span><br><span class="line">        <span class="keyword">case</span> <span class="string">'create'</span>:</span><br><span class="line">            Users::query()</span><br><span class="line">                -&gt;select([<span class="string">'id'</span>, <span class="string">'name'</span>, <span class="string">'avatar'</span>, <span class="string">'gender'</span>, <span class="string">'mobile'</span>])</span><br><span class="line">                -&gt;where([</span><br><span class="line">                    [<span class="string">'created_at'</span>, <span class="string">'&gt;='</span>, date(<span class="string">'Y-m-d H:i:s'</span>, $currentTime - <span class="number">3600</span>)]</span><br><span class="line">                ])</span><br><span class="line">                -&gt;chunkById(<span class="number">1000</span>, <span class="function"><span class="keyword">function</span> <span class="params">($results)</span> <span class="title">use</span> <span class="params">($client, $esFun)</span> </span>&#123;</span><br><span class="line">                    <span class="comment">// 迭代器数据</span></span><br><span class="line">                    $data = <span class="function"><span class="keyword">function</span> <span class="params">()</span> <span class="title">use</span> <span class="params">($results)</span> </span>&#123;</span><br><span class="line">                        <span class="keyword">foreach</span> ($results-&gt;toArray() <span class="keyword">as</span> $v) &#123;</span><br><span class="line">                            <span class="keyword">yield</span> [</span><br><span class="line">                                <span class="string">'id'</span> =&gt; (int)$v[<span class="string">'id'</span>],</span><br><span class="line">                                <span class="string">'name'</span> =&gt; (string)$v[<span class="string">'name'</span>],</span><br><span class="line">                                <span class="string">'avatar'</span> =&gt; (string)$v[<span class="string">'avatar'</span>],</span><br><span class="line">                                <span class="string">'gender'</span> =&gt; (int)$v[<span class="string">'gender'</span>],</span><br><span class="line">                                <span class="string">'mobile'</span> =&gt; (string)$v[<span class="string">'mobile'</span>],</span><br><span class="line">                            ];</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;;</span><br><span class="line"></span><br><span class="line">                    $esFun($data(), $client);</span><br><span class="line">                &#125;);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 去更新用户搜索的基础数据</span></span><br><span class="line">        <span class="keyword">case</span> <span class="string">'update'</span>:</span><br><span class="line">            Users::query()</span><br><span class="line">                -&gt;select([<span class="string">'id'</span>, <span class="string">'name'</span>, <span class="string">'avatar'</span>, <span class="string">'gender'</span>, <span class="string">'mobile'</span>])</span><br><span class="line">                -&gt;where([</span><br><span class="line">                    [<span class="string">'updated_at'</span>, <span class="string">'&gt;='</span>, date(<span class="string">'Y-m-d H:i:s'</span>, $currentTime - <span class="number">3600</span>)]</span><br><span class="line">                ])</span><br><span class="line">                -&gt;chunkById(<span class="number">1000</span>, <span class="function"><span class="keyword">function</span> <span class="params">($results)</span> <span class="title">use</span> <span class="params">($client, $esFun)</span> </span>&#123;</span><br><span class="line">                    <span class="comment">// 迭代器数据</span></span><br><span class="line">                    $data = <span class="function"><span class="keyword">function</span> <span class="params">()</span> <span class="title">use</span> <span class="params">($results)</span> </span>&#123;</span><br><span class="line">                        <span class="keyword">foreach</span> ($results-&gt;toArray() <span class="keyword">as</span> $v) &#123;</span><br><span class="line">                            <span class="keyword">yield</span> [</span><br><span class="line">                                <span class="string">'id'</span> =&gt; (int)$v[<span class="string">'id'</span>],</span><br><span class="line">                                <span class="string">'name'</span> =&gt; (string)$v[<span class="string">'name'</span>],</span><br><span class="line">                                <span class="string">'avatar'</span> =&gt; (string)$v[<span class="string">'avatar'</span>],</span><br><span class="line">                                <span class="string">'gender'</span> =&gt; (int)$v[<span class="string">'gender'</span>],</span><br><span class="line">                                <span class="string">'mobile'</span> =&gt; (string)$v[<span class="string">'mobile'</span>],</span><br><span class="line">                            ];</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;;</span><br><span class="line"></span><br><span class="line">                    $esFun($data(), $client);</span><br><span class="line">                &#125;);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用示例：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** </span></span><br><span class="line"><span class="comment"> * 计算平方数列 </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> $start </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> $stop </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> Generator </span></span><br><span class="line"><span class="comment"> */</span>  </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">squares</span>(<span class="params"><span class="variable">$start</span>, <span class="variable">$stop</span></span>) </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$start</span> &lt; <span class="variable">$stop</span>) </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">for</span> (<span class="variable">$i</span> = <span class="variable">$start</span>; <span class="variable">$i</span> &lt;= <span class="variable">$stop</span>; <span class="variable">$i</span>++) </span><br><span class="line">        &#123;  </span><br><span class="line">            <span class="keyword">yield</span> <span class="variable">$i</span> =&gt; <span class="variable">$i</span> * <span class="variable">$i</span>;  </span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">for</span> (<span class="variable">$i</span> = <span class="variable">$start</span>; <span class="variable">$i</span> &gt;= <span class="variable">$stop</span>; <span class="variable">$i</span>--) </span><br><span class="line">        &#123;  </span><br><span class="line">            <span class="keyword">yield</span> <span class="variable">$i</span> =&gt; <span class="variable">$i</span> * <span class="variable">$i</span>; <span class="comment">//迭代生成数组： 键=》值  </span></span><br><span class="line">        &#125;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"><span class="keyword">foreach</span> (<span class="title function_ invoke__">squares</span>(<span class="number">3</span>, <span class="number">15</span>) <span class="keyword">as</span> <span class="variable">$n</span> =&gt; <span class="variable">$square</span>) </span><br><span class="line">&#123;  </span><br><span class="line">    <span class="keyword">echo</span> <span class="variable">$n</span> . ‘squared is‘ . <span class="variable">$square</span> . ‘&lt;br&gt;‘;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure><br>输出：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">3 squared is 9  </span><br><span class="line">4 squared is 16  </span><br><span class="line">5 squared is 25  </span><br><span class="line">...  </span><br></pre></td></tr></table></figure><br>示例2：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//对某一数组进行加权处理  </span></span><br><span class="line"><span class="variable">$numbers</span> = <span class="keyword">array</span>(‘nike‘ =&gt; <span class="number">200</span>, ‘jordan‘ =&gt; <span class="number">500</span>, ‘adiads‘ =&gt; <span class="number">800</span>);  </span><br><span class="line">  </span><br><span class="line"><span class="comment">//通常方法，如果是百万级别的访问量，这种方法会占用极大内存  </span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">rand_weight</span>(<span class="params"><span class="variable">$numbers</span></span>)  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="variable">$total</span> = <span class="number">0</span>;  </span><br><span class="line">    <span class="keyword">foreach</span> (<span class="variable">$numbers</span> <span class="keyword">as</span> <span class="variable">$number</span> =&gt; <span class="variable">$weight</span>) </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="variable">$total</span> += <span class="variable">$weight</span>;  </span><br><span class="line">        <span class="variable">$distribution</span>[<span class="variable">$number</span>] = <span class="variable">$total</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="variable">$rand</span> = <span class="title function_ invoke__">mt_rand</span>(<span class="number">0</span>, <span class="variable">$total</span>-<span class="number">1</span>);  </span><br><span class="line">  </span><br><span class="line">    <span class="keyword">foreach</span> (<span class="variable">$distribution</span> <span class="keyword">as</span> <span class="variable">$num</span> =&gt; <span class="variable">$weight</span>) </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$rand</span> &lt; <span class="variable">$weight</span>) <span class="keyword">return</span> <span class="variable">$num</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="comment">//改用yield生成器  </span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mt_rand_weight</span>(<span class="params"><span class="variable">$numbers</span></span>) </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="variable">$total</span> = <span class="number">0</span>;  </span><br><span class="line">    <span class="keyword">foreach</span> (<span class="variable">$numbers</span> <span class="keyword">as</span> <span class="variable">$number</span> =&gt; <span class="variable">$weight</span>) </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="variable">$total</span> += <span class="variable">$weight</span>;  </span><br><span class="line">        <span class="keyword">yield</span> <span class="variable">$number</span> =&gt; <span class="variable">$total</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">mt_rand_generator</span>(<span class="params"><span class="variable">$numbers</span></span>)  </span></span><br><span class="line"><span class="function"></span>&#123;  </span><br><span class="line">    <span class="variable">$total</span> = <span class="title function_ invoke__">array_sum</span>(<span class="variable">$numbers</span>);  </span><br><span class="line">    <span class="variable">$rand</span> = <span class="title function_ invoke__">mt_rand</span>(<span class="number">0</span>, <span class="variable">$total</span> -<span class="number">1</span>);  </span><br><span class="line"></span><br><span class="line">    <span class="keyword">foreach</span> (<span class="title function_ invoke__">mt_rand_weight</span>(<span class="variable">$numbers</span>) <span class="keyword">as</span> <span class="variable">$num</span> =&gt; <span class="variable">$weight</span>) </span><br><span class="line">    &#123;  </span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$rand</span> &lt; <span class="variable">$weight</span>) <span class="keyword">return</span> <span class="variable">$num</span>;  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+<h2 id="Laravel-ElasticSearch"><a href="#Laravel-ElasticSearch" class="headerlink" title="Laravel + ElasticSearch"></a><span style="color:#00ACC1;">Laravel + ElasticSearch</span></h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 迁移用户数据到es</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> $container</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> $logger</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> $type</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">syncUsersToEs</span>(<span class="params"><span class="variable">$container</span>, <span class="variable">$logger</span>, <span class="variable">$type</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">list</span>(<span class="variable">$builder</span>, <span class="variable">$currentTime</span>) = [</span><br><span class="line">        <span class="variable">$container</span>-&gt;<span class="title function_ invoke__">get</span>(<span class="title class_">ClientBuilderFactory</span>::<span class="variable language_">class</span>)-&gt;<span class="title function_ invoke__">create</span>(),</span><br><span class="line">        <span class="title function_ invoke__">time</span>(),</span><br><span class="line">    ];</span><br><span class="line"></span><br><span class="line">    <span class="variable">$client</span> = <span class="variable">$builder</span>-&gt;<span class="title function_ invoke__">setHosts</span>([<span class="title function_ invoke__">env</span>(<span class="string">&#x27;ES_HOSTS&#x27;</span>, <span class="string">&#x27;&#x27;</span>)])-&gt;<span class="title function_ invoke__">build</span>();</span><br><span class="line"></span><br><span class="line">    <span class="variable">$esFun</span> = <span class="function"><span class="keyword">function</span> (<span class="params"><span class="variable">$data</span>, <span class="variable">$client</span></span>) <span class="keyword">use</span> (<span class="params"><span class="variable">$type</span></span>) </span>&#123;</span><br><span class="line">        <span class="variable">$list</span> = [];</span><br><span class="line">        <span class="keyword">foreach</span> (<span class="variable">$data</span> <span class="keyword">as</span> <span class="variable">$k</span> =&gt; <span class="variable">$va</span>) </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="title function_ invoke__">count</span>(<span class="variable">$list</span>) &gt;= <span class="number">500</span>) </span><br><span class="line">            &#123;</span><br><span class="line">                <span class="variable">$client</span>-&gt;<span class="title function_ invoke__">bulk</span>([</span><br><span class="line">                    <span class="string">&#x27;index&#x27;</span> =&gt; <span class="title class_">Users</span>::<span class="variable constant_">ES_INDEX_NAME</span>,</span><br><span class="line">                    <span class="string">&#x27;type&#x27;</span> =&gt; <span class="string">&#x27;users&#x27;</span>,</span><br><span class="line">                    <span class="string">&#x27;body&#x27;</span> =&gt; <span class="variable">$list</span></span><br><span class="line">                ]);</span><br><span class="line">                <span class="variable">$list</span> = [];</span><br><span class="line">            &#125; <span class="keyword">else</span> </span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">switch</span> (<span class="variable">$type</span>) </span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">// 更新基础数据字段的值</span></span><br><span class="line">                    <span class="keyword">case</span> <span class="string">&#x27;update&#x27;</span>:</span><br><span class="line">                        <span class="title function_ invoke__">array_push</span>(</span><br><span class="line">                            <span class="variable">$list</span>,</span><br><span class="line">                            [</span><br><span class="line">                                <span class="string">&#x27;update&#x27;</span> =&gt;</span><br><span class="line">                                    [</span><br><span class="line">                                        <span class="string">&#x27;_id&#x27;</span> =&gt; (<span class="keyword">int</span>)<span class="variable">$va</span>[<span class="string">&#x27;id&#x27;</span>],</span><br><span class="line">                                        <span class="string">&#x27;_index&#x27;</span> =&gt; <span class="title class_">Users</span>::<span class="variable constant_">ES_INDEX_NAME</span>,</span><br><span class="line">                                        <span class="string">&#x27;_type&#x27;</span> =&gt; <span class="string">&#x27;_doc&#x27;</span>,</span><br><span class="line">                                    ]</span><br><span class="line">                            ],</span><br><span class="line">                            [<span class="string">&#x27;doc&#x27;</span> =&gt; <span class="variable">$va</span>]</span><br><span class="line">                        );</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">                    <span class="comment">// 把对应的新增用户注入es</span></span><br><span class="line">                    <span class="keyword">case</span> <span class="string">&#x27;create&#x27;</span>:</span><br><span class="line">                        <span class="title function_ invoke__">array_push</span>(</span><br><span class="line">                            <span class="variable">$list</span>,</span><br><span class="line">                            [</span><br><span class="line">                                <span class="string">&#x27;create&#x27;</span> =&gt;</span><br><span class="line">                                    [</span><br><span class="line">                                        <span class="string">&#x27;_id&#x27;</span> =&gt; (<span class="keyword">int</span>)<span class="variable">$va</span>[<span class="string">&#x27;id&#x27;</span>],</span><br><span class="line">                                        <span class="string">&#x27;_index&#x27;</span> =&gt; <span class="title class_">Users</span>::<span class="variable constant_">ES_INDEX_NAME</span>,</span><br><span class="line">                                        <span class="string">&#x27;_type&#x27;</span> =&gt; <span class="string">&#x27;_doc&#x27;</span>,</span><br><span class="line">                                    ]</span><br><span class="line">                            ],</span><br><span class="line">                            <span class="variable">$va</span></span><br><span class="line">                        );</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!<span class="keyword">empty</span>(<span class="variable">$list</span>)) </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="variable">$res</span> = <span class="variable">$client</span>-&gt;<span class="title function_ invoke__">bulk</span>([<span class="string">&#x27;index&#x27;</span> =&gt; <span class="title class_">Videos</span>::<span class="variable constant_">ES_INDEX_NAME</span>, <span class="string">&#x27;type&#x27;</span> =&gt; <span class="string">&#x27;sv_videos&#x27;</span>, <span class="string">&#x27;body&#x27;</span> =&gt; <span class="variable">$list</span>]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">unset</span>(<span class="variable">$list</span>);</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> (<span class="variable">$type</span>) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 添加新用户到es中</span></span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;create&#x27;</span>:</span><br><span class="line">            <span class="title class_">Users</span>::<span class="title function_ invoke__">query</span>()</span><br><span class="line">                -&gt;<span class="title function_ invoke__">select</span>([<span class="string">&#x27;id&#x27;</span>, <span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;avatar&#x27;</span>, <span class="string">&#x27;gender&#x27;</span>, <span class="string">&#x27;mobile&#x27;</span>])</span><br><span class="line">                -&gt;<span class="title function_ invoke__">where</span>([</span><br><span class="line">                    [<span class="string">&#x27;created_at&#x27;</span>, <span class="string">&#x27;&gt;=&#x27;</span>, <span class="title function_ invoke__">date</span>(<span class="string">&#x27;Y-m-d H:i:s&#x27;</span>, <span class="variable">$currentTime</span> - <span class="number">3600</span>)]</span><br><span class="line">                ])</span><br><span class="line">                -&gt;<span class="title function_ invoke__">chunkById</span>(<span class="number">1000</span>, function (<span class="variable">$results</span>) <span class="keyword">use</span> ($<span class="title">client</span>, $<span class="title">esFun</span>) &#123;</span><br><span class="line">                    // 迭代器数据</span><br><span class="line">                    $<span class="title">data</span> = <span class="keyword">function</span> () <span class="title">use</span> ($<span class="title">results</span>) &#123;</span><br><span class="line">                        <span class="title">foreach</span> ($<span class="title">results</span>-&gt;<span class="title">toArray</span>() <span class="keyword">as</span> $<span class="title">v</span>) &#123;</span><br><span class="line">                            <span class="title">yield</span> [</span><br><span class="line">                                &#x27;<span class="title">id</span>&#x27; =&gt; (<span class="title">int</span>)$<span class="title">v</span>[&#x27;<span class="title">id</span>&#x27;],</span><br><span class="line">                                &#x27;<span class="title">name</span>&#x27; =&gt; (<span class="title">string</span>)$<span class="title">v</span>[&#x27;<span class="title">name</span>&#x27;],</span><br><span class="line">                                &#x27;<span class="title">avatar</span>&#x27; =&gt; (<span class="title">string</span>)$<span class="title">v</span>[&#x27;<span class="title">avatar</span>&#x27;],</span><br><span class="line">                                &#x27;<span class="title">gender</span>&#x27; =&gt; (<span class="title">int</span>)$<span class="title">v</span>[&#x27;<span class="title">gender</span>&#x27;],</span><br><span class="line">                                &#x27;<span class="title">mobile</span>&#x27; =&gt; (<span class="title">string</span>)$<span class="title">v</span>[&#x27;<span class="title">mobile</span>&#x27;],</span><br><span class="line">                            ];</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;;</span><br><span class="line"></span><br><span class="line">                    <span class="variable">$esFun</span>(<span class="variable">$data</span>(), <span class="variable">$client</span>);</span><br><span class="line">                &#125;);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 去更新用户搜索的基础数据</span></span><br><span class="line">        <span class="keyword">case</span> <span class="string">&#x27;update&#x27;</span>:</span><br><span class="line">            <span class="title class_">Users</span>::<span class="title function_ invoke__">query</span>()</span><br><span class="line">                -&gt;<span class="title function_ invoke__">select</span>([<span class="string">&#x27;id&#x27;</span>, <span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;avatar&#x27;</span>, <span class="string">&#x27;gender&#x27;</span>, <span class="string">&#x27;mobile&#x27;</span>])</span><br><span class="line">                -&gt;<span class="title function_ invoke__">where</span>([</span><br><span class="line">                    [<span class="string">&#x27;updated_at&#x27;</span>, <span class="string">&#x27;&gt;=&#x27;</span>, <span class="title function_ invoke__">date</span>(<span class="string">&#x27;Y-m-d H:i:s&#x27;</span>, <span class="variable">$currentTime</span> - <span class="number">3600</span>)]</span><br><span class="line">                ])</span><br><span class="line">                -&gt;<span class="title function_ invoke__">chunkById</span>(<span class="number">1000</span>, function (<span class="variable">$results</span>) <span class="keyword">use</span> ($<span class="title">client</span>, $<span class="title">esFun</span>) &#123;</span><br><span class="line">                    // 迭代器数据</span><br><span class="line">                    $<span class="title">data</span> = <span class="keyword">function</span> () <span class="title">use</span> ($<span class="title">results</span>) &#123;</span><br><span class="line">                        <span class="title">foreach</span> ($<span class="title">results</span>-&gt;<span class="title">toArray</span>() <span class="keyword">as</span> $<span class="title">v</span>) &#123;</span><br><span class="line">                            <span class="title">yield</span> [</span><br><span class="line">                                &#x27;<span class="title">id</span>&#x27; =&gt; (<span class="title">int</span>)$<span class="title">v</span>[&#x27;<span class="title">id</span>&#x27;],</span><br><span class="line">                                &#x27;<span class="title">name</span>&#x27; =&gt; (<span class="title">string</span>)$<span class="title">v</span>[&#x27;<span class="title">name</span>&#x27;],</span><br><span class="line">                                &#x27;<span class="title">avatar</span>&#x27; =&gt; (<span class="title">string</span>)$<span class="title">v</span>[&#x27;<span class="title">avatar</span>&#x27;],</span><br><span class="line">                                &#x27;<span class="title">gender</span>&#x27; =&gt; (<span class="title">int</span>)$<span class="title">v</span>[&#x27;<span class="title">gender</span>&#x27;],</span><br><span class="line">                                &#x27;<span class="title">mobile</span>&#x27; =&gt; (<span class="title">string</span>)$<span class="title">v</span>[&#x27;<span class="title">mobile</span>&#x27;],</span><br><span class="line">                            ];</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;;</span><br><span class="line"></span><br><span class="line">                    <span class="variable">$esFun</span>(<span class="variable">$data</span>(), <span class="variable">$client</span>);</span><br><span class="line">                &#125;);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -638,7 +638,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/01/08/第6章-树/" rel="next" title="第6章 树">
+              <a href="/2020/01/08/%E7%AC%AC6%E7%AB%A0-%E6%A0%91/" rel="next" title="第6章 树">
                 <i class="fa fa-chevron-left"></i> 第6章 树
               </a>
             
@@ -648,7 +648,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/01/14/结合Laravel-Facade看外观模式怎么用？/" rel="prev" title="结合Laravel Facade看外观模式怎么用？">
+              <a href="/2020/01/14/%E7%BB%93%E5%90%88Laravel-Facade%E7%9C%8B%E5%A4%96%E8%A7%82%E6%A8%A1%E5%BC%8F%E6%80%8E%E4%B9%88%E7%94%A8%EF%BC%9F/" rel="prev" title="结合Laravel Facade看外观模式怎么用？">
                 结合Laravel Facade看外观模式怎么用？ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -708,7 +708,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -719,9 +721,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -733,26 +735,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -824,7 +810,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -999,115 +985,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1138,23 +1016,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1180,7 +1058,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#优点"><span class="nav-number">1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#概念引入"><span class="nav-number">2.</span> <span class="nav-text">概念引入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#生成器"><span class="nav-number">3.</span> <span class="nav-text">生成器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建生成器"><span class="nav-number">3.1.</span> <span class="nav-text">创建生成器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用生成器"><span class="nav-number">3.2.</span> <span class="nav-text">使用生成器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深入理解生成器"><span class="nav-number">3.3.</span> <span class="nav-text">深入理解生成器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实际开发应用"><span class="nav-number">4.</span> <span class="nav-text">实际开发应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#读取超大文件"><span class="nav-number">4.1.</span> <span class="nav-text">读取超大文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#百万级别的访问量"><span class="nav-number">4.2.</span> <span class="nav-text">百万级别的访问量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Laravel-ElasticSearch"><span class="nav-number">4.3.</span> <span class="nav-text">Laravel + ElasticSearch</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5%E5%BC%95%E5%85%A5"><span class="nav-number">2.</span> <span class="nav-text">概念引入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">生成器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%94%9F%E6%88%90%E5%99%A8"><span class="nav-number">3.1.</span> <span class="nav-text">创建生成器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%94%9F%E6%88%90%E5%99%A8"><span class="nav-number">3.2.</span> <span class="nav-text">使用生成器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E7%94%9F%E6%88%90%E5%99%A8"><span class="nav-number">3.3.</span> <span class="nav-text">深入理解生成器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E9%99%85%E5%BC%80%E5%8F%91%E5%BA%94%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">实际开发应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E8%B6%85%E5%A4%A7%E6%96%87%E4%BB%B6"><span class="nav-number">4.1.</span> <span class="nav-text">读取超大文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%99%BE%E4%B8%87%E7%BA%A7%E5%88%AB%E7%9A%84%E8%AE%BF%E9%97%AE%E9%87%8F"><span class="nav-number">4.2.</span> <span class="nav-text">百万级别的访问量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Laravel-ElasticSearch"><span class="nav-number">4.3.</span> <span class="nav-text">Laravel + ElasticSearch</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1215,7 +1093,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1226,12 +1104,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1239,7 +1117,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

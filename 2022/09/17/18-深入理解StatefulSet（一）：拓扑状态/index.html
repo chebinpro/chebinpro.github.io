@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,24 +104,24 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="深入剖析Kubernetes">
 <meta property="og:type" content="article">
 <meta property="og:title" content="18丨深入理解StatefulSet（一）：拓扑状态">
-<meta property="og:url" content="http://yoursite.com/2022/09/17/18-深入理解StatefulSet（一）：拓扑状态/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/09/17/18-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3StatefulSet%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%8B%93%E6%89%91%E7%8A%B6%E6%80%81/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2023-08-24T09:51:13.640Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-17T15:16:43.000Z">
+<meta property="article:modified_time" content="2023-08-24T09:51:13.640Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="深入剖析Kubernetes">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="18丨深入理解StatefulSet（一）：拓扑状态">
-<meta name="twitter:description" content="思考并回答以下问题：">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/09/17/18-深入理解StatefulSet（一）：拓扑状态/">
+  <link rel="canonical" href="http://yoursite.com/2022/09/17/18-深入理解StatefulSet（一）：拓扑状态/"/>
 
 
 
@@ -170,7 +170,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -231,7 +231,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -248,7 +248,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -265,7 +265,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -282,7 +282,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -299,7 +299,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -310,7 +310,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -330,7 +330,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -380,16 +382,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/17/18-深入理解StatefulSet（一）：拓扑状态/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/17/18-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3StatefulSet%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%8B%93%E6%89%91%E7%8A%B6%E6%80%81/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -489,7 +491,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">7.9k</span>
+                <span title="本文字数">19k</span>
               
 
               
@@ -503,7 +505,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">7 分钟</span>
+                <span title="阅读时长">18 分钟</span>
               
             </div>
           
@@ -524,7 +526,7 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>Deployment实际上并不足以覆盖所有的应用编排问题。</p>
 <p>造成这个问题的根本原因，在于Deployment对应用做了一个简单化假设。</p>
 <p>它认为，一个应用的所有Pod，是完全一样的。所以，它们互相之间没有顺序，也无所谓运行在哪台宿主机上。需要的时候，Deployment就可以通过Pod模板创建新的Pod；不需要的时候，Deployment就可以“杀掉”任意一个Pod。</p>
@@ -549,23 +551,19 @@
 <p>而第二种处理方法，正是Headless Service。这种情况下，你访问“<code>my-svc.my-namespace.svc.cluster.local</code>”解析到的，直接就是my-svc代理的某一个Pod的IP地址。<strong>可以看到，这里的区别在于，Headless Service不需要分配一个VIP，而是可以直接以DNS记录的方式解析出被代理Pod的IP地址</strong>。</p>
 <p>那么，这样的设计又有什么作用呢？</p>
 <p>想要回答这个问题，我们需要从Headless Service的定义方式看起。</p>
-<p>下面是一个标准的Headless Service对应的YAML文件：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">  labels:</span></span><br><span class="line"><span class="attr">    app:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  ports:</span></span><br><span class="line"><span class="attr">  - port:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">web</span></span><br><span class="line"><span class="attr">  clusterIP:</span> <span class="string">None</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line"><span class="attr">    app:</span> <span class="string">nginx</span></span><br></pre></td></tr></table></figure></p>
-<p>可以看到，所谓的Headless Service，其实仍是一个标准Service的YAML文件。只不过，它的clusterIP字段的值是：None，即：这个Service，没有一个VIP作为“头”。这也就是Headless的含义。所以，这个Service被创建后并不会被分配一个VIP，而是会以DNS记录的方式暴露出它所代理的Pod。</p>
-<p>而它所代理的Pod，依然是采用我在前面第12篇文章<a href="/2022/09/14/12-牛刀小试：我的第一个容器化应用/" title="《牛刀小试：我的第一个容器化应用》">《牛刀小试：我的第一个容器化应用》</a>中提到的LabelSelector机制选择出来的，即：所有携带了app=nginx标签的Pod，都会被这个Service代理起来。</p>
+<p>下面是一个标准的Headless Service对应的YAML文件：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">web</span></span><br><span class="line">  <span class="attr">clusterIP:</span> <span class="string">None</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">nginx</span></span><br></pre></td></tr></table></figure><br>可以看到，所谓的Headless Service，其实仍是一个标准Service的YAML文件。只不过，它的clusterIP字段的值是：None，即：这个Service，没有一个VIP作为“头”。这也就是Headless的含义。所以，这个Service被创建后并不会被分配一个VIP，而是会以DNS记录的方式暴露出它所代理的Pod。</p>
+<p>而它所代理的Pod，依然是采用我在前面第12篇文章<a href="/2022/09/14/12-%E7%89%9B%E5%88%80%E5%B0%8F%E8%AF%95%EF%BC%9A%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%AE%B9%E5%99%A8%E5%8C%96%E5%BA%94%E7%94%A8/" title="12丨牛刀小试：我的第一个容器化应用">《牛刀小试：我的第一个容器化应用》</a>中提到的LabelSelector机制选择出来的，即：所有携带了app=nginx标签的Pod，都会被这个Service代理起来。</p>
 <p>然后关键来了。</p>
-<p>当你按照这样的方式创建了一个Headless Service之后，它所代理的所有Pod的IP地址，都会被绑定一个这样格式的DNS记录，如下所示：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;pod-name&gt;.&lt;svc-name&gt;.&lt;namespace&gt;.svc.cluster.local</span><br></pre></td></tr></table></figure></p>
-<p>这个DNS记录，正是Kubernetes项目为Pod分配的唯一的“可解析身份”（ResolvableIdentity）。</p>
+<p>当你按照这样的方式创建了一个Headless Service之后，它所代理的所有Pod的IP地址，都会被绑定一个这样格式的DNS记录，如下所示：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;pod-name&gt;.&lt;svc-name&gt;.&lt;namespace&gt;.svc.cluster.local</span><br></pre></td></tr></table></figure><br>这个DNS记录，正是Kubernetes项目为Pod分配的唯一的“可解析身份”（ResolvableIdentity）。</p>
 <p>有了这个“可解析身份”，只要你知道了一个Pod的名字，以及它对应的Service的名字，你就可以非常确定地通过这条DNS记录访问到Pod的IP地址。</p>
 <p>那么，<span style="color:red">StatefulSet又是如何使用这个DNS记录来维持Pod的拓扑状态的呢？</span></p>
-<p>为了回答这个问题，现在我们就来编写一个StatefulSet的YAML文件，如下所示：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StatefulSet</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">web</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  serviceName:</span> <span class="string">"nginx"</span></span><br><span class="line"><span class="attr">  replicas:</span> <span class="number">2</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line"><span class="attr">    matchLabels:</span></span><br><span class="line"><span class="attr">      app:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">  template:</span></span><br><span class="line"><span class="attr">    metadata:</span></span><br><span class="line"><span class="attr">      labels:</span></span><br><span class="line"><span class="attr">        app:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">    spec:</span></span><br><span class="line"><span class="attr">      containers:</span></span><br><span class="line"><span class="attr">      - name:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">        image:</span> <span class="attr">nginx:1.9.1</span></span><br><span class="line"><span class="attr">        ports:</span></span><br><span class="line"><span class="attr">        - containerPort:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">          name:</span> <span class="string">web</span></span><br></pre></td></tr></table></figure></p>
-<p>这个YAML文件，和我们在前面文章中用到的nginx-deployment的唯一区别，就是多了一个serviceName=nginx字段。</p>
+<p>为了回答这个问题，现在我们就来编写一个StatefulSet的YAML文件，如下所示：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StatefulSet</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">web</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">serviceName:</span> <span class="string">&quot;nginx&quot;</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">2</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">nginx</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">nginx:1.9.1</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">80</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">web</span></span><br></pre></td></tr></table></figure><br>这个YAML文件，和我们在前面文章中用到的nginx-deployment的唯一区别，就是多了一个serviceName=nginx字段。</p>
 <p>这个字段的作用，就是告诉StatefulSet控制器，在执行控制循环（Control Loop）的时候，请使用nginx这个Headless Service来保证Pod的“可解析身份”。</p>
-<p>所以，当你通过<code>kubectl create</code>创建了上面这个Service和StatefulSet之后，就会看到如下两个对象：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl create -f svc.yaml</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> kubectl get service nginx</span></span><br><span class="line">NAME      TYPE         CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE</span><br><span class="line">nginx     ClusterIP    None         &lt;none&gt;        80/TCP    10s</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> kubectl create -f statefulset.yaml</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> kubectl get statefulset web</span></span><br><span class="line">NAME      DESIRED   CURRENT   AGE</span><br><span class="line">web       2         1         19s</span><br></pre></td></tr></table></figure></p>
-<p>这时候，如果你手比较快的话，还可以通过kubectl的<code>-w</code>参数，即：Watch功能，实时查看StatefulSet创建两个有状态实例的过程：</p>
+<p>所以，当你通过<code>kubectl create</code>创建了上面这个Service和StatefulSet之后，就会看到如下两个对象：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f svc.yaml</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get service nginx</span></span><br><span class="line">NAME      TYPE         CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE</span><br><span class="line">nginx     ClusterIP    None         &lt;none&gt;        80/TCP    10s</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f statefulset.yaml</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get statefulset web</span></span><br><span class="line">NAME      DESIRED   CURRENT   AGE</span><br><span class="line">web       2         1         19s</span><br></pre></td></tr></table></figure><br>这时候，如果你手比较快的话，还可以通过kubectl的<code>-w</code>参数，即：Watch功能，实时查看StatefulSet创建两个有状态实例的过程：</p>
 <blockquote>
 <p>备注：如果手不够快的话，Pod很快就创建完了。不过，你依然可以通过这个StatefulSet的Events看到这些信息。</p>
 </blockquote>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl get pods -w -l app=nginx</span></span><br><span class="line">NAME      READY     STATUS    RESTARTS   AGE</span><br><span class="line">web-0     0/1       Pending   0          0s</span><br><span class="line">web-0     0/1       Pending   0         0s</span><br><span class="line">web-0     0/1       ContainerCreating   0         0s</span><br><span class="line">web-0     1/1       Running   0         19s</span><br><span class="line">web-1     0/1       Pending   0         0s</span><br><span class="line">web-1     0/1       Pending   0         0s</span><br><span class="line">web-1     0/1       ContainerCreating   0         0s</span><br><span class="line">web-1     1/1       Running   0         20s</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get pods -w -l app=nginx</span></span><br><span class="line">NAME      READY     STATUS    RESTARTS   AGE</span><br><span class="line">web-0     0/1       Pending   0          0s</span><br><span class="line">web-0     0/1       Pending   0         0s</span><br><span class="line">web-0     0/1       ContainerCreating   0         0s</span><br><span class="line">web-0     1/1       Running   0         19s</span><br><span class="line">web-1     0/1       Pending   0         0s</span><br><span class="line">web-1     0/1       Pending   0         0s</span><br><span class="line">web-1     0/1       ContainerCreating   0         0s</span><br><span class="line">web-1     1/1       Running   0         20s</span><br></pre></td></tr></table></figure>
 <p>通过上面这个Pod的创建过程，我们不难看到，StatefulSet给它所管理的所有Pod的名字，进行了编号，编号规则是：<code>&lt;statefulset name&gt;-&lt;ordinal index&gt;</code>。</p>
 <p>而且这些编号都是从0开始累加，与StatefulSet的每个Pod实例一一对应，绝不重复。</p>
 <p>更重要的是，这些Pod的创建，也是严格按照编号顺序进行的。比如，在web-0进入到Running状态、并且细分状态（Conditions）成为Ready之前，web-1会一直处于Pending状态。</p>
@@ -573,17 +571,11 @@
 <p>备注：Ready状态再一次提醒了我们，为Pod设置livenessProbe和readinessProbe的重要性。</p>
 </blockquote>
 <p>当这两个Pod都进入了Running状态之后，你就可以查看到它们各自唯一的“网络身份”了。</p>
-<p>我们使用kubectlexec命令进入到容器中查看它们的hostname：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl <span class="built_in">exec</span> web-0 -- sh -c <span class="string">'hostname'</span></span></span><br><span class="line">web-0</span><br><span class="line"><span class="meta">$</span><span class="bash"> kubectl <span class="built_in">exec</span> web-1 -- sh -c <span class="string">'hostname'</span></span></span><br><span class="line">web-1</span><br></pre></td></tr></table></figure></p>
-<p>可以看到，这两个Pod的hostname与Pod名字是一致的，都被分配了对应的编号。接下来，我们再试着以DNS的方式，访问一下这个Headless Service：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl run -i --tty --image busybox:1.28.4 dns-test --restart=Never --rm /bin/sh</span></span><br></pre></td></tr></table></figure></p>
-<p>通过这条命令，我们启动了一个一次性的Pod，因为—rm意味着Pod退出后就会被删除掉。然后，在这个Pod的容器里面，我们尝试用nslookup命令，解析一下Pod对应的Headless Service：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl run -i --tty --image busybox:1.28.4 dns-test --restart=Never --rm /bin/sh</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> nslookup web-0.nginx</span></span><br><span class="line">Server:    10.0.0.10</span><br><span class="line">Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local</span><br><span class="line"></span><br><span class="line">Name:      web-0.nginx</span><br><span class="line">Address 1: 10.244.1.7</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> nslookup web-1.nginx</span></span><br><span class="line">Server:    10.0.0.10</span><br><span class="line">Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local</span><br><span class="line"></span><br><span class="line">Name:      web-1.nginx</span><br><span class="line">Address 1: 10.244.2.7</span><br></pre></td></tr></table></figure></p>
-<p>从nslookup命令的输出结果中，我们可以看到，在访问web-0.nginx的时候，最后解析到的，正是web-0这个Pod的IP地址；而当访问web-1.nginx的时候，解析到的则是web-1的IP地址。</p>
-<p>这时候，如果你在另外一个Terminal里把这两个“有状态应用”的Pod删掉：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl delete pod -l app=nginx</span></span><br><span class="line">pod "web-0" deleted</span><br><span class="line">pod "web-1" deleted</span><br></pre></td></tr></table></figure></p>
-<p>然后，再在当前Terminal里Watch一下这两个Pod的状态变化，就会发现一个有趣的现象：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl get pod -w -l app=nginx</span></span><br><span class="line">NAME      READY     STATUS              RESTARTS   AGE</span><br><span class="line">web-0     0/1       ContainerCreating   0          0s</span><br><span class="line">NAME      READY     STATUS    RESTARTS   AGE</span><br><span class="line">web-0     1/1       Running   0          2s</span><br><span class="line">web-1     0/1       Pending   0         0s</span><br><span class="line">web-1     0/1       ContainerCreating   0         0s</span><br><span class="line">web-1     1/1       Running   0         32s</span><br></pre></td></tr></table></figure></p>
-<p>可以看到，当我们把这两个Pod删除之后，Kubernetes会按照原先编号的顺序，创建出了两个新的Pod。并且，Kubernetes依然为它们分配了与原来相同的“网络身份”：web-0.nginx和web-1.nginx。</p>
+<p>我们使用kubectlexec命令进入到容器中查看它们的hostname：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl <span class="built_in">exec</span> web-0 -- sh -c <span class="string">&#x27;hostname&#x27;</span></span></span><br><span class="line">web-0</span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl <span class="built_in">exec</span> web-1 -- sh -c <span class="string">&#x27;hostname&#x27;</span></span></span><br><span class="line">web-1</span><br></pre></td></tr></table></figure><br>可以看到，这两个Pod的hostname与Pod名字是一致的，都被分配了对应的编号。接下来，我们再试着以DNS的方式，访问一下这个Headless Service：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl run -i --<span class="built_in">tty</span> --image busybox:1.28.4 dns-test --restart=Never --<span class="built_in">rm</span> /bin/sh</span> </span><br></pre></td></tr></table></figure><br>通过这条命令，我们启动了一个一次性的Pod，因为—rm意味着Pod退出后就会被删除掉。然后，在这个Pod的容器里面，我们尝试用nslookup命令，解析一下Pod对应的Headless Service：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl run -i --<span class="built_in">tty</span> --image busybox:1.28.4 dns-test --restart=Never --<span class="built_in">rm</span> /bin/sh</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">nslookup web-0.nginx</span></span><br><span class="line">Server:    10.0.0.10</span><br><span class="line">Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local</span><br><span class="line"></span><br><span class="line">Name:      web-0.nginx</span><br><span class="line">Address 1: 10.244.1.7</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">nslookup web-1.nginx</span></span><br><span class="line">Server:    10.0.0.10</span><br><span class="line">Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local</span><br><span class="line"></span><br><span class="line">Name:      web-1.nginx</span><br><span class="line">Address 1: 10.244.2.7</span><br></pre></td></tr></table></figure><br>从nslookup命令的输出结果中，我们可以看到，在访问web-0.nginx的时候，最后解析到的，正是web-0这个Pod的IP地址；而当访问web-1.nginx的时候，解析到的则是web-1的IP地址。</p>
+<p>这时候，如果你在另外一个Terminal里把这两个“有状态应用”的Pod删掉：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl delete pod -l app=nginx</span></span><br><span class="line">pod &quot;web-0&quot; deleted</span><br><span class="line">pod &quot;web-1&quot; deleted</span><br></pre></td></tr></table></figure><br>然后，再在当前Terminal里Watch一下这两个Pod的状态变化，就会发现一个有趣的现象：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get pod -w -l app=nginx</span></span><br><span class="line">NAME      READY     STATUS              RESTARTS   AGE</span><br><span class="line">web-0     0/1       ContainerCreating   0          0s</span><br><span class="line">NAME      READY     STATUS    RESTARTS   AGE</span><br><span class="line">web-0     1/1       Running   0          2s</span><br><span class="line">web-1     0/1       Pending   0         0s</span><br><span class="line">web-1     0/1       ContainerCreating   0         0s</span><br><span class="line">web-1     1/1       Running   0         32s</span><br></pre></td></tr></table></figure><br>可以看到，当我们把这两个Pod删除之后，Kubernetes会按照原先编号的顺序，创建出了两个新的Pod。并且，Kubernetes依然为它们分配了与原来相同的“网络身份”：web-0.nginx和web-1.nginx。</p>
 <p>通过这种严格的对应规则，StatefulSet就保证了Pod网络标识的稳定性。</p>
 <p>比如，如果web-0是一个需要先启动的主节点，web-1是一个后启动的从节点，那么只要这个StatefulSet不被删除，你访问web-0.nginx时始终都会落在主节点上，访问web-1.nginx时，则始终都会落在从节点上，这个关系绝对不会发生任何变化。</p>
-<p>所以，如果我们再用nslookup命令，查看一下这个新Pod对应的Headless Service的话：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl run -i --tty --image busybox dns-test --restart=Never --rm /bin/sh </span></span><br><span class="line"><span class="meta">$</span><span class="bash"> nslookup web-0.nginx</span></span><br><span class="line">Server:    10.0.0.10</span><br><span class="line">Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local</span><br><span class="line"></span><br><span class="line">Name:      web-0.nginx</span><br><span class="line">Address 1: 10.244.1.8</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> nslookup web-1.nginx</span></span><br><span class="line">Server:    10.0.0.10</span><br><span class="line">Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local</span><br><span class="line"></span><br><span class="line">Name:      web-1.nginx</span><br><span class="line">Address 1: 10.244.2.8</span><br></pre></td></tr></table></figure></p>
-<p>我们可以看到，在这个StatefulSet中，这两个新Pod的“网络标识”（比如：web-0.nginx和web-1.nginx），再次解析到了正确的IP地址（比如：web-0Pod的IP地址10.244.1.8）。</p>
+<p>所以，如果我们再用nslookup命令，查看一下这个新Pod对应的Headless Service的话：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl run -i --<span class="built_in">tty</span> --image busybox dns-test --restart=Never --<span class="built_in">rm</span> /bin/sh</span> </span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">nslookup web-0.nginx</span></span><br><span class="line">Server:    10.0.0.10</span><br><span class="line">Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local</span><br><span class="line"></span><br><span class="line">Name:      web-0.nginx</span><br><span class="line">Address 1: 10.244.1.8</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">nslookup web-1.nginx</span></span><br><span class="line">Server:    10.0.0.10</span><br><span class="line">Address 1: 10.0.0.10 kube-dns.kube-system.svc.cluster.local</span><br><span class="line"></span><br><span class="line">Name:      web-1.nginx</span><br><span class="line">Address 1: 10.244.2.8</span><br></pre></td></tr></table></figure><br>我们可以看到，在这个StatefulSet中，这两个新Pod的“网络标识”（比如：web-0.nginx和web-1.nginx），再次解析到了正确的IP地址（比如：web-0Pod的IP地址10.244.1.8）。</p>
 <p>通过这种方法，Kubernetes就成功地将Pod的拓扑状态（比如：哪个节点先启动，哪个节点后启动），按照Pod的“名字+编号”的方式固定了下来。此外，Kubernetes还为每一个Pod提供了一个固定并且唯一的访问入口，即：这个Pod对应的DNS记录。</p>
 <p>这些状态，在StatefulSet的整个生命周期里都会保持不变，绝不会因为对应Pod的删除或者重新创建而失效。</p>
 <p>不过，相信你也已经注意到了，尽管web-0.nginx这条记录本身不会变，但它解析到的Pod的IP地址，并不是固定的。这就意味着，对于“有状态应用”实例的访问，你必须使用DNS记录或者hostname的方式，而绝不应该直接访问这些Pod的IP地址。</p>
@@ -621,7 +613,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/深入剖析Kubernetes/" rel="tag"># 深入剖析Kubernetes</a>
+            <a href="/tags/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90Kubernetes/" rel="tag"># 深入剖析Kubernetes</a>
           
         </div>
       
@@ -634,7 +626,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/09/17/17-经典PaaS的记忆：作业副本与水平扩展/" rel="next" title="17 | 经典PaaS的记忆：作业副本与水平扩展">
+              <a href="/2022/09/17/17-%E7%BB%8F%E5%85%B8PaaS%E7%9A%84%E8%AE%B0%E5%BF%86%EF%BC%9A%E4%BD%9C%E4%B8%9A%E5%89%AF%E6%9C%AC%E4%B8%8E%E6%B0%B4%E5%B9%B3%E6%89%A9%E5%B1%95/" rel="next" title="17 | 经典PaaS的记忆：作业副本与水平扩展">
                 <i class="fa fa-chevron-left"></i> 17 | 经典PaaS的记忆：作业副本与水平扩展
               </a>
             
@@ -644,7 +636,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/09/17/19-深入理解StatefulSet（二）：存储状态/" rel="prev" title="19丨深入理解StatefulSet（二）：存储状态">
+              <a href="/2022/09/17/19-%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3StatefulSet%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%AD%98%E5%82%A8%E7%8A%B6%E6%80%81/" rel="prev" title="19丨深入理解StatefulSet（二）：存储状态">
                 19丨深入理解StatefulSet（二）：存储状态 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -704,7 +696,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -715,9 +709,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -729,26 +723,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -820,7 +798,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -995,115 +973,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1134,23 +1004,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1176,7 +1046,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">1.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">2.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">思考题</span></a></li></ol></div>
             
 
           </div>
@@ -1211,7 +1081,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1222,12 +1092,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1235,7 +1105,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

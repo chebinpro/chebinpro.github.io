@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,28 +104,28 @@
 
 
   <meta name="description" content="思考并回答以下问题：  在一些场景下，有些数据被访问的次数非常少，甚至只会被访问一次。当这些数据服务完访问请求后，如果还继续留存在缓存中的话，就只会白白占用缓存空间。这种情况，就是缓存污染。怎么理解？">
-<meta name="keywords" content="Redis核心技术与实战">
 <meta property="og:type" content="article">
 <meta property="og:title" content="27 | 缓存被污染了，该怎么办？">
-<meta property="og:url" content="http://yoursite.com/2022/05/01/27-缓存被污染了，该怎么办？/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/05/01/27-%E7%BC%93%E5%AD%98%E8%A2%AB%E6%B1%A1%E6%9F%93%E4%BA%86%EF%BC%8C%E8%AF%A5%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：  在一些场景下，有些数据被访问的次数非常少，甚至只会被访问一次。当这些数据服务完访问请求后，如果还继续留存在缓存中的话，就只会白白占用缓存空间。这种情况，就是缓存污染。怎么理解？">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/05/01/27-缓存被污染了，该怎么办？/1.webp">
-<meta property="og:image" content="http://yoursite.com/2022/05/01/27-缓存被污染了，该怎么办？/2.webp">
-<meta property="og:image" content="http://yoursite.com/2022/05/01/27-缓存被污染了，该怎么办？/3.webp">
-<meta property="og:updated_time" content="2022-11-06T06:46:36.423Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/05/01/27-%E7%BC%93%E5%AD%98%E8%A2%AB%E6%B1%A1%E6%9F%93%E4%BA%86%EF%BC%8C%E8%AF%A5%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2022/05/01/27-%E7%BC%93%E5%AD%98%E8%A2%AB%E6%B1%A1%E6%9F%93%E4%BA%86%EF%BC%8C%E8%AF%A5%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F/2.webp">
+<meta property="og:image" content="http://yoursite.com/2022/05/01/27-%E7%BC%93%E5%AD%98%E8%A2%AB%E6%B1%A1%E6%9F%93%E4%BA%86%EF%BC%8C%E8%AF%A5%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F/3.webp">
+<meta property="article:published_time" content="2022-05-01T06:58:51.000Z">
+<meta property="article:modified_time" content="2022-11-06T06:46:36.423Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Redis核心技术与实战">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="27 | 缓存被污染了，该怎么办？">
-<meta name="twitter:description" content="思考并回答以下问题：  在一些场景下，有些数据被访问的次数非常少，甚至只会被访问一次。当这些数据服务完访问请求后，如果还继续留存在缓存中的话，就只会白白占用缓存空间。这种情况，就是缓存污染。怎么理解？">
-<meta name="twitter:image" content="http://yoursite.com/2022/05/01/27-缓存被污染了，该怎么办？/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2022/05/01/27-%E7%BC%93%E5%AD%98%E8%A2%AB%E6%B1%A1%E6%9F%93%E4%BA%86%EF%BC%8C%E8%AF%A5%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/05/01/27-缓存被污染了，该怎么办？/">
+  <link rel="canonical" href="http://yoursite.com/2022/05/01/27-缓存被污染了，该怎么办？/"/>
 
 
 
@@ -174,7 +174,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -235,7 +235,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -252,7 +252,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -269,7 +269,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -286,7 +286,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -303,7 +303,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -314,7 +314,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -334,7 +334,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -384,16 +386,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/05/01/27-缓存被污染了，该怎么办？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/05/01/27-%E7%BC%93%E5%AD%98%E8%A2%AB%E6%B1%A1%E6%9F%93%E4%BA%86%EF%BC%8C%E8%AF%A5%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -493,7 +495,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">6.5k</span>
+                <span title="本文字数">8.8k</span>
               
 
               
@@ -507,7 +509,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">6 分钟</span>
+                <span title="阅读时长">8 分钟</span>
               
             </div>
           
@@ -531,19 +533,19 @@
 <ul>
 <li>在一些场景下，有些数据被访问的次数非常少，甚至只会被访问一次。当这些数据服务完访问请求后，如果还继续留存在缓存中的话，就只会白白占用缓存空间。这种情况，就是缓存污染。怎么理解？</li>
 </ul>
-<a id="more"></a>
+<span id="more"></span>
 <p>我们应用Redis缓存时，如果能缓存会被反复访问的数据，那就能加速业务应用的访问。但是，如果发生了缓存污染，那么，缓存对业务应用的加速作用就减少了。</p>
 <p>那什么是缓存污染呢？在一些场景下，有些数据被访问的次数非常少，甚至只会被访问一次。当这些数据服务完访问请求后，如果还继续留存在缓存中的话，就只会白白占用缓存空间。这种情况，就是缓存污染。</p>
 <p>当缓存污染不严重时，只有少量数据占据缓存空间，此时，对缓存系统的影响不大。但是，缓存污染一旦变得严重后，就会有大量不再访问的数据滞留在缓存中。如果这时数据占满了缓存空间，我们再往缓存中写入新数据时，就需要先把这些数据逐步淘汰出缓存，这就会引入额外的操作时间开销，进而会影响应用的性能。</p>
 <p>今天，我们就来看看如何解决缓存污染问题。</p>
 <h1 id="如何解决缓存污染问题？"><a href="#如何解决缓存污染问题？" class="headerlink" title="如何解决缓存污染问题？"></a><span style="color:#339AFF;">如何解决缓存污染问题？</span></h1><p>要解决缓存污染，我们也能很容易想到解决方案，那就是得把不会再被访问的数据筛选出来并淘汰掉。这样就不用等到缓存被写满以后，再逐一淘汰旧数据之后，才能写入新数据了。而哪些数据能留存在缓存中，是由缓存的淘汰策略决定的。</p>
-<p>到这里，你还记得咱们在<a href="/2022/05/01/24-替换策略：缓存满了怎么办？/" title="第24讲">第24讲</a>一起学习的8种数据淘汰策略吗？它们分别是noeviction、volatile-random、volatile-ttl、volatile-lru、volatile-lfu、allkeys-lru、allkeys-random和allkeys-lfu策略。</p>
+<p>到这里，你还记得咱们在<a href="/2022/05/01/24-%E6%9B%BF%E6%8D%A2%E7%AD%96%E7%95%A5%EF%BC%9A%E7%BC%93%E5%AD%98%E6%BB%A1%E4%BA%86%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F/" title="24 | 替换策略：缓存满了怎么办？">第24讲</a>一起学习的8种数据淘汰策略吗？它们分别是noeviction、volatile-random、volatile-ttl、volatile-lru、volatile-lfu、allkeys-lru、allkeys-random和allkeys-lfu策略。</p>
 <p>在这8种策略中，noeviction策略是不会进行数据淘汰的。所以，它肯定不能用来解决缓存污染问题。其他的7种策略，都会按照<span style="color:red">一定的规则</span>来淘汰数据。这里有个关键词是“一定的规则”，那么问题来了，不同的规则对于解决缓存污染问题，是否都有效呢？接下来，我们就一一分析下。</p>
 <p>因为LRU算法是我们在缓存数据淘汰策略中广泛应用的算法，所以我们先分析其他策略，然后单独分析淘汰策略使用LRU算法的情况，最后再学习下LFU算法用于淘汰策略时，对缓存污染的应对措施。使用LRU算法和LFU算法的策略各有两种（volatile-lru和allkeys-lru，以及volatile-lfu和allkeys-lfu），为了便于理解，接下来我会统一把它们叫作LRU策略和LFU策略。</p>
 <p>首先，我们看下<strong>volatile-random和allkeys-random</strong>这两种策略。它们都是采用随机挑选数据的方式，来筛选即将被淘汰的数据。</p>
 <p>既然是随机挑选，那么Redis就不会根据数据的访问情况来筛选数据。如果被淘汰的数据又被访问了，就会发生缓存缺失。也就是说，应用需要到后端数据库中访问这些数据，降低了应用的请求响应速度。所以，volatile-random和allkeys-random策略，在避免缓存污染这个问题上的效果非常有限。</p>
 <p>我给你举个例子吧。如下图所示，假设我们配置Redis缓存使用allkeys-random淘汰策略，当缓存写满时，allkeys-random策略随机选择了数据20进行淘汰。不巧的是，数据20紧接着又被访问了，此时，Redis就会发生了缓存缺失。</p>
-<img src="/2022/05/01/27-缓存被污染了，该怎么办？/1.webp">
+<img src="/2022/05/01/27-%E7%BC%93%E5%AD%98%E8%A2%AB%E6%B1%A1%E6%9F%93%E4%BA%86%EF%BC%8C%E8%AF%A5%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F/1.webp" class="">
 <p>我们继续看<strong>volatile-ttl</strong>策略是否能有效应对缓存污染。volatile-ttl针对的是设置了过期时间的数据，把这些数据中剩余存活时间最短的筛选出来并淘汰掉。</p>
 <p>虽然volatile-ttl策略不再是随机选择淘汰数据了，但是剩余存活时间并不能直接反映数据再次访问的情况。所以，按照volatile-ttl策略淘汰数据，和按随机方式淘汰数据类似，也可能出现数据被淘汰后，被再次访问导致的缓存缺失问题。</p>
 <p>这时，你可能会想到一种例外的情况：业务应用在给数据设置过期时间的时候，就明确知道数据被再次访问的情况，并根据访问情况设置过期时间。此时，Redis按照数据的剩余最短存活时间进行筛选，是可以把不会再被访问的数据筛选出来的，进而避免缓存污染。例如，业务部门知道数据被访问的时长就是一个小时，并把数据的过期时间设置为一个小时后。这样一来，被淘汰的数据的确是不会再被访问了。</p>
@@ -555,7 +557,7 @@
 <p>但是，也正是<strong>因为只看数据的访问时间，使用LRU策略在处理扫描式单次查询操作时，无法解决缓存污染</strong>。所谓的扫描式单次查询操作，就是指应用对大量的数据进行一次全体读取，每个数据都会被读取，而且只会被读取一次。此时，因为这些被查询的数据刚刚被访问过，所以lru字段值都很大。</p>
 <p>在使用LRU策略淘汰数据时，这些数据会留存在缓存中很长一段时间，造成缓存污染。如果查询的数据量很大，这些数据占满了缓存空间，却又不会服务新的缓存请求，此时，再有新数据要写入缓存的话，还是需要先把这些旧数据替换出缓存才行，这会影响缓存的性能。</p>
 <p>为了方便你理解，我给你举个例子。如下图所示，数据6被访问后，被写入Redis缓存。但是，在此之后，数据6一直没有被再次访问，这就导致数据6滞留在缓存中，造成了污染。</p>
-<img src="/2022/05/01/27-缓存被污染了，该怎么办？/2.webp">
+<img src="/2022/05/01/27-%E7%BC%93%E5%AD%98%E8%A2%AB%E6%B1%A1%E6%9F%93%E4%BA%86%EF%BC%8C%E8%AF%A5%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F/2.webp" class="">
 <p>所以，对于采用了LRU策略的Redis缓存来说，扫描式单次查询会造成缓存污染。为了应对这类缓存污染问题，Redis从4.0版本开始增加了LFU淘汰策略。</p>
 <p>与LRU策略相比，LFU策略中会从两个维度来筛选并淘汰数据：一是，数据访问的时效性（访问时间离当前时间的远近）；二是，数据的被访问次数。</p>
 <p>那Redis的LFU策略是怎么实现的，又是如何解决缓存污染问题的呢？我们来看一下。</p>
@@ -578,10 +580,9 @@
 <p>此时，缓存写满了，Redis使用LFU策略进行淘汰。数据A和B的counter值都是255，LFU策略再比较A和B的访问时间戳，发现数据B的上一次访问时间早于A，就会把B淘汰掉。但其实数据B的访问次数远大于数据A，很可能会被再次访问。这样一来，使用LFU策略来淘汰数据就不合适了。</p>
 <p>的确，Redis也注意到了这个问题。因此，<strong>在实现LFU策略时，Redis并没有采用数据每被访问一次，就给对应的counter值加1的计数规则，而是采用了一个更优化的计数规则</strong>。</p>
 <p>简单来说，LFU策略实现的计数规则是：每当数据被访问一次时，首先，用计数器当前的值乘以配置项lfu_log_factor再加1，再取其倒数，得到一个p值；然后，把这个p值和一个取值范围在（0，1）间的随机数r值比大小，只有p值大于r值时，计数器才加1。</p>
-<p>下面这段Redis的部分源码，显示了LFU策略增加计数器值的计算逻辑。其中，baseval是计数器当前的值。计数器的初始值默认是5（由代码中的LFU_INIT_VAL常量设置），而不是0，这样可以避免数据刚被写入缓存，就因为访问次数少而被立即淘汰。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">double r = (double)rand()/RAND_MAX;</span><br><span class="line">...</span><br><span class="line">double p = 1.0/(baseval*server.lfu_log_factor+1);</span><br><span class="line"><span class="keyword">if</span> (r &lt; p) counter++;</span><br></pre></td></tr></table></figure></p>
-<p>使用了这种计算规则后，我们可以通过设置不同的lfu_log_factor配置项，来控制计数器值增加的速度，避免counter值很快就到255了。</p>
+<p>下面这段Redis的部分源码，显示了LFU策略增加计数器值的计算逻辑。其中，baseval是计数器当前的值。计数器的初始值默认是5（由代码中的LFU_INIT_VAL常量设置），而不是0，这样可以避免数据刚被写入缓存，就因为访问次数少而被立即淘汰。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">double r = (double)rand()/RAND_MAX;</span><br><span class="line">...</span><br><span class="line">double p = 1.0/(baseval*server.lfu_log_factor+1);</span><br><span class="line"><span class="keyword">if</span> (r &lt; p) counter++;   </span><br></pre></td></tr></table></figure><br>使用了这种计算规则后，我们可以通过设置不同的lfu_log_factor配置项，来控制计数器值增加的速度，避免counter值很快就到255了。</p>
 <p>为了更进一步说明LFU策略计数器递增的效果，你可以看下下面这张表。这是Redis官网上提供的一张表，它记录了当lfu_log_factor取不同值时，在不同的实际访问次数情况下，计数器的值是如何变化的。</p>
-<img src="/2022/05/01/27-缓存被污染了，该怎么办？/3.webp">
+<img src="/2022/05/01/27-%E7%BC%93%E5%AD%98%E8%A2%AB%E6%B1%A1%E6%9F%93%E4%BA%86%EF%BC%8C%E8%AF%A5%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F/3.webp" class="">
 <p>可以看到，当lfu_log_factor取值为1时，实际访问次数为100K后，counter值就达到255了，无法再区分实际访问次数更多的数据了。而当lfu_log_factor取值为100时，当实际访问次数为10M时，counter值才达到255，此时，实际访问次数小于10M的不同数据都可以通过counter值区分出来。</p>
 <p>正是因为使用了非线性递增的计数器方法，即使缓存数据的访问次数成千上万，LFU策略也可以有效地区分不同的访问次数，从而进行合理的数据筛选。从刚才的表中，我们可以看到，当lfu_log_factor取值为10时，百、千、十万级别的访问次数对应的counter值已经有明显的区分了，所以，我们在应用LFU策略时，一般可以将lfu_log_factor取值为10。</p>
 <p>前面我们也提到了，应用负载的情况是很复杂的。在一些场景下，有些数据在短时间内被大量访问后就不会再被访问了。那么再按照访问次数来筛选的话，这些数据会被留存在缓存中，但不会提升缓存命中率。为此，Redis在实现LFU策略时，还设计了一个counter值的衰减机制。</p>
@@ -619,7 +620,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Redis核心技术与实战/" rel="tag"># Redis核心技术与实战</a>
+            <a href="/tags/Redis%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/" rel="tag"># Redis核心技术与实战</a>
           
         </div>
       
@@ -632,7 +633,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/05/01/26-缓存异常（下）：如何解决缓存雪崩、击穿、穿透难题？/" rel="next" title="26 | 缓存异常（下）：如何解决缓存雪崩、击穿、穿透难题？">
+              <a href="/2022/05/01/26-%E7%BC%93%E5%AD%98%E5%BC%82%E5%B8%B8%EF%BC%88%E4%B8%8B%EF%BC%89%EF%BC%9A%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9%E3%80%81%E5%87%BB%E7%A9%BF%E3%80%81%E7%A9%BF%E9%80%8F%E9%9A%BE%E9%A2%98%EF%BC%9F/" rel="next" title="26 | 缓存异常（下）：如何解决缓存雪崩、击穿、穿透难题？">
                 <i class="fa fa-chevron-left"></i> 26 | 缓存异常（下）：如何解决缓存雪崩、击穿、穿透难题？
               </a>
             
@@ -642,7 +643,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/05/01/28-Pika：如何基于SSD实现大容量Redis？/" rel="prev" title="28 | Pika：如何基于SSD实现大容量Redis？">
+              <a href="/2022/05/01/28-Pika%EF%BC%9A%E5%A6%82%E4%BD%95%E5%9F%BA%E4%BA%8ESSD%E5%AE%9E%E7%8E%B0%E5%A4%A7%E5%AE%B9%E9%87%8FRedis%EF%BC%9F/" rel="prev" title="28 | Pika：如何基于SSD实现大容量Redis？">
                 28 | Pika：如何基于SSD实现大容量Redis？ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -702,7 +703,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -713,9 +716,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -727,26 +730,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -818,7 +805,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -993,115 +980,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1132,23 +1011,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1174,7 +1053,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#如何解决缓存污染问题？"><span class="nav-number">1.</span> <span class="nav-text">如何解决缓存污染问题？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LRU缓存策略"><span class="nav-number">2.</span> <span class="nav-text">LRU缓存策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LFU缓存策略的优化"><span class="nav-number">3.</span> <span class="nav-text">LFU缓存策略的优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#每课一问"><span class="nav-number">5.</span> <span class="nav-text">每课一问</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E7%BC%93%E5%AD%98%E6%B1%A1%E6%9F%93%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">如何解决缓存污染问题？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LRU%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5"><span class="nav-number">2.</span> <span class="nav-text">LRU缓存策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#LFU%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5%E7%9A%84%E4%BC%98%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">LFU缓存策略的优化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AF%8F%E8%AF%BE%E4%B8%80%E9%97%AE"><span class="nav-number">5.</span> <span class="nav-text">每课一问</span></a></li></ol></div>
             
 
           </div>
@@ -1209,7 +1088,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1220,12 +1099,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1233,7 +1112,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

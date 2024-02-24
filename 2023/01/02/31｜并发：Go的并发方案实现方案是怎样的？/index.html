@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,29 +104,29 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="Go语言第一课">
 <meta property="og:type" content="article">
 <meta property="og:title" content="31｜并发：Go的并发方案实现方案是怎样的？">
-<meta property="og:url" content="http://yoursite.com/2023/01/02/31｜并发：Go的并发方案实现方案是怎样的？/index.html">
+<meta property="og:url" content="http://yoursite.com/2023/01/02/31%EF%BD%9C%E5%B9%B6%E5%8F%91%EF%BC%9AGo%E7%9A%84%E5%B9%B6%E5%8F%91%E6%96%B9%E6%A1%88%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%A1%88%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2023/01/02/31｜并发：Go的并发方案实现方案是怎样的？/1.webp">
-<meta property="og:image" content="http://yoursite.com/2023/01/02/31｜并发：Go的并发方案实现方案是怎样的？/2.webp">
-<meta property="og:image" content="http://yoursite.com/2023/01/02/31｜并发：Go的并发方案实现方案是怎样的？/3.webp">
-<meta property="og:image" content="http://yoursite.com/2023/01/02/31｜并发：Go的并发方案实现方案是怎样的？/4.webp">
-<meta property="og:updated_time" content="2023-02-26T06:25:20.084Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2023/01/02/31%EF%BD%9C%E5%B9%B6%E5%8F%91%EF%BC%9AGo%E7%9A%84%E5%B9%B6%E5%8F%91%E6%96%B9%E6%A1%88%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%A1%88%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84%EF%BC%9F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2023/01/02/31%EF%BD%9C%E5%B9%B6%E5%8F%91%EF%BC%9AGo%E7%9A%84%E5%B9%B6%E5%8F%91%E6%96%B9%E6%A1%88%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%A1%88%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84%EF%BC%9F/2.webp">
+<meta property="og:image" content="http://yoursite.com/2023/01/02/31%EF%BD%9C%E5%B9%B6%E5%8F%91%EF%BC%9AGo%E7%9A%84%E5%B9%B6%E5%8F%91%E6%96%B9%E6%A1%88%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%A1%88%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84%EF%BC%9F/3.webp">
+<meta property="og:image" content="http://yoursite.com/2023/01/02/31%EF%BD%9C%E5%B9%B6%E5%8F%91%EF%BC%9AGo%E7%9A%84%E5%B9%B6%E5%8F%91%E6%96%B9%E6%A1%88%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%A1%88%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84%EF%BC%9F/4.webp">
+<meta property="article:published_time" content="2023-01-02T00:05:42.000Z">
+<meta property="article:modified_time" content="2023-02-26T06:25:20.084Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Go语言第一课">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="31｜并发：Go的并发方案实现方案是怎样的？">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2023/01/02/31｜并发：Go的并发方案实现方案是怎样的？/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2023/01/02/31%EF%BD%9C%E5%B9%B6%E5%8F%91%EF%BC%9AGo%E7%9A%84%E5%B9%B6%E5%8F%91%E6%96%B9%E6%A1%88%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%A1%88%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84%EF%BC%9F/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2023/01/02/31｜并发：Go的并发方案实现方案是怎样的？/">
+  <link rel="canonical" href="http://yoursite.com/2023/01/02/31｜并发：Go的并发方案实现方案是怎样的？/"/>
 
 
 
@@ -175,7 +175,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -236,7 +236,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -253,7 +253,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -270,7 +270,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -287,7 +287,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -304,7 +304,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -315,7 +315,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -335,7 +335,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -385,16 +387,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/01/02/31｜并发：Go的并发方案实现方案是怎样的？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/01/02/31%EF%BD%9C%E5%B9%B6%E5%8F%91%EF%BC%9AGo%E7%9A%84%E5%B9%B6%E5%8F%91%E6%96%B9%E6%A1%88%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%A1%88%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -494,7 +496,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">7.2k</span>
+                <span title="本文字数">13k</span>
               
 
               
@@ -508,7 +510,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">7 分钟</span>
+                <span title="阅读时长">12 分钟</span>
               
             </div>
           
@@ -529,26 +531,26 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>从这一讲开始，我们将会学习这门课的最后一个语法知识：<strong>Go并发</strong>。Go的设计者敏锐地把握了CPU向多核方向发展的这一趋势，在决定去创建Go语言的时候，他们果断将面向多核、<strong>原生支持并发</strong>作为了Go语言的设计目标之一，并将面向并发作为Go的设计哲学。当Go语言首次对外发布时，对并发的原生支持成为了Go最令开发者着迷的语法特性之一。</p>
 <p>那么，怎么去学习Go并发呢？我的方法是将“Go并发”这个词拆开来看，它包含两方面内容，一个是并发的概念，另一个是Go针对并发设计给出的自身的实现方案，也就是goroutine、channel、select这些Go并发的语法特性。</p>
 <p>今天这节课，我们就先来了解什么是并发，以及Go并发方案中最重要的概念，也就是goroutine，围绕它基本用法和注意事项，让你对Go并发有一个基本的了解，后面我们再层层深入。</p>
 <h1 id="什么是并发？"><a href="#什么是并发？" class="headerlink" title="什么是并发？"></a><span style="color:#339AFF;">什么是并发？</span></h1><p>课程一开始，我们就经常提到并发（concurrency）这个词。说了这么长时间的并发，那究竟什么是并发呢？它又与并行（parallelism）有什么区别呢？要想搞清楚这些问题，我们需要简单回顾一下操作系统的基本调度单元的变迁，以及计算机处理器的演化对应用设计的影响。</p>
 <p>很久以前，面向大众消费者的主流处理器（CPU）都是单核的，操作系统的基本调度与执行单元是进程（process）。这个时候，用户层的应用有两种设计方式，一种是单进程应用，也就是每次启动一个应用，操作系统都只启动一个进程来运行这个应用。</p>
 <p>单进程应用的情况下，用户层应用、操作系统进程以及处理器之间的关系是这样的：</p>
-<img src="/2023/01/02/31｜并发：Go的并发方案实现方案是怎样的？/1.webp">
+<img src="/2023/01/02/31%EF%BD%9C%E5%B9%B6%E5%8F%91%EF%BC%9AGo%E7%9A%84%E5%B9%B6%E5%8F%91%E6%96%B9%E6%A1%88%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%A1%88%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84%EF%BC%9F/1.webp" class="">
 <p>我们看到，这个设计下，每个单进程应用对应一个操作系统进程，操作系统内的多个进程按时间片大小，被轮流调度到仅有的一颗单核处理器上执行。换句话说，这颗单核处理器在某个时刻只能执行一个进程对应的程序代码，两个进程不存在并行执行的可能。</p>
 <p>这里说的<strong>并行（parallelism），指的就是在同一时刻，有两个或两个以上的任务（这里指进程）的代码在处理器上执行</strong>。从这个概念我们也可以知道，多个处理器或多核处理器是并行执行的必要条件。</p>
 <p>总的来说，单进程应用的设计比较简单，它的内部仅有一条代码执行流，代码从头执行到尾，不存在竞态，无需考虑同步问题。</p>
 <p>用户层的另外一种设计方式，就是多进程应用，也就是应用通过fork等系统调用创建多个子进程，共同实现应用的功能。多进程应用的情况下，用户层应用、操作系统进程以及处理器之间的关系是这样的：</p>
-<img src="/2023/01/02/31｜并发：Go的并发方案实现方案是怎样的？/2.webp">
+<img src="/2023/01/02/31%EF%BD%9C%E5%B9%B6%E5%8F%91%EF%BC%9AGo%E7%9A%84%E5%B9%B6%E5%8F%91%E6%96%B9%E6%A1%88%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%A1%88%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84%EF%BC%9F/2.webp" class="">
 <p>以图中的App1为例，这个应用设计者将应用内部划分为多个模块，每个模块用一个进程承载执行，每个模块都是一个单独的执行流，这样，App1内部就有了多个独立的代码执行流。</p>
 <p>但限于当前仅有一颗单核处理器，这些进程（执行流）依旧无法并行执行，无论是App1内部的某个模块对应的进程，还是其他App对应的进程，都得逐个按时间片被操作系统调度到处理器上执行。</p>
 <p><strong>粗略看起来，多进程应用与单进程应用相比并没有什么质的提升。那我们为什么还要将应用设计为多进程呢？</strong></p>
 <p>这更多是从应用的结构角度去考虑的，多进程应用由于将功能职责做了划分，并指定专门的模块来负责，所以从结构上来看，要比单进程更为清晰简洁，可读性与可维护性也更好。<strong>这种将程序分成多个可独立执行的部分的结构化程序的设计方法，就是并发设计</strong>。采用了并发设计的应用也可以看成是一组独立执行的模块的组合。</p>
 <p>不过，进程并不适合用于承载采用了并发设计的应用的模块执行流。因为进程是操作系统中资源拥有的基本单位，它不仅包含应用的代码和数据，还有系统级的资源，比如文件描述符、内存地址空间等等。进程的“包袱”太重，这导致它的创建、切换与撤销的代价都很大。</p>
 <p>于是线程便走入了人们的视野，线程就是运行于进程上下文中的更轻量级的执行流。同时随着处理器技术的发展，多核处理器硬件成为了主流，这让真正的并行成为了可能，于是主流的应用设计模型变成了这样：</p>
-<img src="/2023/01/02/31｜并发：Go的并发方案实现方案是怎样的？/3.webp">
+<img src="/2023/01/02/31%EF%BD%9C%E5%B9%B6%E5%8F%91%EF%BC%9AGo%E7%9A%84%E5%B9%B6%E5%8F%91%E6%96%B9%E6%A1%88%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%A1%88%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84%EF%BC%9F/3.webp" class="">
 <p>我们看到，基于线程的应用通常采用单进程多线程的模型，一个应用对应一个进程，应用通过并发设计将自己划分为多个模块，每个模块由一个线程独立承载执行。多个线程共享这个进程所拥有的资源，但线程作为执行单元可被独立调度到处理器上运行。</p>
 <p>线程的创建、切换与撤销的代价相对于进程是要小得多。当这个应用的多个线程同时被调度到不同的处理器核上执行时，我们就说这个应用是并行的。</p>
 <p>讲到这里，我们可以对并发与并行两个概念做一些区分了。就像Go语言之父RobPike曾说过那样：<strong>并发不是并行，并发关乎结构，并行关乎执行</strong>。</p>
@@ -561,7 +563,7 @@
 <p>而且，并发执行单元间的通信困难且易错。多个线程之间的通信虽然有多种机制可选，但用起来也是相当复杂。并且一旦涉及共享内存，就会用到各种锁互斥机制，死锁便成为家常便饭。另外，线程栈大小也需要设定，开发人员需要选择使用默认的，还是自定义设置。</p>
 <p><strong>第二就是难于规模化（scale）</strong>。</p>
 <p>线程的使用代价虽然已经比进程小了很多，但我们依然不能大量创建线程，因为除了每个线程占用的资源不小之外，操作系统调度切换线程的代价也不小。</p>
-<p>对于很多网络服务程序来说，由于不能大量创建线程，只能选择在少量线程里做网络多路复用的方案，也就是使用epoll/kqueue/IoCompletionPort这套机制，即便有像<a href="https://github.com/libevent/libevent" target="_blank" rel="noopener">libevent</a>和<a href="http://software.schmorp.de/pkg/libev.html" target="_blank" rel="noopener">libev</a>这样的第三方库帮忙，写起这样的程序也是很不容易的，存在大量钩子回调，给开发人员带来不小的心智负担。</p>
+<p>对于很多网络服务程序来说，由于不能大量创建线程，只能选择在少量线程里做网络多路复用的方案，也就是使用epoll/kqueue/IoCompletionPort这套机制，即便有像<a href="https://github.com/libevent/libevent">libevent</a>和<a href="http://software.schmorp.de/pkg/libev.html">libev</a>这样的第三方库帮忙，写起这样的程序也是很不容易的，存在大量钩子回调，给开发人员带来不小的心智负担。</p>
 <p>那么以“原生支持并发”著称的Go语言在并发方面的实现方案又是什么呢？相对于基于线程的并发设计模型又有哪些改善呢？接下来我们就一起来看一下。</p>
 <h1 id="Go的并发方案：goroutine"><a href="#Go的并发方案：goroutine" class="headerlink" title="Go的并发方案：goroutine"></a><span style="color:#339AFF;">Go的并发方案：goroutine</span></h1><p>Go并没有使用操作系统线程作为承载分解后的代码片段（模块）的基本执行单元，而是实现了goroutine这一由<strong>Go运行时（runtime）负责调度的、轻量的用户级线程</strong>，为并发程序设计提供原生支持。</p>
 <p>我们先来看看这一方案有啥优势。相比传统操作系统线程来说，goroutine的优势主要是：</p>
@@ -577,8 +579,7 @@
 <h2 id="goroutine的基本用法"><a href="#goroutine的基本用法" class="headerlink" title="goroutine的基本用法"></a><span style="color:#00ACC1;">goroutine的基本用法</span></h2><p><strong>并发</strong>是一种能力，它让你的程序可以由若干个代码片段<strong>组合</strong>而成，并且每个片段都是独立运行的。goroutine恰恰就是Go原生支持并发的一个具体实现。无论是Go自身运行时代码还是用户层Go代码，都无一例外地运行在goroutine中。</p>
 <p>首先我们来创建一个goroutine。</p>
 <p>Go语言通过go关键字+函数/方法的方式创建一个goroutine。创建后，新goroutine将拥有独立的代码执行流，并与创建它的goroutine一起被Go运行时调度。</p>
-<p>这里我给出了一些创建goroutine的代码示例：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> fmt.Println(<span class="string">"I am a goroutine"</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> c = <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)</span><br><span class="line"><span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(a, b <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    c &lt;- a + b</span><br><span class="line">&#125;(<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line"> </span><br><span class="line"><span class="comment">// $GOROOT/src/net/http/server.go</span></span><br><span class="line">c := srv.newConn(rw)</span><br><span class="line"><span class="keyword">go</span> c.serve(connCtx)</span><br></pre></td></tr></table></figure></p>
-<p>我们看到，通过go关键字，我们可以基于已有的具名函数/方法创建goroutine，也可以基于匿名函数/闭包创建goroutine。</p>
+<p>这里我给出了一些创建goroutine的代码示例：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> fmt.Println(<span class="string">&quot;I am a goroutine&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> c = <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">int</span>)</span><br><span class="line"><span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(a, b <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">    c &lt;- a + b</span><br><span class="line">&#125;(<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line"> </span><br><span class="line"><span class="comment">// $GOROOT/src/net/http/server.go</span></span><br><span class="line">c := srv.newConn(rw)</span><br><span class="line"><span class="keyword">go</span> c.serve(connCtx)</span><br></pre></td></tr></table></figure><br>我们看到，通过go关键字，我们可以基于已有的具名函数/方法创建goroutine，也可以基于匿名函数/闭包创建goroutine。</p>
 <p>在前面的讲解中，我们曾说过，创建goroutine后，go关键字不会返回goroutineid之类的唯一标识goroutine的id，你也不要尝试去得到这样的id并依赖它。另外，和线程一样，一个应用内部启动的所有goroutine共享进程空间的资源，如果多个goroutine访问同一块内存数据，将会存在竞争，我们需要进行goroutine间的同步。</p>
 <p>了解了怎么创建，那我们怎么退出goroutine呢？</p>
 <p>goroutine的使用代价很低，Go官方也推荐你多多使用goroutine。而且，多数情况下，我们不需要考虑对goroutine的退出进行控制：<strong>goroutine的执行函数的返回，就意味着goroutine退出</strong>。</p>
@@ -592,10 +593,9 @@
 <p>Tony Hoare的CSP模型旨在简化并发程序的编写，让并发程序的编写与编写顺序程序一样简单。TonyHoare认为输入输出应该是基本的编程原语，数据处理逻辑（也就是CSP中的P）只需调用输入原语获取数据，顺序地处理数据，并将结果数据通过输出原语输出就可以了。</p>
 <p>因此，在TonyHoare眼中，<strong>一个符合CSP模型的并发程序应该是一组通过输入输出原语连接起来的P的集合</strong>。从这个角度来看，CSP理论不仅是一个并发参考模型，也是一种并发程序的程序组织方法。它的组合思想与Go的设计哲学不谋而合。</p>
 <p>Tony Hoare的CSP理论中的P，也就是“Process（进程）”，是一个抽象概念，它代表任何顺序处理逻辑的封装，它获取输入数据（或从其他P的输出获取），并生产出可以被其他P消费的输出数据。这里我们可以简单看下CSP通信模型的示意图：</p>
-<img src="/2023/01/02/31｜并发：Go的并发方案实现方案是怎样的？/4.webp">
+<img src="/2023/01/02/31%EF%BD%9C%E5%B9%B6%E5%8F%91%EF%BC%9AGo%E7%9A%84%E5%B9%B6%E5%8F%91%E6%96%B9%E6%A1%88%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%A1%88%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84%EF%BC%9F/4.webp" class="">
 <p>注意了，这里的P并不一定与操作系统的进程或线程划等号。在Go中，与“Process”对应的是goroutine。为了实现CSP并发模型中的输入和输出原语，Go还引入了goroutine（P）之间的通信原语channel。goroutine可以从channel获取输入数据，再将处理后得到的结果数据通过channel输出。通过channel将goroutine（P）组合连接在一起，让设计和编写大型并发系统变得更加简单和清晰，我们再也不用为那些传统共享内存并发模型中的问题而伤脑筋了。</p>
-<p>比如我们上面提到的获取goroutine的退出状态，就可以使用channel原语实现：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">spawn</span><span class="params">(f <span class="keyword">func</span>()</span> <span class="title">error</span>) &lt;-<span class="title">chan</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    c := <span class="built_in">make</span>(<span class="keyword">chan</span> error)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        c &lt;- f()</span><br><span class="line">    &#125;()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> c</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    c := spawn(<span class="function"><span class="keyword">func</span><span class="params">()</span> <span class="title">error</span></span> &#123;</span><br><span class="line">        time.Sleep(<span class="number">2</span> * time.Second)</span><br><span class="line">        <span class="keyword">return</span> errors.New(<span class="string">"timeout"</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    fmt.Println(&lt;-c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这个示例在main goroutine与子goroutine之间建立了一个元素类型为error的channel，子goroutine退出时，会将它执行的函数的错误返回值写入这个channel，main goroutine可以通过读取channel的值来获取子goroutine的退出状态。</p>
+<p>比如我们上面提到的获取goroutine的退出状态，就可以使用channel原语实现：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">spawn</span><span class="params">(f <span class="keyword">func</span>()</span></span> <span class="type">error</span>) &lt;-<span class="keyword">chan</span> <span class="type">error</span> &#123;</span><br><span class="line">    c := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        c &lt;- f()</span><br><span class="line">    &#125;()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> c</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    c := spawn(<span class="function"><span class="keyword">func</span><span class="params">()</span></span> <span class="type">error</span> &#123;</span><br><span class="line">        time.Sleep(<span class="number">2</span> * time.Second)</span><br><span class="line">        <span class="keyword">return</span> errors.New(<span class="string">&quot;timeout&quot;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line">    fmt.Println(&lt;-c)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这个示例在main goroutine与子goroutine之间建立了一个元素类型为error的channel，子goroutine退出时，会将它执行的函数的错误返回值写入这个channel，main goroutine可以通过读取channel的值来获取子goroutine的退出状态。</p>
 <p>虽然CSP模型已经成为Go语言支持的主流并发模型，但Go也支持传统的、基于共享内存的并发模型，并提供了基本的低级别同步原语（主要是sync包中的互斥锁、条件变量、读写锁、原子操作等）。</p>
 <p>那么我们在实践中应该选择哪个模型的并发原语呢？是使用channel，还是在低级同步原语保护下的共享内存呢？</p>
 <p>毫无疑问，从程序的整体结构来看，<strong>Go始终推荐以CSP并发模型风格构建并发程序</strong>，尤其是在复杂的业务层面，这能提升程序的逻辑清晰度，大大降低并发设计的复杂性，并让程序更具可读性和可维护性。</p>
@@ -628,7 +628,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Go语言第一课/" rel="tag"># Go语言第一课</a>
+            <a href="/tags/Go%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%80%E8%AF%BE/" rel="tag"># Go语言第一课</a>
           
         </div>
       
@@ -641,7 +641,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2023/01/02/30｜接口：Go中最强大的魔法/" rel="next" title="30｜接口：Go中最强大的魔法">
+              <a href="/2023/01/02/30%EF%BD%9C%E6%8E%A5%E5%8F%A3%EF%BC%9AGo%E4%B8%AD%E6%9C%80%E5%BC%BA%E5%A4%A7%E7%9A%84%E9%AD%94%E6%B3%95/" rel="next" title="30｜接口：Go中最强大的魔法">
                 <i class="fa fa-chevron-left"></i> 30｜接口：Go中最强大的魔法
               </a>
             
@@ -651,7 +651,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2023/01/02/32｜并发：聊聊Goroutine调度器的原理/" rel="prev" title="32｜并发：聊聊Goroutine调度器的原理">
+              <a href="/2023/01/02/32%EF%BD%9C%E5%B9%B6%E5%8F%91%EF%BC%9A%E8%81%8A%E8%81%8AGoroutine%E8%B0%83%E5%BA%A6%E5%99%A8%E7%9A%84%E5%8E%9F%E7%90%86/" rel="prev" title="32｜并发：聊聊Goroutine调度器的原理">
                 32｜并发：聊聊Goroutine调度器的原理 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -711,7 +711,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -722,9 +724,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -736,26 +738,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -827,7 +813,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1002,115 +988,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1141,23 +1019,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1183,7 +1061,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是并发？"><span class="nav-number">1.</span> <span class="nav-text">什么是并发？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Go的并发方案：goroutine"><span class="nav-number">2.</span> <span class="nav-text">Go的并发方案：goroutine</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#goroutine的基本用法"><span class="nav-number">2.1.</span> <span class="nav-text">goroutine的基本用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#goroutine间的通信"><span class="nav-number">2.2.</span> <span class="nav-text">goroutine间的通信</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">4.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%B9%B6%E5%8F%91%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">什么是并发？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Go%E7%9A%84%E5%B9%B6%E5%8F%91%E6%96%B9%E6%A1%88%EF%BC%9Agoroutine"><span class="nav-number">2.</span> <span class="nav-text">Go的并发方案：goroutine</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#goroutine%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">goroutine的基本用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#goroutine%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1"><span class="nav-number">2.2.</span> <span class="nav-text">goroutine间的通信</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">思考题</span></a></li></ol></div>
             
 
           </div>
@@ -1218,7 +1096,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1229,12 +1107,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1242,7 +1120,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

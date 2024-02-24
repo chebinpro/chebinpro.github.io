@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,24 +104,24 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="Kubernetes进阶实战">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第9章 StatefulSet控制器">
-<meta property="og:url" content="http://yoursite.com/2022/10/06/第9章-StatefulSet控制器/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/10/06/%E7%AC%AC9%E7%AB%A0-StatefulSet%E6%8E%A7%E5%88%B6%E5%99%A8/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2023-09-02T16:42:11.707Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-10-06T08:20:11.000Z">
+<meta property="article:modified_time" content="2023-09-02T16:42:11.707Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Kubernetes进阶实战">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第9章 StatefulSet控制器">
-<meta name="twitter:description" content="思考并回答以下问题：">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/10/06/第9章-StatefulSet控制器/">
+  <link rel="canonical" href="http://yoursite.com/2022/10/06/第9章-StatefulSet控制器/"/>
 
 
 
@@ -170,7 +170,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -231,7 +231,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -248,7 +248,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -265,7 +265,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -282,7 +282,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -299,7 +299,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -310,7 +310,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -330,7 +330,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -380,16 +382,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/10/06/第9章-StatefulSet控制器/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/10/06/%E7%AC%AC9%E7%AB%A0-StatefulSet%E6%8E%A7%E5%88%B6%E5%99%A8/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -489,7 +491,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">16k</span>
+                <span title="本文字数">30k</span>
               
 
               
@@ -503,7 +505,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">15 分钟</span>
+                <span title="阅读时长">27 分钟</span>
               
             </div>
           
@@ -524,7 +526,7 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>应用程序存在“有状态”和“无状态”两种类别，因为无状态类应用的Pod资源可按需增加、减少或重构，而不会对由其提供的服务产生除了并发响应能力之外的其他严重影响。Pod资源的常用控制器中，Deployment、ReplicaSet和DaemonSet等常用于管理无状态应用。但实际情况是，应用本身就是分布式的集群，各应用实例彼此之间存在着关联关系，甚至是次序、角色方面的相关性，其中的每个实例都有其自身的独特性而无法轻易由其他实例所取代。本章的主要目标就是描述专用于管理此类应用的Pod资源的控制器StatefulSet。</p>
 <h1 id="StatefulSet概述"><a href="#StatefulSet概述" class="headerlink" title="StatefulSet概述"></a>StatefulSet概述</h1><p>ReplicaSet控制器可用来管控无状态应用，例如提供静态内容服务的Web服务器程序等，而对于有状态应用的管控，则是另一项专用控制器的任务一-StatefulSet。</p>
 <h2 id="Stateful应用和Stateless应用"><a href="#Stateful应用和Stateless应用" class="headerlink" title="Stateful应用和Stateless应用"></a>Stateful应用和Stateless应用</h2><p>应用程序与用户、设备、其他应用程序或外部组件进行通信时，根据其是否需要记录前一次或多次通信中的相关事件信息以作为下一次通信的分类标准，可以将那些需要记录信息的应用程序称为有状态（stateful）应用，而无须记录的则称为无状态（stateless）应用。下面我们先来了解下状态和存储的关系。</p>
@@ -569,46 +571,26 @@
 <h2 id="创建StatefulSet对象"><a href="#创建StatefulSet对象" class="headerlink" title="创建StatefulSet对象"></a>创建StatefulSet对象</h2><p>如前所述，一个完整的StatefulSet控制器需要由一个HeadlessService、一个StatefulSet和一个volumeClaimTemplate组成。其中，HeadlessService用于为Pod资源标识符生成可解析的DNS资源记录，StatefulSet用于管控Pod资源，volumeClaimTemplate则基于静态或动态的PV供给方式为Pod资源提供专有且固定的存储，如下面的资源清单中的定义所示：</p>
 <p>上面示例中的配置定义在statefulset-demo.yaml文件中。由于StatefulSet资源依赖于一个事先存在的Headless类型的Service资源，因此，这里首先定义了一个名为myapp-svc的HeadlessService资源，用于为关联到的每个Pod资源创建DNS资源记录。接着定义了一个名为myapp的StatefulSet资源，它通过Pod模板创建了两个Pod资源副本，并基于volumeClaimTemplates（存储卷申请模板）向gluster-dynamic存储类请求动态供给PV，从而为每个Pod资源提供大小为2GB的专用存储卷。</p>
 <p>事实，上，定义StatefulSet资源时，spec中必须要嵌套的字段为“serviceName”和“template”，用于指定关联的HeadlessService和要使用的Pod模板，“volumeClaimTemplates”字段用于为Pod资源创建专有存储卷PVC模板，它可内嵌使用的字段即为persistentVolume-Claim资源的可用字段，对StatefulSet资源为可选字段。</p>
-<p>在依赖的存储类满足条件之后，即可创建清单中定义的相关资源：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">]kubectlapply-fstatefulset-demo.yaml</span><br><span class="line">service"myapp-svc"created</span><br><span class="line">statefulset.apps"myapp"created</span><br></pre></td></tr></table></figure></p>
-<p>默认情况下，StatefulSet控制器以串行的方式创建各Pod副本，如果想要以并行方式创建和删除Pod资源，则可以设定.spec.podManagementPolicy字段的值为“Parallel”，默认值为“OrderedReady”。使用默认的顺序创建策略时，可以使用下面的命令观察相关Pod资源的顺次生成过程：</p>
-<p>待所有的Pod资源都创建完成之后，可以在StatefulSet资源的相关状态中看到相关Pod资源的就绪信息：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">]kubectlgetstatefulsetsmyappNAME</span><br><span class="line">DESIRED</span><br><span class="line">CURRENT</span><br><span class="line">AGE</span><br><span class="line">myapp</span><br><span class="line">2</span><br><span class="line">2</span><br><span class="line">10m</span><br></pre></td></tr></table></figure></p>
-<p>若上述资源的相关信息一切正常，则StatefulSet资源myapp已然就绪，其服务也可由其他依赖方所调用。</p>
+<p>在依赖的存储类满足条件之后，即可创建清单中定义的相关资源：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">]kubectlapply-fstatefulset-demo.yaml</span><br><span class="line">service&quot;myapp-svc&quot;created</span><br><span class="line">statefulset.apps&quot;myapp&quot;created</span><br></pre></td></tr></table></figure><br>默认情况下，StatefulSet控制器以串行的方式创建各Pod副本，如果想要以并行方式创建和删除Pod资源，则可以设定.spec.podManagementPolicy字段的值为“Parallel”，默认值为“OrderedReady”。使用默认的顺序创建策略时，可以使用下面的命令观察相关Pod资源的顺次生成过程：</p>
+<p>待所有的Pod资源都创建完成之后，可以在StatefulSet资源的相关状态中看到相关Pod资源的就绪信息：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">]kubectlgetstatefulsetsmyappNAME</span><br><span class="line">DESIRED</span><br><span class="line">CURRENT</span><br><span class="line">AGE</span><br><span class="line">myapp</span><br><span class="line">2</span><br><span class="line">2</span><br><span class="line">10m</span><br></pre></td></tr></table></figure><br>若上述资源的相关信息一切正常，则StatefulSet资源myapp已然就绪，其服务也可由其他依赖方所调用。</p>
 <h2 id="Pod资源标识符及存储卷"><a href="#Pod资源标识符及存储卷" class="headerlink" title="Pod资源标识符及存储卷"></a>Pod资源标识符及存储卷</h2><p>由StatefulSet控制器创建的Pod资源拥有固定、唯-的标识和专用存储卷，即便重新调度或终止后重建，名称也依然保持不变，且此前的存储卷及其数据不会丢失。</p>
 <p>1.Pod资源的固定标识符</p>
-<p>如前所述，由StatefulSet控制器创建的Pod对象拥有固定且唯-的标识符，它们基于唯一的索引序号及相关的StatefulSet对象的名称而生成，格式为“<code>&lt;statefulsetname&gt;-&lt;ordinalindex&gt;</code>”，如下面的命令结果所示，两个Pod对象的名称分别为myapp-0和myapp-1，其中myapp为控制器的名称：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">]kubectlgetpods-1app=myapp-pod</span><br><span class="line">NAMEREADYSTATUSRESTARTSAGI</span><br><span class="line">myapp-01/1Running</span><br><span class="line">41</span><br><span class="line">myapp-1</span><br><span class="line">/1Running</span><br></pre></td></tr></table></figure></p>
-<p>Pod资源的主机名同其资源名称，因此也是带索引序号的名称格式，如下面的命令结果所示：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">]foriin01;dokubectlexecmyapp-i--sh-c'hostname';done</span><br><span class="line">myapp-0</span><br><span class="line">myapp-1</span><br></pre></td></tr></table></figure></p>
-<p>这些名称标识会由StatefulSet资源相关的HeadlessService资源创建为DNS资源记录，其域名格式为<code>（service.name）.（namespace）.svc.cluster.local</code>，其中“cluster.local”是集群的默认域名。在Pod资源创建后，与其相关的DNS资源记录格式为“<code>（pod_name）.（service_name）.（namespace）.svc.cluster.lca</code>l”，例如前面创建的两个Pod资源的资源记录为<code>myapp-0.myapp-svc.default.svc.cluster.local</code>和<code>myapp-1.myapp-svc.default.svc.cluster.local.</code>“下面再创建一个临时的Pod资源，并通过其交互式接口测试.上述两个名称的解析，其中粗体部分标识的内容为要运行的测试命令：</p>
-<p>HeadlessService资源借助于SRV记录来引用真正提供服务的后端Pod资源的主机名称，进行指向包含PodIP地址的记录条目。此外，由StatefulSet控制器管控的Pod资源终止后会由控制器自动进行重建，虽然其IP地址存在变化的可能性，但它的名称标识在重建后会保持不变。例如，在另—个终端中删除Pod资源myapp-1：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">]kubectldeletepodsmyapp-1</span><br><span class="line">pod"myapp-1"deleted</span><br></pre></td></tr></table></figure></p>
-<p>删除完成后控制器将随之开始重建Pod资源，由下面的命令结果可知，其名称标识符的确未发生改变：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">]kubectlgetpods一1app=myapp-podRESTARTSAGE</span><br><span class="line">NAMEREADYsTATUS</span><br><span class="line">mvapp-c</span><br><span class="line">1/1Running</span><br><span class="line">myapp-o/1</span><br><span class="line">Running</span><br><span class="line">myapp-10/1ContainerCreating</span><br></pre></td></tr></table></figure></p>
-<p>Pod资源重建完成后，再次由此前创建的交互式测试终端尝试进行名称解析测试。由下面的命令结果可知，Pod资源的DNS标识亦未发生改变，但其IP地址会指向重建后的Pod资源地址：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">slookupmyaapP-1.myapP-sVc</span><br><span class="line">Server:10.96.0.10</span><br><span class="line">Address1:10.96.0.10kube-dns.kube-system.svc.cluster.local</span><br><span class="line">Name;myapel.myag-svC</span><br><span class="line">Address1:10.244.3.33myapp-1.myapp-svc.default.svc.cluster.local</span><br><span class="line">/#</span><br></pre></td></tr></table></figure></p>
-<p>因此，当客户端尝试向StatefulSet资源的Pod成员发出访问请求时，应该针对HeadlessService资源的CNAME（myapp-svc.default.svc.cluster.local）记录进行，它指向的SRV记录包含了当前处于就绪状态的Pod资源。当然，若在配置Pod模板时定义了Pod资源的livenessprobe和readinessprobe，考虑到名称标识固定不变，也可以让客户端直接向SRV资源记录（myapp-0.myapp-svc和myapp-l.myapp-svc）发出请求。</p>
+<p>如前所述，由StatefulSet控制器创建的Pod对象拥有固定且唯-的标识符，它们基于唯一的索引序号及相关的StatefulSet对象的名称而生成，格式为“<code>&lt;statefulsetname&gt;-&lt;ordinalindex&gt;</code>”，如下面的命令结果所示，两个Pod对象的名称分别为myapp-0和myapp-1，其中myapp为控制器的名称：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">]kubectlgetpods-1app=myapp-pod</span><br><span class="line">NAMEREADYSTATUSRESTARTSAGI</span><br><span class="line">myapp-01/1Running</span><br><span class="line">41</span><br><span class="line">myapp-1</span><br><span class="line">/1Running</span><br></pre></td></tr></table></figure><br>Pod资源的主机名同其资源名称，因此也是带索引序号的名称格式，如下面的命令结果所示：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">]foriin01;dokubectlexecmyapp-i--sh-c&#x27;hostname&#x27;;done</span><br><span class="line">myapp-0</span><br><span class="line">myapp-1</span><br></pre></td></tr></table></figure><br>这些名称标识会由StatefulSet资源相关的HeadlessService资源创建为DNS资源记录，其域名格式为<code>（service.name）.（namespace）.svc.cluster.local</code>，其中“cluster.local”是集群的默认域名。在Pod资源创建后，与其相关的DNS资源记录格式为“<code>（pod_name）.（service_name）.（namespace）.svc.cluster.lca</code>l”，例如前面创建的两个Pod资源的资源记录为<code>myapp-0.myapp-svc.default.svc.cluster.local</code>和<code>myapp-1.myapp-svc.default.svc.cluster.local.</code>“下面再创建一个临时的Pod资源，并通过其交互式接口测试.上述两个名称的解析，其中粗体部分标识的内容为要运行的测试命令：</p>
+<p>HeadlessService资源借助于SRV记录来引用真正提供服务的后端Pod资源的主机名称，进行指向包含PodIP地址的记录条目。此外，由StatefulSet控制器管控的Pod资源终止后会由控制器自动进行重建，虽然其IP地址存在变化的可能性，但它的名称标识在重建后会保持不变。例如，在另—个终端中删除Pod资源myapp-1：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">]kubectldeletepodsmyapp-1</span><br><span class="line">pod&quot;myapp-1&quot;deleted</span><br></pre></td></tr></table></figure><br>删除完成后控制器将随之开始重建Pod资源，由下面的命令结果可知，其名称标识符的确未发生改变：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">]kubectlgetpods一1app=myapp-podRESTARTSAGE</span><br><span class="line">NAMEREADYsTATUS</span><br><span class="line">mvapp-c</span><br><span class="line">1/1Running</span><br><span class="line">myapp-o/1</span><br><span class="line">Running</span><br><span class="line">myapp-10/1ContainerCreating</span><br></pre></td></tr></table></figure><br>Pod资源重建完成后，再次由此前创建的交互式测试终端尝试进行名称解析测试。由下面的命令结果可知，Pod资源的DNS标识亦未发生改变，但其IP地址会指向重建后的Pod资源地址：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">slookupmyaapP-1.myapP-sVc</span><br><span class="line">Server:10.96.0.10</span><br><span class="line">Address1:10.96.0.10kube-dns.kube-system.svc.cluster.local</span><br><span class="line">Name;myapel.myag-svC</span><br><span class="line">Address1:10.244.3.33myapp-1.myapp-svc.default.svc.cluster.local</span><br><span class="line"><span class="meta prompt_">/#</span></span><br></pre></td></tr></table></figure><br>因此，当客户端尝试向StatefulSet资源的Pod成员发出访问请求时，应该针对HeadlessService资源的CNAME（myapp-svc.default.svc.cluster.local）记录进行，它指向的SRV记录包含了当前处于就绪状态的Pod资源。当然，若在配置Pod模板时定义了Pod资源的livenessprobe和readinessprobe，考虑到名称标识固定不变，也可以让客户端直接向SRV资源记录（myapp-0.myapp-svc和myapp-l.myapp-svc）发出请求。</p>
 <p>2.Pod资源的专有存储卷</p>
 <p>前面的StatefulSet资源示例中，控制器通过volumeClaimTemplates为每个Pod副本自动创建并关联一个PVC对象，它们分别绑定了一个动态供给的PV对象：</p>
-<p>PVC存储卷由Pod资源中的容器挂载到了/usr/share/nginx/html目录，此为容器应用的Nginx进程默认的文档根路径。下面通过kubectlexec命令为每个Pod资源于此目录中生成一个测试页面，用于存储卷持久性测试：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">]foriin01;dokubectlexecmyapp-i--sh-c\</span><br><span class="line">'echo(date),Hostname:(hostname)&gt;/usr/share/nginx/html/index.html';done</span><br></pre></td></tr></table></figure></p>
-<p>接下来基于一个由cirros镜像启动的客户端Pod对象进行访问测试，这样便可通过其DNS名称引用每个Pod资源：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">]kubectlrun-it--imagecirrosclient--restart=Never--r/bin/sh</span><br><span class="line">Tfvonaonitseeacommandoromot.</span><br><span class="line">Ifyoudon'tseeacommandprompt,trypressingenter.</span><br><span class="line">/#curlmyape-u.myapP-svc</span><br><span class="line">EriMar2307:00:46UTC2018,Hostname:myapp-0</span><br><span class="line">/#curlmyapp-1.myapp-svc</span><br><span class="line">FriMar2307:00:46urc2018，Hostname:myapp-1</span><br><span class="line">Mar4surioui4oucU'</span><br></pre></td></tr></table></figure></p>
-<p>删除StatefulSet控制器的Pod资源，其存储卷并不会被删除，除非用户或管理员手动操作移除操作。因此，在另一个终端中删除Pod资源myapp-0，经由StatefulSet控制器重建后，它依然会关联到此前的PVC存储卷上，且此前数据依旧可用：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">]kubectldeletepodsmyapp-0</span><br><span class="line">pod"myapp-0</span><br></pre></td></tr></table></figure></p>
-<p>另一个终端中监控到的刪除及重建过程如下面的命令及其结果所示：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">小kubectlgetpods-1app=myapp-pod-wRESTARTSAGE</span><br><span class="line">NAMEREADYSTATUS</span><br><span class="line">myapp-o1/1mVanp-11/1TYaPP-上上myapp-00/1myape-o0/1myapp-00/1mvapp-o0/1myapp-o1/1yapP-</span><br><span class="line">Runninc</span><br><span class="line">Running</span><br><span class="line">Terminating</span><br><span class="line">lhDsDs)s1ls</span><br><span class="line">Pending</span><br><span class="line">Pending</span><br><span class="line">containerCreatingRunning</span><br><span class="line">unn1n</span><br></pre></td></tr></table></figure></p>
-<p>而后通过测试用的Pod资源接口再次对其进行访问测试，由如下内容可知，存储卷是复用此前的那个：</p>
+<p>PVC存储卷由Pod资源中的容器挂载到了/usr/share/nginx/html目录，此为容器应用的Nginx进程默认的文档根路径。下面通过kubectlexec命令为每个Pod资源于此目录中生成一个测试页面，用于存储卷持久性测试：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">]foriin01;dokubectlexecmyapp-i--sh-c\</span><br><span class="line">&#x27;echo(date),Hostname:(hostname)&gt;/usr/share/nginx/html/index.html&#x27;;done</span><br></pre></td></tr></table></figure><br>接下来基于一个由cirros镜像启动的客户端Pod对象进行访问测试，这样便可通过其DNS名称引用每个Pod资源：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">]kubectlrun-it--imagecirrosclient--restart=Never--r/bin/sh</span><br><span class="line">Tfvonaonitseeacommandoromot.</span><br><span class="line">Ifyoudon&#x27;tseeacommandprompt,trypressingenter.</span><br><span class="line"><span class="meta prompt_">/#</span><span class="language-bash">curlmyape-u.myapP-svc</span></span><br><span class="line">EriMar2307:00:46UTC2018,Hostname:myapp-0</span><br><span class="line"><span class="meta prompt_">/#</span><span class="language-bash">curlmyapp-1.myapp-svc</span></span><br><span class="line">FriMar2307:00:46urc2018，Hostname:myapp-1</span><br><span class="line">Mar4surioui4oucU&#x27;</span><br></pre></td></tr></table></figure><br>删除StatefulSet控制器的Pod资源，其存储卷并不会被删除，除非用户或管理员手动操作移除操作。因此，在另一个终端中删除Pod资源myapp-0，经由StatefulSet控制器重建后，它依然会关联到此前的PVC存储卷上，且此前数据依旧可用：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">]kubectldeletepodsmyapp-0</span><br><span class="line">pod&quot;myapp-0</span><br></pre></td></tr></table></figure><br>另一个终端中监控到的刪除及重建过程如下面的命令及其结果所示：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">小kubectlgetpods-1app=myapp-pod-wRESTARTSAGE</span><br><span class="line">NAMEREADYSTATUS</span><br><span class="line">myapp-o1/1mVanp-11/1TYaPP-上上myapp-00/1myape-o0/1myapp-00/1mvapp-o0/1myapp-o1/1yapP-</span><br><span class="line">Runninc</span><br><span class="line">Running</span><br><span class="line">Terminating</span><br><span class="line">lhDsDs)s1ls</span><br><span class="line">Pending</span><br><span class="line">Pending</span><br><span class="line">containerCreatingRunning</span><br><span class="line">unn1n</span><br></pre></td></tr></table></figure><br>而后通过测试用的Pod资源接口再次对其进行访问测试，由如下内容可知，存储卷是复用此前的那个：</p>
 <p>由此表明，重建的Pod资源被重新调度至哪个节点，此前的PVC资源就会被分配至哪个节点，这样就真正实现了数据的持久化。</p>
 <h1 id="StatefulSet资源扩缩容"><a href="#StatefulSet资源扩缩容" class="headerlink" title="StatefulSet资源扩缩容"></a>StatefulSet资源扩缩容</h1><p>StatefulSet资源的扩缩容与Deployment资源相似，即通过修改资源的副本数来改动其目标Pod资源数量。对StatefulSet资源来说，kubectlscale和kubectlpatch命令均可实现此功能，也可以使用kubectledit命令直接修改其副本数，或者在修改配置文件之后，由kubectlapply命令重新声明。</p>
-<p>例如，下面的命令即能将myapp中的Pod副本数量扩展至6个：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">]kubectlscalestatefulsetmyapp--replicas=6</span><br><span class="line">statefulset.apps"myappscaled</span><br><span class="line">statefulse</span><br></pre></td></tr></table></figure></p>
-<p>StatefulSet资源的扩展过程与创建过程的Pod资源生成策略相同，默认为顺次进行，而且其名称中的序号也将以现有Pod资源的最后一个个序号向后进行：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">]kubectlgetpods-1app=myapp-pod-wRESTARTSAGE</span><br><span class="line">NAMEREADYsTATUS</span><br><span class="line">mvapp-o</span><br><span class="line">111</span><br><span class="line">Running</span><br><span class="line">YaPP</span><br><span class="line">myapp-11/1myapp-20/1myapp-21/1mvann-30/1</span><br><span class="line">Running</span><br><span class="line">4m10s25s10s10s</span><br><span class="line">ContainerCreatingRunning</span><br><span class="line">contain</span><br><span class="line">ContainerCreating</span><br><span class="line">myapp-3</span><br><span class="line">0/</span><br></pre></td></tr></table></figure></p>
-<p>与扩容操作相对，执行缩容操作只需要将其副本数量调低即可，例如，这里可使用kubectlpatch命令将StatefulSet资源myapp的副本数量修补为3个：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">]kubectlpatchstatefulsetmyapp-p'&#123;"spec":&#123;"replicas":3&#125;&#125;'</span><br><span class="line">statefulset.apps"myapp"patched</span><br></pre></td></tr></table></figure></p>
-<p>缩减规模时终止Pod资源的默认策略也以Pod顺序号逆序逐一进行，直到余下的数量满足目标为止：</p>
+<p>例如，下面的命令即能将myapp中的Pod副本数量扩展至6个：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">]kubectlscalestatefulsetmyapp--replicas=6</span><br><span class="line">statefulset.apps&quot;myappscaled</span><br><span class="line">statefulse</span><br></pre></td></tr></table></figure><br>StatefulSet资源的扩展过程与创建过程的Pod资源生成策略相同，默认为顺次进行，而且其名称中的序号也将以现有Pod资源的最后一个个序号向后进行：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">]kubectlgetpods-1app=myapp-pod-wRESTARTSAGE</span><br><span class="line">NAMEREADYsTATUS</span><br><span class="line">mvapp-o</span><br><span class="line">111</span><br><span class="line">Running</span><br><span class="line">YaPP</span><br><span class="line">myapp-11/1myapp-20/1myapp-21/1mvann-30/1</span><br><span class="line">Running</span><br><span class="line">4m10s25s10s10s</span><br><span class="line">ContainerCreatingRunning</span><br><span class="line">contain</span><br><span class="line">ContainerCreating</span><br><span class="line">myapp-3</span><br><span class="line">0/</span><br></pre></td></tr></table></figure><br>与扩容操作相对，执行缩容操作只需要将其副本数量调低即可，例如，这里可使用kubectlpatch命令将StatefulSet资源myapp的副本数量修补为3个：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">]kubectlpatchstatefulsetmyapp-p&#x27;&#123;&quot;spec&quot;:&#123;&quot;replicas&quot;:3&#125;&#125;&#x27;</span><br><span class="line">statefulset.apps&quot;myapp&quot;patched</span><br></pre></td></tr></table></figure><br>缩减规模时终止Pod资源的默认策略也以Pod顺序号逆序逐一进行，直到余下的数量满足目标为止：</p>
 <p>另外，终止Pod资源后，其存储卷并不会被删除，因此缩减规模后若再将其扩展回来，那么此前的数据依然可用，且Pod资源名称保持不变。</p>
 <h1 id="StatefulSet资源升级"><a href="#StatefulSet资源升级" class="headerlink" title="StatefulSet资源升级"></a>StatefulSet资源升级</h1><p>自Kubernetes1.7版本起，StatefulSet资源支持自动更新机制，其更新策略将由spec.updateStrategy字段定义，默认为RollingUpdate，即滚动更新。另一个可用策略为OnDelete，即删除Pod资源重建以完成更新，这也是Kubernetes1.6及之前版本唯一可用的更新策略。StatefulSet资源的更新机制可用于更新Pod资源中的容器镜像、标签、注解和系统资源配额等。</p>
 <h2 id="滚动更新"><a href="#滚动更新" class="headerlink" title="滚动更新"></a>滚动更新</h2><p>滚动更新StatefulSet控制器的Pod资源以逆序的形式从其最大索引编号的Pod资源逐一进行，它在终止一个Pod资源、更新资源并待其就绪后启动更新下一个资源，即索引号比当前号小1的Pod资源。对于主从复制类的集群应用来说，这样也能保证起主节点作用的Pod资源最后进行更新，确保兼容性。</p>
-<p>StatefulSet的默认更新策略为滚动更新，通过“kubectlgetstatefulsetNAME”命令中的输出可以获取相关的信息，myapp控制器的输出如下所示：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">updateStrategy:</span></span><br><span class="line"><span class="attr">rollingUpdate:</span></span><br><span class="line"><span class="attr">partition:</span><span class="number">0</span></span><br><span class="line"><span class="attr">type:</span><span class="string">RollingUpdate</span></span><br></pre></td></tr></table></figure></p>
-<p>更新Pod中的容器镜像可以使用“kubectlsetimage”命令进行，例如下面的命令可将myapp控制器下的Pod资源镜像版本升级为“ikubernetes/myapp：v6”：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">]kubectlsetimagestatefulsetmyappmyapp=ikubernetes/myapp:v6</span><br><span class="line">statefulset.apps"myapp"imageupdated</span><br></pre></td></tr></table></figure></p>
-<p>更新操作过程，可在另一终端中使用如下命令进行监控，其逆序操作Pod资源的过程如下面的命令结果所示：</p>
-<p>待更新完成后，获取每个Pod资源中的镜像文件版本即可验证其升级结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">]foriin012;dokubectlgetpomyapp-i\</span><br><span class="line">--template&apos;&#123;&#123;rangei,c:=.spec.containers&#125;&#125;&#123;&#123;C.image&#125;&#125;&#123;&#123;end&#125;&#125;&apos;;echo;doneikubernetes/myapp:v6</span><br><span class="line">ikubernetes/myapp:v6</span><br><span class="line">ikubernetes/myapp:v6</span><br></pre></td></tr></table></figure></p>
-<p>另外，用户也可以使用“kubectlrolloutstatus”命令跟踪StatefulSet资源滚动更新过程中的状态信息。</p>
+<p>StatefulSet的默认更新策略为滚动更新，通过“kubectlgetstatefulsetNAME”命令中的输出可以获取相关的信息，myapp控制器的输出如下所示：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">updateStrategy:</span></span><br><span class="line"><span class="attr">rollingUpdate:</span></span><br><span class="line"><span class="string">partition:0</span></span><br><span class="line"><span class="string">type:RollingUpdate</span></span><br></pre></td></tr></table></figure><br>更新Pod中的容器镜像可以使用“kubectlsetimage”命令进行，例如下面的命令可将myapp控制器下的Pod资源镜像版本升级为“ikubernetes/myapp：v6”：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">]kubectlsetimagestatefulsetmyappmyapp=ikubernetes/myapp:v6</span><br><span class="line">statefulset.apps&quot;myapp&quot;imageupdated</span><br></pre></td></tr></table></figure><br>更新操作过程，可在另一终端中使用如下命令进行监控，其逆序操作Pod资源的过程如下面的命令结果所示：</p>
+<p>待更新完成后，获取每个Pod资源中的镜像文件版本即可验证其升级结果：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">]foriin012;dokubectlgetpomyapp-i\</span><br><span class="line">--template&#x27;&#123;&#123;rangei,c:=.spec.containers&#125;&#125;&#123;&#123;C.image&#125;&#125;&#123;&#123;end&#125;&#125;&#x27;;echo;doneikubernetes/myapp:v6</span><br><span class="line">ikubernetes/myapp:v6</span><br><span class="line">ikubernetes/myapp:v6</span><br></pre></td></tr></table></figure><br>另外，用户也可以使用“kubectlrolloutstatus”命令跟踪StatefulSet资源滚动更新过程中的状态信息。</p>
 <h2 id="暂存更新操作"><a href="#暂存更新操作" class="headerlink" title="暂存更新操作"></a>暂存更新操作</h2><p>当用户需要设定一个更新操作，但又不希望它立即执行时，可将更新操作予以“暂存”，待条件满足后再手动触发其执行更新。StatefulSet资源的分区更新机制能够实现此项功能。在设定更新操作之前，将.spec.update-Strategy.rollingUpdate.partition字段的值设置为Pod资源的副本数量，即比Pod资源的最大索引号大1，这就意味着，所有的Pod资源都不会处于可直接更新的分区之内（如图9-4所示），那么于其后设定的更新操作也就不会真正执行，直到用户降低分区编号至现有Pod资源索引号范围之内。</p>
 <p>下面测试滚动更新的暂存更新操作，首先将StatefulSet资源myapp的滚动更新分区值设定为3:</p>
-<p>而后，将myapp控制器的Pod资源镜像版本更新为“ikubernetes/myapp：v7”：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">]kubectlsetimagestatefulsetmyappmyapp=ikubernetes/myapp:v7</span><br><span class="line">statefulset.apps"myapp"imageupdated</span><br></pre></td></tr></table></figure></p>
-<p>接着检测各Pod资源的镜像文件版本信息，可以发现其版本并未发生改变：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">kubectlgetpods-1app=myapp-pod</span><br><span class="line">-0custom-columns=NAME:metad.name,IMAGE:spec.containers[0].image</span><br><span class="line">NAMEIMAGE</span><br><span class="line">myapp-0ikubernetes/myapp:v6</span><br><span class="line">myapp-1ikubernetes/myapp:v6</span><br><span class="line">myapp-2ikubernetes/myapp:v6</span><br></pre></td></tr></table></figure></p>
-<p>此时，即便删除某Pod资源，它依然会基于旧的版本镜像进行重建。例如，下面首先删除了Pod对象myapp-1，随后待其重建操作启动后，再获取与其相关的镜像信息，结果依然显示了旧的版本：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">]kubectldeletepodsmyapp-1</span><br><span class="line">Dod"mYaDD-t".a</span><br><span class="line">]kubectlgetpodsmyapp-1\</span><br><span class="line">-0custom-columns=NAME:metadata.name,IMAGB:spec.containers[0].image</span><br><span class="line">NAMEE.IMAGE</span><br><span class="line">myapp-1ikubernetes/myapp:v6</span><br></pre></td></tr></table></figure></p>
-<p>由此可见，暂存状态的更新操作对所有的Pod资源均不产生影响。</p>
+<p>而后，将myapp控制器的Pod资源镜像版本更新为“ikubernetes/myapp：v7”：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">]kubectlsetimagestatefulsetmyappmyapp=ikubernetes/myapp:v7</span><br><span class="line">statefulset.apps&quot;myapp&quot;imageupdated</span><br></pre></td></tr></table></figure><br>接着检测各Pod资源的镜像文件版本信息，可以发现其版本并未发生改变：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">kubectlgetpods-1app=myapp-pod</span><br><span class="line">-0custom-columns=NAME:metad.name,IMAGE:spec.containers[0].image</span><br><span class="line">NAMEIMAGE</span><br><span class="line">myapp-0ikubernetes/myapp:v6</span><br><span class="line">myapp-1ikubernetes/myapp:v6</span><br><span class="line">myapp-2ikubernetes/myapp:v6</span><br></pre></td></tr></table></figure><br>此时，即便删除某Pod资源，它依然会基于旧的版本镜像进行重建。例如，下面首先删除了Pod对象myapp-1，随后待其重建操作启动后，再获取与其相关的镜像信息，结果依然显示了旧的版本：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">]kubectldeletepodsmyapp-1</span><br><span class="line">Dod&quot;mYaDD-t&quot;.a</span><br><span class="line">]kubectlgetpodsmyapp-1\</span><br><span class="line">-0custom-columns=NAME:metadata.name,IMAGB:spec.containers[0].image</span><br><span class="line">NAMEE.IMAGE</span><br><span class="line">myapp-1ikubernetes/myapp:v6</span><br></pre></td></tr></table></figure><br>由此可见，暂存状态的更新操作对所有的Pod资源均不产生影响。</p>
 <h2 id="金丝雀部署"><a href="#金丝雀部署" class="headerlink" title="金丝雀部署"></a>金丝雀部署</h2><p>将处于暂存状态的更新操作的partition定位于Pod资源的最大索引号，即可放出一只金丝雀，由其测试第一轮的更新操作，在确认无误后通过修改partition属性的值更新其他的Pod对象是一种更为稳妥的更新操作。<br>将9.4.2节暂停的更新StatefulSet控制器myapp资源的分区号设置为Pod资源的最大索引号2，将会触发myapp-2的更新操作：</p>
 <p>其执行结果如图9-5所示。</p>
 <p>待其更新完成后，检测所有Pod资源使用的镜像文件版本，对比下面命令的输出，可以看出其更新操作再次暂停于myapp-2的更新操作完成之后：</p>
@@ -626,20 +608,15 @@
 <p>etcd将键存储于层级组织的键空间中，这使得它看起来非常类似于文件系统的倒置树状结构，于是，它的每个键要么是一个包含有其他键的目录，要么是一个含有数据的常规键。Kubernetes将其所有数据存储于etcd的/registry目录中，虽然APIServer是以JSON格式组织数据资源对象，但对于底层使用etcd存储系统的场景来说，它们可类比为存储于文件系统内的JSON文件中。另外，Kubernetes的系统组件中，仅APIServer直接与etcd进行通信，其他所有组件的数据读写操作都要经由APIServer进行，从而确保了数据的高度一致性。</p>
 <p>在分布式模型中，etcd采用raft算法，实现了分布式系统数据的可用性和一致性。若发生网络分区或节点故障，则raft算法就会通过quorum机制处理集群状态转移，其中成员数量大于半数的一方可继续工作，若leader存在，则它们可继续提供读写服务，否则就要选举出新的leader，并且在此期间写操作是被禁止的，而成员数量少于半数的节点将停止任何的写入操作。本节将描述如何于Kubernetes集群中基于StatefulSet控制器托管部署一个分布式的etcd集群，它只是一个部署示例，并不会取代Kubernetes系统现有的etcd。</p>
 <h2 id="创建Service资源"><a href="#创建Service资源" class="headerlink" title="创建Service资源"></a>创建Service资源</h2><p>StatefulSet资源依赖于HeadlessService为各Pod资源提供名称解析服务，其他Pod资源可直接使用DNS名称来获取相关的服务，如etcd-0.etcd、etcd-1.etcd等，下面的资源清单（etcd-services.yaml）中定义的第一个资源etcd就是此类的Service资源。第二个名为etcd-client的Service资源是一个正常的Service，它拥有ClusterIP，并可通过NodePort向Kubernetes集群外部的etcd客户端提供服务：</p>
-<p>首先创建上述两个Service对象：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">]kubectlapply-fetcd-services.yaml</span><br><span class="line">service"etcd-svc"created</span><br><span class="line">service"etcd-client"created</span><br></pre></td></tr></table></figure></p>
-<p>而后，可于default名称空间中看到如下两个Service资源记录：</p>
+<p>首先创建上述两个Service对象：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">]kubectlapply-fetcd-services.yaml</span><br><span class="line">service&quot;etcd-svc&quot;created</span><br><span class="line">service&quot;etcd-client&quot;created</span><br></pre></td></tr></table></figure><br>而后，可于default名称空间中看到如下两个Service资源记录：</p>
 <p>由上面输出的信息可以看出，eted-client通过10.99.175.53向客户端提供服务，它是一个标准类型的Service资源，类型为NodePort，可通过各工作节点的30290端口将服务暴露到集群外部。服务类型的资源创建完成后，接下来便可创建StatefulSet控制器，构建分布式etcd集群。</p>
 <h2 id="etcdStatefulSet"><a href="#etcdStatefulSet" class="headerlink" title="etcdStatefulSet"></a>etcdStatefulSet</h2><p>etecd依赖于持久存储设备保存数据，这里为其配置了使用自定义的、具有动态PV供给功能的gluster-dynamic存储类为各Pod资源的PVC提供存储后端，大小可由用户按需求进行定义。另外，etcd镜像文件的版本也可由用户修改为与实际需求匹配的版本，如3.3.1等，不过StatefulSet本就支持自动更新机制，用户也可以于必要时启动更新机制切换其镜像版本。下面是定义在etcd-statefulset.yaml文件中的配置示例，它定义了一个名为etcd的StatefulSet资源：</p>
-<p>首先，将上述资源定义创建于集群中。当依赖的镜像文件不存在时，下载镜像的过程会导致创建时长略长，此处需要耐心等待：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">]kubectlapply-fetcd-statefulset.yaml</span><br><span class="line">statefulset.apps"etcd"created</span><br></pre></td></tr></table></figure></p>
-<p>在另一终端，可使用下列命令监控各Pod资源的创建过程，直到它们都转为正常的运行状态为止：</p>
-<p>而后，检测9.5.1节中创建的Service资源etcd-svc和etcd-client是否已经正常关联到相关的Pod资源。下面的命令结果表示它们都已经通过标签选择器关联到了由Pod资源生成的Endpoints资源之上，这些Pod资源是由StatefulSet控制器etcd创建而成的：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">]kubectlgetendpoints-lapp=etcd</span><br><span class="line">NAME</span><br><span class="line">ENDPOINTS</span><br><span class="line">AGE</span><br><span class="line">etcd</span><br><span class="line">10.244.1.50:2380.10.244.2.50:2380.10.244.3.57:2380+3m0re...1m</span><br><span class="line">etcd-client10.244.1.50:2379,10.244.2.50:2379.10.244.3.57:2379</span><br><span class="line">1m</span><br></pre></td></tr></table></figure></p>
-<p>对比由etcd控制器创建的Pod资源的相关信息可知，上面的Endpoints中的IP地址均属于由etcd控制创建的Pod资源：</p>
+<p>首先，将上述资源定义创建于集群中。当依赖的镜像文件不存在时，下载镜像的过程会导致创建时长略长，此处需要耐心等待：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">]kubectlapply-fetcd-statefulset.yaml</span><br><span class="line">statefulset.apps&quot;etcd&quot;created</span><br></pre></td></tr></table></figure><br>在另一终端，可使用下列命令监控各Pod资源的创建过程，直到它们都转为正常的运行状态为止：</p>
+<p>而后，检测9.5.1节中创建的Service资源etcd-svc和etcd-client是否已经正常关联到相关的Pod资源。下面的命令结果表示它们都已经通过标签选择器关联到了由Pod资源生成的Endpoints资源之上，这些Pod资源是由StatefulSet控制器etcd创建而成的：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">]kubectlgetendpoints-lapp=etcd</span><br><span class="line">NAME</span><br><span class="line">ENDPOINTS</span><br><span class="line">AGE</span><br><span class="line">etcd</span><br><span class="line">10.244.1.50:2380.10.244.2.50:2380.10.244.3.57:2380+3m0re...1m</span><br><span class="line">etcd-client10.244.1.50:2379,10.244.2.50:2379.10.244.3.57:2379</span><br><span class="line">1m</span><br></pre></td></tr></table></figure><br>对比由etcd控制器创建的Pod资源的相关信息可知，上面的Endpoints中的IP地址均属于由etcd控制创建的Pod资源：</p>
 <p>使用etcd的客户端工具etcdctl检测集群的健康状态：</p>
 <p>至此，一个由三节点（Pod资源）组成的etcd集群已经正常运行起来了，客户端可从各工作节点的30290端口在Kubernetes集群外部进行访问，而各Pod资源既可以直接向Service资源etcd-client的名称或10.106.60.53（ClusterIP）发出访问请求，也可以向HeadlessService资源的名称etcd进行请求。</p>
-<p>需要注意的是，前面的配置文件中提供的StatefulSet资源配置要求进行规模变动时，需要手动对etcd集群执行命令以完成节点的添加或删除，而且缩容时要先移除节点再缩减副本数量，扩容时要先提升副本数量再添加节点，因此它的主要目标里不包含应用规模的自由变动，但对于应用升级的支持完好。例如，将镜像文件版本升级至v3.2.17的版本：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">]kubectlsetimagestatefulsetetcdetcd=quay.iocoreos/etcd:v3.2.17statefulset.apps"etcd"imageupdated</span><br></pre></td></tr></table></figure></p>
-<p>而后使用“kubectlrolloutstatus”命令监控其滚动升级过程中的状态变动：</p>
-<p>升级完成后，可于相关的任一Pod资源中运行etcdctl命令查看应用程序的版本是否已经升级完成：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">]kubectlexecetcd-0--etcdctl-v</span><br><span class="line">etcdctlversion:3.2.17</span><br><span class="line">APIversion:2</span><br></pre></td></tr></table></figure></p>
-<p>由上面命令结果可见，应用程序已经成功升级至3.2.17的版本。滚动升级过程中，处于更新过程的Pod资源对象无法正常使用，不过，客户端是通过Service资源提供的人口而非Pod资源本身的标识（如名称或IP地址）来进行访问，因此并不会出现服务不可用问题。</p>
+<p>需要注意的是，前面的配置文件中提供的StatefulSet资源配置要求进行规模变动时，需要手动对etcd集群执行命令以完成节点的添加或删除，而且缩容时要先移除节点再缩减副本数量，扩容时要先提升副本数量再添加节点，因此它的主要目标里不包含应用规模的自由变动，但对于应用升级的支持完好。例如，将镜像文件版本升级至v3.2.17的版本：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">]kubectlsetimagestatefulsetetcdetcd=quay.iocoreos/etcd:v3.2.17statefulset.apps&quot;etcd&quot;imageupdated</span><br></pre></td></tr></table></figure><br>而后使用“kubectlrolloutstatus”命令监控其滚动升级过程中的状态变动：</p>
+<p>升级完成后，可于相关的任一Pod资源中运行etcdctl命令查看应用程序的版本是否已经升级完成：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">]kubectlexecetcd-0--etcdctl-v</span><br><span class="line">etcdctlversion:3.2.17</span><br><span class="line">APIversion:2</span><br></pre></td></tr></table></figure><br>由上面命令结果可见，应用程序已经成功升级至3.2.17的版本。滚动升级过程中，处于更新过程的Pod资源对象无法正常使用，不过，客户端是通过Service资源提供的人口而非Pod资源本身的标识（如名称或IP地址）来进行访问，因此并不会出现服务不可用问题。</p>
 <h1 id="本章小结"><a href="#本章小结" class="headerlink" title="本章小结"></a>本章小结</h1><p>本章着重讲解了有状态应用的Pod资源控制器StatefulSet，有状态应用相较于无状态应用来说，在管理上有着特有的复杂之处，甚至不同的有状态应用的管理方式各不相同，在部署时需要予以精心组织。</p>
 <ul>
 <li>StatefulSet依赖于HeadlessService资源为其Pod资源创建DNS资源记录。</li>
@@ -671,7 +648,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Kubernetes进阶实战/" rel="tag"># Kubernetes进阶实战</a>
+            <a href="/tags/Kubernetes%E8%BF%9B%E9%98%B6%E5%AE%9E%E6%88%98/" rel="tag"># Kubernetes进阶实战</a>
           
         </div>
       
@@ -684,7 +661,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/10/06/第8章-配置容器应用：ConfigMap和Secret/" rel="next" title="第8章 配置容器应用：ConfigMap和Secret">
+              <a href="/2022/10/06/%E7%AC%AC8%E7%AB%A0-%E9%85%8D%E7%BD%AE%E5%AE%B9%E5%99%A8%E5%BA%94%E7%94%A8%EF%BC%9AConfigMap%E5%92%8CSecret/" rel="next" title="第8章 配置容器应用：ConfigMap和Secret">
                 <i class="fa fa-chevron-left"></i> 第8章 配置容器应用：ConfigMap和Secret
               </a>
             
@@ -694,7 +671,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/10/06/第10章-认证、授权与准入控制/" rel="prev" title="第10章 认证、授权与准入控制">
+              <a href="/2022/10/06/%E7%AC%AC10%E7%AB%A0-%E8%AE%A4%E8%AF%81%E3%80%81%E6%8E%88%E6%9D%83%E4%B8%8E%E5%87%86%E5%85%A5%E6%8E%A7%E5%88%B6/" rel="prev" title="第10章 认证、授权与准入控制">
                 第10章 认证、授权与准入控制 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -754,7 +731,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -765,9 +744,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -779,26 +758,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -870,7 +833,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1045,115 +1008,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1184,23 +1039,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1226,7 +1081,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#StatefulSet概述"><span class="nav-number">1.</span> <span class="nav-text">StatefulSet概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Stateful应用和Stateless应用"><span class="nav-number">1.1.</span> <span class="nav-text">Stateful应用和Stateless应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#StatefulSet控制器概述"><span class="nav-number">1.2.</span> <span class="nav-text">StatefulSet控制器概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#StatefulSet的特性"><span class="nav-number">1.3.</span> <span class="nav-text">StatefulSet的特性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#StatefulSet基础应用"><span class="nav-number">2.</span> <span class="nav-text">StatefulSet基础应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建StatefulSet对象"><span class="nav-number">2.1.</span> <span class="nav-text">创建StatefulSet对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pod资源标识符及存储卷"><span class="nav-number">2.2.</span> <span class="nav-text">Pod资源标识符及存储卷</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#StatefulSet资源扩缩容"><span class="nav-number">3.</span> <span class="nav-text">StatefulSet资源扩缩容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#StatefulSet资源升级"><span class="nav-number">4.</span> <span class="nav-text">StatefulSet资源升级</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#滚动更新"><span class="nav-number">4.1.</span> <span class="nav-text">滚动更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#暂存更新操作"><span class="nav-number">4.2.</span> <span class="nav-text">暂存更新操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#金丝雀部署"><span class="nav-number">4.3.</span> <span class="nav-text">金丝雀部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分段更新"><span class="nav-number">4.4.</span> <span class="nav-text">分段更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他话题"><span class="nav-number">4.5.</span> <span class="nav-text">其他话题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#案例：etcd集群"><span class="nav-number">5.</span> <span class="nav-text">案例：etcd集群</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建Service资源"><span class="nav-number">5.1.</span> <span class="nav-text">创建Service资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etcdStatefulSet"><span class="nav-number">5.2.</span> <span class="nav-text">etcdStatefulSet</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本章小结"><span class="nav-number">6.</span> <span class="nav-text">本章小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#StatefulSet%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">StatefulSet概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Stateful%E5%BA%94%E7%94%A8%E5%92%8CStateless%E5%BA%94%E7%94%A8"><span class="nav-number">1.1.</span> <span class="nav-text">Stateful应用和Stateless应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#StatefulSet%E6%8E%A7%E5%88%B6%E5%99%A8%E6%A6%82%E8%BF%B0"><span class="nav-number">1.2.</span> <span class="nav-text">StatefulSet控制器概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#StatefulSet%E7%9A%84%E7%89%B9%E6%80%A7"><span class="nav-number">1.3.</span> <span class="nav-text">StatefulSet的特性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#StatefulSet%E5%9F%BA%E7%A1%80%E5%BA%94%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">StatefulSet基础应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAStatefulSet%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.1.</span> <span class="nav-text">创建StatefulSet对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pod%E8%B5%84%E6%BA%90%E6%A0%87%E8%AF%86%E7%AC%A6%E5%8F%8A%E5%AD%98%E5%82%A8%E5%8D%B7"><span class="nav-number">2.2.</span> <span class="nav-text">Pod资源标识符及存储卷</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#StatefulSet%E8%B5%84%E6%BA%90%E6%89%A9%E7%BC%A9%E5%AE%B9"><span class="nav-number">3.</span> <span class="nav-text">StatefulSet资源扩缩容</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#StatefulSet%E8%B5%84%E6%BA%90%E5%8D%87%E7%BA%A7"><span class="nav-number">4.</span> <span class="nav-text">StatefulSet资源升级</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BB%9A%E5%8A%A8%E6%9B%B4%E6%96%B0"><span class="nav-number">4.1.</span> <span class="nav-text">滚动更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9A%82%E5%AD%98%E6%9B%B4%E6%96%B0%E6%93%8D%E4%BD%9C"><span class="nav-number">4.2.</span> <span class="nav-text">暂存更新操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%91%E4%B8%9D%E9%9B%80%E9%83%A8%E7%BD%B2"><span class="nav-number">4.3.</span> <span class="nav-text">金丝雀部署</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E6%AE%B5%E6%9B%B4%E6%96%B0"><span class="nav-number">4.4.</span> <span class="nav-text">分段更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E8%AF%9D%E9%A2%98"><span class="nav-number">4.5.</span> <span class="nav-text">其他话题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A1%88%E4%BE%8B%EF%BC%9Aetcd%E9%9B%86%E7%BE%A4"><span class="nav-number">5.</span> <span class="nav-text">案例：etcd集群</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAService%E8%B5%84%E6%BA%90"><span class="nav-number">5.1.</span> <span class="nav-text">创建Service资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#etcdStatefulSet"><span class="nav-number">5.2.</span> <span class="nav-text">etcdStatefulSet</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%AC%E7%AB%A0%E5%B0%8F%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">本章小结</span></a></li></ol></div>
             
 
           </div>
@@ -1261,7 +1116,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1272,12 +1127,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1285,7 +1140,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

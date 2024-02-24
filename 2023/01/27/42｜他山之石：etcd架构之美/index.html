@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,28 +104,28 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="Go进阶·分布式爬虫实战">
 <meta property="og:type" content="article">
 <meta property="og:title" content="42｜他山之石：etcd架构之美">
-<meta property="og:url" content="http://yoursite.com/2023/01/27/42｜他山之石：etcd架构之美/index.html">
+<meta property="og:url" content="http://yoursite.com/2023/01/27/42%EF%BD%9C%E4%BB%96%E5%B1%B1%E4%B9%8B%E7%9F%B3%EF%BC%9Aetcd%E6%9E%B6%E6%9E%84%E4%B9%8B%E7%BE%8E/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2023/01/27/42｜他山之石：etcd架构之美/1.jpeg">
-<meta property="og:image" content="http://yoursite.com/2023/01/27/42｜他山之石：etcd架构之美/2.jpeg">
-<meta property="og:image" content="http://yoursite.com/2023/01/27/42｜他山之石：etcd架构之美/3.png">
-<meta property="og:updated_time" content="2023-07-27T02:05:57.415Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2023/01/27/42%EF%BD%9C%E4%BB%96%E5%B1%B1%E4%B9%8B%E7%9F%B3%EF%BC%9Aetcd%E6%9E%B6%E6%9E%84%E4%B9%8B%E7%BE%8E/1.jpeg">
+<meta property="og:image" content="http://yoursite.com/2023/01/27/42%EF%BD%9C%E4%BB%96%E5%B1%B1%E4%B9%8B%E7%9F%B3%EF%BC%9Aetcd%E6%9E%B6%E6%9E%84%E4%B9%8B%E7%BE%8E/2.jpeg">
+<meta property="og:image" content="http://yoursite.com/2023/01/27/42%EF%BD%9C%E4%BB%96%E5%B1%B1%E4%B9%8B%E7%9F%B3%EF%BC%9Aetcd%E6%9E%B6%E6%9E%84%E4%B9%8B%E7%BE%8E/3.png">
+<meta property="article:published_time" content="2023-01-27T03:15:59.000Z">
+<meta property="article:modified_time" content="2023-07-27T02:05:57.415Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Go进阶·分布式爬虫实战">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="42｜他山之石：etcd架构之美">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2023/01/27/42｜他山之石：etcd架构之美/1.jpeg">
+<meta name="twitter:image" content="http://yoursite.com/2023/01/27/42%EF%BD%9C%E4%BB%96%E5%B1%B1%E4%B9%8B%E7%9F%B3%EF%BC%9Aetcd%E6%9E%B6%E6%9E%84%E4%B9%8B%E7%BE%8E/1.jpeg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2023/01/27/42｜他山之石：etcd架构之美/">
+  <link rel="canonical" href="http://yoursite.com/2023/01/27/42｜他山之石：etcd架构之美/"/>
 
 
 
@@ -174,7 +174,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -235,7 +235,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -252,7 +252,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -269,7 +269,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -286,7 +286,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -303,7 +303,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -314,7 +314,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -334,7 +334,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -384,16 +386,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/01/27/42｜他山之石：etcd架构之美/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/01/27/42%EF%BD%9C%E4%BB%96%E5%B1%B1%E4%B9%8B%E7%9F%B3%EF%BC%9Aetcd%E6%9E%B6%E6%9E%84%E4%B9%8B%E7%BE%8E/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -493,7 +495,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">4.5k</span>
+                <span title="本文字数">7.5k</span>
               
 
               
@@ -507,7 +509,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">4 分钟</span>
+                <span title="阅读时长">7 分钟</span>
               
             </div>
           
@@ -528,12 +530,12 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>这节课，我们来聊一聊我们将在分布式项目中使用的重要中间件：etcd。</p>
 <p>etcd这个名字是etcdistributed的缩写。我们知道，在Linux中etc目录存储了系统的配置文件，所以etcd代表了分布式的配置中心系统。然而，它能够实现的功能远不是同步配置文件这么简单。etcd可以作为分布式协调的组件帮助我们实现分布式系统。</p>
 <p>使用etcd的重要项目包括了CoreOS与Kubernetes。etcd使用Go书写，底层使用了Raft协议，它的架构本身非常优美。这节课就让我们来看一看etcd的架构、核心特性和实现机制，这样我们才能利用etcd更好地完成分布式协调工作，领会这个优秀的开源组件的设计哲学。同时，掌握etcd也有助于我们更深入地了解Kubernetes的运行机制。</p>
 <h1 id="etcd全局架构"><a href="#etcd全局架构" class="headerlink" title="etcd全局架构"></a><span style="color:#339AFF;">etcd全局架构</span></h1><p>etcd的第一个版本v0.1于2013年发布，现在已经更新到了v3，在这个过程中，etcd的稳定性、扩展性、性能都在不断提升。我们这节课主要讨论的是当前最新的v3版本。话不多说，我们先来从整体上看一看etcd的架构。</p>
-<img src="/2023/01/27/42｜他山之石：etcd架构之美/1.jpeg">
+<img src="/2023/01/27/42%EF%BD%9C%E4%BB%96%E5%B1%B1%E4%B9%8B%E7%9F%B3%EF%BC%9Aetcd%E6%9E%B6%E6%9E%84%E4%B9%8B%E7%BE%8E/1.jpeg" class="">
 <p>etcd从大的方面可以分为几个部分，让我们结合图片从右往左说起。</p>
 <p>首先etcd抽象出了raft-http模块，由于etcd通常为分布式集群部署方式，该层用于处理和其他etcd节点的网络通信。etcd内部使用了HTTP协议来进行通信，由于etcd中的消息类型很多，心跳探活的数据量较小，快照信息较大（可达GB级别），所以etcd有两种处理消息的通道，分别是Pipeline消息通道与Stream消息通道。</p>
 <p>Stream消息通道是etcd中节点与节点之间维护的长连接，它可以处理频繁的小消息，还能复用HTTP底层的连接，不必每次都建立新的连接。而Pipeline消息通道用于处理快照这样数据量大的信息，处理完毕后连接会关闭。</p>
@@ -543,7 +545,7 @@
 <blockquote>
 <p>Raft节点状态转移</p>
 </blockquote>
-<img src="/2023/01/27/42｜他山之石：etcd架构之美/2.jpeg">
+<img src="/2023/01/27/42%EF%BD%9C%E4%BB%96%E5%B1%B1%E4%B9%8B%E7%9F%B3%EF%BC%9Aetcd%E6%9E%B6%E6%9E%84%E4%B9%8B%E7%BE%8E/2.jpeg" class="">
 <p>在etcd-raft模块基础之上还封装出了raft-node模块。这个模块主要是上层模块和下层Raft模块沟通的桥梁，它同时还有一个重要任务，就是调用storage模块，将记录（Record）存储到WAL日志文件中落盘。WAL日志文件可以存储多种类型的记录，包括下面几种。</p>
 <ul>
 <li>WAL文件的元数据，记录节点ID、集群ID信息。</li>
@@ -552,7 +554,7 @@
 <li>数据校验信息，它可以校验文件数据的完整性与正确性。</li>
 <li>快照信息，包含快照的相关信息，但不包含实际的快照数据。它可以校验快照数据的完整性。</li>
 </ul>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Record <span class="keyword">struct</span> &#123;</span><br><span class="line">	Type                 <span class="keyword">int64</span>    <span class="string">`protobuf:"varint,1,opt,name=type" json:"type"`</span></span><br><span class="line">	Crc                  <span class="keyword">uint32</span>   <span class="string">`protobuf:"varint,2,opt,name=crc" json:"crc"`</span></span><br><span class="line">	Data                 []<span class="keyword">byte</span>   <span class="string">`protobuf:"bytes,3,opt,name=data" json:"data,omitempty"`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Record <span class="keyword">struct</span> &#123;</span><br><span class="line">	Type                 <span class="type">int64</span>    <span class="string">`protobuf:&quot;varint,1,opt,name=type&quot; json:&quot;type&quot;`</span></span><br><span class="line">	Crc                  <span class="type">uint32</span>   <span class="string">`protobuf:&quot;varint,2,opt,name=crc&quot; json:&quot;crc&quot;`</span></span><br><span class="line">	Data                 []<span class="type">byte</span>   <span class="string">`protobuf:&quot;bytes,3,opt,name=data&quot; json:&quot;data,omitempty&quot;`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>WAL日志文件非常重要，它能保证我们的消息在大部分节点达成一致且应用到状态机之前，让记录持久化。这样，在节点崩溃并重启后，就能够从WAL中恢复数据了。</p>
 <p>WAL日志的数量与大小随着时间不断增加，可能超过可容纳的磁盘容量。同时，在节点宕机后，如果要恢复数据就必须从头到尾读取全部的WAL日志文件，耗时也会非常久。为了解决这一问题，etcd会定期地创建快照并保存到文件中，在恢复节点时会先加载快照数据，并从快照所在的位置之后读取WAL文件，这就加快了节点的恢复速度。快照的数据也有单独的snap模块进行管理。</p>
 <p>在raft-node模块之上是etcd-server模块，它最核心的任务是执行Entry对应的操作，在这个过程中包含了限流操作与权限控制的能力。所有操作的集合最终会使状态机到达最新的状态。etcd-server同时还会维护当前etcd集群的状态信息，并提供了线性读的能力。</p>
@@ -567,9 +569,8 @@
 <ul>
 <li>低耦合</li>
 </ul>
-<p>各个模块之间边界清晰，用接口来进行交流与组合的设计给了程序极大的扩展性。举一个例子，数据存储的store就是一个interface。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Storage <span class="keyword">interface</span> &#123;</span><br><span class="line">	InitialState() (pb.HardState, pb.ConfState, error)</span><br><span class="line">	Entries(lo, hi, maxSize <span class="keyword">uint64</span>) ([]pb.Entry, error)</span><br><span class="line">	Term(i <span class="keyword">uint64</span>) (<span class="keyword">uint64</span>, error)</span><br><span class="line">	LastIndex() (<span class="keyword">uint64</span>, error)</span><br><span class="line">	FirstIndex() (<span class="keyword">uint64</span>, error)</span><br><span class="line">	Snapshot() (pb.Snapshot, error)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>简单地搜索一下，可以发现etcd内部使用了大量接口。</p>
-<img src="/2023/01/27/42｜他山之石：etcd架构之美/3.png">
+<p>各个模块之间边界清晰，用接口来进行交流与组合的设计给了程序极大的扩展性。举一个例子，数据存储的store就是一个interface。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Storage <span class="keyword">interface</span> &#123;</span><br><span class="line">	InitialState() (pb.HardState, pb.ConfState, <span class="type">error</span>)</span><br><span class="line">	Entries(lo, hi, maxSize <span class="type">uint64</span>) ([]pb.Entry, <span class="type">error</span>)</span><br><span class="line">	Term(i <span class="type">uint64</span>) (<span class="type">uint64</span>, <span class="type">error</span>)</span><br><span class="line">	LastIndex() (<span class="type">uint64</span>, <span class="type">error</span>)</span><br><span class="line">	FirstIndex() (<span class="type">uint64</span>, <span class="type">error</span>)</span><br><span class="line">	Snapshot() (pb.Snapshot, <span class="type">error</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>简单地搜索一下，可以发现etcd内部使用了大量接口。</p>
+<img src="/2023/01/27/42%EF%BD%9C%E4%BB%96%E5%B1%B1%E4%B9%8B%E7%9F%B3%EF%BC%9Aetcd%E6%9E%B6%E6%9E%84%E4%B9%8B%E7%BE%8E/3.png" class="">
 <p>这样做的好处是，etcd抽象出了etcd-raft这个模块，实现了Raft协议，开发者可以在这个模块之上构建实现了Raft协议的分布式系统，这就减轻了开发者的心理和技术负担。因为分布式协议是非常难实现的，它潜在的问题也很难被发现，发现问题之后又很难定位原因，有了etcd-raft模块，这一系列问题都迎刃而解了。</p>
 <p>在etcd代码库中有一个示例代码，该示例代码基于etcd-raft模块实现了一个最简单的分布式内存KV数据库。在示例代码中实现了上游的KVServer服务器与raft-node节点，并与etcd-raft模块进行交互，去掉了etcd实现的日志落盘等逻辑，将键值对存储到了内存中。如果你有志于深入地学习etcd，从这个实例入手是非常不错的选择。</p>
 <ul>
@@ -614,7 +615,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Go进阶·分布式爬虫实战/" rel="tag"># Go进阶·分布式爬虫实战</a>
+            <a href="/tags/Go%E8%BF%9B%E9%98%B6%C2%B7%E5%88%86%E5%B8%83%E5%BC%8F%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98/" rel="tag"># Go进阶·分布式爬虫实战</a>
           
         </div>
       
@@ -627,7 +628,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2023/01/27/41｜线上综合案例：节约线上千台容器的性能分析实战/" rel="next" title="41｜线上综合案例：节约线上千台容器的性能分析实战">
+              <a href="/2023/01/27/41%EF%BD%9C%E7%BA%BF%E4%B8%8A%E7%BB%BC%E5%90%88%E6%A1%88%E4%BE%8B%EF%BC%9A%E8%8A%82%E7%BA%A6%E7%BA%BF%E4%B8%8A%E5%8D%83%E5%8F%B0%E5%AE%B9%E5%99%A8%E7%9A%84%E6%80%A7%E8%83%BD%E5%88%86%E6%9E%90%E5%AE%9E%E6%88%98/" rel="next" title="41｜线上综合案例：节约线上千台容器的性能分析实战">
                 <i class="fa fa-chevron-left"></i> 41｜线上综合案例：节约线上千台容器的性能分析实战
               </a>
             
@@ -637,7 +638,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2023/01/27/43｜分布式协调：etcd读写、MVCC原理与监听机制/" rel="prev" title="43｜分布式协调：etcd读写、MVCC原理与监听机制">
+              <a href="/2023/01/27/43%EF%BD%9C%E5%88%86%E5%B8%83%E5%BC%8F%E5%8D%8F%E8%B0%83%EF%BC%9Aetcd%E8%AF%BB%E5%86%99%E3%80%81MVCC%E5%8E%9F%E7%90%86%E4%B8%8E%E7%9B%91%E5%90%AC%E6%9C%BA%E5%88%B6/" rel="prev" title="43｜分布式协调：etcd读写、MVCC原理与监听机制">
                 43｜分布式协调：etcd读写、MVCC原理与监听机制 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -697,7 +698,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -708,9 +711,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -722,26 +725,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -813,7 +800,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -988,115 +975,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1127,23 +1006,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1169,7 +1048,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#etcd全局架构"><span class="nav-number">1.</span> <span class="nav-text">etcd全局架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#etcd架构的优点"><span class="nav-number">2.</span> <span class="nav-text">etcd架构的优点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课后题"><span class="nav-number">4.</span> <span class="nav-text">课后题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#etcd%E5%85%A8%E5%B1%80%E6%9E%B6%E6%9E%84"><span class="nav-number">1.</span> <span class="nav-text">etcd全局架构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#etcd%E6%9E%B6%E6%9E%84%E7%9A%84%E4%BC%98%E7%82%B9"><span class="nav-number">2.</span> <span class="nav-text">etcd架构的优点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BE%E5%90%8E%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">课后题</span></a></li></ol></div>
             
 
           </div>
@@ -1204,7 +1083,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1215,12 +1094,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1228,7 +1107,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

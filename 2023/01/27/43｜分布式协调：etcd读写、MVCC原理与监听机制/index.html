@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,27 +104,27 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="Go进阶·分布式爬虫实战">
 <meta property="og:type" content="article">
 <meta property="og:title" content="43｜分布式协调：etcd读写、MVCC原理与监听机制">
-<meta property="og:url" content="http://yoursite.com/2023/01/27/43｜分布式协调：etcd读写、MVCC原理与监听机制/index.html">
+<meta property="og:url" content="http://yoursite.com/2023/01/27/43%EF%BD%9C%E5%88%86%E5%B8%83%E5%BC%8F%E5%8D%8F%E8%B0%83%EF%BC%9Aetcd%E8%AF%BB%E5%86%99%E3%80%81MVCC%E5%8E%9F%E7%90%86%E4%B8%8E%E7%9B%91%E5%90%AC%E6%9C%BA%E5%88%B6/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2023/01/27/43｜分布式协调：etcd读写、MVCC原理与监听机制/1.jpeg">
-<meta property="og:image" content="http://yoursite.com/2023/01/27/43｜分布式协调：etcd读写、MVCC原理与监听机制/2.jpeg">
-<meta property="og:updated_time" content="2023-07-27T02:18:14.918Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2023/01/27/43%EF%BD%9C%E5%88%86%E5%B8%83%E5%BC%8F%E5%8D%8F%E8%B0%83%EF%BC%9Aetcd%E8%AF%BB%E5%86%99%E3%80%81MVCC%E5%8E%9F%E7%90%86%E4%B8%8E%E7%9B%91%E5%90%AC%E6%9C%BA%E5%88%B6/1.jpeg">
+<meta property="og:image" content="http://yoursite.com/2023/01/27/43%EF%BD%9C%E5%88%86%E5%B8%83%E5%BC%8F%E5%8D%8F%E8%B0%83%EF%BC%9Aetcd%E8%AF%BB%E5%86%99%E3%80%81MVCC%E5%8E%9F%E7%90%86%E4%B8%8E%E7%9B%91%E5%90%AC%E6%9C%BA%E5%88%B6/2.jpeg">
+<meta property="article:published_time" content="2023-01-27T03:16:07.000Z">
+<meta property="article:modified_time" content="2023-07-27T02:18:14.918Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Go进阶·分布式爬虫实战">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="43｜分布式协调：etcd读写、MVCC原理与监听机制">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2023/01/27/43｜分布式协调：etcd读写、MVCC原理与监听机制/1.jpeg">
+<meta name="twitter:image" content="http://yoursite.com/2023/01/27/43%EF%BD%9C%E5%88%86%E5%B8%83%E5%BC%8F%E5%8D%8F%E8%B0%83%EF%BC%9Aetcd%E8%AF%BB%E5%86%99%E3%80%81MVCC%E5%8E%9F%E7%90%86%E4%B8%8E%E7%9B%91%E5%90%AC%E6%9C%BA%E5%88%B6/1.jpeg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2023/01/27/43｜分布式协调：etcd读写、MVCC原理与监听机制/">
+  <link rel="canonical" href="http://yoursite.com/2023/01/27/43｜分布式协调：etcd读写、MVCC原理与监听机制/"/>
 
 
 
@@ -173,7 +173,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -234,7 +234,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -251,7 +251,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -268,7 +268,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -285,7 +285,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -302,7 +302,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -313,7 +313,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -333,7 +333,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -383,16 +385,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/01/27/43｜分布式协调：etcd读写、MVCC原理与监听机制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/01/27/43%EF%BD%9C%E5%88%86%E5%B8%83%E5%BC%8F%E5%8D%8F%E8%B0%83%EF%BC%9Aetcd%E8%AF%BB%E5%86%99%E3%80%81MVCC%E5%8E%9F%E7%90%86%E4%B8%8E%E7%9B%91%E5%90%AC%E6%9C%BA%E5%88%B6/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -492,7 +494,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">5.3k</span>
+                <span title="本文字数">8.4k</span>
               
 
               
@@ -506,7 +508,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">5 分钟</span>
+                <span title="阅读时长">8 分钟</span>
               
             </div>
           
@@ -527,10 +529,10 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>这节课，我们重点来看看etcd的读写流程，以及它的两个重要特性：MVCC原理和监听机制。</p>
 <h1 id="写的完整流程"><a href="#写的完整流程" class="headerlink" title="写的完整流程"></a><span style="color:#339AFF;">写的完整流程</span></h1><p>我们先来看看etcd怎么完整地写入请求。</p>
-<img src="/2023/01/27/43｜分布式协调：etcd读写、MVCC原理与监听机制/1.jpeg">
+<img src="/2023/01/27/43%EF%BD%9C%E5%88%86%E5%B8%83%E5%BC%8F%E5%8D%8F%E8%B0%83%EF%BC%9Aetcd%E8%AF%BB%E5%86%99%E3%80%81MVCC%E5%8E%9F%E7%90%86%E4%B8%8E%E7%9B%91%E5%90%AC%E6%9C%BA%E5%88%B6/1.jpeg" class="">
 <p>1，客户端通过GRPC协议访问etcd-server服务端。</p>
 <p>2，如果是一个写请求，会访问etcd-server注册的Put方法。要注意的是，在访问etcd-server时，会进行一些检查，例如DB配额（Quota）的检查。此外，如果客户端访问的节点不是Leader节点，这个节点会将请求转移到Leader中。</p>
 <p>3，etcd-server会调用raft-node模块的Propose方法进行限速、鉴权等判断，之后raft-node模块调用etcd-raft模块完成数据的封装。</p>
@@ -542,7 +544,7 @@
 <p>另外，还要格外注意的是，客户端调用写入方法Put成功后，并不意味着数据已经持久化到BoltDB了。因为这时etcd并未提交事务，数据只更新在了BoltDB管理的内存数据结构中。BoltDB事务提交的过程包含平衡B+树、调整元数据信息等操作，因此提交事务是比较昂贵的。如果我们每次更新都提交事务，etcd的写性能就会较差。为了解决这一问题，etcd也有对策。etcd会合并多个写事务请求，通常情况下定时机制会分批次（默认100毫秒/次）统一提交事务，这就大大提高了吞吐量。</p>
 <p>但是这种优化又导致了另一个问题。事务未提交时，读请求可能无法从BoltDB中获取到最新的数据。为了解决这个问题，etcd引入了一个BucketBuffer来保存暂未提交的事务数据。etcd处理读请求的时候，会优先从BucketBuffer里面读取，其次再从BoltDB中读取，通过BucketBuffer提升读写性能，同时也保证了数据一致性。</p>
 <h1 id="读的完整流程"><a href="#读的完整流程" class="headerlink" title="读的完整流程"></a><span style="color:#339AFF;">读的完整流程</span></h1><p>下面我们看看一个完整的线性一致性的读请求都要经过哪些过程。</p>
-<img src="/2023/01/27/43｜分布式协调：etcd读写、MVCC原理与监听机制/2.jpeg">
+<img src="/2023/01/27/43%EF%BD%9C%E5%88%86%E5%B8%83%E5%BC%8F%E5%8D%8F%E8%B0%83%EF%BC%9Aetcd%E8%AF%BB%E5%86%99%E3%80%81MVCC%E5%8E%9F%E7%90%86%E4%B8%8E%E7%9B%91%E5%90%AC%E6%9C%BA%E5%88%B6/2.jpeg" class="">
 <p>1，首先，客户端通过GRPCAPI访问etcd-server服务端，这一阶段会经过注册到GRPC服务器中的拦截器，实现日志打印、Metric统计等功能。</p>
 <p>2，读操作调用的是etcd-server的Range方法，etcd-server会判断当前的请求是否需要线性一致性的读。</p>
 <p>3，对于线性一致性读，etcd-server会调用raft-node模块的ReadIndex方法。</p>
@@ -554,11 +556,7 @@
 <h1 id="MVCC机制"><a href="#MVCC机制" class="headerlink" title="MVCC机制"></a><span style="color:#339AFF;">MVCC机制</span></h1><p>etcd存储了当前Key过去所有操作的版本记录。这样做的好处是，我们可以很方便地获取所有的操作记录，而这些记录常常是实现更重要的特性的基础，例如要实现可靠的事件监听就需要Key的历史信息。</p>
 <p>etcdv2会在内存中维护一个较短的全局事件滑动窗口，保留最近的1000条变更事件。但是当事件太多的时候，就需要删除老的事件，可能导致事件的丢失。而etcdv3解决了这一问题，etcdv3将历史版本存储在了BoltDB当中进行了持久化。可靠的Watch机制将避免客户端执行一些更繁重的查询操作，提高了系统的整体性能。</p>
 <p>借助Key的历史版本信息，我们还能够实现乐观锁的机制。乐观锁即乐观地认为并发操作同一份数据不会发生冲突，所以不会对数据全局加锁。但是当事务提交时，她又能够检测到是否会出现数据处理异常。乐观锁的机制让系统在高并发场景下仍然具备高性能。这种基于多版本技术实现的乐观锁机制也被称为MVCC。</p>
-<p>下面就让我们来看看etcd是如何实现MVCC机制，对多版本数据的管理与存储的吧。在etcd中，每一个操作不会覆盖旧的操作，而是会指定一个新的版本，其结构为revision。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> revision <span class="keyword">struct</span> &#123;</span><br><span class="line">    main <span class="keyword">int64</span></span><br><span class="line">    sub  <span class="keyword">int64</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>revision主要由两部分组成，包括main与sub两个字段。其中每次出现一个新事务时main都会递增1，而对于同一个事务，执行事务中每次操作都会导致sub递增1，这保证了每一次操作的版本都是唯一的。假设事务1中的两条操作分别如下。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">key = &quot;zjx&quot;    value = &quot;38&quot;</span><br><span class="line">key = &quot;olaya&quot;  value = &quot;19&quot;</span><br></pre></td></tr></table></figure></p>
-<p>事务2中的两条操作是下面的样子。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">key = &quot;zjx&quot;    value = &quot;56&quot;</span><br><span class="line">key = &quot;olaya&quot;  value = &quot;22&quot;</span><br></pre></td></tr></table></figure></p>
-<p>那么每条操作对应的版本号就分别是下面这样。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">revision = &#123;1，0&#125;</span><br><span class="line">revision = &#123;1，1&#125;</span><br><span class="line">revision = &#123;2，0&#125;</span><br><span class="line">revision = &#123;2，1&#125;</span><br></pre></td></tr></table></figure></p>
-<p>etcd最终会默认将键值对数据存储到BoltDB当中，完成数据的落盘。不过为了管理多个版本，在BoltDB中的Key对应的是revision版本号，而Value对应的是该版本对应的实际键值对。BoltDB在底层使用B+树进行存储，而B+树的优势就是可以实现范围查找，这有助于我们在读取数据以及实现Watch机制的时候，查找某一个范围内的操作记录。</p>
+<p>下面就让我们来看看etcd是如何实现MVCC机制，对多版本数据的管理与存储的吧。在etcd中，每一个操作不会覆盖旧的操作，而是会指定一个新的版本，其结构为revision。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> revision <span class="keyword">struct</span> &#123;</span><br><span class="line">    main <span class="type">int64</span></span><br><span class="line">    sub  <span class="type">int64</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>revision主要由两部分组成，包括main与sub两个字段。其中每次出现一个新事务时main都会递增1，而对于同一个事务，执行事务中每次操作都会导致sub递增1，这保证了每一次操作的版本都是唯一的。假设事务1中的两条操作分别如下。<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">key = &quot;zjx&quot;    value = &quot;38&quot;</span><br><span class="line">key = &quot;olaya&quot;  value = &quot;19&quot;</span><br></pre></td></tr></table></figure><br>事务2中的两条操作是下面的样子。<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">key = &quot;zjx&quot;    value = &quot;56&quot;</span><br><span class="line">key = &quot;olaya&quot;  value = &quot;22&quot;</span><br></pre></td></tr></table></figure><br>那么每条操作对应的版本号就分别是下面这样。<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">revision = &#123;1，0&#125;</span><br><span class="line">revision = &#123;1，1&#125;</span><br><span class="line">revision = &#123;2，0&#125;</span><br><span class="line">revision = &#123;2，1&#125;</span><br></pre></td></tr></table></figure><br>etcd最终会默认将键值对数据存储到BoltDB当中，完成数据的落盘。不过为了管理多个版本，在BoltDB中的Key对应的是revision版本号，而Value对应的是该版本对应的实际键值对。BoltDB在底层使用B+树进行存储，而B+树的优势就是可以实现范围查找，这有助于我们在读取数据以及实现Watch机制的时候，查找某一个范围内的操作记录。</p>
 <p>看到这里你可能会有疑问，在BoltDB中存储的key是版本号，但是在用户查找的时候，可能只知道具体数据里的Key，那如何完成查找呢？</p>
 <p>为了解决这一问题，etcd在内存中实现了一个B树的索引treeIndex，封装了Google开源的B树的实现。B树的存储结构方便我们完成范围查找，也能够和BoltDB对应的B+树的能力对应起来。treeIndex实现的索引，实现了数据Key与keyIndex实例之间的映射关系，而在keyIndex中存储了当前Key对应的所有历史版本信息。通过这样的二次查找，我们就可以通过Key查找到BoltDB中某一个版本甚至某一个范围的Value值了。</p>
 <p>借助etcd的MVCC机制以及BoltDB数据库，我们可以在etcd中实现事务的ACID特性。etcdclientv3中提供的简易事务API正是基于此实现的。</p>
@@ -604,7 +602,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Go进阶·分布式爬虫实战/" rel="tag"># Go进阶·分布式爬虫实战</a>
+            <a href="/tags/Go%E8%BF%9B%E9%98%B6%C2%B7%E5%88%86%E5%B8%83%E5%BC%8F%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98/" rel="tag"># Go进阶·分布式爬虫实战</a>
           
         </div>
       
@@ -617,7 +615,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2023/01/27/42｜他山之石：etcd架构之美/" rel="next" title="42｜他山之石：etcd架构之美">
+              <a href="/2023/01/27/42%EF%BD%9C%E4%BB%96%E5%B1%B1%E4%B9%8B%E7%9F%B3%EF%BC%9Aetcd%E6%9E%B6%E6%9E%84%E4%B9%8B%E7%BE%8E/" rel="next" title="42｜他山之石：etcd架构之美">
                 <i class="fa fa-chevron-left"></i> 42｜他山之石：etcd架构之美
               </a>
             
@@ -627,7 +625,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2023/01/27/44｜一个程序多种功能：构建子命令与flags/" rel="prev" title="44｜一个程序多种功能：构建子命令与flags">
+              <a href="/2023/01/27/44%EF%BD%9C%E4%B8%80%E4%B8%AA%E7%A8%8B%E5%BA%8F%E5%A4%9A%E7%A7%8D%E5%8A%9F%E8%83%BD%EF%BC%9A%E6%9E%84%E5%BB%BA%E5%AD%90%E5%91%BD%E4%BB%A4%E4%B8%8Eflags/" rel="prev" title="44｜一个程序多种功能：构建子命令与flags">
                 44｜一个程序多种功能：构建子命令与flags <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -687,7 +685,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -698,9 +698,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -712,26 +712,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -803,7 +787,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -978,115 +962,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1117,23 +993,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1159,7 +1035,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#写的完整流程"><span class="nav-number">1.</span> <span class="nav-text">写的完整流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#读的完整流程"><span class="nav-number">2.</span> <span class="nav-text">读的完整流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MVCC机制"><span class="nav-number">3.</span> <span class="nav-text">MVCC机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Watch机制"><span class="nav-number">4.</span> <span class="nav-text">Watch机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#unsynced-watcher的处理"><span class="nav-number">4.1.</span> <span class="nav-text">unsynced watcher的处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synced-watcher的处理"><span class="nav-number">4.2.</span> <span class="nav-text">synced watcher的处理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课后题"><span class="nav-number">6.</span> <span class="nav-text">课后题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%99%E7%9A%84%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">写的完整流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BB%E7%9A%84%E5%AE%8C%E6%95%B4%E6%B5%81%E7%A8%8B"><span class="nav-number">2.</span> <span class="nav-text">读的完整流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MVCC%E6%9C%BA%E5%88%B6"><span class="nav-number">3.</span> <span class="nav-text">MVCC机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Watch%E6%9C%BA%E5%88%B6"><span class="nav-number">4.</span> <span class="nav-text">Watch机制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#unsynced-watcher%E7%9A%84%E5%A4%84%E7%90%86"><span class="nav-number">4.1.</span> <span class="nav-text">unsynced watcher的处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#synced-watcher%E7%9A%84%E5%A4%84%E7%90%86"><span class="nav-number">4.2.</span> <span class="nav-text">synced watcher的处理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BE%E5%90%8E%E9%A2%98"><span class="nav-number">6.</span> <span class="nav-text">课后题</span></a></li></ol></div>
             
 
           </div>
@@ -1194,7 +1070,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1205,12 +1081,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1218,7 +1094,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

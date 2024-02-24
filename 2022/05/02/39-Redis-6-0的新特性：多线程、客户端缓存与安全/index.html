@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,29 +104,29 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="Redis核心技术与实战">
 <meta property="og:type" content="article">
 <meta property="og:title" content="39 | Redis 6.0的新特性：多线程、客户端缓存与安全">
-<meta property="og:url" content="http://yoursite.com/2022/05/02/39-Redis-6-0的新特性：多线程、客户端缓存与安全/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/05/02/39-Redis-6-0%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%9A%E5%A4%9A%E7%BA%BF%E7%A8%8B%E3%80%81%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%BC%93%E5%AD%98%E4%B8%8E%E5%AE%89%E5%85%A8/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/05/02/39-Redis-6-0的新特性：多线程、客户端缓存与安全/1.webp">
-<meta property="og:image" content="http://yoursite.com/2022/05/02/39-Redis-6-0的新特性：多线程、客户端缓存与安全/2.webp">
-<meta property="og:image" content="http://yoursite.com/2022/05/02/39-Redis-6-0的新特性：多线程、客户端缓存与安全/3.webp">
-<meta property="og:image" content="http://yoursite.com/2022/05/02/39-Redis-6-0的新特性：多线程、客户端缓存与安全/4.webp">
-<meta property="og:updated_time" content="2022-11-05T16:07:15.752Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/05/02/39-Redis-6-0%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%9A%E5%A4%9A%E7%BA%BF%E7%A8%8B%E3%80%81%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%BC%93%E5%AD%98%E4%B8%8E%E5%AE%89%E5%85%A8/1.webp">
+<meta property="og:image" content="http://yoursite.com/2022/05/02/39-Redis-6-0%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%9A%E5%A4%9A%E7%BA%BF%E7%A8%8B%E3%80%81%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%BC%93%E5%AD%98%E4%B8%8E%E5%AE%89%E5%85%A8/2.webp">
+<meta property="og:image" content="http://yoursite.com/2022/05/02/39-Redis-6-0%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%9A%E5%A4%9A%E7%BA%BF%E7%A8%8B%E3%80%81%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%BC%93%E5%AD%98%E4%B8%8E%E5%AE%89%E5%85%A8/3.webp">
+<meta property="og:image" content="http://yoursite.com/2022/05/02/39-Redis-6-0%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%9A%E5%A4%9A%E7%BA%BF%E7%A8%8B%E3%80%81%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%BC%93%E5%AD%98%E4%B8%8E%E5%AE%89%E5%85%A8/4.webp">
+<meta property="article:published_time" content="2022-05-02T02:07:32.000Z">
+<meta property="article:modified_time" content="2022-11-05T16:07:15.752Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Redis核心技术与实战">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="39 | Redis 6.0的新特性：多线程、客户端缓存与安全">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2022/05/02/39-Redis-6-0的新特性：多线程、客户端缓存与安全/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2022/05/02/39-Redis-6-0%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%9A%E5%A4%9A%E7%BA%BF%E7%A8%8B%E3%80%81%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%BC%93%E5%AD%98%E4%B8%8E%E5%AE%89%E5%85%A8/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/05/02/39-Redis-6-0的新特性：多线程、客户端缓存与安全/">
+  <link rel="canonical" href="http://yoursite.com/2022/05/02/39-Redis-6-0的新特性：多线程、客户端缓存与安全/"/>
 
 
 
@@ -175,7 +175,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -236,7 +236,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -253,7 +253,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -270,7 +270,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -287,7 +287,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -304,7 +304,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -315,7 +315,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -335,7 +335,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -385,16 +387,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/05/02/39-Redis-6-0的新特性：多线程、客户端缓存与安全/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/05/02/39-Redis-6-0%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%9A%E5%A4%9A%E7%BA%BF%E7%A8%8B%E3%80%81%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%BC%93%E5%AD%98%E4%B8%8E%E5%AE%89%E5%85%A8/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -494,7 +496,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">5.3k</span>
+                <span title="本文字数">9.5k</span>
               
 
               
@@ -508,7 +510,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">5 分钟</span>
+                <span title="阅读时长">9 分钟</span>
               
             </div>
           
@@ -529,7 +531,7 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>Redis官方在今年5月份正式推出了6.0版本，这个版本中有很多的新特性。所以，6.0刚刚推出，就受到了业界的广泛关注。</p>
 <p>所以，在课程的最后，我特意安排了这节课，想来和你聊聊Redis 6.0中的几个关键新特性，分别是面向网络处理的多IO线程、客户端缓存、细粒度的权限控制，以及RESP 3协议的使用。</p>
 <p>其中，面向网络处理的多IO线程可以提高网络请求处理的速度，而客户端缓存可以让应用直接在客户端本地读取数据，这两个特性可以提升Redis的性能。除此之外，细粒度权限控制让Redis可以按照命令粒度控制不同用户的访问权限，加强了Redis的安全保护。RESP 3协议则增强客户端的功能，可以让应用更加方便地使用Redis的不同数据类型。</p>
@@ -549,15 +551,15 @@
 <p>主线程一旦把Socket分配给IO线程，就会进入阻塞状态，等待IO线程完成客户端请求读取和解析。因为有多个IO线程在并行处理，所以，这个过程很快就可以完成。</p>
 <p><strong>阶段三：主线程执行请求操作</strong></p>
 <p>等到IO线程解析完请求，主线程还是会以单线程的方式执行这些命令操作。下面这张图显示了刚才介绍的这三个阶段，你可以看下，加深理解。</p>
-<img src="/2022/05/02/39-Redis-6-0的新特性：多线程、客户端缓存与安全/1.webp">
+<img src="/2022/05/02/39-Redis-6-0%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%9A%E5%A4%9A%E7%BA%BF%E7%A8%8B%E3%80%81%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%BC%93%E5%AD%98%E4%B8%8E%E5%AE%89%E5%85%A8/1.webp" class="">
 <p><strong>阶段四：IO线程回写Socket和主线程清空全局队列</strong></p>
 <p>当主线程执行完请求操作后，会把需要返回的结果写入缓冲区，然后，主线程会阻塞等待IO线程把这些结果回写到Socket中，并返回给客户端。</p>
 <p>和IO线程读取和解析请求一样，IO线程回写Socket时，也是有多个线程在并发执行，所以回写Socket的速度也很快。等到IO线程回写Socket完毕，主线程会清空全局队列，等待客户端的后续请求。</p>
 <p>我也画了一张图，展示了这个阶段主线程和IO线程的操作，你可以看下。</p>
-<img src="/2022/05/02/39-Redis-6-0的新特性：多线程、客户端缓存与安全/2.webp">
+<img src="/2022/05/02/39-Redis-6-0%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%9A%E5%A4%9A%E7%BA%BF%E7%A8%8B%E3%80%81%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%BC%93%E5%AD%98%E4%B8%8E%E5%AE%89%E5%85%A8/2.webp" class="">
 <p>了解了Redis主线程和多线程的协作方式，我们该怎么启用多线程呢？在Redis 6.0中，多线程机制默认是关闭的，如果需要使用多线程功能，需要在redis.conf中完成两个设置。</p>
 <p><strong>1，设置io-thread-do-reads配置项为yes，表示启用多线程。</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">io-threads-do-reads yes</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">io-threads-do-reads <span class="built_in">yes</span></span><br></pre></td></tr></table></figure>
 <p>2，设置线程个数。一般来说，<strong>线程个数要小于Redis实例所在机器的CPU核个数</strong>，例如，对于一个8核的机器来说，Redis官方建议配置6个IO线程。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">io-threads  6</span><br></pre></td></tr></table></figure>
 <p>如果你在实际应用中，发现Redis实例的CPU开销不大，吞吐量却没有提升，可以考虑使用Redis 6.0的多线程机制，加速网络处理，进而提升实例的吞吐量。</p>
@@ -570,29 +572,24 @@
 <p>我们可以通过执行下面的命令，打开或关闭普通模式下的Tracking功能。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CLIENT TRACKING ON|OFF</span><br></pre></td></tr></table></figure></p>
 <p><strong>第二种模式是广播模式。</strong>在这个模式下，服务端会给客户端广播所有key的失效情况，不过，这样做了之后，如果key被频繁修改，服务端会发送大量的失效广播消息，这就会消耗大量的网络带宽资源。</p>
 <p>所以，在实际应用时，我们会让客户端注册希望跟踪的key的前缀，当带有注册前缀的key被修改时，服务端会把失效消息广播给所有注册的客户端。<strong>和普通模式不同，在广播模式下，即使客户端还没有读取过key，但只要它注册了要跟踪的key，服务端都会把key失效消息通知给这个客户端。</strong></p>
-<p>我给你举个例子，带你看一下客户端如何使用广播模式接收key失效消息。当我们在客户端执行下面的命令后，如果服务端更新了user:id:1003这个key，那么，客户端就会收到invalidate消息。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CLIENT TRACKING ON BCAST PREFIX user</span><br></pre></td></tr></table></figure></p>
-<p>这种监测带有前缀的key的广播模式，和我们对key的命名规范非常匹配。我们在实际应用时，会给同一业务下的key设置相同的业务名前缀，所以，我们就可以非常方便地使用广播模式。</p>
+<p>我给你举个例子，带你看一下客户端如何使用广播模式接收key失效消息。当我们在客户端执行下面的命令后，如果服务端更新了user:id:1003这个key，那么，客户端就会收到invalidate消息。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CLIENT TRACKING ON BCAST PREFIX user</span><br></pre></td></tr></table></figure><br>这种监测带有前缀的key的广播模式，和我们对key的命名规范非常匹配。我们在实际应用时，会给同一业务下的key设置相同的业务名前缀，所以，我们就可以非常方便地使用广播模式。</p>
 <p>不过，刚才介绍的普通模式和广播模式，需要客户端使用RESP 3协议，RESP 3协议是6.0新启用的通信协议，一会儿我会给你具体介绍。</p>
 <p>对于使用RESP 2协议的客户端来说，就需要使用另一种模式，也就是重定向模式（redirect）。在重定向模式下，想要获得失效消息通知的客户端，就需要执行订阅命令SUBSCRIBE，专门订阅用于发送失效消息的频道<code>_redis_:invalidate</code>。同时，再使用另外一个客户端，执行CLIENTTRACKING命令，设置服务端将失效消息转发给使用RESP 2协议的客户端。</p>
-<p>我再给你举个例子，带你了解下如何让使用RESP 2协议的客户端也能接受失效消息。假设客户端B想要获取失效消息，但是客户端B只支持RESP 2协议，客户端A支持RESP 3协议。我们可以分别在客户端B和A上执行SUBSCRIBE和CLIENTTRACKING，如下所示：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//客户端B执行，客户端B的ID号是303</span></span><br><span class="line">SUBSCRIBE _redis_:invalidate</span><br><span class="line"></span><br><span class="line"><span class="comment">//客户端A执行</span></span><br><span class="line">CLIENT TRACKING ON BCAST REDIRECT <span class="number">303</span></span><br></pre></td></tr></table></figure></p>
-<p>这样设置以后，如果有键值对被修改了，客户端B就可以通过<code>_redis_:invalidate</code>频道，获得失效消息了。</p>
+<p>我再给你举个例子，带你了解下如何让使用RESP 2协议的客户端也能接受失效消息。假设客户端B想要获取失效消息，但是客户端B只支持RESP 2协议，客户端A支持RESP 3协议。我们可以分别在客户端B和A上执行SUBSCRIBE和CLIENTTRACKING，如下所示：<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//客户端B执行，客户端B的ID号是303</span></span><br><span class="line">SUBSCRIBE _redis_:invalidate</span><br><span class="line"></span><br><span class="line"><span class="comment">//客户端A执行</span></span><br><span class="line">CLIENT TRACKING ON BCAST REDIRECT <span class="number">303</span></span><br></pre></td></tr></table></figure><br>这样设置以后，如果有键值对被修改了，客户端B就可以通过<code>_redis_:invalidate</code>频道，获得失效消息了。</p>
 <p>好了，了解了6.0版本中的客户端缓存特性后，我们再来了解下第三个关键特性，也就是实例的访问权限控制列表功能（AccessControlList，ACL），这个特性可以有效地提升Redis的使用安全性。</p>
 <h1 id="从简单的基于密码访问到细粒度的权限控制"><a href="#从简单的基于密码访问到细粒度的权限控制" class="headerlink" title="从简单的基于密码访问到细粒度的权限控制"></a><span style="color:#339AFF;">从简单的基于密码访问到细粒度的权限控制</span></h1><p>在Redis 6.0版本之前，要想实现实例的安全访问，只能通过设置密码来控制，例如，客户端连接实例前需要输入密码。</p>
 <p>此外，对于一些高风险的命令（例如KEYS、FLUSHDB、FLUSHALL等），在Redis 6.0之前，我们也只能通过rename-command来重新命名这些命令，避免客户端直接调用。</p>
 <p>Redis 6.0提供了更加细粒度的访问权限控制，这主要有两方面的体现。</p>
-<p><strong>首先，6.0版本支持创建不同用户来使用Redis。</strong>在6.0版本前，所有客户端可以使用同一个密码进行登录使用，但是没有用户的概念，而在6.0中，我们可以使用ACL SETUSER命令创建用户。例如，我们可以执行下面的命令，创建并启用一个用户normaluser，把它的密码设置为“abc”：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ACL SETUSER normaluser on &gt; abc</span><br></pre></td></tr></table></figure></p>
-<p><strong>另外，6.0版本还支持以用户为粒度设置命令操作的访问权限。</strong>我把具体操作列在了下表中，你可以看下，其中，加号（+）和减号（-）就分别表示给用户赋予或撤销命令的调用权限。</p>
-<img src="/2022/05/02/39-Redis-6-0的新特性：多线程、客户端缓存与安全/3.webp">
-<p>为了便于你理解，我给你举个例子。假设我们要设置用户normaluser只能调用Hash类型的命令操作，而不能调用String类型的命令操作，我们可以执行如下命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ACL SETUSER normaluser +@<span class="built_in">hash</span> -@string</span><br></pre></td></tr></table></figure></p>
-<p>除了设置某个命令或某类命令的访问控制权限，6.0版本还支持以key为粒度设置访问权限。</p>
-<p>具体的做法是使用波浪号“~”和key的前缀来表示控制访问的key。例如，我们执行下面命令，就可以设置用户normaluser只能对以“user:”为前缀的key进行命令操作：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ACL SETUSER normaluser ~user:* +@all</span><br></pre></td></tr></table></figure></p>
-<p>好了，到这里，你了解了，Redis 6.0可以设置不同用户来访问实例，而且可以基于用户和key的粒度，设置某个用户对某些key允许或禁止执行的命令操作。</p>
+<p><strong>首先，6.0版本支持创建不同用户来使用Redis。</strong>在6.0版本前，所有客户端可以使用同一个密码进行登录使用，但是没有用户的概念，而在6.0中，我们可以使用ACL SETUSER命令创建用户。例如，我们可以执行下面的命令，创建并启用一个用户normaluser，把它的密码设置为“abc”：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ACL SETUSER normaluser on &gt; abc</span><br></pre></td></tr></table></figure><br><strong>另外，6.0版本还支持以用户为粒度设置命令操作的访问权限。</strong>我把具体操作列在了下表中，你可以看下，其中，加号（+）和减号（-）就分别表示给用户赋予或撤销命令的调用权限。</p>
+<img src="/2022/05/02/39-Redis-6-0%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%9A%E5%A4%9A%E7%BA%BF%E7%A8%8B%E3%80%81%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%BC%93%E5%AD%98%E4%B8%8E%E5%AE%89%E5%85%A8/3.webp" class="">
+<p>为了便于你理解，我给你举个例子。假设我们要设置用户normaluser只能调用Hash类型的命令操作，而不能调用String类型的命令操作，我们可以执行如下命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ACL SETUSER normaluser +@<span class="built_in">hash</span> -@string</span><br></pre></td></tr></table></figure><br>除了设置某个命令或某类命令的访问控制权限，6.0版本还支持以key为粒度设置访问权限。</p>
+<p>具体的做法是使用波浪号“~”和key的前缀来表示控制访问的key。例如，我们执行下面命令，就可以设置用户normaluser只能对以“user:”为前缀的key进行命令操作：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ACL SETUSER normaluser ~user:* +@all</span><br></pre></td></tr></table></figure><br>好了，到这里，你了解了，Redis 6.0可以设置不同用户来访问实例，而且可以基于用户和key的粒度，设置某个用户对某些key允许或禁止执行的命令操作。</p>
 <p>这样一来，我们在有多用户的Redis应用场景下，就可以非常方便和灵活地为不同用户设置不同级别的命令操作权限了，这对于提供安全的Redis访问非常有帮助。</p>
 <h1 id="启用RESP-3协议"><a href="#启用RESP-3协议" class="headerlink" title="启用RESP 3协议"></a><span style="color:#339AFF;">启用RESP 3协议</span></h1><p>Redis 6.0实现了RESP 3通信协议，而之前都是使用的RESP 2。在RESP 2中，客户端和服务器端的通信内容都是以字节数组形式进行编码的，客户端需要根据操作的命令或是数据类型自行对传输的数据进行解码，增加了客户端开发复杂度。</p>
 <p>而RESP 3直接支持多种数据类型的区分编码，包括空值、浮点数、布尔值、有序的字典集合、无序的集合等。</p>
 <p>所谓区分编码，就是指直接通过不同的开头字符，区分不同的数据类型，这样一来，客户端就可以直接通过判断传递消息的开头字符，来实现数据转换操作了，提升了客户端的效率。除此之外，RESP 3协议还可以支持客户端以普通模式和广播模式实现客户端缓存。</p>
 <h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a><span style="color:#339AFF;">小结</span></h1><p>这节课，我向你介绍了Redis 6.0的新特性，我把这些新特性总结在了一张表里，你可以再回顾巩固下。</p>
-<img src="/2022/05/02/39-Redis-6-0的新特性：多线程、客户端缓存与安全/4.webp">
+<img src="/2022/05/02/39-Redis-6-0%E7%9A%84%E6%96%B0%E7%89%B9%E6%80%A7%EF%BC%9A%E5%A4%9A%E7%BA%BF%E7%A8%8B%E3%80%81%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%BC%93%E5%AD%98%E4%B8%8E%E5%AE%89%E5%85%A8/4.webp" class="">
 <p>最后，我也再给你一个小建议：因为Redis 6.0是刚刚推出的，新的功能特性还需要在实际应用中进行部署和验证，所以，如果你想试用Redis 6.0，可以尝试先在非核心业务上使用Redis 6.0，一方面可以验证新特性带来的性能或功能优势，另一方面，也可以避免因为新特性不稳定而导致核心业务受到影响。</p>
 <h1 id="每课一问"><a href="#每课一问" class="headerlink" title="每课一问"></a><span style="color:#339AFF;">每课一问</span></h1><p>你觉得，Redis 6.0的哪个或哪些新特性会对你有帮助呢？</p>
 
@@ -618,7 +615,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Redis核心技术与实战/" rel="tag"># Redis核心技术与实战</a>
+            <a href="/tags/Redis%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/" rel="tag"># Redis核心技术与实战</a>
           
         </div>
       
@@ -631,7 +628,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/05/01/期中测试题答案-这些问题，你都答对了吗？/" rel="next" title="期中测试题答案 | 这些问题，你都答对了吗？">
+              <a href="/2022/05/01/%E6%9C%9F%E4%B8%AD%E6%B5%8B%E8%AF%95%E9%A2%98%E7%AD%94%E6%A1%88-%E8%BF%99%E4%BA%9B%E9%97%AE%E9%A2%98%EF%BC%8C%E4%BD%A0%E9%83%BD%E7%AD%94%E5%AF%B9%E4%BA%86%E5%90%97%EF%BC%9F/" rel="next" title="期中测试题答案 | 这些问题，你都答对了吗？">
                 <i class="fa fa-chevron-left"></i> 期中测试题答案 | 这些问题，你都答对了吗？
               </a>
             
@@ -641,7 +638,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/05/02/40-Redis的下一步：基于NVM内存的实践/" rel="prev" title="40 | Redis的下一步：基于NVM内存的实践">
+              <a href="/2022/05/02/40-Redis%E7%9A%84%E4%B8%8B%E4%B8%80%E6%AD%A5%EF%BC%9A%E5%9F%BA%E4%BA%8ENVM%E5%86%85%E5%AD%98%E7%9A%84%E5%AE%9E%E8%B7%B5/" rel="prev" title="40 | Redis的下一步：基于NVM内存的实践">
                 40 | Redis的下一步：基于NVM内存的实践 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -701,7 +698,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -712,9 +711,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -726,26 +725,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -817,7 +800,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -992,115 +975,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1131,23 +1006,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1173,7 +1048,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#从单线程处理网络请求到多线程处理"><span class="nav-number">1.</span> <span class="nav-text">从单线程处理网络请求到多线程处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现服务端协助的客户端缓存"><span class="nav-number">2.</span> <span class="nav-text">实现服务端协助的客户端缓存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#从简单的基于密码访问到细粒度的权限控制"><span class="nav-number">3.</span> <span class="nav-text">从简单的基于密码访问到细粒度的权限控制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启用RESP-3协议"><span class="nav-number">4.</span> <span class="nav-text">启用RESP 3协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#每课一问"><span class="nav-number">6.</span> <span class="nav-text">每课一问</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8E%E5%8D%95%E7%BA%BF%E7%A8%8B%E5%A4%84%E7%90%86%E7%BD%91%E7%BB%9C%E8%AF%B7%E6%B1%82%E5%88%B0%E5%A4%9A%E7%BA%BF%E7%A8%8B%E5%A4%84%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">从单线程处理网络请求到多线程处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%8D%8F%E5%8A%A9%E7%9A%84%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%BC%93%E5%AD%98"><span class="nav-number">2.</span> <span class="nav-text">实现服务端协助的客户端缓存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%8E%E7%AE%80%E5%8D%95%E7%9A%84%E5%9F%BA%E4%BA%8E%E5%AF%86%E7%A0%81%E8%AE%BF%E9%97%AE%E5%88%B0%E7%BB%86%E7%B2%92%E5%BA%A6%E7%9A%84%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6"><span class="nav-number">3.</span> <span class="nav-text">从简单的基于密码访问到细粒度的权限控制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%90%AF%E7%94%A8RESP-3%E5%8D%8F%E8%AE%AE"><span class="nav-number">4.</span> <span class="nav-text">启用RESP 3协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AF%8F%E8%AF%BE%E4%B8%80%E9%97%AE"><span class="nav-number">6.</span> <span class="nav-text">每课一问</span></a></li></ol></div>
             
 
           </div>
@@ -1208,7 +1083,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1219,12 +1094,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1232,7 +1107,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

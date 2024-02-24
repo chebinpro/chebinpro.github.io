@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,37 +104,37 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="分布式数据库">
 <meta property="og:type" content="article">
 <meta property="og:title" content="14 | 隔离性：实现悲观协议，除了锁还有别的办法吗？">
-<meta property="og:url" content="http://yoursite.com/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/1.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/2.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/3.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/4.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/5.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/6.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/7.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/8.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/9.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/10.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/11.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/12.webp">
-<meta property="og:updated_time" content="2022-11-07T02:04:25.519Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/2.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/3.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/4.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/5.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/6.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/7.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/8.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/9.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/10.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/11.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/12.webp">
+<meta property="article:published_time" content="2022-11-06T15:45:45.000Z">
+<meta property="article:modified_time" content="2022-11-07T02:04:25.519Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="分布式数据库">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="14 | 隔离性：实现悲观协议，除了锁还有别的办法吗？">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/">
+  <link rel="canonical" href="http://yoursite.com/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/"/>
 
 
 
@@ -183,7 +183,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -244,7 +244,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -261,7 +261,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -278,7 +278,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -295,7 +295,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -312,7 +312,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -323,7 +323,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -343,7 +343,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -393,16 +395,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -473,7 +475,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/分布式/" itemprop="url" rel="index"><span itemprop="name">分布式</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">分布式</span></a></span>
 
                 
                 
@@ -502,7 +504,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">6k</span>
+                <span title="本文字数">10k</span>
               
 
               
@@ -516,7 +518,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">5 分钟</span>
+                <span title="阅读时长">9 分钟</span>
               
             </div>
           
@@ -537,23 +539,23 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>我们今天的主题是悲观协议，我会结合第13讲的内容将并发控制技术和你说清楚。在第13讲我们以并发控制的三阶段作为工具，区分了广义上的乐观协议和悲观协议。因为狭义乐观很少使用，所以我们将重点放在了相对乐观上。</p>
 <p>其实，相对乐观和局部悲观是一体两面的关系，识别它的要点就在于是否有全局有效性验证，这也和分布式数据库的架构特点息息相关。但是关于悲观协议，还有很多内容没有提及，下面我们就来填补这一大块空白。</p>
 <h1 id="悲观协议的分类"><a href="#悲观协议的分类" class="headerlink" title="悲观协议的分类"></a><span style="color:#339AFF;">悲观协议的分类</span></h1><p>要搞清楚悲观协议的分类，其实是要先跳出来，从并发控制技术整体的分类体系来看。</p>
 <p>事实上，并发控制的分类体系，连学术界的标准也不统一。比如，在第13讲提到的两本经典教材中，“Principles of Distributed Database Systems”的分类是按照比较宽泛的乐观协议和悲观协议进行分类，子类之间又有很多重叠的概念，理解起来有点复杂。</p>
 <p>而“Transactional Information Systems:Theory,Algorithms,and the Practice of Concurrency Control and Recovery”采用的划分方式，是狭义乐观协议和其他悲观协议。这里狭义乐观协议，就是指我们在第13讲提到过的，基于有效性验证的并发控制，也是学术上定义的OCC。</p>
 <p>我个人认为，狭义乐观协议和其他悲观协议这种分类方式更清晰些，所以就选择了“Transactional Information Systems : Theory, Algorithms, and the Practice of Concurrency Control and Recovery”中的划分体系。下面我摘录了书中的一幅图，用来梳理不同的并发控制协议。</p>
-<img src="/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/1.webp">
+<img src="/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/1.webp" class="">
 <p>这个体系首先分为悲观和乐观两个大类。因为这里的乐观协议是指狭义乐观并发控制，所以包含内容就比较少，只有前向乐观并发控制和后向乐观并发控制；而悲观协议又分为基于锁和非锁两大类，其中基于锁的协议是数量最多的。</p>
 <h1 id="两阶段封锁（Two-Phase-Locking，2PL）"><a href="#两阶段封锁（Two-Phase-Locking，2PL）" class="headerlink" title="两阶段封锁（Two-Phase Locking，2PL）"></a><span style="color:#339AFF;">两阶段封锁（Two-Phase Locking，2PL）</span></h1><p>基于锁的协议显然不只是2PL，还包括有序共享（Ordered Sharing 2PL，O2PL）、利他锁（Altruistic Locking，AL）、只写封锁树（Write-only TreeLocking，WTL）和读写封锁树（Read/Write Tree Locking，RWTL）。但这几种协议在真正的数据库系统中很少使用，所以就不过多介绍了，我们还是把重点放在数据库系统主要使用的2PL上。</p>
 <p>2PL就是事务具备两阶段特点的并发控制协议，这里的两个阶段指加锁阶段和释放锁阶段，并且加锁阶段严格区别于紧接着的释放锁阶段。我们可以通过一张图来加深对2PL理解。</p>
-<img src="/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/2.webp">
+<img src="/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/2.webp" class="">
 <p>在t1时刻之前是加锁阶段，在t1之后则是释放锁阶段，我们可以从时间上明确地把事务执行过程划分为两个阶段。2PL的关键点就是释放锁之后不能再加锁。而根据加锁和释放锁时机的不同，2PL又有一些变体。</p>
 <p>保守两阶段封锁协议（Conservative 2PL，C2PL），事务在开始时设置它需要的所有锁。</p>
-<img src="/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/3.webp">
+<img src="/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/3.webp" class="">
 <p>严格两阶段封锁协议（Strict 2PL，S2PL），事务一直持有已经获得的所有写锁，直到事务终止。</p>
-<img src="/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/4.webp">
+<img src="/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/4.webp" class="">
 <p>强两阶段封锁协议（Strong Strict 2PL，SS2PL），事务一直持有已经获得的所有锁，包括写锁和读锁，直到事务终止。SS2PL与S2PL差别只在于一直持有的锁的类型，所以它们的图形是相同的。</p>
 <p>理解了这几种2PL的变体后，我们再回想一下第13讲中的Percolator模型。当主锁（Primary Lock）没有释放前，所有的记录上的从锁（Secondary Lock）实质上都没有释放，在主锁释放后，所有从锁自然释放。所以，Percolator也属于S2PL。TiDB的乐观锁机制是基于Percolator的，那么TiDB就也是S2PL。</p>
 <p>事实上，S2PL可能是使用最广泛的悲观协议，几乎所有单体数据都依赖S2PL实现可串行化。而在分布式数据库中，甚至需要使用SS2PL来保证可串行化执行，典型的例子是TDSQL。但S2PL模式下，事务持有锁的时间过长，导致系统并发性能较差，所以实际使用中往往不会配置到可串行化级别。这就意味着我们还是没有生产级技术方案，只能期望出现新的方式，既达到可串行化隔离级别，又能有更好的性能。最终，我们等到了一种可能是性能更优的工程化实现，这就是CockroachDB的串行化快照隔离（SSI）。而SSI的核心，就是串行化图检测（SGT）。</p>
@@ -567,14 +569,14 @@
 <p>2，写写依赖（WW-Dependencies），第二个操作覆盖了第一个操作写入的值。</p>
 <p>3，读写反依赖（RW-Anti dependencies），第二个操作覆盖了第一个操作读取的值，可能导致读取值过期。</p>
 <p>我们通过一个例子，看看如何用这几条规则来构建一个简单的串行化图。</p>
-<img src="/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/5.webp">
+<img src="/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/5.webp" class="">
 <p>图中一共有三个事务先后执行，事务T1先执行W(A)，T2再执行R(A)，所以T1与T2之间存在WR依赖，因此形成一条T1指向T2的边；同理，T2的W(B)与T3的R(B)也存在WR依赖，T1的W(A)与T3的R(A)之间也是WR依赖，这样就又形成两条有向边，分别是T2指向T3和T1指向T3。</p>
-<img src="/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/6.webp">
+<img src="/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/6.webp" class="">
 <p>最终，我们看到产生了一个有向无环图（Directed Acyclic Graph，DAG）。能够构建出DAG，就说明相关事务是可串行化执行的，不需要中断任何事务。</p>
 <p>我们可以使用SGT，验证一下典型的死锁情况。我们知道，事务T1和T2分别以不同的顺序写两个数据项，那么就会形成死锁。</p>
-<img src="/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/7.webp">
+<img src="/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/7.webp" class="">
 <p>用串行化图来体现就是这个样子，显然构成了环。</p>
-<img src="/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/8.webp">
+<img src="/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/8.webp" class="">
 <p>在SGT中，WR依赖和WW依赖都与我们的直觉相符，而RW反向依赖就比较难理解了。在PostgreSQL的论文中，专门描述了一个RW反向依赖的场景，这里我把它引用过来，我们一起学习一下。</p>
 <p>这个场景一共需要维护两张表：一张收入表（reciepts）会记入当日的收入情况，每行都会记录一个批次号；另一张独立的控制表（current_batch），里面只有一条记录，就是当前的批次号。你也可以把这里的批次号理解为一个工作日。</p>
 <p>同时，还有三个事务T1、T2、T3。</p>
@@ -585,13 +587,13 @@
 </ul>
 <p>其实，这个例子很像银行存款系统的日终翻牌。</p>
 <p>因为T1要报告当天的收入情况，所以它必须要在T3之后执行。事务T2记录了当天的每笔入账，必须在T3之前执行，这样才能出现在当天的报表中。三者顺序执行可以正常工作，否则就会出现异常，比如下面这样的：</p>
-<img src="/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/9.webp">
+<img src="/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/9.webp" class="">
 <p>T2先拿到一个批次号x，随后T3执行，批次号关闭后，x这个批次号其实已经过期，但是T2还继续使用x，记录当前的这笔收入。T1正常在T3后执行，此时T2尚未提交，所以T1的报告中漏掉了T2的那笔收入。因为T2使用时过期的批次号x，第二天的报告中也不会统计到这笔收入，最终这笔收入就神奇地消失了。</p>
 <p>在理解了这个例子的异常现象后，我们用串行化图方法来验证一下。我们是把事务中的SQL抽象为对数据项的操作，可以得到下面这张图。</p>
-<img src="/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/10.webp">
+<img src="/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/10.webp" class="">
 <p>图中batch是指批次号，reps是指收入情况。</p>
 <p>接下来，我们按照先后顺序提取有向边，先由T2.R(batch)-&gt;T3.W(batch)，得到T2到T3的RW依赖；再由T3.W(batch)-&gt;T1.R(batch)，得到T3到T1的WR依赖；最后由T1.R(reps)-&gt;T2.W(reps)，得到T1到T2的RW依赖。这样就构成了下面的串行化图。</p>
-<img src="/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/11.webp">
+<img src="/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/11.webp" class="">
 <p>显然这三个事务之间是存在环的，那么这三个事务就是不能串行化的。</p>
 <p>这个异常现象中很有意思的一点是，虽然T1是一个只读事务，但如果没有T1的话，T2与T3不会形成环，依然是可串行化执行的。这里就为我们澄清了一点：我们直觉上认为的只读事务不会影响事务并发机制，其实是不对的。</p>
 <h1 id="工程实现：CockroachDB"><a href="#工程实现：CockroachDB" class="headerlink" title="工程实现：CockroachDB"></a><span style="color:#339AFF;">工程实现：CockroachDB</span></h1><p>RW反向依赖是一个非常特别的存在，而特别之处就在于传统的锁机制无法记录这种情况。因此在论文“SerializableSnapshotIsolationinPostgreSQL”中提出，增加一种锁SIREAD，用来记录快照隔离（SI）上所有执行过的读操作（Read），从而识别RW反向依赖。本质上，SIREAD并不是锁，只是一种标识。但这个方案面临的困境是，读操作涉及到的数据范围实在太大，跟踪标识带来的成本可能比S2PL还要高，也就无法达到最初的目标。</p>
@@ -609,7 +611,7 @@
 <p>3，S2PL是数据库并发控制的主流技术，但是锁管理复杂，在实现串行化隔离级别时开销太大。而后，我们讨论了非锁协议中的串行化图检测（SGT）。PostgreSQL最早提出了SGT的工程实现方式SSI。CockroachDB在此基础上又进行了优化，降低了SIREAD的开销，是生产级的可串行化隔离。</p>
 <p>4，CockroachDB最初和TiDB一样都是局部采用悲观协议，而不做全局有效性验证，是广义的乐观协议。后来，CockroachDB同样也将乐观协议改为悲观协议，采用的方式是增加全局的锁表，进行全局有效性验证，而后再转入单个的SGT处理。</p>
 <p>今天的课程中，我们提到了串行化理论，只有当相关事务形成DAG图时，这些事务才是可串行化的。这个理论不仅适用于SGT，2PL的最终调度结果也同样是DAG图。在更大范围内，批量任务调度时DAG也同样被作为衡量标准，例如Spark。</p>
-<img src="/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/12.webp">
+<img src="/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/12.webp" class="">
 <h1 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a><span style="color:#339AFF;">思考题</span></h1><p>课程的最后，我们来看看今天的思考题。在第11讲中我们提到了MVCC。有的数据库教材中将MVCC作为一种重要的并发控制技术，与乐观协议、悲观协议并列，但我们今天并没有单独提到它。所以，我的问题是，你觉得该如何理解MVCC与乐观协议、悲观协议的关系呢？</p>
 
       
@@ -634,7 +636,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/分布式数据库/" rel="tag"># 分布式数据库</a>
+            <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"># 分布式数据库</a>
           
         </div>
       
@@ -647,7 +649,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/11/06/13-隔离性：为什么使用乐观协议的分布式数据库越来越少/" rel="next" title="13 | 隔离性：为什么使用乐观协议的分布式数据库越来越少?">
+              <a href="/2022/11/06/13-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E4%B9%90%E8%A7%82%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E8%B6%8A%E6%9D%A5%E8%B6%8A%E5%B0%91/" rel="next" title="13 | 隔离性：为什么使用乐观协议的分布式数据库越来越少?">
                 <i class="fa fa-chevron-left"></i> 13 | 隔离性：为什么使用乐观协议的分布式数据库越来越少?
               </a>
             
@@ -657,7 +659,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/11/07/使用Redis实现一个分布式锁/" rel="prev" title="使用Redis实现一个分布式锁">
+              <a href="/2022/11/07/%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" rel="prev" title="使用Redis实现一个分布式锁">
                 使用Redis实现一个分布式锁 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -717,7 +719,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -728,9 +732,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -742,26 +746,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -833,7 +821,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1008,115 +996,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1147,23 +1027,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1189,7 +1069,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#悲观协议的分类"><span class="nav-number">1.</span> <span class="nav-text">悲观协议的分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#两阶段封锁（Two-Phase-Locking，2PL）"><span class="nav-number">2.</span> <span class="nav-text">两阶段封锁（Two-Phase Locking，2PL）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#串行化图检测（SGT）"><span class="nav-number">3.</span> <span class="nav-text">串行化图检测（SGT）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#理论来源：PostgreSQL"><span class="nav-number">3.1.</span> <span class="nav-text">理论来源：PostgreSQL</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工程实现：CockroachDB"><span class="nav-number">4.</span> <span class="nav-text">工程实现：CockroachDB</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#相对乐观"><span class="nav-number">5.</span> <span class="nav-text">相对乐观</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">7.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">1.</span> <span class="nav-text">悲观协议的分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%A4%E9%98%B6%E6%AE%B5%E5%B0%81%E9%94%81%EF%BC%88Two-Phase-Locking%EF%BC%8C2PL%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">两阶段封锁（Two-Phase Locking，2PL）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%B2%E8%A1%8C%E5%8C%96%E5%9B%BE%E6%A3%80%E6%B5%8B%EF%BC%88SGT%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">串行化图检测（SGT）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%90%86%E8%AE%BA%E6%9D%A5%E6%BA%90%EF%BC%9APostgreSQL"><span class="nav-number">3.1.</span> <span class="nav-text">理论来源：PostgreSQL</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B7%A5%E7%A8%8B%E5%AE%9E%E7%8E%B0%EF%BC%9ACockroachDB"><span class="nav-number">4.</span> <span class="nav-text">工程实现：CockroachDB</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9B%B8%E5%AF%B9%E4%B9%90%E8%A7%82"><span class="nav-number">5.</span> <span class="nav-text">相对乐观</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">7.</span> <span class="nav-text">思考题</span></a></li></ol></div>
             
 
           </div>
@@ -1224,7 +1104,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1235,12 +1115,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1248,7 +1128,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

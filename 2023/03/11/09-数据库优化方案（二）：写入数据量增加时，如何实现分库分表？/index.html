@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,29 +104,29 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="高并发系统设计40问">
 <meta property="og:type" content="article">
 <meta property="og:title" content="09丨数据库优化方案（二）：写入数据量增加时，如何实现分库分表？">
-<meta property="og:url" content="http://yoursite.com/2023/03/11/09-数据库优化方案（二）：写入数据量增加时，如何实现分库分表？/index.html">
+<meta property="og:url" content="http://yoursite.com/2023/03/11/09-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%E9%87%8F%E5%A2%9E%E5%8A%A0%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2023/03/11/09-数据库优化方案（二）：写入数据量增加时，如何实现分库分表？/1.jpg">
-<meta property="og:image" content="http://yoursite.com/2023/03/11/09-数据库优化方案（二）：写入数据量增加时，如何实现分库分表？/2.jpg">
-<meta property="og:image" content="http://yoursite.com/2023/03/11/09-数据库优化方案（二）：写入数据量增加时，如何实现分库分表？/3.jpg">
-<meta property="og:image" content="http://yoursite.com/2023/03/11/09-数据库优化方案（二）：写入数据量增加时，如何实现分库分表？/4.jpg">
-<meta property="og:updated_time" content="2023-03-11T05:35:12.543Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2023/03/11/09-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%E9%87%8F%E5%A2%9E%E5%8A%A0%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%EF%BC%9F/1.jpg">
+<meta property="og:image" content="http://yoursite.com/2023/03/11/09-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%E9%87%8F%E5%A2%9E%E5%8A%A0%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%EF%BC%9F/2.jpg">
+<meta property="og:image" content="http://yoursite.com/2023/03/11/09-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%E9%87%8F%E5%A2%9E%E5%8A%A0%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%EF%BC%9F/3.jpg">
+<meta property="og:image" content="http://yoursite.com/2023/03/11/09-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%E9%87%8F%E5%A2%9E%E5%8A%A0%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%EF%BC%9F/4.jpg">
+<meta property="article:published_time" content="2023-03-11T03:02:16.000Z">
+<meta property="article:modified_time" content="2023-03-11T05:35:12.543Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="高并发系统设计40问">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="09丨数据库优化方案（二）：写入数据量增加时，如何实现分库分表？">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2023/03/11/09-数据库优化方案（二）：写入数据量增加时，如何实现分库分表？/1.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2023/03/11/09-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%E9%87%8F%E5%A2%9E%E5%8A%A0%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%EF%BC%9F/1.jpg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2023/03/11/09-数据库优化方案（二）：写入数据量增加时，如何实现分库分表？/">
+  <link rel="canonical" href="http://yoursite.com/2023/03/11/09-数据库优化方案（二）：写入数据量增加时，如何实现分库分表？/"/>
 
 
 
@@ -175,7 +175,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -236,7 +236,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -253,7 +253,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -270,7 +270,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -287,7 +287,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -304,7 +304,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -315,7 +315,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -335,7 +335,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -385,16 +387,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/03/11/09-数据库优化方案（二）：写入数据量增加时，如何实现分库分表？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/03/11/09-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%E9%87%8F%E5%A2%9E%E5%8A%A0%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -453,7 +455,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/架构/" itemprop="url" rel="index"><span itemprop="name">架构</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/%E6%9E%B6%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">架构</span></a></span>
 
                 
                 
@@ -482,7 +484,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">4.6k</span>
+                <span title="本文字数">7.3k</span>
               
 
               
@@ -496,7 +498,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">4 分钟</span>
+                <span title="阅读时长">7 分钟</span>
               
             </div>
           
@@ -517,9 +519,9 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>前一节课，我们学习了在高并发下数据库的一种优化方案：读写分离，它就是依靠主从复制的技术使得数据库实现了数据复制为多份，增强了抵抗大量并发读请求的能力，提升了数据库的查询性能的同时，也提升了数据的安全性。当某一个数据库节点，无论是主库还是从库发生故障时，我们还有其他的节点中存储着全量的数据，保证数据不会丢失。此时，你的电商系统的架构图变成了下面这样：</p>
-<img src="/2023/03/11/09-数据库优化方案（二）：写入数据量增加时，如何实现分库分表？/1.jpg">
+<img src="/2023/03/11/09-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%E9%87%8F%E5%A2%9E%E5%8A%A0%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%EF%BC%9F/1.jpg" class="">
 <p>这时，公司CEO突然传来一个好消息，运营推广持续带来了流量，你所设计的电商系统的订单量突破了五千万。订单数据都是单表存储的，你的压力倍增，因为无论是数据库的查询还是写入性能都在下降，数据库的磁盘空间也在报警。所以，你主动分析现阶段自己需要考虑的问题，并寻求高效的解决方式，以便系统能正常运转下去。<strong>你考虑的问题主要有以下几点</strong>：</p>
 <p>1，系统正在持续不断地发展，注册的用户越来越多，产生的订单越来越多，数据库中存储的数据也越来越多，单个表的数据量超过了千万甚至到了亿级别。这时即使你使用了索引，索引占用的空间也随着数据量的增长而增大，数据库就无法缓存全量的索引信息，那么就需要从磁盘上读取索引数据，就会影响到查询的性能了。<strong>那么这时你要如何提升查询性能呢？</strong></p>
 <p>2，数据量的增加也占据了磁盘的空间，数据库在备份和恢复的时间变长，<strong>你如何让数据库系统支持如此大的数据量呢？</strong></p>
@@ -537,18 +539,18 @@
 <p>垂直拆分，顾名思义就是对数据库竖着拆分，也就是将数据库的表拆分到多个不同的数据库中。</p>
 <p>垂直拆分的原则一般是按照业务类型来拆分，核心思想是专库专用，将业务耦合度比较高的表拆分到单独的库中。举个形象的例子，就是在整理衣服的时候，将羽绒服、毛衣、T恤分别放在不同的格子里。这样可以解决我在开篇提到的第三个问题：把不同的业务的数据分拆到不同的数据库节点上，这样一旦数据库发生故障时只会影响到某一个模块的功能，不会影响到整体功能，从而实现了数据层面的故障隔离。</p>
 <p><strong>我还是以微博系统为例来给你说明一下。</strong></p>
-<img src="/2023/03/11/09-数据库优化方案（二）：写入数据量增加时，如何实现分库分表？/2.jpg">
+<img src="/2023/03/11/09-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%E9%87%8F%E5%A2%9E%E5%8A%A0%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%EF%BC%9F/2.jpg" class="">
 <p>在微博系统中有和用户相关的表，有和内容相关的表，有和关系相关的表，这些表都存储在主库中。在拆分后，我们期望用户相关的表分拆到用户库中，内容相关的表分拆到内容库中，关系相关的表分拆到关系库中。</p>
 <p>对数据库进行垂直拆分是一种偏常规的方式，这种方式其实你会比较常用，不过拆分之后，虽然可以暂时缓解存储容量的瓶颈，但并不是万事大吉，因为数据库垂直拆分后依然不能解决某一个业务模块的数据大量膨胀的问题，一旦你的系统遭遇某一个业务库的数据量暴增，在这个情况下，你还需要继续寻找可以弥补的方式。</p>
 <p>比如微博关系量早已经过了千亿，单一的数据库或者数据表已经远远不能满足存储和查询的需求了，这个时候，你需要将数据拆分到多个数据库和数据表中，<strong>也就是对数据库和数据表做水平拆分了</strong>。</p>
 <h1 id="如何对数据库做水平拆分"><a href="#如何对数据库做水平拆分" class="headerlink" title="如何对数据库做水平拆分"></a><span style="color:#339AFF;">如何对数据库做水平拆分</span></h1><p>和垂直拆分的关注点不同，垂直拆分的关注点在于业务相关性，而水平拆分指的是将单一数据表按照某一种规则拆分到多个数据库和多个数据表中，关注点在数据的特点。</p>
 <p><strong>拆分的规则有下面这两种</strong>：</p>
 <p>1，按照某一个字段的哈希值做拆分，这种拆分规则比较适用于实体表，比如说用户表，内容表，我们一般按照这些实体表的ID字段来拆分。比如说我们想把用户表拆分成16个库，每个库是64张表，那么可以先对用户ID做哈希，哈希的目的是将ID尽量打散，然后再对16取余，这样就得到了分库后的索引值；对64取余，就得到了分表后的索引值。</p>
-<img src="/2023/03/11/09-数据库优化方案（二）：写入数据量增加时，如何实现分库分表？/3.jpg">
+<img src="/2023/03/11/09-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%E9%87%8F%E5%A2%9E%E5%8A%A0%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%EF%BC%9F/3.jpg" class="">
 <p>2，另一种比较常用的是按照某一个字段的区间来拆分，比较常用的是时间字段。你知道在内容表里面有“创建时间”的字段，而我们也是按照时间来查看一个人发布的内容。我们可能会要看昨天的内容，也可能会看一个月前发布的内容，这时就可以按照创建时间的区间来分库分表，比如说可以把一个月的数据放入一张表中，这样在查询时就可以根据创建时间先定位数据存储在哪个表里面，再按照查询条件来查询。</p>
 <p><strong>一般来说，列表数据可以使用这种拆分方式</strong>，比如一个人一段时间的订单，一段时间发布的内容。但是这种方式可能会存在明显的热点，这很好理解嘛，你当然会更关注最近我买了什么，发了什么，所以查询的QPS也会更多一些，对性能有一定的影响。另外，使用这种拆分规则后，数据表要提前建立好，否则如果时间到了2020年元旦，DBA（Database Administrator，数据库管理员）却忘记了建表，那么2020年的数据就没有库表可写了，就会发生故障了。</p>
-<img src="/2023/03/11/09-数据库优化方案（二）：写入数据量增加时，如何实现分库分表？/4.jpg">
-<p>数据库在分库分表之后，数据的访问方式也有了极大的改变，原先只需要根据查询条件到从库中查询数据即可，现在则需要先确认数据在哪一个库表中，再到那个库表中查询数据。这种复杂度也可以通过数据库中间件来解决，我们在<a href="/2023/03/11/08-数据库优化方案（一）：查询请求增加时，如何做主从分离？/" title="08讲">08讲</a>中已经有所讲解，这里就不再赘述了，不过，我想再次强调的是，你需要对所使用数据库中间件的原理有足够的了解，和足够强的运维上的把控能力。</p>
+<img src="/2023/03/11/09-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E5%86%99%E5%85%A5%E6%95%B0%E6%8D%AE%E9%87%8F%E5%A2%9E%E5%8A%A0%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%EF%BC%9F/4.jpg" class="">
+<p>数据库在分库分表之后，数据的访问方式也有了极大的改变，原先只需要根据查询条件到从库中查询数据即可，现在则需要先确认数据在哪一个库表中，再到那个库表中查询数据。这种复杂度也可以通过数据库中间件来解决，我们在<a href="/2023/03/11/08-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%9F%A5%E8%AF%A2%E8%AF%B7%E6%B1%82%E5%A2%9E%E5%8A%A0%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E5%81%9A%E4%B8%BB%E4%BB%8E%E5%88%86%E7%A6%BB%EF%BC%9F/" title="08丨数据库优化方案（一）：查询请求增加时，如何做主从分离？">08讲</a>中已经有所讲解，这里就不再赘述了，不过，我想再次强调的是，你需要对所使用数据库中间件的原理有足够的了解，和足够强的运维上的把控能力。</p>
 <p>不过，你要知道的是，分库分表虽然能够解决数据库扩展性的问题，但是它也给我们的使用带来了一些问题。</p>
 <h1 id="解决分库分表引入的问题"><a href="#解决分库分表引入的问题" class="headerlink" title="解决分库分表引入的问题"></a><span style="color:#339AFF;">解决分库分表引入的问题</span></h1><p>分库分表引入的一个最大的问题就是<strong>引入了分库分表键，也叫做分区键</strong>，也就是我们对数据库做分库分表所依据的字段。</p>
 <p>从分库分表规则中你可以看到，无论是哈希拆分还是区间段的拆分，我们首先都需要选取一个数据库字段，这带来一个问题是：我们之后所有的查询都需要带上这个字段，才能找到数据所在的库和表，否则就只能向所有的数据库和数据表发送查询命令。如果像上面说的要拆分成16个库和64张表，那么一次数据的查询会变成16*64=1024次查询，查询的性能肯定是极差的。</p>
@@ -586,7 +588,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/高并发系统设计40问/" rel="tag"># 高并发系统设计40问</a>
+            <a href="/tags/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/" rel="tag"># 高并发系统设计40问</a>
           
         </div>
       
@@ -599,7 +601,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2023/03/11/08-数据库优化方案（一）：查询请求增加时，如何做主从分离？/" rel="next" title="08丨数据库优化方案（一）：查询请求增加时，如何做主从分离？">
+              <a href="/2023/03/11/08-%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E6%9F%A5%E8%AF%A2%E8%AF%B7%E6%B1%82%E5%A2%9E%E5%8A%A0%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E5%81%9A%E4%B8%BB%E4%BB%8E%E5%88%86%E7%A6%BB%EF%BC%9F/" rel="next" title="08丨数据库优化方案（一）：查询请求增加时，如何做主从分离？">
                 <i class="fa fa-chevron-left"></i> 08丨数据库优化方案（一）：查询请求增加时，如何做主从分离？
               </a>
             
@@ -609,7 +611,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2023/03/12/08-秒杀系统设计：你的系统可以应对万人抢购盛况吗？/" rel="prev" title="08丨秒杀系统设计：你的系统可以应对万人抢购盛况吗？">
+              <a href="/2023/03/12/08-%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1%EF%BC%9A%E4%BD%A0%E7%9A%84%E7%B3%BB%E7%BB%9F%E5%8F%AF%E4%BB%A5%E5%BA%94%E5%AF%B9%E4%B8%87%E4%BA%BA%E6%8A%A2%E8%B4%AD%E7%9B%9B%E5%86%B5%E5%90%97%EF%BC%9F/" rel="prev" title="08丨秒杀系统设计：你的系统可以应对万人抢购盛况吗？">
                 08丨秒杀系统设计：你的系统可以应对万人抢购盛况吗？ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -669,7 +671,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -680,9 +684,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -694,26 +698,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -785,7 +773,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -960,115 +948,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1099,23 +979,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1141,7 +1021,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#如何对数据库做垂直拆分"><span class="nav-number">1.</span> <span class="nav-text">如何对数据库做垂直拆分</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何对数据库做水平拆分"><span class="nav-number">2.</span> <span class="nav-text">如何对数据库做水平拆分</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决分库分表引入的问题"><span class="nav-number">3.</span> <span class="nav-text">解决分库分表引入的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课程小结"><span class="nav-number">4.</span> <span class="nav-text">课程小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一课一思"><span class="nav-number">5.</span> <span class="nav-text">一课一思</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%BA%93%E5%81%9A%E5%9E%82%E7%9B%B4%E6%8B%86%E5%88%86"><span class="nav-number">1.</span> <span class="nav-text">如何对数据库做垂直拆分</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AF%B9%E6%95%B0%E6%8D%AE%E5%BA%93%E5%81%9A%E6%B0%B4%E5%B9%B3%E6%8B%86%E5%88%86"><span class="nav-number">2.</span> <span class="nav-text">如何对数据库做水平拆分</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8%E5%BC%95%E5%85%A5%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">解决分库分表引入的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BE%E7%A8%8B%E5%B0%8F%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">课程小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E8%AF%BE%E4%B8%80%E6%80%9D"><span class="nav-number">5.</span> <span class="nav-text">一课一思</span></a></li></ol></div>
             
 
           </div>
@@ -1176,7 +1056,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1187,12 +1067,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1200,7 +1080,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

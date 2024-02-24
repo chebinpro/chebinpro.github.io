@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,29 +104,29 @@
 
 
   <meta name="description" content="在这个系列课程中，我们会讲电商这个行业在多年系统建设和运维过程中，总结出来的使用分布式存储系统的一些最佳实践。也会以电商系统作为例子来讲解存储相关的技术知识和问题。这都需要你对电商的业务逻辑、系统架构、核心业务流程有一个基本的认知。 虽然说，电商这个业务和你的生活息息相关，你可能对电商多少有一些了解，但是，即使是一个最小化的电商系统，它仍然非常复杂。所以，我们先花一节课的时间，一起以一个创业公司的">
-<meta name="keywords" content="后端存储实战课">
 <meta property="og:type" content="article">
 <meta property="og:title" content="课前加餐丨电商系统是如何设计的？">
-<meta property="og:url" content="http://yoursite.com/2023/03/01/课前加餐-电商系统是如何设计的？/index.html">
+<meta property="og:url" content="http://yoursite.com/2023/03/01/%E8%AF%BE%E5%89%8D%E5%8A%A0%E9%A4%90-%E7%94%B5%E5%95%86%E7%B3%BB%E7%BB%9F%E6%98%AF%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E7%9A%84%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="在这个系列课程中，我们会讲电商这个行业在多年系统建设和运维过程中，总结出来的使用分布式存储系统的一些最佳实践。也会以电商系统作为例子来讲解存储相关的技术知识和问题。这都需要你对电商的业务逻辑、系统架构、核心业务流程有一个基本的认知。 虽然说，电商这个业务和你的生活息息相关，你可能对电商多少有一些了解，但是，即使是一个最小化的电商系统，它仍然非常复杂。所以，我们先花一节课的时间，一起以一个创业公司的">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2023/03/01/课前加餐-电商系统是如何设计的？/1.webp">
-<meta property="og:image" content="http://yoursite.com/2023/03/01/课前加餐-电商系统是如何设计的？/2.webp">
-<meta property="og:image" content="http://yoursite.com/2023/03/01/课前加餐-电商系统是如何设计的？/3.webp">
-<meta property="og:image" content="http://yoursite.com/2023/03/01/课前加餐-电商系统是如何设计的？/4.webp">
-<meta property="og:updated_time" content="2023-03-12T10:38:21.198Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2023/03/01/%E8%AF%BE%E5%89%8D%E5%8A%A0%E9%A4%90-%E7%94%B5%E5%95%86%E7%B3%BB%E7%BB%9F%E6%98%AF%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E7%9A%84%EF%BC%9F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2023/03/01/%E8%AF%BE%E5%89%8D%E5%8A%A0%E9%A4%90-%E7%94%B5%E5%95%86%E7%B3%BB%E7%BB%9F%E6%98%AF%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E7%9A%84%EF%BC%9F/2.webp">
+<meta property="og:image" content="http://yoursite.com/2023/03/01/%E8%AF%BE%E5%89%8D%E5%8A%A0%E9%A4%90-%E7%94%B5%E5%95%86%E7%B3%BB%E7%BB%9F%E6%98%AF%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E7%9A%84%EF%BC%9F/3.webp">
+<meta property="og:image" content="http://yoursite.com/2023/03/01/%E8%AF%BE%E5%89%8D%E5%8A%A0%E9%A4%90-%E7%94%B5%E5%95%86%E7%B3%BB%E7%BB%9F%E6%98%AF%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E7%9A%84%EF%BC%9F/4.webp">
+<meta property="article:published_time" content="2023-03-01T01:04:10.000Z">
+<meta property="article:modified_time" content="2023-03-12T10:38:21.198Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="后端存储实战课">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="课前加餐丨电商系统是如何设计的？">
-<meta name="twitter:description" content="在这个系列课程中，我们会讲电商这个行业在多年系统建设和运维过程中，总结出来的使用分布式存储系统的一些最佳实践。也会以电商系统作为例子来讲解存储相关的技术知识和问题。这都需要你对电商的业务逻辑、系统架构、核心业务流程有一个基本的认知。 虽然说，电商这个业务和你的生活息息相关，你可能对电商多少有一些了解，但是，即使是一个最小化的电商系统，它仍然非常复杂。所以，我们先花一节课的时间，一起以一个创业公司的">
-<meta name="twitter:image" content="http://yoursite.com/2023/03/01/课前加餐-电商系统是如何设计的？/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2023/03/01/%E8%AF%BE%E5%89%8D%E5%8A%A0%E9%A4%90-%E7%94%B5%E5%95%86%E7%B3%BB%E7%BB%9F%E6%98%AF%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E7%9A%84%EF%BC%9F/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2023/03/01/课前加餐-电商系统是如何设计的？/">
+  <link rel="canonical" href="http://yoursite.com/2023/03/01/课前加餐-电商系统是如何设计的？/"/>
 
 
 
@@ -175,7 +175,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -236,7 +236,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -253,7 +253,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -270,7 +270,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -287,7 +287,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -304,7 +304,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -315,7 +315,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -335,7 +335,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -385,16 +387,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/03/01/课前加餐-电商系统是如何设计的？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/03/01/%E8%AF%BE%E5%89%8D%E5%8A%A0%E9%A4%90-%E7%94%B5%E5%95%86%E7%B3%BB%E7%BB%9F%E6%98%AF%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E7%9A%84%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -465,7 +467,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/存储/" itemprop="url" rel="index"><span itemprop="name">存储</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/%E5%AD%98%E5%82%A8/" itemprop="url" rel="index"><span itemprop="name">存储</span></a></span>
 
                 
                 
@@ -494,7 +496,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">4.2k</span>
+                <span title="本文字数">6k</span>
               
 
               
@@ -508,7 +510,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">4 分钟</span>
+                <span title="阅读时长">5 分钟</span>
               
             </div>
           
@@ -552,15 +554,15 @@
 <p>首先得有买东西的人，我们叫“用户”，还得有卖东西的人？我们叫“运营人员”。还有什么人会用这个系统？老板啊！你记住，你在设计任何一个系统的时候，千万不要把老板或者是领导给忘了，他们是给你钱的人，他们的意见非常重要！</p>
 <p>然后我们一起回答第二个问题：用户、运营和老板，分别用电商系统来干什么？</p>
 <p>这个问题也很容易回答，用户用系统来买东西，运营用系统来卖东西，老板需要在系统中看到他赚了多少钱。这两个问题的答案，或者说是业务需求，稍加细化后，可以用下面这个图来清晰的表述：</p>
-<img src="/2023/03/01/课前加餐-电商系统是如何设计的？/1.webp">
+<img src="/2023/03/01/%E8%AF%BE%E5%89%8D%E5%8A%A0%E9%A4%90-%E7%94%B5%E5%95%86%E7%B3%BB%E7%BB%9F%E6%98%AF%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E7%9A%84%EF%BC%9F/1.webp" class="">
 <p>这个图在UML（统一建模语言）中称为用例图（Use Case），是需求分析的时候你需要画的第一张图。它回答的就是，业务需求中的那两个关键的问题，这个系统给谁用？他们用这个系统解决什么问题？</p>
 <p>一般来说，业务需求和我们要设计的系统关系不大。为什么这么说呢？你可以看一下上面这个图里面的用例，放在传统的商业企业里面，比如一个小杂货铺、一个线下实体商场商店或者一个做电视购物的公司，是不是也是适用的？所以做业务需求的主要目的，是理清楚业务场景是什么样的。</p>
 <p>然后我们来分析电商系统的流程。显然，一个电商系统最主要的业务流程，一定是购物这个流程。你应该很容易就能把这个流程分析出来，它的流程图是这样的：</p>
-<img src="/2023/03/01/课前加餐-电商系统是如何设计的？/2.webp">
+<img src="/2023/03/01/%E8%AF%BE%E5%89%8D%E5%8A%A0%E9%A4%90-%E7%94%B5%E5%95%86%E7%B3%BB%E7%BB%9F%E6%98%AF%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E7%9A%84%EF%BC%9F/2.webp" class="">
 <p>所有的电商几乎都是这样一个流程，我和你一起来看一下这个流程。</p>
 <p>流程从用户选购商品开始，用户先从你的App中浏览商品；找到心仪的商品之后，把商品添加到购物车里面；都选好了之后，打开购物车，下一个订单；下单结算之后，就可以支付了；支付成功后，运营人员接下来会给每个已经支付的订单发货；邮寄商品给用户之后，用户确认收货，到这里一个完整的购物流程就结束了。</p>
 <h1 id="如何根据流程来划分功能模块？"><a href="#如何根据流程来划分功能模块？" class="headerlink" title="如何根据流程来划分功能模块？"></a><span style="color:#339AFF;">如何根据流程来划分功能模块？</span></h1><p>接下来，我们把这个业务流程再细化，看一下电商系统如何来实现这个流程？我把细化之后的流程，绘制成了下面这个时序图（Sequence Diagram）：</p>
-<img src="/2023/03/01/课前加餐-电商系统是如何设计的？/3.webp">
+<img src="/2023/03/01/%E8%AF%BE%E5%89%8D%E5%8A%A0%E9%A4%90-%E7%94%B5%E5%95%86%E7%B3%BB%E7%BB%9F%E6%98%AF%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E7%9A%84%EF%BC%9F/3.webp" class="">
 <p>我们一起看下这个时序图中的每个步骤。</p>
 <p>1，用户开始浏览商品，需要有一个<strong>商品模块</strong>来支撑，给用户展示商品的介绍、价格等等这些信息。</p>
 <p>2，用户把选好的商品加入购物车，这个步骤，也需要一个<strong>购物车模块</strong>来维护用户购物车中的商品。</p>
@@ -571,7 +573,7 @@
 <p>这个流程涉及到的功能模块有：<strong>商品、购物车、订单、支付和库存</strong>，这几个模块就是一个电商系统中的核心功能模块。</p>
 <p>当然，仅仅有这几个模块还是不够的，因为我们只分析了“购物”这个最主要的流程，并没有完全涵盖业务需求中的全部用例，比如：运营人员进货、老板查看报表这些用例还没有覆盖到。</p>
 <p>相比购物这个流程，剩下的几个用例和流程都没那么复杂，用同样的方法就可以把其他功能模块分析出来。在这里我们就省略分析过程，直接给出我们电商系统的功能模块划分：</p>
-<img src="/2023/03/01/课前加餐-电商系统是如何设计的？/4.webp">
+<img src="/2023/03/01/%E8%AF%BE%E5%89%8D%E5%8A%A0%E9%A4%90-%E7%94%B5%E5%95%86%E7%B3%BB%E7%BB%9F%E6%98%AF%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E7%9A%84%EF%BC%9F/4.webp" class="">
 <p>上面这个图，我使用的是UML中的包图(Package Diagram)来表示。整个系统按照功能，划分为十个模块，除了购物流程中涉及到的：商品、订单、购物车、支付、库存五个模块以外，还补充了促销、用户、账户、搜索推荐和报表这几个模块，这些都是构建一个电商系统必不可少的功能。我们一个一个来说每个模块需要实现的功能。</p>
 <ul>
 <li>商品：维护和展示商品信息和价格。</li>
@@ -628,7 +630,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/后端存储实战课/" rel="tag"># 后端存储实战课</a>
+            <a href="/tags/%E5%90%8E%E7%AB%AF%E5%AD%98%E5%82%A8%E5%AE%9E%E6%88%98%E8%AF%BE/" rel="tag"># 后端存储实战课</a>
           
         </div>
       
@@ -641,7 +643,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2023/03/01/开篇词-从今天起，换种方式学存储/" rel="next" title="开篇词丨从今天起，换种方式学存储">
+              <a href="/2023/03/01/%E5%BC%80%E7%AF%87%E8%AF%8D-%E4%BB%8E%E4%BB%8A%E5%A4%A9%E8%B5%B7%EF%BC%8C%E6%8D%A2%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%AD%A6%E5%AD%98%E5%82%A8/" rel="next" title="开篇词丨从今天起，换种方式学存储">
                 <i class="fa fa-chevron-left"></i> 开篇词丨从今天起，换种方式学存储
               </a>
             
@@ -651,7 +653,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2023/03/01/01-创建和更新订单时，如何保证数据准确无误？/" rel="prev" title="01丨创建和更新订单时，如何保证数据准确无误？">
+              <a href="/2023/03/01/01-%E5%88%9B%E5%BB%BA%E5%92%8C%E6%9B%B4%E6%96%B0%E8%AE%A2%E5%8D%95%E6%97%B6%EF%BC%8C%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E6%95%B0%E6%8D%AE%E5%87%86%E7%A1%AE%E6%97%A0%E8%AF%AF%EF%BC%9F/" rel="prev" title="01丨创建和更新订单时，如何保证数据准确无误？">
                 01丨创建和更新订单时，如何保证数据准确无误？ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -711,7 +713,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -722,9 +726,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -736,26 +740,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -827,7 +815,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1002,115 +990,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1141,23 +1021,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1183,7 +1063,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#电商系统的核心流程是什么样的？"><span class="nav-number">1.</span> <span class="nav-text">电商系统的核心流程是什么样的？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何根据流程来划分功能模块？"><span class="nav-number">2.</span> <span class="nav-text">如何根据流程来划分功能模块？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">4.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%B5%E5%95%86%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%A0%B8%E5%BF%83%E6%B5%81%E7%A8%8B%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">电商系统的核心流程是什么样的？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%A0%B9%E6%8D%AE%E6%B5%81%E7%A8%8B%E6%9D%A5%E5%88%92%E5%88%86%E5%8A%9F%E8%83%BD%E6%A8%A1%E5%9D%97%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">如何根据流程来划分功能模块？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">思考题</span></a></li></ol></div>
             
 
           </div>
@@ -1218,7 +1098,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1229,12 +1109,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1242,7 +1122,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

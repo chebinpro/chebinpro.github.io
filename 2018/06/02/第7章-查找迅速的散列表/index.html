@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,36 +104,36 @@
 
 
   <meta name="description" content="思考以下问题：  无序数组得用线性查找，有序数组则可以用二分查找。怎么理解？  将字符串转为数字串的过程就是散列，其中用于对照的密码，就是散列函数。怎么理解？ 一个散列函数需满足以下条件才有效：每次对同一字符串调用该散列函数，返回的都应是同一数字串。如果每次都返回不一样的结果，那就无效。怎么理解？ 为什么从散列表里读取数据只需O(1)？因为其过程所花的时间是恒定的。它总是先计算出键的散列值，然后根">
-<meta name="keywords" content="数据结构与算法图解">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第7章-查找迅速的散列表">
-<meta property="og:url" content="http://yoursite.com/2018/06/02/第7章-查找迅速的散列表/index.html">
+<meta property="og:url" content="http://yoursite.com/2018/06/02/%E7%AC%AC7%E7%AB%A0-%E6%9F%A5%E6%89%BE%E8%BF%85%E9%80%9F%E7%9A%84%E6%95%A3%E5%88%97%E8%A1%A8/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考以下问题：  无序数组得用线性查找，有序数组则可以用二分查找。怎么理解？  将字符串转为数字串的过程就是散列，其中用于对照的密码，就是散列函数。怎么理解？ 一个散列函数需满足以下条件才有效：每次对同一字符串调用该散列函数，返回的都应是同一数字串。如果每次都返回不一样的结果，那就无效。怎么理解？ 为什么从散列表里读取数据只需O(1)？因为其过程所花的时间是恒定的。它总是先计算出键的散列值，然后根">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2018/06/02/第7章-查找迅速的散列表/1.png">
-<meta property="og:image" content="http://yoursite.com/2018/06/02/第7章-查找迅速的散列表/2.png">
-<meta property="og:image" content="http://yoursite.com/2018/06/02/第7章-查找迅速的散列表/3.png">
-<meta property="og:image" content="http://yoursite.com/2018/06/02/第7章-查找迅速的散列表/4.png">
-<meta property="og:image" content="http://yoursite.com/2018/06/02/第7章-查找迅速的散列表/5.png">
-<meta property="og:image" content="http://yoursite.com/2018/06/02/第7章-查找迅速的散列表/6.png">
-<meta property="og:image" content="http://yoursite.com/2018/06/02/第7章-查找迅速的散列表/7.png">
-<meta property="og:image" content="http://yoursite.com/2018/06/02/第7章-查找迅速的散列表/8.png">
-<meta property="og:image" content="http://yoursite.com/2018/06/02/第7章-查找迅速的散列表/9.png">
-<meta property="og:image" content="http://yoursite.com/2018/06/02/第7章-查找迅速的散列表/10.png">
-<meta property="og:image" content="http://yoursite.com/2018/06/02/第7章-查找迅速的散列表/11.png">
-<meta property="og:updated_time" content="2022-09-01T03:39:00.628Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2018/06/02/%E7%AC%AC7%E7%AB%A0-%E6%9F%A5%E6%89%BE%E8%BF%85%E9%80%9F%E7%9A%84%E6%95%A3%E5%88%97%E8%A1%A8/1.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/02/%E7%AC%AC7%E7%AB%A0-%E6%9F%A5%E6%89%BE%E8%BF%85%E9%80%9F%E7%9A%84%E6%95%A3%E5%88%97%E8%A1%A8/2.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/02/%E7%AC%AC7%E7%AB%A0-%E6%9F%A5%E6%89%BE%E8%BF%85%E9%80%9F%E7%9A%84%E6%95%A3%E5%88%97%E8%A1%A8/3.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/02/%E7%AC%AC7%E7%AB%A0-%E6%9F%A5%E6%89%BE%E8%BF%85%E9%80%9F%E7%9A%84%E6%95%A3%E5%88%97%E8%A1%A8/4.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/02/%E7%AC%AC7%E7%AB%A0-%E6%9F%A5%E6%89%BE%E8%BF%85%E9%80%9F%E7%9A%84%E6%95%A3%E5%88%97%E8%A1%A8/5.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/02/%E7%AC%AC7%E7%AB%A0-%E6%9F%A5%E6%89%BE%E8%BF%85%E9%80%9F%E7%9A%84%E6%95%A3%E5%88%97%E8%A1%A8/6.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/02/%E7%AC%AC7%E7%AB%A0-%E6%9F%A5%E6%89%BE%E8%BF%85%E9%80%9F%E7%9A%84%E6%95%A3%E5%88%97%E8%A1%A8/7.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/02/%E7%AC%AC7%E7%AB%A0-%E6%9F%A5%E6%89%BE%E8%BF%85%E9%80%9F%E7%9A%84%E6%95%A3%E5%88%97%E8%A1%A8/8.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/02/%E7%AC%AC7%E7%AB%A0-%E6%9F%A5%E6%89%BE%E8%BF%85%E9%80%9F%E7%9A%84%E6%95%A3%E5%88%97%E8%A1%A8/9.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/02/%E7%AC%AC7%E7%AB%A0-%E6%9F%A5%E6%89%BE%E8%BF%85%E9%80%9F%E7%9A%84%E6%95%A3%E5%88%97%E8%A1%A8/10.png">
+<meta property="og:image" content="http://yoursite.com/2018/06/02/%E7%AC%AC7%E7%AB%A0-%E6%9F%A5%E6%89%BE%E8%BF%85%E9%80%9F%E7%9A%84%E6%95%A3%E5%88%97%E8%A1%A8/11.png">
+<meta property="article:published_time" content="2018-06-02T11:38:22.000Z">
+<meta property="article:modified_time" content="2022-09-01T03:39:00.628Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="数据结构与算法图解">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第7章-查找迅速的散列表">
-<meta name="twitter:description" content="思考以下问题：  无序数组得用线性查找，有序数组则可以用二分查找。怎么理解？  将字符串转为数字串的过程就是散列，其中用于对照的密码，就是散列函数。怎么理解？ 一个散列函数需满足以下条件才有效：每次对同一字符串调用该散列函数，返回的都应是同一数字串。如果每次都返回不一样的结果，那就无效。怎么理解？ 为什么从散列表里读取数据只需O(1)？因为其过程所花的时间是恒定的。它总是先计算出键的散列值，然后根">
-<meta name="twitter:image" content="http://yoursite.com/2018/06/02/第7章-查找迅速的散列表/1.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/06/02/%E7%AC%AC7%E7%AB%A0-%E6%9F%A5%E6%89%BE%E8%BF%85%E9%80%9F%E7%9A%84%E6%95%A3%E5%88%97%E8%A1%A8/1.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/06/02/第7章-查找迅速的散列表/">
+  <link rel="canonical" href="http://yoursite.com/2018/06/02/第7章-查找迅速的散列表/"/>
 
 
 
@@ -182,7 +182,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -243,7 +243,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -260,7 +260,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -277,7 +277,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -294,7 +294,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -311,7 +311,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -322,7 +322,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -342,7 +342,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -392,16 +394,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/02/第7章-查找迅速的散列表/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/02/%E7%AC%AC7%E7%AB%A0-%E6%9F%A5%E6%89%BE%E8%BF%85%E9%80%9F%E7%9A%84%E6%95%A3%E5%88%97%E8%A1%A8/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -472,7 +474,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/算法/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">算法</span></a></span>
 
                 
                 
@@ -501,7 +503,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">7.4k</span>
+                <span title="本文字数">25k</span>
               
 
               
@@ -515,7 +517,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">7 分钟</span>
+                <span title="阅读时长">23 分钟</span>
               
             </div>
           
@@ -543,23 +545,19 @@
 <li>为什么从散列表里读取数据只需<code>O(1)</code>？因为其过程所花的时间是恒定的。它总是先计算出键的散列值，然后根据散列值跳到对应的格子去。怎么理解？</li>
 <li>无序数组需要O(N)，有序数组需要O(log N)。但用散列表的话，我们就能够以食物作为键来做O(1)的查找。怎么理解？</li>
 </ul>
-<a id="more"></a>
-<p>试想你在写一个快餐店的点单程序，准备实现一个展示各种食物及相应价格的菜单。你可能会用数组来做（当然这没问题）。<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">menu = [ [<span class="string">"french fries"</span>, <span class="number">0</span>.<span class="number">75</span>], [<span class="string">"hamburger"</span>, <span class="number">2.5</span>], [<span class="string">"hot dog"</span>, <span class="number">1.5</span>], [<span class="string">"soda"</span>, <span class="number">0</span>.<span class="number">6</span>] ]</span><br></pre></td></tr></table></figure></p>
-<p>该数组由一些子数组构成，每个子数组包含两个元素。第一个元素是表示食物名称的字符串，第二个元素是该食物的价格。</p>
+<span id="more"></span>
+<p>试想你在写一个快餐店的点单程序，准备实现一个展示各种食物及相应价格的菜单。你可能会用数组来做（当然这没问题）。<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">menu = [ [<span class="string">&quot;french fries&quot;</span>, <span class="number">0.75</span>], [<span class="string">&quot;hamburger&quot;</span>, <span class="number">2.5</span>], [<span class="string">&quot;hot dog&quot;</span>, <span class="number">1.5</span>], [<span class="string">&quot;soda&quot;</span>, <span class="number">0.6</span>] ]</span><br></pre></td></tr></table></figure><br>该数组由一些子数组构成，每个子数组包含两个元素。第一个元素是表示食物名称的字符串，第二个元素是该食物的价格。</p>
 <p>就如第2章学到的，在无序的数组里查找某种食物的价格，得用线性查找，需要<code>O(N)</code>步。</p>
 <p><strong>有序数组则可以用二分查找</strong>，只需要<code>O(log N)</code>步。</p>
 <p>尽管<code>O(log N)</code>也不错，但我们可以做得更好。事实上，可以好很多。到了本章结尾，你会掌握一种名为<strong>散列表</strong>的数据结构，只用<code>O(1)</code>步就能找出数据。理解此数据结构的原理以及其适用场景，你就能依靠其快速查找的能力来应对各种状况。</p>
 <h1 id="探索散列表"><a href="#探索散列表" class="headerlink" title="探索散列表"></a><span style="color:#339AFF;">探索散列表</span></h1><p>大多数编程语言都自带散列表这种能够快速读取的数据结构。但在不同的语言中，它有不同的名字，除了散列表，还有散列、映射、散列映射、字典、关联数组。散列就是hash。</p>
-<p>以下便是用Ruby的散列表来实现的菜单。<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">menu = &#123; <span class="string">"french fries"</span> =&gt; <span class="number">0</span>.<span class="number">75</span>, <span class="string">"hamburger"</span> =&gt; <span class="number">2.5</span>, <span class="string">"hot dog"</span> =&gt; <span class="number">1.5</span>, <span class="string">"soda"</span> =&gt; <span class="number">0</span>.<span class="number">6</span> &#125;</span><br></pre></td></tr></table></figure></p>
-<p>散列表由一对对的数据组成。一对数据里，一个叫作<strong>键</strong>，另一个叫作<strong>值</strong>。键和值应该具有某种意义上的关系。如上例，<code>&quot;french fries&quot;</code>是键，0.75是值，把它们组成一对就表示“炸薯条的价格为75美分”。</p>
-<p>在Ruby中，查找一个键所对应的值，语法是：<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">menu[<span class="string">"french fries"</span>]</span><br></pre></td></tr></table></figure></p>
-<p>这会返回值0.75。</p>
+<p>以下便是用Ruby的散列表来实现的菜单。<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">menu = &#123; <span class="string">&quot;french fries&quot;</span> =&gt; <span class="number">0.75</span>, <span class="string">&quot;hamburger&quot;</span> =&gt; <span class="number">2.5</span>, <span class="string">&quot;hot dog&quot;</span> =&gt; <span class="number">1.5</span>, <span class="string">&quot;soda&quot;</span> =&gt; <span class="number">0.6</span> &#125;</span><br></pre></td></tr></table></figure><br>散列表由一对对的数据组成。一对数据里，一个叫作<strong>键</strong>，另一个叫作<strong>值</strong>。键和值应该具有某种意义上的关系。如上例，<code>&quot;french fries&quot;</code>是键，0.75是值，把它们组成一对就表示“炸薯条的价格为75美分”。</p>
+<p>在Ruby中，查找一个键所对应的值，语法是：<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">menu[<span class="string">&quot;french fries&quot;</span>]</span><br></pre></td></tr></table></figure><br>这会返回值0.75。</p>
 <p>在散列表中查找值的平均效率为<code>O(1)</code>，因为<strong>只要一步</strong>。下面来看看为什么。</p>
 <h1 id="用散列函数来做散列"><a href="#用散列函数来做散列" class="headerlink" title="用散列函数来做散列"></a><span style="color:#339AFF;">用散列函数来做散列</span></h1><p>还记得你小时候创建和解析密文时用的密码吗？</p>
-<p>例如以下这种字母和数字的简单转化方式。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">A = 1</span><br><span class="line">B = 2</span><br><span class="line">C = 3</span><br><span class="line">D = 4</span><br><span class="line">E = 5</span><br></pre></td></tr></table></figure></p>
-<p>以此类推。</p>
+<p>例如以下这种字母和数字的简单转化方式。<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">A = 1</span><br><span class="line">B = 2</span><br><span class="line">C = 3</span><br><span class="line">D = 4</span><br><span class="line">E = 5</span><br></pre></td></tr></table></figure><br>以此类推。</p>
 <p>由此可得，ACE会转化为135，CAB会转化为312，DAB会转化为412，BAD会转化为214。</p>
-<p><span style="color:red">将字符串转为数字串的过程就是散列，其中用于对照的密码，就是散列函数。<span style="color:red"></span></span></p>
+<p><span style="color:red">将字符串转为数字串的过程就是散列，其中用于对照的密码，就是散列函数。<span style="color:red"></p>
 <p>当然散列函数不只是这一种，例如对各字母匹配的数字求和的过程，也可以作为散列函数。</p>
 <p>按此函数来做的话，BAD就是7，过程如下。</p>
 <p>第1步：BAD转成214。</p>
@@ -575,54 +573,42 @@
 <p>认识了散列函数，就可以进一步学习散列表的运作了。</p>
 <h1 id="一个好玩又赚钱的同义词典"><a href="#一个好玩又赚钱的同义词典" class="headerlink" title="一个好玩又赚钱的同义词典"></a><span style="color:#339AFF;">一个好玩又赚钱的同义词典</span></h1><p>假设工作之余，你还一个人秘密研发着一款将要征服世界的软件。那是一个同义词典，它叫Quickasaurus。你相信它势必一鸣惊人，因为它只会返回一个最常用的同义词，而不是像其他词典那样，返回所有的同义词。</p>
 <p>因为每个词都有一个同义词，所以正好作为散列表的用例。毕竟，散列表就是一堆成对的元素。下面我们马上来开发。</p>
-<p>该词典可以用一个散列表来表示。<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thesaurus = &#123;&#125;</span><br></pre></td></tr></table></figure></p>
-<p>散列表可以看成是一行能够存储数据的格子，就像数组那样。每个格子都有对应的编号，如下所示。</p>
-<img src="/2018/06/02/第7章-查找迅速的散列表/1.png">
-<p>现在往散列表里加入我们的第一条同义词。<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thesaurus[<span class="string">"bad"</span>] = <span class="string">"evil"</span></span><br></pre></td></tr></table></figure></p>
-<p>散列表变成了下面这样。<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"bad"</span> =&gt; <span class="string">"evil"</span>&#125;</span><br></pre></td></tr></table></figure></p>
-<p>再看看散列表是如何存储数据的。</p>
-<p>首先，计算机用散列函数对键进行计算。为了方便演示，这里我们依然使用之前提及的那个乘法函数。<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BAD = <span class="number">2</span> * <span class="number">1</span> * <span class="number">4</span> = <span class="number">8</span></span><br></pre></td></tr></table></figure></p>
-<p><code>&quot;bad&quot;</code>的散列值为8，于是计算机将<code>&quot;evil&quot;</code>放到第8个格子里。</p>
-<img src="/2018/06/02/第7章-查找迅速的散列表/2.png">
-<p>接着，我们再试另一对键值。<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thesaurus[<span class="string">"cab"</span>] = <span class="string">"taxi"</span></span><br></pre></td></tr></table></figure></p>
-<p>同样地，计算机要计算散列值。<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CAB = <span class="number">3</span> * <span class="number">1</span> * <span class="number">2</span> = <span class="number">6</span></span><br></pre></td></tr></table></figure></p>
-<p>因其结果为6，所以将<code>&quot;taxi&quot;</code>放到第6格。</p>
-<img src="/2018/06/02/第7章-查找迅速的散列表/3.png">
-<p>再多加一对试试。<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thesaurus[<span class="string">"ace"</span>] = <span class="string">"star"</span></span><br></pre></td></tr></table></figure></p>
-<p>ACE的散列值为<code>15（ACE = 1 × 3 × 5 = 15）</code>，于是<code>&quot;star&quot;</code>被放到第15格。</p>
-<img src="/2018/06/02/第7章-查找迅速的散列表/4.png">
-<p>现在，用代码来表示这个散列表的话，就是这样：<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">"bad"</span> =&gt; <span class="string">"evil"</span>, <span class="string">"cab"</span> =&gt; <span class="string">"taxi"</span>, <span class="string">"ace"</span> =&gt; <span class="string">"star"</span>&#125;</span><br></pre></td></tr></table></figure></p>
-<p>既然散列表词典建好了，那就来看看从里面查词时会发生什么吧。假设现在要查<code>&quot;bad&quot;</code>的同义词，写成代码的话，如下所示。<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thesaurus[<span class="string">"bad"</span>]</span><br></pre></td></tr></table></figure></p>
-<p>收到命令后，计算机就会进行如下两步简单的操作。</p>
+<p>该词典可以用一个散列表来表示。<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thesaurus = &#123;&#125;</span><br></pre></td></tr></table></figure><br>散列表可以看成是一行能够存储数据的格子，就像数组那样。每个格子都有对应的编号，如下所示。</p>
+<img src="/2018/06/02/%E7%AC%AC7%E7%AB%A0-%E6%9F%A5%E6%89%BE%E8%BF%85%E9%80%9F%E7%9A%84%E6%95%A3%E5%88%97%E8%A1%A8/1.png" class="">
+<p>现在往散列表里加入我们的第一条同义词。<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thesaurus[<span class="string">&quot;bad&quot;</span>] = <span class="string">&quot;evil&quot;</span></span><br></pre></td></tr></table></figure><br>散列表变成了下面这样。<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;bad&quot;</span> =&gt; <span class="string">&quot;evil&quot;</span>&#125;</span><br></pre></td></tr></table></figure><br>再看看散列表是如何存储数据的。</p>
+<p>首先，计算机用散列函数对键进行计算。为了方便演示，这里我们依然使用之前提及的那个乘法函数。<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable constant_">BAD</span> = <span class="number">2</span> * <span class="number">1</span> * <span class="number">4</span> = <span class="number">8</span></span><br></pre></td></tr></table></figure><br><code>&quot;bad&quot;</code>的散列值为8，于是计算机将<code>&quot;evil&quot;</code>放到第8个格子里。</p>
+<img src="/2018/06/02/%E7%AC%AC7%E7%AB%A0-%E6%9F%A5%E6%89%BE%E8%BF%85%E9%80%9F%E7%9A%84%E6%95%A3%E5%88%97%E8%A1%A8/2.png" class="">
+<p>接着，我们再试另一对键值。<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thesaurus[<span class="string">&quot;cab&quot;</span>] = <span class="string">&quot;taxi&quot;</span></span><br></pre></td></tr></table></figure><br>同样地，计算机要计算散列值。<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable constant_">CAB</span> = <span class="number">3</span> * <span class="number">1</span> * <span class="number">2</span> = <span class="number">6</span></span><br></pre></td></tr></table></figure><br>因其结果为6，所以将<code>&quot;taxi&quot;</code>放到第6格。</p>
+<img src="/2018/06/02/%E7%AC%AC7%E7%AB%A0-%E6%9F%A5%E6%89%BE%E8%BF%85%E9%80%9F%E7%9A%84%E6%95%A3%E5%88%97%E8%A1%A8/3.png" class="">
+<p>再多加一对试试。<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thesaurus[<span class="string">&quot;ace&quot;</span>] = <span class="string">&quot;star&quot;</span></span><br></pre></td></tr></table></figure><br>ACE的散列值为<code>15（ACE = 1 × 3 × 5 = 15）</code>，于是<code>&quot;star&quot;</code>被放到第15格。</p>
+<img src="/2018/06/02/%E7%AC%AC7%E7%AB%A0-%E6%9F%A5%E6%89%BE%E8%BF%85%E9%80%9F%E7%9A%84%E6%95%A3%E5%88%97%E8%A1%A8/4.png" class="">
+<p>现在，用代码来表示这个散列表的话，就是这样：<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;bad&quot;</span> =&gt; <span class="string">&quot;evil&quot;</span>, <span class="string">&quot;cab&quot;</span> =&gt; <span class="string">&quot;taxi&quot;</span>, <span class="string">&quot;ace&quot;</span> =&gt; <span class="string">&quot;star&quot;</span>&#125;</span><br></pre></td></tr></table></figure><br>既然散列表词典建好了，那就来看看从里面查词时会发生什么吧。假设现在要查<code>&quot;bad&quot;</code>的同义词，写成代码的话，如下所示。<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thesaurus[<span class="string">&quot;bad&quot;</span>]</span><br></pre></td></tr></table></figure><br>收到命令后，计算机就会进行如下两步简单的操作。</p>
 <p>（1）计算这个键的散列值：<code>BAD = 2 × 1 × 4 = 8</code>。</p>
 <p>（2）由于结果是8，因此去到第8格并返回其中的值。在本例中，该值为<code>&quot;evil&quot;</code>   。</p>
 <p>这下你应该明白为什么从散列表里读取数据只需<code>O(1)</code>了吧，因为其过程所花的时间是恒定的。它总是先计算出键的散列值，然后根据散列值跳到对应的格子去。</p>
 <p>现在总算理解为什么我们的快餐店菜单用散列表会比用数组要快了。当要查询某种食物的价格时，如果是用数组，那么就得一个格子一个格子地去找，直至找到为止。无序数组需要<code>O(N)</code>，有序数组需要<code>O(log N)</code>。但用散列表的话，我们就能够以食物作为键来做<code>O(1)</code>的查找。这就是散列表的好处。</p>
 <h1 id="处理冲突"><a href="#处理冲突" class="headerlink" title="处理冲突"></a><span style="color:#339AFF;">处理冲突</span></h1><p>不过，散列表也会带来一些麻烦。</p>
-<p>继续同义词典的例子：把下面这条同义词也加到表里，会发生什么呢？<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thesaurus[<span class="string">"dab"</span>] = <span class="string">"pat"</span></span><br></pre></td></tr></table></figure></p>
-<p>首先，计算散列值。<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DAB = <span class="number">4</span> * <span class="number">1</span> * <span class="number">2</span> = <span class="number">8</span></span><br></pre></td></tr></table></figure></p>
-<p>然后，将<code>&quot;pat&quot;</code>放进第8个格子。</p>
-<img src="/2018/06/02/第7章-查找迅速的散列表/5.png">
+<p>继续同义词典的例子：把下面这条同义词也加到表里，会发生什么呢？<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thesaurus[<span class="string">&quot;dab&quot;</span>] = <span class="string">&quot;pat&quot;</span></span><br></pre></td></tr></table></figure><br>首先，计算散列值。<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable constant_">DAB</span> = <span class="number">4</span> * <span class="number">1</span> * <span class="number">2</span> = <span class="number">8</span></span><br></pre></td></tr></table></figure><br>然后，将<code>&quot;pat&quot;</code>放进第8个格子。</p>
+<img src="/2018/06/02/%E7%AC%AC7%E7%AB%A0-%E6%9F%A5%E6%89%BE%E8%BF%85%E9%80%9F%E7%9A%84%E6%95%A3%E5%88%97%E8%A1%A8/5.png" class="">
 <p>噢，第8格已经是<code>&quot;evil&quot;</code>了，这的确不好（evil）。</p>
 <p>往已被占用的格子里放东西，会造成<strong>冲突</strong>。幸好，我们有解决办法。</p>
 <p>一种经典的做法就是<strong>分离链接</strong>。当冲突发生时，我们不是将值放到格子里，而是放到该格子所关联的数组里。</p>
 <p>现在仔细观察该散列表的冲突位置。</p>
-<img src="/2018/06/02/第7章-查找迅速的散列表/6.png">
+<img src="/2018/06/02/%E7%AC%AC7%E7%AB%A0-%E6%9F%A5%E6%89%BE%E8%BF%85%E9%80%9F%E7%9A%84%E6%95%A3%E5%88%97%E8%A1%A8/6.png" class="">
 <p>因为要放入<code>&quot;pat&quot;</code>的第8格，已经存在<code>&quot;evil&quot;</code>了，于是我们将第8格的内容换成一个数组。</p>
 <p>该数组又以子数组构成，每个子数组含两个元素，第一个是被检索的词，后一个是其相应的同义词。</p>
-<img src="/2018/06/02/第7章-查找迅速的散列表/7.png">
-<p>下面运行一遍<code>&quot;dab&quot;</code>的查找过程，执行：<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thesaurus[<span class="string">"dab"</span>]</span><br></pre></td></tr></table></figure></p>
-<p>计算机就会按如下步骤执行。</p>
+<img src="/2018/06/02/%E7%AC%AC7%E7%AB%A0-%E6%9F%A5%E6%89%BE%E8%BF%85%E9%80%9F%E7%9A%84%E6%95%A3%E5%88%97%E8%A1%A8/7.png" class="">
+<p>下面运行一遍<code>&quot;dab&quot;</code>的查找过程，执行：<br><figure class="highlight rb"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thesaurus[<span class="string">&quot;dab&quot;</span>]</span><br></pre></td></tr></table></figure><br>计算机就会按如下步骤执行。</p>
 <p>（1）计算散列值<code>DAB = 4 × 1 × 2 = 8</code>。</p>
 <p>（2）读取第8格，发现其中不是一个单独的值，而是一个数组。</p>
 <p>（3）于是线性地在该数组中查找，检查每个子数组的索引0位置，如果碰到要找的词（<code>&quot;dab&quot;</code>），就返回该子数组的索引1的值。</p>
 <p>再图形化地演示一次。</p>
 <p>求得DAB的散列值为8，于是计算机读取第8格。</p>
-<img src="/2018/06/02/第7章-查找迅速的散列表/8.png">
+<img src="/2018/06/02/%E7%AC%AC7%E7%AB%A0-%E6%9F%A5%E6%89%BE%E8%BF%85%E9%80%9F%E7%9A%84%E6%95%A3%E5%88%97%E8%A1%A8/8.png" class="">
 <p>因为第8格里面是一个数组，所以对该数组进行线性查找。首先是第1格，它又是一个数组，于是查看这个子数组的索引0。</p>
-<img src="/2018/06/02/第7章-查找迅速的散列表/9.png">
+<img src="/2018/06/02/%E7%AC%AC7%E7%AB%A0-%E6%9F%A5%E6%89%BE%E8%BF%85%E9%80%9F%E7%9A%84%E6%95%A3%E5%88%97%E8%A1%A8/9.png" class="">
 <p>它并非我们要找的词（<code>&quot;dab&quot;</code>），于是跳到下一格。</p>
-<img src="/2018/06/02/第7章-查找迅速的散列表/10.png">
+<img src="/2018/06/02/%E7%AC%AC7%E7%AB%A0-%E6%9F%A5%E6%89%BE%E8%BF%85%E9%80%9F%E7%9A%84%E6%95%A3%E5%88%97%E8%A1%A8/10.png" class="">
 <p>这一格的子数组的索引0正是<code>&quot;dab&quot;</code>，因此其索引1的值就是我们要找的同义词（<code>&quot;pat&quot;</code>）。</p>
 <p>若散列表的格子含有数组，因为要在这些数组上做线性查找，所以步数会多于1。如果数据都刚好存在同一个格子里，那么查找就相当于在数组上进行。因此散列表的最坏情况就是<code>O(N)</code>。</p>
 <p>为了避免这种情况，散列表的设计应该尽量减少冲突，以便查找都能以<code>O(1)</code>完成。</p>
@@ -635,12 +621,9 @@
 </ul>
 <p>前两点很明显。如果要放的数据很多，格子却很少，就会造成大量冲突，导致效率降低。但为什么和散列函数本身也有关系呢？我们这就来看看。</p>
 <p>假设你准备用一个散列值总是落在1至9之间的散列函数，例如，将字母转成其对应的序号，然后一直相加，直至结果只剩一位数字的函数。</p>
-<p>就像这样：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PUT = 16 + 21 + 20 = 57</span><br></pre></td></tr></table></figure></p>
-<p>因为57不止一位数字，于是将57拆成5 + 7。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5 + 7 = 12</span><br></pre></td></tr></table></figure></p>
-<p>12也不止一位数字，于是拆成1 + 2。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 + 2 = 3</span><br></pre></td></tr></table></figure></p>
-<p>最终，PUT的散列值为3。因为这种计算逻辑，该散列函数只会返回1到9的数字。</p>
+<p>就像这样：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PUT = 16 + 21 + 20 = 57</span><br></pre></td></tr></table></figure><br>因为57不止一位数字，于是将57拆成5 + 7。<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">5 + 7 = 12</span><br></pre></td></tr></table></figure><br>12也不止一位数字，于是拆成1 + 2。<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 + 2 = 3</span><br></pre></td></tr></table></figure><br>最终，PUT的散列值为3。因为这种计算逻辑，该散列函数只会返回1到9的数字。</p>
 <p>再回到散列表的样子。如果是用刚才的散列函数，那么该散列表的10到16号格子就都用不上了，数据只会被放到1到9的格子里。</p>
-<img src="/2018/06/02/第7章-查找迅速的散列表/11.png">
+<img src="/2018/06/02/%E7%AC%AC7%E7%AB%A0-%E6%9F%A5%E6%89%BE%E8%BF%85%E9%80%9F%E7%9A%84%E6%95%A3%E5%88%97%E8%A1%A8/11.png" class="">
 <p>所以，一个好的散列函数，应当能将数据分散到所有可用的格子里去。</p>
 <p>如果一个散列表只需要保存5个值，那么它应该多大，以及采用什么散列函数呢？</p>
 <p>要是散列表只有5个格子，那么散列函数需要算出1到5的散列值。但就算我们想保存的值也只有5个，冲突还是很可能发生，因为散列值只有5种可能。</p>
@@ -657,22 +640,13 @@
 <p>如果要在一个大集合上进行多次插入，效率将会下降得很快，因为每次插入都需要<code>O(N)</code>。</p>
 <p>很多时候，我们都可以把散列表当成集合来用。</p>
 <p>把数组作为集合的话，数据是直接放到格子里的。用散列表时，则是将数据作为键，值可以为任何形式，例如数字1，或者布尔值true也行。</p>
-<p>假设在Javascript里建立了如下所示的散列表。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="keyword">set</span> = &#123;&#125;;</span><br></pre></td></tr></table></figure></p>
-<p>并加入一些数据。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span>["apple"] = 1;</span><br><span class="line"><span class="keyword">set</span>["banana"] = 1;</span><br><span class="line"><span class="keyword">set</span>["cucumber"] = 1;</span><br></pre></td></tr></table></figure></p>
-<p>这样每次插入新值，都只需花<code>O(1)</code>的时间，而不是线性查找的<code>O(N)</code>。即使数据已存在时也是这个速度。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span>["banana"] = 1;</span><br></pre></td></tr></table></figure></p>
-<p>再次插入<code>&quot;banana&quot;</code>时，我们并不需要检查它存在与否，因为即使存在，也只是将其对应的值重写成1。</p>
-<p>散列表确实非常适用于检查数据的存在性。第4章我们讨论过如何在Javascript里检查一个数组有没有重复数据。一开始的方案如下所示。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hasDuplicateValue</span>(<span class="params">array</span>) </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; array.length; i++) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; array.length; j++) </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(i !== j &amp;&amp; array[i] == array[j]) </span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>当时我们说了，该嵌套循环的效率是O(N<sup>2</sup>)。</p>
+<p>假设在Javascript里建立了如下所示的散列表。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> set = &#123;&#125;;</span><br></pre></td></tr></table></figure><br>并加入一些数据。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set[<span class="string">&quot;apple&quot;</span>] = <span class="number">1</span>;</span><br><span class="line">set[<span class="string">&quot;banana&quot;</span>] = <span class="number">1</span>;</span><br><span class="line">set[<span class="string">&quot;cucumber&quot;</span>] = <span class="number">1</span>;</span><br></pre></td></tr></table></figure><br>这样每次插入新值，都只需花<code>O(1)</code>的时间，而不是线性查找的<code>O(N)</code>。即使数据已存在时也是这个速度。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">set[<span class="string">&quot;banana&quot;</span>] = <span class="number">1</span>;</span><br></pre></td></tr></table></figure><br>再次插入<code>&quot;banana&quot;</code>时，我们并不需要检查它存在与否，因为即使存在，也只是将其对应的值重写成1。</p>
+<p>散列表确实非常适用于检查数据的存在性。第4章我们讨论过如何在Javascript里检查一个数组有没有重复数据。一开始的方案如下所示。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">hasDuplicateValue</span>(<span class="params">array</span>) </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; array.<span class="property">length</span>; i++) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> j = <span class="number">0</span>; j &lt; array.<span class="property">length</span>; j++) </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(i !== j &amp;&amp; array[i] == array[j]) </span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>当时我们说了，该嵌套循环的效率是O(N<sup>2</sup>)。</p>
 <p>于是有了第二个<code>O(N)</code>的方案，不过它只能处理数据全为非负整数的数组。如果数组含有其他东西，例如字符串，那怎么办呢？</p>
-<p>使用类似的逻辑，但换成散列表（在Javascript里叫作对象），就可以处理字符串了。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">hasDuplicateValue</span>(<span class="params">array</span>) </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> existingValues = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; array.length; i++) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(existingValues[array[i]] === <span class="literal">undefined</span>) </span><br><span class="line">        &#123;</span><br><span class="line">            existingValues[array[i]] = <span class="number">1</span>;</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">else</span> </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这种方法也是<code>O(N)</code>，其中的existingValues不是数组而是散列表，用字符串作为键（索引）是没有问题的。</p>
-<p>假设我们要做一个电子投票机，投票者可以投给现有的候选人，也可以推荐新的候选人。因为会在选举的最后统计票数，我们可以将票保存在一个数组里，每投一票就将其插入到末尾。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> votes = [];</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addVote</span>(<span class="params">candidate</span>) </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    votes.push(candidate);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>最终数组就会变得很长。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">"Thomas Jefferson"</span>, <span class="string">"John Adams"</span>, <span class="string">"John Adams"</span>, <span class="string">"Thomas Jefferson"</span>, <span class="string">"John Adams"</span>, ...]</span><br></pre></td></tr></table></figure></p>
-<p>这样插入很快，只有<code>O(1)</code>。</p>
-<p>那点票的效率又如何呢？因为票都在数组里，所以我们会用循环来遍历它们，并用一个散列表来记录每人的票数。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">countVotes</span>(<span class="params">votes</span>) </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">var</span> tally = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; votes.length; i++) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(tally[votes[i]]) </span><br><span class="line">        &#123;</span><br><span class="line">            tally[votes[i]]++;</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">else</span> </span><br><span class="line">        &#123;</span><br><span class="line">            tally[votes[i]] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> tally;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>不过这样需要<code>O(N)</code>，也太慢了！</p>
-<p>不如换种方式，一开始就用散列表来收集票数。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> votes = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">addVote</span>(<span class="params">candidate</span>) </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(votes[candidate]) </span><br><span class="line">    &#123;</span><br><span class="line">        votes[candidate]++;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">    &#123;</span><br><span class="line">        votes[candidate] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">countVotes</span>(<span class="params"></span>) </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> votes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这样一来，投票是<code>O(1)</code>，并且因为投票时就已经在计数，所以已完成了点票的步骤。</p>
+<p>使用类似的逻辑，但换成散列表（在Javascript里叫作对象），就可以处理字符串了。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">hasDuplicateValue</span>(<span class="params">array</span>) </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> existingValues = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; array.<span class="property">length</span>; i++) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(existingValues[array[i]] === <span class="literal">undefined</span>) </span><br><span class="line">        &#123;</span><br><span class="line">            existingValues[array[i]] = <span class="number">1</span>;</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">else</span> </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这种方法也是<code>O(N)</code>，其中的existingValues不是数组而是散列表，用字符串作为键（索引）是没有问题的。</p>
+<p>假设我们要做一个电子投票机，投票者可以投给现有的候选人，也可以推荐新的候选人。因为会在选举的最后统计票数，我们可以将票保存在一个数组里，每投一票就将其插入到末尾。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> votes = [];</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">addVote</span>(<span class="params">candidate</span>) </span><br><span class="line">&#123;</span><br><span class="line">    votes.<span class="title function_">push</span>(candidate);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>最终数组就会变得很长。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">&quot;Thomas Jefferson&quot;</span>, <span class="string">&quot;John Adams&quot;</span>, <span class="string">&quot;John Adams&quot;</span>, <span class="string">&quot;Thomas Jefferson&quot;</span>, <span class="string">&quot;John Adams&quot;</span>, ...]</span><br></pre></td></tr></table></figure><br>这样插入很快，只有<code>O(1)</code>。</p>
+<p>那点票的效率又如何呢？因为票都在数组里，所以我们会用循环来遍历它们，并用一个散列表来记录每人的票数。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">countVotes</span>(<span class="params">votes</span>) </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> tally = &#123;&#125;;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; votes.<span class="property">length</span>; i++) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(tally[votes[i]]) </span><br><span class="line">        &#123;</span><br><span class="line">            tally[votes[i]]++;</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">else</span> </span><br><span class="line">        &#123;</span><br><span class="line">            tally[votes[i]] = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> tally;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>不过这样需要<code>O(N)</code>，也太慢了！</p>
+<p>不如换种方式，一开始就用散列表来收集票数。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> votes = &#123;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">addVote</span>(<span class="params">candidate</span>) </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(votes[candidate]) </span><br><span class="line">    &#123;</span><br><span class="line">        votes[candidate]++;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">    &#123;</span><br><span class="line">        votes[candidate] = <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">countVotes</span>(<span class="params"></span>) </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> votes;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这样一来，投票是<code>O(1)</code>，并且因为投票时就已经在计数，所以已完成了点票的步骤。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><span style="color:#339AFF;">总结</span></h1><p>高效的软件离不开散列表，因为其<code>O(1)</code>的读取和插入带来了无与伦比的性能优势。</p>
 <p>到现在为止，我们探讨各种数据结构时都只考虑了性能。但你知道有些数据结构的优点并不在于性能吗？下一章就研究两种能帮助改善代码可读性和可维护性的数据结构。</p>
 
@@ -698,7 +672,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/数据结构与算法图解/" rel="tag"># 数据结构与算法图解</a>
+            <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95%E5%9B%BE%E8%A7%A3/" rel="tag"># 数据结构与算法图解</a>
           
         </div>
       
@@ -711,7 +685,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/31/第6章-乐观地调优/" rel="next" title="第6章-乐观地调优">
+              <a href="/2018/05/31/%E7%AC%AC6%E7%AB%A0-%E4%B9%90%E8%A7%82%E5%9C%B0%E8%B0%83%E4%BC%98/" rel="next" title="第6章-乐观地调优">
                 <i class="fa fa-chevron-left"></i> 第6章-乐观地调优
               </a>
             
@@ -721,7 +695,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/06/05/第8章-用栈和队列来构造灵巧的代码/" rel="prev" title="第8章-用栈和队列来构造灵巧的代码">
+              <a href="/2018/06/05/%E7%AC%AC8%E7%AB%A0-%E7%94%A8%E6%A0%88%E5%92%8C%E9%98%9F%E5%88%97%E6%9D%A5%E6%9E%84%E9%80%A0%E7%81%B5%E5%B7%A7%E7%9A%84%E4%BB%A3%E7%A0%81/" rel="prev" title="第8章-用栈和队列来构造灵巧的代码">
                 第8章-用栈和队列来构造灵巧的代码 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -781,7 +755,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -792,9 +768,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -806,26 +782,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -897,7 +857,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1072,115 +1032,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1211,23 +1063,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1253,7 +1105,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#探索散列表"><span class="nav-number">1.</span> <span class="nav-text">探索散列表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用散列函数来做散列"><span class="nav-number">2.</span> <span class="nav-text">用散列函数来做散列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一个好玩又赚钱的同义词典"><span class="nav-number">3.</span> <span class="nav-text">一个好玩又赚钱的同义词典</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#处理冲突"><span class="nav-number">4.</span> <span class="nav-text">处理冲突</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#找到平衡"><span class="nav-number">5.</span> <span class="nav-text">找到平衡</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一个实例"><span class="nav-number">6.</span> <span class="nav-text">一个实例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%A2%E7%B4%A2%E6%95%A3%E5%88%97%E8%A1%A8"><span class="nav-number">1.</span> <span class="nav-text">探索散列表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%A8%E6%95%A3%E5%88%97%E5%87%BD%E6%95%B0%E6%9D%A5%E5%81%9A%E6%95%A3%E5%88%97"><span class="nav-number">2.</span> <span class="nav-text">用散列函数来做散列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E5%A5%BD%E7%8E%A9%E5%8F%88%E8%B5%9A%E9%92%B1%E7%9A%84%E5%90%8C%E4%B9%89%E8%AF%8D%E5%85%B8"><span class="nav-number">3.</span> <span class="nav-text">一个好玩又赚钱的同义词典</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E5%86%B2%E7%AA%81"><span class="nav-number">4.</span> <span class="nav-text">处理冲突</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%BE%E5%88%B0%E5%B9%B3%E8%A1%A1"><span class="nav-number">5.</span> <span class="nav-text">找到平衡</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E4%B8%AA%E5%AE%9E%E4%BE%8B"><span class="nav-number">6.</span> <span class="nav-text">一个实例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -1288,7 +1140,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1299,12 +1151,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1312,7 +1164,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

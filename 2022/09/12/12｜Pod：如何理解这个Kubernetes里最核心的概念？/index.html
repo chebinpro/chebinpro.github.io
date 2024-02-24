@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,34 +104,34 @@
 
 
   <meta name="description" content="思考并回答以下问题：  因为很少有应用是完全独立运行的，经常需要几个进程互相协作才能完成任务。Pod和这些有什么关系？">
-<meta name="keywords" content="Kubernetes入门实战课">
 <meta property="og:type" content="article">
 <meta property="og:title" content="12丨Pod：如何理解这个Kubernetes里最核心的概念？">
-<meta property="og:url" content="http://yoursite.com/2022/09/12/12｜Pod：如何理解这个Kubernetes里最核心的概念？/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/09/12/12%EF%BD%9CPod%EF%BC%9A%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E8%BF%99%E4%B8%AAKubernetes%E9%87%8C%E6%9C%80%E6%A0%B8%E5%BF%83%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：  因为很少有应用是完全独立运行的，经常需要几个进程互相协作才能完成任务。Pod和这些有什么关系？">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/12｜Pod：如何理解这个Kubernetes里最核心的概念？/1.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/12｜Pod：如何理解这个Kubernetes里最核心的概念？/2.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/12｜Pod：如何理解这个Kubernetes里最核心的概念？/3.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/12｜Pod：如何理解这个Kubernetes里最核心的概念？/4.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/12｜Pod：如何理解这个Kubernetes里最核心的概念？/5.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/12｜Pod：如何理解这个Kubernetes里最核心的概念？/6.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/12｜Pod：如何理解这个Kubernetes里最核心的概念？/7.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/12｜Pod：如何理解这个Kubernetes里最核心的概念？/8.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/12｜Pod：如何理解这个Kubernetes里最核心的概念？/9.webp">
-<meta property="og:updated_time" content="2023-08-17T05:40:24.588Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/12%EF%BD%9CPod%EF%BC%9A%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E8%BF%99%E4%B8%AAKubernetes%E9%87%8C%E6%9C%80%E6%A0%B8%E5%BF%83%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/12%EF%BD%9CPod%EF%BC%9A%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E8%BF%99%E4%B8%AAKubernetes%E9%87%8C%E6%9C%80%E6%A0%B8%E5%BF%83%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9F/2.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/12%EF%BD%9CPod%EF%BC%9A%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E8%BF%99%E4%B8%AAKubernetes%E9%87%8C%E6%9C%80%E6%A0%B8%E5%BF%83%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9F/3.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/12%EF%BD%9CPod%EF%BC%9A%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E8%BF%99%E4%B8%AAKubernetes%E9%87%8C%E6%9C%80%E6%A0%B8%E5%BF%83%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9F/4.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/12%EF%BD%9CPod%EF%BC%9A%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E8%BF%99%E4%B8%AAKubernetes%E9%87%8C%E6%9C%80%E6%A0%B8%E5%BF%83%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9F/5.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/12%EF%BD%9CPod%EF%BC%9A%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E8%BF%99%E4%B8%AAKubernetes%E9%87%8C%E6%9C%80%E6%A0%B8%E5%BF%83%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9F/6.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/12%EF%BD%9CPod%EF%BC%9A%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E8%BF%99%E4%B8%AAKubernetes%E9%87%8C%E6%9C%80%E6%A0%B8%E5%BF%83%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9F/7.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/12%EF%BD%9CPod%EF%BC%9A%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E8%BF%99%E4%B8%AAKubernetes%E9%87%8C%E6%9C%80%E6%A0%B8%E5%BF%83%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9F/8.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/12%EF%BD%9CPod%EF%BC%9A%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E8%BF%99%E4%B8%AAKubernetes%E9%87%8C%E6%9C%80%E6%A0%B8%E5%BF%83%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9F/9.webp">
+<meta property="article:published_time" content="2022-09-12T10:36:01.000Z">
+<meta property="article:modified_time" content="2023-08-17T05:40:24.588Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Kubernetes入门实战课">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="12丨Pod：如何理解这个Kubernetes里最核心的概念？">
-<meta name="twitter:description" content="思考并回答以下问题：  因为很少有应用是完全独立运行的，经常需要几个进程互相协作才能完成任务。Pod和这些有什么关系？">
-<meta name="twitter:image" content="http://yoursite.com/2022/09/12/12｜Pod：如何理解这个Kubernetes里最核心的概念？/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2022/09/12/12%EF%BD%9CPod%EF%BC%9A%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E8%BF%99%E4%B8%AAKubernetes%E9%87%8C%E6%9C%80%E6%A0%B8%E5%BF%83%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9F/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/09/12/12｜Pod：如何理解这个Kubernetes里最核心的概念？/">
+  <link rel="canonical" href="http://yoursite.com/2022/09/12/12｜Pod：如何理解这个Kubernetes里最核心的概念？/"/>
 
 
 
@@ -180,7 +180,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -241,7 +241,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -258,7 +258,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -275,7 +275,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -292,7 +292,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -309,7 +309,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -320,7 +320,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -340,7 +340,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -390,16 +392,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/12/12｜Pod：如何理解这个Kubernetes里最核心的概念？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/12/12%EF%BD%9CPod%EF%BC%9A%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E8%BF%99%E4%B8%AAKubernetes%E9%87%8C%E6%9C%80%E6%A0%B8%E5%BF%83%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -499,7 +501,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">5.7k</span>
+                <span title="本文字数">14k</span>
               
 
               
@@ -513,7 +515,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">5 分钟</span>
+                <span title="阅读时长">13 分钟</span>
               
             </div>
           
@@ -537,11 +539,11 @@
 <ul>
 <li>因为很少有应用是完全独立运行的，经常需要几个进程互相协作才能完成任务。Pod和这些有什么关系？</li>
 </ul>
-<a id="more"></a>
+<span id="more"></span>
 <p>前两天我们学习了Kubernetes世界里的工作语言YAML，还编写了一个简短的YAML文件，描述了一个API对象：Pod，它在spec字段里包含了容器的定义。</p>
 <p>那么为什么Kubernetes不直接使用已经非常成熟稳定的容器？为什么要再单独抽象出一个Pod对象？为什么几乎所有人都说Pod是Kubernetes里最核心最基本的概念呢？</p>
 <h1 id="为什么要有Pod"><a href="#为什么要有Pod" class="headerlink" title="为什么要有Pod"></a><span style="color:#339AFF;">为什么要有Pod</span></h1><p>Pod这个词原意是“豌豆荚”，后来又延伸出“舱室”“太空舱”等含义，你可以看一下这张图片，形象地来说Pod就是包含了很多组件、成员的一种结构。</p>
-<img src="/2022/09/12/12｜Pod：如何理解这个Kubernetes里最核心的概念？/1.webp">
+<img src="/2022/09/12/12%EF%BD%9CPod%EF%BC%9A%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E8%BF%99%E4%B8%AAKubernetes%E9%87%8C%E6%9C%80%E6%A0%B8%E5%BF%83%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9F/1.webp" class="">
 <p>容器技术我想你现在已经比较熟悉了，它让进程在一个“沙盒”环境里运行，具有良好的隔离性，对应用是一个非常好的封装。</p>
 <p>不过，当容器技术进入到现实的生产环境中时，这种隔离性就带来了一些麻烦。因为很少有应用是完全独立运行的，经常需要几个进程互相协作才能完成任务，比如在“入门篇”里我们搭建WordPress网站的时候，就需要Nginx、WordPress、MariaDB三个容器一起工作。</p>
 <p>WordPress例子里的这三个应用之间的关系还是比较松散的，它们可以分别调度，运行在不同的机器上也能够以IP地址通信。</p>
@@ -554,10 +556,10 @@
 <h1 id="为什么Pod是Kubernetes的核心对象"><a href="#为什么Pod是Kubernetes的核心对象" class="headerlink" title="为什么Pod是Kubernetes的核心对象"></a><span style="color:#339AFF;">为什么Pod是Kubernetes的核心对象</span></h1><p>因为Pod是对容器的“打包”，里面的容器是一个整体，总是能够一起调度、一起运行，绝不会出现分离的情况，而且Pod属于Kubernetes，可以在不触碰下层容器的情况下任意定制修改。所以有了Pod这个抽象概念，Kubernetes在集群级别上管理应用就会“得心应手”了。</p>
 <p>Kubernetes让Pod去编排处理容器，然后把Pod作为应用调度部署的最小单位，Pod也因此成为了Kubernetes世界里的“原子”（当然这个“原子”内部是有结构的，不是铁板一块），基于Pod就可以构建出更多更复杂的业务形态了。</p>
 <p>下面的这张图你也许在其他资料里见过，它从Pod开始，扩展出了Kubernetes里的一些重要API对象，比如配置信息ConfigMap、离线作业Job、多实例部署Deployment等等，它们都分别对应到现实中的各种实际运维需求。</p>
-<img src="/2022/09/12/12｜Pod：如何理解这个Kubernetes里最核心的概念？/2.webp">
+<img src="/2022/09/12/12%EF%BD%9CPod%EF%BC%9A%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E8%BF%99%E4%B8%AAKubernetes%E9%87%8C%E6%9C%80%E6%A0%B8%E5%BF%83%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9F/2.webp" class="">
 <p>不过这张图虽然很经典，参考价值很高，但毕竟有些年头了，随着Kubernetes的发展，它已经不能够全面地描述Kubernetes的资源对象了。</p>
 <p>受这张图的启发，我自己重新画了一份以Pod为中心的Kubernetes资源对象关系图，添加了一些新增的Kubernetes概念，今后我们就依据这张图来探索Kubernetes的各项功能。</p>
-<img src="/2022/09/12/12｜Pod：如何理解这个Kubernetes里最核心的概念？/3.webp">
+<img src="/2022/09/12/12%EF%BD%9CPod%EF%BC%9A%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E8%BF%99%E4%B8%AAKubernetes%E9%87%8C%E6%9C%80%E6%A0%B8%E5%BF%83%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9F/3.webp" class="">
 <p>从这两张图中你也应该能够看出来，所有的Kubernetes资源都直接或者间接地依附在Pod之上，所有的Kubernetes功能都必须通过Pod来实现，所以Pod理所当然地成为了Kubernetes的核心对象。</p>
 <h1 id="如何使用YAML描述Pod"><a href="#如何使用YAML描述Pod" class="headerlink" title="如何使用YAML描述Pod"></a><span style="color:#339AFF;">如何使用YAML描述Pod</span></h1><p>既然Pod这么重要，那么我们就很有必要来详细了解一下Pod，理解了Pod概念，我们的Kubernetes学习之旅就成功了一半。</p>
 <p>还记得吧，我们始终可以用命令kubectl explain来查看任意字段的详细说明，所以接下来我就只简要说说写YAML时Pod里的一些常用字段。</p>
@@ -566,7 +568,7 @@
 <p>我们在使用Docker创建容器的时候，可以不给容器起名字，但在Kubernetes里，Pod必须要有一个名字，这也是Kubernetes里所有资源对象的一个约定。在课程里，我通常会为Pod名字统一加上pod后缀，这样可以和其他类型的资源区分开。</p>
 <p>name只是一个基本的标识，信息有限，所以labels字段就派上了用处。它可以添加任意数量的Key-Value，给Pod“贴”上归类的标签，结合name就更方便识别和管理了。</p>
 <p>比如说，我们可以根据运行环境，使用标签<code>env=dev/test/prod</code>，或者根据所在的数据中心，使用标签<code>region:north/south</code>，还可以根据应用在系统中的层次，使用<code>tier=front/middle/back</code>……如此种种，只需要发挥你的想象力。</p>
-<p>下面这段YAML代码就描述了一个简单的Pod，名字是“busy-pod”，再附加上一些标签：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">busy-pod</span></span><br><span class="line"><span class="attr">  labels:</span></span><br><span class="line"><span class="attr">    owner:</span> <span class="string">chrono</span></span><br><span class="line"><span class="attr">    env:</span> <span class="string">demo</span></span><br><span class="line"><span class="attr">    region:</span> <span class="string">north</span></span><br><span class="line"><span class="attr">    tier:</span> <span class="string">back</span></span><br></pre></td></tr></table></figure></p>
+<p>下面这段YAML代码就描述了一个简单的Pod，名字是“busy-pod”，再附加上一些标签：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">busy-pod</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">owner:</span> <span class="string">chrono</span></span><br><span class="line">    <span class="attr">env:</span> <span class="string">demo</span></span><br><span class="line">    <span class="attr">region:</span> <span class="string">north</span></span><br><span class="line">    <span class="attr">tier:</span> <span class="string">back</span></span><br></pre></td></tr></table></figure></p>
 <p>“metadata”一般写上name和labels就足够了，而“spec”字段由于需要管理、维护Pod这个Kubernetes的基本调度单元，里面有非常多的关键信息，今天我介绍最重要的“<strong>containers</strong>”，其他的hostname、restartPolicy等字段你可以课后自己查阅文档学习。</p>
 <p>“containers”是一个数组，里面的每一个元素又是一个container对象，也就是容器。</p>
 <p>和Pod一样，container对象也必须要有一个name表示名字，然后当然还要有一个image字段来说明它使用的镜像，这两个字段是必须要有的，否则Kubernetes会报告数据验证错误。</p>
@@ -578,8 +580,7 @@
 <li><strong>command</strong>：定义容器启动时要执行的命令，相当于Dockerfile里的ENTRYPOINT指令。</li>
 <li><strong>args</strong>：它是command运行时的参数，相当于Dockerfile里的CMD指令，这两个命令和Docker的含义不同，要特别注意。</li>
 </ul>
-<p>现在我们就来编写“busy-pod”的spec部分，添加env、command、args等字段：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  containers:</span></span><br><span class="line"><span class="attr">  - image:</span> <span class="attr">busybox:latest</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">busy</span></span><br><span class="line"><span class="attr">    imagePullPolicy:</span> <span class="string">IfNotPresent</span></span><br><span class="line"><span class="attr">    env:</span></span><br><span class="line"><span class="attr">      - name:</span> <span class="string">os</span></span><br><span class="line"><span class="attr">        value:</span> <span class="string">"ubuntu"</span></span><br><span class="line"><span class="attr">      - name:</span> <span class="string">debug</span></span><br><span class="line"><span class="attr">        value:</span> <span class="string">"on"</span></span><br><span class="line"><span class="attr">    command:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">/bin/echo</span></span><br><span class="line"><span class="attr">    args:</span></span><br><span class="line"><span class="bullet">      -</span> <span class="string">"$(os), $(debug)"</span></span><br></pre></td></tr></table></figure></p>
-<p>这里我为Pod指定使用镜像<code>busybox:latest</code>，拉取策略是IfNotPresent，然后定义了os和debug两个环境变量，启动命令是<code>/bin/echo</code>，参数里输出刚才定义的环境变量。</p>
+<p>现在我们就来编写“busy-pod”的spec部分，添加env、command、args等字段：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">image:</span> <span class="string">busybox:latest</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">busy</span></span><br><span class="line">    <span class="attr">imagePullPolicy:</span> <span class="string">IfNotPresent</span></span><br><span class="line">    <span class="attr">env:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">os</span></span><br><span class="line">        <span class="attr">value:</span> <span class="string">&quot;ubuntu&quot;</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">debug</span></span><br><span class="line">        <span class="attr">value:</span> <span class="string">&quot;on&quot;</span></span><br><span class="line">    <span class="attr">command:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">/bin/echo</span></span><br><span class="line">    <span class="attr">args:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">&quot;$(os), $(debug)&quot;</span></span><br></pre></td></tr></table></figure><br>这里我为Pod指定使用镜像<code>busybox:latest</code>，拉取策略是IfNotPresent，然后定义了os和debug两个环境变量，启动命令是<code>/bin/echo</code>，参数里输出刚才定义的环境变量。</p>
 <p>把这份YAML文件和Docker命令对比一下，你就可以看出，YAML在<code>spec.containers</code>字段里用“声明式”把容器的运行状态描述得非常清晰准确，要比<code>docker run</code>那长长的命令行要整洁的多，对人、对机器都非常友好。</p>
 <h1 id="如何使用kube-ctl操作Pod"><a href="#如何使用kube-ctl操作Pod" class="headerlink" title="如何使用kube ctl操作Pod"></a><span style="color:#339AFF;">如何使用kube ctl操作Pod</span></h1><p>有了描述Pod的YAML文件，现在我就介绍一下用来操作Pod的kubectl命令。</p>
 <p><code>kubectl apply</code>、<code>kubectl delete</code>这两个命令在上次课里已经说过了，它们可以使用<code>-f</code>参数指定YAML文件创建或者删除Pod，例如：</p>
@@ -587,21 +588,17 @@
 <p>不过，因为我们在YAML里定义了“name”字段，所以也可以在删除的时候直接指定名字来删除：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl delete pod busy-pod</span><br></pre></td></tr></table></figure>
 <p>和Docker不一样，Kubernetes的Pod不会在前台运行，只能在后台（相当于默认使用了参数-d），所以输出信息不能直接看到。我们可以用命令<code>kubectl logs</code>，它会把Pod的标准输出流信息展示给我们看，在这里就会显示出预设的两个环境变量的值：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl logs busy-pod</span><br></pre></td></tr></table></figure></p>
-<img src="/2022/09/12/12｜Pod：如何理解这个Kubernetes里最核心的概念？/4.webp">
+<img src="/2022/09/12/12%EF%BD%9CPod%EF%BC%9A%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E8%BF%99%E4%B8%AAKubernetes%E9%87%8C%E6%9C%80%E6%A0%B8%E5%BF%83%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9F/4.webp" class="">
 <p>使用命令<code>kubectl get pod</code>可以查看Pod列表和运行状态：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pod</span><br></pre></td></tr></table></figure></p>
-<img src="/2022/09/12/12｜Pod：如何理解这个Kubernetes里最核心的概念？/5.webp">
-<p>你会发现这个Pod运行有点不正常，状态是“CrashLoopBackOff”，那么我们可以使用命令<code>kubectl describe</code>来检查它的详细状态，它在调试排错时很有用：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe pod busy-pod</span><br></pre></td></tr></table></figure></p>
-<img src="/2022/09/12/12｜Pod：如何理解这个Kubernetes里最核心的概念？/6.webp">
+<img src="/2022/09/12/12%EF%BD%9CPod%EF%BC%9A%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E8%BF%99%E4%B8%AAKubernetes%E9%87%8C%E6%9C%80%E6%A0%B8%E5%BF%83%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9F/5.webp" class="">
+<p>你会发现这个Pod运行有点不正常，状态是“CrashLoopBackOff”，那么我们可以使用命令<code>kubectl describe</code>来检查它的详细状态，它在调试排错时很有用：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl describe pod busy-pod</span><br></pre></td></tr></table></figure><br><img src="/2022/09/12/12%EF%BD%9CPod%EF%BC%9A%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E8%BF%99%E4%B8%AAKubernetes%E9%87%8C%E6%9C%80%E6%A0%B8%E5%BF%83%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9F/6.webp" class=""></p>
 <p>通常需要关注的是末尾的“Events”部分，它显示的是Pod运行过程中的一些关键节点事件。对于这个busy-pod，因为它只执行了一条echo命令就退出了，而Kubernetes默认会重启Pod，所以就会进入一个反复停止-启动的循环错误状态。</p>
-<p>因为Kubernetes里运行的应用大部分都是不会主动退出的服务，所以我们可以把这个busy-pod删掉，用上次课里创建的ngx-pod.yml，启动一个Nginx服务，这才是大多数Pod的工作方式。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f ngx-pod.yml</span><br></pre></td></tr></table></figure></p>
-<p>启动之后，我们再用<code>kubectl get pod</code>来查看状态，就会发现它已经是“Running”状态了：</p>
-<img src="/2022/09/12/12｜Pod：如何理解这个Kubernetes里最核心的概念？/7.webp">
+<p>因为Kubernetes里运行的应用大部分都是不会主动退出的服务，所以我们可以把这个busy-pod删掉，用上次课里创建的ngx-pod.yml，启动一个Nginx服务，这才是大多数Pod的工作方式。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f ngx-pod.yml</span><br></pre></td></tr></table></figure><br>启动之后，我们再用<code>kubectl get pod</code>来查看状态，就会发现它已经是“Running”状态了：</p>
+<img src="/2022/09/12/12%EF%BD%9CPod%EF%BC%9A%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E8%BF%99%E4%B8%AAKubernetes%E9%87%8C%E6%9C%80%E6%A0%B8%E5%BF%83%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9F/7.webp" class="">
 <p>命令<code>kubectl logs</code>也能够输出Nginx的运行日志：</p>
-<img src="/2022/09/12/12｜Pod：如何理解这个Kubernetes里最核心的概念？/8.webp">
+<img src="/2022/09/12/12%EF%BD%9CPod%EF%BC%9A%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E8%BF%99%E4%B8%AAKubernetes%E9%87%8C%E6%9C%80%E6%A0%B8%E5%BF%83%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9F/8.webp" class="">
 <p>另外，kubectl也提供与docker类似的cp和exec命令，<code>kubectl cp</code>可以把本地文件拷贝进Pod，<code>kubectl exec</code>是进入Pod内部执行Shell命令，用法也差不多。</p>
-<p>比如我有一个“a.txt”文件，那么就可以使用<code>kubectl cp</code>拷贝进Pod的“/tmp”目录里：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">'aaa'</span> &gt; a.txt</span><br><span class="line">kubectl cp a.txt ngx-pod:/tmp</span><br></pre></td></tr></table></figure></p>
-<p>不过<code>kubectl exec</code>的命令格式与Docker有一点小差异，需要在Pod后面加上—，把kubectl的命令与Shell命令分隔开，你在用的时候需要小心一些：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl <span class="built_in">exec</span> -it ngx-pod -- sh</span><br></pre></td></tr></table></figure></p>
-<img src="/2022/09/12/12｜Pod：如何理解这个Kubernetes里最核心的概念？/9.webp">
+<p>比如我有一个“a.txt”文件，那么就可以使用<code>kubectl cp</code>拷贝进Pod的“/tmp”目录里：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;aaa&#x27;</span> &gt; a.txt</span><br><span class="line">kubectl <span class="built_in">cp</span> a.txt ngx-pod:/tmp</span><br></pre></td></tr></table></figure><br>不过<code>kubectl exec</code>的命令格式与Docker有一点小差异，需要在Pod后面加上—，把kubectl的命令与Shell命令分隔开，你在用的时候需要小心一些：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl <span class="built_in">exec</span> -it ngx-pod -- sh</span><br></pre></td></tr></table></figure><br><img src="/2022/09/12/12%EF%BD%9CPod%EF%BC%9A%E5%A6%82%E4%BD%95%E7%90%86%E8%A7%A3%E8%BF%99%E4%B8%AAKubernetes%E9%87%8C%E6%9C%80%E6%A0%B8%E5%BF%83%E7%9A%84%E6%A6%82%E5%BF%B5%EF%BC%9F/9.webp" class=""></p>
 <h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a><span style="color:#339AFF;">小结</span></h1><p>好了，今天我们一起学习了Kubernetes里最核心最基本的概念Pod，知道了应该如何使用YAML来定制Pod，还有如何使用kubectl命令来创建、删除、查看、调试Pod。</p>
 <p>Pod屏蔽了容器的一些底层细节，同时又具有足够的控制管理能力，比起容器的“细粒度”、虚拟机的“粗粒度”，Pod可以说是“中粒度”，灵活又轻便，非常适合在云计算领域作为应用调度的基本单元，因而成为了Kubernetes世界里构建一切业务的“原子”。</p>
 <p>1，现实中经常会有多个进程密切协作才能完成任务的应用，而仅使用容器很难描述这种关系，所以就出现了Pod，它“打包”一个或多个容器，保证里面的进程能够被整体调度。</p>
@@ -634,7 +631,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Kubernetes入门实战课/" rel="tag"># Kubernetes入门实战课</a>
+            <a href="/tags/Kubernetes%E5%85%A5%E9%97%A8%E5%AE%9E%E6%88%98%E8%AF%BE/" rel="tag"># Kubernetes入门实战课</a>
           
         </div>
       
@@ -647,7 +644,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/09/12/11｜YAML：Kubernetes世界里的通用语/" rel="next" title="11丨YAML：Kubernetes世界里的通用语">
+              <a href="/2022/09/12/11%EF%BD%9CYAML%EF%BC%9AKubernetes%E4%B8%96%E7%95%8C%E9%87%8C%E7%9A%84%E9%80%9A%E7%94%A8%E8%AF%AD/" rel="next" title="11丨YAML：Kubernetes世界里的通用语">
                 <i class="fa fa-chevron-left"></i> 11丨YAML：Kubernetes世界里的通用语
               </a>
             
@@ -657,7 +654,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/09/12/13｜Job-CronJob：为什么不直接用Pod来处理业务？/" rel="prev" title="13丨Job/CronJob：为什么不直接用Pod来处理业务？">
+              <a href="/2022/09/12/13%EF%BD%9CJob-CronJob%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E7%9B%B4%E6%8E%A5%E7%94%A8Pod%E6%9D%A5%E5%A4%84%E7%90%86%E4%B8%9A%E5%8A%A1%EF%BC%9F/" rel="prev" title="13丨Job/CronJob：为什么不直接用Pod来处理业务？">
                 13丨Job/CronJob：为什么不直接用Pod来处理业务？ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -717,7 +714,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -728,9 +727,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -742,26 +741,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -833,7 +816,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1008,115 +991,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1147,23 +1022,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1189,7 +1064,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么要有Pod"><span class="nav-number">1.</span> <span class="nav-text">为什么要有Pod</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么Pod是Kubernetes的核心对象"><span class="nav-number">2.</span> <span class="nav-text">为什么Pod是Kubernetes的核心对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何使用YAML描述Pod"><span class="nav-number">3.</span> <span class="nav-text">如何使用YAML描述Pod</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何使用kube-ctl操作Pod"><span class="nav-number">4.</span> <span class="nav-text">如何使用kube ctl操作Pod</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课下作业"><span class="nav-number">6.</span> <span class="nav-text">课下作业</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E6%9C%89Pod"><span class="nav-number">1.</span> <span class="nav-text">为什么要有Pod</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88Pod%E6%98%AFKubernetes%E7%9A%84%E6%A0%B8%E5%BF%83%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.</span> <span class="nav-text">为什么Pod是Kubernetes的核心对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8YAML%E6%8F%8F%E8%BF%B0Pod"><span class="nav-number">3.</span> <span class="nav-text">如何使用YAML描述Pod</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8kube-ctl%E6%93%8D%E4%BD%9CPod"><span class="nav-number">4.</span> <span class="nav-text">如何使用kube ctl操作Pod</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BE%E4%B8%8B%E4%BD%9C%E4%B8%9A"><span class="nav-number">6.</span> <span class="nav-text">课下作业</span></a></li></ol></div>
             
 
           </div>
@@ -1224,7 +1099,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1235,12 +1110,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1248,7 +1123,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

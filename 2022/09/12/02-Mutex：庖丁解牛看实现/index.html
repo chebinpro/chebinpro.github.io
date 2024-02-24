@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,30 +104,30 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="Go并发编程实战课">
 <meta property="og:type" content="article">
 <meta property="og:title" content="02 | Mutex：庖丁解牛看实现">
-<meta property="og:url" content="http://yoursite.com/2022/09/12/02-Mutex：庖丁解牛看实现/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/09/12/02-Mutex%EF%BC%9A%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9B%E7%9C%8B%E5%AE%9E%E7%8E%B0/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/02-Mutex：庖丁解牛看实现/1.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/02-Mutex：庖丁解牛看实现/2.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/02-Mutex：庖丁解牛看实现/3.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/02-Mutex：庖丁解牛看实现/3.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/02-Mutex：庖丁解牛看实现/4.webp">
-<meta property="og:updated_time" content="2022-09-13T06:19:16.324Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/02-Mutex%EF%BC%9A%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9B%E7%9C%8B%E5%AE%9E%E7%8E%B0/1.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/02-Mutex%EF%BC%9A%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9B%E7%9C%8B%E5%AE%9E%E7%8E%B0/2.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/02-Mutex%EF%BC%9A%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9B%E7%9C%8B%E5%AE%9E%E7%8E%B0/3.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/02-Mutex%EF%BC%9A%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9B%E7%9C%8B%E5%AE%9E%E7%8E%B0/3.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/02-Mutex%EF%BC%9A%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9B%E7%9C%8B%E5%AE%9E%E7%8E%B0/4.webp">
+<meta property="article:published_time" content="2022-09-12T08:05:22.000Z">
+<meta property="article:modified_time" content="2022-09-13T06:19:16.324Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Go并发编程实战课">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="02 | Mutex：庖丁解牛看实现">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2022/09/12/02-Mutex：庖丁解牛看实现/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2022/09/12/02-Mutex%EF%BC%9A%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9B%E7%9C%8B%E5%AE%9E%E7%8E%B0/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/09/12/02-Mutex：庖丁解牛看实现/">
+  <link rel="canonical" href="http://yoursite.com/2022/09/12/02-Mutex：庖丁解牛看实现/"/>
 
 
 
@@ -176,7 +176,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -237,7 +237,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -254,7 +254,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -271,7 +271,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -288,7 +288,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -305,7 +305,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -316,7 +316,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -336,7 +336,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -386,16 +388,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/12/02-Mutex：庖丁解牛看实现/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/12/02-Mutex%EF%BC%9A%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9B%E7%9C%8B%E5%AE%9E%E7%8E%B0/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -495,7 +497,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">18k</span>
+                <span title="本文字数">48k</span>
               
 
               
@@ -509,7 +511,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">16 分钟</span>
+                <span title="阅读时长">44 分钟</span>
               
             </div>
           
@@ -530,18 +532,17 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>上一讲我们一起体验了Mutex的使用，竟是那么简单，只有简简单单两个方法，Lock和Unlock，进入临界区之前调用Lock方法，退出临界区的时候调用Unlock方法。这个时候，你一定会有一丝好奇：“它的实现是不是也很简单呢？”</p>
 <p>其实不是的。如果你阅读Go标准库里Mutex的源代码，并且追溯Mutex的演进历史，你会发现，从一个简单易于理解的互斥锁的实现，到一个非常复杂的数据结构，这是一个逐步完善的过程。Go开发者们做了种种努力，精心设计。我自己每次看，都会被这种匠心和精益求精的精神打动。</p>
 <p>所以，今天我就想带着你一起去探索Mutex的实现及演进之路，希望你能和我一样体验到这种技术追求的美妙。我们从Mutex的一个简单实现开始，看看它是怎样逐步提升性能和公平性的。在这个过程中，我们可以学习如何逐步设计一个完善的同步原语，并能对复杂度、性能、结构设计的权衡考量有新的认识。经过这样一个学习，我们不仅能通透掌握Mutex，更好地使用这个工具，同时，对我们自己设计并发数据接口也非常有帮助。</p>
 <p>那具体怎么来讲呢？我把Mutex的架构演进分成了四个阶段，下面给你画了一张图来说明。</p>
-<img src="/2022/09/12/02-Mutex：庖丁解牛看实现/1.webp">
+<img src="/2022/09/12/02-Mutex%EF%BC%9A%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9B%E7%9C%8B%E5%AE%9E%E7%8E%B0/1.webp" class="">
 <p><strong>“初版”</strong>的Mutex使用一个flag来表示锁是否被持有，实现比较简单；后来照顾到新来的goroutine，所以会让新的goroutine也尽可能地先获取到锁，这是第二个阶段，我把它叫作<strong>“给新人机会”</strong>；那么，接下来就是第三阶段<strong>“多给些机会”</strong>，照顾新来的和被唤醒的goroutine；但是这样会带来饥饿问题，所以目前又加入了饥饿的解决方案，也就是第四阶段<strong>“解决饥饿”</strong>。</p>
 <p>有了这四个阶段，我们学习的路径就清晰了，那接下来我会从代码层面带你领略Go开发者这些大牛们是如何逐步解决这些问题的。</p>
 <h1 id="初版的互斥锁"><a href="#初版的互斥锁" class="headerlink" title="初版的互斥锁"></a><span style="color:#339AFF;">初版的互斥锁</span></h1><p>我们先来看怎么实现一个最简单的互斥锁。在开始之前，你可以先想一想，如果是你，你会怎么设计呢？</p>
 <p>你可能会想到，可以通过一个flag变量，标记当前的锁是否被某个goroutine持有。如果这个flag的值是1，就代表锁已经被持有，那么，其它竞争的goroutine只能等待；如果这个flag的值是0，就可以通过CAS（compare-and-swap，或者compare-and-set）将这个flag设置为1，标识锁被当前的这个goroutine持有了。</p>
-<p>实际上，Russ Cox在2008年提交的第一版Mutex就是这样实现的。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// CAS操作，当时还没有抽象出atomic包</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">cas</span><span class="params">(val *<span class="keyword">int32</span>, old, <span class="built_in">new</span> <span class="keyword">int32</span>)</span> <span class="title">bool</span></span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="title">semacquire</span><span class="params">(*<span class="keyword">int32</span>)</span></span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="title">semrelease</span><span class="params">(*<span class="keyword">int32</span>)</span></span></span><br><span class="line"><span class="function">// 互斥锁的结构，包含两个字段</span></span><br><span class="line"><span class="function"><span class="title">type</span> <span class="title">Mutex</span> <span class="title">struct</span></span> &#123;</span><br><span class="line">    key  <span class="keyword">int32</span> <span class="comment">// 锁是否被持有的标识</span></span><br><span class="line">    sema <span class="keyword">int32</span> <span class="comment">// 信号量专用，用以阻塞/唤醒goroutine</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 保证成功在val上增加delta的值</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">xadd</span><span class="params">(val *<span class="keyword">int32</span>, delta <span class="keyword">int32</span>)</span> <span class="params">(<span class="built_in">new</span> <span class="keyword">int32</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        v := *val</span><br><span class="line">        <span class="keyword">if</span> cas(val, v, v+delta) &#123;</span><br><span class="line">            <span class="keyword">return</span> v + delta</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">panic</span>(<span class="string">"unreached"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 请求锁</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *Mutex)</span> <span class="title">Lock</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> xadd(&amp;m.key, <span class="number">1</span>) == <span class="number">1</span> &#123; <span class="comment">//标识加1，如果等于1，成功获取到锁</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    semacquire(&amp;m.sema) <span class="comment">// 否则阻塞等待</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *Mutex)</span> <span class="title">Unlock</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> xadd(&amp;m.key, <span class="number">-1</span>) == <span class="number">0</span> &#123; <span class="comment">// 将标识减去1，如果等于0，则没有其它等待者</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    semrelease(&amp;m.sema) <span class="comment">// 唤醒其它阻塞的goroutine</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这里呢，我先简单补充介绍下刚刚提到的CAS。</p>
+<p>实际上，Russ Cox在2008年提交的第一版Mutex就是这样实现的。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// CAS操作，当时还没有抽象出atomic包</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">cas</span><span class="params">(val *<span class="type">int32</span>, old, <span class="built_in">new</span> <span class="type">int32</span>)</span></span> <span class="type">bool</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">semacquire</span><span class="params">(*<span class="type">int32</span>)</span></span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">semrelease</span><span class="params">(*<span class="type">int32</span>)</span></span></span><br><span class="line"><span class="comment">// 互斥锁的结构，包含两个字段</span></span><br><span class="line"><span class="keyword">type</span> Mutex <span class="keyword">struct</span> &#123;</span><br><span class="line">    key  <span class="type">int32</span> <span class="comment">// 锁是否被持有的标识</span></span><br><span class="line">    sema <span class="type">int32</span> <span class="comment">// 信号量专用，用以阻塞/唤醒goroutine</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 保证成功在val上增加delta的值</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">xadd</span><span class="params">(val *<span class="type">int32</span>, delta <span class="type">int32</span>)</span></span> (<span class="built_in">new</span> <span class="type">int32</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        v := *val</span><br><span class="line">        <span class="keyword">if</span> cas(val, v, v+delta) &#123;</span><br><span class="line">            <span class="keyword">return</span> v + delta</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">panic</span>(<span class="string">&quot;unreached&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 请求锁</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *Mutex)</span></span> Lock() &#123;</span><br><span class="line">    <span class="keyword">if</span> xadd(&amp;m.key, <span class="number">1</span>) == <span class="number">1</span> &#123; <span class="comment">//标识加1，如果等于1，成功获取到锁</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    semacquire(&amp;m.sema) <span class="comment">// 否则阻塞等待</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *Mutex)</span></span> Unlock() &#123;</span><br><span class="line">    <span class="keyword">if</span> xadd(&amp;m.key, <span class="number">-1</span>) == <span class="number">0</span> &#123; <span class="comment">// 将标识减去1，如果等于0，则没有其它等待者</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    semrelease(&amp;m.sema) <span class="comment">// 唤醒其它阻塞的goroutine</span></span><br><span class="line">&#125;    </span><br></pre></td></tr></table></figure><br>这里呢，我先简单补充介绍下刚刚提到的CAS。</p>
 <p>CAS指令将<strong>给定的值</strong>和<strong>一个内存地址中的值</strong>进行比较，如果它们是同一个值，就使用新值替换内存地址中的值，这个操作是原子性的。那啥是原子性呢？如果你还不太理解这个概念，那么在这里只需要明确一点就行了，那就是<strong>原子性保证这个指令总是基于最新的值进行计算，如果同时有其它线程已经修改了这个值，那么，CAS会返回失败</strong>。</p>
 <p>CAS是实现互斥锁和同步原语的基础，我们很有必要掌握它。</p>
 <p>好了，我们继续来分析下刚才的这段代码。</p>
@@ -551,7 +552,7 @@
 <li><strong>字段key</strong>：是一个flag，用来标识这个排外锁是否被某个goroutine所持有，如果key大于等于1，说明这个排外锁已经被持有；</li>
 <li><strong>字段sema</strong>：是个信号量变量，用来控制等待goroutine的阻塞休眠和唤醒。</li>
 </ul>
-<img src="/2022/09/12/02-Mutex：庖丁解牛看实现/2.webp">
+<img src="/2022/09/12/02-Mutex%EF%BC%9A%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9B%E7%9C%8B%E5%AE%9E%E7%8E%B0/2.webp" class="">
 <p>调用Lock请求锁的时候，通过xadd方法进行CAS操作（第24行），xadd方法通过循环执行CAS操作直到成功，保证对key加1的操作成功完成。如果比较幸运，锁没有被别的goroutine持有，那么，Lock方法成功地将key设置为1，这个goroutine就持有了这个锁；如果锁已经被别的goroutine持有了，那么，当前的goroutine会把key加1，而且还会调用semacquire方法（第27行），使用信号量将自己休眠，等锁释放的时候，信号量会将它唤醒。</p>
 <p>持有锁的goroutine调用Unlock释放锁时，它会将key减1（第31行）。如果当前没有其它等待这个锁的goroutine，这个方法就返回了。但是，如果还有等待此锁的其它goroutine，那么，它会调用semrelease方法（第34行），利用信号量唤醒等待锁的其它goroutine中的一个。</p>
 <p>所以，到这里，我们就知道了，初版的Mutex利用CAS原子操作，对key这个标志量进行设置。key不仅仅标识了锁是否被goroutine所持有，还记录了当前持有和等待获取锁的goroutine的数量。</p>
@@ -561,28 +562,23 @@
 <p>你看，其它goroutine可以强制释放锁，这是一个非常危险的操作，因为在临界区的goroutine可能不知道锁已经被释放了，还会继续执行临界区的业务操作，这可能会带来意想不到的结果，因为这个goroutine还以为自己持有锁呢，有可能导致datarace问题。</p>
 <p>所以，我们在使用Mutex的时候，必须要保证goroutine尽可能不去释放自己未持有的锁，一定要遵循<strong>“谁申请，谁释放”</strong>的原则。在真实的实践中，我们使用互斥锁的时候，很少在一个方法中单独申请锁，而在另外一个方法中单独释放锁，一般都会在同一个方法中获取锁和释放锁。</p>
 <p>如果你接触过其它语言（比如Java语言）的互斥锁的实现，就会发现这一点和其它语言的互斥锁不同，所以，如果是从其它语言转到Go语言开发的同学，一定要注意。</p>
-<p>以前，我们经常会基于性能的考虑，及时释放掉锁，所以在一些if-else分支中加上释放锁的代码，代码看起来很臃肿。而且，在重构的时候，也很容易因为误删或者是漏掉而出现死锁的现象。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Foo <span class="keyword">struct</span> &#123;</span><br><span class="line">    mu    sync.Mutex</span><br><span class="line">    count <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(f *Foo)</span> <span class="title">Bar</span><span class="params">()</span></span> &#123;</span><br><span class="line">    f.mu.Lock()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> f.count &lt; <span class="number">1000</span> &#123;</span><br><span class="line">        f.count += <span class="number">3</span></span><br><span class="line">        f.mu.Unlock() <span class="comment">// 此处释放锁</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    f.count++</span><br><span class="line">    f.mu.Unlock() <span class="comment">// 此处释放锁</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>从1.14版本起，Go对defer做了优化，采用更有效的内联方式，取代之前的生成defer对象到defer chain中，defer对耗时的影响微乎其微了，所以基本上修改成下面简洁的写法也没问题：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(f *Foo)</span> <span class="title">Bar</span><span class="params">()</span></span> &#123;</span><br><span class="line">    f.mu.Lock()</span><br><span class="line">    <span class="keyword">defer</span> f.mu.Unlock()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> f.count &lt; <span class="number">1000</span> &#123;</span><br><span class="line">        f.count += <span class="number">3</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    f.count++</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这样做的好处就是Lock/Unlock总是成对紧凑出现，不会遗漏或者多调用，代码更少。</p>
+<p>以前，我们经常会基于性能的考虑，及时释放掉锁，所以在一些if-else分支中加上释放锁的代码，代码看起来很臃肿。而且，在重构的时候，也很容易因为误删或者是漏掉而出现死锁的现象。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Foo <span class="keyword">struct</span> &#123;</span><br><span class="line">    mu    sync.Mutex</span><br><span class="line">    count <span class="type">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(f *Foo)</span></span> Bar() &#123;</span><br><span class="line">    f.mu.Lock()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> f.count &lt; <span class="number">1000</span> &#123;</span><br><span class="line">        f.count += <span class="number">3</span></span><br><span class="line">        f.mu.Unlock() <span class="comment">// 此处释放锁</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    f.count++</span><br><span class="line">    f.mu.Unlock() <span class="comment">// 此处释放锁</span></span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>从1.14版本起，Go对defer做了优化，采用更有效的内联方式，取代之前的生成defer对象到defer chain中，defer对耗时的影响微乎其微了，所以基本上修改成下面简洁的写法也没问题：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(f *Foo)</span></span> Bar() &#123;</span><br><span class="line">    f.mu.Lock()</span><br><span class="line">    <span class="keyword">defer</span> f.mu.Unlock()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> f.count &lt; <span class="number">1000</span> &#123;</span><br><span class="line">        f.count += <span class="number">3</span></span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    f.count++</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这样做的好处就是Lock/Unlock总是成对紧凑出现，不会遗漏或者多调用，代码更少。</p>
 <p>但是，如果临界区只是方法中的一部分，为了尽快释放锁，还是应该第一时间调用Unlock，而不是一直等到方法返回时才释放。</p>
 <p>初版的Mutex实现之后，Go开发组又对Mutex做了一些微调，比如把字段类型变成了uint32类型；调用Unlock方法会做检查；使用atomic包的同步原语执行原子操作等等，这些小的改动，都不是核心功能，你简单知道就行了，我就不详细介绍了。</p>
 <p>但是，初版的Mutex实现有一个问题：请求锁的goroutine会排队等待获取互斥锁。虽然这貌似很公平，但是从性能上来看，却不是最优的。因为如果我们能够把锁交给正在占用CPU时间片的goroutine的话，那就不需要做上下文的切换，在高并发的情况下，可能会有更好的性能。</p>
 <p>接下来，我们就继续探索Go开发者是怎么解决这个问题的。</p>
-<h1 id="给新人机会"><a href="#给新人机会" class="headerlink" title="给新人机会"></a><span style="color:#339AFF;">给新人机会</span></h1><p>Go开发者在2011年6月30日的commit中对Mutex做了一次大的调整，调整后的Mutex实现如下：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Mutex <span class="keyword">struct</span> &#123;</span><br><span class="line">    state <span class="keyword">int32</span></span><br><span class="line">    sema  <span class="keyword">uint32</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    mutexLocked = <span class="number">1</span> &lt;&lt; <span class="literal">iota</span> <span class="comment">// mutex is locked</span></span><br><span class="line">    mutexWoken</span><br><span class="line">    mutexWaiterShift = <span class="literal">iota</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure></p>
-<p>虽然Mutex结构体还是包含两个字段，但是第一个字段已经改成了state，它的含义也不一样了。</p>
-<img src="/2022/09/12/02-Mutex：庖丁解牛看实现/3.webp">
+<h1 id="给新人机会"><a href="#给新人机会" class="headerlink" title="给新人机会"></a><span style="color:#339AFF;">给新人机会</span></h1><p>Go开发者在2011年6月30日的commit中对Mutex做了一次大的调整，调整后的Mutex实现如下：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Mutex <span class="keyword">struct</span> &#123;</span><br><span class="line">    state <span class="type">int32</span></span><br><span class="line">    sema  <span class="type">uint32</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    mutexLocked = <span class="number">1</span> &lt;&lt; <span class="literal">iota</span> <span class="comment">// mutex is locked</span></span><br><span class="line">    mutexWoken</span><br><span class="line">    mutexWaiterShift = <span class="literal">iota</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure><br>虽然Mutex结构体还是包含两个字段，但是第一个字段已经改成了state，它的含义也不一样了。</p>
+<img src="/2022/09/12/02-Mutex%EF%BC%9A%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9B%E7%9C%8B%E5%AE%9E%E7%8E%B0/3.webp" class="">
 <p>state是一个复合型的字段，一个字段包含多个意义，这样可以通过尽可能少的内存来实现互斥锁。这个字段的第一位（最小的一位）来表示这个锁是否被持有，第二位代表是否有唤醒的goroutine，剩余的位数代表的是等待此锁的goroutine数。所以，state这一个字段被分成了三部分，代表三个数据。</p>
-<p>请求锁的方法Lock也变得复杂了。复杂之处不仅仅在于对字段state的操作难以理解，而且代码逻辑也变得相当复杂。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *Mutex)</span> <span class="title">Lock</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// Fast path: 幸运case，能够直接获取到锁</span></span><br><span class="line">    <span class="keyword">if</span> atomic.CompareAndSwapInt32(&amp;m.state, <span class="number">0</span>, mutexLocked) &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    awoke := <span class="literal">false</span></span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        old := m.state</span><br><span class="line">        <span class="built_in">new</span> := old | mutexLocked <span class="comment">// 新状态加锁</span></span><br><span class="line">        <span class="keyword">if</span> old&amp;mutexLocked != <span class="number">0</span> &#123;</span><br><span class="line">            <span class="built_in">new</span> = old + <span class="number">1</span>&lt;&lt;mutexWaiterShift <span class="comment">//等待者数量加一</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> awoke &#123;</span><br><span class="line">            <span class="comment">// goroutine是被唤醒的，</span></span><br><span class="line">            <span class="comment">// 新状态清除唤醒标志</span></span><br><span class="line">            <span class="built_in">new</span> &amp;^= mutexWoken</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> atomic.CompareAndSwapInt32(&amp;m.state, old, <span class="built_in">new</span>) &#123;<span class="comment">//设置新状态</span></span><br><span class="line">            <span class="keyword">if</span> old&amp;mutexLocked == <span class="number">0</span> &#123; <span class="comment">// 锁原状态未加锁</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">            runtime.Semacquire(&amp;m.sema) <span class="comment">// 请求信号量</span></span><br><span class="line">            awoke = <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>首先是通过CAS检测state字段中的标志（第3行），如果没有goroutine持有锁，也没有等待持有锁的gorutine，那么，当前的goroutine就很幸运，可以直接获得锁，这也是注释中的Fast path的意思。</p>
+<p>请求锁的方法Lock也变得复杂了。复杂之处不仅仅在于对字段state的操作难以理解，而且代码逻辑也变得相当复杂。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *Mutex)</span></span> Lock() &#123;</span><br><span class="line">    <span class="comment">// Fast path: 幸运case，能够直接获取到锁</span></span><br><span class="line">    <span class="keyword">if</span> atomic.CompareAndSwapInt32(&amp;m.state, <span class="number">0</span>, mutexLocked) &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    awoke := <span class="literal">false</span></span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        old := m.state</span><br><span class="line">        <span class="built_in">new</span> := old | mutexLocked <span class="comment">// 新状态加锁</span></span><br><span class="line">        <span class="keyword">if</span> old&amp;mutexLocked != <span class="number">0</span> &#123;</span><br><span class="line">            <span class="built_in">new</span> = old + <span class="number">1</span>&lt;&lt;mutexWaiterShift <span class="comment">//等待者数量加一</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> awoke &#123;</span><br><span class="line">            <span class="comment">// goroutine是被唤醒的，</span></span><br><span class="line">            <span class="comment">// 新状态清除唤醒标志</span></span><br><span class="line">            <span class="built_in">new</span> &amp;^= mutexWoken</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> atomic.CompareAndSwapInt32(&amp;m.state, old, <span class="built_in">new</span>) &#123;<span class="comment">//设置新状态</span></span><br><span class="line">            <span class="keyword">if</span> old&amp;mutexLocked == <span class="number">0</span> &#123; <span class="comment">// 锁原状态未加锁</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">            runtime.Semacquire(&amp;m.sema) <span class="comment">// 请求信号量</span></span><br><span class="line">            awoke = <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>首先是通过CAS检测state字段中的标志（第3行），如果没有goroutine持有锁，也没有等待持有锁的gorutine，那么，当前的goroutine就很幸运，可以直接获得锁，这也是注释中的Fast path的意思。</p>
 <p>如果不够幸运，state不是零值，那么就通过一个循环进行检查。接下来的第7行到第26行这段代码虽然只有几行，但是理解起来却要费一番功夫，因为涉及到对state不同标志位的操作。这里的位操作以及操作后的结果和数值比较，并没有明确的解释，有时候你需要根据后续的处理进行推断。所以说，如果你充分理解了这段代码，那么对最新版的Mutex也会比较容易掌握了，因为你已经清楚了这些位操作的含义。</p>
 <p>我们先前知道，如果想要获取锁的goroutine没有机会获取到锁，就会进行休眠，但是在锁释放唤醒之后，它并不能像先前一样直接获取到锁，还是要和正在请求锁的goroutine进行竞争。这会给后来请求锁的goroutine一个机会，也让CPU中正在执行的goroutine有更多的机会获取到锁，在一定程度上提高了程序的性能。</p>
 <p>for循环是不断尝试获取锁，如果获取不到，就通过<code>runtime.Semacquire(&amp;m.sema)</code>休眠，休眠醒来之后awoke置为true，尝试争抢锁。</p>
 <p>代码中的第10行将当前的flag设置为加锁状态，如果能成功地通过CAS把这个新值赋予state（第19行和第20行），就代表抢夺锁的操作成功了。</p>
 <p>不过，需要注意的是，如果成功地设置了state的值，但是之前的state是有锁的状态，那么，state只是清除mutexWoken标志或者增加一个waiter而已。</p>
 <p>请求锁的goroutine有两类，一类是新来请求锁的goroutine，另一类是被唤醒的等待请求锁的goroutine。锁的状态也有两种：加锁和未加锁。我用一张表格，来说明一下goroutine不同来源不同状态下的处理逻辑。</p>
-<img src="/2022/09/12/02-Mutex：庖丁解牛看实现/3.webp">
-<p>刚刚说的都是获取锁，接下来，我们再来看看释放锁。释放锁的Unlock方法也有些复杂，我们来看一下。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *Mutex)</span> <span class="title">Unlock</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// Fast path: drop lock bit.</span></span><br><span class="line">    <span class="built_in">new</span> := atomic.AddInt32(&amp;m.state, -mutexLocked) <span class="comment">//去掉锁标志</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">new</span>+mutexLocked)&amp;mutexLocked == <span class="number">0</span> &#123; <span class="comment">//本来就没有加锁</span></span><br><span class="line">        <span class="built_in">panic</span>(<span class="string">"sync: unlock of unlocked mutex"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    old := <span class="built_in">new</span></span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> old&gt;&gt;mutexWaiterShift == <span class="number">0</span> || old&amp;(mutexLocked|mutexWoken) != <span class="number">0</span> &#123; <span class="comment">// 没有等待者，或者有唤醒的waiter，或者锁原来已加锁</span></span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">new</span> = (old - <span class="number">1</span>&lt;&lt;mutexWaiterShift) | mutexWoken <span class="comment">// 新状态，准备唤醒goroutine，并设置唤醒标志</span></span><br><span class="line">        <span class="keyword">if</span> atomic.CompareAndSwapInt32(&amp;m.state, old, <span class="built_in">new</span>) &#123;</span><br><span class="line">            runtime.Semrelease(&amp;m.sema)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        old = m.state</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>下面我来给你解释一下这个方法。</p>
+<img src="/2022/09/12/02-Mutex%EF%BC%9A%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9B%E7%9C%8B%E5%AE%9E%E7%8E%B0/3.webp" class="">
+<p>刚刚说的都是获取锁，接下来，我们再来看看释放锁。释放锁的Unlock方法也有些复杂，我们来看一下。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *Mutex)</span></span> Unlock() &#123;</span><br><span class="line">    <span class="comment">// Fast path: drop lock bit.</span></span><br><span class="line">    <span class="built_in">new</span> := atomic.AddInt32(&amp;m.state, -mutexLocked) <span class="comment">//去掉锁标志</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">new</span>+mutexLocked)&amp;mutexLocked == <span class="number">0</span> &#123; <span class="comment">//本来就没有加锁</span></span><br><span class="line">        <span class="built_in">panic</span>(<span class="string">&quot;sync: unlock of unlocked mutex&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    old := <span class="built_in">new</span></span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> old&gt;&gt;mutexWaiterShift == <span class="number">0</span> || old&amp;(mutexLocked|mutexWoken) != <span class="number">0</span> &#123; <span class="comment">// 没有等待者，或者有唤醒的waiter，或者锁原来已加锁</span></span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">new</span> = (old - <span class="number">1</span>&lt;&lt;mutexWaiterShift) | mutexWoken <span class="comment">// 新状态，准备唤醒goroutine，并设置唤醒标志</span></span><br><span class="line">        <span class="keyword">if</span> atomic.CompareAndSwapInt32(&amp;m.state, old, <span class="built_in">new</span>) &#123;</span><br><span class="line">            runtime.Semrelease(&amp;m.sema)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        old = m.state</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>下面我来给你解释一下这个方法。</p>
 <p>第3行是尝试将持有锁的标识设置为未加锁的状态，这是通过减1而不是将标志位置零的方式实现。第4到6行还会检测原来锁的状态是否已经未加锁的状态，如果是Unlock一个未加锁的Mutex会直接panic。</p>
 <p>不过，即使将加锁置为未加锁的状态，这个方法也不能直接返回，还需要一些额外的操作，因为还可能有一些等待这个锁的goroutine（有时候我也把它们称之为waiter）需要通过信号量的方式唤醒它们中的一个。所以接下来的逻辑有两种情况。</p>
 <p>第一种情况，如果没有其它的waiter，说明对这个锁的竞争的goroutine只有一个，那就可以直接返回了；如果这个时候有唤醒的goroutine，或者是又被别人加了锁，那么，无需我们操劳，其它goroutine自己干得都很好，当前的这个goroutine就可以放心返回了。</p>
@@ -590,8 +586,7 @@
 <p>通过这样复杂的检查、判断和设置，我们就可以安全地将一把互斥锁释放了。</p>
 <p><strong>相对于初版的设计，这次的改动主要就是，新来的goroutine也有机会先获取到锁，甚至一个goroutine可能连续获取到锁，打破了先来先得的逻辑。但是，代码复杂度也显而易见。</strong></p>
 <p>虽然这一版的Mutex已经给新来请求锁的goroutine一些机会，让它参与竞争，没有空闲的锁或者竞争失败才加入到等待队列中。但是其实还可以进一步优化。我们接着往下看。</p>
-<h1 id="多给些机会"><a href="#多给些机会" class="headerlink" title="多给些机会"></a><span style="color:#339AFF;">多给些机会</span></h1><p>在2015年2月的改动中，如果新来的goroutine或者是被唤醒的goroutine首次获取不到锁，它们就会通过自旋（spin，通过循环不断尝试，spin的逻辑是在<a href="https://github.com/golang/go/blob/846dce9d05f19a1f53465e62a304dea21b99f910/src/runtime/proc.go#L5580" target="_blank" rel="noopener">runtime</a>实现的）的方式，尝试检查锁是否被释放。在尝试一定的自旋次数后，再执行原来的逻辑。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *Mutex)</span> <span class="title">Lock</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// Fast path: 幸运之路，正好获取到锁</span></span><br><span class="line">    <span class="keyword">if</span> atomic.CompareAndSwapInt32(&amp;m.state, <span class="number">0</span>, mutexLocked) &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    awoke := <span class="literal">false</span></span><br><span class="line">    iter := <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> &#123; <span class="comment">// 不管是新来的请求锁的goroutine, 还是被唤醒的goroutine，都不断尝试请求锁</span></span><br><span class="line">        old := m.state <span class="comment">// 先保存当前锁的状态</span></span><br><span class="line">        <span class="built_in">new</span> := old | mutexLocked <span class="comment">// 新状态设置加锁标志</span></span><br><span class="line">        <span class="keyword">if</span> old&amp;mutexLocked != <span class="number">0</span> &#123; <span class="comment">// 锁还没被释放</span></span><br><span class="line">            <span class="keyword">if</span> runtime_canSpin(iter) &#123; <span class="comment">// 还可以自旋</span></span><br><span class="line">                <span class="keyword">if</span> !awoke &amp;&amp; old&amp;mutexWoken == <span class="number">0</span> &amp;&amp; old&gt;&gt;mutexWaiterShift != <span class="number">0</span> &amp;&amp;</span><br><span class="line">                    atomic.CompareAndSwapInt32(&amp;m.state, old, old|mutexWoken) &#123;</span><br><span class="line">                    awoke = <span class="literal">true</span></span><br><span class="line">                &#125;</span><br><span class="line">                runtime_doSpin()</span><br><span class="line">                iter++</span><br><span class="line">                <span class="keyword">continue</span> <span class="comment">// 自旋，再次尝试请求锁</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">new</span> = old + <span class="number">1</span>&lt;&lt;mutexWaiterShift</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> awoke &#123; <span class="comment">// 唤醒状态</span></span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">new</span>&amp;mutexWoken == <span class="number">0</span> &#123;</span><br><span class="line">                <span class="built_in">panic</span>(<span class="string">"sync: inconsistent mutex state"</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">new</span> &amp;^= mutexWoken <span class="comment">// 新状态清除唤醒标记</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> atomic.CompareAndSwapInt32(&amp;m.state, old, <span class="built_in">new</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> old&amp;mutexLocked == <span class="number">0</span> &#123; <span class="comment">// 旧状态锁已释放，新状态成功持有了锁，直接返回</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">            runtime_Semacquire(&amp;m.sema) <span class="comment">// 阻塞等待</span></span><br><span class="line">            awoke = <span class="literal">true</span> <span class="comment">// 被唤醒</span></span><br><span class="line">            iter = <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这次的优化，增加了第13行到21行、第25行到第27行以及第36行。我来解释一下主要的逻辑，也就是第13行到21行。</p>
+<h1 id="多给些机会"><a href="#多给些机会" class="headerlink" title="多给些机会"></a><span style="color:#339AFF;">多给些机会</span></h1><p>在2015年2月的改动中，如果新来的goroutine或者是被唤醒的goroutine首次获取不到锁，它们就会通过自旋（spin，通过循环不断尝试，spin的逻辑是在<a href="https://github.com/golang/go/blob/846dce9d05f19a1f53465e62a304dea21b99f910/src/runtime/proc.go#L5580">runtime</a>实现的）的方式，尝试检查锁是否被释放。在尝试一定的自旋次数后，再执行原来的逻辑。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *Mutex)</span></span> Lock() &#123;</span><br><span class="line">    <span class="comment">// Fast path: 幸运之路，正好获取到锁</span></span><br><span class="line">    <span class="keyword">if</span> atomic.CompareAndSwapInt32(&amp;m.state, <span class="number">0</span>, mutexLocked) &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    awoke := <span class="literal">false</span></span><br><span class="line">    iter := <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> &#123; <span class="comment">// 不管是新来的请求锁的goroutine, 还是被唤醒的goroutine，都不断尝试请求锁</span></span><br><span class="line">        old := m.state <span class="comment">// 先保存当前锁的状态</span></span><br><span class="line">        <span class="built_in">new</span> := old | mutexLocked <span class="comment">// 新状态设置加锁标志</span></span><br><span class="line">        <span class="keyword">if</span> old&amp;mutexLocked != <span class="number">0</span> &#123; <span class="comment">// 锁还没被释放</span></span><br><span class="line">            <span class="keyword">if</span> runtime_canSpin(iter) &#123; <span class="comment">// 还可以自旋</span></span><br><span class="line">                <span class="keyword">if</span> !awoke &amp;&amp; old&amp;mutexWoken == <span class="number">0</span> &amp;&amp; old&gt;&gt;mutexWaiterShift != <span class="number">0</span> &amp;&amp;</span><br><span class="line">                    atomic.CompareAndSwapInt32(&amp;m.state, old, old|mutexWoken) &#123;</span><br><span class="line">                    awoke = <span class="literal">true</span></span><br><span class="line">                &#125;</span><br><span class="line">                runtime_doSpin()</span><br><span class="line">                iter++</span><br><span class="line">                <span class="keyword">continue</span> <span class="comment">// 自旋，再次尝试请求锁</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">new</span> = old + <span class="number">1</span>&lt;&lt;mutexWaiterShift</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> awoke &#123; <span class="comment">// 唤醒状态</span></span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">new</span>&amp;mutexWoken == <span class="number">0</span> &#123;</span><br><span class="line">                <span class="built_in">panic</span>(<span class="string">&quot;sync: inconsistent mutex state&quot;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">new</span> &amp;^= mutexWoken <span class="comment">// 新状态清除唤醒标记</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> atomic.CompareAndSwapInt32(&amp;m.state, old, <span class="built_in">new</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> old&amp;mutexLocked == <span class="number">0</span> &#123; <span class="comment">// 旧状态锁已释放，新状态成功持有了锁，直接返回</span></span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">            runtime_Semacquire(&amp;m.sema) <span class="comment">// 阻塞等待</span></span><br><span class="line">            awoke = <span class="literal">true</span> <span class="comment">// 被唤醒</span></span><br><span class="line">            iter = <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这次的优化，增加了第13行到21行、第25行到第27行以及第36行。我来解释一下主要的逻辑，也就是第13行到21行。</p>
 <p>如果可以spin的话，第9行的for循环会重新检查锁是否释放。对于临界区代码执行非常短的场景来说，这是一个非常好的优化。因为临界区的代码耗时很短，锁很快就能释放，而抢夺锁的goroutine不用通过休眠唤醒方式等待调度，直接spin几次，可能就获得了锁。</p>
 <h1 id="解决饥饿"><a href="#解决饥饿" class="headerlink" title="解决饥饿"></a><span style="color:#339AFF;">解决饥饿</span></h1><p>经过几次优化，Mutex的代码越来越复杂，应对高并发争抢锁的场景也更加公平。但是你有没有想过，因为新来的goroutine也参与竞争，有可能每次都会被新来的goroutine抢到获取锁的机会，在极端情况下，等待中的goroutine可能会一直获取不到锁，这就是<strong>饥饿问题</strong>。</p>
 <p>说到这儿，我突然想到了最近看到的一种叫做鹳的鸟。如果鹳妈妈寻找食物很艰难，找到的食物只够一个幼鸟吃的，鹳妈妈就会把食物给最强壮的一只，这样一来，饥饿弱小的幼鸟总是得不到食物吃，最后就会被啄出巢去。</p>
@@ -600,9 +595,9 @@
 <p>之后，2018年，Go开发者将fastpath和slowpath拆成独立的方法，以便内联，提高性能。2019年也有一个Mutex的优化，虽然没有对Mutex做修改，但是，对于Mutex唤醒后持有锁的那个waiter，调度器可以有更高的优先级去执行，这已经是很细致的性能优化了。</p>
 <p>为了避免代码过多，这里只列出当前的Mutex实现。想要理解当前的Mutex，我们需要好好泡一杯茶，仔细地品一品了。</p>
 <p>当然，现在的Mutex代码已经复杂得接近不可读的状态了，而且代码也非常长，删减后占了几乎三页纸。但是，作为第一个要详细介绍的同步原语，我还是希望能更清楚地剖析Mutex的实现，向你展示它的演化和为了一个貌似很小的feature不得不将代码变得非常复杂的原因。</p>
-<img src="/2022/09/12/02-Mutex：庖丁解牛看实现/4.webp">
+<img src="/2022/09/12/02-Mutex%EF%BC%9A%E5%BA%96%E4%B8%81%E8%A7%A3%E7%89%9B%E7%9C%8B%E5%AE%9E%E7%8E%B0/4.webp" class="">
 <p>当然，你也可以暂时略过这一段，以后慢慢品，<strong>只需要记住，Mutex绝不容忍一个goroutine被落下，永远没有机会获取锁。不抛弃不放弃是它的宗旨，而且它也尽可能地让等待较长的goroutine更有机会获取到锁。</strong></p>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Mutex <span class="keyword">struct</span> &#123;</span><br><span class="line">    state <span class="keyword">int32</span></span><br><span class="line">    sema  <span class="keyword">uint32</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    mutexLocked = <span class="number">1</span> &lt;&lt; <span class="literal">iota</span> <span class="comment">// mutex is locked</span></span><br><span class="line">    mutexWoken</span><br><span class="line">    mutexStarving <span class="comment">// 从state字段中分出一个饥饿标记</span></span><br><span class="line">    mutexWaiterShift = <span class="literal">iota</span></span><br><span class="line"></span><br><span class="line">    starvationThresholdNs = <span class="number">1e6</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *Mutex)</span> <span class="title">Lock</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// Fast path: 幸运之路，一下就获取到了锁</span></span><br><span class="line">    <span class="keyword">if</span> atomic.CompareAndSwapInt32(&amp;m.state, <span class="number">0</span>, mutexLocked) &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Slow path：缓慢之路，尝试自旋竞争或饥饿状态下饥饿goroutine竞争</span></span><br><span class="line">    m.lockSlow()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *Mutex)</span> <span class="title">lockSlow</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> waitStartTime <span class="keyword">int64</span></span><br><span class="line">    starving := <span class="literal">false</span> <span class="comment">// 此goroutine的饥饿标记</span></span><br><span class="line">    awoke := <span class="literal">false</span> <span class="comment">// 唤醒标记</span></span><br><span class="line">    iter := <span class="number">0</span> <span class="comment">// 自旋次数</span></span><br><span class="line">    old := m.state <span class="comment">// 当前的锁的状态</span></span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        <span class="comment">// 锁是非饥饿状态，锁还没被释放，尝试自旋</span></span><br><span class="line">        <span class="keyword">if</span> old&amp;(mutexLocked|mutexStarving) == mutexLocked &amp;&amp; runtime_canSpin(iter) &#123;</span><br><span class="line">            <span class="keyword">if</span> !awoke &amp;&amp; old&amp;mutexWoken == <span class="number">0</span> &amp;&amp; old&gt;&gt;mutexWaiterShift != <span class="number">0</span> &amp;&amp;</span><br><span class="line">                atomic.CompareAndSwapInt32(&amp;m.state, old, old|mutexWoken) &#123;</span><br><span class="line">                awoke = <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">            runtime_doSpin()</span><br><span class="line">            iter++</span><br><span class="line">            old = m.state <span class="comment">// 再次获取锁的状态，之后会检查是否锁被释放了</span></span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">new</span> := old</span><br><span class="line">        <span class="keyword">if</span> old&amp;mutexStarving == <span class="number">0</span> &#123;</span><br><span class="line">            <span class="built_in">new</span> |= mutexLocked <span class="comment">// 非饥饿状态，加锁</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> old&amp;(mutexLocked|mutexStarving) != <span class="number">0</span> &#123;</span><br><span class="line">            <span class="built_in">new</span> += <span class="number">1</span> &lt;&lt; mutexWaiterShift <span class="comment">// waiter数量加1</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> starving &amp;&amp; old&amp;mutexLocked != <span class="number">0</span> &#123;</span><br><span class="line">            <span class="built_in">new</span> |= mutexStarving <span class="comment">// 设置饥饿状态</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> awoke &#123;</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">new</span>&amp;mutexWoken == <span class="number">0</span> &#123;</span><br><span class="line">                throw(<span class="string">"sync: inconsistent mutex state"</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">new</span> &amp;^= mutexWoken <span class="comment">// 新状态清除唤醒标记</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 成功设置新状态</span></span><br><span class="line">        <span class="keyword">if</span> atomic.CompareAndSwapInt32(&amp;m.state, old, <span class="built_in">new</span>) &#123;</span><br><span class="line">            <span class="comment">// 原来锁的状态已释放，并且不是饥饿状态，正常请求到了锁，返回</span></span><br><span class="line">            <span class="keyword">if</span> old&amp;(mutexLocked|mutexStarving) == <span class="number">0</span> &#123;</span><br><span class="line">                <span class="keyword">break</span> <span class="comment">// locked the mutex with CAS</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 处理饥饿状态</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 如果以前就在队列里面，加入到队列头</span></span><br><span class="line">            queueLifo := waitStartTime != <span class="number">0</span></span><br><span class="line">            <span class="keyword">if</span> waitStartTime == <span class="number">0</span> &#123;</span><br><span class="line">                waitStartTime = runtime_nanotime()</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 阻塞等待</span></span><br><span class="line">            runtime_SemacquireMutex(&amp;m.sema, queueLifo, <span class="number">1</span>)</span><br><span class="line">            <span class="comment">// 唤醒之后检查锁是否应该处于饥饿状态</span></span><br><span class="line">            starving = starving || runtime_nanotime()-waitStartTime &gt; starvationThresholdNs</span><br><span class="line">            old = m.state</span><br><span class="line">            <span class="comment">// 如果锁已经处于饥饿状态，直接抢到锁，返回</span></span><br><span class="line">            <span class="keyword">if</span> old&amp;mutexStarving != <span class="number">0</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> old&amp;(mutexLocked|mutexWoken) != <span class="number">0</span> || old&gt;&gt;mutexWaiterShift == <span class="number">0</span> &#123;</span><br><span class="line">                    throw(<span class="string">"sync: inconsistent mutex state"</span>)</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 有点绕，加锁并且将waiter数减1</span></span><br><span class="line">                delta := <span class="keyword">int32</span>(mutexLocked - <span class="number">1</span>&lt;&lt;mutexWaiterShift)</span><br><span class="line">                <span class="keyword">if</span> !starving || old&gt;&gt;mutexWaiterShift == <span class="number">1</span> &#123;</span><br><span class="line">                    delta -= mutexStarving <span class="comment">// 最后一个waiter或者已经不饥饿了，清除饥饿标记</span></span><br><span class="line">                &#125;</span><br><span class="line">                atomic.AddInt32(&amp;m.state, delta)</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">            awoke = <span class="literal">true</span></span><br><span class="line">            iter = <span class="number">0</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            old = m.state</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *Mutex)</span> <span class="title">Unlock</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// Fast path: drop lock bit.</span></span><br><span class="line">    <span class="built_in">new</span> := atomic.AddInt32(&amp;m.state, -mutexLocked)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">new</span> != <span class="number">0</span> &#123;</span><br><span class="line">        m.unlockSlow(<span class="built_in">new</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *Mutex)</span> <span class="title">unlockSlow</span><span class="params">(<span class="built_in">new</span> <span class="keyword">int32</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">new</span>+mutexLocked)&amp;mutexLocked == <span class="number">0</span> &#123;</span><br><span class="line">        throw(<span class="string">"sync: unlock of unlocked mutex"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">new</span>&amp;mutexStarving == <span class="number">0</span> &#123;</span><br><span class="line">        old := <span class="built_in">new</span></span><br><span class="line">        <span class="keyword">for</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> old&gt;&gt;mutexWaiterShift == <span class="number">0</span> || old&amp;(mutexLocked|mutexWoken|mutexStarving) != <span class="number">0</span> &#123;</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">new</span> = (old - <span class="number">1</span>&lt;&lt;mutexWaiterShift) | mutexWoken</span><br><span class="line">            <span class="keyword">if</span> atomic.CompareAndSwapInt32(&amp;m.state, old, <span class="built_in">new</span>) &#123;</span><br><span class="line">                runtime_Semrelease(&amp;m.sema, <span class="literal">false</span>, <span class="number">1</span>)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">            old = m.state</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        runtime_Semrelease(&amp;m.sema, <span class="literal">true</span>, <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Mutex <span class="keyword">struct</span> &#123;</span><br><span class="line">    state <span class="type">int32</span></span><br><span class="line">    sema  <span class="type">uint32</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    mutexLocked = <span class="number">1</span> &lt;&lt; <span class="literal">iota</span> <span class="comment">// mutex is locked</span></span><br><span class="line">    mutexWoken</span><br><span class="line">    mutexStarving <span class="comment">// 从state字段中分出一个饥饿标记</span></span><br><span class="line">    mutexWaiterShift = <span class="literal">iota</span></span><br><span class="line"></span><br><span class="line">    starvationThresholdNs = <span class="number">1e6</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *Mutex)</span></span> Lock() &#123;</span><br><span class="line">    <span class="comment">// Fast path: 幸运之路，一下就获取到了锁</span></span><br><span class="line">    <span class="keyword">if</span> atomic.CompareAndSwapInt32(&amp;m.state, <span class="number">0</span>, mutexLocked) &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Slow path：缓慢之路，尝试自旋竞争或饥饿状态下饥饿goroutine竞争</span></span><br><span class="line">    m.lockSlow()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *Mutex)</span></span> lockSlow() &#123;</span><br><span class="line">    <span class="keyword">var</span> waitStartTime <span class="type">int64</span></span><br><span class="line">    starving := <span class="literal">false</span> <span class="comment">// 此goroutine的饥饿标记</span></span><br><span class="line">    awoke := <span class="literal">false</span> <span class="comment">// 唤醒标记</span></span><br><span class="line">    iter := <span class="number">0</span> <span class="comment">// 自旋次数</span></span><br><span class="line">    old := m.state <span class="comment">// 当前的锁的状态</span></span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        <span class="comment">// 锁是非饥饿状态，锁还没被释放，尝试自旋</span></span><br><span class="line">        <span class="keyword">if</span> old&amp;(mutexLocked|mutexStarving) == mutexLocked &amp;&amp; runtime_canSpin(iter) &#123;</span><br><span class="line">            <span class="keyword">if</span> !awoke &amp;&amp; old&amp;mutexWoken == <span class="number">0</span> &amp;&amp; old&gt;&gt;mutexWaiterShift != <span class="number">0</span> &amp;&amp;</span><br><span class="line">                atomic.CompareAndSwapInt32(&amp;m.state, old, old|mutexWoken) &#123;</span><br><span class="line">                awoke = <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">            runtime_doSpin()</span><br><span class="line">            iter++</span><br><span class="line">            old = m.state <span class="comment">// 再次获取锁的状态，之后会检查是否锁被释放了</span></span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">new</span> := old</span><br><span class="line">        <span class="keyword">if</span> old&amp;mutexStarving == <span class="number">0</span> &#123;</span><br><span class="line">            <span class="built_in">new</span> |= mutexLocked <span class="comment">// 非饥饿状态，加锁</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> old&amp;(mutexLocked|mutexStarving) != <span class="number">0</span> &#123;</span><br><span class="line">            <span class="built_in">new</span> += <span class="number">1</span> &lt;&lt; mutexWaiterShift <span class="comment">// waiter数量加1</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> starving &amp;&amp; old&amp;mutexLocked != <span class="number">0</span> &#123;</span><br><span class="line">            <span class="built_in">new</span> |= mutexStarving <span class="comment">// 设置饥饿状态</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> awoke &#123;</span><br><span class="line">            <span class="keyword">if</span> <span class="built_in">new</span>&amp;mutexWoken == <span class="number">0</span> &#123;</span><br><span class="line">                throw(<span class="string">&quot;sync: inconsistent mutex state&quot;</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">new</span> &amp;^= mutexWoken <span class="comment">// 新状态清除唤醒标记</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 成功设置新状态</span></span><br><span class="line">        <span class="keyword">if</span> atomic.CompareAndSwapInt32(&amp;m.state, old, <span class="built_in">new</span>) &#123;</span><br><span class="line">            <span class="comment">// 原来锁的状态已释放，并且不是饥饿状态，正常请求到了锁，返回</span></span><br><span class="line">            <span class="keyword">if</span> old&amp;(mutexLocked|mutexStarving) == <span class="number">0</span> &#123;</span><br><span class="line">                <span class="keyword">break</span> <span class="comment">// locked the mutex with CAS</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 处理饥饿状态</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 如果以前就在队列里面，加入到队列头</span></span><br><span class="line">            queueLifo := waitStartTime != <span class="number">0</span></span><br><span class="line">            <span class="keyword">if</span> waitStartTime == <span class="number">0</span> &#123;</span><br><span class="line">                waitStartTime = runtime_nanotime()</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 阻塞等待</span></span><br><span class="line">            runtime_SemacquireMutex(&amp;m.sema, queueLifo, <span class="number">1</span>)</span><br><span class="line">            <span class="comment">// 唤醒之后检查锁是否应该处于饥饿状态</span></span><br><span class="line">            starving = starving || runtime_nanotime()-waitStartTime &gt; starvationThresholdNs</span><br><span class="line">            old = m.state</span><br><span class="line">            <span class="comment">// 如果锁已经处于饥饿状态，直接抢到锁，返回</span></span><br><span class="line">            <span class="keyword">if</span> old&amp;mutexStarving != <span class="number">0</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> old&amp;(mutexLocked|mutexWoken) != <span class="number">0</span> || old&gt;&gt;mutexWaiterShift == <span class="number">0</span> &#123;</span><br><span class="line">                    throw(<span class="string">&quot;sync: inconsistent mutex state&quot;</span>)</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 有点绕，加锁并且将waiter数减1</span></span><br><span class="line">                delta := <span class="type">int32</span>(mutexLocked - <span class="number">1</span>&lt;&lt;mutexWaiterShift)</span><br><span class="line">                <span class="keyword">if</span> !starving || old&gt;&gt;mutexWaiterShift == <span class="number">1</span> &#123;</span><br><span class="line">                    delta -= mutexStarving <span class="comment">// 最后一个waiter或者已经不饥饿了，清除饥饿标记</span></span><br><span class="line">                &#125;</span><br><span class="line">                atomic.AddInt32(&amp;m.state, delta)</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">            awoke = <span class="literal">true</span></span><br><span class="line">            iter = <span class="number">0</span></span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            old = m.state</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *Mutex)</span></span> Unlock() &#123;</span><br><span class="line">    <span class="comment">// Fast path: drop lock bit.</span></span><br><span class="line">    <span class="built_in">new</span> := atomic.AddInt32(&amp;m.state, -mutexLocked)</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">new</span> != <span class="number">0</span> &#123;</span><br><span class="line">        m.unlockSlow(<span class="built_in">new</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(m *Mutex)</span></span> unlockSlow(<span class="built_in">new</span> <span class="type">int32</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">new</span>+mutexLocked)&amp;mutexLocked == <span class="number">0</span> &#123;</span><br><span class="line">        throw(<span class="string">&quot;sync: unlock of unlocked mutex&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">new</span>&amp;mutexStarving == <span class="number">0</span> &#123;</span><br><span class="line">        old := <span class="built_in">new</span></span><br><span class="line">        <span class="keyword">for</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> old&gt;&gt;mutexWaiterShift == <span class="number">0</span> || old&amp;(mutexLocked|mutexWoken|mutexStarving) != <span class="number">0</span> &#123;</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">new</span> = (old - <span class="number">1</span>&lt;&lt;mutexWaiterShift) | mutexWoken</span><br><span class="line">            <span class="keyword">if</span> atomic.CompareAndSwapInt32(&amp;m.state, old, <span class="built_in">new</span>) &#123;</span><br><span class="line">                runtime_Semrelease(&amp;m.sema, <span class="literal">false</span>, <span class="number">1</span>)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">            old = m.state</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        runtime_Semrelease(&amp;m.sema, <span class="literal">true</span>, <span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>跟之前的实现相比，当前的Mutex最重要的变化，就是增加饥饿模式。第12行将饥饿模式的最大等待时间阈值设置成了1毫秒，这就意味着，一旦等待者等待的时间超过了这个阈值，Mutex的处理就有可能进入饥饿模式，优先让等待者先获取到锁，新来的同学主动谦让一下，给老同志一些机会。</p>
 <p>通过加入饥饿模式，可以避免把机会全都留给新来的goroutine，保证了请求锁的goroutine获取锁的公平性，对于我们使用锁的业务代码来说，不会有业务一直等待锁不被处理。</p>
 <p>那么，接下来的部分就是选学内容了。如果你还有精力，并且对饥饿模式很感兴趣，那就跟着我一起继续来挑战吧。如果你现在理解起来觉得有困难，也没关系，后面可以随时回来复习。</p>
@@ -668,7 +663,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Go并发编程实战课/" rel="tag"># Go并发编程实战课</a>
+            <a href="/tags/Go%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%E8%AF%BE/" rel="tag"># Go并发编程实战课</a>
           
         </div>
       
@@ -681,7 +676,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/09/12/01-Mutex：如何解决资源并发访问问题？/" rel="next" title="01 | Mutex：如何解决资源并发访问问题？">
+              <a href="/2022/09/12/01-Mutex%EF%BC%9A%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E8%B5%84%E6%BA%90%E5%B9%B6%E5%8F%91%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98%EF%BC%9F/" rel="next" title="01 | Mutex：如何解决资源并发访问问题？">
                 <i class="fa fa-chevron-left"></i> 01 | Mutex：如何解决资源并发访问问题？
               </a>
             
@@ -691,7 +686,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/09/12/03-Mutex：4种易错场景大盘点/" rel="prev" title="03 ｜ Mutex：4种易错场景大盘点">
+              <a href="/2022/09/12/03-Mutex%EF%BC%9A4%E7%A7%8D%E6%98%93%E9%94%99%E5%9C%BA%E6%99%AF%E5%A4%A7%E7%9B%98%E7%82%B9/" rel="prev" title="03 ｜ Mutex：4种易错场景大盘点">
                 03 ｜ Mutex：4种易错场景大盘点 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -751,7 +746,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -762,9 +759,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -776,26 +773,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -867,7 +848,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1042,115 +1023,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1181,23 +1054,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1223,7 +1096,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#初版的互斥锁"><span class="nav-number">1.</span> <span class="nav-text">初版的互斥锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#给新人机会"><span class="nav-number">2.</span> <span class="nav-text">给新人机会</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多给些机会"><span class="nav-number">3.</span> <span class="nav-text">多给些机会</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决饥饿"><span class="nav-number">4.</span> <span class="nav-text">解决饥饿</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#饥饿模式和正常模式"><span class="nav-number">5.</span> <span class="nav-text">饥饿模式和正常模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">7.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9D%E7%89%88%E7%9A%84%E4%BA%92%E6%96%A5%E9%94%81"><span class="nav-number">1.</span> <span class="nav-text">初版的互斥锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%99%E6%96%B0%E4%BA%BA%E6%9C%BA%E4%BC%9A"><span class="nav-number">2.</span> <span class="nav-text">给新人机会</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%9A%E7%BB%99%E4%BA%9B%E6%9C%BA%E4%BC%9A"><span class="nav-number">3.</span> <span class="nav-text">多给些机会</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E9%A5%A5%E9%A5%BF"><span class="nav-number">4.</span> <span class="nav-text">解决饥饿</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A5%A5%E9%A5%BF%E6%A8%A1%E5%BC%8F%E5%92%8C%E6%AD%A3%E5%B8%B8%E6%A8%A1%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">饥饿模式和正常模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">7.</span> <span class="nav-text">思考题</span></a></li></ol></div>
             
 
           </div>
@@ -1258,7 +1131,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1269,12 +1142,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1282,7 +1155,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

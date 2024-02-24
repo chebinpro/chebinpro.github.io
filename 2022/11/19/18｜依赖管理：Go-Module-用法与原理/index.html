@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,31 +104,31 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="Go进阶·分布式爬虫实战">
 <meta property="og:type" content="article">
 <meta property="og:title" content="18 ｜ 依赖管理：Go Module用法与原理">
-<meta property="og:url" content="http://yoursite.com/2022/11/19/18｜依赖管理：Go-Module-用法与原理/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/11/19/18%EF%BD%9C%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%EF%BC%9AGo-Module-%E7%94%A8%E6%B3%95%E4%B8%8E%E5%8E%9F%E7%90%86/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/11/19/18｜依赖管理：Go-Module-用法与原理/1.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/19/18｜依赖管理：Go-Module-用法与原理/2.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/19/18｜依赖管理：Go-Module-用法与原理/3.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/19/18｜依赖管理：Go-Module-用法与原理/4.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/19/18｜依赖管理：Go-Module-用法与原理/5.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/19/18｜依赖管理：Go-Module-用法与原理/6.webp">
-<meta property="og:updated_time" content="2023-08-03T03:32:25.926Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/11/19/18%EF%BD%9C%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%EF%BC%9AGo-Module-%E7%94%A8%E6%B3%95%E4%B8%8E%E5%8E%9F%E7%90%86/1.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/19/18%EF%BD%9C%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%EF%BC%9AGo-Module-%E7%94%A8%E6%B3%95%E4%B8%8E%E5%8E%9F%E7%90%86/2.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/19/18%EF%BD%9C%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%EF%BC%9AGo-Module-%E7%94%A8%E6%B3%95%E4%B8%8E%E5%8E%9F%E7%90%86/3.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/19/18%EF%BD%9C%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%EF%BC%9AGo-Module-%E7%94%A8%E6%B3%95%E4%B8%8E%E5%8E%9F%E7%90%86/4.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/19/18%EF%BD%9C%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%EF%BC%9AGo-Module-%E7%94%A8%E6%B3%95%E4%B8%8E%E5%8E%9F%E7%90%86/5.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/19/18%EF%BD%9C%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%EF%BC%9AGo-Module-%E7%94%A8%E6%B3%95%E4%B8%8E%E5%8E%9F%E7%90%86/6.webp">
+<meta property="article:published_time" content="2022-11-19T12:47:27.000Z">
+<meta property="article:modified_time" content="2023-08-03T03:32:25.926Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Go进阶·分布式爬虫实战">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="18 ｜ 依赖管理：Go Module用法与原理">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2022/11/19/18｜依赖管理：Go-Module-用法与原理/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2022/11/19/18%EF%BD%9C%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%EF%BC%9AGo-Module-%E7%94%A8%E6%B3%95%E4%B8%8E%E5%8E%9F%E7%90%86/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/11/19/18｜依赖管理：Go-Module-用法与原理/">
+  <link rel="canonical" href="http://yoursite.com/2022/11/19/18｜依赖管理：Go-Module-用法与原理/"/>
 
 
 
@@ -177,7 +177,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -238,7 +238,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -255,7 +255,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -272,7 +272,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -289,7 +289,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -306,7 +306,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -317,7 +317,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -337,7 +337,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -387,16 +389,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/11/19/18｜依赖管理：Go-Module-用法与原理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/11/19/18%EF%BD%9C%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%EF%BC%9AGo-Module-%E7%94%A8%E6%B3%95%E4%B8%8E%E5%8E%9F%E7%90%86/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -496,7 +498,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">12k</span>
+                <span title="本文字数">29k</span>
               
 
               
@@ -510,7 +512,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">11 分钟</span>
+                <span title="阅读时长">27 分钟</span>
               
             </div>
           
@@ -531,17 +533,13 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>我们知道，一个大型程序会引入大量必要的第三方库，这就让这个程序形成了复杂的依赖关系网络。这种复杂性可能引发一系列问题，例如<strong>依赖过多、多重依赖、依赖冲突、依赖回圈等</strong>。因此，需要有专门的工具对程序的依赖进行管理。</p>
 <p>Go语言中的依赖管理经历了长时间的演进过程。在Go 1.5之前，Go官方通过GOPATH对依赖进行管理。但是由于GOPATH存在诸多问题，社区和官方尝试了诸多新的依赖管理工具，中间出现的Godep、Glide、Vendor等工具都不如人意，最终笑到最后的是在Go 1.11后引入，并在Go 1.13之后成为Go依赖管理主流的Go Modules。</p>
 <p>让我们先来看看GOPATH和它的不足之处。</p>
-<h1 id="GOPATH"><a href="#GOPATH" class="headerlink" title="GOPATH"></a><span style="color:#339AFF;">GOPATH</span></h1><h2 id="什么是GOPATH？"><a href="#什么是GOPATH？" class="headerlink" title="什么是GOPATH？"></a><span style="color:#00ACC1;">什么是GOPATH？</span></h2><p>在Go 1.8及以上版本中，如果用户不指定GOPATH，GOPATH的路径就是默认的。我们可以通过输入<code>go env</code>或者<code>go env gopath</code>查看GOPATH的具体配置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C:\\Windows\\system32&gt; go env</span><br><span class="line"><span class="built_in">set</span> GOPATH=C:\\Users\\jackson\\go</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
-<p>GOPATH的路径在Mac和Linux操作系统下为$HOME/go，而在Windows操作系统下为%USERPROFILE%\go。我们可以把GOPATH可以理解为Go语言的工作空间，它内部存储了src、bin、pkg三个文件夹：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">go/</span><br><span class="line">├── bin</span><br><span class="line">├── pkg</span><br><span class="line">└── src</span><br></pre></td></tr></table></figure></p>
-<p>$GOPATH/bin目录下存储了通过<code>go install</code>安装的二进制文件。操作系统使用$PATH环境变量来查找不需要完整路径即可执行的二进制应用程序。建议将$GOPATH/bin目录添加到全局$PATH变量中。</p>
+<h1 id="GOPATH"><a href="#GOPATH" class="headerlink" title="GOPATH"></a><span style="color:#339AFF;">GOPATH</span></h1><h2 id="什么是GOPATH？"><a href="#什么是GOPATH？" class="headerlink" title="什么是GOPATH？"></a><span style="color:#00ACC1;">什么是GOPATH？</span></h2><p>在Go 1.8及以上版本中，如果用户不指定GOPATH，GOPATH的路径就是默认的。我们可以通过输入<code>go env</code>或者<code>go env gopath</code>查看GOPATH的具体配置：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">C:\\Windows\\system32&gt; go <span class="built_in">env</span></span><br><span class="line"><span class="built_in">set</span> GOPATH=C:\\Users\\jackson\\go</span><br><span class="line">...</span><br></pre></td></tr></table></figure><br>GOPATH的路径在Mac和Linux操作系统下为$HOME/go，而在Windows操作系统下为%USERPROFILE%\go。我们可以把GOPATH可以理解为Go语言的工作空间，它内部存储了src、bin、pkg三个文件夹：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">go/</span><br><span class="line">├── bin</span><br><span class="line">├── pkg</span><br><span class="line">└── src</span><br></pre></td></tr></table></figure><br>$GOPATH/bin目录下存储了通过<code>go install</code>安装的二进制文件。操作系统使用$PATH环境变量来查找不需要完整路径即可执行的二进制应用程序。建议将$GOPATH/bin目录添加到全局$PATH变量中。</p>
 <p>$GOPATH/pkg目录下会有一个文件夹（文件名根据操作系统的不同而有所不同，例如在Mac操作系统下为darwin_amd64）存储预编译的obj文件，以加快程序的后续编译。大多数开发人员不需要访问此目录。我们在后面还会看到，pkg下的mod文件会存储Go Modules的依赖。</p>
-<p>$GOPATH/src目录下存储项目的Go代码。通常包含多个由Git管理的存储库，每个存储库中都包含一个或多个package，每个package有多个目录，每个目录下都包含一个或多个Go源文件。整个路径看起来是下面的样子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">go/</span><br><span class="line">├── bin</span><br><span class="line">     └── main.exe</span><br><span class="line">├── pkg</span><br><span class="line">     ├── darwin_amd64</span><br><span class="line">     └── mod</span><br><span class="line">└── src</span><br><span class="line">    ├── github.com</span><br><span class="line">    │   ├── tylfin</span><br><span class="line">    │   │   ├── dynatomic</span><br><span class="line">    │   │   └── geospy</span><br><span class="line">    │   └── uudashr</span><br><span class="line">    │       └── gopkgs</span><br><span class="line">    └── golang.org</span><br><span class="line">        └── x</span><br><span class="line">            └── tools</span><br></pre></td></tr></table></figure></p>
-<p>在Go的早期版本中，可以使用<code>go get</code>指令从GitHub或其他地方获取Go项目代码。这时程序会默认将代码存储到$GOPATH/src目录下。例如，在拉取<code>go get github.com/dreamerjackson/theWayToGolang</code>时，目录结构如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">go/</span><br><span class="line">├── bin</span><br><span class="line">├── pkg</span><br><span class="line">└── src</span><br><span class="line">    └── github.com</span><br><span class="line">           └── dreamerjackson</span><br><span class="line">                     └── theWayToGolang</span><br></pre></td></tr></table></figure></p>
-<p>当我们使用<code>go get -u xxx</code>时，会将该项目以及项目所依赖的所有其他项目一并下载到$GOPATH/src目录下。</p>
+<p>$GOPATH/src目录下存储项目的Go代码。通常包含多个由Git管理的存储库，每个存储库中都包含一个或多个package，每个package有多个目录，每个目录下都包含一个或多个Go源文件。整个路径看起来是下面的样子：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">go/</span><br><span class="line">├── bin</span><br><span class="line">     └── main.exe</span><br><span class="line">├── pkg</span><br><span class="line">     ├── darwin_amd64</span><br><span class="line">     └── mod</span><br><span class="line">└── src</span><br><span class="line">    ├── github.com</span><br><span class="line">    │   ├── tylfin</span><br><span class="line">    │   │   ├── dynatomic</span><br><span class="line">    │   │   └── geospy</span><br><span class="line">    │   └── uudashr</span><br><span class="line">    │       └── gopkgs</span><br><span class="line">    └── golang.org</span><br><span class="line">        └── x</span><br><span class="line">            └── tools</span><br></pre></td></tr></table></figure><br>在Go的早期版本中，可以使用<code>go get</code>指令从GitHub或其他地方获取Go项目代码。这时程序会默认将代码存储到$GOPATH/src目录下。例如，在拉取<code>go get github.com/dreamerjackson/theWayToGolang</code>时，目录结构如下所示：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">go/</span><br><span class="line">├── bin</span><br><span class="line">├── pkg</span><br><span class="line">└── src</span><br><span class="line">    └── github.com</span><br><span class="line">           └── dreamerjackson</span><br><span class="line">                     └── theWayToGolang</span><br></pre></td></tr></table></figure><br>当我们使用<code>go get -u xxx</code>时，会将该项目以及项目所依赖的所有其他项目一并下载到$GOPATH/src目录下。</p>
 <p>在GOPATH模式下，如果我们在项目中导入了一个第三方包，例如<code>import &quot;github.com/gobuffalo/buffalo&quot;</code>。那么，实际引用的是$GOPATH/src/github.com/gobuffalo/buffalo文件中的代码。</p>
 <h2 id="GOPATH的落幕与依赖管理的历史"><a href="#GOPATH的落幕与依赖管理的历史" class="headerlink" title="GOPATH的落幕与依赖管理的历史"></a><span style="color:#00ACC1;">GOPATH的落幕与依赖管理的历史</span></h2><p>GOPATH借鉴了谷歌内部使用的Blaze系统。在Blaze中，所有项目的源代码共用一个代码仓库。<code>go get</code>仅仅需要获取Master分支上最新的代码，不需要指定依赖的版本。</p>
 <p>GOPATH这种版本管理方式配置简单，容易理解，在谷歌内部不会出现问题。但是在开源领域，一个GOPATH走天下的情况就行不通了。由于依赖的第三方包总是在变，而且还没有严格的约束，直接拉取外部包的最新版本时，甚至可能出现一更新依赖代码都编译不过的情况。因此，我们迫切需要新的依赖管理工具。</p>
@@ -559,10 +557,9 @@
 </ul>
 <p>Go Modules巧妙解决了上面这些问题。</p>
 <h2 id="import路径问题"><a href="#import路径问题" class="headerlink" title="import路径问题"></a><span style="color:#00ACC1;">import路径问题</span></h2><p>在GOPATH中，“导入路径”与“项目在文件系统中的目录结构和名称”必须是匹配的。但是，如果我们希望项目的实际路径和导入路径不同，例如import路径为github.com/gobuffalo/buffalo，我们希望项目的实际路径在另一个任意的文件目录下(例如，/users/gobuffalo/buffalo)，这个期待能否实现呢？</p>
-<p>答案是肯定的。Go Modules可以通过在go.mod文件中指定模块名来解决这一问题。go.mod文件如下所示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## &lt;span style="color:#00ACC1;"&gt;go.mod</span></span><br><span class="line">01 module github.com/gobuffalo/buffalo</span><br><span class="line">02</span><br><span class="line">...</span><br><span class="line">06</span><br></pre></td></tr></table></figure></p>
-<p>go.mod文件的第一行指定了模块名，开发人员可以用模块名引用当前项目中任何package的路径名。这样，无论当前项目路径在什么位置，都可以使用模块名来解析代码内部的import。</p>
-<h2 id="代码捆绑和版本控制问题"><a href="#代码捆绑和版本控制问题" class="headerlink" title="代码捆绑和版本控制问题"></a><span style="color:#00ACC1;">代码捆绑和版本控制问题</span></h2><p>对于任何版本控制（VCS，version control system）工具，我们都能在任何提交的commit处打上tag标记。</p>
-<img src="/2022/11/19/18｜依赖管理：Go-Module-用法与原理/1.webp">
+<p>答案是肯定的。Go Modules可以通过在go.mod文件中指定模块名来解决这一问题。go.mod文件如下所示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## &lt;span style=&quot;color:#00ACC1;&quot;&gt;go.mod</span></span><br><span class="line">01 module github.com/gobuffalo/buffalo</span><br><span class="line">02</span><br><span class="line">...</span><br><span class="line">06</span><br></pre></td></tr></table></figure><br>go.mod文件的第一行指定了模块名，开发人员可以用模块名引用当前项目中任何package的路径名。这样，无论当前项目路径在什么位置，都可以使用模块名来解析代码内部的import。</p>
+<h2 id="代码捆绑和版本控制问题"><a href="#代码捆绑和版本控制问题" class="headerlink" title="代码捆绑和版本控制问题"></a><span style="color:#00ACC1;">代码捆绑和版本控制问题</h2><p>对于任何版本控制（VCS，version control system）工具，我们都能在任何提交的commit处打上tag标记。</p>
+<img src="/2022/11/19/18%EF%BD%9C%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%EF%BC%9AGo-Module-%E7%94%A8%E6%B3%95%E4%B8%8E%E5%8E%9F%E7%90%86/1.webp" class="">
 <p>开发人员可以使用VCS工具引用特定标签，将软件包的任何指定版本克隆到本地。当我们引用一个第三方包时，出于测试等不同的目的，可能并不总是希望应用项目最新的代码，而是想要应用某一个特定的，与当前项目兼容的代码。</p>
 <p>对于特定第三方库来说，维护者可能并没有意识到有人在使用他们的代码，或者代码库由于某种原因进行了巨大的不兼容更新。因此，我们希望能够明确使用的第三方包的版本，这样才能完成可重复的构建，并且希望能够自动下载、管理依赖包。一个依赖管理工具至少需要考虑下面几个问题。</p>
 <ul>
@@ -574,21 +571,14 @@
 <li>如何在项目中同时引用第三方包的两个不同版本？</li>
 </ul>
 <p>因此，只通过GOPATH维护单一的Master包是远远不够的，Go官方的Go Modules提供了一种可以在文件中同时维护直接和间接依赖项的集成解决方案。一个特定版本的依赖项也被叫做一个模块（moudle），一个模块是一系列指定版本的package的集合。</p>
-<p>为了加快构建程序的速度，快速切换、获取项目中依赖项的更新，Go维护了下载到本地计算机上的所有模块的缓存，缓存目前默认位于$GOPATH/pkg目录下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">go/</span><br><span class="line">├── bin</span><br><span class="line">├── pkg</span><br><span class="line">     ├── darwin_amd64</span><br><span class="line">     └── mod</span><br><span class="line">└── src</span><br></pre></td></tr></table></figure></p>
-<p>在mod目录下，我们能够看到模块名路径中的第一部分即为顶级文件夹，如下所示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">~/go/pkg/mod » ls -l  </span><br><span class="line">drwxr-xr-x    6 jackson  staff    192  1 15 20:50 cache</span><br><span class="line">drwxr-xr-x    7 jackson  staff    224  2 20 17:50 cloud.google.com</span><br><span class="line">drwxr-xr-x    3 jackson  staff     96  2 18 12:03 git.apache.org</span><br><span class="line">drwxr-xr-x  327 jackson  staff  10464  2 28 00:02 github.com</span><br><span class="line">drwxr-xr-x    8 jackson  staff    256  2 20 17:27 gitlab.followme.com</span><br><span class="line">drwxr-xr-x    6 jackson  staff    192  2 19 22:05 go.etcd.io</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
-<p>当我们打开一个实际的模块时（例如github.com/nats-io），会看到许多与NATS库有关的模块及其版本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~/go/pkg/mod » ls -l github.com/nats-io</span><br><span class="line">total 0</span><br><span class="line">dr-x------  24 jackson  staff   768  1 17 10:27 gnatsd@v1.4.1</span><br><span class="line">dr-x------  15 jackson  staff   480  2 17 22:22 go-nats-streaming@v0.4.0</span><br><span class="line">dr-x------  26 jackson  staff   832  2 19 22:05 go-nats@v1.7.0</span><br><span class="line">dr-x------  26 jackson  staff   832  1 17 10:27 go-nats@v1.7.2</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
-<p>为了拥有一个干净的工作环境，我们可以用下面的指令清空缓存区。但是要注意，在正常的工作流程中，是不需要执行这段代码的：$goclean-modcache</p>
-<h2 id="Go-Modules实践"><a href="#Go-Modules实践" class="headerlink" title="Go Modules实践"></a>Go Modules实践</h2><p>我们从GOPATH外开始一个新的项目讲解Go Modules的使用方法和原理。首先新建一个文件夹和一个main.go文件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> <span class="variable">$HOME</span></span><br><span class="line">$ mkdir mathlib</span><br><span class="line">$ <span class="built_in">cd</span> mathlib</span><br><span class="line">$ touch main.go</span><br></pre></td></tr></table></figure></p>
-<p>接着在当前目录下，执行下面这段指令，初始化module：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~/mathlib » go mod init github.com/dreamerjackson/mathlib</span><br></pre></td></tr></table></figure></p>
-<p><code>go mod init</code>指令的功能很简单，即自动生成一个go.mod文件，后面紧跟的路径就是自定义的模块名。习惯上，我们会以托管代码仓库的URL作为模块名。go.mod文件位于项目的根目录，内容如下所示，第一行就是模块名（此例中，代码放置在这个目录下）。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">module github.com/dreamerjackson/mathlib</span><br><span class="line"></span><br><span class="line">go 1.13</span><br></pre></td></tr></table></figure></p>
-<p>go.mod文件第三行指定了当前模块中使用的Go的版本，不同的Go版本可能对应不同的依赖管理行为。例如，Go1.17之后，才会有通过Go Modules分支修剪来加速依赖拉取和编译的特性。如果你想深入了解不同的Go版本在依赖管理上的差异，可以阅读这篇文章。</p>
+<p>为了加快构建程序的速度，快速切换、获取项目中依赖项的更新，Go维护了下载到本地计算机上的所有模块的缓存，缓存目前默认位于$GOPATH/pkg目录下：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">go/</span><br><span class="line">├── bin</span><br><span class="line">├── pkg</span><br><span class="line">     ├── darwin_amd64</span><br><span class="line">     └── mod</span><br><span class="line">└── src</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>在mod目录下，我们能够看到模块名路径中的第一部分即为顶级文件夹，如下所示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">~/go/pkg/mod » <span class="built_in">ls</span> -l  </span><br><span class="line">drwxr-xr-x    6 jackson  staff    192  1 15 20:50 cache</span><br><span class="line">drwxr-xr-x    7 jackson  staff    224  2 20 17:50 cloud.google.com</span><br><span class="line">drwxr-xr-x    3 jackson  staff     96  2 18 12:03 git.apache.org</span><br><span class="line">drwxr-xr-x  327 jackson  staff  10464  2 28 00:02 github.com</span><br><span class="line">drwxr-xr-x    8 jackson  staff    256  2 20 17:27 gitlab.followme.com</span><br><span class="line">drwxr-xr-x    6 jackson  staff    192  2 19 22:05 go.etcd.io</span><br><span class="line">...</span><br></pre></td></tr></table></figure><br>当我们打开一个实际的模块时（例如github.com/nats-io），会看到许多与NATS库有关的模块及其版本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">~/go/pkg/mod » <span class="built_in">ls</span> -l github.com/nats-io</span><br><span class="line">total 0</span><br><span class="line">dr-x------  24 jackson  staff   768  1 17 10:27 gnatsd@v1.4.1</span><br><span class="line">dr-x------  15 jackson  staff   480  2 17 22:22 go-nats-streaming@v0.4.0</span><br><span class="line">dr-x------  26 jackson  staff   832  2 19 22:05 go-nats@v1.7.0</span><br><span class="line">dr-x------  26 jackson  staff   832  1 17 10:27 go-nats@v1.7.2</span><br><span class="line">...</span><br></pre></td></tr></table></figure><br>为了拥有一个干净的工作环境，我们可以用下面的指令清空缓存区。但是要注意，在正常的工作流程中，是不需要执行这段代码的：$goclean-modcache</p>
+<h2 id="Go-Modules实践"><a href="#Go-Modules实践" class="headerlink" title="Go Modules实践"></a>Go Modules实践</h2><p>我们从GOPATH外开始一个新的项目讲解Go Modules的使用方法和原理。首先新建一个文件夹和一个main.go文件：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> <span class="variable">$HOME</span></span><br><span class="line">$ <span class="built_in">mkdir</span> mathlib</span><br><span class="line">$ <span class="built_in">cd</span> mathlib</span><br><span class="line">$ <span class="built_in">touch</span> main.go</span><br></pre></td></tr></table></figure><br>接着在当前目录下，执行下面这段指令，初始化module：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~/mathlib » go mod init github.com/dreamerjackson/mathlib</span><br></pre></td></tr></table></figure><br><code>go mod init</code>指令的功能很简单，即自动生成一个go.mod文件，后面紧跟的路径就是自定义的模块名。习惯上，我们会以托管代码仓库的URL作为模块名。go.mod文件位于项目的根目录，内容如下所示，第一行就是模块名（此例中，代码放置在这个目录下）。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">module github.com/dreamerjackson/mathlib</span><br><span class="line"></span><br><span class="line">go 1.13</span><br></pre></td></tr></table></figure><br>go.mod文件第三行指定了当前模块中使用的Go的版本，不同的Go版本可能对应不同的依赖管理行为。例如，Go1.17之后，才会有通过Go Modules分支修剪来加速依赖拉取和编译的特性。如果你想深入了解不同的Go版本在依赖管理上的差异，可以阅读这篇文章。</p>
 <ul>
 <li>引入第三方模块</li>
 </ul>
-<p>接下来，我们要书写初始化的代码片段。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">"github.com/dreamerjackson/mydiv"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>我在代码片段中导入了为了讲解Go Modules而特地引入的github.com/dreamerjackson/mydiv，它的作用是进行简单的除法操作，同时我还引入了另一个包（github.com/pkg/errors）用于包装错误，代码如下：</p>
+<p>接下来，我们要书写初始化的代码片段。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;github.com/dreamerjackson/mydiv&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>我在代码片段中导入了为了讲解Go Modules而特地引入的github.com/dreamerjackson/mydiv，它的作用是进行简单的除法操作，同时我还引入了另一个包（github.com/pkg/errors）用于包装错误，代码如下：</p>
 <p>在GoLand中，我们可以看到导入的package是红色的，这是因为这个时候在Go Modules的缓存中找不到这个package。</p>
-<img src="/2022/11/19/18｜依赖管理：Go-Module-用法与原理/2.webp">
+<img src="/2022/11/19/18%EF%BD%9C%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%EF%BC%9AGo-Module-%E7%94%A8%E6%B3%95%E4%B8%8E%E5%8E%9F%E7%90%86/2.webp" class="">
 <p>下载第三方模块为了能够将项目依赖的package下载到本地，我们可以使用gomodtidy指令。</p>
 <p>执行完毕后，在go.mod文件中增加了一行，指定了引用的依赖库和版本。</p>
 <p>注意，这里间接的依赖（即github.com/dreamerjackson/mydiv依赖的github.com/pkg/errors）没有在go.mod文件中展示出来，而是在一个自动生成的新文件go.sum中进行了指定。使用第三方模块一切就绪之后，现在，我们可以愉快地调用第三方代码了。</p>
@@ -604,14 +594,14 @@
 <p>那么什么是最小版本选择原理呢？</p>
 <p>Go最小版本选择指的是，在选择依赖的版本时，优先选择项目中最合适的最低版本。当然，并不是说MVS不能选择最新的版本，而是说如果项目中任何依赖都用不到最新的版本，那么我们本质上不需要它。</p>
 <p>举个例子，项目Main依赖A1.2版本以及B1.2版本，而A1.2版本依赖C1.3版本，B1.2版本依赖C1.4版本，C1.3与C1.4版本共同依赖了D1.2版本。</p>
-<img src="/2022/11/19/18｜依赖管理：Go-Module-用法与原理/3.webp">
+<img src="/2022/11/19/18%EF%BD%9C%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%EF%BC%9AGo-Module-%E7%94%A8%E6%B3%95%E4%B8%8E%E5%8E%9F%E7%90%86/3.webp" class="">
 <p>最终，我们选择的版本是项目导入的可以使用的最小版本，即A1.2、B1.2、C1.4、D1.2。在这个例子中，虽然C1.3、C1.4分别被A、B两个包导入了，但是现在Go Modules认为最好的版本是这两个版本中最大的版本C1.4，因为C1.4相对于C1.3增加了接口等操作，如果选择C1.3版本，可能出现编译都不通过的情况。而从语义版本控制的角度，默认C1.4版本是向后兼容的。</p>
 <p>replace指令与最小版本选择</p>
 <p>当项目中使用了replace指令，如下图所示，B1.2依赖的C1.4replace为了R模块，R依赖D1.3，最终最小版本算法选择的版本为R、D1.3版本。</p>
-<img src="/2022/11/19/18｜依赖管理：Go-Module-用法与原理/4.webp">
+<img src="/2022/11/19/18%EF%BD%9C%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%EF%BC%9AGo-Module-%E7%94%A8%E6%B3%95%E4%B8%8E%E5%8E%9F%E7%90%86/4.webp" class="">
 <p>Exclusion指令与最小版本选择</p>
 <p>当项目中使用了Exclusion指令时，如下图所示，当C1.3被排除，A1.2将表现为直接依赖比C1.3版本更高的C1.4。</p>
-<img src="/2022/11/19/18｜依赖管理：Go-Module-用法与原理/5.webp">
+<img src="/2022/11/19/18%EF%BD%9C%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%EF%BC%9AGo-Module-%E7%94%A8%E6%B3%95%E4%B8%8E%E5%8E%9F%E7%90%86/5.webp" class="">
 <p>下面我举一个简单的例子来验证最小版本选择原理。</p>
 <p>假设现在项目D（即github.com/dreamerjackson/mydiv的最新版本）为v1.0.3，模块可用的版本号可以通过下面这个指令查看：</p>
 <p>现在有两个模块A、B，它们都依赖模块D，其中模块A引用了Dv1.0.1版本，模块B引用了Dv1.0.2版本。</p>
@@ -621,23 +611,18 @@
 <p>那如果删除刚刚为模块B添加的代码，又会发生什么呢？Go会将项目锁定到模块D的版本v1.0.2中。这是因为降级到版本v1.0.1将是一个更大的更改，而Go知道版本v1.0.2可以正常运行并且稳定，因此版本v1.0.2仍然是“最新版本”。</p>
 <p>这是在不同情境下，我们预测最小版本选择原理会产生的结果。到底对不对呢？我们来验证一下。我们以github.com/dreamerjackson/mydiv为例，其v1.0.1与v1.0.2版本的代码如下：</p>
 <p>接着模块B（github.com/dreamerjackson/minidiv）引用了模块D（github.com/dreamerjackson/mydiv）v1.0.1版本。</p>
-<p>最后，我们把当前的项目叫做模块Now，直接依赖模块Dv1.0.2，同时依赖模块B，其代码如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    div <span class="string">"github.com/dreamerjackson/minidiv"</span></span><br><span class="line">    <span class="string">"github.com/dreamerjackson/mydiv"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    _,err1:= mydiv.Div(<span class="number">4</span>,<span class="number">0</span>)</span><br><span class="line">    _,err2 := div.Div(<span class="number">4</span>,<span class="number">0</span>)</span><br><span class="line">    fmt.Println(err1,err2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>当前的依赖关系如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">当前模块 --&gt; 模块D v1.0.2</span><br><span class="line">当前模块 --&gt; 模块B --&gt; 模块D v1.0.1</span><br></pre></td></tr></table></figure></p>
-<p>关键时刻到了，我们需要验证当前项目是不是如我们所料选择了模块Dv1.0.2。</p>
-<p>验证方式有两种。第一种是直接运行，查看项目采用了哪一个版本的代码。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> go run main.go</span></span><br><span class="line">v1.0.2 b can't = 0 v1.0.2 b can't = 0</span><br></pre></td></tr></table></figure></p>
-<p>通过上面这段代码可以看出，输出的结果全部是我们在模块Dv1.0.2中定义的代码。</p>
-<p>第二种方式是使用golist指令，得到的也是一样的结果：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~/mathlib » go list -m all | grep mydiv</span><br><span class="line">github.com/dreamerjackson/mydiv v1.0.2</span><br></pre></td></tr></table></figure></p>
-<p>第三种方式，我们可以使用“golist-m-uall”指令查看直接和间接模块的当前和最新版本。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">~/mathlib » go list -m -u all | column -t                                                                               </span><br><span class="line">go: finding github.com/dreamerjackson/minidiv latest</span><br><span class="line">github.com/dreamerjackson/mathlib</span><br><span class="line">github.com/dreamerjackson/minidiv  v0.0.0-20200305104752-fcd15cf402bb</span><br><span class="line">github.com/dreamerjackson/mydiv    v1.0.2                              [v1.0.3]</span><br><span class="line">github.com/pkg/errors              v0.9.1</span><br></pre></td></tr></table></figure></p>
+<p>最后，我们把当前的项目叫做模块Now，直接依赖模块Dv1.0.2，同时依赖模块B，其代码如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    div <span class="string">&quot;github.com/dreamerjackson/minidiv&quot;</span></span><br><span class="line">    <span class="string">&quot;github.com/dreamerjackson/mydiv&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    _,err1:= mydiv.Div(<span class="number">4</span>,<span class="number">0</span>)</span><br><span class="line">    _,err2 := div.Div(<span class="number">4</span>,<span class="number">0</span>)</span><br><span class="line">    fmt.Println(err1,err2)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>当前的依赖关系如下：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">当前模块 --&gt; 模块D v1.0.2</span><br><span class="line">当前模块 --&gt; 模块B --&gt; 模块D v1.0.1</span><br></pre></td></tr></table></figure><br>关键时刻到了，我们需要验证当前项目是不是如我们所料选择了模块Dv1.0.2。</p>
+<p>验证方式有两种。第一种是直接运行，查看项目采用了哪一个版本的代码。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">go run main.go</span></span><br><span class="line">v1.0.2 b can&#x27;t = 0 v1.0.2 b can&#x27;t = 0</span><br></pre></td></tr></table></figure><br>通过上面这段代码可以看出，输出的结果全部是我们在模块Dv1.0.2中定义的代码。</p>
+<p>第二种方式是使用golist指令，得到的也是一样的结果：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~/mathlib » go list -m all | grep mydiv</span><br><span class="line">github.com/dreamerjackson/mydiv v1.0.2</span><br></pre></td></tr></table></figure><br>第三种方式，我们可以使用“golist-m-uall”指令查看直接和间接模块的当前和最新版本。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">~/mathlib » go list -m -u all | column -t                                                                               </span><br><span class="line">go: finding github.com/dreamerjackson/minidiv latest</span><br><span class="line">github.com/dreamerjackson/mathlib</span><br><span class="line">github.com/dreamerjackson/minidiv  v0.0.0-20200305104752-fcd15cf402bb</span><br><span class="line">github.com/dreamerjackson/mydiv    v1.0.2                              [v1.0.3]</span><br><span class="line">github.com/pkg/errors              v0.9.1</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>更新模块</li>
 </ul>
-<p>更新模块可以使用goget指令，goget指令有不少的参数可供选择。使用下面的命令，可以更新项目中所有的依赖模块为最新版本。（注意，除非你了解项目的所有细节，否则不要直接将所有模块调整到最新版本。）<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~/mathlib » go get -u -t -v ./...                                              </span><br><span class="line">go: finding github.com/dreamerjackson/minidiv latest</span><br><span class="line">go: downloading github.com/dreamerjackson/mydiv v1.0.3</span><br><span class="line">go: extracting github.com/dreamerjackson/mydiv v1.0.3</span><br></pre></td></tr></table></figure></p>
-<p>解释一下，这里的-v表示提供详细输出，-t表示会连带着下载指定模块中的测试包，-u表示将指定模块更新到最新版本，./…表明在整个源代码树中执行这些操作。</p>
+<p>更新模块可以使用goget指令，goget指令有不少的参数可供选择。使用下面的命令，可以更新项目中所有的依赖模块为最新版本。（注意，除非你了解项目的所有细节，否则不要直接将所有模块调整到最新版本。）<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~/mathlib » go get -u -t -v ./...                                              </span><br><span class="line">go: finding github.com/dreamerjackson/minidiv latest</span><br><span class="line">go: downloading github.com/dreamerjackson/mydiv v1.0.3</span><br><span class="line">go: extracting github.com/dreamerjackson/mydiv v1.0.3</span><br></pre></td></tr></table></figure><br>解释一下，这里的-v表示提供详细输出，-t表示会连带着下载指定模块中的测试包，-u表示将指定模块更新到最新版本，./…表明在整个源代码树中执行这些操作。</p>
 <p>我们再次查看当前引用的版本，会发现模块github.com/dreamerjackson/mydiv已经被强制更新到了最新的v1.0.3版本。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~/mathlib » go list -m all | grep mydiv</span><br><span class="line">github.com/dreamerjackson/mydiv v1.0.3</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>重置依赖关系</li>
 </ul>
-<p>如果不满意所选的模块和版本，我们可以通过删除go.mod、go.sum中的依赖关系并再次运行gomodtidy来重置版本。当项目还不太成熟时，这是一种选择。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> rm go.*</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> go mod init &lt;module name&gt;</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> go mod tidy</span></span><br></pre></td></tr></table></figure></p>
+<p>如果不满意所选的模块和版本，我们可以通过删除go.mod、go.sum中的依赖关系并再次运行gomodtidy来重置版本。当项目还不太成熟时，这是一种选择。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">rm</span> go.*</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">go mod init &lt;module name&gt;</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">go mod tidy</span></span><br></pre></td></tr></table></figure></p>
 <h1 id="语义版本（Semantic-Versioning）"><a href="#语义版本（Semantic-Versioning）" class="headerlink" title="语义版本（Semantic Versioning）"></a>语义版本（Semantic Versioning）</h1><p>为了标识一个模块的快照，Go Modules使用了语义版本来管理模块。每个语义版本都采用vMAJOR.MINOR.PATCH的形式，我们简单介绍下各字段的含义。</p>
 <ul>
 <li>v：所有版本号都以v开头。</li>
@@ -647,19 +632,14 @@
 </ul>
 <p>如果两个版本具有相同的主版本号，那么预期更高版本则可以向后兼容较低版本。但是，如果两个版本的主版本号不同，那么它们之间就没有预期的兼容关系。因此，我们在上面的实例中可以看到，Go判断v1.0.3与v1.0.1是兼容的，是因为他们有相同的主版本号1。如果我们将版本升级到了v2.0.0，则会被看作出现了重大更新，兼容关系不再成立。</p>
 <p>下面这张图展示了Go处理版本更新的方法。my/thing/v2标识的是特定模块的语义主版本2。版本1是my/thing，模块路径中没有明确的版本。但是，当用户引入主要版本2或更大版本时，必须在模块名称后添加版本，以区别于版本1和其他主要版本，所以版本2为my/thing/v2，版本3为my/thing/v3，依此类推。</p>
-<img src="/2022/11/19/18｜依赖管理：Go-Module-用法与原理/6.webp">
-<h2 id="v2版本"><a href="#v2版本" class="headerlink" title="v2版本"></a>v2版本</h2><p>假设模块A引入了模块B和模块C，模块B引入了模块Dv1.0.0，模块C引入了模块Dv2.0.0。如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A --&gt; 模块B --&gt; 模块D v1.0.0</span><br><span class="line">A --&gt; 模块C --&gt; 模块D v2.0.0</span><br></pre></td></tr></table></figure></p>
-<p>由于v1和v2模块的路径不相同，所以他们是互不干扰的两个模块，可以共存。</p>
-<p>下面我用实例来验证一下。首先给github.com/dreamerjackson/mydiv打一个v2.0.0的tag，其代码如下，在v2.0.0中简单修改了返回的错误文字。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> mydiv</span><br><span class="line"><span class="keyword">import</span> <span class="string">"github.com/pkg/errors"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Div</span><span class="params">(a <span class="keyword">int</span>,b <span class="keyword">int</span>)</span> <span class="params">(<span class="keyword">int</span>,error)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> b==<span class="number">0</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>,errors.Errorf(<span class="string">"v2.0.0 b can't = 0"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a/b,<span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>同时，我们需要修改v2模块的路径名：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">module github.com/dreamerjackson/mydiv/v2</span><br></pre></td></tr></table></figure></p>
-<p>接着在mathlib模块中书写代码如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    div <span class="string">"github.com/dreamerjackson/minidiv"</span></span><br><span class="line">    mydiv <span class="string">"github.com/dreamerjackson/mydiv/v2"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    _,err1:= mydiv.Div(<span class="number">4</span>,<span class="number">0</span>)</span><br><span class="line">    _,err2 := div.Div(<span class="number">4</span>,<span class="number">0</span>)</span><br><span class="line">    fmt.Println(err1,err2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>现在的依赖路径可以表示为：</p>
+<img src="/2022/11/19/18%EF%BD%9C%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%EF%BC%9AGo-Module-%E7%94%A8%E6%B3%95%E4%B8%8E%E5%8E%9F%E7%90%86/6.webp" class="">
+<h2 id="v2版本"><a href="#v2版本" class="headerlink" title="v2版本"></a>v2版本</h2><p>假设模块A引入了模块B和模块C，模块B引入了模块Dv1.0.0，模块C引入了模块Dv2.0.0。如下所示：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">A --&gt; 模块B --&gt; 模块D v1.0.0</span><br><span class="line">A --&gt; 模块C --&gt; 模块D v2.0.0</span><br></pre></td></tr></table></figure><br>由于v1和v2模块的路径不相同，所以他们是互不干扰的两个模块，可以共存。</p>
+<p>下面我用实例来验证一下。首先给github.com/dreamerjackson/mydiv打一个v2.0.0的tag，其代码如下，在v2.0.0中简单修改了返回的错误文字。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> mydiv</span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;github.com/pkg/errors&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Div</span><span class="params">(a <span class="type">int</span>,b <span class="type">int</span>)</span></span> (<span class="type">int</span>,<span class="type">error</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span> b==<span class="number">0</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>,errors.Errorf(<span class="string">&quot;v2.0.0 b can&#x27;t = 0&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> a/b,<span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>同时，我们需要修改v2模块的路径名：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">module github.com/dreamerjackson/mydiv/v2</span><br></pre></td></tr></table></figure><br>接着在mathlib模块中书写代码如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    div <span class="string">&quot;github.com/dreamerjackson/minidiv&quot;</span></span><br><span class="line">    mydiv <span class="string">&quot;github.com/dreamerjackson/mydiv/v2&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    _,err1:= mydiv.Div(<span class="number">4</span>,<span class="number">0</span>)</span><br><span class="line">    _,err2 := div.Div(<span class="number">4</span>,<span class="number">0</span>)</span><br><span class="line">    fmt.Println(err1,err2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>现在的依赖路径可以表示为：</p>
 <ul>
 <li>mathlib—&gt;依赖mydivv2</li>
 <li>mathlib—&gt;依赖minidiv—&gt;依赖mydivv1</li>
 </ul>
-<p>运行代码，可以看到两段代码是共存的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v2.0.0 b can&apos;t = 0 ：： v1.0.1 b can&apos;t = 0</span><br></pre></td></tr></table></figure></p>
-<p>最后，我们接着执行golist，进一步确认模块v1与v2是共存的，验证成功～<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~/mathlib(master*) » go list -m all | grep mydiv</span><br><span class="line">github.com/dreamerjackson/mydiv v1.0.1</span><br><span class="line">github.com/dreamerjackson/mydiv/v2 v2.0.1</span><br></pre></td></tr></table></figure></p>
+<p>运行代码，可以看到两段代码是共存的。<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v2.0.0 b can&#x27;t = 0 ：： v1.0.1 b can&#x27;t = 0</span><br></pre></td></tr></table></figure><br>最后，我们接着执行golist，进一步确认模块v1与v2是共存的，验证成功～<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">~/mathlib(master*) » go list -m all | grep mydiv</span><br><span class="line">github.com/dreamerjackson/mydiv v1.0.1</span><br><span class="line">github.com/dreamerjackson/mydiv/v2 v2.0.1</span><br></pre></td></tr></table></figure></p>
 <h1 id="伪版本"><a href="#伪版本" class="headerlink" title="伪版本"></a>伪版本</h1><p>当我们引入了一个没有用语义版本管理的模块，或者我们希望用某一个特殊的commit快照进行测试时，导入模块的版本会是伪版本，例如：v0.0.0-20191109021931-daa7c04131f5就是一个伪版本。伪版本包含了3个部分：</p>
 <ul>
 <li>基本版本前缀：通常为vX.0.0或vX.Y.Z-0。vX.Y.Z-0表明该commit快照派生自某一个语义版本，vX.0.0表明该commit快照找不到派生的语义版本；</li>
@@ -694,7 +674,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Go进阶·分布式爬虫实战/" rel="tag"># Go进阶·分布式爬虫实战</a>
+            <a href="/tags/Go%E8%BF%9B%E9%98%B6%C2%B7%E5%88%86%E5%B8%83%E5%BC%8F%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98/" rel="tag"># Go进阶·分布式爬虫实战</a>
           
         </div>
       
@@ -707,7 +687,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/11/19/17｜巨人的肩膀：HTTP协议与Go标准库原理/" rel="next" title="17 ｜ 巨人的肩膀：HTTP协议与Go标准库原理">
+              <a href="/2022/11/19/17%EF%BD%9C%E5%B7%A8%E4%BA%BA%E7%9A%84%E8%82%A9%E8%86%80%EF%BC%9AHTTP%E5%8D%8F%E8%AE%AE%E4%B8%8EGo%E6%A0%87%E5%87%86%E5%BA%93%E5%8E%9F%E7%90%86/" rel="next" title="17 ｜ 巨人的肩膀：HTTP协议与Go标准库原理">
                 <i class="fa fa-chevron-left"></i> 17 ｜ 巨人的肩膀：HTTP协议与Go标准库原理
               </a>
             
@@ -717,7 +697,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/11/22/19｜从正则表达式到CSS选择器：4种网页文本处理手段/" rel="prev" title="19 ｜ 从正则表达式到CSS选择器：4种网页文本处理手段">
+              <a href="/2022/11/22/19%EF%BD%9C%E4%BB%8E%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%88%B0CSS%E9%80%89%E6%8B%A9%E5%99%A8%EF%BC%9A4%E7%A7%8D%E7%BD%91%E9%A1%B5%E6%96%87%E6%9C%AC%E5%A4%84%E7%90%86%E6%89%8B%E6%AE%B5/" rel="prev" title="19 ｜ 从正则表达式到CSS选择器：4种网页文本处理手段">
                 19 ｜ 从正则表达式到CSS选择器：4种网页文本处理手段 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -777,7 +757,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -788,9 +770,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -802,26 +784,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -893,7 +859,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1068,115 +1034,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1207,23 +1065,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1249,7 +1107,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GOPATH"><span class="nav-number">1.</span> <span class="nav-text">GOPATH</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是GOPATH？"><span class="nav-number">1.1.</span> <span class="nav-text">什么是GOPATH？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GOPATH的落幕与依赖管理的历史"><span class="nav-number">1.2.</span> <span class="nav-text">GOPATH的落幕与依赖管理的历史</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Go-Modules"><span class="nav-number">2.</span> <span class="nav-text">Go Modules</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#import路径问题"><span class="nav-number">2.1.</span> <span class="nav-text">import路径问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码捆绑和版本控制问题"><span class="nav-number">2.2.</span> <span class="nav-text">代码捆绑和版本控制问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Go-Modules实践"><span class="nav-number">2.3.</span> <span class="nav-text">Go Modules实践</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#语义版本（Semantic-Versioning）"><span class="nav-number">3.</span> <span class="nav-text">语义版本（Semantic Versioning）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#v2版本"><span class="nav-number">3.1.</span> <span class="nav-text">v2版本</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#伪版本"><span class="nav-number">4.</span> <span class="nav-text">伪版本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课后题"><span class="nav-number">6.</span> <span class="nav-text">课后题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GOPATH"><span class="nav-number">1.</span> <span class="nav-text">GOPATH</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFGOPATH%EF%BC%9F"><span class="nav-number">1.1.</span> <span class="nav-text">什么是GOPATH？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GOPATH%E7%9A%84%E8%90%BD%E5%B9%95%E4%B8%8E%E4%BE%9D%E8%B5%96%E7%AE%A1%E7%90%86%E7%9A%84%E5%8E%86%E5%8F%B2"><span class="nav-number">1.2.</span> <span class="nav-text">GOPATH的落幕与依赖管理的历史</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Go-Modules"><span class="nav-number">2.</span> <span class="nav-text">Go Modules</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#import%E8%B7%AF%E5%BE%84%E9%97%AE%E9%A2%98"><span class="nav-number">2.1.</span> <span class="nav-text">import路径问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%8D%86%E7%BB%91%E5%92%8C%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6%E9%97%AE%E9%A2%98"><span class="nav-number">2.2.</span> <span class="nav-text">代码捆绑和版本控制问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Go-Modules%E5%AE%9E%E8%B7%B5"><span class="nav-number">2.3.</span> <span class="nav-text">Go Modules实践</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%AD%E4%B9%89%E7%89%88%E6%9C%AC%EF%BC%88Semantic-Versioning%EF%BC%89"><span class="nav-number">3.</span> <span class="nav-text">语义版本（Semantic Versioning）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#v2%E7%89%88%E6%9C%AC"><span class="nav-number">3.1.</span> <span class="nav-text">v2版本</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%AA%E7%89%88%E6%9C%AC"><span class="nav-number">4.</span> <span class="nav-text">伪版本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BE%E5%90%8E%E9%A2%98"><span class="nav-number">6.</span> <span class="nav-text">课后题</span></a></li></ol></div>
             
 
           </div>
@@ -1284,7 +1142,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1295,12 +1153,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1308,7 +1166,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

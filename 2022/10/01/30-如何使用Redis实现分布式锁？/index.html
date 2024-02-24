@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,27 +104,27 @@
 
 
   <meta name="description" content="思考并回答以下问题：  为什么想要实现分布式锁，必须要求Redis有「互斥」的能力？ 使用setnx和del实现分布式锁存在的两个问题是可能会忘了执行del命令，或者b把a的锁删除了，要怎么处理呢？ SET lock_key $unique_id EX $expire_time NX就可以实现最简单的分布式锁，怎么理解？还有怎么优化？">
-<meta name="keywords" content="Redis核心技术与实战">
 <meta property="og:type" content="article">
 <meta property="og:title" content="30 | 如何使用Redis实现分布式锁？">
-<meta property="og:url" content="http://yoursite.com/2022/10/01/30-如何使用Redis实现分布式锁？/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/10/01/30-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：  为什么想要实现分布式锁，必须要求Redis有「互斥」的能力？ 使用setnx和del实现分布式锁存在的两个问题是可能会忘了执行del命令，或者b把a的锁删除了，要怎么处理呢？ SET lock_key $unique_id EX $expire_time NX就可以实现最简单的分布式锁，怎么理解？还有怎么优化？">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/30-如何使用Redis实现分布式锁？/1.webp">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/30-如何使用Redis实现分布式锁？/2.webp">
-<meta property="og:updated_time" content="2022-11-04T15:49:53.958Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/30-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%EF%BC%9F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/30-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%EF%BC%9F/2.webp">
+<meta property="article:published_time" content="2022-10-01T07:07:33.000Z">
+<meta property="article:modified_time" content="2022-11-04T15:49:53.958Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Redis核心技术与实战">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="30 | 如何使用Redis实现分布式锁？">
-<meta name="twitter:description" content="思考并回答以下问题：  为什么想要实现分布式锁，必须要求Redis有「互斥」的能力？ 使用setnx和del实现分布式锁存在的两个问题是可能会忘了执行del命令，或者b把a的锁删除了，要怎么处理呢？ SET lock_key $unique_id EX $expire_time NX就可以实现最简单的分布式锁，怎么理解？还有怎么优化？">
-<meta name="twitter:image" content="http://yoursite.com/2022/10/01/30-如何使用Redis实现分布式锁？/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2022/10/01/30-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%EF%BC%9F/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/10/01/30-如何使用Redis实现分布式锁？/">
+  <link rel="canonical" href="http://yoursite.com/2022/10/01/30-如何使用Redis实现分布式锁？/"/>
 
 
 
@@ -173,7 +173,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -234,7 +234,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -251,7 +251,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -268,7 +268,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -285,7 +285,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -302,7 +302,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -313,7 +313,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -333,7 +333,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -383,16 +385,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/10/01/30-如何使用Redis实现分布式锁？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/10/01/30-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -411,7 +413,7 @@
 
           
             <i class="fa fa-thumb-tack"></i>
-            <font color="FF0000">置顶</font>
+            <font color=FF0000>置顶</font>
             <span class="post-meta-divider">|</span>
           
 
@@ -496,7 +498,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">7k</span>
+                <span title="本文字数">13k</span>
               
 
               
@@ -510,7 +512,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">6 分钟</span>
+                <span title="阅读时长">12 分钟</span>
               
             </div>
           
@@ -536,9 +538,9 @@
 <li>使用setnx和del实现分布式锁存在的两个问题是可能会忘了执行del命令，或者b把a的锁删除了，要怎么处理呢？</li>
 <li><code>SET lock_key $unique_id EX $expire_time NX</code>就可以实现最简单的分布式锁，怎么理解？还有怎么优化？</li>
 </ul>
-<a id="more"></a>
-<a href="/2022/10/01/深度剖析：Redis分布式锁到底安全吗？看完这篇文章彻底懂了！/" title="深度剖析：Redis分布式锁到底安全吗？看完这篇文章彻底懂了！">深度剖析：Redis分布式锁到底安全吗？看完这篇文章彻底懂了！</a>
-<p>&nbsp;<br><a href="/2022/10/01/细说Redis分布式锁/" title="细说Redis分布式锁">细说Redis分布式锁</a></p>
+<span id="more"></span>
+<a href="/2022/10/01/%E6%B7%B1%E5%BA%A6%E5%89%96%E6%9E%90%EF%BC%9ARedis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%88%B0%E5%BA%95%E5%AE%89%E5%85%A8%E5%90%97%EF%BC%9F%E7%9C%8B%E5%AE%8C%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%BD%BB%E5%BA%95%E6%87%82%E4%BA%86%EF%BC%81/" title="深度剖析：Redis分布式锁到底安全吗？看完这篇文章彻底懂了！">深度剖析：Redis分布式锁到底安全吗？看完这篇文章彻底懂了！</a>
+<p>&nbsp;<br><a href="/2022/10/01/%E7%BB%86%E8%AF%B4Redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" title="细说Redis分布式锁">细说Redis分布式锁</a></p>
 <p>上节课，我提到，在应对并发问题时，除了原子操作，Redis客户端还可以通过加锁的方式，来控制并发写操作对共享数据的修改，从而保证数据的正确性。</p>
 <p>但是，Redis属于分布式系统，当有多个客户端需要争抢锁时，我们必须要保证，<strong>这把锁不能是某个客户端本地的锁</strong>。否则的话，其它客户端是无法访问这把锁的，当然也就不能获取这把锁了。</p>
 <p>所以，在分布式系统中，当有多个客户端需要获取锁时，我们需要分布式锁。此时，锁是保存在一个共享存储系统中的，可以被多个客户端共享访问和获取。</p>
@@ -552,8 +554,7 @@
 <li>变量值为1时，表示已经有线程获取到锁了。</li>
 </ul>
 <p>我们通常说的线程调用加锁和释放锁的操作，到底是啥意思呢？我来解释一下。实际上，一个线程调用加锁操作，其实就是检查锁变量值是否为0。如果是0，就把锁的变量值设置为1，表示获取到锁，如果不是0，就返回错误信息，表示加锁失败，已经有别的线程获取到锁了。而一个线程调用释放锁操作，其实就是将锁变量的值置为0，以便其它线程可以来获取锁。</p>
-<p>我用一段代码来展示下加锁和释放锁的操作，其中，lock为锁变量。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">acquire_lock()&#123;</span><br><span class="line">    <span class="keyword">if</span> lock == <span class="number">0</span></span><br><span class="line">        lock = <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">release_lock()&#123;</span><br><span class="line">    lock = <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>和单机上的锁类似，分布式锁同样可以<strong>用一个变量来实现</strong>。客户端加锁和释放锁的操作逻辑，也和单机上的加锁和释放锁操作逻辑一致：<strong>加锁时同样需要判断锁变量的值，根据锁变量值来判断能否加锁成功；释放锁时需要把锁变量值设置为0，表明客户端不再持有锁。</strong></p>
+<p>我用一段代码来展示下加锁和释放锁的操作，其中，lock为锁变量。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">acquire_lock()&#123;</span><br><span class="line">    <span class="keyword">if</span> lock == <span class="number">0</span></span><br><span class="line">        lock = <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">release_lock()&#123;</span><br><span class="line">    lock = <span class="number">0</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>和单机上的锁类似，分布式锁同样可以<strong>用一个变量来实现</strong>。客户端加锁和释放锁的操作逻辑，也和单机上的加锁和释放锁操作逻辑一致：<strong>加锁时同样需要判断锁变量的值，根据锁变量值来判断能否加锁成功；释放锁时需要把锁变量值设置为0，表明客户端不再持有锁。</strong></p>
 <p>但是，和线程在单机上操作锁不同的是，在分布式场景下，<strong>锁变量需要由一个共享存储系统来维护</strong>，只有这样，多个客户端才可以通过访问共享存储系统来访问锁变量。相应的，<strong>加锁和释放锁的操作就变成了读取、判断和设置共享存储系统中的锁变量值。</strong></p>
 <p>这样一来，我们就可以得出实现分布式锁的两个要求。</p>
 <ul>
@@ -565,22 +566,20 @@
 <h1 id="基于单个Redis节点实现分布式锁"><a href="#基于单个Redis节点实现分布式锁" class="headerlink" title="基于单个Redis节点实现分布式锁"></a><span style="color:#339AFF;">基于单个Redis节点实现分布式锁</span></h1><p>作为分布式锁实现过程中的共享存储系统，Redis可以使用键值对来保存锁变量，再接收和处理不同客户端发送的加锁和释放锁的操作请求。那么，键值对的键和值具体是怎么定的呢？</p>
 <p>我们要赋予锁变量一个变量名，把这个变量名作为键值对的键，而锁变量的值，则是键值对的值，这样一来，Redis就能保存锁变量了，客户端也就可以通过Redis的命令操作来实现锁操作。</p>
 <p>为了帮助你理解，我画了一张图片，它展示Redis使用键值对保存锁变量，以及两个客户端同时请求加锁的操作过程。</p>
-<img src="/2022/10/01/30-如何使用Redis实现分布式锁？/1.webp">
+<img src="/2022/10/01/30-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%EF%BC%9F/1.webp" class="">
 <p>可以看到，Redis可以使用一个键值对<code>lock_key:0</code>来保存锁变量，其中，键是lock_key，也是锁变量的名称，锁变量的初始值是0。</p>
 <p>我们再来分析下加锁操作。</p>
 <p>在图中，客户端A和C同时请求加锁。因为Redis使用单线程处理请求，所以，即使客户端A和C同时把加锁请求发给了Redis，Redis也会串行处理它们的请求。</p>
 <p>我们假设Redis先处理客户端A的请求，读取lock_key的值，发现lock_key为0，所以，Redis就把lock_key的value置为1，表示已经加锁了。紧接着，Redis处理客户端C的请求，此时，Redis会发现lock_key的值已经为1了，所以就返回加锁失败的信息。</p>
 <p>刚刚说的是加锁的操作，那释放锁该怎么操作呢？其实，释放锁就是直接把锁变量值设置为0。</p>
 <p>我还是借助一张图片来解释一下。这张图片展示了客户端A请求释放锁的过程。当客户端A持有锁时，锁变量lock_key的值为1。客户端A执行释放锁操作后，Redis将lock_key的值置为0，表明已经没有客户端持有锁了。</p>
-<img src="/2022/10/01/30-如何使用Redis实现分布式锁？/2.webp">
+<img src="/2022/10/01/30-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%EF%BC%9F/2.webp" class="">
 <p>因为加锁包含了三个操作（读取锁变量、判断锁变量值以及把锁变量值设置为1），而这三个操作在执行时需要保证原子性。那怎么保证原子性呢？</p>
 <p>上节课，我们学过，要想保证操作的原子性，有两种通用的方法，分别是使用Redis的单命令操作和使用Lua脚本。那么，在分布式加锁场景下，该怎么应用这两个方法呢？</p>
 <p>我们先来看下，Redis可以用哪些单命令操作实现加锁操作。</p>
 <p>首先是SETNX命令，它用于设置键值对的值。具体来说，就是这个命令在执行时会判断键值对是否存在，如果不存在，就设置键值对的值，如果存在，就不做任何设置。</p>
-<p>举个例子，如果执行下面的命令时，key不存在，那么key会被创建，并且值会被设置为value；如果key已经存在，SETNX不做任何赋值操作。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SETNX key value</span><br></pre></td></tr></table></figure></p>
-<p>对于释放锁操作来说，我们可以在执行完业务逻辑后，使用DEL命令删除锁变量。不过，你不用担心锁变量被删除后，其他客户端无法请求加锁了。因为SETNX命令在执行时，如果要设置的键值对（也就是锁变量）不存在，SETNX命令会先创建键值对，然后设置它的值。所以，释放锁之后，再有客户端请求加锁时，SETNX命令会创建保存锁变量的键值对，并设置锁变量的值，完成加锁。</p>
-<p>总结来说，我们就可以用SETNX和DEL命令组合来实现加锁和释放锁操作。下面的伪代码示例显示了锁操作的过程，你可以看下。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 加锁</span></span><br><span class="line">SETNX lock_key <span class="number">1</span></span><br><span class="line"><span class="comment">// 业务逻辑</span></span><br><span class="line">DO THINGS</span><br><span class="line"><span class="comment">// 释放锁</span></span><br><span class="line">DEL lock_key</span><br></pre></td></tr></table></figure></p>
-<p>不过，使用SETNX和DEL命令组合实现分布锁，存在两个潜在的风险。</p>
+<p>举个例子，如果执行下面的命令时，key不存在，那么key会被创建，并且值会被设置为value；如果key已经存在，SETNX不做任何赋值操作。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SETNX key value</span><br></pre></td></tr></table></figure><br>对于释放锁操作来说，我们可以在执行完业务逻辑后，使用DEL命令删除锁变量。不过，你不用担心锁变量被删除后，其他客户端无法请求加锁了。因为SETNX命令在执行时，如果要设置的键值对（也就是锁变量）不存在，SETNX命令会先创建键值对，然后设置它的值。所以，释放锁之后，再有客户端请求加锁时，SETNX命令会创建保存锁变量的键值对，并设置锁变量的值，完成加锁。</p>
+<p>总结来说，我们就可以用SETNX和DEL命令组合来实现加锁和释放锁操作。下面的伪代码示例显示了锁操作的过程，你可以看下。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 加锁</span></span><br><span class="line">SETNX lock_key <span class="number">1</span></span><br><span class="line"><span class="comment">// 业务逻辑</span></span><br><span class="line">DO THINGS</span><br><span class="line"><span class="comment">// 释放锁</span></span><br><span class="line">DEL lock_key</span><br></pre></td></tr></table></figure><br>不过，使用SETNX和DEL命令组合实现分布锁，存在两个潜在的风险。</p>
 <p>第一个风险是，假如某个客户端在执行了SETNX命令、加锁之后，紧接着却在操作共享数据时发生了异常，结果一直没有执行最后的DEL命令释放锁。因此，锁就一直被这个客户端持有，其它客户端无法拿到锁，也无法访问共享数据和执行后续操作，这会给业务应用带来影响。</p>
 <p>针对这个问题，一个有效的解决方法是，<strong>给锁变量设置一个过期时间</strong>。这样一来，即使持有锁的客户端发生了异常，无法主动地释放锁，Redis也会根据锁变量的过期时间，在锁变量过期后，把它删除。其它客户端在锁变量过期后，就可以重新请求加锁，这就不会出现无法加锁的问题了。</p>
 <p>我们再来看第二个风险。如果客户端A执行了SETNX命令加锁后，假设客户端B执行了DEL命令释放锁，此时，客户端A的锁就被误释放了。如果客户端C正好也在申请加锁，就可以成功获得锁，进而开始操作共享数据。这样一来，客户端A和C同时在对共享数据进行操作，数据就会被修改错误，这也是业务层不能接受的。</p>
@@ -589,13 +588,9 @@
 <p>知道了解决方案，那么，在Redis中，具体是怎么实现的呢？我们再来了解下。</p>
 <p>在查看具体的代码前，我要先带你学习下Redis的SET命令。</p>
 <p>我们刚刚在说SETNX命令的时候提到，对于不存在的键值对，它会先创建再设置值（也就是“不存在即设置”），为了能达到和SETNX命令一样的效果，Redis给SET命令提供了类似的选项NX，用来实现“不存在即设置”。如果使用了NX选项，SET命令只有在键值对不存在时，才会进行设置，否则不做赋值操作。此外，SET命令在执行时还可以带上EX或PX选项，用来设置键值对的过期时间。</p>
-<p>举个例子，执行下面的命令时，只有key不存在时，SET才会创建key，并对key进行赋值。另外，<strong>key的存活时间由seconds或者milliseconds选项值来决定</strong>。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET key value [EX seconds | PX milliseconds]  [NX]</span><br></pre></td></tr></table></figure></p>
-<p>有了SET命令的NX和EX/PX选项后，我们就可以用下面的命令来实现加锁操作了。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 加锁, unique_value作为客户端唯一性的标识</span></span><br><span class="line">SET lock_key unique_value NX PX <span class="number">10000</span></span><br></pre></td></tr></table></figure></p>
-<p>其中，unique_value是客户端的唯一标识，可以用一个随机生成的字符串来表示，PX 10000则表示lock_key会在10s后过期，以免客户端在这期间发生异常而无法释放锁。</p>
-<p>因为在加锁操作中，每个客户端都使用了一个唯一标识，所以在释放锁操作时，我们需要判断锁变量的值，是否等于执行释放锁操作的客户端的唯一标识，如下所示：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//释放锁 比较unique_value是否相等，避免误释放</span></span><br><span class="line"><span class="keyword">if</span> redis.call(<span class="string">"get"</span>,KEYS[<span class="number">1</span>]) == ARGV[<span class="number">1</span>] then</span><br><span class="line">    <span class="keyword">return</span> redis.call(<span class="string">"del"</span>,KEYS[<span class="number">1</span>])</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">end</span><br></pre></td></tr></table></figure></p>
-<p>这是使用Lua脚本（unlock.script）实现的释放锁操作的伪代码，其中，KEYS[1]表示lock_key，ARGV[1]是当前客户端的唯一标识，这两个值都是我们在执行Lua脚本时作为参数传入的。</p>
-<p>最后，我们执行下面的命令，就可以完成锁释放操作了。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli  --<span class="built_in">eval</span>  unlock.script lock_key , unique_value</span><br></pre></td></tr></table></figure></p>
-<p>你可能也注意到了，在释放锁操作中，我们使用了Lua脚本，这是因为，释放锁操作的逻辑也包含了读取锁变量、判断值、删除锁变量的多个操作，而Redis在执行Lua脚本时，可以以原子性的方式执行，从而保证了锁释放操作的原子性。</p>
+<p>举个例子，执行下面的命令时，只有key不存在时，SET才会创建key，并对key进行赋值。另外，<strong>key的存活时间由seconds或者milliseconds选项值来决定</strong>。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET key value [EX seconds | PX milliseconds]  [NX]</span><br></pre></td></tr></table></figure><br>有了SET命令的NX和EX/PX选项后，我们就可以用下面的命令来实现加锁操作了。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 加锁, unique_value作为客户端唯一性的标识</span></span><br><span class="line">SET lock_key unique_value NX PX <span class="number">10000</span></span><br></pre></td></tr></table></figure><br>其中，unique_value是客户端的唯一标识，可以用一个随机生成的字符串来表示，PX 10000则表示lock_key会在10s后过期，以免客户端在这期间发生异常而无法释放锁。</p>
+<p>因为在加锁操作中，每个客户端都使用了一个唯一标识，所以在释放锁操作时，我们需要判断锁变量的值，是否等于执行释放锁操作的客户端的唯一标识，如下所示：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//释放锁 比较unique_value是否相等，避免误释放</span></span><br><span class="line"><span class="keyword">if</span> redis.call(<span class="string">&quot;get&quot;</span>,KEYS[<span class="number">1</span>]) == ARGV[<span class="number">1</span>] then</span><br><span class="line">    <span class="keyword">return</span> redis.call(<span class="string">&quot;del&quot;</span>,KEYS[<span class="number">1</span>])</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">end</span><br></pre></td></tr></table></figure><br>这是使用Lua脚本（unlock.script）实现的释放锁操作的伪代码，其中，KEYS[1]表示lock_key，ARGV[1]是当前客户端的唯一标识，这两个值都是我们在执行Lua脚本时作为参数传入的。</p>
+<p>最后，我们执行下面的命令，就可以完成锁释放操作了。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">redis-cli  --<span class="built_in">eval</span>  unlock.script lock_key , unique_value </span><br></pre></td></tr></table></figure><br>你可能也注意到了，在释放锁操作中，我们使用了Lua脚本，这是因为，释放锁操作的逻辑也包含了读取锁变量、判断值、删除锁变量的多个操作，而Redis在执行Lua脚本时，可以以原子性的方式执行，从而保证了锁释放操作的原子性。</p>
 <p>好了，到这里，你了解了如何使用SET命令和Lua脚本在Redis单节点上实现分布式锁。但是，我们现在只用了一个Redis实例来保存锁变量，如果这个Redis实例发生故障宕机了，那么锁变量就没有了。此时，客户端也无法进行锁操作了，这就会影响到业务的正常执行。所以，我们在实现分布式锁时，还需要保证锁的可靠性。那怎么提高呢？这就要提到基于多个Redis节点实现分布式锁的方式了。</p>
 <h1 id="基于多个Redis节点实现高可靠的分布式锁"><a href="#基于多个Redis节点实现高可靠的分布式锁" class="headerlink" title="基于多个Redis节点实现高可靠的分布式锁"></a><span style="color:#339AFF;">基于多个Redis节点实现高可靠的分布式锁</span></h1><p>当我们要实现高可靠的分布式锁时，就不能只依赖单个的命令操作了，我们需要按照一定的步骤和规则进行加解锁操作，否则，就可能会出现锁无法工作的情况。“一定的步骤和规则”是指啥呢？其实就是分布式锁的算法。</p>
 <p>为了避免Redis实例故障而导致的锁无法工作的问题，Redis的开发者Antirez提出了分布式锁算法Redlock。</p>
@@ -646,7 +641,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Redis核心技术与实战/" rel="tag"># Redis核心技术与实战</a>
+            <a href="/tags/Redis%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/" rel="tag"># Redis核心技术与实战</a>
           
         </div>
       
@@ -659,7 +654,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/10/01/18-Kubernetes应用扩展/" rel="next" title="18-Kubernetes应用扩展">
+              <a href="/2022/10/01/18-Kubernetes%E5%BA%94%E7%94%A8%E6%89%A9%E5%B1%95/" rel="next" title="18-Kubernetes应用扩展">
                 <i class="fa fa-chevron-left"></i> 18-Kubernetes应用扩展
               </a>
             
@@ -669,7 +664,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/10/01/细说Redis分布式锁/" rel="prev" title="细说Redis分布式锁">
+              <a href="/2022/10/01/%E7%BB%86%E8%AF%B4Redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" rel="prev" title="细说Redis分布式锁">
                 细说Redis分布式锁 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -729,7 +724,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -740,9 +737,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -754,26 +751,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -845,7 +826,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1020,115 +1001,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1159,23 +1032,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1201,7 +1074,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#单机上的锁和分布式锁的联系与区别"><span class="nav-number">1.</span> <span class="nav-text">单机上的锁和分布式锁的联系与区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基于单个Redis节点实现分布式锁"><span class="nav-number">2.</span> <span class="nav-text">基于单个Redis节点实现分布式锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基于多个Redis节点实现高可靠的分布式锁"><span class="nav-number">3.</span> <span class="nav-text">基于多个Redis节点实现高可靠的分布式锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#每课一问"><span class="nav-number">5.</span> <span class="nav-text">每课一问</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%95%E6%9C%BA%E4%B8%8A%E7%9A%84%E9%94%81%E5%92%8C%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E7%9A%84%E8%81%94%E7%B3%BB%E4%B8%8E%E5%8C%BA%E5%88%AB"><span class="nav-number">1.</span> <span class="nav-text">单机上的锁和分布式锁的联系与区别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%8D%95%E4%B8%AARedis%E8%8A%82%E7%82%B9%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="nav-number">2.</span> <span class="nav-text">基于单个Redis节点实现分布式锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%A4%9A%E4%B8%AARedis%E8%8A%82%E7%82%B9%E5%AE%9E%E7%8E%B0%E9%AB%98%E5%8F%AF%E9%9D%A0%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="nav-number">3.</span> <span class="nav-text">基于多个Redis节点实现高可靠的分布式锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AF%8F%E8%AF%BE%E4%B8%80%E9%97%AE"><span class="nav-number">5.</span> <span class="nav-text">每课一问</span></a></li></ol></div>
             
 
           </div>
@@ -1236,7 +1109,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1247,12 +1120,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1260,7 +1133,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

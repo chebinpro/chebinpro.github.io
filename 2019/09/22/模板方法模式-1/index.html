@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,29 +104,29 @@
 
 
   <meta name="description" content="思考并回答以下问题：  什么是基本方法？什么是模板方法？ 模板方法模式为什么是类行为型模式？ 钩子方法的引入使得子类可以控制父类的行为。怎么实现的？">
-<meta name="keywords" content="C#设计模式（第2版）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="模板方法模式">
-<meta property="og:url" content="http://yoursite.com/2019/09/22/模板方法模式-1/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/09/22/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-1/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：  什么是基本方法？什么是模板方法？ 模板方法模式为什么是类行为型模式？ 钩子方法的引入使得子类可以控制父类的行为。怎么实现的？">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2019/09/22/模板方法模式-1/1.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/22/模板方法模式-1/2.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/22/模板方法模式-1/3.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/22/模板方法模式-1/4.png">
-<meta property="og:updated_time" content="2020-06-12T06:29:16.000Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2019/09/22/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-1/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/22/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-1/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/22/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-1/3.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/22/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-1/4.png">
+<meta property="article:published_time" content="2019-09-22T12:28:54.000Z">
+<meta property="article:modified_time" content="2020-06-12T06:29:16.000Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="C#设计模式（第2版）">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="模板方法模式">
-<meta name="twitter:description" content="思考并回答以下问题：  什么是基本方法？什么是模板方法？ 模板方法模式为什么是类行为型模式？ 钩子方法的引入使得子类可以控制父类的行为。怎么实现的？">
-<meta name="twitter:image" content="http://yoursite.com/2019/09/22/模板方法模式-1/1.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/22/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-1/1.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/09/22/模板方法模式-1/">
+  <link rel="canonical" href="http://yoursite.com/2019/09/22/模板方法模式-1/"/>
 
 
 
@@ -175,7 +175,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -236,7 +236,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -253,7 +253,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -270,7 +270,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -287,7 +287,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -304,7 +304,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -315,7 +315,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -335,7 +335,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -385,16 +387,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/22/模板方法模式-1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/22/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-1/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -465,7 +467,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/设计模式/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a></span>
 
                 
                 
@@ -494,7 +496,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">12k</span>
+                <span title="本文字数">40k</span>
               
 
               
@@ -508,7 +510,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">11 分钟</span>
+                <span title="阅读时长">36 分钟</span>
               
             </div>
           
@@ -534,11 +536,11 @@
 <li>模板方法模式为什么是类行为型模式？</li>
 <li>钩子方法的引入使得子类可以控制父类的行为。怎么实现的？</li>
 </ul>
-<a id="more"></a>
-<p><strong><font size="3">本章导学</font></strong></p>
+<span id="more"></span>
+<p><strong><font size=3>本章导学</font></strong></p>
 <p>模板方法模式是结构最简单的行为型设计模式，它是一种类行为模式，在其结构中只存在父类与子类之间的继承关系。通过使用模板方法模式，可以将一些复杂流程的实现步骤封装在一系列基本方法中，在抽象父类中提供了一个称为模板方法的方法来定义这些基本方法的执行次序，而通过其子类来覆盖某些步骤，从而使得相同的算法框架可以有不同的执行结果。模板方法模式提供了具体的模板方法来定义算法结构，而具体步骤的实现可以在其子类中完成。  </p>
 <p>本章将学习模板方法模式的定义与结构，学习模板方法模式中所包含的几种不同的方法，并通过实例来学习模板方法模式的应用，学会如何在实际软件项目开发中合理地使用模板方法模式。  </p>
-<p><strong><font size="3">本章知识点</font></strong></p>
+<p><strong><font size=3>本章知识点</font></strong></p>
 <ul>
 <li>模板方法模式的定义</li>
 <li>模板方法模式的结构  </li>
@@ -552,76 +554,66 @@
 <blockquote>
 <p>图1 请客吃饭示意图</p>
 </blockquote>
-<img src="/2019/09/22/模板方法模式-1/1.png">
+<img src="/2019/09/22/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-1/1.png" class="">
 <p>在软件开发中，开发人员有时也会遇到类似的情况，某个方法的实现需要多个步骤（类似“请客”），其中有些步骤是固定的（类似“点单”和“买单”)，而有些步骤并不固定，存在可变性（类似“吃东西”）。为了提高代码的复用性和系统的灵活性，可以使用一种称为模板方法模式的设计模式来对这类情况进行设计。在模板方法模式中，<span style="color:red">将实现功能的每一个步骤所对应的方法称为基本方法（例如“点单”、“吃东西”和“买单”），而调用这些基本方法同时定义基本方法的执行次序的方法称为模板方法（例如“请客”）</span>。在模板方法模式中，可以将相同的代码放在父类中，例如将模板方法“请客”以及基本方法“点单”和“买单”的实现放在父类中，而对于基本方法“吃东西”，在父类中只做一个声明，将其具体实现放在不同的子类中，在一个子类中提供“吃面条”的实现，而另一个子类提供“吃满汉全席”的实现。通过使用模板方法模式，一方面提高了代码的复用性；另一方面还可以利用面向对象的多态性，在运行时选择一种具体子类，实现完整的“请客”方法，提高系统的灵活性和可扩展性。  </p>
-<p>模板方法模式的定义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">定义一个操作中算法的框架，而将一些步骤延迟到子类中。模板方法模式使得子类不改变一个算法的结构即可重定义该算法的某些特定步骤。</span><br></pre></td></tr></table></figure></p>
+<p>模板方法模式的定义如下：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">定义一个操作中算法的框架，而将一些步骤延迟到子类中。模板方法模式使得子类不改变一个算法的结构即可重定义该算法的某些特定步骤。</span><br></pre></td></tr></table></figure></p>
 <p>模板方法模式是一种基于继承的代码复用技术，它是一种类行为型模式。  </p>
 <p>模板方法模式是结构最简单的行为型设计模式，在其结构中只存在父类与子类之间的继承关系。通过使用模板方法模式，可以将一些复杂流程的实现步骤封装在一系列基本方法中，<span style="color:red">在抽象父类中提供一个称为模板方法的方法来定义这些基本方法的执行次序，而通过其子类来覆盖某些步骤，从而使得相同的算法框架可以有不同的执行结果。</span>模板方法模式提供了一个模板方法来定义算法框架，而某些具体步骤的实现可以在其子类中完成。</p>
 <h1 id="模板方法模式的结构与实现"><a href="#模板方法模式的结构与实现" class="headerlink" title="模板方法模式的结构与实现"></a><span style="color:#339AFF;">模板方法模式的结构与实现</span></h1><h2 id="模板方法模式的结构"><a href="#模板方法模式的结构" class="headerlink" title="模板方法模式的结构"></a><span style="color:#00ACC1;">模板方法模式的结构</span></h2><p>模板方法模式的结构比较简单，其核心是抽象类和其中的模板方法的设计，其结构如由图2可知，模板方法模式包含以下两个角色。</p>
 <blockquote>
 <p>图2 模板方法模式结构图</p>
 </blockquote>
-<img src="/2019/09/22/模板方法模式-1/2.png">  
+<img src="/2019/09/22/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-1/2.png" class="">  
 <p>(1)<strong>AbstracClass（抽象类）</strong>：在抽象类中定义了一系列基本操作（Primitive Operations），这些基本操作可以是具体的，也可以是抽象的，每一个基本操作对应算法的一个步骤，在其子类中可以重定义或实现这些步骤。同时，在抽象类中实现了一个模板方法（Template  Method），用于定义一个算法的框架，模板方法不仅可以调用在抽象类中实现的基本方法，也可以调用在抽象类的子类中实现的基本方法，还可以调用其他对象中的方法。 </p>
 <p>(2)<strong>ConcreteClass（具体子类）</strong>：它是抽象类的子类，用于实现在父类中声明的抽象基本操作，以完成子类特定算法的步骤，也可以覆盖在父类中已经实现的具体基本操作。</p>
 <h2 id="模板方法模式的实现"><a href="#模板方法模式的实现" class="headerlink" title="模板方法模式的实现"></a><span style="color:#00ACC1;">模板方法模式的实现</span></h2><p>在实现模板方法模式时，开发抽象类的软件设计师和开发具体子类的软件设计师之间可以进行协作。一个设计师负责给出一个算法的轮廓和框架，另一些设计师则负责给出这个算法的各个逻辑步骤。实现这些具体逻辑步骤的方法即为基本方法，而将这些基本方法汇总起来的方法即为模板方法，模板方法模式的名字也因此而来。下面详细介绍模板方法和基本方法。</p>
-<p><strong><font size="3">1.模板方法</font></strong>  </p>
+<p><strong><font size=3>1.模板方法</font></strong>  </p>
 <p>一个模板方法是定义在抽象类中的、把基本操作方法组合在一起形成一个总算法或一个总行为的方法。这个模板方法定义在抽象类中，并由子类不加以修改地完全继承下来。模板方法是一个具体方法，它给出了一个顶层逻辑框架，而逻辑的组成步骤在抽象类中可以是具体方法，也可以是抽象方法。由于模板方法是具体方法，因此，模板方法模式中的抽象层只能是抽象类，而不是接口。  </p>
-<p><strong><font size="3">2.基本方法</font></strong>  </p>
+<p><strong><font size=3>2.基本方法</font></strong>  </p>
 <p>基本方法是实现算法各个步骤的方法，是模板方法的组成部分。基本方法又可以分为3种，即抽象方法（Abstract Method）、具体方法（Concrete Method）和钩子方法（Hook Method）。</p>
 <p>(1)抽象方法：一个抽象方法由抽象类声明、其具体子类实现。在C#语言中，一个抽象方法以abstract关键字标识。  </p>
 <p>(2)具体方法：一个具体方法由一个抽象类或具体类声明并实现，其子类可以进行覆盖也可以直接继承。  </p>
 <p>(3)钩子方法：一个钩子方法由一个抽象类或具体类声明并实现，而其子类可能会加以扩展。通常，在父类中给出的实现是一个空实现（可使用virtual关键字将其定义为虚函数），并以该空实现作为方法的默认实现，当然，钩子方法也可以提供一个非空的默认实现。</p>
-<p>在模板方法模式中，钩子方法有两类：第一类钩子方法可以与一些具体步骤“挂钩”，以实现在不同条件下执行模板方法中的不同步骤，这类钩子方法的返回类型通常是bool类型，方法名一般为IsXXX()，用于对某个条件进行判断，如果条件满足，则执行某一步骤，否则不执行，代码片段如下：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="comment">// 模板方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TemplateMethod</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Open();</span><br><span class="line">    Display();</span><br><span class="line">    <span class="comment">// 通过钩子方法来确定某步骤是否执行</span></span><br><span class="line">    <span class="keyword">if</span> (IsPrint)</span><br><span class="line">    &#123;</span><br><span class="line">        Print();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 钩子方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">bool</span> <span class="title">IsPrint</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
-<p>在该段代码中，IsPrint()方法即钩子方法，它可以决定Print()方法是否执行，一般情况下，钩子方法的返回值为true，如果不希望某方法执行，可以在其子类中覆盖钩子方法，将其返回值改为false即可，这种类型的钩子方法可以控制方法的执行，对一个算法进行约束。 </p>
+<p>在模板方法模式中，钩子方法有两类：第一类钩子方法可以与一些具体步骤“挂钩”，以实现在不同条件下执行模板方法中的不同步骤，这类钩子方法的返回类型通常是bool类型，方法名一般为IsXXX()，用于对某个条件进行判断，如果条件满足，则执行某一步骤，否则不执行，代码片段如下：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="comment">// 模板方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TemplateMethod</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    Open();</span><br><span class="line">    Display();</span><br><span class="line">    <span class="comment">// 通过钩子方法来确定某步骤是否执行</span></span><br><span class="line">    <span class="keyword">if</span> (IsPrint)</span><br><span class="line">    &#123;</span><br><span class="line">        Print();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 钩子方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="built_in">bool</span> <span class="title">IsPrint</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure><br>在该段代码中，IsPrint()方法即钩子方法，它可以决定Print()方法是否执行，一般情况下，钩子方法的返回值为true，如果不希望某方法执行，可以在其子类中覆盖钩子方法，将其返回值改为false即可，这种类型的钩子方法可以控制方法的执行，对一个算法进行约束。 </p>
 <p>还有一类钩子方法就是实现体为空的具体方法，子类可以根据需要覆盖或者继承这些钩子方法，与抽象方法相比，这类钩子方法的好处在于子类如果没有覆盖父类中定义的钩子方法，编译可以正常通过，但是如果没有覆盖父类中声明的抽象方法，编译将报错。 </p>
-<p>在模板方法模式中，抽象类的典型代码如下：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">AbstracClass</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 模板方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TemplateMethod</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        PrimitiveOperation1();</span><br><span class="line">        PrimitiveOperation2();</span><br><span class="line">        PrimitiveOperation3();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 基本方法——具体方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">PrimitiveOperation1</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">// 实现代码</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 基本方法——抽象方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">PrimitiveOperation2</span>(<span class="params"></span>)</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 基本方法——钩子方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">PrimitiveOperation3</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在抽象类中，模板方法TemplateMethod()定义了算法的框架，在模板方法中调用基本方法以实现完整的算法，每一个基本方法（如PrimitiveOperation1()、PrimitiveOperation2()等）均实现了算法的一部分，对于所有子类都相同的基本方法可以在父类提供具体实现，例如PrimitiveOperation1()，否则在父类声明为抽象方法或钩子方法，由不同的子类提供不同的实现，例如PrimitiveOperation2()和PrimitiveOperation3()。  </p>
-<p>用户可在抽象类的子类中提供抽象步骤的实现，也可覆盖父类中已经实现的具体方法，具体子类的典型代码如下：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">ConcreteClass</span> : <span class="title">AbstracClass</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">PrimitiveOperation2</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">// 实现代码</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">PrimitiveOperation3</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">// 实现代码</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在模板方法模式中，由于面向对象的多态性，子类对象在运行时将覆盖父类对象，子类中定义的方法也将覆盖父类中定义的方法，因此程序在运行时，具体子类的基本方法将覆父类中定义的基本方法，子类的钩子方法将覆盖父类的钩子方法，从而可以通过在子类中实现的钩子方法对父类方法的执行进行约束，实现子类对父类行为的反向控制。</p>
+<p>在模板方法模式中，抽象类的典型代码如下：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">AbstracClass</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 模板方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">TemplateMethod</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        PrimitiveOperation1();</span><br><span class="line">        PrimitiveOperation2();</span><br><span class="line">        PrimitiveOperation3();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 基本方法——具体方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">PrimitiveOperation1</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 实现代码</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 基本方法——抽象方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">PrimitiveOperation2</span>()</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 基本方法——钩子方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">PrimitiveOperation3</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>在抽象类中，模板方法TemplateMethod()定义了算法的框架，在模板方法中调用基本方法以实现完整的算法，每一个基本方法（如PrimitiveOperation1()、PrimitiveOperation2()等）均实现了算法的一部分，对于所有子类都相同的基本方法可以在父类提供具体实现，例如PrimitiveOperation1()，否则在父类声明为抽象方法或钩子方法，由不同的子类提供不同的实现，例如PrimitiveOperation2()和PrimitiveOperation3()。  </p>
+<p>用户可在抽象类的子类中提供抽象步骤的实现，也可覆盖父类中已经实现的具体方法，具体子类的典型代码如下：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">ConcreteClass</span> : <span class="title">AbstracClass</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">PrimitiveOperation2</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 实现代码</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">PrimitiveOperation3</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 实现代码</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>在模板方法模式中，由于面向对象的多态性，子类对象在运行时将覆盖父类对象，子类中定义的方法也将覆盖父类中定义的方法，因此程序在运行时，具体子类的基本方法将覆父类中定义的基本方法，子类的钩子方法将覆盖父类的钩子方法，从而可以通过在子类中实现的钩子方法对父类方法的执行进行约束，实现子类对父类行为的反向控制。</p>
 <h1 id="模板方法模式的应用实例"><a href="#模板方法模式的应用实例" class="headerlink" title="模板方法模式的应用实例"></a><span style="color:#339AFF;">模板方法模式的应用实例</span></h1><p>下面通过一个应用实例来进一步学习和理解模板方法模式。</p>
 <p><strong>1.实例说明</strong></p>
 <blockquote>
-<p>某软件公司要为某银行的业务支撑系统开发一个利息计算模块，利息的计算流程如下：<br><br>(1)系统根据账号和密码验证用户信息，如果用户信息错误，则系统显示出错提示。<br><br>(2)如果用户信息正确，则根据用户类型的不同使用不同的利息计算公式计算利息（如活期账户和定期账户具有不同的利息计算公式）。<br><br>(3)系统显示利息。<br><br>现使用模板方法模式设计该利息计算模块。</p>
+<p>某软件公司要为某银行的业务支撑系统开发一个利息计算模块，利息的计算流程如下：<br><br/>(1)系统根据账号和密码验证用户信息，如果用户信息错误，则系统显示出错提示。<br><br/>(2)如果用户信息正确，则根据用户类型的不同使用不同的利息计算公式计算利息（如活期账户和定期账户具有不同的利息计算公式）。<br><br/>(3)系统显示利息。<br><br/>现使用模板方法模式设计该利息计算模块。</p>
 </blockquote>
 <p><strong>2.实例类图</strong>  </p>
 <p>通过分析，本实例的结构如图3所示。</p>
 <blockquote>
 <p>图3 银行利息计算模块结构图</p>
 </blockquote>
-<img src="/2019/09/22/模板方法模式-1/3.png">
+<img src="/2019/09/22/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-1/3.png" class="">
 <p>在图3中，Account充当抽象类角色，CurrentAccount和SavingAccount充当具体子类角色。</p>
 <p><strong>3.实例代码</strong></p>
 <p>(1)Account：账户类、充当抽象类。</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">TemplateMethodSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">Account</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 基本方法——具体方法</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">bool</span> <span class="title">Validate</span>(<span class="params"><span class="keyword">string</span> account, <span class="keyword">string</span> password</span>) </span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"账号：&#123;0&#125;"</span>, account);</span><br><span class="line">            Console.WriteLine(<span class="string">"密码：&#123;0&#125;"</span>, password);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 模拟登录</span></span><br><span class="line">            <span class="keyword">if</span> (account.Equals(<span class="string">"张无忌"</span>) &amp;&amp; password.Equals(<span class="string">"123456"</span>)) </span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> </span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 基本方法——抽象方法</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">CalculateInterest</span>(<span class="params"></span>)</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 基本方法——具体方法</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Display</span>(<span class="params"></span>) </span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"显示利息！"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 模板方法</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Handle</span>(<span class="params"><span class="keyword">string</span> account, <span class="keyword">string</span> password</span>) </span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">if</span> (!Validate(account,password)) </span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(<span class="string">"账户或密码错误！"</span>);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            CalculateInterest();</span><br><span class="line">            Display();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">TemplateMethodSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">Account</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 基本方法——具体方法</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="built_in">bool</span> <span class="title">Validate</span>(<span class="params"><span class="built_in">string</span> account, <span class="built_in">string</span> password</span>)</span> </span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;账号：&#123;0&#125;&quot;</span>, account);</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;密码：&#123;0&#125;&quot;</span>, password);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 模拟登录</span></span><br><span class="line">            <span class="keyword">if</span> (account.Equals(<span class="string">&quot;张无忌&quot;</span>) &amp;&amp; password.Equals(<span class="string">&quot;123456&quot;</span>)) </span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> </span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 基本方法——抽象方法</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">CalculateInterest</span>()</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 基本方法——具体方法</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Display</span>()</span> </span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;显示利息！&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 模板方法</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Handle</span>(<span class="params"><span class="built_in">string</span> account, <span class="built_in">string</span> password</span>)</span> </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (!Validate(account,password)) </span><br><span class="line">            &#123;</span><br><span class="line">                Console.WriteLine(<span class="string">&quot;账户或密码错误！&quot;</span>);</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            CalculateInterest();</span><br><span class="line">            Display();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>(2)CurrentAccount：活期账户类，充当具体子类。</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">TemplateMethodSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">CurrentAccount</span> : <span class="title">Account</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 覆盖父类的抽象基本方法</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">CalculateInterest</span>(<span class="params"></span>) </span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"按活期利率计算利息！"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">TemplateMethodSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">CurrentAccount</span> : <span class="title">Account</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 覆盖父类的抽象基本方法</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">CalculateInterest</span>()</span> </span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;按活期利率计算利息！&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>(3)SavingAccount：定期账户类，充当具体子类。</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">TemplateMethodSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">SavingAccount</span> : <span class="title">Account</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 覆盖父类的抽象基本方法</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">CalculateInterest</span>(<span class="params"></span>) </span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"按定期利率计算利息！"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">TemplateMethodSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">SavingAccount</span> : <span class="title">Account</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 覆盖父类的抽象基本方法</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">CalculateInterest</span>()</span> </span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;按定期利率计算利息！&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>(4)配置文件App.config：在配置文件中存储了具体子类的类名。</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span> ?&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">  &lt;appSettings&gt;</span><br><span class="line">    &lt;<span class="keyword">add</span> key=<span class="string">"subClass"</span> <span class="keyword">value</span>=<span class="string">"TemplateMethodSample.CurrentAccount"</span>/&gt;</span><br><span class="line">  &lt;/appSettings&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span> ?&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">  &lt;appSettings&gt;</span><br><span class="line">    &lt;<span class="keyword">add</span> key=<span class="string">&quot;subClass&quot;</span> <span class="keyword">value</span>=<span class="string">&quot;TemplateMethodSample.CurrentAccount&quot;</span>/&gt;</span><br><span class="line">  &lt;/appSettings&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
 <p>(5)Program：客户端测试类。</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Configuration;</span><br><span class="line"><span class="keyword">using</span> System.Reflection;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">TemplateMethodSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Account account;</span><br><span class="line">            <span class="comment">// 读取配置文件</span></span><br><span class="line">            <span class="keyword">string</span> subClassStr = ConfigurationManager.AppSettings[<span class="string">"subClass"</span>];</span><br><span class="line">            <span class="comment">// 反射生成对象</span></span><br><span class="line">            account = (Account)Assembly.Load(<span class="string">"TemplateMethodSample"</span>).CreateInstance(subClassStr);</span><br><span class="line">            account.Handle(<span class="string">"张无忌"</span>, <span class="string">"123456"</span>);</span><br><span class="line"></span><br><span class="line">            Console.Read();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Configuration;</span><br><span class="line"><span class="keyword">using</span> System.Reflection;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">TemplateMethodSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            Account account;</span><br><span class="line">            <span class="comment">// 读取配置文件</span></span><br><span class="line">            <span class="built_in">string</span> subClassStr = ConfigurationManager.AppSettings[<span class="string">&quot;subClass&quot;</span>];</span><br><span class="line">            <span class="comment">// 反射生成对象</span></span><br><span class="line">            account = (Account)Assembly.Load(<span class="string">&quot;TemplateMethodSample&quot;</span>).CreateInstance(subClassStr);</span><br><span class="line">            account.Handle(<span class="string">&quot;张无忌&quot;</span>, <span class="string">&quot;123456&quot;</span>);</span><br><span class="line"></span><br><span class="line">            Console.Read();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p><strong>4.结果及分析</strong></p>
-<p>编译并运行程序，输出结果如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">账号：张无忌  </span><br><span class="line">密码：123456  </span><br><span class="line">按活期利率计算利息！  </span><br><span class="line">显示利息！</span><br></pre></td></tr></table></figure></p>
-<p>如果需要更换具体子类，无须修改源代码，只需修改配置文件App.config即可。例如将活期账户（Current Account）改为定期账户（Saving Account），只需将存储在配置文件中的具体子类CurrentAccount改为SavingAccount，代码如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">appSettings</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">add</span> <span class="attr">key</span>=<span class="string">"subClass"</span> <span class="attr">value</span>=<span class="string">"TemplateMethodSample.SavingAccount"</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">appSettings</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>重新运行客户端程序，输出结果如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">账号：张无忌  </span><br><span class="line">密码：123456  </span><br><span class="line">按定期利率计算利息！</span><br><span class="line">显示利息！</span><br></pre></td></tr></table></figure></p>
-<p>如果需要增加新的具体子类（新的账户类型），原有代码无须修改，完全符合开闭原则。</p>
-<h1 id="钩子方法的使用"><a href="#钩子方法的使用" class="headerlink" title="钩子方法的使用"></a><span style="color:#339AFF;">钩子方法的使用</span></h1><p>在模板方法模式中，父类提供了一个定义算法框架的模板方法，还提供了一系列抽象方法、具体方法和钩子方法，其中，<span style="color:red">钩子方法的引入使得子类可以控制父类的行为</span>。最简单的钩子方法就是空方法，其代码如下：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Display</span>(<span class="params"></span>)</span>&#123;&#125;</span><br></pre></td></tr></table></figure></p>
-<p>当然，用户也可以在钩子方法中定义一个默认的实现，如果子类不覆盖钩子方法，则执行父类的默认实现代码。  </p>
+<p>编译并运行程序，输出结果如下:<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">账号：张无忌  </span><br><span class="line">密码：123456  </span><br><span class="line">按活期利率计算利息！  </span><br><span class="line">显示利息！</span><br></pre></td></tr></table></figure><br>如果需要更换具体子类，无须修改源代码，只需修改配置文件App.config即可。例如将活期账户（Current Account）改为定期账户（Saving Account），只需将存储在配置文件中的具体子类CurrentAccount改为SavingAccount，代码如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span> ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">appSettings</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">add</span> <span class="attr">key</span>=<span class="string">&quot;subClass&quot;</span> <span class="attr">value</span>=<span class="string">&quot;TemplateMethodSample.SavingAccount&quot;</span>/&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">appSettings</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure><br>重新运行客户端程序，输出结果如下:<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">账号：张无忌  </span><br><span class="line">密码：123456  </span><br><span class="line">按定期利率计算利息！</span><br><span class="line">显示利息！</span><br></pre></td></tr></table></figure><br>如果需要增加新的具体子类（新的账户类型），原有代码无须修改，完全符合开闭原则。</p>
+<h1 id="钩子方法的使用"><a href="#钩子方法的使用" class="headerlink" title="钩子方法的使用"></a><span style="color:#339AFF;">钩子方法的使用</span></h1><p>在模板方法模式中，父类提供了一个定义算法框架的模板方法，还提供了一系列抽象方法、具体方法和钩子方法，其中，<span style="color:red">钩子方法的引入使得子类可以控制父类的行为</span>。最简单的钩子方法就是空方法，其代码如下：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">Display</span>()</span>&#123;&#125;</span><br></pre></td></tr></table></figure><br>当然，用户也可以在钩子方法中定义一个默认的实现，如果子类不覆盖钩子方法，则执行父类的默认实现代码。  </p>
 <p>另一种钩子方法可以实现对其他方法进行约束，这种钩子方法通常返回一个bool类型，即返回true或false，用来判断是否执行某一个基本方法。下面通过一个实例来说明这种钩子方法的使用。</p>
 <blockquote>
-<p>某软件公司要为销售管理系统提供一个数据图表显示功能，该功能的实现包括以下几个步骤：<br><br>(1)从数据源获取数据。<br><br>(2)将数据转换为XML格式。<br><br>(3)以某种图表方式显示XML格式的数据。<br><br>该功能支持多种数据源和多种图表显示方式，但所有的图表显示操作都基于XML格式的数据，因此可能需要对数据进行转换，如果从数据源获取的数据已经是XML数据，则无须转换。</p>
+<p>某软件公司要为销售管理系统提供一个数据图表显示功能，该功能的实现包括以下几个步骤：<br><br/>(1)从数据源获取数据。<br><br/>(2)将数据转换为XML格式。<br><br/>(3)以某种图表方式显示XML格式的数据。<br><br/>该功能支持多种数据源和多种图表显示方式，但所有的图表显示操作都基于XML格式的数据，因此可能需要对数据进行转换，如果从数据源获取的数据已经是XML数据，则无须转换。</p>
 </blockquote>
 <p>由于该数据图表显示功能的3个步骤次序是固定的，且存在公共代码（例如数据格式转换代码），满足模板方法模式的适用条件，可以使用模板方法模式对其进行设计。因为数据格式不同，XML数据可以直接显示，而其他格式的数据需要进行转换，因此第(2)步“将数据转换为XML格式”的执行存在不确定性，为了解决这个问题，可以定义一个钩子方法IsNotXMLData()对数据转换方法进行控制。通过分析，该图表显示功能的基本结构如图4所示。</p>
 <blockquote>
 <p>图4 数据图表显示功能结构图</p>
 </blockquote>
-<img src="/2019/09/22/模板方法模式-1/4.png">
-<p>用户可以将公共方法和框架代码放在抽象父类中，其代码如下：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">TemplateMethodSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">DataViewer</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 抽象方法：获取数据</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">GetData</span>(<span class="params"></span>)</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 具体方法：转换数据</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ConvertData</span>(<span class="params"></span>) </span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"将数据转换为XML格式。"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 抽象方法：显示数据</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">DisplayData</span>(<span class="params"></span>)</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 钩子方法：判断是否为XML格式的数据</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">bool</span> <span class="title">IsNotXMLData</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 模板方法</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Process</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            GetData();</span><br><span class="line">            <span class="comment">// 如果不是XML格式的数据则进行数据转换</span></span><br><span class="line">            <span class="keyword">if</span> (IsNotXMLData())</span><br><span class="line">            &#123;</span><br><span class="line">                ConvertData();</span><br><span class="line">            &#125;</span><br><span class="line">            DisplayData();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在上面的代码中，引入了一个钩子方法IsNotXMLData()，其返回类型为bool类型，在模板方法中通过它来对数据转换方法ConvertData()进行约束，该钩子方法的默认返回值为true，在子类中可以根据实际情况覆盖该方法，其中，用于显示XML格式数据的具体子类XMLDataViewer的代码如下：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">TemplateMethodSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">XMLDataViewer</span> : <span class="title">DataViewer</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 实现父类方法：获取数据</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">GetData</span>(<span class="params"></span>) </span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"从XML文件中获取数据。"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 实现父类方法：显示数据</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">DisplayData</span>(<span class="params"></span>) </span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"以柱状图显示数据。"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 覆盖父类的钩子方法</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">bool</span> <span class="title">IsNotXMLData</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在具体子类XMLDataViewer中覆盖了钩子方法IsNotXMLData()，返回false，表示该数据已为XML格式，无须执行数据转换方法ConvertData()。客户端代码如下：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">TemplateMethodSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            DataViewer dv;</span><br><span class="line">            dv = <span class="keyword">new</span> XMLDataViewer();</span><br><span class="line">            dv.Process();</span><br><span class="line">            </span><br><span class="line">            Console.Read();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>该程序的运行结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">从XML文件中获取数据。  </span><br><span class="line">以柱状图显示数据。</span><br></pre></td></tr></table></figure></p>
+<img src="/2019/09/22/%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F-1/4.png" class="">
+<p>用户可以将公共方法和框架代码放在抽象父类中，其代码如下：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">TemplateMethodSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">DataViewer</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 抽象方法：获取数据</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">GetData</span>()</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 具体方法：转换数据</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">ConvertData</span>()</span> </span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;将数据转换为XML格式。&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 抽象方法：显示数据</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">DisplayData</span>()</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 钩子方法：判断是否为XML格式的数据</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="built_in">bool</span> <span class="title">IsNotXMLData</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 模板方法</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Process</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            GetData();</span><br><span class="line">            <span class="comment">// 如果不是XML格式的数据则进行数据转换</span></span><br><span class="line">            <span class="keyword">if</span> (IsNotXMLData())</span><br><span class="line">            &#123;</span><br><span class="line">                ConvertData();</span><br><span class="line">            &#125;</span><br><span class="line">            DisplayData();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>在上面的代码中，引入了一个钩子方法IsNotXMLData()，其返回类型为bool类型，在模板方法中通过它来对数据转换方法ConvertData()进行约束，该钩子方法的默认返回值为true，在子类中可以根据实际情况覆盖该方法，其中，用于显示XML格式数据的具体子类XMLDataViewer的代码如下：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">TemplateMethodSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">XMLDataViewer</span> : <span class="title">DataViewer</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 实现父类方法：获取数据</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">GetData</span>()</span> </span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;从XML文件中获取数据。&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 实现父类方法：显示数据</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">DisplayData</span>()</span> </span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;以柱状图显示数据。&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 覆盖父类的钩子方法</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">bool</span> <span class="title">IsNotXMLData</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>在具体子类XMLDataViewer中覆盖了钩子方法IsNotXMLData()，返回false，表示该数据已为XML格式，无须执行数据转换方法ConvertData()。客户端代码如下：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">TemplateMethodSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            DataViewer dv;</span><br><span class="line">            dv = <span class="keyword">new</span> XMLDataViewer();</span><br><span class="line">            dv.Process();</span><br><span class="line">            </span><br><span class="line">            Console.Read();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>该程序的运行结果如下：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">从XML文件中获取数据。  </span><br><span class="line">以柱状图显示数据。</span><br></pre></td></tr></table></figure></p>
 <h1 id="模板方法模式的优缺点与适用环境"><a href="#模板方法模式的优缺点与适用环境" class="headerlink" title="模板方法模式的优缺点与适用环境"></a><span style="color:#339AFF;">模板方法模式的优缺点与适用环境</span></h1><p>模板方法模式是基于继承的代码复用技术，它体现了面向对象的诸多重要思想，是一种使用较为频繁的模式。<span style="color:red">模板方法模式被广泛应用于框架设计中，以确保通过父类来控制处理流程的逻辑顺序（如框架的初始化、测试流程的设置等）。</span></p>
 <h2 id="模板方法模式的优点"><a href="#模板方法模式的优点" class="headerlink" title="模板方法模式的优点"></a><span style="color:#00ACC1;">模板方法模式的优点</span></h2><p>模板方法模式的主要优点如下：</p>
 <ul>
@@ -665,7 +657,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/C-设计模式（第2版）/" rel="tag"># C#设计模式（第2版）</a>
+            <a href="/tags/C-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%88%E7%AC%AC2%E7%89%88%EF%BC%89/" rel="tag"># C#设计模式（第2版）</a>
           
         </div>
       
@@ -678,7 +670,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/09/22/职责链模式-2/" rel="next" title="职责链模式">
+              <a href="/2019/09/22/%E8%81%8C%E8%B4%A3%E9%93%BE%E6%A8%A1%E5%BC%8F-2/" rel="next" title="职责链模式">
                 <i class="fa fa-chevron-left"></i> 职责链模式
               </a>
             
@@ -688,7 +680,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/09/23/适配器模式-3/" rel="prev" title="适配器模式">
+              <a href="/2019/09/23/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F-3/" rel="prev" title="适配器模式">
                 适配器模式 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -748,7 +740,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -759,9 +753,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -773,26 +767,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -864,7 +842,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1039,115 +1017,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1178,23 +1048,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1220,7 +1090,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#模板方法模式概述"><span class="nav-number">1.</span> <span class="nav-text">模板方法模式概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模板方法模式的结构与实现"><span class="nav-number">2.</span> <span class="nav-text">模板方法模式的结构与实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模板方法模式的结构"><span class="nav-number">2.1.</span> <span class="nav-text">模板方法模式的结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模板方法模式的实现"><span class="nav-number">2.2.</span> <span class="nav-text">模板方法模式的实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模板方法模式的应用实例"><span class="nav-number">3.</span> <span class="nav-text">模板方法模式的应用实例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#钩子方法的使用"><span class="nav-number">4.</span> <span class="nav-text">钩子方法的使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模板方法模式的优缺点与适用环境"><span class="nav-number">5.</span> <span class="nav-text">模板方法模式的优缺点与适用环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模板方法模式的优点"><span class="nav-number">5.1.</span> <span class="nav-text">模板方法模式的优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模板方法模式的缺点"><span class="nav-number">5.2.</span> <span class="nav-text">模板方法模式的缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模板方法模式的适用环境"><span class="nav-number">5.3.</span> <span class="nav-text">模板方法模式的适用环境</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本章小结"><span class="nav-number">6.</span> <span class="nav-text">本章小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">模板方法模式概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">模板方法模式的结构与实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">模板方法模式的结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.2.</span> <span class="nav-text">模板方法模式的实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B"><span class="nav-number">3.</span> <span class="nav-text">模板方法模式的应用实例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%92%A9%E5%AD%90%E6%96%B9%E6%B3%95%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">钩子方法的使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E4%B8%8E%E9%80%82%E7%94%A8%E7%8E%AF%E5%A2%83"><span class="nav-number">5.</span> <span class="nav-text">模板方法模式的优缺点与适用环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%BC%98%E7%82%B9"><span class="nav-number">5.1.</span> <span class="nav-text">模板方法模式的优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="nav-number">5.2.</span> <span class="nav-text">模板方法模式的缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E6%96%B9%E6%B3%95%E6%A8%A1%E5%BC%8F%E7%9A%84%E9%80%82%E7%94%A8%E7%8E%AF%E5%A2%83"><span class="nav-number">5.3.</span> <span class="nav-text">模板方法模式的适用环境</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%AC%E7%AB%A0%E5%B0%8F%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">本章小结</span></a></li></ol></div>
             
 
           </div>
@@ -1255,7 +1125,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1266,12 +1136,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1279,7 +1149,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

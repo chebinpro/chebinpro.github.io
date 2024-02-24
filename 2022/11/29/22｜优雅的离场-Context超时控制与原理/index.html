@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,27 +104,27 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="Go进阶·分布式爬虫实战">
 <meta property="og:type" content="article">
 <meta property="og:title" content="22｜优雅的离场：Context超时控制与原理">
-<meta property="og:url" content="http://yoursite.com/2022/11/29/22｜优雅的离场-Context超时控制与原理/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/11/29/22%EF%BD%9C%E4%BC%98%E9%9B%85%E7%9A%84%E7%A6%BB%E5%9C%BA-Context%E8%B6%85%E6%97%B6%E6%8E%A7%E5%88%B6%E4%B8%8E%E5%8E%9F%E7%90%86/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/11/29/22｜优雅的离场-Context超时控制与原理/1.jpg">
-<meta property="og:image" content="http://yoursite.com/2022/11/29/22｜优雅的离场-Context超时控制与原理/2.jpg">
-<meta property="og:updated_time" content="2023-07-31T02:19:46.035Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/11/29/22%EF%BD%9C%E4%BC%98%E9%9B%85%E7%9A%84%E7%A6%BB%E5%9C%BA-Context%E8%B6%85%E6%97%B6%E6%8E%A7%E5%88%B6%E4%B8%8E%E5%8E%9F%E7%90%86/1.jpg">
+<meta property="og:image" content="http://yoursite.com/2022/11/29/22%EF%BD%9C%E4%BC%98%E9%9B%85%E7%9A%84%E7%A6%BB%E5%9C%BA-Context%E8%B6%85%E6%97%B6%E6%8E%A7%E5%88%B6%E4%B8%8E%E5%8E%9F%E7%90%86/2.jpg">
+<meta property="article:published_time" content="2022-11-29T03:35:15.000Z">
+<meta property="article:modified_time" content="2023-07-31T02:19:46.035Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Go进阶·分布式爬虫实战">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="22｜优雅的离场：Context超时控制与原理">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2022/11/29/22｜优雅的离场-Context超时控制与原理/1.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2022/11/29/22%EF%BD%9C%E4%BC%98%E9%9B%85%E7%9A%84%E7%A6%BB%E5%9C%BA-Context%E8%B6%85%E6%97%B6%E6%8E%A7%E5%88%B6%E4%B8%8E%E5%8E%9F%E7%90%86/1.jpg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/11/29/22｜优雅的离场-Context超时控制与原理/">
+  <link rel="canonical" href="http://yoursite.com/2022/11/29/22｜优雅的离场-Context超时控制与原理/"/>
 
 
 
@@ -173,7 +173,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -234,7 +234,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -251,7 +251,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -268,7 +268,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -285,7 +285,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -302,7 +302,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -313,7 +313,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -333,7 +333,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -383,16 +385,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/11/29/22｜优雅的离场-Context超时控制与原理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/11/29/22%EF%BD%9C%E4%BC%98%E9%9B%85%E7%9A%84%E7%A6%BB%E5%9C%BA-Context%E8%B6%85%E6%97%B6%E6%8E%A7%E5%88%B6%E4%B8%8E%E5%8E%9F%E7%90%86/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -492,7 +494,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">13k</span>
+                <span title="本文字数">38k</span>
               
 
               
@@ -506,7 +508,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">12 分钟</span>
+                <span title="阅读时长">35 分钟</span>
               
             </div>
           
@@ -527,26 +529,22 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>在Go语言的圈子里有一句名言：</p>
 <blockquote>
 <p><strong>Never start a goroutine without knowing how it will stop。</strong></p>
 </blockquote>
 <p>意思是，如果你不知道协程如何退出，就不要使用它。</p>
-<p>如果想要正确并优雅地退出协程，首先必须正确理解和使用Context标准库。Context是使用非常频繁的库，在实际的项目开发中，有大量第三方包的API（例如Redis Client、MongoDB Client、标准库中涉及到网络调用的API）的第一个参数都是Context。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// net/http</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *Request)</span> <span class="title">WithContext</span><span class="params">(ctx context.Context)</span> *<span class="title">Request</span></span></span><br><span class="line"><span class="function">// <span class="title">sql</span></span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="params">(db *DB)</span> <span class="title">BeginTx</span><span class="params">(ctx context.Context, opts *TxOptions)</span> <span class="params">(*Tx, error)</span></span></span><br><span class="line"><span class="function">// <span class="title">net</span></span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="params">(d *Dialer)</span> <span class="title">DialContext</span><span class="params">(ctx context.Context, network, address <span class="keyword">string</span>)</span> <span class="params">(Conn, error)</span></span></span><br></pre></td></tr></table></figure></p>
-<p>那么Context的作用是什么？应该如何去使用它？Context的最佳实践又是怎样的？让我们带着这些疑问开始这节课的学习。</p>
+<p>如果想要正确并优雅地退出协程，首先必须正确理解和使用Context标准库。Context是使用非常频繁的库，在实际的项目开发中，有大量第三方包的API（例如Redis Client、MongoDB Client、标准库中涉及到网络调用的API）的第一个参数都是Context。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// net/http</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *Request)</span></span> WithContext(ctx context.Context) *Request</span><br><span class="line"><span class="comment">// sql</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(db *DB)</span></span> BeginTx(ctx context.Context, opts *TxOptions) (*Tx, <span class="type">error</span>)</span><br><span class="line"><span class="comment">// net</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(d *Dialer)</span></span> DialContext(ctx context.Context, network, address <span class="type">string</span>) (Conn, <span class="type">error</span>)</span><br></pre></td></tr></table></figure><br>那么Context的作用是什么？应该如何去使用它？Context的最佳实践又是怎样的？让我们带着这些疑问开始这节课的学习。</p>
 <h1 id="我们为什么需要Context？"><a href="#我们为什么需要Context？" class="headerlink" title="我们为什么需要Context？"></a><span style="color:#339AFF;">我们为什么需要Context？</span></h1><p>协程在Go中是非常轻量级的资源，它可以被动态地创建和销毁。例如，在典型的HTTP服务器中，每个新建立的连接都会新建一个协程。我们之前介绍HTTP请求时就说过，标准库内部在处理时创建了多个协程。当请求完成后，协程也随之被销毁。但是，请求连接可能临时终止也可能超时。这个时候，我们希望安全并及时地停止协程和与协程关联的子协程，避免白白消耗资源。</p>
-<p>在没有Context之前我们一般会怎么做呢？我们需要借助通道的close机制，这个机制会唤醒所有监听该通道的协程，并触发相应的退出逻辑。写法大致如下：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> &lt;-c:</span><br><span class="line">    <span class="comment">// 业务逻辑</span></span><br><span class="line">    <span class="keyword">case</span> &lt;-done:</span><br><span class="line">    fmt.Println(<span class="string">"退出协程"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>随着Go语言的发展，越来越多的程序都开始需要进行这样的处理。然而不同的程序，甚至同一程序的不同代码片段，它们的退出逻辑的命名和处理方式都会有所不同。例如，有的将退出通道命名为了done，有的命名为了closed，有的采取了函数包裹的形式<code>&lt;-g.done()</code>。如果有一套统一的规范，代码的语义将会更加清晰明了。例如，引入了Context之后，退出协程的规范写法将是“<code>&lt;-ctx.Done()</code>”。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Stream</span><span class="params">(ctx context.Context, out <span class="keyword">chan</span>&lt;- Value)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        v, err := DoSomething(ctx)</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> err</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">select</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> &lt;-ctx.Done():</span><br><span class="line">            <span class="keyword">return</span> ctx.Err()</span><br><span class="line">        <span class="keyword">case</span> out &lt;- v:</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>为了对超时进行规范处理，在Go 1.7之后，Go官方引入了Context来实现协程的退出。不仅如此，Context还提供了跨协程、甚至是跨服务的退出管理。 </p>
+<p>在没有Context之前我们一般会怎么做呢？我们需要借助通道的close机制，这个机制会唤醒所有监听该通道的协程，并触发相应的退出逻辑。写法大致如下：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> &lt;-c:</span><br><span class="line">    <span class="comment">// 业务逻辑</span></span><br><span class="line">    <span class="keyword">case</span> &lt;-done:</span><br><span class="line">    fmt.Println(<span class="string">&quot;退出协程&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>随着Go语言的发展，越来越多的程序都开始需要进行这样的处理。然而不同的程序，甚至同一程序的不同代码片段，它们的退出逻辑的命名和处理方式都会有所不同。例如，有的将退出通道命名为了done，有的命名为了closed，有的采取了函数包裹的形式<code>&lt;-g.done()</code>。如果有一套统一的规范，代码的语义将会更加清晰明了。例如，引入了Context之后，退出协程的规范写法将是“<code>&lt;-ctx.Done()</code>”。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Stream</span><span class="params">(ctx context.Context, out <span class="keyword">chan</span>&lt;- Value)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        v, err := DoSomething(ctx)</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> err</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">select</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> &lt;-ctx.Done():</span><br><span class="line">            <span class="keyword">return</span> ctx.Err()</span><br><span class="line">        <span class="keyword">case</span> out &lt;- v:</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>为了对超时进行规范处理，在Go 1.7之后，Go官方引入了Context来实现协程的退出。不仅如此，Context还提供了跨协程、甚至是跨服务的退出管理。 </p>
 <p><strong>Context本身的含义是上下文，我们可以理解为它内部携带了超时信息、退出信号，以及其他一些上下文相关的值（例如携带本次请求中上下游的唯一标识trace_id）</strong>。由于Context携带了上下文信息，父子协程就可以“联动”了。</p>
 <p>我们举个例子来看看Context是怎么处理协程级联退出情况的。</p>
 <p>如下图所示，服务器处理HTTP请求一般会单独开辟一个协程，假设该处理协程调用了函数A，函数A中也可能创建一个新的协程。假设新的协程调用了函数G，函数G中又有可能通过RPC远程调用了其他服务的API，并最终调用了函数F。</p>
-<img src="/2022/11/29/22｜优雅的离场-Context超时控制与原理/1.jpg">
+<img src="/2022/11/29/22%EF%BD%9C%E4%BC%98%E9%9B%85%E7%9A%84%E7%A6%BB%E5%9C%BA-Context%E8%B6%85%E6%97%B6%E6%8E%A7%E5%88%B6%E4%B8%8E%E5%8E%9F%E7%90%86/1.jpg" class="">
 <p>假设这个时候上游将连接断开，或者服务处理时间超时，我们希望能够立即退出函数A、函数G和函数F所在的协程。</p>
 <p>在实际场景中可能是这样的，上游给服务的处理时间是500ms，超过这一时间这一请求就无效了。A服务当前已经花费了200ms的时间，G又用了100ms调用RPC，那么留给F的处理时间就只有200ms了。如果远程服务F在200ms后没有返回，所有协程都需要感知到并快速关闭。</p>
-<p>而使用Context标准库就是当前处理这种协程级联退出的标准做法。让我们先看一看Context的使用方法。在Context标准库中重要的结构<code>context.Context</code>其实是一个接口，它提供了Deadline、Done、Err、Value这4种方法：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Context <span class="keyword">interface</span> &#123;</span><br><span class="line">    Deadline() (deadline time.Time, ok <span class="keyword">bool</span>)</span><br><span class="line">    Done() &lt;-<span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line">    Err() error</span><br><span class="line">    Value(key <span class="keyword">interface</span>&#123;&#125;) <span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这4种方法的功能如下。</p>
+<p>而使用Context标准库就是当前处理这种协程级联退出的标准做法。让我们先看一看Context的使用方法。在Context标准库中重要的结构<code>context.Context</code>其实是一个接口，它提供了Deadline、Done、Err、Value这4种方法：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Context <span class="keyword">interface</span> &#123;</span><br><span class="line">    Deadline() (deadline time.Time, ok <span class="type">bool</span>)</span><br><span class="line">    Done() &lt;-<span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line">    Err() <span class="type">error</span></span><br><span class="line">    Value(key <span class="keyword">interface</span>&#123;&#125;) <span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这4种方法的功能如下。</p>
 <ul>
 <li>Deadline方法用于返回Context的过期时间。Deadline第一个返回值表示Context的过期时间，第二个返回值表示是否设置了过期时间，如果多次调用Deadline方法会返回相同的值。</li>
 <li>Done是使用最频繁的方法，它会返回一个通道。一般的做法是调用者在select中监听该通道的信号，如果该通道关闭则表示服务超时或异常，需要执行后续退出逻辑。多次调用Done方法会返回相同的通道。</li>
@@ -556,41 +554,30 @@
 <p>Context接口中的这四个方法可以被多次调用，其返回的结果相同。同时，Context的接口是并发安全的，可以被多个协程同时使用。</p>
 <h2 id="context-Value"><a href="#context-Value" class="headerlink" title="context.Value"></a><span style="color:#00ACC1;">context.Value</span></h2><p>因为在实践中Context携带值的情况并不常见，所以这里我们单独讲一讲<code>context.Value</code>的适用场景。</p>
 <p><code>context.Value</code>一般在远程过程调用中使用，例如存储分布式链路跟踪的traceId或者鉴权相关的信息，并且该值的作用域在请求结束时终结。同时key必须是访问安全的，因为可能有多个协程同时访问它。</p>
-<p>如下所示，withAuth函数是一个中间件，它可以让我们在完成实际的HTTP请求处理前进行hook。在这个例子中，我们获取了HTTP请求Header头中的鉴权字段Authorization，并将其存入了请求的上下文Context中。而实际的处理函数Handle会从Context中获取并验证用户的授权信息，以此判断用户是否已经登录。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> TokenContextKey = <span class="string">"MyAppToken"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 中间件</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">WithAuth</span><span class="params">(a Authorizer, next http.Handler)</span> <span class="title">http</span>.<span class="title">Handler</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> http.HandleFunc(<span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</span><br><span class="line">        auth := r.Header.Get(<span class="string">"Authorization"</span>)</span><br><span class="line">        <span class="keyword">if</span> auth == <span class="string">""</span> &#123;</span><br><span class="line">            next.ServeHTTP(w, r) <span class="comment">// 没有授权</span></span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        token, err := a.Authorize(auth)</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">            http.Error(w, err.Error(), http.StatusUnauthorized)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        ctx := context.WithValue(r.Context(), TokenContextKey, token)</span><br><span class="line">        next.ServeHTTP(w, r.WithContext(ctx))</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// HTTP请求实际处理函数</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Handle</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</span><br><span class="line">    <span class="comment">// 获取授权</span></span><br><span class="line">    <span class="keyword">if</span> token := r.Context().Value(TokenContextKey); token != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="comment">// 用户登录</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 用户未登录</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>Context是一个接口，这意味着需要有对应的具体实现。用户可以自己实现Context接口，并严格遵守Context接口规定的语义。当然，我们使用得最多的还是Go标准库中的实现。</p>
-<p>当我们调用context.Background函数或context.TODO函数时，会返回最简单的Context实现。context.Background返回的Context一般是作为根对象存在，不具有任何功能，不可以退出，也不能携带值。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*emptyCtx)</span> <span class="title">Deadline</span><span class="params">()</span> <span class="params">(deadline time.Time, ok <span class="keyword">bool</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*emptyCtx)</span> <span class="title">Done</span><span class="params">()</span> &lt;-<span class="title">chan</span> <span class="title">struct</span></span>&#123;&#125; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*emptyCtx)</span> <span class="title">Err</span><span class="params">()</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*emptyCtx)</span> <span class="title">Value</span><span class="params">(key <span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">interface</span></span>&#123;&#125; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>因此，要具体地使用Context的功能，需要派生出新的Context。配套的函数有下面这几个，其中，前三个函数都用于派生出有退出功能的Context。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">WithCancel</span><span class="params">(parent Context)</span> <span class="params">(ctx Context, cancel CancelFunc)</span></span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="title">WithTimeout</span><span class="params">(parent Context, timeout time.Duration)</span> <span class="params">(Context, CancelFunc)</span></span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="title">WithDeadline</span><span class="params">(parent Context, d time.Time)</span> <span class="params">(Context, CancelFunc)</span></span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="title">WithValue</span><span class="params">(parent Context, key, val <span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">Context</span></span></span><br></pre></td></tr></table></figure></p>
+<p>如下所示，withAuth函数是一个中间件，它可以让我们在完成实际的HTTP请求处理前进行hook。在这个例子中，我们获取了HTTP请求Header头中的鉴权字段Authorization，并将其存入了请求的上下文Context中。而实际的处理函数Handle会从Context中获取并验证用户的授权信息，以此判断用户是否已经登录。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> TokenContextKey = <span class="string">&quot;MyAppToken&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 中间件</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">WithAuth</span><span class="params">(a Authorizer, next http.Handler)</span></span> http.Handler &#123;</span><br><span class="line">    <span class="keyword">return</span> http.HandleFunc(<span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</span><br><span class="line">        auth := r.Header.Get(<span class="string">&quot;Authorization&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> auth == <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">            next.ServeHTTP(w, r) <span class="comment">// 没有授权</span></span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        token, err := a.Authorize(auth)</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">            http.Error(w, err.Error(), http.StatusUnauthorized)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        ctx := context.WithValue(r.Context(), TokenContextKey, token)</span><br><span class="line">        next.ServeHTTP(w, r.WithContext(ctx))</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// HTTP请求实际处理函数</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Handle</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</span><br><span class="line">    <span class="comment">// 获取授权</span></span><br><span class="line">    <span class="keyword">if</span> token := r.Context().Value(TokenContextKey); token != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="comment">// 用户登录</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 用户未登录</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>Context是一个接口，这意味着需要有对应的具体实现。用户可以自己实现Context接口，并严格遵守Context接口规定的语义。当然，我们使用得最多的还是Go标准库中的实现。</p>
+<p>当我们调用context.Background函数或context.TODO函数时，会返回最简单的Context实现。context.Background返回的Context一般是作为根对象存在，不具有任何功能，不可以退出，也不能携带值。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*emptyCtx)</span></span> Deadline() (deadline time.Time, ok <span class="type">bool</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*emptyCtx)</span></span> Done() &lt;-<span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*emptyCtx)</span></span> Err() <span class="type">error</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*emptyCtx)</span></span> Value(key <span class="keyword">interface</span>&#123;&#125;) <span class="keyword">interface</span>&#123;&#125; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>因此，要具体地使用Context的功能，需要派生出新的Context。配套的函数有下面这几个，其中，前三个函数都用于派生出有退出功能的Context。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">WithCancel</span><span class="params">(parent Context)</span></span> (ctx Context, cancel CancelFunc)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">WithTimeout</span><span class="params">(parent Context, timeout time.Duration)</span></span> (Context, CancelFunc)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">WithDeadline</span><span class="params">(parent Context, d time.Time)</span></span> (Context, CancelFunc)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">WithValue</span><span class="params">(parent Context, key, val <span class="keyword">interface</span>&#123;&#125;)</span></span> Context</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>WithCancel函数会返回一个子Context和cancel方法。子Context会在两种情况下触发退出：一种情况是调用者主动调用了返回的cancel方法；另一种情况是当参数中的父Context退出时，子Context将级联退出。</li>
 <li>WithTimeout函数指定超时时间。当超时发生后，子Context将退出。因此，子Context的退出有三种时机，一种是父Context退出；一种是超时退出；最后一种是主动调用cancel函数退出。</li>
 <li>WithDeadline和WithTimeout函数的处理方法相似，不过它们的参数指定的是最后到期的时间。</li>
 <li>WithValue函数会返回带key-value的子Context。</li>
 </ul>
-<p>举一个例子来说明一下Context中的级联退出。下面的代码中childCtx是preCtx的子Context，其设置的超时时间为300ms。但是preCtx的超时时间为100ms，因此父Context退出后，子Context会立即退出，实际的等待时间只有100ms。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    ctx := context.Background()</span><br><span class="line">    before := time.Now()</span><br><span class="line">    preCtx, _ := context.WithTimeout(ctx, <span class="number">100</span>*time.Millisecond)</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        childCtx, _ := context.WithTimeout(preCtx, <span class="number">300</span>*time.Millisecond)</span><br><span class="line">        <span class="keyword">select</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> &lt;-childCtx.Done():</span><br><span class="line">            after := time.Now()</span><br><span class="line">            fmt.Println(<span class="string">"child during:"</span>, after.Sub(before).Milliseconds())</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br><span class="line">    <span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> &lt;-preCtx.Done():</span><br><span class="line">        after := time.Now()</span><br><span class="line">        fmt.Println(<span class="string">"pre during:"</span>, after.Sub(before).Milliseconds())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这时的输出如下，父Context与子Context退出的时间差接近100ms：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pre during: 104</span><br><span class="line">child during: 104</span><br></pre></td></tr></table></figure></p>
-<p>当我们把preCtx的超时时间修改为500ms时：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">preCtx ,_:= context.WithTimeout(ctx,<span class="number">500</span>*time.Millisecond)</span><br></pre></td></tr></table></figure></p>
-<p>从新的输出中可以看出，子协程的退出不会影响父协程的退出。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">child during: 304</span><br><span class="line">pre during: 500</span><br></pre></td></tr></table></figure></p>
-<p>从上面这个例子可以看出，父Context的退出会导致所有子Context的退出，而子Context的退出并不会影响父Context。</p>
+<p>举一个例子来说明一下Context中的级联退出。下面的代码中childCtx是preCtx的子Context，其设置的超时时间为300ms。但是preCtx的超时时间为100ms，因此父Context退出后，子Context会立即退出，实际的等待时间只有100ms。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    ctx := context.Background()</span><br><span class="line">    before := time.Now()</span><br><span class="line">    preCtx, _ := context.WithTimeout(ctx, <span class="number">100</span>*time.Millisecond)</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        childCtx, _ := context.WithTimeout(preCtx, <span class="number">300</span>*time.Millisecond)</span><br><span class="line">        <span class="keyword">select</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> &lt;-childCtx.Done():</span><br><span class="line">            after := time.Now()</span><br><span class="line">            fmt.Println(<span class="string">&quot;child during:&quot;</span>, after.Sub(before).Milliseconds())</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br><span class="line">    <span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> &lt;-preCtx.Done():</span><br><span class="line">        after := time.Now()</span><br><span class="line">        fmt.Println(<span class="string">&quot;pre during:&quot;</span>, after.Sub(before).Milliseconds())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这时的输出如下，父Context与子Context退出的时间差接近100ms：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pre during: 104</span><br><span class="line">child during: 104</span><br></pre></td></tr></table></figure><br>当我们把preCtx的超时时间修改为500ms时：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">preCtx ,_:= context.WithTimeout(ctx,<span class="number">500</span>*time.Millisecond)</span><br></pre></td></tr></table></figure><br>从新的输出中可以看出，子协程的退出不会影响父协程的退出。<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">child during: 304</span><br><span class="line">pre during: 500</span><br></pre></td></tr></table></figure><br>从上面这个例子可以看出，父Context的退出会导致所有子Context的退出，而子Context的退出并不会影响父Context。</p>
 <h1 id="Context最佳实践"><a href="#Context最佳实践" class="headerlink" title="Context最佳实践"></a><span style="color:#339AFF;">Context最佳实践</span></h1><p>了解了Context的基本用法，接下来让我们来看看Go标准库中是如何使用Context的。</p>
-<p>对HTTP服务器和客户端来说，超时处理是最容易犯错的问题之一。因为在网络连接到请求处理的多个阶段，都可能有相对应的超时时间。以HTTP请求为例，http.Client有一个参数Timeout用于指定当前请求的总超时时间，它包括从连接、发送请求、到处理服务器响应的时间的总和。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">c := &amp;http.Client&#123;</span><br><span class="line">    Timeout: <span class="number">15</span> * time.Second,</span><br><span class="line">&#125;</span><br><span class="line">resp, err := c.Get(<span class="string">"&lt;https://baidu.com/&gt;"</span>)</span><br></pre></td></tr></table></figure></p>
-<p>标准库client.Do方法内部会将超时时间换算为截止时间并传递到下一层。setRequestCancel函数内部则会调用context.WithDeadline，派生出一个子Context并赋值给req中的Context。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *Client)</span> <span class="title">do</span><span class="params">(req *Request)</span> <span class="params">(retres *Response, reterr error)</span></span> &#123;</span><br><span class="line">    ...</span><br><span class="line">    deadline      = c.deadline()</span><br><span class="line">    c.send(req, deadline);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">setRequestCancel</span><span class="params">(req *Request, rt RoundTripper, deadline time.Time)</span></span> &#123;</span><br><span class="line">    req.ctx, cancelCtx = context.WithDeadline(oldCtx, deadline)</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在获取连接时，正如我们前面课程中讲到的，如果从闲置连接中找不到连接，则需要陷入select中去等待。如果连接时间超时，req.Context().Done()通道会收到信号立即退出。在实际发送数据的transport.roundTrip函数中，也有很多类似的例子，它们都是通过在select语句中监听Context退出信号来实现超时控制的，这里就不再赘述了。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *Transport)</span> <span class="title">getConn</span><span class="params">(treq *transportRequest, cm connectMethod)</span> <span class="params">(pc *persistConn, err error)</span></span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> &lt;-w.ready:</span><br><span class="line">        <span class="keyword">return</span> w.pc, w.err</span><br><span class="line">    <span class="keyword">case</span> &lt;-req.Cancel:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, errRequestCanceledConn</span><br><span class="line">    <span class="keyword">case</span> &lt;-req.Context().Done():</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, req.Context().Err()</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>获取TCP连接需要调用sysDialer.dialSerial方法，dialSerial的功能是从addrList地址列表中取出一个地址进行连接，如果与任一地址连接成功则立即返回。代码如下所示，不出所料，该方法的第一个参数为上游传递的Context。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// net/dial.go</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(sd *sysDialer)</span> <span class="title">dialSerial</span><span class="params">(ctx context.Context, ras addrList)</span> <span class="params">(Conn, error)</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> i, ra := <span class="keyword">range</span> ras &#123;</span><br><span class="line">        <span class="comment">// 协程是否需要退出</span></span><br><span class="line">        <span class="keyword">select</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> &lt;-ctx.Done():</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span>, &amp;OpError&#123;Op: <span class="string">"dial"</span>, Net: sd.network, Source: sd.LocalAddr, Addr: ra, Err: mapErr(ctx.Err())&#125;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        dialCtx := ctx</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 是否设置了超时时间</span></span><br><span class="line">        <span class="keyword">if</span> deadline, hasDeadline := ctx.Deadline(); hasDeadline &#123;</span><br><span class="line">            <span class="comment">// 计算连接的超时时间</span></span><br><span class="line">            partialDeadline, err := partialDeadline(time.Now(), deadline, <span class="built_in">len</span>(ras)-i)</span><br><span class="line">            <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">                <span class="comment">// 已经超时了.</span></span><br><span class="line">                <span class="keyword">if</span> firstErr == <span class="literal">nil</span> &#123;</span><br><span class="line">                    firstErr = &amp;OpError&#123;Op: <span class="string">"dial"</span>, Net: sd.network, Source: sd.LocalAddr, Addr: ra, Err: err&#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 派生出新的context，传递给下游</span></span><br><span class="line">            <span class="keyword">if</span> partialDeadline.Before(deadline) &#123;</span><br><span class="line">                <span class="keyword">var</span> cancel context.CancelFunc</span><br><span class="line">                dialCtx, cancel = context.WithDeadline(ctx, partialDeadline)</span><br><span class="line">                <span class="keyword">defer</span> cancel()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        c, err := sd.dialSingle(dialCtx, ra)</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>我们来看看dialSerial函数几个比较有代表性的Context用法。</p>
+<p>对HTTP服务器和客户端来说，超时处理是最容易犯错的问题之一。因为在网络连接到请求处理的多个阶段，都可能有相对应的超时时间。以HTTP请求为例，http.Client有一个参数Timeout用于指定当前请求的总超时时间，它包括从连接、发送请求、到处理服务器响应的时间的总和。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">c := &amp;http.Client&#123;</span><br><span class="line">    Timeout: <span class="number">15</span> * time.Second,</span><br><span class="line">&#125;</span><br><span class="line">resp, err := c.Get(<span class="string">&quot;&lt;https://baidu.com/&gt;&quot;</span>)</span><br></pre></td></tr></table></figure><br>标准库client.Do方法内部会将超时时间换算为截止时间并传递到下一层。setRequestCancel函数内部则会调用context.WithDeadline，派生出一个子Context并赋值给req中的Context。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *Client)</span></span> do(req *Request) (retres *Response, reterr <span class="type">error</span>) &#123;</span><br><span class="line">    ...</span><br><span class="line">    deadline      = c.deadline()</span><br><span class="line">    c.send(req, deadline);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">setRequestCancel</span><span class="params">(req *Request, rt RoundTripper, deadline time.Time)</span></span> &#123;</span><br><span class="line">    req.ctx, cancelCtx = context.WithDeadline(oldCtx, deadline)</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>在获取连接时，正如我们前面课程中讲到的，如果从闲置连接中找不到连接，则需要陷入select中去等待。如果连接时间超时，req.Context().Done()通道会收到信号立即退出。在实际发送数据的transport.roundTrip函数中，也有很多类似的例子，它们都是通过在select语句中监听Context退出信号来实现超时控制的，这里就不再赘述了。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *Transport)</span></span> getConn(treq *transportRequest, cm connectMethod) (pc *persistConn, err <span class="type">error</span>)&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> &lt;-w.ready:</span><br><span class="line">        <span class="keyword">return</span> w.pc, w.err</span><br><span class="line">    <span class="keyword">case</span> &lt;-req.Cancel:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, errRequestCanceledConn</span><br><span class="line">    <span class="keyword">case</span> &lt;-req.Context().Done():</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, req.Context().Err()</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>获取TCP连接需要调用sysDialer.dialSerial方法，dialSerial的功能是从addrList地址列表中取出一个地址进行连接，如果与任一地址连接成功则立即返回。代码如下所示，不出所料，该方法的第一个参数为上游传递的Context。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// net/dial.go</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(sd *sysDialer)</span></span> dialSerial(ctx context.Context, ras addrList) (Conn, <span class="type">error</span>) &#123;</span><br><span class="line">    <span class="keyword">for</span> i, ra := <span class="keyword">range</span> ras &#123;</span><br><span class="line">        <span class="comment">// 协程是否需要退出</span></span><br><span class="line">        <span class="keyword">select</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> &lt;-ctx.Done():</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span>, &amp;OpError&#123;Op: <span class="string">&quot;dial&quot;</span>, Net: sd.network, Source: sd.LocalAddr, Addr: ra, Err: mapErr(ctx.Err())&#125;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        dialCtx := ctx</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 是否设置了超时时间</span></span><br><span class="line">        <span class="keyword">if</span> deadline, hasDeadline := ctx.Deadline(); hasDeadline &#123;</span><br><span class="line">            <span class="comment">// 计算连接的超时时间</span></span><br><span class="line">            partialDeadline, err := partialDeadline(time.Now(), deadline, <span class="built_in">len</span>(ras)-i)</span><br><span class="line">            <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">                <span class="comment">// 已经超时了.</span></span><br><span class="line">                <span class="keyword">if</span> firstErr == <span class="literal">nil</span> &#123;</span><br><span class="line">                    firstErr = &amp;OpError&#123;Op: <span class="string">&quot;dial&quot;</span>, Net: sd.network, Source: sd.LocalAddr, Addr: ra, Err: err&#125;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 派生出新的context，传递给下游</span></span><br><span class="line">            <span class="keyword">if</span> partialDeadline.Before(deadline) &#123;</span><br><span class="line">                <span class="keyword">var</span> cancel context.CancelFunc</span><br><span class="line">                dialCtx, cancel = context.WithDeadline(ctx, partialDeadline)</span><br><span class="line">                <span class="keyword">defer</span> cancel()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        c, err := sd.dialSingle(dialCtx, ra)</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>我们来看看dialSerial函数几个比较有代表性的Context用法。</p>
 <ul>
 <li>首先，第3行代码遍历地址列表时，判断Context通道是否已经退出，如果没有退出，会进入到select的default分支。如果通道已经退出了，则直接返回，因为继续执行已经没有必要了。</li>
 <li>接下来，第14行代码通过ctx.Deadline()判断是否传递进来的Context有超时时间。如果有超时时间，我们需要协调好后面每一个连接的超时时间。例如，我们总的超时时间是600ms，一共有3个连接，那么每个连接分到的超时时间就是200ms，这是为了防止前面的连接过度占用了时间。partialDeadline会帮助我们计算好每一个连接的新的到期时间，如果该到期时间小于总到期时间，我们会派生出一个子Context传递给dialSingle函数，用于控制该连接的超时。</li>
-<li>dialSingle函数中调用了ctx.Value，用来获取一个特殊的接口nettrace.Trace。nettrace.Trace用于对网络包中一些特殊的地方进行hook。dialSingle函数作为网络连接的起点，如果上下文中注入了trace.ConnectStart函数，则会在dialSingle函数之前调用trace.ConnectStart函数，如果上下文中注入了trace.ConnectDone函数，则会在执行dialSingle函数之后调用trace.ConnectDone函数。<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(sd *sysDialer)</span> <span class="title">dialSingle</span><span class="params">(ctx context.Context, ra Addr)</span> <span class="params">(c Conn, err error)</span></span> &#123;</span><br><span class="line">    trace, _ := ctx.Value(nettrace.TraceKey&#123;&#125;).(*nettrace.Trace)</span><br><span class="line">    <span class="keyword">if</span> trace != <span class="literal">nil</span> &#123;</span><br><span class="line">        raStr := ra.String()</span><br><span class="line">        <span class="keyword">if</span> trace.ConnectStart != <span class="literal">nil</span> &#123;</span><br><span class="line">            trace.ConnectStart(sd.network, raStr)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> trace.ConnectDone != <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123; trace.ConnectDone(sd.network, raStr, err) &#125;()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    la := sd.LocalAddr</span><br><span class="line">    <span class="keyword">switch</span> ra := ra.(<span class="keyword">type</span>) &#123;</span><br><span class="line">    <span class="keyword">case</span> *TCPAddr:</span><br><span class="line">        la, _ := la.(*TCPAddr)</span><br><span class="line">        <span class="comment">// tcp连接</span></span><br><span class="line">        c, err = sd.dialTCP(ctx, la, ra)</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li>dialSingle函数中调用了ctx.Value，用来获取一个特殊的接口nettrace.Trace。nettrace.Trace用于对网络包中一些特殊的地方进行hook。dialSingle函数作为网络连接的起点，如果上下文中注入了trace.ConnectStart函数，则会在dialSingle函数之前调用trace.ConnectStart函数，如果上下文中注入了trace.ConnectDone函数，则会在执行dialSingle函数之后调用trace.ConnectDone函数。<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(sd *sysDialer)</span></span> dialSingle(ctx context.Context, ra Addr) (c Conn, err <span class="type">error</span>) &#123;</span><br><span class="line">    trace, _ := ctx.Value(nettrace.TraceKey&#123;&#125;).(*nettrace.Trace)</span><br><span class="line">    <span class="keyword">if</span> trace != <span class="literal">nil</span> &#123;</span><br><span class="line">        raStr := ra.String()</span><br><span class="line">        <span class="keyword">if</span> trace.ConnectStart != <span class="literal">nil</span> &#123;</span><br><span class="line">            trace.ConnectStart(sd.network, raStr)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> trace.ConnectDone != <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123; trace.ConnectDone(sd.network, raStr, err) &#125;()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    la := sd.LocalAddr</span><br><span class="line">    <span class="keyword">switch</span> ra := ra.(<span class="keyword">type</span>) &#123;</span><br><span class="line">    <span class="keyword">case</span> *TCPAddr:</span><br><span class="line">        la, _ := la.(*TCPAddr)</span><br><span class="line">        <span class="comment">// tcp连接</span></span><br><span class="line">        c, err = sd.dialTCP(ctx, la, ra)</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+到这里，我们就通过Go网络标准库中对Context的使用，将Context的使用场景和最佳实践方式都梳理了一遍。由于标准库为我们提供了Timeout参数，我们在项目中实践超时控制就容易多了。只要在BrowserFetch结构体中增加Timeout超时参数，然后设置超时参数到http.Client中就大功告成了。<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> BrowserFetch <span class="keyword">struct</span> &#123;</span><br><span class="line">    Timeout time.Duration</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//模拟浏览器访问</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b BrowserFetch)</span></span> Get(url <span class="type">string</span>) ([]<span class="type">byte</span>, <span class="type">error</span>) &#123;</span><br><span class="line">    client := &amp;http.Client&#123;</span><br><span class="line">        Timeout: b.Timeout,</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    url := <span class="string">&quot;&lt;https://book.douban.com/subject/1007305/&gt;&quot;</span></span><br><span class="line">    <span class="keyword">var</span> f collect.Fetcher = collect.BrowserFetch&#123;</span><br><span class="line">        Timeout: <span class="number">300</span> * time.Millisecond,</span><br><span class="line">    &#125;</span><br><span class="line">    body, err := f.Get(url)</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+不过要提醒一下，如果我们设置的超时时间太短，会出现下面这样“Context超时”的错误信息：<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">read content failed:Get &quot;&lt;https://book.douban.com/subject/1007305/&gt;&quot;: context deadline exceeded (Client.Timeout exceeded while awaiting headers)</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>到这里，我们就通过Go网络标准库中对Context的使用，将Context的使用场景和最佳实践方式都梳理了一遍。由于标准库为我们提供了Timeout参数，我们在项目中实践超时控制就容易多了。只要在BrowserFetch结构体中增加Timeout超时参数，然后设置超时参数到http.Client中就大功告成了。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> BrowserFetch <span class="keyword">struct</span> &#123;</span><br><span class="line">    Timeout time.Duration</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//模拟浏览器访问</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b BrowserFetch)</span> <span class="title">Get</span><span class="params">(url <span class="keyword">string</span>)</span> <span class="params">([]<span class="keyword">byte</span>, error)</span></span> &#123;</span><br><span class="line">    client := &amp;http.Client&#123;</span><br><span class="line">        Timeout: b.Timeout,</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    url := <span class="string">"&lt;https://book.douban.com/subject/1007305/&gt;"</span></span><br><span class="line">    <span class="keyword">var</span> f collect.Fetcher = collect.BrowserFetch&#123;</span><br><span class="line">        Timeout: <span class="number">300</span> * time.Millisecond,</span><br><span class="line">    &#125;</span><br><span class="line">    body, err := f.Get(url)</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>不过要提醒一下，如果我们设置的超时时间太短，会出现下面这样“Context超时”的错误信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">read content failed:Get &quot;&lt;https://book.douban.com/subject/1007305/&gt;&quot;: context deadline exceeded (Client.Timeout exceeded while awaiting headers)</span><br></pre></td></tr></table></figure></p>
 <h1 id="Context底层原理"><a href="#Context底层原理" class="headerlink" title="Context底层原理"></a><span style="color:#339AFF;">Context底层原理</span></h1><p>了解了Context的价值和最佳实践，我们再来简单看一下它的底层原理。Context在很大程度上利用了通道的一个特性：通道在close时，会通知所有监听它的协程。每个派生出的子Context都会创建一个新的退出通道，这样，只要组织好Context之间的关系，就可以实现继承链上退出信号的传递。如图所示的三个协程中，关闭通道A会连带关闭调用链上的通道B，通道B会关闭通道C。</p>
-<img src="/2022/11/29/22｜优雅的离场-Context超时控制与原理/2.jpg">
-<p>前面我们说，Context.Background函数和Context.TODO函数会生成一个根Context。要使用context的退出功能，需要调用WithCancel或WithTimeout，派生出一个新的结构Context。WithCancel底层对应的结构为cancelCtx，WithTimeout底层对应的结构为timerCtx，timerCtx包装了cancelCtx，并存储了超时时间。代码如下所示。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> cancelCtx <span class="keyword">struct</span> &#123;</span><br><span class="line">    Context</span><br><span class="line"></span><br><span class="line">    mu       sync.Mutex   </span><br><span class="line">    done     atomic.Value  </span><br><span class="line">    children <span class="keyword">map</span>[canceler]<span class="keyword">struct</span>&#123;&#125; </span><br><span class="line">    err      error</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> timerCtx <span class="keyword">struct</span> &#123;</span><br><span class="line">    cancelCtx</span><br><span class="line">    timer *time.Timer </span><br><span class="line"></span><br><span class="line">    deadline time.Time</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>cancelCtx第一个字段保留了父Context的信息。children字段则保存了当前Context派生的子Context的信息，每个Context都会有一个单独的done通道。</p>
+<img src="/2022/11/29/22%EF%BD%9C%E4%BC%98%E9%9B%85%E7%9A%84%E7%A6%BB%E5%9C%BA-Context%E8%B6%85%E6%97%B6%E6%8E%A7%E5%88%B6%E4%B8%8E%E5%8E%9F%E7%90%86/2.jpg" class="">
+<p>前面我们说，Context.Background函数和Context.TODO函数会生成一个根Context。要使用context的退出功能，需要调用WithCancel或WithTimeout，派生出一个新的结构Context。WithCancel底层对应的结构为cancelCtx，WithTimeout底层对应的结构为timerCtx，timerCtx包装了cancelCtx，并存储了超时时间。代码如下所示。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> cancelCtx <span class="keyword">struct</span> &#123;</span><br><span class="line">    Context</span><br><span class="line"></span><br><span class="line">    mu       sync.Mutex   </span><br><span class="line">    done     atomic.Value  </span><br><span class="line">    children <span class="keyword">map</span>[canceler]<span class="keyword">struct</span>&#123;&#125; </span><br><span class="line">    err      <span class="type">error</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> timerCtx <span class="keyword">struct</span> &#123;</span><br><span class="line">    cancelCtx</span><br><span class="line">    timer *time.Timer </span><br><span class="line"></span><br><span class="line">    deadline time.Time</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>cancelCtx第一个字段保留了父Context的信息。children字段则保存了当前Context派生的子Context的信息，每个Context都会有一个单独的done通道。</p>
 <p>而WithDeadline函数会先判断父Context设置的超时时间是否比当前Context的超时时间短。如果是，那么子协程会随着父Context的退出而退出，没有必要再设置定时器。</p>
-<p>当我们使用了标准库中默认的Context实现时，propagateCancel函数会将子Context加入父协程的children哈希表中，并开启一个定时器。当定时器到期时，会调用cancel方法关闭通道，级联关闭当前Context派生的子Context，并取消与父Context的绑定关系。这种特性就产生了调用链上连锁的退出反应。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *cancelCtx)</span> <span class="title">cancel</span><span class="params">(removeFromParent <span class="keyword">bool</span>, err error)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// 关闭当前通道</span></span><br><span class="line">    <span class="built_in">close</span>(d)</span><br><span class="line">    <span class="comment">// 级联关闭当前context派生的子context</span></span><br><span class="line">    <span class="keyword">for</span> child := <span class="keyword">range</span> c.children &#123;</span><br><span class="line">        child.cancel(<span class="literal">false</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">    c.children = <span class="literal">nil</span></span><br><span class="line">    c.mu.Unlock()</span><br><span class="line">    <span class="comment">// 从父context中能够删除当前context关联</span></span><br><span class="line">    <span class="keyword">if</span> removeFromParent &#123;</span><br><span class="line">        removeChild(c.Context, c)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当我们使用了标准库中默认的Context实现时，propagateCancel函数会将子Context加入父协程的children哈希表中，并开启一个定时器。当定时器到期时，会调用cancel方法关闭通道，级联关闭当前Context派生的子Context，并取消与父Context的绑定关系。这种特性就产生了调用链上连锁的退出反应。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *cancelCtx)</span></span> cancel(removeFromParent <span class="type">bool</span>, err <span class="type">error</span>) &#123;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// 关闭当前通道</span></span><br><span class="line">    <span class="built_in">close</span>(d)</span><br><span class="line">    <span class="comment">// 级联关闭当前context派生的子context</span></span><br><span class="line">    <span class="keyword">for</span> child := <span class="keyword">range</span> c.children &#123;</span><br><span class="line">        child.cancel(<span class="literal">false</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">    c.children = <span class="literal">nil</span></span><br><span class="line">    c.mu.Unlock()</span><br><span class="line">    <span class="comment">// 从父context中能够删除当前context关联</span></span><br><span class="line">    <span class="keyword">if</span> removeFromParent &#123;</span><br><span class="line">        removeChild(c.Context, c)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><span style="color:#339AFF;">总结</span></h1><p>这节课，我们介绍了如何用Context安全而优雅地完成协程的退出。Context是使用频率非常高的函数，它不仅为我们规范了处理协程退出的风格，而且它的一些特性，诸如并发安全、级联退出、携带上下文信息都比较好用。</p>
 <p>自从Context出现之后，许多的包都相继完成了改造，开始在API的第一个参数中传递Context，特别是涉及到需要跨服务调用的场景时。在Go网络处理中，我们可以设置很多超时时间来控制请求退出，这背后是离不开标准库对Context的巧妙使用的。</p>
 <h1 id="课后题"><a href="#课后题" class="headerlink" title="课后题"></a><span style="color:#339AFF;">课后题</span></h1><p>Go HTTP标准库中其实有多种类型的超时，你知道有哪些吗？</p>
@@ -617,7 +604,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Go进阶·分布式爬虫实战/" rel="tag"># Go进阶·分布式爬虫实战</a>
+            <a href="/tags/Go%E8%BF%9B%E9%98%B6%C2%B7%E5%88%86%E5%B8%83%E5%BC%8F%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98/" rel="tag"># Go进阶·分布式爬虫实战</a>
           
         </div>
       
@@ -630,7 +617,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/11/26/21｜采集引擎：实战接口抽象与模拟浏览器访问/" rel="next" title="21｜采集引擎：实战接口抽象与模拟浏览器访问">
+              <a href="/2022/11/26/21%EF%BD%9C%E9%87%87%E9%9B%86%E5%BC%95%E6%93%8E%EF%BC%9A%E5%AE%9E%E6%88%98%E6%8E%A5%E5%8F%A3%E6%8A%BD%E8%B1%A1%E4%B8%8E%E6%A8%A1%E6%8B%9F%E6%B5%8F%E8%A7%88%E5%99%A8%E8%AE%BF%E9%97%AE/" rel="next" title="21｜采集引擎：实战接口抽象与模拟浏览器访问">
                 <i class="fa fa-chevron-left"></i> 21｜采集引擎：实战接口抽象与模拟浏览器访问
               </a>
             
@@ -640,7 +627,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/12/01/23｜偷梁换柱：为爬虫安上代理的翅膀/" rel="prev" title="23｜偷梁换柱：为爬虫安上代理的翅膀">
+              <a href="/2022/12/01/23%EF%BD%9C%E5%81%B7%E6%A2%81%E6%8D%A2%E6%9F%B1%EF%BC%9A%E4%B8%BA%E7%88%AC%E8%99%AB%E5%AE%89%E4%B8%8A%E4%BB%A3%E7%90%86%E7%9A%84%E7%BF%85%E8%86%80/" rel="prev" title="23｜偷梁换柱：为爬虫安上代理的翅膀">
                 23｜偷梁换柱：为爬虫安上代理的翅膀 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -700,7 +687,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -711,9 +700,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -725,26 +714,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -816,7 +789,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -991,115 +964,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1130,23 +995,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1172,7 +1037,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#我们为什么需要Context？"><span class="nav-number">1.</span> <span class="nav-text">我们为什么需要Context？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#context-Value"><span class="nav-number">1.1.</span> <span class="nav-text">context.Value</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Context最佳实践"><span class="nav-number">2.</span> <span class="nav-text">Context最佳实践</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Context底层原理"><span class="nav-number">3.</span> <span class="nav-text">Context底层原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课后题"><span class="nav-number">5.</span> <span class="nav-text">课后题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%88%91%E4%BB%AC%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81Context%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">我们为什么需要Context？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#context-Value"><span class="nav-number">1.1.</span> <span class="nav-text">context.Value</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Context%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">2.</span> <span class="nav-text">Context最佳实践</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Context%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">Context底层原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BE%E5%90%8E%E9%A2%98"><span class="nav-number">5.</span> <span class="nav-text">课后题</span></a></li></ol></div>
             
 
           </div>
@@ -1207,7 +1072,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1218,12 +1083,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1231,7 +1096,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

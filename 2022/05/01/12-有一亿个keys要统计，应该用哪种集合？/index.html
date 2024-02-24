@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,29 +104,29 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="Redis核心技术与实战">
 <meta property="og:type" content="article">
 <meta property="og:title" content="12 | 有一亿个keys要统计，应该用哪种集合？">
-<meta property="og:url" content="http://yoursite.com/2022/05/01/12-有一亿个keys要统计，应该用哪种集合？/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/05/01/12-%E6%9C%89%E4%B8%80%E4%BA%BF%E4%B8%AAkeys%E8%A6%81%E7%BB%9F%E8%AE%A1%EF%BC%8C%E5%BA%94%E8%AF%A5%E7%94%A8%E5%93%AA%E7%A7%8D%E9%9B%86%E5%90%88%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/05/01/12-有一亿个keys要统计，应该用哪种集合？/1.webp">
-<meta property="og:image" content="http://yoursite.com/2022/05/01/12-有一亿个keys要统计，应该用哪种集合？/2.webp">
-<meta property="og:image" content="http://yoursite.com/2022/05/01/12-有一亿个keys要统计，应该用哪种集合？/3.webp">
-<meta property="og:image" content="http://yoursite.com/2022/05/01/12-有一亿个keys要统计，应该用哪种集合？/4.webp">
-<meta property="og:updated_time" content="2022-11-05T13:07:40.507Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/05/01/12-%E6%9C%89%E4%B8%80%E4%BA%BF%E4%B8%AAkeys%E8%A6%81%E7%BB%9F%E8%AE%A1%EF%BC%8C%E5%BA%94%E8%AF%A5%E7%94%A8%E5%93%AA%E7%A7%8D%E9%9B%86%E5%90%88%EF%BC%9F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2022/05/01/12-%E6%9C%89%E4%B8%80%E4%BA%BF%E4%B8%AAkeys%E8%A6%81%E7%BB%9F%E8%AE%A1%EF%BC%8C%E5%BA%94%E8%AF%A5%E7%94%A8%E5%93%AA%E7%A7%8D%E9%9B%86%E5%90%88%EF%BC%9F/2.webp">
+<meta property="og:image" content="http://yoursite.com/2022/05/01/12-%E6%9C%89%E4%B8%80%E4%BA%BF%E4%B8%AAkeys%E8%A6%81%E7%BB%9F%E8%AE%A1%EF%BC%8C%E5%BA%94%E8%AF%A5%E7%94%A8%E5%93%AA%E7%A7%8D%E9%9B%86%E5%90%88%EF%BC%9F/3.webp">
+<meta property="og:image" content="http://yoursite.com/2022/05/01/12-%E6%9C%89%E4%B8%80%E4%BA%BF%E4%B8%AAkeys%E8%A6%81%E7%BB%9F%E8%AE%A1%EF%BC%8C%E5%BA%94%E8%AF%A5%E7%94%A8%E5%93%AA%E7%A7%8D%E9%9B%86%E5%90%88%EF%BC%9F/4.webp">
+<meta property="article:published_time" content="2022-05-01T06:54:40.000Z">
+<meta property="article:modified_time" content="2022-11-05T13:07:40.507Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Redis核心技术与实战">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="12 | 有一亿个keys要统计，应该用哪种集合？">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2022/05/01/12-有一亿个keys要统计，应该用哪种集合？/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2022/05/01/12-%E6%9C%89%E4%B8%80%E4%BA%BF%E4%B8%AAkeys%E8%A6%81%E7%BB%9F%E8%AE%A1%EF%BC%8C%E5%BA%94%E8%AF%A5%E7%94%A8%E5%93%AA%E7%A7%8D%E9%9B%86%E5%90%88%EF%BC%9F/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/05/01/12-有一亿个keys要统计，应该用哪种集合？/">
+  <link rel="canonical" href="http://yoursite.com/2022/05/01/12-有一亿个keys要统计，应该用哪种集合？/"/>
 
 
 
@@ -175,7 +175,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -236,7 +236,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -253,7 +253,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -270,7 +270,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -287,7 +287,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -304,7 +304,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -315,7 +315,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -335,7 +335,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -385,16 +387,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/05/01/12-有一亿个keys要统计，应该用哪种集合？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/05/01/12-%E6%9C%89%E4%B8%80%E4%BA%BF%E4%B8%AAkeys%E8%A6%81%E7%BB%9F%E8%AE%A1%EF%BC%8C%E5%BA%94%E8%AF%A5%E7%94%A8%E5%93%AA%E7%A7%8D%E9%9B%86%E5%90%88%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -494,7 +496,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">7.2k</span>
+                <span title="本文字数">13k</span>
               
 
               
@@ -508,7 +510,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">7 分钟</span>
+                <span title="阅读时长">12 分钟</span>
               
             </div>
           
@@ -529,7 +531,7 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>在Web和移动应用的业务场景中，我们经常需要保存这样一种信息：一个key对应了一个数据集合。我举几个例子。</p>
 <ul>
 <li>手机App中的每天的用户登录信息：一天对应一系列用户ID或移动设备ID；</li>
@@ -551,19 +553,16 @@
 <p>在刚才提到的场景中，统计手机App每天的新增用户数和第二天的留存用户数，正好对应了聚合统计。</p>
 <p>要完成这个统计任务，我们可以用一个集合记录所有登录过App的用户ID，同时，用另一个集合记录每一天登录过App的用户ID。然后，再对这两个集合做聚合统计。我们来看下具体的操作。</p>
 <p>记录所有登录过App的用户ID还是比较简单的，我们可以直接使用Set类型，把key设置为user:id，表示记录的是用户ID，value就是一个Set集合，里面是所有登录过App的用户ID，我们可以把这个Set叫作累计用户Set，如下图所示：</p>
-<img src="/2022/05/01/12-有一亿个keys要统计，应该用哪种集合？/1.webp">
+<img src="/2022/05/01/12-%E6%9C%89%E4%B8%80%E4%BA%BF%E4%B8%AAkeys%E8%A6%81%E7%BB%9F%E8%AE%A1%EF%BC%8C%E5%BA%94%E8%AF%A5%E7%94%A8%E5%93%AA%E7%A7%8D%E9%9B%86%E5%90%88%EF%BC%9F/1.webp" class="">
 <p>需要注意的是，累计用户Set中没有日期信息，我们是不能直接统计每天的新增用户的。所以，我们还需要把每一天登录的用户ID，记录到一个新集合中，我们把这个集合叫作每日用户Set，它有两个特点：</p>
 <p>1，key是user:id以及当天日期，例如user:id:20200803；</p>
 <p>2，value是Set集合，记录当天登录的用户ID。</p>
-<img src="/2022/05/01/12-有一亿个keys要统计，应该用哪种集合？/2.webp">
+<img src="/2022/05/01/12-%E6%9C%89%E4%B8%80%E4%BA%BF%E4%B8%AAkeys%E8%A6%81%E7%BB%9F%E8%AE%A1%EF%BC%8C%E5%BA%94%E8%AF%A5%E7%94%A8%E5%93%AA%E7%A7%8D%E9%9B%86%E5%90%88%EF%BC%9F/2.webp" class="">
 <p>在统计每天的新增用户时，我们只用计算每日用户Set和累计用户Set的差集就行。</p>
 <p>我借助一个具体的例子来解释一下。</p>
 <p>假设我们的手机App在2020年8月3日上线，那么，8月3日前是没有用户的。此时，累计用户Set是空集，当天登录的用户ID会被记录到key为user:id:20200803的Set中。所以，user:id:20200803这个Set中的用户就是当天的新增用户。</p>
-<p>然后，我们计算累计用户Set和user:id:20200803Set的并集结果，结果保存在user:id这个累计用户Set中，如下所示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SUNIONSTORE  user:id  user:id  user:id:20200803</span><br></pre></td></tr></table></figure></p>
-<p>此时，user:id这个累计用户Set中就有了8月3日的用户ID。等到8月4日再统计时，我们把8月4日登录的用户ID记录到user:id:20200804的Set中。接下来，我们执行SDIFFSTORE命令计算累计用户Set和user:id:20200804Set的差集，结果保存在key为user:new的Set中，如下所示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SDIFFSTORE  user:new  user:id:20200804 user:id</span><br></pre></td></tr></table></figure></p>
-<p>可以看到，这个差集中的用户ID在user:id:20200804的Set中存在，但是不在累计用户Set中。所以，user:new这个Set中记录的就是8月4日的新增用户。</p>
-<p>当要计算8月4日的留存用户时，我们只需要再计算user:id:20200803和user:id:20200804两个Set的交集，就可以得到同时在这两个集合中的用户ID了，这些就是在8月3日登录，并且在8月4日留存的用户。执行的命令如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SINTERSTORE user:id:rem user:id:20200803 user:id:20200804</span><br></pre></td></tr></table></figure></p>
-<p>当你需要对多个集合进行聚合计算时，Set类型会是一个非常不错的选择。不过，我要提醒你一下，这里有一个潜在的风险。</p>
+<p>然后，我们计算累计用户Set和user:id:20200803Set的并集结果，结果保存在user:id这个累计用户Set中，如下所示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SUNIONSTORE  user:<span class="built_in">id</span>  user:<span class="built_in">id</span>  user:<span class="built_in">id</span>:20200803 </span><br></pre></td></tr></table></figure><br>此时，user:id这个累计用户Set中就有了8月3日的用户ID。等到8月4日再统计时，我们把8月4日登录的用户ID记录到user:id:20200804的Set中。接下来，我们执行SDIFFSTORE命令计算累计用户Set和user:id:20200804Set的差集，结果保存在key为user:new的Set中，如下所示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SDIFFSTORE  user:new  user:<span class="built_in">id</span>:20200804 user:<span class="built_in">id</span>  </span><br></pre></td></tr></table></figure><br>可以看到，这个差集中的用户ID在user:id:20200804的Set中存在，但是不在累计用户Set中。所以，user:new这个Set中记录的就是8月4日的新增用户。</p>
+<p>当要计算8月4日的留存用户时，我们只需要再计算user:id:20200803和user:id:20200804两个Set的交集，就可以得到同时在这两个集合中的用户ID了，这些就是在8月3日登录，并且在8月4日留存的用户。执行的命令如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SINTERSTORE user:<span class="built_in">id</span>:rem user:<span class="built_in">id</span>:20200803 user:<span class="built_in">id</span>:20200804</span><br></pre></td></tr></table></figure><br>当你需要对多个集合进行聚合计算时，Set类型会是一个非常不错的选择。不过，我要提醒你一下，这里有一个潜在的风险。</p>
 <p>Set的差集、并集和交集的计算复杂度较高，在数据量较大的情况下，如果直接执行这些计算，会导致Redis实例阻塞。所以，我给你分享一个小建议：<strong>你可以从主从集群中选择一个从库，让它专门负责聚合计算，或者是把数据读取到客户端，在客户端来完成聚合统计</strong>，这样就可以规避阻塞主库实例和其他从库实例的风险了。</p>
 <h1 id="排序统计"><a href="#排序统计" class="headerlink" title="排序统计"></a><span style="color:#339AFF;">排序统计</span></h1><p>接下来，我们再来聊一聊应对集合元素排序需求的方法。我以在电商网站上提供最新评论列表的场景为例，进行讲解。</p>
 <p>最新评论列表包含了所有评论中的最新留言，<strong>这就要求集合类型能对元素保序</strong>，也就是说，集合中的元素可以按序排列，这种对元素保序的集合类型叫作有序集合。</p>
@@ -572,27 +571,20 @@
 <p>看起来好像都可以满足需求，我们该怎么选择呢？</p>
 <p>我先说说用List的情况。每个商品对应一个List，这个List包含了对这个商品的所有评论，而且会按照评论时间保存这些评论，每来一个新评论，就用LPUSH命令把它插入List的队头。</p>
 <p>在只有一页评论的时候，我们可以很清晰地看到最新的评论，但是，在实际应用中，网站一般会分页显示最新的评论列表，一旦涉及到分页操作，List就可能会出现问题了。</p>
-<p>假设当前的评论List是{A,B,C,D,E,F}（其中，A是最新的评论，以此类推，F是最早的评论），在展示第一页的3个评论时，我们可以用下面的命令，得到最新的三条评论A、B、C：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LRANGE product1 0 2</span><br><span class="line">1) <span class="string">"A"</span></span><br><span class="line">2) <span class="string">"B"</span></span><br><span class="line">3) <span class="string">"C"</span></span><br></pre></td></tr></table></figure></p>
-<p>然后，再用下面的命令获取第二页的3个评论，也就是D、E、F。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LRANGE product1 3 5</span><br><span class="line">1) <span class="string">"D"</span></span><br><span class="line">2) <span class="string">"E"</span></span><br><span class="line">3) <span class="string">"F"</span></span><br></pre></td></tr></table></figure></p>
-<p>但是，如果在展示第二页前，又产生了一个新评论G，评论G就会被LPUSH命令插入到评论List的队头，评论List就变成了{G,A,B,C,D,E,F}。此时，再用刚才的命令获取第二页评论时，就会发现，评论C又被展示出来了，也就是C、D、E。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LRANGE product1 3 5</span><br><span class="line">1) <span class="string">"C"</span></span><br><span class="line">2) <span class="string">"D"</span></span><br><span class="line">3) <span class="string">"E"</span></span><br></pre></td></tr></table></figure></p>
-<p>之所以会这样，关键原因就在于，List是通过元素在List中的位置来排序的，当有一个新元素插入时，原先的元素在List中的位置都后移了一位，比如说原来在第1位的元素现在排在了第2位。所以，对比新元素插入前后，List相同位置上的元素就会发生变化，用LRANGE读取时，就会读到旧元素。</p>
+<p>假设当前的评论List是{A,B,C,D,E,F}（其中，A是最新的评论，以此类推，F是最早的评论），在展示第一页的3个评论时，我们可以用下面的命令，得到最新的三条评论A、B、C：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LRANGE product1 0 2</span><br><span class="line">1) <span class="string">&quot;A&quot;</span></span><br><span class="line">2) <span class="string">&quot;B&quot;</span></span><br><span class="line">3) <span class="string">&quot;C&quot;</span></span><br></pre></td></tr></table></figure><br>然后，再用下面的命令获取第二页的3个评论，也就是D、E、F。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LRANGE product1 3 5</span><br><span class="line">1) <span class="string">&quot;D&quot;</span></span><br><span class="line">2) <span class="string">&quot;E&quot;</span></span><br><span class="line">3) <span class="string">&quot;F&quot;</span></span><br></pre></td></tr></table></figure><br>但是，如果在展示第二页前，又产生了一个新评论G，评论G就会被LPUSH命令插入到评论List的队头，评论List就变成了{G,A,B,C,D,E,F}。此时，再用刚才的命令获取第二页评论时，就会发现，评论C又被展示出来了，也就是C、D、E。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LRANGE product1 3 5</span><br><span class="line">1) <span class="string">&quot;C&quot;</span></span><br><span class="line">2) <span class="string">&quot;D&quot;</span></span><br><span class="line">3) <span class="string">&quot;E&quot;</span></span><br></pre></td></tr></table></figure><br>之所以会这样，关键原因就在于，List是通过元素在List中的位置来排序的，当有一个新元素插入时，原先的元素在List中的位置都后移了一位，比如说原来在第1位的元素现在排在了第2位。所以，对比新元素插入前后，List相同位置上的元素就会发生变化，用LRANGE读取时，就会读到旧元素。</p>
 <p>和List相比，Sorted Set就不存在这个问题，因为它是根据元素的实际权重来排序和获取数据的。</p>
 <p>我们可以按评论时间的先后给每条评论设置一个权重值，然后再把评论保存到Sorted Set中。Sorted Set的ZRANGEBYSCORE命令就可以按权重排序后返回元素。这样的话，即使集合中的元素频繁更新，Sorted Set也能通过ZRANGEBYSCORE命令准确地获取到按序排列的数据。</p>
-<p>假设越新的评论权重越大，目前最新评论的权重是N，我们执行下面的命令时，就可以获得最新的10条评论：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZRANGEBYSCORE comments N-9 N</span><br></pre></td></tr></table></figure></p>
-<p>所以，在面对需要展示最新列表、排行榜等场景时，如果数据更新频繁或者需要分页显示，建议你优先考虑使用Sorted Set。</p>
+<p>假设越新的评论权重越大，目前最新评论的权重是N，我们执行下面的命令时，就可以获得最新的10条评论：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ZRANGEBYSCORE comments N-9 N</span><br></pre></td></tr></table></figure><br>所以，在面对需要展示最新列表、排行榜等场景时，如果数据更新频繁或者需要分页显示，建议你优先考虑使用Sorted Set。</p>
 <h1 id="二值状态统计"><a href="#二值状态统计" class="headerlink" title="二值状态统计"></a><span style="color:#339AFF;">二值状态统计</span></h1><p>现在，我们再来分析下第三个场景：二值状态统计。这里的二值状态就是指集合元素的取值就只有0和1两种。在签到打卡的场景中，我们只用记录签到（1）或未签到（0），所以它就是非常典型的二值状态。</p>
 <p>在签到统计时，每个用户一天的签到用1个bit位就能表示，一个月（假设是31天）的签到情况用31个bit位就可以，而一年的签到也只需要用365个bit位，根本不用太复杂的集合类型。这个时候，我们就可以选择Bitmap。这是Redis提供的扩展数据类型。我来给你解释一下它的实现原理。</p>
 <p>Bitmap本身是用String类型作为底层数据结构实现的一种统计二值状态的数据类型。String类型是会保存为二进制的字节数组，所以，Redis就把字节数组的每个bit位利用起来，用来表示一个元素的二值状态。你可以把Bitmap看作是一个bit数组。</p>
 <p>Bitmap提供了GETBIT/SETBIT操作，使用一个偏移值offset对bit数组的某一个bit位进行读和写。不过，需要注意的是，Bitmap的偏移量是从0开始算的，也就是说offset的最小值是0。当使用SETBIT对一个bit位进行写操作时，这个bit位会被设置为1。Bitmap还提供了BITCOUNT操作，用来统计这个bit数组中所有“1”的个数。</p>
 <p>那么，具体该怎么用Bitmap进行签到统计呢？我还是借助一个具体的例子来说明。</p>
 <p>假设我们要统计ID3000的用户在2020年8月份的签到情况，就可以按照下面的步骤进行操作。</p>
-<p>第一步，执行下面的命令，记录该用户8月3号已签到。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SETBIT uid:sign:3000:202008 2 1</span><br></pre></td></tr></table></figure></p>
-<p>第二步，检查该用户8月3日是否签到。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GETBIT uid:sign:3000:202008 2</span><br></pre></td></tr></table></figure></p>
-<p>第三步，统计该用户在8月份的签到次数。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BITCOUNT uid:sign:3000:202008</span><br></pre></td></tr></table></figure></p>
-<p>这样，我们就知道该用户在8月份的签到情况了，是不是很简单呢？接下来，你可以再思考一个问题：如果记录了1亿个用户10天的签到情况，你有办法统计出这10天连续签到的用户总数吗？</p>
+<p>第一步，执行下面的命令，记录该用户8月3号已签到。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SETBIT uid:sign:3000:202008 2 1 </span><br></pre></td></tr></table></figure><br>第二步，检查该用户8月3日是否签到。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GETBIT uid:sign:3000:202008 2 </span><br></pre></td></tr></table></figure><br>第三步，统计该用户在8月份的签到次数。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">BITCOUNT uid:sign:3000:202008</span><br></pre></td></tr></table></figure><br>这样，我们就知道该用户在8月份的签到情况了，是不是很简单呢？接下来，你可以再思考一个问题：如果记录了1亿个用户10天的签到情况，你有办法统计出这10天连续签到的用户总数吗？</p>
 <p>在介绍具体的方法之前，我们要先知道，Bitmap支持用BITOP命令对多个Bitmap按位做“与”“或”“异或”的操作，操作的结果会保存到一个新的Bitmap中。</p>
 <p>我以按位“与”操作为例来具体解释一下。从下图中，可以看到，三个Bitmap bm1、bm2和bm3，对应bit位做“与”操作，结果保存到了一个新的Bitmap中（示例中，这个结果Bitmap的key被设为“resmap”）。</p>
-<img src="/2022/05/01/12-有一亿个keys要统计，应该用哪种集合？/3.webp">
+<img src="/2022/05/01/12-%E6%9C%89%E4%B8%80%E4%BA%BF%E4%B8%AAkeys%E8%A6%81%E7%BB%9F%E8%AE%A1%EF%BC%8C%E5%BA%94%E8%AF%A5%E7%94%A8%E5%93%AA%E7%A7%8D%E9%9B%86%E5%90%88%EF%BC%9F/3.webp" class="">
 <p>回到刚刚的问题，在统计1亿个用户连续10天的签到情况时，你可以把每天的日期作为key，每个key对应一个1亿位的Bitmap，每一个bit对应一个用户当天的签到情况。</p>
 <p>接下来，我们对10个Bitmap做“与”操作，得到的结果也是一个Bitmap。在这个Bitmap中，只有10天都签到的用户对应的bit位上的值才会是1。最后，我们可以用BITCOUNT统计下Bitmap中的1的个数，这就是连续签到10天的用户总数了。</p>
 <p>现在，我们可以计算一下记录了10天签到情况后的内存开销。每天使用1个1亿位的Bitmap，大约占12MB的内存（10^8/8/1024/1024），10天的Bitmap的内存开销约为120MB，内存压力不算太大。不过，在实际应用时，最好对Bitmap设置过期时间，让Redis自动删除不再需要的签到记录，以节省内存开销。</p>
@@ -600,22 +592,18 @@
 <h1 id="基数统计"><a href="#基数统计" class="headerlink" title="基数统计"></a><span style="color:#339AFF;">基数统计</span></h1><p>最后，我们再来看一个统计场景：基数统计。基数统计就是指统计一个集合中不重复的元素个数。对应到我们刚才介绍的场景中，就是统计网页的UV。</p>
 <p>网页UV的统计有个独特的地方，就是需要去重，一个用户一天内的多次访问只能算作一次。在Redis的集合类型中，Set类型默认支持去重，所以看到有去重需求时，我们可能第一时间就会想到用Set类型。</p>
 <p>我们来结合一个例子看一看用Set的情况。</p>
-<p>有一个用户user1访问page1时，你把这个信息加到Set中：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SADD page1:uv user1</span><br></pre></td></tr></table></figure></p>
-<p>用户1再来访问时，Set的去重功能就保证了不会重复记录用户1的访问次数，这样，用户1就算是一个独立访客。当你需要统计UV时，可以直接用SCARD命令，这个命令会返回一个集合中的元素个数。</p>
+<p>有一个用户user1访问page1时，你把这个信息加到Set中：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SADD page1:uv user1</span><br></pre></td></tr></table></figure><br>用户1再来访问时，Set的去重功能就保证了不会重复记录用户1的访问次数，这样，用户1就算是一个独立访客。当你需要统计UV时，可以直接用SCARD命令，这个命令会返回一个集合中的元素个数。</p>
 <p>但是，如果page1非常火爆，UV达到了千万，这个时候，一个Set就要记录千万个用户ID。对于一个搞大促的电商网站而言，这样的页面可能有成千上万个，如果每个页面都用这样的一个Set，就会消耗很大的内存空间。</p>
 <p>当然，你也可以用Hash类型记录UV。</p>
-<p>例如，你可以把用户ID作为Hash集合的key，当用户访问页面时，就用HSET命令（用于设置Hash集合元素的值），对这个用户ID记录一个值“1”，表示一个独立访客，用户1访问page1后，我们就记录为1个独立访客，如下所示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HSET page1:uv user1 1</span><br></pre></td></tr></table></figure></p>
-<p>即使用户1多次访问页面，重复执行这个HSET命令，也只会把user1的值设置为1，仍然只记为1个独立访客。当要统计UV时，我们可以用HLEN命令统计Hash集合中的所有元素个数。</p>
+<p>例如，你可以把用户ID作为Hash集合的key，当用户访问页面时，就用HSET命令（用于设置Hash集合元素的值），对这个用户ID记录一个值“1”，表示一个独立访客，用户1访问page1后，我们就记录为1个独立访客，如下所示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HSET page1:uv user1 1</span><br></pre></td></tr></table></figure><br>即使用户1多次访问页面，重复执行这个HSET命令，也只会把user1的值设置为1，仍然只记为1个独立访客。当要统计UV时，我们可以用HLEN命令统计Hash集合中的所有元素个数。</p>
 <p>但是，和Set类型相似，当页面很多时，Hash类型也会消耗很大的内存空间。那么，有什么办法既能完成统计，还能节省内存吗？</p>
 <p>这时候，就要用到Redis提供的HyperLogLog了。</p>
 <p>HyperLogLog是一种用于统计基数的数据集合类型，它的最大优势就在于，当集合元素数量非常多时，它计算基数所需的空间总是固定的，而且还很小。</p>
 <p>在Redis中，每个HyperLogLog只需要花费12KB内存，就可以计算接近2^64个元素的基数。你看，和元素越多就越耗费内存的Set和Hash类型相比，HyperLogLog就非常节省空间。</p>
-<p>在统计UV时，你可以用PFADD命令（用于向HyperLogLog中添加新元素）把访问页面的每个用户都添加到HyperLogLog中。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PFADD page1:uv user1 user2 user3 user4 user5</span><br></pre></td></tr></table></figure></p>
-<p>接下来，就可以用PFCOUNT命令直接获得page1的UV值了，这个命令的作用就是返回HyperLogLog的统计结果。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PFCOUNT page1:uv</span><br></pre></td></tr></table></figure></p>
-<p>关于HyperLogLog的具体实现原理，你不需要重点掌握，不会影响到你的日常使用，我就不多讲了。如果你想了解一下，课下可以看看<a href="http://en.wikipedia.org/wiki/HyperLogLog" target="_blank" rel="noopener">这条链接</a>。</p>
+<p>在统计UV时，你可以用PFADD命令（用于向HyperLogLog中添加新元素）把访问页面的每个用户都添加到HyperLogLog中。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PFADD page1:uv user1 user2 user3 user4 user5</span><br></pre></td></tr></table></figure><br>接下来，就可以用PFCOUNT命令直接获得page1的UV值了，这个命令的作用就是返回HyperLogLog的统计结果。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PFCOUNT page1:uv</span><br></pre></td></tr></table></figure><br>关于HyperLogLog的具体实现原理，你不需要重点掌握，不会影响到你的日常使用，我就不多讲了。如果你想了解一下，课下可以看看<a href="http://en.wikipedia.org/wiki/HyperLogLog">这条链接</a>。</p>
 <p>不过，有一点需要你注意一下，HyperLogLog的统计规则是基于概率完成的，所以它给出的统计结果是有一定误差的，标准误算率是0.81%。这也就意味着，你使用HyperLogLog统计的UV是100万，但实际的UV可能是101万。虽然误差率不算大，但是，如果你需要精确统计结果的话，最好还是继续用Set或Hash类型。</p>
 <h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a><span style="color:#339AFF;">小结</span></h1><p>这节课，我们结合统计新增用户数和留存用户数、最新评论列表、用户签到数以及网页独立访客量这4种典型场景，学习了集合类型的4种统计模式，分别是聚合统计、排序统计、二值状态统计和基数统计。为了方便你掌握，我把Set、Sorted Set、Hash、List、Bitmap、HyperLogLog的支持情况和优缺点汇总在了下面的表格里，希望你把这张表格保存下来，时不时地复习一下。</p>
-<img src="/2022/05/01/12-有一亿个keys要统计，应该用哪种集合？/4.webp">
+<img src="/2022/05/01/12-%E6%9C%89%E4%B8%80%E4%BA%BF%E4%B8%AAkeys%E8%A6%81%E7%BB%9F%E8%AE%A1%EF%BC%8C%E5%BA%94%E8%AF%A5%E7%94%A8%E5%93%AA%E7%A7%8D%E9%9B%86%E5%90%88%EF%BC%9F/4.webp" class="">
 <p>可以看到，Set和Sorted Set都支持多种聚合统计，不过，对于差集计算来说，只有Set支持。Bitmap也能做多个Bitmap间的聚合计算，包括与、或和异或操作。</p>
 <p>当需要进行排序统计时，List中的元素虽然有序，但是一旦有新元素插入，原来的元素在List中的位置就会移动，那么，按位置读取的排序结果可能就不准确了。而Sorted Set本身是按照集合元素的权重排序，可以准确地按序获取结果，所以建议你优先使用它。</p>
 <p>如果我们记录的数据只有0和1两个值的状态，Bitmap会是一个很好的选择，这主要归功于Bitmap对于一个数据只用1个bit记录，可以节省内存。</p>
@@ -645,7 +633,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Redis核心技术与实战/" rel="tag"># Redis核心技术与实战</a>
+            <a href="/tags/Redis%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/" rel="tag"># Redis核心技术与实战</a>
           
         </div>
       
@@ -658,7 +646,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/05/01/11-“万金油”的String，为什么不好用了？/" rel="next" title="11 | “万金油”的String，为什么不好用了？">
+              <a href="/2022/05/01/11-%E2%80%9C%E4%B8%87%E9%87%91%E6%B2%B9%E2%80%9D%E7%9A%84String%EF%BC%8C%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E5%A5%BD%E7%94%A8%E4%BA%86%EF%BC%9F/" rel="next" title="11 | “万金油”的String，为什么不好用了？">
                 <i class="fa fa-chevron-left"></i> 11 | “万金油”的String，为什么不好用了？
               </a>
             
@@ -668,7 +656,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/05/01/13-GEO是什么？还可以定义新的数据类型吗？/" rel="prev" title="13 | GEO是什么？还可以定义新的数据类型吗？">
+              <a href="/2022/05/01/13-GEO%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E8%BF%98%E5%8F%AF%E4%BB%A5%E5%AE%9A%E4%B9%89%E6%96%B0%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%90%97%EF%BC%9F/" rel="prev" title="13 | GEO是什么？还可以定义新的数据类型吗？">
                 13 | GEO是什么？还可以定义新的数据类型吗？ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -728,7 +716,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -739,9 +729,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -753,26 +743,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -844,7 +818,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1019,115 +993,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1158,23 +1024,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1200,7 +1066,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#聚合统计"><span class="nav-number">1.</span> <span class="nav-text">聚合统计</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#排序统计"><span class="nav-number">2.</span> <span class="nav-text">排序统计</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二值状态统计"><span class="nav-number">3.</span> <span class="nav-text">二值状态统计</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基数统计"><span class="nav-number">4.</span> <span class="nav-text">基数统计</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#每课一问"><span class="nav-number">6.</span> <span class="nav-text">每课一问</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%81%9A%E5%90%88%E7%BB%9F%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">聚合统计</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F%E7%BB%9F%E8%AE%A1"><span class="nav-number">2.</span> <span class="nav-text">排序统计</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E5%80%BC%E7%8A%B6%E6%80%81%E7%BB%9F%E8%AE%A1"><span class="nav-number">3.</span> <span class="nav-text">二值状态统计</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%95%B0%E7%BB%9F%E8%AE%A1"><span class="nav-number">4.</span> <span class="nav-text">基数统计</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AF%8F%E8%AF%BE%E4%B8%80%E9%97%AE"><span class="nav-number">6.</span> <span class="nav-text">每课一问</span></a></li></ol></div>
             
 
           </div>
@@ -1235,7 +1101,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1246,12 +1112,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1259,7 +1125,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

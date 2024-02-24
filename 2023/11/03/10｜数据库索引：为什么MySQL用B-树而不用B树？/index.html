@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,35 +104,35 @@
 
 
   <meta name="description" content="思考并回答以下问题：  当面试官问你一个具体问题的时候，你先尽可能问清楚一些约束条件，最常见的就是并发量有多高、数据量有多大、可用性要求多高、一致性要求多高。你可以采用防御性的面试策略，在回答具体方案的时候先自己交代清楚这个方案的约束。">
-<meta name="keywords" content="后端工程师进阶">
 <meta property="og:type" content="article">
 <meta property="og:title" content="10｜数据库索引：为什么MySQL用B+树而不用B树？">
-<meta property="og:url" content="http://yoursite.com/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/index.html">
+<meta property="og:url" content="http://yoursite.com/2023/11/03/10%EF%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E7%94%A8B-%E6%A0%91%E8%80%8C%E4%B8%8D%E7%94%A8B%E6%A0%91%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：  当面试官问你一个具体问题的时候，你先尽可能问清楚一些约束条件，最常见的就是并发量有多高、数据量有多大、可用性要求多高、一致性要求多高。你可以采用防御性的面试策略，在回答具体方案的时候先自己交代清楚这个方案的约束。">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/1.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/2.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/3.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/4.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/5.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/6.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/7.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/8.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/9.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/10.webp">
-<meta property="og:updated_time" content="2024-01-18T08:30:20.791Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/10%EF%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E7%94%A8B-%E6%A0%91%E8%80%8C%E4%B8%8D%E7%94%A8B%E6%A0%91%EF%BC%9F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/10%EF%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E7%94%A8B-%E6%A0%91%E8%80%8C%E4%B8%8D%E7%94%A8B%E6%A0%91%EF%BC%9F/2.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/10%EF%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E7%94%A8B-%E6%A0%91%E8%80%8C%E4%B8%8D%E7%94%A8B%E6%A0%91%EF%BC%9F/3.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/10%EF%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E7%94%A8B-%E6%A0%91%E8%80%8C%E4%B8%8D%E7%94%A8B%E6%A0%91%EF%BC%9F/4.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/10%EF%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E7%94%A8B-%E6%A0%91%E8%80%8C%E4%B8%8D%E7%94%A8B%E6%A0%91%EF%BC%9F/5.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/10%EF%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E7%94%A8B-%E6%A0%91%E8%80%8C%E4%B8%8D%E7%94%A8B%E6%A0%91%EF%BC%9F/6.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/10%EF%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E7%94%A8B-%E6%A0%91%E8%80%8C%E4%B8%8D%E7%94%A8B%E6%A0%91%EF%BC%9F/7.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/10%EF%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E7%94%A8B-%E6%A0%91%E8%80%8C%E4%B8%8D%E7%94%A8B%E6%A0%91%EF%BC%9F/8.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/10%EF%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E7%94%A8B-%E6%A0%91%E8%80%8C%E4%B8%8D%E7%94%A8B%E6%A0%91%EF%BC%9F/9.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/10%EF%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E7%94%A8B-%E6%A0%91%E8%80%8C%E4%B8%8D%E7%94%A8B%E6%A0%91%EF%BC%9F/10.webp">
+<meta property="article:published_time" content="2023-11-03T06:20:43.000Z">
+<meta property="article:modified_time" content="2024-01-18T08:30:20.791Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="后端工程师进阶">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="10｜数据库索引：为什么MySQL用B+树而不用B树？">
-<meta name="twitter:description" content="思考并回答以下问题：  当面试官问你一个具体问题的时候，你先尽可能问清楚一些约束条件，最常见的就是并发量有多高、数据量有多大、可用性要求多高、一致性要求多高。你可以采用防御性的面试策略，在回答具体方案的时候先自己交代清楚这个方案的约束。">
-<meta name="twitter:image" content="http://yoursite.com/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2023/11/03/10%EF%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E7%94%A8B-%E6%A0%91%E8%80%8C%E4%B8%8D%E7%94%A8B%E6%A0%91%EF%BC%9F/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/">
+  <link rel="canonical" href="http://yoursite.com/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/"/>
 
 
 
@@ -181,7 +181,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -242,7 +242,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -259,7 +259,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -276,7 +276,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -293,7 +293,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -310,7 +310,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -321,7 +321,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -341,7 +341,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -391,16 +393,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/03/10%EF%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E7%94%A8B-%E6%A0%91%E8%80%8C%E4%B8%8D%E7%94%A8B%E6%A0%91%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -500,7 +502,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">7.3k</span>
+                <span title="本文字数">16k</span>
               
 
               
@@ -514,7 +516,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">7 分钟</span>
+                <span title="阅读时长">14 分钟</span>
               
             </div>
           
@@ -538,7 +540,7 @@
 <ul>
 <li>当面试官问你一个具体问题的时候，你先尽可能问清楚一些约束条件，最常见的就是并发量有多高、数据量有多大、可用性要求多高、一致性要求多高。你可以采用防御性的面试策略，在回答具体方案的时候先自己交代清楚这个方案的约束。</li>
 </ul>
-<a id="more"></a>
+<span id="more"></span>
 <p>从这节课开始，我们将进入数据库这一章。在实际工作中，数据库设计得好不好、SQL写得好不好将极大程度影响系统性能。而且，即便是再小的公司，也不可能说没有数据库，所以如果你担忧自己因为没有微服务架构经验难以通过面试，那么数据库就可以成为你反败为胜的一个点。</p>
 <p>所以今天我们来聊一聊数据库中的第一个话题——索引。</p>
 <p>索引在数据库面试中占据了相当大的比重。但是大部分人面试索引的时候都非常机械，所以难以在面试官心中留下深刻印象。索引是一个理论和实践的结合，今天这节课我先带你分析索引的基本原理，下节课我再在SQL优化这一个大主题下进一步带你分析索引设计和优化的实战案例。</p>
@@ -554,7 +556,7 @@
 <li><strong>叶子存放了数据</strong>，而非叶子节点只是存放了关键字。</li>
 <li><strong>叶子节点被链表串联起来了</strong>。</li>
 </ul>
-<img src="/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/1.webp">
+<img src="/2023/11/03/10%EF%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E7%94%A8B-%E6%A0%91%E8%80%8C%E4%B8%8D%E7%94%A8B%E6%A0%91%EF%BC%9F/1.webp" class="">
 <p>前面B+树的定义你记不住没关系，但是这两个特征你一定要记住。为了帮助你理解和记忆，我给你打个比方。</p>
 <p>一棵B+树就像是一个部门。部门分成管理人员（非叶子节点）和基层员工（叶子节点），而管理人员只是负责传达命令（只放索引关键字），具体的事务（存放数据）都是由基层员工来执行的。</p>
 <p>基层员工之间为了合作顺畅，私底下互相都有联系，对应到B+树上就是叶子节点被链表连在一起。</p>
@@ -563,7 +565,7 @@
 <p>2，B+树的叶子节点都被串联起来了，<strong>适合范围查询</strong>。</p>
 <p>3，B+树的非叶子节点没有存放数据，所以<strong>适合放入内存中</strong>。</p>
 <p>很多人都能记住B+树的前两个优势，但是很容易忽略第三个优势。事实上，我们在讨论使用索引提高查询性能的时候，一个默认的前提就是索引本身会全部装进内存中，只有真实的数据行会放在磁盘上。否则，索引也放在磁盘上的话，使用索引的效果也就不明显了。</p>
-<img src="/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/2.webp">
+<img src="/2023/11/03/10%EF%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E7%94%A8B-%E6%A0%91%E8%80%8C%E4%B8%8D%E7%94%A8B%E6%A0%91%EF%BC%9F/2.webp" class="">
 <h2 id="索引分类"><a href="#索引分类" class="headerlink" title="索引分类"></a><span style="color:#00ACC1;">索引分类</span></h2><p>这算是你在学习索引过程中一个非常容易迷惘的点，因为MySQL的索引站在不同的角度，就有不同的说法。</p>
 <ul>
 <li>根据叶子节点是否存储数据来划分，可以分成<strong>聚簇索引</strong>和<strong>非聚簇索引</strong>。</li>
@@ -577,40 +579,39 @@
 <p>一个索引可以同时是覆盖索引、唯一索引、前缀索引和组合索引，你站在不同的角度去看待索引就会有不同的说法。</p>
 <h2 id="聚簇索引和非聚簇索引"><a href="#聚簇索引和非聚簇索引" class="headerlink" title="聚簇索引和非聚簇索引"></a><span style="color:#00ACC1;">聚簇索引和非聚簇索引</span></h2><p>如果索引叶子节点存储的是数据行，那么它就是聚簇索引，否则就是非聚簇索引。</p>
 <p>简单来说，某个数据表本身你就可以看作是一棵使用主键搭建起来B+树，这棵树的叶子节点放着表的所有行。而其他索引也是B+树，不同的是它们的叶子节点存放的是主键。</p>
-<img src="/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/3.webp">
+<img src="/2023/11/03/10%EF%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E7%94%A8B-%E6%A0%91%E8%80%8C%E4%B8%8D%E7%94%A8B%E6%A0%91%EF%BC%9F/3.webp" class="">
 <p>有了这种区分，你就能理解所谓的<strong>回表</strong>了。如果你查询一张表，用到了索引，那么数据库就会先在索引里面找到主键，然后再根据主键去聚簇索引中查找，最终找出数据。</p>
-<img src="/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/4.webp">
+<img src="/2023/11/03/10%EF%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E7%94%A8B-%E6%A0%91%E8%80%8C%E4%B8%8D%E7%94%A8B%E6%A0%91%EF%BC%9F/4.webp" class="">
 <p>如图所示，查询的时候先沿着绿色的线条在非聚簇索引中找到主键。然后拿着主键再去下面沿着黄色的线条找到数据行。这个数据行存放在磁盘里，所以触发磁盘IO之后能够读取出来。磁盘IO是非常慢的，因此回表性能极差，你在实践中要尽可能避免回表。</p>
 <h2 id="覆盖索引"><a href="#覆盖索引" class="headerlink" title="覆盖索引"></a><span style="color:#00ACC1;">覆盖索引</span></h2><p>如果你查询的列全部都在某个索引里面，那么数据库可以直接把索引存储的这些列的值给你，而不必回表。</p>
 <p>比如说你有一个用户表user_tab，在上面的id和name两列上创建了一个组合索引<code>&lt;id, name&gt;</code>，那么对于这个查询来说<code>SELECT id, name FROM user_tab WHERE id = 123</code>，SELECT关键字后面的id和name两列都在这个索引里，那么就可以直接用索引的数据，不必回表查询了。</p>
-<img src="/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/5.webp">
+<img src="/2023/11/03/10%EF%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E7%94%A8B-%E6%A0%91%E8%80%8C%E4%B8%8D%E7%94%A8B%E6%A0%91%EF%BC%9F/5.webp" class="">
 <p>那么，<strong>这个索引在这个查询下就是一个覆盖索引</strong>。所以覆盖索引并不是一个独立的索引，而是某个索引相对于某个查询而言的。</p>
 <p>针对这个特性，优化SQL性能里面有两种常见的说法。</p>
 <p>1，只查询需要的列。</p>
 <p>2，针对最频繁的查询来设计覆盖索引。</p>
 <p>这两种说法本质上都是为了避免回表。</p>
 <h2 id="索引的最左匹配原则"><a href="#索引的最左匹配原则" class="headerlink" title="索引的最左匹配原则"></a><span style="color:#00ACC1;">索引的最左匹配原则</span></h2><p>索引在查询中是按照最左匹配原则来使用的，细究起来这个原则还是有点难以理解。我用一个例子来给你解释最左匹配原则的运行机制。比如说你创建了一个在A、B、C三个列上的组合索引<code>&lt;A, B, C&gt;</code>。我用一个表格来展示一下索引列的值的关系。</p>
-<img src="/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/6.webp">
+<img src="/2023/11/03/10%EF%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E7%94%A8B-%E6%A0%91%E8%80%8C%E4%B8%8D%E7%94%A8B%E6%A0%91%EF%BC%9F/6.webp" class="">
 <p>我们可以看到：A是绝对有序的；在A确定的情况下，B是有序的；在A和B都确定的情况下，C是有序的。</p>
 <p>那么反过来说：</p>
 <ul>
 <li>如果A的值不确定，那么B和C都是无序的。例如当A取值可能为1或者2的时候，B的取值可能是<code>(23,44,31)</code>。</li>
 <li>如果A的值确定，但是B的值不确定，那么C是无序的。例如当A=1而B可能是44或者31的时候，C的值可能是<code>(122,132,109)</code>。</li>
 </ul>
-<p>所以执行一个<code>WHERE A = a1 AND B = b1 AND C = c1</code>的查询就类似于：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">for a in A &#123;</span><br><span class="line">  if a == a1 &#123;</span><br><span class="line">    for b in B &#123;</span><br><span class="line">      if b == b1 &#123;</span><br><span class="line">        for c in C &#123;</span><br><span class="line">          if c == c1 &#123;</span><br><span class="line">            // 这就是你要的数据，拿到主键之后去磁盘里面加载出来</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>你从这个角度出发，就能理解其他最左匹配原则的情况了。</p>
+<p>所以执行一个<code>WHERE A = a1 AND B = b1 AND C = c1</code>的查询就类似于：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">for a in A &#123;</span><br><span class="line">  if a == a1 &#123;</span><br><span class="line">    for b in B &#123;</span><br><span class="line">      if b == b1 &#123;</span><br><span class="line">        for c in C &#123;</span><br><span class="line">          if c == c1 &#123;</span><br><span class="line">            // 这就是你要的数据，拿到主键之后去磁盘里面加载出来</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>你从这个角度出发，就能理解其他最左匹配原则的情况了。</p>
 <ul>
 <li>如果查询条件是<code>WHERE A = a1 AND B = b1</code>，那么你可以推断出来，数据库只会应用外层的两重循环，不会对C进行过滤。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">for a in A &#123;</span><br><span class="line">  if a == a1 &#123;</span><br><span class="line">      for b in B &#123;</span><br><span class="line">        if b == b1 &#123;</span><br><span class="line">          // 这就是你要的结果，去磁盘里面读取</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">for a in A &#123;</span><br><span class="line">  if a == a1 &#123;</span><br><span class="line">      for b in B &#123;</span><br><span class="line">        if b == b1 &#123;</span><br><span class="line">          // 这就是你要的结果，去磁盘里面读取</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>如果查询条件是<code>WHERE A = a1 OR B = b1</code>，那么这个查询并不会使用这个索引。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">for a in A &#123;</span><br><span class="line">    if a == a1 &#123;</span><br><span class="line">        as = append(as, a)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">for b in B &#123;</span><br><span class="line">    if b == b1 &#123;</span><br><span class="line">        bs = append(bs, b)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">// as 和 bs 的并集就是你要的结果</span><br></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">for a in A &#123;</span><br><span class="line">    if a == a1 &#123;</span><br><span class="line">        as = append(as, a)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">for b in B &#123;</span><br><span class="line">    if b == b1 &#123;</span><br><span class="line">        bs = append(bs, b)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">// as 和 bs 的并集就是你要的结果</span><br></pre></td></tr></table></figure>
 <ul>
 <li>如果查询条件是<code>WHERE A = a1 AND B &gt; b1 AND C = c1</code>，那么这个查询只会使用索引的A和B两列。</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">for a in A &#123;</span><br><span class="line">  if a == a1 &#123;</span><br><span class="line">      for b in B &#123;</span><br><span class="line">        if b &gt; b1 &#123;</span><br><span class="line">          // C 是无序的，所以用不了。你可以从前面的表格里面看出来</span><br><span class="line">          // 比如说 b &gt; 23 之后，对应的 C 是乱序的</span><br><span class="line">          // 这就是你要的结果，去磁盘里面读取</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">for a in A &#123;</span><br><span class="line">  if a == a1 &#123;</span><br><span class="line">      for b in B &#123;</span><br><span class="line">        if b &gt; b1 &#123;</span><br><span class="line">          // C 是无序的，所以用不了。你可以从前面的表格里面看出来</span><br><span class="line">          // 比如说 b &gt; 23 之后，对应的 C 是乱序的</span><br><span class="line">          // 这就是你要的结果，去磁盘里面读取</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>如果查询条件是<code>WHERE A != a1</code>，那么这个查询也不会使用索引。</li>
 </ul>
@@ -621,7 +622,7 @@
 <p>1，索引本身需要存储起来，消耗磁盘空间。</p>
 <p>2，在运行的时候，索引会被加载到内存里面，消耗内存空间。</p>
 <p>3，在增删改的时候，数据库还需要同步维护索引，引入额外的消耗。</p>
-<img src="/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/7.webp">
+<img src="/2023/11/03/10%EF%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E7%94%A8B-%E6%A0%91%E8%80%8C%E4%B8%8D%E7%94%A8B%E6%A0%91%EF%BC%9F/7.webp" class="">
 <p>这部分内容你也需要记住，因为现在有一些面试官的套路就是突然问你违反直觉的问题。例如正常我们都认为索引非常好，有很多优点，那么面试官就可能突然问你“使用索引有什么问题”“索引有什么坏处”等问题。</p>
 <h1 id="面试准备"><a href="#面试准备" class="headerlink" title="面试准备"></a><span style="color:#339AFF;">面试准备</span></h1><p>首先你要弄清楚公司内使用索引的情况，或者你所在公司使用过的各种索引，以及有没有出现索引设计不当引发的线上故障。</p>
 <p>如果你有意为自己打造掌握了高性能架构的人设，那么你面试索引的最佳策略就是在自我介绍或者介绍项目的时候提及索引和索引优化。</p>
@@ -642,7 +643,7 @@
 <p>如果面试官问索引问得非常细，例如“什么是覆盖索引”这种，只需要按照前置知识里面的内容回答就可以。</p>
 <p>如果面试官问得比较笼统，你就可以用这里我给你的这个介绍索引的话术，你可以根据自己的需要选择回答全部或者只使用一部分。这个话术由<strong>B+树、索引分类、最左匹配原则</strong>三个部分组成。</p>
 <blockquote>
-<p>从数据结构上来说，在MySQL里面索引主要是B+树索引。它的查询性能更好，适合范围查询，也适合放在内存里。<br><br>MySQL的索引又可以从不同的角度进一步划分。比如说根据叶子节点是否包含数据分成聚簇索引和非聚簇索引，还有包含某个查询的所有列的覆盖索引等等。数据库使用索引遵循最左匹配原则。但是最终数据库会不会用索引，也是一个比较难说的事情，跟查询有关，也跟数据量有关。在实践中，是否使用索引以及使用什么索引，都要以EXPLAIN为准。</p>
+<p>从数据结构上来说，在MySQL里面索引主要是B+树索引。它的查询性能更好，适合范围查询，也适合放在内存里。<br><br/>MySQL的索引又可以从不同的角度进一步划分。比如说根据叶子节点是否包含数据分成聚簇索引和非聚簇索引，还有包含某个查询的所有列的覆盖索引等等。数据库使用索引遵循最左匹配原则。但是最终数据库会不会用索引，也是一个比较难说的事情，跟查询有关，也跟数据量有关。在实践中，是否使用索引以及使用什么索引，都要以EXPLAIN为准。</p>
 </blockquote>
 <p>在这样一个话术中，我设计了几个可以引导的点，面试官是比较有可能进一步追问的。</p>
 <p>1，为什么MySQL用了B+树，而没有用B树？在这个问题的基础上，面试官可能会进一步问，二叉树、红黑树和跳表之类的数据结构用作索引是否合适。</p>
@@ -653,12 +654,12 @@
 <ul>
 <li>与B+树相比，平衡二叉树、红黑树在同等数据量下，<strong>高度更高，性能更差</strong>，而且它们会频繁执行再平衡过程，来保证树形结构平衡。</li>
 </ul>
-<img src="/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/8.webp">
+<img src="/2023/11/03/10%EF%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E7%94%A8B-%E6%A0%91%E8%80%8C%E4%B8%8D%E7%94%A8B%E6%A0%91%EF%BC%9F/8.webp" class="">
 <ul>
 <li>与B+树相比，跳表在极端情况下会退化为链表，<strong>平衡性差</strong>，而数据库查询需要一个可预期的查询时间，并且跳表需要更多的内存。</li>
 <li>与B+树相比，B树的数据存储在全部节点中，对<strong>范围查询不友好</strong>。非叶子节点存储了数据，<strong>导致内存中难以放下全部非叶子节点</strong>。如果内存放不下非叶子节点，那么就意味着查询非叶子节点的时候都需要磁盘IO。</li>
 </ul>
-<img src="/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/9.webp">
+<img src="/2023/11/03/10%EF%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E7%94%A8B-%E6%A0%91%E8%80%8C%E4%B8%8D%E7%94%A8B%E6%A0%91%EF%BC%9F/9.webp" class="">
 <p>因此一个数据结构是否适合数据库索引，取决于这种数据结构的增删改查性能。并且在关系型数据库里面，还额外要求对范围查询友好，减少内存消耗。</p>
 <h2 id="亮点2：为什么数据库不使用索引？"><a href="#亮点2：为什么数据库不使用索引？" class="headerlink" title="亮点2：为什么数据库不使用索引？"></a><span style="color:#00ACC1;">亮点2：为什么数据库不使用索引？</span></h2><p>实际上，数据库在一些特殊的情况下可能并不会使用任何索引。例如在前面的索引的例子中，假设A的所有值都是正数，然后查询条件<code>WHERE A &gt; -1</code>，那么这个时候数据库会觉得还不如直接全表扫描，那么虽然有一个索引看起来能用，但是最终并不会用。</p>
 <p>我也在面试准备那部分提醒过你，要小心面试官挖坑让你掉下去。总结起来，数据库可能不使用索引的原因有以下几种：</p>
@@ -693,7 +694,7 @@
 <p>但是很多时候面试官出题根本没有考虑到候选人的技术背景。比如说你本职是做支付相关的，而他出的题是订单相关的。那么在这种专业不对口的情况下，你基本上不可能答好。这也是我认为这种面试套路实际上并不太能考察出候选人真实水平的核心原因。</p>
 <p>应付这种面试套路也很简单，你只需要保持警惕。当面试官问你一个具体问题的时候，你先尽可能问清楚一些约束条件，最常见的就是并发量有多高、数据量有多大、可用性要求多高、一致性要求多高。</p>
 <p>如果面试官不告诉你，让你考虑。或者你自己不打算问，那么你可以采用防御性的面试策略，在回答具体方案的时候先自己交代清楚这个方案的约束。</p>
-<img src="/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/10.webp">
+<img src="/2023/11/03/10%EF%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E7%94%A8B-%E6%A0%91%E8%80%8C%E4%B8%8D%E7%94%A8B%E6%A0%91%EF%BC%9F/10.webp" class="">
 <h1 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a><span style="color:#339AFF;">思考题</span></h1><ul>
 <li>你有没有遇到过索引设计不合理引发的线上故障？如果有，当时你是怎么定位问题、怎么解决问题的？</li>
 <li>你有没有因为NULL而出现过奇奇怪怪的问题？</li>
@@ -721,7 +722,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/后端工程师进阶/" rel="tag"># 后端工程师进阶</a>
+            <a href="/tags/%E5%90%8E%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%9B%E9%98%B6/" rel="tag"># 后端工程师进阶</a>
           
         </div>
       
@@ -734,7 +735,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2023/10/25/源码/" rel="next" title="源码">
+              <a href="/2023/10/25/%E6%BA%90%E7%A0%81/" rel="next" title="源码">
                 <i class="fa fa-chevron-left"></i> 源码
               </a>
             
@@ -744,7 +745,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2023/11/03/11｜SQL优化：如何发现SQL中的问题？/" rel="prev" title="11｜SQL优化：如何发现SQL中的问题？">
+              <a href="/2023/11/03/11%EF%BD%9CSQL%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%8F%91%E7%8E%B0SQL%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F/" rel="prev" title="11｜SQL优化：如何发现SQL中的问题？">
                 11｜SQL优化：如何发现SQL中的问题？ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -804,7 +805,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -815,9 +818,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -829,26 +832,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -920,7 +907,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1095,115 +1082,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1234,23 +1113,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1276,7 +1155,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前置知识"><span class="nav-number">1.</span> <span class="nav-text">前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#B-树"><span class="nav-number">1.1.</span> <span class="nav-text">B+树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引分类"><span class="nav-number">1.2.</span> <span class="nav-text">索引分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#聚簇索引和非聚簇索引"><span class="nav-number">1.3.</span> <span class="nav-text">聚簇索引和非聚簇索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#覆盖索引"><span class="nav-number">1.4.</span> <span class="nav-text">覆盖索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引的最左匹配原则"><span class="nav-number">1.5.</span> <span class="nav-text">索引的最左匹配原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引的代价"><span class="nav-number">1.6.</span> <span class="nav-text">索引的代价</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面试准备"><span class="nav-number">2.</span> <span class="nav-text">面试准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本思路"><span class="nav-number">3.</span> <span class="nav-text">基本思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#亮点1：MySQL为什么使用B-树？"><span class="nav-number">3.1.</span> <span class="nav-text">亮点1：MySQL为什么使用B+树？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#亮点2：为什么数据库不使用索引？"><span class="nav-number">3.2.</span> <span class="nav-text">亮点2：为什么数据库不使用索引？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#亮点3：索引与NULL"><span class="nav-number">3.3.</span> <span class="nav-text">亮点3：索引与NULL</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面试思路总结"><span class="nav-number">4.</span> <span class="nav-text">面试思路总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">5.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#B-%E6%A0%91"><span class="nav-number">1.1.</span> <span class="nav-text">B+树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E5%88%86%E7%B1%BB"><span class="nav-number">1.2.</span> <span class="nav-text">索引分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E5%92%8C%E9%9D%9E%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95"><span class="nav-number">1.3.</span> <span class="nav-text">聚簇索引和非聚簇索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95"><span class="nav-number">1.4.</span> <span class="nav-text">覆盖索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E6%9C%80%E5%B7%A6%E5%8C%B9%E9%85%8D%E5%8E%9F%E5%88%99"><span class="nav-number">1.5.</span> <span class="nav-text">索引的最左匹配原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BB%A3%E4%BB%B7"><span class="nav-number">1.6.</span> <span class="nav-text">索引的代价</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">面试准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E8%B7%AF"><span class="nav-number">3.</span> <span class="nav-text">基本思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%AE%E7%82%B91%EF%BC%9AMySQL%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8B-%E6%A0%91%EF%BC%9F"><span class="nav-number">3.1.</span> <span class="nav-text">亮点1：MySQL为什么使用B+树？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%AE%E7%82%B92%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%95%B0%E6%8D%AE%E5%BA%93%E4%B8%8D%E4%BD%BF%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F"><span class="nav-number">3.2.</span> <span class="nav-text">亮点2：为什么数据库不使用索引？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%AE%E7%82%B93%EF%BC%9A%E7%B4%A2%E5%BC%95%E4%B8%8ENULL"><span class="nav-number">3.3.</span> <span class="nav-text">亮点3：索引与NULL</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E6%80%9D%E8%B7%AF%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">面试思路总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">5.</span> <span class="nav-text">思考题</span></a></li></ol></div>
             
 
           </div>
@@ -1311,7 +1190,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1322,12 +1201,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1335,7 +1214,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

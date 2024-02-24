@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,29 +104,29 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="Redis核心技术与实战">
 <meta property="og:type" content="article">
 <meta property="og:title" content="细说Redis分布式锁">
-<meta property="og:url" content="http://yoursite.com/2022/10/01/细说Redis分布式锁/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/10/01/%E7%BB%86%E8%AF%B4Redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/细说Redis分布式锁/2.jpeg">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/细说Redis分布式锁/2.jpeg">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/细说Redis分布式锁/3.jpeg">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/细说Redis分布式锁/4.jpeg">
-<meta property="og:updated_time" content="2022-11-04T00:56:16.788Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/%E7%BB%86%E8%AF%B4Redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/2.jpeg">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/%E7%BB%86%E8%AF%B4Redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/2.jpeg">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/%E7%BB%86%E8%AF%B4Redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/3.jpeg">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/%E7%BB%86%E8%AF%B4Redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/4.jpeg">
+<meta property="article:published_time" content="2022-10-01T08:35:27.000Z">
+<meta property="article:modified_time" content="2022-11-04T00:56:16.788Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Redis核心技术与实战">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="细说Redis分布式锁">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2022/10/01/细说Redis分布式锁/2.jpeg">
+<meta name="twitter:image" content="http://yoursite.com/2022/10/01/%E7%BB%86%E8%AF%B4Redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/2.jpeg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/10/01/细说Redis分布式锁/">
+  <link rel="canonical" href="http://yoursite.com/2022/10/01/细说Redis分布式锁/"/>
 
 
 
@@ -175,7 +175,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -236,7 +236,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -253,7 +253,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -270,7 +270,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -287,7 +287,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -304,7 +304,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -315,7 +315,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -335,7 +335,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -385,16 +387,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/10/01/细说Redis分布式锁/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/10/01/%E7%BB%86%E8%AF%B4Redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -494,7 +496,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">3.6k</span>
+                <span title="本文字数">8.1k</span>
               
 
               
@@ -508,7 +510,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">3 分钟</span>
+                <span title="阅读时长">7 分钟</span>
               
             </div>
           
@@ -529,8 +531,8 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
-<p><a href="https://mp.weixin.qq.com/s/2P2-ujcdet9cUycokfyjHQ" target="_blank" rel="noopener">原文</a></p>
+<span id="more"></span>
+<p><a href="https://mp.weixin.qq.com/s/2P2-ujcdet9cUycokfyjHQ">原文</a></p>
 <p>谈起redis锁，下面三个，算是出现最多的高频词汇：</p>
 <ul>
 <li>setnx</li>
@@ -538,54 +540,50 @@
 <li>redisson</li>
 </ul>
 <h1 id="setnx"><a href="#setnx" class="headerlink" title="setnx"></a>setnx</h1><p>其实目前通常所说的setnx命令，并非单指redis的<code>setnx key value</code>这条命令。</p>
-<p>一般代指redis中对set命令加上nx参数进行使用， set这个命令，目前已经支持这么多参数可选：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET key value [EX seconds|PX milliseconds] [NX|XX] [KEEPTTL]</span><br></pre></td></tr></table></figure></p>
-<p>当然了，就不在文章中默写Api了，基础参数还有不清晰的，可以蹦到<a href="https://redis.io/commands/set" target="_blank" rel="noopener">官网</a>。</p>
-<img src="/2022/10/01/细说Redis分布式锁/2.jpeg">
+<p>一般代指redis中对set命令加上nx参数进行使用， set这个命令，目前已经支持这么多参数可选：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SET key value [EX seconds|PX milliseconds] [NX|XX] [KEEPTTL]</span><br></pre></td></tr></table></figure><br>当然了，就不在文章中默写Api了，基础参数还有不清晰的，可以蹦到<a href="https://redis.io/commands/set">官网</a>。</p>
+<img src="/2022/10/01/%E7%BB%86%E8%AF%B4Redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/2.jpeg" class="">
 <p>上图是笔者画的setnx大致原理，主要依托了它的key不存在才能set成功的特性，进程A拿到锁，在没有删除锁的Key时，进程B自然获取锁就失败了。</p>
 <p>那么为什么要使用PX 30000去设置一个超时时间？</p>
 <p>是怕进程A不讲道理啊，锁没等释放呢，万一崩了，直接原地把锁带走了，导致系统中谁也拿不到锁。</p>
 <p>就算这样，还是不能保证万无一失。</p>
 <p>如果进程A又不讲道理，操作锁内资源超过笔者设置的超时时间，那么就会导致其他进程拿到锁，等进程A回来了，回手就是把其他进程的锁删了，如图：</p>
-<img src="/2022/10/01/细说Redis分布式锁/2.jpeg">
+<img src="/2022/10/01/%E7%BB%86%E8%AF%B4Redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/2.jpeg" class="">
 <p>还是刚才那张图，将T5时刻改成了锁超时，被redis释放。</p>
 <p>进程B在T6开开心心拿到锁不到一会，进程A操作完成，回手一个del，就把锁释放了。</p>
 <p>当进程B操作完成，去释放锁的时候（图中T8时刻）就找不到锁了。</p>
 <p>找不到锁其实还算好的，万一T7时刻有个进程C过来加锁成功，那么进程B就把进程C的锁释放了。</p>
 <p>以此类推，进程C可能释放进程D的锁，进程D….（禁止套娃），具体什么后果就不得而知了。</p>
 <p>所以在用setnx的时候，key虽然是主要作用，但是value也不能闲着，可以设置一个唯一的客户端ID，或者用UUID这种随机数。</p>
-<p>当解锁的时候，先获取value判断是否是当前进程加的锁，再去删除。伪代码：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">String uuid = xxxx;</span><br><span class="line"><span class="comment">// 伪代码，具体实现看项目中用的连接工具</span></span><br><span class="line"><span class="comment">// 有的提供的方法名为set 有的叫setIfAbsent</span></span><br><span class="line">set Test uuid NX PX <span class="number">3000</span></span><br><span class="line">try&#123;</span><br><span class="line"><span class="comment">// biz handle....</span></span><br><span class="line">&#125; finally &#123;</span><br><span class="line">    <span class="comment">// unlock</span></span><br><span class="line">    <span class="keyword">if</span>(uuid.equals(redisTool.get(<span class="string">'Test'</span>))&#123;</span><br><span class="line">        redisTool.del(<span class="string">'Test'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这回看起来是不是稳了。</p>
+<p>当解锁的时候，先获取value判断是否是当前进程加的锁，再去删除。伪代码：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">String uuid = xxxx;</span><br><span class="line"><span class="comment">// 伪代码，具体实现看项目中用的连接工具</span></span><br><span class="line"><span class="comment">// 有的提供的方法名为set 有的叫setIfAbsent</span></span><br><span class="line">set Test uuid NX PX <span class="number">3000</span></span><br><span class="line">try&#123;</span><br><span class="line"><span class="comment">// biz handle....</span></span><br><span class="line">&#125; finally &#123;</span><br><span class="line">    <span class="comment">// unlock</span></span><br><span class="line">    <span class="keyword">if</span>(uuid.equals(redisTool.get(<span class="string">&#x27;Test&#x27;</span>))&#123;</span><br><span class="line">        redisTool.del(<span class="string">&#x27;Test&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这回看起来是不是稳了。</p>
 <p>相反，这回的问题更明显了，在finally代码块中，get和del并非原子操作，还是有进程安全问题。</p>
 <p>为什么有问题还说这么多呢？</p>
 <p>第一，搞清劣势所在，才能更好的完善。</p>
 <p>第二点，其实上文中最后这段代码，还是有很多公司在用的。</p>
-<p>那么删除锁的正确姿势之一，就是可以使用lua脚本，通过redis的eval/evalsha命令来运行：<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- lua删除锁：</span></span><br><span class="line"><span class="comment">-- KEYS和ARGV分别是以集合方式传入的参数，对应上文的Test和uuid。</span></span><br><span class="line"><span class="comment">-- 如果对应的value等于传入的uuid。</span></span><br><span class="line"><span class="keyword">if</span> redis.call(<span class="string">'get'</span>, KEYS[<span class="number">1</span>]) == ARGV[<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">then</span> </span><br><span class="line">	<span class="comment">-- 执行删除操作</span></span><br><span class="line">        <span class="keyword">return</span> redis.call(<span class="string">'del'</span>, KEYS[<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">	<span class="comment">-- 不成功，返回0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure></p>
-<p>通过lua脚本能保证原子性的原因说的通俗一点：</p>
+<p>那么删除锁的正确姿势之一，就是可以使用lua脚本，通过redis的eval/evalsha命令来运行：<br><figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">-- lua删除锁：</span></span><br><span class="line"><span class="comment">-- KEYS和ARGV分别是以集合方式传入的参数，对应上文的Test和uuid。</span></span><br><span class="line"><span class="comment">-- 如果对应的value等于传入的uuid。</span></span><br><span class="line"><span class="keyword">if</span> redis.call(<span class="string">&#x27;get&#x27;</span>, KEYS[<span class="number">1</span>]) == ARGV[<span class="number">1</span>]</span><br><span class="line">    <span class="keyword">then</span> </span><br><span class="line">	<span class="comment">-- 执行删除操作</span></span><br><span class="line">        <span class="keyword">return</span> redis.call(<span class="string">&#x27;del&#x27;</span>, KEYS[<span class="number">1</span>])</span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">	<span class="comment">-- 不成功，返回0</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure><br>通过lua脚本能保证原子性的原因说的通俗一点：</p>
 <p>就算你在lua里写出花，执行也是一个命令(eval/evalsha)去执行的，一条命令没执行完，其他客户端是看不到的。</p>
 <p>那么既然这么麻烦，有没有比较好的工具呢？就要说到redisson了。</p>
 <p>介绍redisson之前，笔者简单解释一下为什么现在的setnx默认是指set命令带上nx参数，而不是直接说是setnx这个命令。</p>
-<p>因为redis版本在2.6.12之前，set是不支持nx参数的，如果想要完成一个锁，那么需要两条命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1 setnx Test uuid</span></span><br><span class="line"><span class="comment">#2 expire Test 30</span></span><br></pre></td></tr></table></figure></p>
-<p>即放入Key和设置有效期，是分开的两步，理论上会出现1刚执行完，程序挂掉，无法保证原子性。</p>
-<p>但是早在2013年，也就是7年前，Redis就发布了2.6.12版本，并且官网(<a href="https://redis.io/commands/set" target="_blank" rel="noopener">set命令页</a>，也早早就说明了“SETNX, SETEX, PSETEX可能在未来的版本中，会弃用并永久删除”。</p>
+<p>因为redis版本在2.6.12之前，set是不支持nx参数的，如果想要完成一个锁，那么需要两条命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#1 setnx Test uuid</span></span><br><span class="line"><span class="comment">#2 expire Test 30</span></span><br></pre></td></tr></table></figure><br>即放入Key和设置有效期，是分开的两步，理论上会出现1刚执行完，程序挂掉，无法保证原子性。</p>
+<p>但是早在2013年，也就是7年前，Redis就发布了2.6.12版本，并且官网(<a href="https://redis.io/commands/set">set命令页</a>，也早早就说明了“SETNX, SETEX, PSETEX可能在未来的版本中，会弃用并永久删除”。</p>
 <p>笔者曾阅读过一位大佬的文章，其中就有一句指导入门者的面试小套路，具体文字忘记了，大概意思如下：</p>
 <p>说到redis锁的时候，可以先从setnx讲起，最后慢慢引出set命令的可以加参数，可以体现出自己的知识面。</p>
 <p>如果有缘你也阅读过这篇文章，并且学到了这个套路，作为本文的笔者我要加一句提醒：</p>
 <p>请注意你的工作年限！首先回答官网表明即将废弃的命令，再引出set命令七年前的“新特性”，如果是刚毕业不久的人这么说，面试官会以为自己穿越了。</p>
 <h1 id="redisson"><a href="#redisson" class="headerlink" title="redisson"></a>redisson</h1><p>Redisson是java的redis客户端之一，提供了一些api方便操作redis。</p>
 <p>这个特性列表可以说是太多了，是不是还看到了一些JUC包下面的类名，redisson帮我们搞了分布式的版本，比如AtomicLong，直接用RedissonAtomicLong就行了，连类名都不用去新记，很人性化了。</p>
-<p>锁只是它的冰山一角，并且从它的<a href="https://github.com/redisson/redisson/wiki/Table-of-Content" target="_blank" rel="noopener">wiki</a>页面看到，对主从，哨兵，集群等模式都支持，当然了，单节点模式肯定是支持的。</p>
+<p>锁只是它的冰山一角，并且从它的<a href="https://github.com/redisson/redisson/wiki/Table-of-Content">wiki</a>页面看到，对主从，哨兵，集群等模式都支持，当然了，单节点模式肯定是支持的。</p>
 <p>本文还是以锁为主，其他的不过多介绍。</p>
 <p>Redisson普通的锁实现源码主要是RedissonLock这个类，还没有看过它源码的盆友，不妨去瞧一瞧。</p>
 <p>源码中加锁/释放锁操作都是用lua脚本完成的，封装的非常完善，开箱即用。</p>
 <p>这里有个小细节，加锁使用setnx就能实现，也采用lua脚本是不是多此一举？笔者也非常严谨的思考了一下：这么厉害的东西哪能写废代码？</p>
 <p>其实笔者仔细看了一下，加锁解锁的lua脚本考虑的非常全面，其中就包括锁的重入性，这点可以说是考虑非常周全，我也随手写了代码测试一下：</p>
-<img src="/2022/10/01/细说Redis分布式锁/3.jpeg">
+<img src="/2022/10/01/%E7%BB%86%E8%AF%B4Redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/3.jpeg" class="">
 <p>的确用起来像jdk的ReentrantLock一样丝滑，那么redisson实现的已经这么完善，redLock又是什么？</p>
 <h1 id="RedLock"><a href="#RedLock" class="headerlink" title="RedLock"></a>RedLock</h1><p>redLock的中文是直译过来的，就叫红锁。</p>
 <p>红锁并非是一个工具，而是redis官方提出的一种分布式锁的算法。</p>
 <p>就在刚刚介绍完的redisson中，就实现了redLock版本的锁。也就是说除了getLock方法，还有getRedLock方法。</p>
 <p>笔者大概画了一下对红锁的理解：</p>
-<img src="/2022/10/01/细说Redis分布式锁/4.jpeg">
+<img src="/2022/10/01/%E7%BB%86%E8%AF%B4Redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/4.jpeg" class="">
 <p>如果你不熟悉redis高可用部署，那么没关系。redLock算法虽然是需要多个实例，但是这些实例都是独自部署的，没有主从关系。</p>
 <p>RedLock作者指出，之所以要用独立的，是避免了redis异步复制造成的锁丢失，比如：主节点没来的及把刚刚set进来这条数据给从节点，就挂了。</p>
 <p>有些人是不是觉得大佬们都是杠精啊，天天就想着极端情况。其实高可用嘛，拼的就是99.999…% 中小数点后面的位数。</p>
@@ -599,7 +597,7 @@
 <p>还是假设我们设置有效期是30秒，图中超时了两个redis节点。<br>那么加锁成功的节点总共花费了3秒，所以锁的实际有效期是小于27秒的。</p>
 <p>即扣除加锁成功三个实例的3秒，还要扣除等待超时redis实例的总共时间。</p>
 <p>看到这，你有可能对这个算法有一些疑问，那么你不是一个人。</p>
-<p>回头看看Redis官网关于<a href="https://redis.io/topics/distlock" target="_blank" rel="noopener">红锁</a>的描述</p>
+<p>回头看看Redis官网关于<a href="https://redis.io/topics/distlock">红锁</a>的描述</p>
 <p>就在这篇描述页面的最下面，你能看到著名的关于红锁的神仙打架事件。</p>
 <p>即Martin Kleppmann和antirez的redLock辩论. 一个是很有资历的分布式架构师，一个是redis之父。</p>
 <p>官方挂人，最为致命。</p>
@@ -633,7 +631,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Redis核心技术与实战/" rel="tag"># Redis核心技术与实战</a>
+            <a href="/tags/Redis%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/" rel="tag"># Redis核心技术与实战</a>
           
         </div>
       
@@ -646,7 +644,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/10/01/30-如何使用Redis实现分布式锁？/" rel="next" title="30 | 如何使用Redis实现分布式锁？">
+              <a href="/2022/10/01/30-%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%EF%BC%9F/" rel="next" title="30 | 如何使用Redis实现分布式锁？">
                 <i class="fa fa-chevron-left"></i> 30 | 如何使用Redis实现分布式锁？
               </a>
             
@@ -656,7 +654,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/10/01/深度剖析：Redis分布式锁到底安全吗？看完这篇文章彻底懂了！/" rel="prev" title="深度剖析：Redis分布式锁到底安全吗？看完这篇文章彻底懂了！">
+              <a href="/2022/10/01/%E6%B7%B1%E5%BA%A6%E5%89%96%E6%9E%90%EF%BC%9ARedis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%88%B0%E5%BA%95%E5%AE%89%E5%85%A8%E5%90%97%EF%BC%9F%E7%9C%8B%E5%AE%8C%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%BD%BB%E5%BA%95%E6%87%82%E4%BA%86%EF%BC%81/" rel="prev" title="深度剖析：Redis分布式锁到底安全吗？看完这篇文章彻底懂了！">
                 深度剖析：Redis分布式锁到底安全吗？看完这篇文章彻底懂了！ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -716,7 +714,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -727,9 +727,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -741,26 +741,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -832,7 +816,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1007,115 +991,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1146,23 +1022,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1188,7 +1064,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#setnx"><span class="nav-number">1.</span> <span class="nav-text">setnx</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redisson"><span class="nav-number">2.</span> <span class="nav-text">redisson</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RedLock"><span class="nav-number">3.</span> <span class="nav-text">RedLock</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#setnx"><span class="nav-number">1.</span> <span class="nav-text">setnx</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redisson"><span class="nav-number">2.</span> <span class="nav-text">redisson</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#RedLock"><span class="nav-number">3.</span> <span class="nav-text">RedLock</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -1223,7 +1099,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1234,12 +1110,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1247,7 +1123,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

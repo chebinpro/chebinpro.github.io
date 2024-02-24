@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,24 +104,24 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="深入剖析Kubernetes">
 <meta property="og:type" content="article">
 <meta property="og:title" content="39丨谈谈Service与Ingress">
-<meta property="og:url" content="http://yoursite.com/2022/10/09/39-谈谈Service与Ingress/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/10/09/39-%E8%B0%88%E8%B0%88Service%E4%B8%8EIngress/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2023-08-24T14:37:25.063Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-10-09T13:39:37.000Z">
+<meta property="article:modified_time" content="2023-08-24T14:37:25.063Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="深入剖析Kubernetes">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="39丨谈谈Service与Ingress">
-<meta name="twitter:description" content="思考并回答以下问题：">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/10/09/39-谈谈Service与Ingress/">
+  <link rel="canonical" href="http://yoursite.com/2022/10/09/39-谈谈Service与Ingress/"/>
 
 
 
@@ -170,7 +170,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -231,7 +231,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -248,7 +248,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -265,7 +265,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -282,7 +282,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -299,7 +299,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -310,7 +310,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -330,7 +330,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -380,16 +382,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/10/09/39-谈谈Service与Ingress/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/10/09/39-%E8%B0%88%E8%B0%88Service%E4%B8%8EIngress/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -489,7 +491,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">9.7k</span>
+                <span title="本文字数">27k</span>
               
 
               
@@ -503,7 +505,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">9 分钟</span>
+                <span title="阅读时长">25 分钟</span>
               
             </div>
           
@@ -524,15 +526,14 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>在上一篇文章中，我为你详细讲解了将Service暴露给外界的三种方法。其中有一个叫作LoadBalancer类型的Service，它会为你在CloudProvider（比如：GoogleCloud或者OpenStack）里创建一个与该Service对应的负载均衡服务。</p>
 <p>但是，相信你也应该能感受到，由于每个Service都要有一个负载均衡服务，所以这个做法实际上既浪费成本又高。作为用户，我其实更希望看到Kubernetes为我内置一个全局的负载均衡器。然后，通过我访问的URL，把请求转发给不同的后端Service。</p>
 <p>这种全局的、为了代理不同后端Service而设置的负载均衡服务，就是Kubernetes里的Ingress服务。</p>
 <p>所以，Ingress的功能其实很容易理解：所谓Ingress，就是Service的“Service”。</p>
 <p>举个例子，假如我现在有这样一个站点：<code>https://cafe.example.com。其中，https://cafe.example.com/coffee</code>，对应的是“咖啡点餐系统”。而，<code>https://cafe.example.com/tea</code>，对应的则是“茶水点餐系统”。这两个系统，分别由名叫coffee和tea这样两个Deployment来提供服务。</p>
 <p>那么现在，我如何能使用Kubernetes的Ingress来创建一个统一的负载均衡器，从而实现当用户访问不同的域名时，能够访问到不同的Deployment呢？</p>
-<p>上述功能，在Kubernetes里就需要通过Ingress对象来描述，如下所示：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">extensions/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Ingress</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">cafe-ingress</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  tls:</span></span><br><span class="line"><span class="attr">  - hosts:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">cafe.example.com</span></span><br><span class="line"><span class="attr">    secretName:</span> <span class="string">cafe-secret</span></span><br><span class="line"><span class="attr">  rules:</span></span><br><span class="line"><span class="attr">  - host:</span> <span class="string">cafe.example.com</span></span><br><span class="line"><span class="attr">    http:</span></span><br><span class="line"><span class="attr">      paths:</span></span><br><span class="line"><span class="attr">      - path:</span> <span class="string">/tea</span></span><br><span class="line"><span class="attr">        backend:</span></span><br><span class="line"><span class="attr">          serviceName:</span> <span class="string">tea-svc</span></span><br><span class="line"><span class="attr">          servicePort:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">      - path:</span> <span class="string">/coffee</span></span><br><span class="line"><span class="attr">        backend:</span></span><br><span class="line"><span class="attr">          serviceName:</span> <span class="string">coffee-svc</span></span><br><span class="line"><span class="attr">          servicePort:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure></p>
-<p>在上面这个名叫cafe-ingress.yaml文件中，最值得我们关注的，是rules字段。在Kubernetes里，这个字段叫作：IngressRule。</p>
+<p>上述功能，在Kubernetes里就需要通过Ingress对象来描述，如下所示：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">extensions/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Ingress</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">cafe-ingress</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">tls:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">hosts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">cafe.example.com</span></span><br><span class="line">    <span class="attr">secretName:</span> <span class="string">cafe-secret</span></span><br><span class="line">  <span class="attr">rules:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">host:</span> <span class="string">cafe.example.com</span></span><br><span class="line">    <span class="attr">http:</span></span><br><span class="line">      <span class="attr">paths:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">path:</span> <span class="string">/tea</span></span><br><span class="line">        <span class="attr">backend:</span></span><br><span class="line">          <span class="attr">serviceName:</span> <span class="string">tea-svc</span></span><br><span class="line">          <span class="attr">servicePort:</span> <span class="number">80</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">path:</span> <span class="string">/coffee</span></span><br><span class="line">        <span class="attr">backend:</span></span><br><span class="line">          <span class="attr">serviceName:</span> <span class="string">coffee-svc</span></span><br><span class="line">          <span class="attr">servicePort:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure><br>在上面这个名叫cafe-ingress.yaml文件中，最值得我们关注的，是rules字段。在Kubernetes里，这个字段叫作：IngressRule。</p>
 <p>IngressRule的Key，就叫做：host。它必须是一个标准的域名格式（FullyQualifiedDomainName）的字符串，而不能是IP地址。</p>
 <blockquote>
 <p>备注：FullyQualifiedDomainName的具体格式，可以参考RFC3986标准。</p>
@@ -546,38 +547,27 @@
 <p>在实际的使用中，你只需要从社区里选择一个具体的IngressController，把它部署在Kubernetes集群里即可。</p>
 <p>然后，这个IngressController会根据你定义的Ingress对象，提供对应的代理能力。目前，业界常用的各种反向代理项目，比如Nginx、HAProxy、Envoy、Traefik等，都已经为Kubernetes专门维护了对应的IngressController。</p>
 <p>接下来，我就以最常用的NginxIngressController为例，在我们前面用kubeadm部署的Bare-metal环境中，和你实践一下Ingress机制的使用过程。</p>
-<p>部署NginxIngressController的方法非常简单，如下所示：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/mandatory.yaml</span></span><br></pre></td></tr></table></figure></p>
-<p>其中，在mandatory.yaml这个文件里，正是Nginx官方为你维护的IngressController的定义。我们来看一下它的内容：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">kind:</span> <span class="string">ConfigMap</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">nginx-configuration</span></span><br><span class="line"><span class="attr">  namespace:</span> <span class="string">ingress-nginx</span></span><br><span class="line"><span class="attr">  labels:</span></span><br><span class="line">    <span class="string">app.kubernetes.io/name:</span> <span class="string">ingress-nginx</span></span><br><span class="line">    <span class="string">app.kubernetes.io/part-of:</span> <span class="string">ingress-nginx</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">extensions/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">nginx-ingress-controller</span></span><br><span class="line"><span class="attr">  namespace:</span> <span class="string">ingress-nginx</span></span><br><span class="line"><span class="attr">  labels:</span></span><br><span class="line">    <span class="string">app.kubernetes.io/name:</span> <span class="string">ingress-nginx</span></span><br><span class="line">    <span class="string">app.kubernetes.io/part-of:</span> <span class="string">ingress-nginx</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  replicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line"><span class="attr">    matchLabels:</span></span><br><span class="line">      <span class="string">app.kubernetes.io/name:</span> <span class="string">ingress-nginx</span></span><br><span class="line">      <span class="string">app.kubernetes.io/part-of:</span> <span class="string">ingress-nginx</span></span><br><span class="line"><span class="attr">  template:</span></span><br><span class="line"><span class="attr">    metadata:</span></span><br><span class="line"><span class="attr">      labels:</span></span><br><span class="line">        <span class="string">app.kubernetes.io/name:</span> <span class="string">ingress-nginx</span></span><br><span class="line">        <span class="string">app.kubernetes.io/part-of:</span> <span class="string">ingress-nginx</span></span><br><span class="line"><span class="attr">      annotations:</span></span><br><span class="line">        <span class="string">...</span></span><br><span class="line"><span class="attr">    spec:</span></span><br><span class="line"><span class="attr">      serviceAccountName:</span> <span class="string">nginx-ingress-serviceaccount</span></span><br><span class="line"><span class="attr">      containers:</span></span><br><span class="line"><span class="attr">        - name:</span> <span class="string">nginx-ingress-controller</span></span><br><span class="line"><span class="attr">          image:</span> <span class="string">quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.20.0</span></span><br><span class="line"><span class="attr">          args:</span></span><br><span class="line"><span class="bullet">            -</span> <span class="string">/nginx-ingress-controller</span></span><br><span class="line"><span class="bullet">            -</span> <span class="bullet">--configmap=$(POD_NAMESPACE)/nginx-configuration</span></span><br><span class="line"><span class="bullet">            -</span> <span class="bullet">--publish-service=$(POD_NAMESPACE)/ingress-nginx</span></span><br><span class="line"><span class="bullet">            -</span> <span class="bullet">--annotations-prefix=nginx.ingress.kubernetes.io</span></span><br><span class="line"><span class="attr">          securityContext:</span></span><br><span class="line"><span class="attr">            capabilities:</span></span><br><span class="line"><span class="attr">              drop:</span></span><br><span class="line"><span class="bullet">                -</span> <span class="string">ALL</span></span><br><span class="line"><span class="attr">              add:</span></span><br><span class="line"><span class="bullet">                -</span> <span class="string">NET_BIND_SERVICE</span></span><br><span class="line">            <span class="comment"># www-data -&gt; 33</span></span><br><span class="line"><span class="attr">            runAsUser:</span> <span class="number">33</span></span><br><span class="line"><span class="attr">          env:</span></span><br><span class="line"><span class="attr">            - name:</span> <span class="string">POD_NAME</span></span><br><span class="line"><span class="attr">              valueFrom:</span></span><br><span class="line"><span class="attr">                fieldRef:</span></span><br><span class="line"><span class="attr">                  fieldPath:</span> <span class="string">metadata.name</span></span><br><span class="line"><span class="attr">            - name:</span> <span class="string">POD_NAMESPACE</span></span><br><span class="line"><span class="attr">            - name:</span> <span class="string">http</span></span><br><span class="line"><span class="attr">              valueFrom:</span></span><br><span class="line"><span class="attr">                fieldRef:</span></span><br><span class="line"><span class="attr">                  fieldPath:</span> <span class="string">metadata.namespace</span></span><br><span class="line"><span class="attr">          ports:</span></span><br><span class="line"><span class="attr">            - name:</span> <span class="string">http</span></span><br><span class="line"><span class="attr">              containerPort:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">            - name:</span> <span class="string">https</span></span><br><span class="line"><span class="attr">              containerPort:</span> <span class="number">443</span></span><br></pre></td></tr></table></figure></p>
-<p>可以看到，在上述YAML文件中，我们定义了一个使用nginx-ingress-controller镜像的Pod。需要注意的是，这个Pod的启动命令需要使用该Pod所在的Namespace作为参数。而这个信息，当然是通过DownwardAPI拿到的，即：Pod的env字段里的定义（env.valueFrom.fieldRef.fieldPath）。</p>
+<p>部署NginxIngressController的方法非常简单，如下所示：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/mandatory.yaml</span></span><br></pre></td></tr></table></figure><br>其中，在mandatory.yaml这个文件里，正是Nginx官方为你维护的IngressController的定义。我们来看一下它的内容：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">kind:</span> <span class="string">ConfigMap</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx-configuration</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">ingress-nginx</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/name:</span> <span class="string">ingress-nginx</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/part-of:</span> <span class="string">ingress-nginx</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">extensions/v1beta1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">nginx-ingress-controller</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">ingress-nginx</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/name:</span> <span class="string">ingress-nginx</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/part-of:</span> <span class="string">ingress-nginx</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app.kubernetes.io/name:</span> <span class="string">ingress-nginx</span></span><br><span class="line">      <span class="attr">app.kubernetes.io/part-of:</span> <span class="string">ingress-nginx</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app.kubernetes.io/name:</span> <span class="string">ingress-nginx</span></span><br><span class="line">        <span class="attr">app.kubernetes.io/part-of:</span> <span class="string">ingress-nginx</span></span><br><span class="line">      <span class="attr">annotations:</span></span><br><span class="line">        <span class="string">...</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">serviceAccountName:</span> <span class="string">nginx-ingress-serviceaccount</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx-ingress-controller</span></span><br><span class="line">          <span class="attr">image:</span> <span class="string">quay.io/kubernetes-ingress-controller/nginx-ingress-controller:0.20.0</span></span><br><span class="line">          <span class="attr">args:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">/nginx-ingress-controller</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">--configmap=$(POD_NAMESPACE)/nginx-configuration</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">--publish-service=$(POD_NAMESPACE)/ingress-nginx</span></span><br><span class="line">            <span class="bullet">-</span> <span class="string">--annotations-prefix=nginx.ingress.kubernetes.io</span></span><br><span class="line">          <span class="attr">securityContext:</span></span><br><span class="line">            <span class="attr">capabilities:</span></span><br><span class="line">              <span class="attr">drop:</span></span><br><span class="line">                <span class="bullet">-</span> <span class="string">ALL</span></span><br><span class="line">              <span class="attr">add:</span></span><br><span class="line">                <span class="bullet">-</span> <span class="string">NET_BIND_SERVICE</span></span><br><span class="line">            <span class="comment"># www-data -&gt; 33</span></span><br><span class="line">            <span class="attr">runAsUser:</span> <span class="number">33</span></span><br><span class="line">          <span class="attr">env:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">POD_NAME</span></span><br><span class="line">              <span class="attr">valueFrom:</span></span><br><span class="line">                <span class="attr">fieldRef:</span></span><br><span class="line">                  <span class="attr">fieldPath:</span> <span class="string">metadata.name</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">POD_NAMESPACE</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">http</span></span><br><span class="line">              <span class="attr">valueFrom:</span></span><br><span class="line">                <span class="attr">fieldRef:</span></span><br><span class="line">                  <span class="attr">fieldPath:</span> <span class="string">metadata.namespace</span></span><br><span class="line">          <span class="attr">ports:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">http</span></span><br><span class="line">              <span class="attr">containerPort:</span> <span class="number">80</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">https</span></span><br><span class="line">              <span class="attr">containerPort:</span> <span class="number">443</span></span><br></pre></td></tr></table></figure><br>可以看到，在上述YAML文件中，我们定义了一个使用nginx-ingress-controller镜像的Pod。需要注意的是，这个Pod的启动命令需要使用该Pod所在的Namespace作为参数。而这个信息，当然是通过DownwardAPI拿到的，即：Pod的env字段里的定义（env.valueFrom.fieldRef.fieldPath）。</p>
 <p>而这个Pod本身，就是一个监听Ingress对象以及它所代理的后端Service变化的控制器。</p>
 <p>当一个新的Ingress对象由用户创建后，nginx-ingress-controller就会根据Ingress对象里定义的内容，生成一份对应的Nginx配置文件（/etc/nginx/nginx.conf），并使用这个配置文件启动一个Nginx服务。</p>
 <p>而一旦Ingress对象被更新，nginx-ingress-controller就会更新这个配置文件。需要注意的是，如果这里只是被代理的Service对象被更新，nginx-ingress-controller所管理的Nginx服务是不需要重新加载（reload）的。这当然是因为nginx-ingress-controller通过NginxLua方案实现了NginxUpstream的动态配置。</p>
 <p>此外，nginx-ingress-controller还允许你通过Kubernetes的ConfigMap对象来对上述Nginx配置文件进行定制。这个ConfigMap的名字，需要以参数的方式传递给nginx-ingress-controller。而你在这个ConfigMap里添加的字段，将会被合并到最后生成的Nginx配置文件当中。</p>
 <p>可以看到，一个NginxIngressController为你提供的服务，其实是一个可以根据Ingress对象和被代理后端Service的变化，来自动进行更新的Nginx负载均衡器。</p>
-<p>当然，为了让用户能够用到这个Nginx，我们就需要创建一个Service来把NginxIngressController管理的Nginx服务暴露出去，如下所示：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/provider/baremetal/service-nodeport.yaml</span></span><br></pre></td></tr></table></figure></p>
-<p>由于我们使用的是Bare-metal环境，所以service-nodeport.yaml文件里的内容，就是一个NodePort类型的Service，如下所示：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">ingress-nginx</span></span><br><span class="line"><span class="attr">  namespace:</span> <span class="string">ingress-nginx</span></span><br><span class="line"><span class="attr">  labels:</span></span><br><span class="line">    <span class="string">app.kubernetes.io/name:</span> <span class="string">ingress-nginx</span></span><br><span class="line">    <span class="string">app.kubernetes.io/part-of:</span> <span class="string">ingress-nginx</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">NodePort</span></span><br><span class="line"><span class="attr">  ports:</span></span><br><span class="line"><span class="attr">    - name:</span> <span class="string">http</span></span><br><span class="line"><span class="attr">      port:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">      targetPort:</span> <span class="number">80</span></span><br><span class="line"><span class="attr">      protocol:</span> <span class="string">TCP</span></span><br><span class="line"><span class="attr">    - name:</span> <span class="string">https</span></span><br><span class="line"><span class="attr">      port:</span> <span class="number">443</span></span><br><span class="line"><span class="attr">      targetPort:</span> <span class="number">443</span></span><br><span class="line"><span class="attr">      protocol:</span> <span class="string">TCP</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line">    <span class="string">app.kubernetes.io/name:</span> <span class="string">ingress-nginx</span></span><br><span class="line">    <span class="string">app.kubernetes.io/part-of:</span> <span class="string">ingress-nginx</span></span><br></pre></td></tr></table></figure></p>
-<p>可以看到，这个Service的唯一工作，就是将所有携带ingress-nginx标签的Pod的80和433端口暴露出去。</p>
+<p>当然，为了让用户能够用到这个Nginx，我们就需要创建一个Service来把NginxIngressController管理的Nginx服务暴露出去，如下所示：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/master/deploy/provider/baremetal/service-nodeport.yaml</span></span><br></pre></td></tr></table></figure></p>
+<p>由于我们使用的是Bare-metal环境，所以service-nodeport.yaml文件里的内容，就是一个NodePort类型的Service，如下所示：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">ingress-nginx</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">ingress-nginx</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/name:</span> <span class="string">ingress-nginx</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/part-of:</span> <span class="string">ingress-nginx</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">NodePort</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">http</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">80</span></span><br><span class="line">      <span class="attr">targetPort:</span> <span class="number">80</span></span><br><span class="line">      <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">https</span></span><br><span class="line">      <span class="attr">port:</span> <span class="number">443</span></span><br><span class="line">      <span class="attr">targetPort:</span> <span class="number">443</span></span><br><span class="line">      <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/name:</span> <span class="string">ingress-nginx</span></span><br><span class="line">    <span class="attr">app.kubernetes.io/part-of:</span> <span class="string">ingress-nginx</span></span><br></pre></td></tr></table></figure><br>可以看到，这个Service的唯一工作，就是将所有携带ingress-nginx标签的Pod的80和433端口暴露出去。</p>
 <blockquote>
 <p>而如果你是公有云上的环境，你需要创建的就是LoadBalancer类型的Service了。</p>
 </blockquote>
-<p>上述操作完成后，你一定要记录下这个Service的访问入口，即：宿主机的地址和NodePort的端口，如下所示：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl get svc -n ingress-nginx</span></span><br><span class="line">NAME            TYPE       CLUSTER-IP     EXTERNAL-IP   PORT(S)                      AGE</span><br><span class="line">ingress-nginx   NodePort   10.105.72.96   &lt;none&gt;        80:30044/TCP,443:31453/TCP   3h</span><br></pre></td></tr></table></figure></p>
-<p>为了后面方便使用，我会把上述访问入口设置为环境变量：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> IC_IP=10.168.0.2 <span class="comment"># 任意一台宿主机的地址</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> IC_HTTPS_PORT=31453 <span class="comment"># NodePort端口</span></span></span><br></pre></td></tr></table></figure></p>
-<p>在IngressController和它所需要的Service部署完成后，我们就可以使用它了。</p>
+<p>上述操作完成后，你一定要记录下这个Service的访问入口，即：宿主机的地址和NodePort的端口，如下所示：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get svc -n ingress-nginx</span></span><br><span class="line">NAME            TYPE       CLUSTER-IP     EXTERNAL-IP   PORT(S)                      AGE</span><br><span class="line">ingress-nginx   NodePort   10.105.72.96   &lt;none&gt;        80:30044/TCP,443:31453/TCP   3h</span><br></pre></td></tr></table></figure><br>为了后面方便使用，我会把上述访问入口设置为环境变量：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">IC_IP=10.168.0.2 <span class="comment"># 任意一台宿主机的地址</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">IC_HTTPS_PORT=31453 <span class="comment"># NodePort端口</span></span></span><br></pre></td></tr></table></figure><br>在IngressController和它所需要的Service部署完成后，我们就可以使用它了。</p>
 <blockquote>
 <p>备注：这个“咖啡厅”Ingress的所有示例文件，都在这里。</p>
 </blockquote>
-<p>首先，我们要在集群里部署我们的应用Pod和它们对应的Service，如下所示：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl create -f cafe.yaml</span></span><br></pre></td></tr></table></figure></p>
-<p>然后，我们需要创建Ingress所需的SSL证书（tls.crt）和密钥（tls.key），这些信息都是通过Secret对象定义好的，如下所示：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl create -f cafe-secret.yaml</span></span><br></pre></td></tr></table></figure></p>
-<p>这一步完成后，我们就可以创建在本篇文章一开始定义的Ingress对象了，如下所示：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl create -f cafe-ingress.yaml</span></span><br></pre></td></tr></table></figure></p>
-<p>这时候，我们就可以查看一下这个Ingress对象的信息，如下所示：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> kubectl get ingress</span></span><br><span class="line">NAME           HOSTS              ADDRESS   PORTS     AGE</span><br><span class="line">cafe-ingress   cafe.example.com             80, 443   2h</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> kubectl describe ingress cafe-ingress</span></span><br><span class="line">Name:             cafe-ingress</span><br><span class="line">Namespace:        default</span><br><span class="line">Address:          </span><br><span class="line">Default backend:  default-http-backend:80 (&lt;none&gt;)</span><br><span class="line">TLS:</span><br><span class="line">  cafe-secret terminates cafe.example.com</span><br><span class="line">Rules:</span><br><span class="line">  Host              Path  Backends</span><br><span class="line">  ----              ----  --------</span><br><span class="line">  cafe.example.com  </span><br><span class="line">                    /tea      tea-svc:80 (&lt;none&gt;)</span><br><span class="line">                    /coffee   coffee-svc:80 (&lt;none&gt;)</span><br><span class="line">Annotations:</span><br><span class="line">Events:</span><br><span class="line">  Type    Reason  Age   From                      Message</span><br><span class="line">  ----    ------  ----  ----                      -------</span><br><span class="line">  Normal  CREATE  4m    nginx-ingress-controller  Ingress default/cafe-ingress</span><br></pre></td></tr></table></figure></p>
-<p>可以看到，这个Ingress对象最核心的部分，正是Rules字段。其中，我们定义的Host是cafe.example.com，它有两条转发规则（Path），分别转发给tea-svc和coffee-svc。</p>
+<p>首先，我们要在集群里部署我们的应用Pod和它们对应的Service，如下所示：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f cafe.yaml</span></span><br></pre></td></tr></table></figure><br>然后，我们需要创建Ingress所需的SSL证书（tls.crt）和密钥（tls.key），这些信息都是通过Secret对象定义好的，如下所示：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f cafe-secret.yaml</span></span><br></pre></td></tr></table></figure><br>这一步完成后，我们就可以创建在本篇文章一开始定义的Ingress对象了，如下所示：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl create -f cafe-ingress.yaml</span></span><br></pre></td></tr></table></figure><br>这时候，我们就可以查看一下这个Ingress对象的信息，如下所示：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl get ingress</span></span><br><span class="line">NAME           HOSTS              ADDRESS   PORTS     AGE</span><br><span class="line">cafe-ingress   cafe.example.com             80, 443   2h</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">kubectl describe ingress cafe-ingress</span></span><br><span class="line">Name:             cafe-ingress</span><br><span class="line">Namespace:        default</span><br><span class="line">Address:          </span><br><span class="line">Default backend:  default-http-backend:80 (&lt;none&gt;)</span><br><span class="line">TLS:</span><br><span class="line">  cafe-secret terminates cafe.example.com</span><br><span class="line">Rules:</span><br><span class="line">  Host              Path  Backends</span><br><span class="line">  ----              ----  --------</span><br><span class="line">  cafe.example.com  </span><br><span class="line">                    /tea      tea-svc:80 (&lt;none&gt;)</span><br><span class="line">                    /coffee   coffee-svc:80 (&lt;none&gt;)</span><br><span class="line">Annotations:</span><br><span class="line">Events:</span><br><span class="line">  Type    Reason  Age   From                      Message</span><br><span class="line">  ----    ------  ----  ----                      -------</span><br><span class="line">  Normal  CREATE  4m    nginx-ingress-controller  Ingress default/cafe-ingress</span><br></pre></td></tr></table></figure><br>可以看到，这个Ingress对象最核心的部分，正是Rules字段。其中，我们定义的Host是cafe.example.com，它有两条转发规则（Path），分别转发给tea-svc和coffee-svc。</p>
 <blockquote>
 <p>当然，在Ingress的YAML文件里，你还可以定义多个Host，比如restaurant.example.com、movie.example.com等等，来为更多的域名提供负载均衡服务。</p>
 </blockquote>
-<p>接下来，我们就可以通过访问这个Ingress的地址和端口，访问到我们前面部署的应用了，比如，当我们访问<code>https://cafe.example.com:443/coffee</code>时，应该是coffee这个Deployment负责响应我的请求。我们可以来尝试一下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> curl --resolve cafe.example.com:<span class="variable">$IC_HTTPS_PORT</span>:<span class="variable">$IC_IP</span> https://cafe.example.com:<span class="variable">$IC_HTTPS_PORT</span>/coffee --insecureServer address: 10.244.1.56:80</span></span><br><span class="line">Server name: coffee-7dbb5795f6-vglbv</span><br><span class="line">Date: 03/Nov/2018:03:55:32 +0000</span><br><span class="line">URI: /coffee</span><br><span class="line">Request ID: e487e672673195c573147134167cf898</span><br></pre></td></tr></table></figure></p>
-<p>我们可以看到，访问这个URL得到的返回信息是：Servername:coffee-7dbb5795f6-vglbv。这正是coffee这个Deployment的名字。</p>
-<p>而当我访问<code>https://cafe.example.com:433/tea</code>的时候，则应该是tea这个Deployment负责响应我的请求（Servername:tea-7d57856c44-lwbnp），如下所示：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> curl --resolve cafe.example.com:<span class="variable">$IC_HTTPS_PORT</span>:<span class="variable">$IC_IP</span> https://cafe.example.com:<span class="variable">$IC_HTTPS_PORT</span>/tea --insecure</span></span><br><span class="line">Server address: 10.244.1.58:80</span><br><span class="line">Server name: tea-7d57856c44-lwbnp</span><br><span class="line">Date: 03/Nov/2018:03:55:52 +0000</span><br><span class="line">URI: /tea</span><br><span class="line">Request ID: 32191f7ea07cb6bb44a1f43b8299415c</span><br></pre></td></tr></table></figure></p>
-<p>可以看到，NginxIngressController为我们创建的Nginx负载均衡器，已经成功地将请求转发给了对应的后端Service。</p>
+<p>接下来，我们就可以通过访问这个Ingress的地址和端口，访问到我们前面部署的应用了，比如，当我们访问<code>https://cafe.example.com:443/coffee</code>时，应该是coffee这个Deployment负责响应我的请求。我们可以来尝试一下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">curl --resolve cafe.example.com:<span class="variable">$IC_HTTPS_PORT</span>:<span class="variable">$IC_IP</span> https://cafe.example.com:<span class="variable">$IC_HTTPS_PORT</span>/coffee --insecureServer address: 10.244.1.56:80</span></span><br><span class="line">Server name: coffee-7dbb5795f6-vglbv</span><br><span class="line">Date: 03/Nov/2018:03:55:32 +0000</span><br><span class="line">URI: /coffee</span><br><span class="line">Request ID: e487e672673195c573147134167cf898</span><br></pre></td></tr></table></figure><br>我们可以看到，访问这个URL得到的返回信息是：Servername:coffee-7dbb5795f6-vglbv。这正是coffee这个Deployment的名字。</p>
+<p>而当我访问<code>https://cafe.example.com:433/tea</code>的时候，则应该是tea这个Deployment负责响应我的请求（Servername:tea-7d57856c44-lwbnp），如下所示：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">curl --resolve cafe.example.com:<span class="variable">$IC_HTTPS_PORT</span>:<span class="variable">$IC_IP</span> https://cafe.example.com:<span class="variable">$IC_HTTPS_PORT</span>/tea --insecure</span></span><br><span class="line">Server address: 10.244.1.58:80</span><br><span class="line">Server name: tea-7d57856c44-lwbnp</span><br><span class="line">Date: 03/Nov/2018:03:55:52 +0000</span><br><span class="line">URI: /tea</span><br><span class="line">Request ID: 32191f7ea07cb6bb44a1f43b8299415c</span><br></pre></td></tr></table></figure><br>可以看到，NginxIngressController为我们创建的Nginx负载均衡器，已经成功地将请求转发给了对应的后端Service。</p>
 <p>以上，就是Kubernetes里Ingress的设计思想和使用方法了。</p>
 <p>不过，你可能会有一个疑问，如果我的请求没有匹配到任何一条IngressRule，那么会发生什么呢？</p>
 <p>首先，既然NginxIngressController是用Nginx实现的，那么它当然会为你返回一个Nginx的404页面。</p>
@@ -613,7 +603,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/深入剖析Kubernetes/" rel="tag"># 深入剖析Kubernetes</a>
+            <a href="/tags/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90Kubernetes/" rel="tag"># 深入剖析Kubernetes</a>
           
         </div>
       
@@ -626,7 +616,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/10/09/38-从外界连通Service与Service调试“三板斧”/" rel="next" title="38丨从外界连通Service与Service调试“三板斧”">
+              <a href="/2022/10/09/38-%E4%BB%8E%E5%A4%96%E7%95%8C%E8%BF%9E%E9%80%9AService%E4%B8%8EService%E8%B0%83%E8%AF%95%E2%80%9C%E4%B8%89%E6%9D%BF%E6%96%A7%E2%80%9D/" rel="next" title="38丨从外界连通Service与Service调试“三板斧”">
                 <i class="fa fa-chevron-left"></i> 38丨从外界连通Service与Service调试“三板斧”
               </a>
             
@@ -636,7 +626,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/10/09/40-Kubernetes的资源模型与资源管理/" rel="prev" title="40 | Kubernetes的资源模型与资源管理">
+              <a href="/2022/10/09/40-Kubernetes%E7%9A%84%E8%B5%84%E6%BA%90%E6%A8%A1%E5%9E%8B%E4%B8%8E%E8%B5%84%E6%BA%90%E7%AE%A1%E7%90%86/" rel="prev" title="40 | Kubernetes的资源模型与资源管理">
                 40 | Kubernetes的资源模型与资源管理 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -696,7 +686,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -707,9 +699,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -721,26 +713,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -812,7 +788,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -987,115 +963,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1126,23 +994,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1168,7 +1036,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">1.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">2.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">思考题</span></a></li></ol></div>
             
 
           </div>
@@ -1203,7 +1071,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1214,12 +1082,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1227,7 +1095,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

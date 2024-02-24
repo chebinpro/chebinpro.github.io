@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,35 +104,35 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="后端工程师进阶">
 <meta property="og:type" content="article">
 <meta property="og:title" content="40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？">
-<meta property="og:url" content="http://yoursite.com/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/index.html">
+<meta property="og:url" content="http://yoursite.com/2023/11/10/40%EF%BD%9CElasticsearch%E6%9F%A5%E8%AF%A2%EF%BC%9A%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96Elasticsearch%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/1.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/2.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/3.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/4.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/5.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/6.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/7.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/8.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/9.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/10.webp">
-<meta property="og:updated_time" content="2023-11-17T09:45:22.613Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2023/11/10/40%EF%BD%9CElasticsearch%E6%9F%A5%E8%AF%A2%EF%BC%9A%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96Elasticsearch%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%EF%BC%9F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/10/40%EF%BD%9CElasticsearch%E6%9F%A5%E8%AF%A2%EF%BC%9A%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96Elasticsearch%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%EF%BC%9F/2.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/10/40%EF%BD%9CElasticsearch%E6%9F%A5%E8%AF%A2%EF%BC%9A%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96Elasticsearch%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%EF%BC%9F/3.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/10/40%EF%BD%9CElasticsearch%E6%9F%A5%E8%AF%A2%EF%BC%9A%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96Elasticsearch%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%EF%BC%9F/4.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/10/40%EF%BD%9CElasticsearch%E6%9F%A5%E8%AF%A2%EF%BC%9A%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96Elasticsearch%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%EF%BC%9F/5.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/10/40%EF%BD%9CElasticsearch%E6%9F%A5%E8%AF%A2%EF%BC%9A%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96Elasticsearch%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%EF%BC%9F/6.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/10/40%EF%BD%9CElasticsearch%E6%9F%A5%E8%AF%A2%EF%BC%9A%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96Elasticsearch%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%EF%BC%9F/7.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/10/40%EF%BD%9CElasticsearch%E6%9F%A5%E8%AF%A2%EF%BC%9A%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96Elasticsearch%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%EF%BC%9F/8.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/10/40%EF%BD%9CElasticsearch%E6%9F%A5%E8%AF%A2%EF%BC%9A%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96Elasticsearch%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%EF%BC%9F/9.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/10/40%EF%BD%9CElasticsearch%E6%9F%A5%E8%AF%A2%EF%BC%9A%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96Elasticsearch%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%EF%BC%9F/10.webp">
+<meta property="article:published_time" content="2023-11-10T04:34:41.000Z">
+<meta property="article:modified_time" content="2023-11-17T09:45:22.613Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="后端工程师进阶">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2023/11/10/40%EF%BD%9CElasticsearch%E6%9F%A5%E8%AF%A2%EF%BC%9A%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96Elasticsearch%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%EF%BC%9F/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/">
+  <link rel="canonical" href="http://yoursite.com/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/"/>
 
 
 
@@ -181,7 +181,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -242,7 +242,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -259,7 +259,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -276,7 +276,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -293,7 +293,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -310,7 +310,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -321,7 +321,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -341,7 +341,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -391,16 +393,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/10/40%EF%BD%9CElasticsearch%E6%9F%A5%E8%AF%A2%EF%BC%9A%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96Elasticsearch%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -500,7 +502,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">8.1k</span>
+                <span title="本文字数">13k</span>
               
 
               
@@ -514,7 +516,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">7 分钟</span>
+                <span title="阅读时长">12 分钟</span>
               
             </div>
           
@@ -535,19 +537,19 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>今天我们学习Elasticsearch的另外一个关键主题——高性能。</p>
 <p>如果你经常和Elasticsearch打交道，你十有八九遇到过Elasticsearch的性能问题。这也就是为什么在面试中我们经常会遇到Elasticsearch性能优化相关的问题。那么今天我就带你看看怎么优化Elasticsearch的性能，在面试中赢得竞争优势。</p>
 <p>我们先来看Elasticsearch的索引机制，它是我们理解Elasticsearch原理的关键。</p>
 <h1 id="Elasticsearch的索引机制"><a href="#Elasticsearch的索引机制" class="headerlink" title="Elasticsearch的索引机制"></a><span style="color:#339AFF;">Elasticsearch的索引机制</span></h1><p>Elasticsearch的索引和之前你已经学习过的数据库索引比起来，还是有很大不同的，它使用的是倒排索引。所谓的倒排索引是相对于“正排”索引而言的。在一般的文件系统中，索引是文档映射到关键字，而倒排索引正相反，是从关键字映射到了文档。</p>
-<img src="/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/1.webp">
+<img src="/2023/11/10/40%EF%BD%9CElasticsearch%E6%9F%A5%E8%AF%A2%EF%BC%9A%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96Elasticsearch%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%EF%BC%9F/1.webp" class="">
 <p>所以你可以想到，假如说没有倒排索引，你想要找到包含关键字“Elasticsearch”的文档，那么你需要遍历所有的文档，然后筛选出包含了“Elasticsearch”关键字的文档。而有了倒排索引，你就可以直接从关键字出发，找到“Elasticsearch”关键字对应的文档。</p>
 <p>Elasticsearch依赖于Lucene来维护索引，它的基本原理也很简单。</p>
 <ul>
 <li>每当写入一个新的文档的时候，根据文档的每一个字段，Elasticsearch会使用分词器，把每个字段的值切割成一个个关键词，每一个关键词也叫做Term。</li>
 <li>切割之后，Elasticsearch会统计每一个关键词出现的频率，构建一个关键词到文档ID、出现频率、位置的映射，这个也叫做posting list。</li>
 </ul>
-<img src="/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/2.webp">
+<img src="/2023/11/10/40%EF%BD%9CElasticsearch%E6%9F%A5%E8%AF%A2%EF%BC%9A%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96Elasticsearch%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%EF%BC%9F/2.webp" class="">
 <p>从图片里你可以看出来几个关键点。</p>
 <ul>
 <li>每个字段其实是分散统计的。</li>
@@ -555,16 +557,16 @@
 </ul>
 <p>你可以想到，存在Elasticsearch里的文档数不胜数，那么就意味着一个字段会有非常多的关键词。比如说图片里的desc字段，如果你的系统有一亿用户，每个人写的内容都不一样，关键词就会非常多。</p>
 <p>假如说你要查询的是desc里包含Hello这个关键字的文档，你首先就要在关键词表格里面找到Hello这一条。如果关键词都是随机的，那么肯定很难找。如果让你来设计，你肯定会让Elasticsearch把这些关键词排序，比如说按照字母来排序。</p>
-<img src="/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/3.webp">
+<img src="/2023/11/10/40%EF%BD%9CElasticsearch%E6%9F%A5%E8%AF%A2%EF%BC%9A%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96Elasticsearch%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%EF%BC%9F/3.webp" class="">
 <p>当然，Elasticsearch的设计者明显要高明很多。这种类似于查找单词的东西，在业界早就有成熟的方案，那就是前缀树（TrieTree），也叫做字典树，而这个“关键词表格”在Elasticsearch里面叫做TermDictionary。它们的目标是尽可能地把全部关键词组成的索引整个装进内存里。之所以是尽可能，而不是一定，是因为部分字段的关键词会非常多，确实装不进去。所以连前缀树都觉得这样的空间开销受不了。</p>
 <p>而Elastiscearch更进一步，用了一个优化，就是所谓的FST（FiniteStateTransducers）。这个FST的核心思想是连公共前缀、后缀也一并压缩了。真正的FST原理还是相当复杂的，但是我能给你一个非常直观的例子，让你秒懂它最基本的概念。</p>
 <p>假如说你现在有两个关键词cat和ct，两种数据结构看起来是这样的。</p>
-<img src="/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/4.webp">
+<img src="/2023/11/10/40%EF%BD%9CElasticsearch%E6%9F%A5%E8%AF%A2%EF%BC%9A%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96Elasticsearch%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%EF%BC%9F/4.webp" class="">
 <p>这个图更加接近真实数据结构的定义，所以有点难以理解。你可以认为当你找到3的时候，如果是经过0-1-3，那么你知道前缀是ct，并且你能够得到ct在TermDictionary的位置。</p>
 <p>这个位置，就是这个ct所在的Block。但是你也可以想到，可能还有别的关键词cta、ctb等等，都是使用这个前缀的。如果几千个关键词都共享某个前缀，在一个Block内部怎么找？</p>
 <p>其实Elasticsearch会在Block内部有很多的关键词的时候，进一步切割成所谓的FloorBlock。每个FloorBlock使用第一个关键词的首字母来加快查找。</p>
 <p>而在Block或者FloorBlock内部，都是通过遍历来查找对应的关键词的。因此整个结构看起来是下面这样的。</p>
-<img src="/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/5.webp">
+<img src="/2023/11/10/40%EF%BD%9CElasticsearch%E6%9F%A5%E8%AF%A2%EF%BC%9A%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96Elasticsearch%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%EF%BC%9F/5.webp" class="">
 <p>因此你可以把这个查找关键词的过程理解成两步。</p>
 <p>1，根据FST找到Block。</p>
 <p>2，在Block里面遍历找到关键词。如果Block进一步细分为FloorBlock，就先根据前缀找到FloorBlock，然后再去遍历FloorBlock。</p>
@@ -600,7 +602,7 @@
 <blockquote>
 <p>早期我有一个业务，就是把数据库里的数据同步到Elasticsearch。最开始的时候是每次用户更新了数据，就直接更新Elasticsearch。但是这样效果很不好，因为用户基本上都是一条条数据更新。<br>后来我考虑到这个业务对数据一致性的要求不是很高，我就把实时同步修改成了异步同步，也就是定时扫描数据库中发生变化的数据，然后批量提交变更数据到Elasticsearch。这个异步任务我设置的是每秒钟同步一次，和原来每一次写请求都要操作Elasticsearch比起来，压力小多了。同时业务方的响应时间也下降了50%。</p>
 </blockquote>
-<img src="/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/6.webp">
+<img src="/2023/11/10/40%EF%BD%9CElasticsearch%E6%9F%A5%E8%AF%A2%EF%BC%9A%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96Elasticsearch%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%EF%BC%9F/6.webp" class="">
 <p>这种单个转批次的方案还可以用在Kafka和Elasticsearch结合使用的方案中。也就是有些公司的架构把数据写入到Elasticsearch的时候，并不是直接写入的，而是统一写入到Kafka，然后再由一些消费者把Kafka里的数据写入到Elasticsearch。</p>
 <p>那么这里你就可以给出一个利用批量提交来解决消息积压问题的方案。</p>
 <blockquote>
@@ -611,14 +613,14 @@
 <blockquote>
 <p>我们公司的日志都是要利用Logstash直接同步到Elasticsearch的。那么在业务繁忙的时候，日志就有可能同步得很慢，或者Elasticsearch压力很大。在这种情况下，我把日志同步到Elasticsearch的批次调大了一些，显著降低了Elasticsearch的负载。<br>而且，我还引入了一个降级机制。正常我们公司的日志是全量同步的，但是如果发现Elasticsearch有问题，就会触发降级，触发降级的时候就会先丢弃INFO级别的日志。运行一段时间之后，如果Elasticsearch还是没能恢复正常，就把WARN级别的也丢弃。</p>
 </blockquote>
-<img src="/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/7.webp">
+<img src="/2023/11/10/40%EF%BD%9CElasticsearch%E6%9F%A5%E8%AF%A2%EF%BC%9A%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96Elasticsearch%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%EF%BC%9F/7.webp" class="">
 <p>这一个方案亮点在于你把调整批次和降级结合在一起，能体现你综合运用各种手段解决实际问题的能力。</p>
 <h2 id="优化不必要字段"><a href="#优化不必要字段" class="headerlink" title="优化不必要字段"></a><span style="color:#00ACC1;">优化不必要字段</span></h2><p>有些时候，最开始设计索引的人可能没有注意，就把一些根本不会搜索到的字段也存储到了Elasticsearch。更加可怕的是还使用了动态的mapping，这可能无意间索引了很多新字段。</p>
 <p>在实践中最常见的错误，就是把数据库里存储的数据全量同步到Elasticsearch上。但是其实根本没有必要。所以这种优化手段就是只把要被查询的字段同步到Elasticsearch上，而把数据的主体部分留在原本的数据库里。</p>
 <blockquote>
-<p>之前我接手的一个历史系统需要把数据同步到Elasticsearch上支持搜索。但是最开始的时候数据量并不是很大，所以是直接把全量数据同步到了Elasticsearch上的。后面业务起来之后，就发现我这个业务的数据占据了大量的内存和磁盘空间。<br><br>我在梳理了业务之后发现其实不用全部同步过去的，因为要被搜索的字段只是其中的一小部分，而另外一些字段同步过去只是白白加重了Elasticsearch的负担。所以我后面就修改了同步的过程，那一部分数据就直接传入null了。查询过程就相当于在Elasticsearch上根据各种输入查到业务的主键，如果还需要Elasticsearch中没有的字段，就回数据库再次查询。<br><br>当然，这样做的代价就是有一些查询需要再次查询数据库。但是我评估过这个，受影响的请求不足10%，所以这个结果还是可以接受的。</p>
+<p>之前我接手的一个历史系统需要把数据同步到Elasticsearch上支持搜索。但是最开始的时候数据量并不是很大，所以是直接把全量数据同步到了Elasticsearch上的。后面业务起来之后，就发现我这个业务的数据占据了大量的内存和磁盘空间。<br><br/>我在梳理了业务之后发现其实不用全部同步过去的，因为要被搜索的字段只是其中的一小部分，而另外一些字段同步过去只是白白加重了Elasticsearch的负担。所以我后面就修改了同步的过程，那一部分数据就直接传入null了。查询过程就相当于在Elasticsearch上根据各种输入查到业务的主键，如果还需要Elasticsearch中没有的字段，就回数据库再次查询。<br><br/>当然，这样做的代价就是有一些查询需要再次查询数据库。但是我评估过这个，受影响的请求不足10%，所以这个结果还是可以接受的。</p>
 </blockquote>
-<img src="/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/8.webp">
+<img src="/2023/11/10/40%EF%BD%9CElasticsearch%E6%9F%A5%E8%AF%A2%EF%BC%9A%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96Elasticsearch%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%EF%BC%9F/8.webp" class="">
 <p>少同步一些数据，就意味着你的索引所需的内存、磁盘更少，所以查询速度也会更快。紧接着补充一个reindex的改进计划。</p>
 <blockquote>
 <p>不过后续我也在考虑重新创建一个索引，现在这种有字段但是不同步数据的方式不太优雅。</p>
@@ -631,9 +633,9 @@
 <p>如果你不记得了，记得回去复习一下。</p>
 <h2 id="冷热分离"><a href="#冷热分离" class="headerlink" title="冷热分离"></a><span style="color:#00ACC1;">冷热分离</span></h2><p>冷热分离应该算是一个业界非常常用的方案了。它的基本思路是同一个业务里面数据也有冷热之分。对于冷数据来说，可以考虑使用运行在廉价服务器上的Elasticsearch来存储；而对于热数据来说，就可以使用运行在昂贵的高性能服务器上的Elasticsearch。</p>
 <blockquote>
-<p>之前我在公司的时候做过一个Elastisearch优化，就是冷热数据分离存储。我们的数据最开始都是存在统一规格的Elasticsearch上，然后这两年经济不太好，就想着降本增效，于是我们就决定试试业界用得比较多的冷热分离方案。<br><br>基本的思路是整个Elasticsearch的节点分成冷热两类，数据最开始都是写入到热节点上。等过一段时间之后，数据已经不热了，就迁移到冷节点上。<br><br>这部分我们是借助了新出来的索引生命周期特性来实现的。比如说我们的日志，就是三天内的数据都在热节点上，三天之后就是迁移到了冷节点上。这个过程都是自动的，不需要人工介入。</p>
+<p>之前我在公司的时候做过一个Elastisearch优化，就是冷热数据分离存储。我们的数据最开始都是存在统一规格的Elasticsearch上，然后这两年经济不太好，就想着降本增效，于是我们就决定试试业界用得比较多的冷热分离方案。<br><br/>基本的思路是整个Elasticsearch的节点分成冷热两类，数据最开始都是写入到热节点上。等过一段时间之后，数据已经不热了，就迁移到冷节点上。<br><br/>这部分我们是借助了新出来的索引生命周期特性来实现的。比如说我们的日志，就是三天内的数据都在热节点上，三天之后就是迁移到了冷节点上。这个过程都是自动的，不需要人工介入。</p>
 </blockquote>
-<img src="/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/9.webp">
+<img src="/2023/11/10/40%EF%BD%9CElasticsearch%E6%9F%A5%E8%AF%A2%EF%BC%9A%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96Elasticsearch%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%EF%BC%9F/9.webp" class="">
 <p>利用生命周期管理功能实现冷热数据分离操作起来还是很简单的，你可以考虑通过Kibana来直接在界面傻瓜式操作。而且一些云服务厂商也提供了这种功能，使用起来都很便捷。</p>
 <p>我建议你在实践中操作一下再出去面试，最好是根据自己的业务来定制。比如说我在前面的回答里面用的是日志的例子，那么你可以把它替换成你的业务数据。</p>
 <p>这种冷热分离的思路不仅仅可以在Elasticsearch中使用，我在微服务治理、缓存中也多次提到过类似的思路，所以如果你有机会，可以尝试引导话题。</p>
@@ -665,7 +667,7 @@
 <li>优化操作系统：目前你接触到的大多数中间件应该都是对内存、网络IO和磁盘IO有很强依赖，那么优化也就是调整跟这三个方面有关的参数。</li>
 </ul>
 <p>如果你的工作经历里面出现了这个课程里没有讨论过的中间件，你也可以按照类似的思路去准备面试用的性能优化方案。当然，要是你所在公司的运维团队非常强，你就直接问他们是如何优化性能的就可以，在面试中你同样用得上。</p>
-<img src="/2023/11/10/40｜Elasticsearch查询：怎么优化Elasticsearch的查询性能？/10.webp">
+<img src="/2023/11/10/40%EF%BD%9CElasticsearch%E6%9F%A5%E8%AF%A2%EF%BC%9A%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96Elasticsearch%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%80%A7%E8%83%BD%EF%BC%9F/10.webp" class="">
 <h1 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a><span style="color:#339AFF;">思考题</span></h1><ul>
 <li>我在这节课里面列出了很多优化方案，你还知道别的优化方案吗？如果你出去面试，你准备用什么话术来介绍你的优化方案？</li>
 <li>在冷热分离中，一般冷数据我们的都是用机械硬盘，而热数据就是用固态硬盘，你知道这是为什么吗？</li>
@@ -693,7 +695,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/后端工程师进阶/" rel="tag"># 后端工程师进阶</a>
+            <a href="/tags/%E5%90%8E%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%9B%E9%98%B6/" rel="tag"># 后端工程师进阶</a>
           
         </div>
       
@@ -706,7 +708,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2023/11/10/39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？/" rel="next" title="39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？">
+              <a href="/2023/11/10/39%EF%BD%9CElasticsearch%E9%AB%98%E5%8F%AF%E7%94%A8%EF%BC%9A%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81Elasticsearch%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8%EF%BC%9F/" rel="next" title="39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？">
                 <i class="fa fa-chevron-left"></i> 39｜Elasticsearch高可用：怎么保证Elasticsearch的高可用？
               </a>
             
@@ -716,7 +718,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2023/11/10/41｜MongoDB：MongoDB是怎么做到高可用的？/" rel="prev" title="41｜MongoDB：MongoDB是怎么做到高可用的？">
+              <a href="/2023/11/10/41%EF%BD%9CMongoDB%EF%BC%9AMongoDB%E6%98%AF%E6%80%8E%E4%B9%88%E5%81%9A%E5%88%B0%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84%EF%BC%9F/" rel="prev" title="41｜MongoDB：MongoDB是怎么做到高可用的？">
                 41｜MongoDB：MongoDB是怎么做到高可用的？ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -776,7 +778,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -787,9 +791,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -801,26 +805,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -892,7 +880,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1067,115 +1055,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1206,23 +1086,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1248,7 +1128,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Elasticsearch的索引机制"><span class="nav-number">1.</span> <span class="nav-text">Elasticsearch的索引机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面试准备"><span class="nav-number">2.</span> <span class="nav-text">面试准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优化方案"><span class="nav-number">3.</span> <span class="nav-text">优化方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#优化分页查询"><span class="nav-number">3.1.</span> <span class="nav-text">优化分页查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#增大刷新间隔"><span class="nav-number">3.2.</span> <span class="nav-text">增大刷新间隔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#批量提交"><span class="nav-number">3.3.</span> <span class="nav-text">批量提交</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化不必要字段"><span class="nav-number">3.4.</span> <span class="nav-text">优化不必要字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#冷热分离"><span class="nav-number">3.5.</span> <span class="nav-text">冷热分离</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他常规优化"><span class="nav-number">4.</span> <span class="nav-text">其他常规优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#优化垃圾回收"><span class="nav-number">4.1.</span> <span class="nav-text">优化垃圾回收</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化swap"><span class="nav-number">4.2.</span> <span class="nav-text">优化swap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件描述符"><span class="nav-number">4.3.</span> <span class="nav-text">文件描述符</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面试思路总结"><span class="nav-number">5.</span> <span class="nav-text">面试思路总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">6.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Elasticsearch%E7%9A%84%E7%B4%A2%E5%BC%95%E6%9C%BA%E5%88%B6"><span class="nav-number">1.</span> <span class="nav-text">Elasticsearch的索引机制</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">面试准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E6%96%B9%E6%A1%88"><span class="nav-number">3.</span> <span class="nav-text">优化方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E5%88%86%E9%A1%B5%E6%9F%A5%E8%AF%A2"><span class="nav-number">3.1.</span> <span class="nav-text">优化分页查询</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A2%9E%E5%A4%A7%E5%88%B7%E6%96%B0%E9%97%B4%E9%9A%94"><span class="nav-number">3.2.</span> <span class="nav-text">增大刷新间隔</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E6%8F%90%E4%BA%A4"><span class="nav-number">3.3.</span> <span class="nav-text">批量提交</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E4%B8%8D%E5%BF%85%E8%A6%81%E5%AD%97%E6%AE%B5"><span class="nav-number">3.4.</span> <span class="nav-text">优化不必要字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%B7%E7%83%AD%E5%88%86%E7%A6%BB"><span class="nav-number">3.5.</span> <span class="nav-text">冷热分离</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%B8%B8%E8%A7%84%E4%BC%98%E5%8C%96"><span class="nav-number">4.</span> <span class="nav-text">其他常规优化</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="nav-number">4.1.</span> <span class="nav-text">优化垃圾回收</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96swap"><span class="nav-number">4.2.</span> <span class="nav-text">优化swap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E6%8F%8F%E8%BF%B0%E7%AC%A6"><span class="nav-number">4.3.</span> <span class="nav-text">文件描述符</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E6%80%9D%E8%B7%AF%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">面试思路总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">6.</span> <span class="nav-text">思考题</span></a></li></ol></div>
             
 
           </div>
@@ -1283,7 +1163,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1294,12 +1174,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1307,7 +1187,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

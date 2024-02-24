@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,26 +104,26 @@
 
 
   <meta name="description" content="思考并回答以下问题：  Pod的实现需要使用一个中间容器，这个容器叫作Infra容器。在这个Pod中，Infra容器永远都是第一个被创建的容器，而其他用户定义的容器，则通过Join Network Namespace的方式，与Infra容器关联在一起。怎么理解？">
-<meta name="keywords" content="深入剖析Kubernetes">
 <meta property="og:type" content="article">
 <meta property="og:title" content="13 | 为什么我们需要Pod？">
-<meta property="og:url" content="http://yoursite.com/2022/09/14/13-为什么我们需要Pod？/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/09/14/13-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E9%9C%80%E8%A6%81Pod%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：  Pod的实现需要使用一个中间容器，这个容器叫作Infra容器。在这个Pod中，Infra容器永远都是第一个被创建的容器，而其他用户定义的容器，则通过Join Network Namespace的方式，与Infra容器关联在一起。怎么理解？">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/09/14/13-为什么我们需要Pod？/1.webp">
-<meta property="og:updated_time" content="2023-08-23T02:35:07.906Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/09/14/13-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E9%9C%80%E8%A6%81Pod%EF%BC%9F/1.webp">
+<meta property="article:published_time" content="2022-09-14T03:13:41.000Z">
+<meta property="article:modified_time" content="2023-08-23T02:35:07.906Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="深入剖析Kubernetes">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="13 | 为什么我们需要Pod？">
-<meta name="twitter:description" content="思考并回答以下问题：  Pod的实现需要使用一个中间容器，这个容器叫作Infra容器。在这个Pod中，Infra容器永远都是第一个被创建的容器，而其他用户定义的容器，则通过Join Network Namespace的方式，与Infra容器关联在一起。怎么理解？">
-<meta name="twitter:image" content="http://yoursite.com/2022/09/14/13-为什么我们需要Pod？/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2022/09/14/13-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E9%9C%80%E8%A6%81Pod%EF%BC%9F/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/09/14/13-为什么我们需要Pod？/">
+  <link rel="canonical" href="http://yoursite.com/2022/09/14/13-为什么我们需要Pod？/"/>
 
 
 
@@ -172,7 +172,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -233,7 +233,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -250,7 +250,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -267,7 +267,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -284,7 +284,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -301,7 +301,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -312,7 +312,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -332,7 +332,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -382,16 +384,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/14/13-为什么我们需要Pod？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/14/13-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E9%9C%80%E8%A6%81Pod%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -491,7 +493,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">9.4k</span>
+                <span title="本文字数">18k</span>
               
 
               
@@ -505,7 +507,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">9 分钟</span>
+                <span title="阅读时长">17 分钟</span>
               
             </div>
           
@@ -529,15 +531,13 @@
 <ul>
 <li>Pod的实现需要使用一个中间容器，这个容器叫作Infra容器。在这个Pod中，Infra容器永远都是第一个被创建的容器，而其他用户定义的容器，则通过Join Network Namespace的方式，与Infra容器关联在一起。怎么理解？</li>
 </ul>
-<a id="more"></a>
+<span id="more"></span>
 <p>Pod，是Kubernetes项目中最小的API对象。Pod，是Kubernetes项目的原子调度单位。</p>
 <p><span style="color:red">为什么我们会需要Pod？</span></p>
 <p>“Namespace做隔离，Cgroups做限制，rootfs做文件系统”，<strong>为什么Kubernetes项目又突然搞出一个Pod来呢？</strong></p>
 <p>容器的本质到底是什么？容器的本质是进程。</p>
 <p>容器，就是未来云计算系统中的进程；容器镜像就是这个系统里的“.exe”安装包。那么Kubernetes呢？Kubernetes就是操作系统！</p>
-<p>现在，就让我们登录到一台Linux机器里，执行一条如下所示的命令：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> pstree -g</span></span><br></pre></td></tr></table></figure></p>
-<p>这条命令的作用，是展示当前系统中正在运行的进程的树状结构。它的返回结果如下所示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">systemd(1)-+-accounts-daemon(1984)-+-&#123;gdbus&#125;(1984)</span><br><span class="line">           | `-&#123;gmain&#125;(1984)</span><br><span class="line">           |-acpid(2044)</span><br><span class="line">          ...      </span><br><span class="line">           |-lxcfs(1936)-+-&#123;lxcfs&#125;(1936)</span><br><span class="line">           | `-&#123;lxcfs&#125;(1936)</span><br><span class="line">           |-mdadm(2135)</span><br><span class="line">           |-ntpd(2358)</span><br><span class="line">           |-polkitd(2128)-+-&#123;gdbus&#125;(2128)</span><br><span class="line">           | `-&#123;gmain&#125;(2128)</span><br><span class="line">           |-rsyslogd(1632)-+-&#123;in:imklog&#125;(1632)</span><br><span class="line">           |  |-&#123;in:imuxsock) S 1(1632)</span><br><span class="line">           | `-&#123;rs:main Q:Reg&#125;(1632)</span><br><span class="line">           |-snapd(1942)-+-&#123;snapd&#125;(1942)</span><br><span class="line">           |  |-&#123;snapd&#125;(1942)</span><br><span class="line">           |  |-&#123;snapd&#125;(1942)</span><br><span class="line">           |  |-&#123;snapd&#125;(1942)</span><br><span class="line">           |  |-&#123;snapd&#125;(1942)</span><br></pre></td></tr></table></figure></p>
-<p>在一个真正的操作系统里，进程并不是“孤苦伶仃”地独自运行的，而是以进程组的方式，“有原则地”组织在一起。比如，这里有一个叫作rsyslogd的程序，它负责的是Linux操作系统里的日志处理。可以看到，rsyslogd的主程序main，和它要用到的内核日志模块imklog等，同属于1632进程组。这些进程相互协作，共同完成rsyslogd程序的职责。</p>
+<p>现在，就让我们登录到一台Linux机器里，执行一条如下所示的命令：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">pstree -g</span></span><br></pre></td></tr></table></figure><br>这条命令的作用，是展示当前系统中正在运行的进程的树状结构。它的返回结果如下所示：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">systemd(1)-+-accounts-daemon(1984)-+-&#123;gdbus&#125;(1984)</span><br><span class="line">           | `-&#123;gmain&#125;(1984)</span><br><span class="line">           |-acpid(2044)</span><br><span class="line">          ...      </span><br><span class="line">           |-lxcfs(1936)-+-&#123;lxcfs&#125;(1936)</span><br><span class="line">           | `-&#123;lxcfs&#125;(1936)</span><br><span class="line">           |-mdadm(2135)</span><br><span class="line">           |-ntpd(2358)</span><br><span class="line">           |-polkitd(2128)-+-&#123;gdbus&#125;(2128)</span><br><span class="line">           | `-&#123;gmain&#125;(2128)</span><br><span class="line">           |-rsyslogd(1632)-+-&#123;in:imklog&#125;(1632)</span><br><span class="line">           |  |-&#123;in:imuxsock) S 1(1632)</span><br><span class="line">           | `-&#123;rs:main Q:Reg&#125;(1632)</span><br><span class="line">           |-snapd(1942)-+-&#123;snapd&#125;(1942)</span><br><span class="line">           |  |-&#123;snapd&#125;(1942)</span><br><span class="line">           |  |-&#123;snapd&#125;(1942)</span><br><span class="line">           |  |-&#123;snapd&#125;(1942)</span><br><span class="line">           |  |-&#123;snapd&#125;(1942)</span><br></pre></td></tr></table></figure><br>在一个真正的操作系统里，进程并不是“孤苦伶仃”地独自运行的，而是以进程组的方式，“有原则地”组织在一起。比如，这里有一个叫作rsyslogd的程序，它负责的是Linux操作系统里的日志处理。可以看到，rsyslogd的主程序main，和它要用到的内核日志模块imklog等，同属于1632进程组。这些进程相互协作，共同完成rsyslogd程序的职责。</p>
 <p>而Kubernetes项目所做的，其实就是将“进程组”的概念映射到了容器技术中，并使其成为了这个云计算“操作系统”里的“一等公民”。</p>
 <p>部署的应用，往往都存在着类似于“进程和进程组”的关系。更具体地说，就是这些应用之间有着密切的协作关系，使得它们必须部署在同一台机器上。</p>
 <p>而如果事先没有“组”的概念，像这样的运维关系就会非常难以处理。</p>
@@ -566,10 +566,9 @@
 <p>答案是：Pod，其实是一组共享了某些资源的容器。</p>
 <p>具体的说：<strong>Pod里的所有容器，共享的是同一个Network Namespace，并且可以声明共享同一个Volume</strong>。</p>
 <p>那这么来看的话，一个有A、B两个容器的Pod，不就是等同于一个容器（容器A）共享另外一个容器（容器B）的网络和Volume的玩儿法么？</p>
-<p>这好像通过<code>docker run --net --volumes-from</code>这样的命令就能实现嘛，比如：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker run --net=B --volumes-from=B --name=A image-A ...</span></span><br></pre></td></tr></table></figure></p>
-<p>但是，你有没有考虑过，如果真这样做的话，容器B就必须比容器A先启动，这样一个Pod里的多个容器就不是对等关系，而是拓扑关系了。</p>
+<p>这好像通过<code>docker run --net --volumes-from</code>这样的命令就能实现嘛，比如：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run --net=B --volumes-from=B --name=A image-A ...</span></span><br></pre></td></tr></table></figure><br>但是，你有没有考虑过，如果真这样做的话，容器B就必须比容器A先启动，这样一个Pod里的多个容器就不是对等关系，而是拓扑关系了。</p>
 <p>所以，在Kubernetes项目里，Pod的实现需要使用一个中间容器，这个容器叫作Infra容器。在这个Pod中，Infra容器永远都是第一个被创建的容器，而其他用户定义的容器，则通过Join Network Namespace的方式，与Infra容器关联在一起。</p>
-<img src="/2022/09/14/13-为什么我们需要Pod？/1.webp">
+<img src="/2022/09/14/13-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E4%BB%AC%E9%9C%80%E8%A6%81Pod%EF%BC%9F/1.webp" class="">
 <p>如上图所示，这个Pod里有两个用户容器A和B，还有一个Infra容器。很容易理解，在Kubernetes项目里，Infra容器一定要占用极少的资源，所以它使用的是一个非常特殊的镜像，叫作：k8s.gcr.io/pause。这个镜像是一个用汇编语言编写的、永远处于“暂停”状态的容器，解压后的大小也只有100~200KB左右。</p>
 <p>而在Infra容器“Hold住”Network Namespace后，用户容器就可以加入到Infra容器的Network Namespace当中了。所以，如果你查看这些容器在宿主机上的Namespace文件（这个Namespace文件的路径，我已经在前面的内容中介绍过），它们指向的值一定是完全一样的。</p>
 <p>这也就意味着，对于Pod里的容器A和容器B来说：</p>
@@ -583,8 +582,7 @@
 <p>而对于同一个Pod里面的所有用户容器来说，它们的进出流量，也可以认为都是通过Infra容器完成的。这一点很重要，因为<strong>将来如果你要为Kubernetes开发一个网络插件时，应该重点考虑的是如何配置这个Pod的Network Namespace，而不是每一个用户容器如何使用你的网络配置，这是没有意义的</strong>。</p>
 <p>这就意味着，如果你的网络插件需要在容器里安装某些包或者配置才能完成的话，是不可取的：Infra容器镜像的rootfs里几乎什么都没有，没有你随意发挥的空间。当然，这同时也意味着你的网络插件完全不必关心用户容器的启动与否，而只需要关注如何配置Pod，也就是Infra容器的Network Namespace即可。</p>
 <p>有了这个设计之后，共享Volume就简单多了：Kubernetes项目只要把所有Volume的定义都设计在Pod层级即可。</p>
-<p>这样，一个Volume对应的宿主机目录对于Pod来说就只有一个，Pod里的容器只要声明挂载这个Volume，就一定可以共享这个Volume对应的宿主机目录。比如下面这个例子：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">two-containers</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  restartPolicy:</span> <span class="string">Never</span></span><br><span class="line"><span class="attr">  volumes:</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">shared-data</span></span><br><span class="line"><span class="attr">    hostPath:</span>      </span><br><span class="line"><span class="attr">      path:</span> <span class="string">/data</span></span><br><span class="line"><span class="attr">  containers:</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">nginx-container</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">nginx</span></span><br><span class="line"><span class="attr">    volumeMounts:</span></span><br><span class="line"><span class="attr">    - name:</span> <span class="string">shared-data</span></span><br><span class="line"><span class="attr">      mountPath:</span> <span class="string">/usr/share/nginx/html</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">debian-container</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">debian</span></span><br><span class="line"><span class="attr">    volumeMounts:</span></span><br><span class="line"><span class="attr">    - name:</span> <span class="string">shared-data</span></span><br><span class="line"><span class="attr">      mountPath:</span> <span class="string">/pod-data</span></span><br><span class="line"><span class="attr">    command:</span> <span class="string">["/bin/sh"]</span></span><br><span class="line"><span class="attr">    args:</span> <span class="string">["-c",</span> <span class="string">"echo Hello from the debian container &gt; /pod-data/index.html"</span><span class="string">]</span></span><br></pre></td></tr></table></figure></p>
-<p>在这个例子中，debian-container和nginx-container都声明挂载了shared-data这个Volume。而shared-data是hostPath类型。所以，它对应在宿主机上的目录就是：/data。而这个目录，其实就被同时绑定挂载进了上述两个容器当中。</p>
+<p>这样，一个Volume对应的宿主机目录对于Pod来说就只有一个，Pod里的容器只要声明挂载这个Volume，就一定可以共享这个Volume对应的宿主机目录。比如下面这个例子：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">two-containers</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">restartPolicy:</span> <span class="string">Never</span></span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">shared-data</span></span><br><span class="line">    <span class="attr">hostPath:</span>      </span><br><span class="line">      <span class="attr">path:</span> <span class="string">/data</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">nginx-container</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">nginx</span></span><br><span class="line">    <span class="attr">volumeMounts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">shared-data</span></span><br><span class="line">      <span class="attr">mountPath:</span> <span class="string">/usr/share/nginx/html</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">debian-container</span></span><br><span class="line">    <span class="attr">image:</span> <span class="string">debian</span></span><br><span class="line">    <span class="attr">volumeMounts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">shared-data</span></span><br><span class="line">      <span class="attr">mountPath:</span> <span class="string">/pod-data</span></span><br><span class="line">    <span class="attr">command:</span> [<span class="string">&quot;/bin/sh&quot;</span>]</span><br><span class="line">    <span class="attr">args:</span> [<span class="string">&quot;-c&quot;</span>, <span class="string">&quot;echo Hello from the debian container &gt; /pod-data/index.html&quot;</span>]</span><br></pre></td></tr></table></figure><br>在这个例子中，debian-container和nginx-container都声明挂载了shared-data这个Volume。而shared-data是hostPath类型。所以，它对应在宿主机上的目录就是：/data。而这个目录，其实就被同时绑定挂载进了上述两个容器当中。</p>
 <p>这就是为什么，nginx-container可以从它的/usr/share/nginx/html目录中，读取到debian-container生成的index.html文件的原因。</p>
 <p><span style="color:red">明白了Pod的实现原理后，我们再来讨论“容器设计模式”</span>，就容易多了。</p>
 <p>Pod这种“超亲密关系”容器的设计思想，实际上就是希望，当用户想在一个容器里跑多个功能并不相关的应用时，应该优先考虑它们是不是更应该被描述成一个Pod里的多个容器。</p>
@@ -596,8 +594,7 @@
 <li>一种方法是，把WAR包直接放在Tomcat镜像的webapps目录下，做成一个新的镜像运行起来。可是，这时候，如果你要更新WAR包的内容，或者要升级Tomcat镜像，就要重新制作一个新的发布镜像，非常麻烦。</li>
 <li>另一种方法是，你压根儿不管WAR包，永远只发布一个Tomcat容器。不过，这个容器的webapps目录，就必须声明一个hostPath类型的Volume，从而把宿主机上的WAR包挂载进Tomcat容器当中运行起来。不过，这样你就必须要解决一个问题，即：如何让每一台宿主机，都预先准备好这个存储有WAR包的目录呢？这样来看，你只能独立维护一套分布式存储系统了。</li>
 </ul>
-<p>实际上，有了Pod之后，这样的问题就很容易解决了。我们可以把WAR包和Tomcat分别做成镜像，然后把它们作为一个Pod里的两个容器“组合”在一起。这个Pod的配置文件如下所示：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">Java</span> <span class="string">Web-2</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="string">Init</span> <span class="attr">Containers:</span></span><br><span class="line"><span class="attr">  - image:</span> <span class="string">geektime/sample:v2</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">war</span></span><br><span class="line"><span class="attr">    command:</span> <span class="string">["cp",</span> <span class="string">"/sample.war"</span><span class="string">,</span> <span class="string">"/app"</span><span class="string">]</span></span><br><span class="line"><span class="attr">    volumeMounts:</span></span><br><span class="line"><span class="attr">    - mountPath:</span> <span class="string">/app</span></span><br><span class="line"><span class="attr">      name:</span> <span class="string">app-volume</span></span><br><span class="line"><span class="attr">  containers:</span></span><br><span class="line"><span class="attr">  - image:</span> <span class="string">geektime/tomcat:7.0</span></span><br><span class="line"><span class="attr">    name:</span> <span class="string">tomcat</span></span><br><span class="line"><span class="attr">    command:</span> <span class="string">["sh","-c","/root/apache-tomcat-7.0.42-v2/bin/start.sh"]</span></span><br><span class="line"><span class="attr">    volumeMounts:</span></span><br><span class="line"><span class="attr">    - mountPath:</span> <span class="string">/root/apache-tomcat-7.0.42-v2/webapps</span></span><br><span class="line"><span class="attr">      name:</span> <span class="string">app-volume</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="attr">    - containerPort:</span> <span class="number">8080</span></span><br><span class="line"><span class="attr">      hostPort:</span> <span class="number">8001</span> </span><br><span class="line"><span class="attr">  volumes:</span></span><br><span class="line"><span class="attr">  - name:</span> <span class="string">app-volume</span></span><br><span class="line"><span class="attr">    emptyDir:</span> <span class="string">&#123;&#125;</span></span><br></pre></td></tr></table></figure></p>
-<p>在这个Pod中，我们定义了两个容器，第一个容器使用的镜像是geektime/sample:v2，这个镜像里只有一个WAR包（sample.war）放在根目录下。而第二个容器则使用的是一个标准的Tomcat镜像。</p>
+<p>实际上，有了Pod之后，这样的问题就很容易解决了。我们可以把WAR包和Tomcat分别做成镜像，然后把它们作为一个Pod里的两个容器“组合”在一起。这个Pod的配置文件如下所示：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Pod</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">Java</span> <span class="string">Web-2</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">Init Containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">image:</span> <span class="string">geektime/sample:v2</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">war</span></span><br><span class="line">    <span class="attr">command:</span> [<span class="string">&quot;cp&quot;</span>, <span class="string">&quot;/sample.war&quot;</span>, <span class="string">&quot;/app&quot;</span>]</span><br><span class="line">    <span class="attr">volumeMounts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">mountPath:</span> <span class="string">/app</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">app-volume</span></span><br><span class="line">  <span class="attr">containers:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">image:</span> <span class="string">geektime/tomcat:7.0</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">tomcat</span></span><br><span class="line">    <span class="attr">command:</span> [<span class="string">&quot;sh&quot;</span>,<span class="string">&quot;-c&quot;</span>,<span class="string">&quot;/root/apache-tomcat-7.0.42-v2/bin/start.sh&quot;</span>]</span><br><span class="line">    <span class="attr">volumeMounts:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">mountPath:</span> <span class="string">/root/apache-tomcat-7.0.42-v2/webapps</span></span><br><span class="line">      <span class="attr">name:</span> <span class="string">app-volume</span></span><br><span class="line">    <span class="attr">ports:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">8080</span></span><br><span class="line">      <span class="attr">hostPort:</span> <span class="number">8001</span> </span><br><span class="line">  <span class="attr">volumes:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">app-volume</span></span><br><span class="line">    <span class="attr">emptyDir:</span> &#123;&#125;</span><br></pre></td></tr></table></figure><br>在这个Pod中，我们定义了两个容器，第一个容器使用的镜像是geektime/sample:v2，这个镜像里只有一个WAR包（sample.war）放在根目录下。而第二个容器则使用的是一个标准的Tomcat镜像。</p>
 <p>不过，你可能已经注意到，WAR包容器的类型不再是一个普通容器，而是一个Init Container类型的容器。</p>
 <p>在Pod中，所有Init Container定义的容器，都会比spec.containers定义的用户容器先启动。并且，Init Container容器会按顺序逐一启动，而直到它们都启动并且退出了，用户容器才会启动。</p>
 <p>所以，这个Init Container类型的WAR包容器启动后，我执行了一句<code>cp/sample.war/app</code>，把应用的WAR包拷贝到/app目录下，然后退出。</p>
@@ -661,7 +658,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/深入剖析Kubernetes/" rel="tag"># 深入剖析Kubernetes</a>
+            <a href="/tags/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90Kubernetes/" rel="tag"># 深入剖析Kubernetes</a>
           
         </div>
       
@@ -674,7 +671,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/09/14/12-牛刀小试：我的第一个容器化应用/" rel="next" title="12丨牛刀小试：我的第一个容器化应用">
+              <a href="/2022/09/14/12-%E7%89%9B%E5%88%80%E5%B0%8F%E8%AF%95%EF%BC%9A%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%AE%B9%E5%99%A8%E5%8C%96%E5%BA%94%E7%94%A8/" rel="next" title="12丨牛刀小试：我的第一个容器化应用">
                 <i class="fa fa-chevron-left"></i> 12丨牛刀小试：我的第一个容器化应用
               </a>
             
@@ -684,7 +681,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/09/14/14-深入解析Pod对象（一）：基本概念/" rel="prev" title="14 | 深入解析Pod对象（一）：基本概念">
+              <a href="/2022/09/14/14-%E6%B7%B1%E5%85%A5%E8%A7%A3%E6%9E%90Pod%E5%AF%B9%E8%B1%A1%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" rel="prev" title="14 | 深入解析Pod对象（一）：基本概念">
                 14 | 深入解析Pod对象（一）：基本概念 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -744,7 +741,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -755,9 +754,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -769,26 +768,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -860,7 +843,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1035,115 +1018,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1174,23 +1049,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1216,7 +1091,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">1.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">2.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">1.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">思考题</span></a></li></ol></div>
             
 
           </div>
@@ -1251,7 +1126,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1262,12 +1137,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1275,7 +1150,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

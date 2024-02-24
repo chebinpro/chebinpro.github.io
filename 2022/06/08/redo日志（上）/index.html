@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,44 +104,44 @@
 
 
   <meta name="description" content="思考并回答以下问题：  因为有Buffer Pool的存在，才会有redo log的作用。系统崩溃了，Buffer Pool里的东西都没了。怎么理解？ 在事务提交时，把redo log刷新到磁盘中。怎么理解？ 对于一个已经提交的事务，在事务提交后即使系统发生了崩溃，这个事务对数据库中所做的更改也不能丢失。在事务提交完成之前把该事务所修改的所有页面都刷新到磁盘的方法不好，怎么不好？ 什么是随机IO和">
-<meta name="keywords" content="MySQL是怎样运行的：从根儿上理解MySQL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="redo日志（上）">
-<meta property="og:url" content="http://yoursite.com/2022/06/08/redo日志（上）/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：  因为有Buffer Pool的存在，才会有redo log的作用。系统崩溃了，Buffer Pool里的东西都没了。怎么理解？ 在事务提交时，把redo log刷新到磁盘中。怎么理解？ 对于一个已经提交的事务，在事务提交后即使系统发生了崩溃，这个事务对数据库中所做的更改也不能丢失。在事务提交完成之前把该事务所修改的所有页面都刷新到磁盘的方法不好，怎么不好？ 什么是随机IO和">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/06/08/redo日志（上）/1.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/08/redo日志（上）/2.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/08/redo日志（上）/3.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/08/redo日志（上）/4.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/08/redo日志（上）/5.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/08/redo日志（上）/6.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/08/redo日志（上）/7.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/08/redo日志（上）/8.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/08/redo日志（上）/9.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/08/redo日志（上）/10.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/08/redo日志（上）/11.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/08/redo日志（上）/12.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/08/redo日志（上）/13.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/08/redo日志（上）/14.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/08/redo日志（上）/15.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/08/redo日志（上）/16.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/08/redo日志（上）/17.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/08/redo日志（上）/18.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/08/redo日志（上）/19.awebp">
-<meta property="og:updated_time" content="2022-10-21T02:21:45.291Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/1.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/2.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/3.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/4.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/5.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/6.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/7.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/8.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/9.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/10.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/11.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/12.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/13.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/14.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/15.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/16.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/17.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/18.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/19.awebp">
+<meta property="article:published_time" content="2022-06-08T05:48:13.000Z">
+<meta property="article:modified_time" content="2022-10-21T02:21:45.291Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="MySQL是怎样运行的：从根儿上理解MySQL">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="redo日志（上）">
-<meta name="twitter:description" content="思考并回答以下问题：  因为有Buffer Pool的存在，才会有redo log的作用。系统崩溃了，Buffer Pool里的东西都没了。怎么理解？ 在事务提交时，把redo log刷新到磁盘中。怎么理解？ 对于一个已经提交的事务，在事务提交后即使系统发生了崩溃，这个事务对数据库中所做的更改也不能丢失。在事务提交完成之前把该事务所修改的所有页面都刷新到磁盘的方法不好，怎么不好？ 什么是随机IO和">
-<meta name="twitter:image" content="http://yoursite.com/2022/06/08/redo日志（上）/1.awebp">
+<meta name="twitter:image" content="http://yoursite.com/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/1.awebp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/06/08/redo日志（上）/">
+  <link rel="canonical" href="http://yoursite.com/2022/06/08/redo日志（上）/"/>
 
 
 
@@ -190,7 +190,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -251,7 +251,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -268,7 +268,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -285,7 +285,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -302,7 +302,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -319,7 +319,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -330,7 +330,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -350,7 +350,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -400,16 +402,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/08/redo日志（上）/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -509,7 +511,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">13k</span>
+                <span title="本文字数">17k</span>
               
 
               
@@ -523,7 +525,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">12 分钟</span>
+                <span title="阅读时长">16 分钟</span>
               
             </div>
           
@@ -554,7 +556,7 @@
 <li>事务的持久性是通过redo log实现的。redo日志本质上只是记录了一下事务对数据库做了哪些修改。怎么理解？</li>
 <li>在事务提交时将所有修改过的内存中的页面刷新到磁盘中相比，只将该事务执行过程中产生的redo日志刷新到磁盘的好处是redo日志占用的空间非常小，redo日志是顺序写入磁盘的。怎么理解？</li>
 </ul>
-<a id="more"></a>
+<span id="more"></span>
 <h1 id="redo日志是个啥"><a href="#redo日志是个啥" class="headerlink" title="redo日志是个啥"></a><span style="color:#339AFF;">redo日志是个啥</span></h1><p>我们知道<span style="color:red">InnoDB</span>存储引擎是以页为单位来管理存储空间的，我们进行的增删改查操作其实本质上都是在访问页面（包括读页面、写页面、创建新页面等操作）。我们前边唠叨Buffer Pool的时候说过，在真正访问页面之前，需要把在磁盘上的页缓存到内存中的<span style="color:red">Buffer Pool</span>之后才可以访问。但是在唠叨事务的时候又强调过一个称之为<span style="color:red">持久性</span>的特性，就是说<strong>对于一个已经提交的事务，在事务提交后即使系统发生了崩溃，这个事务对数据库中所做的更改也不能丢失。</strong>但是如果我们只在内存的Buffer Pool中修改了页面，假设在事务提交后突然发生了某个故障，导致内存中的数据都失效了，那么这个已经提交了的事务对数据库中所做的更改也就跟着丢失了，这是我们所不能忍受的。那么如何保证这个持久性呢？一个很简单的做法就是在事务提交完成之前把该事务所修改的所有页面都刷新到磁盘，但是这个简单粗暴的做法有些问题：</p>
 <ul>
 <li>刷新一个完整的数据页太浪费了</li>
@@ -564,8 +566,7 @@
 <li>随机IO刷起来比较慢</li>
 </ul>
 <p>一个事务可能包含很多语句，即使是一条语句也可能修改许多页面，倒霉催的是该事务修改的这些页面可能并不相邻，这就意味着在将某个事务修改的Buffer Pool中的页面刷新到磁盘时，需要进行很多的随机IO，随机IO比顺序IO要慢，尤其对于传统的机械硬盘来说（对于从磁盘中读取和写入数据的操作，叫做磁盘IO，分两种情况：随机IO就是读写的内容分散在磁盘的不同位置，需要来回查找所以效率低；顺序IO就是读写的内容集中存储在磁盘的一块，从前到后依次读取，免去了查找的过程，所以效率高。机械磁盘的顺序IO和随机IO的性能差异巨大。顺序IO时缓存命中率高，节省寻道时间。随机IO不停寻址，缓存失效）。</p>
-<p>咋办呢？再次回到我们的初心：我们只是想让已经提交了的事务对数据库中数据所做的修改永久生效，即使后来系统崩溃，在重启后也能把这种修改恢复出来。所以我们其实没有必要在每次事务提交时就把该事务在内存中修改过的全部页面刷新到磁盘，只需要把修改了哪些东西记录一下就好，比方说某个事务将系统表空间中的第100号页面中偏移量为1000处的那个字节的值1改成2我们只需要记录一下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">将第0号表空间的100号页面的偏移量为1000处的值更新为2。</span><br></pre></td></tr></table></figure></p>
-<p>这样我们在事务提交时，把上述内容刷新到磁盘中，即使之后系统崩溃了，重启之后只要按照上述内容所记录的步骤重新更新一下数据页，那么该事务对数据库中所做的修改又可以被恢复出来，也就意味着满足持久性的要求。因为在系统崩溃重启时需要按照上述内容所记录的步骤重新更新数据页，所以上述内容也被称之为重做日志，英文名为redo log，我们也可以土洋结合，称之为redo日志。与在事务提交时将所有修改过的内存中的页面刷新到磁盘中相比，只将该事务执行过程中产生的redo日志刷新到磁盘的好处如下：</p>
+<p>咋办呢？再次回到我们的初心：我们只是想让已经提交了的事务对数据库中数据所做的修改永久生效，即使后来系统崩溃，在重启后也能把这种修改恢复出来。所以我们其实没有必要在每次事务提交时就把该事务在内存中修改过的全部页面刷新到磁盘，只需要把修改了哪些东西记录一下就好，比方说某个事务将系统表空间中的第100号页面中偏移量为1000处的那个字节的值1改成2我们只需要记录一下：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">将第0号表空间的100号页面的偏移量为1000处的值更新为2。</span><br></pre></td></tr></table></figure><br>这样我们在事务提交时，把上述内容刷新到磁盘中，即使之后系统崩溃了，重启之后只要按照上述内容所记录的步骤重新更新一下数据页，那么该事务对数据库中所做的修改又可以被恢复出来，也就意味着满足持久性的要求。因为在系统崩溃重启时需要按照上述内容所记录的步骤重新更新数据页，所以上述内容也被称之为重做日志，英文名为redo log，我们也可以土洋结合，称之为redo日志。与在事务提交时将所有修改过的内存中的页面刷新到磁盘中相比，只将该事务执行过程中产生的redo日志刷新到磁盘的好处如下：</p>
 <ul>
 <li>redo日志占用的空间非常小</li>
 </ul>
@@ -576,7 +577,7 @@
 <p>在执行事务的过程中，每执行一条语句，就可能产生若干条redo日志，这些日志是按照产生的顺序写入磁盘的，也就是使用顺序IO。</p>
 <h1 id="redo日志格式"><a href="#redo日志格式" class="headerlink" title="redo日志格式"></a><span style="color:#339AFF;">redo日志格式</span></h1><p>通过上边的内容我们知道，redo日志本质上只是记录了一下事务对数据库做了哪些修改。 </p>
 <p>设计InnoDB的大叔们针对事务对数据库的不同修改场景定义了多种类型的redo日志，但是绝大部分类型的redo日志都有下边这种通用的结构：</p>
-<img src="/2022/06/08/redo日志（上）/1.awebp">
+<img src="/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/1.awebp" class="">
 <p>各个部分的详细释义如下：</p>
 <ul>
 <li>type：该条redo日志的类型。</li>
@@ -602,9 +603,9 @@
 <li>MLOG_WRITE_STRING（type字段对应的十进制数字为30）：表示在页面的某个偏移量处写入一串数据。</li>
 </ul>
 <p>我们上边提到的Max Row ID属性实际占用8个字节的存储空间，所以在修改页面中的该属性时，会记录一条类型为MLOG_8BYTE的redo日志，MLOG_8BYTE的redo日志结构如下所示：</p>
-<img src="/2022/06/08/redo日志（上）/2.awebp">
+<img src="/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/2.awebp" class="">
 <p>其余MLOG_1BYTE、MLOG_2BYTE、MLOG_4BYTE类型的redo日志结构和MLOG_8BYTE的类似，只不过具体数据中包含对应个字节的数据罢了。MLOG_WRITE_STRING类型的redo日志表示写入一串数据，但是因为不能确定写入的具体数据占用多少字节，所以需要在日志结构中添加一个len字段：</p>
-<img src="/2022/06/08/redo日志（上）/3.awebp">
+<img src="/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/3.awebp" class="">
 <blockquote>
 <p>小贴士：只要将MLOG_WRITE_STRING类型的redo日志的len字段填充上1、2、4、8这些数字，就可以分别替代MLOG_1BYTE、MLOG_2BYTE、MLOG_4BYTE、MLOG_8BYTE这些类型的redo日志，为啥还要多此一举设计这么多类型呢？还不是因为省空间啊，能不写len字段就不写len字段，省一个字节算一个字节。</p>
 </blockquote>
@@ -621,7 +622,7 @@
 <li>还有别的吧啦吧啦的更新的地方，就不一一唠叨了…</li>
 </ul>
 <p>画一个简易的示意图就像是这样：</p>
-<img src="/2022/06/08/redo日志（上）/4.awebp">
+<img src="/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/4.awebp" class="">
 <p>说了这么多，就是想表达：把一条记录插入到一个页面时需要更改的地方非常多。这时我们如果使用上边介绍的简单的物理redo日志来记录这些修改时，可以有两种解决方案：</p>
 <ul>
 <li>方案一：在每个修改的地方都记录一条redo日志。</li>
@@ -658,7 +659,7 @@
 <li>逻辑层面看，在系统崩溃重启时，并不能直接根据这些日志里的记载，将页面内的某个偏移量处恢复成某个数据，而是需要调用一些事先准备好的函数，执行完这些函数后才可以将页面恢复成系统崩溃前的样子。</li>
 </ul>
 <p>大家看到这可能有些懵逼，我们还是以类型为MLOG_COMP_REC_INSERT这个代表插入一条使用紧凑行格式的记录时的redo日志为例来理解一下我们上边所说的物理层面和逻辑层面到底是个啥意思。废话少说，直接看一下这个类型为MLOG_COMP_REC_INSERT的redo日志的结构（由于字段太多了，我们把它们竖着看效果好些）：</p>
-<img src="/2022/06/08/redo日志（上）/5.awebp">
+<img src="/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/5.awebp" class="">
 <p>这个类型为MLOG_COMP_REC_INSERT的redo日志结构有几个地方需要大家注意：</p>
 <ul>
 <li>我们前边在唠叨索引的时候说过，在一个数据页里，不论是叶子节点还是非叶子节点，记录都是按照索引列从小到大的顺序排序的。对于二级索引来说，当索引列的值相同时，记录还需要按照主键值进行排序。图中n_uniques的值的含义是在一条记录中，需要几个字段的值才能确保记录的唯一性，这样当插入一条记录时就可以按照记录的前n_uniques个字段进行排序。对于聚簇索引来说，n_uniques的值为主键的列数，对于其他二级索引来说，该值为索引列数+主键列数。这里需要注意的是，唯一二级索引的值可能为NULL，所以该值仍然为索引列数+主键列数。</li>
@@ -683,15 +684,15 @@
 <ul>
 <li>情况一：该数据页的剩余的空闲空间充足，足够容纳这一条待插入记录，那么事情很简单，直接把记录插入到这个数据页中，记录一条类型为MLOG_COMP_REC_INSERT的redo日志就好了，我们把这种情况称之为乐观插入。假如某个索引对应的B+树长这样：</li>
 </ul>
-<img src="/2022/06/08/redo日志（上）/6.awebp">
+<img src="/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/6.awebp" class="">
 <p>现在我们要插入一条键值为10的记录，很显然需要被插入到页b中，由于页b现在有足够的空间容纳一条记录，所以直接将该记录插入到页b中就好了，就像这样：</p>
-<img src="/2022/06/08/redo日志（上）/7.awebp">
+<img src="/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/7.awebp" class="">
 <ul>
 <li>情况二：该数据页剩余的空闲空间不足，那么事情就悲剧了，我们前边说过，遇到这种情况要进行所谓的页分裂操作，也就是新建一个叶子节点，然后把原先数据页中的一部分记录复制到这个新的数据页中，然后再把记录插入进去，把这个叶子节点插入到叶子节点链表中，最后还要在内节点中添加一条目录项记录指向这个新创建的页面。很显然，这个过程要对多个页面进行修改，也就意味着会产生多条redo日志，我们把这种情况称之为悲观插入。假如某个索引对应的B+树长这样：</li>
 </ul>
-<img src="/2022/06/08/redo日志（上）/8.awebp">
+<img src="/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/8.awebp" class="">
 <p>现在我们要插入一条键值为10的记录，很显然需要被插入到页b中，但是从图中也可以看出来，此时页b已经塞满了记录，没有更多的空闲空间来容纳这条新记录了，所以我们需要进行页面的分裂操作，就像这样：</p>
-<img src="/2022/06/08/redo日志（上）/9.awebp">
+<img src="/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/9.awebp" class="">
 <p>如果作为内节点的页a的剩余空闲空间也不足以容纳增加一条目录项记录，那需要继续做内节点页a的分裂操作，也就意味着会修改更多的页面，从而产生更多的redo日志。另外，对于悲观插入来说，由于需要新申请数据页，还需要改动一些系统页面，比方说要修改各种段、区的统计信息信息，各种链表的统计信息（比如什么FREE链表、FSP_FREE_FRAG链表吧啦吧啦我们在唠叨表空间那一章中介绍过的各种东东）等等等等，反正总共需要记录的redo日志有二、三十条。</p>
 <blockquote>
 <p>小贴士：其实不光是悲观插入一条记录会生成许多条redo日志，设计InnoDB的大叔为了其他的一些功能，在乐观插入时也可能产生多条redo日志（具体是为了什么功能我们就不多说了，要不篇幅就受不了了～）。</p>
@@ -699,22 +700,22 @@
 <p>设计InnoDB的大叔们认为向某个索引对应的B+树中插入一条记录的这个过程必须是原子的，不能说插了一半之后就停止了。比方说在悲观插入过程中，新的页面已经分配好了，数据也复制过去了，新的记录也插入到页面中了，可是没有向内节点中插入一条目录项记录，这个插入过程就是不完整的，这样会形成一棵不正确的B+树。我们知道redo日志是为了在系统崩溃重启时恢复崩溃前的状态，如果在悲观插入的过程中只记录了一部分redo日志，那么在系统崩溃重启时会将索引对应的B+树恢复成一种不正确的状态，这是设计InnoDB的大叔们所不能忍受的。所以他们规定在执行这些需要保证原子性的操作时必须以组的形式来记录的redo日志，在进行系统崩溃重启恢复时，针对某个组中的redo日志，要么把全部的日志都恢复掉，要么一条也不恢复。怎么做到的呢？这得分情况讨论：</p>
 <p>有的需要保证原子性的操作会生成多条redo日志，比如向某个索引对应的B+树中进行一次悲观插入就需要生成许多条redo日志。</p>
 <p>如何把这些redo日志划分到一个组里边儿呢？设计InnoDB的大叔做了一个很简单的小把戏，就是在该组中的最后一条redo日志后边加上一条特殊类型的redo日志，该类型名称为MLOG_MULTI_REC_END，type字段对应的十进制数字为31，该类型的redo日志结构很简单，只有一个type字段：</p>
-<img src="/2022/06/08/redo日志（上）/10.awebp">
+<img src="/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/10.awebp" class="">
 <p>所以某个需要保证原子性的操作产生的一系列redo日志必须要以一个类型为MLOG_MULTI_REC_END结尾，就像这样：</p>
-<img src="/2022/06/08/redo日志（上）/11.awebp">
+<img src="/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/11.awebp" class="">
 <p>这样在系统崩溃重启进行恢复时，只有当解析到类型为MLOG_MULTI_REC_END的redo日志，才认为解析到了一组完整的redo日志，才会进行恢复。否则的话直接放弃前边解析到的redo日志。</p>
 <p>有的需要保证原子性的操作只生成一条redo日志，比如更新Max Row ID属性的操作就只会生成一条redo日志。</p>
 <p>其实在一条日志后边跟一个类型为MLOG_MULTI_REC_END的redo日志也是可以的，不过设计InnoDB的大叔比较勤俭节约，他们不想浪费一个比特位。别忘了虽然redo日志的类型比较多，但撑死了也就是几十种，是小于127这个数字的，也就是说我们用7个比特位就足以包括所有的redo日志类型，而type字段其实是占用1个字节的，也就是说我们可以省出来一个比特位用来表示该需要保证原子性的操作只产生单一的一条redo日志，示意图如下：</p>
-<img src="/2022/06/08/redo日志（上）/12.awebp">
+<img src="/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/12.awebp" class="">
 <p>如果type字段的第一个比特位为1，代表该需要保证原子性的操作只产生了单一的一条redo日志，否则表示该需要保证原子性的操作产生了一系列的redo日志。</p>
 <h2 id="Mini-Transaction的概念"><a href="#Mini-Transaction的概念" class="headerlink" title="Mini-Transaction的概念"></a><span style="color:#00ACC1;">Mini-Transaction的概念</span></h2><p>设计MySQL的大叔把对底层页面中的一次原子访问的过程称之为一个Mini-Transaction，简称mtr，比如上边所说的修改一次Max Row ID的值算是一个Mini-Transaction，向某个索引对应的B+树中插入一条记录的过程也算是一个Mini-Transaction。通过上边的叙述我们也知道，一个所谓的mtr可以包含一组redo日志，在进行崩溃恢复时这一组redo日志作为一个不可分割的整体。</p>
 <p>一个事务可以包含若干条语句，每一条语句其实是由若干个mtr组成，每一个mtr又可以包含若干条redo日志，画个图表示它们的关系就是这样：</p>
-<img src="/2022/06/08/redo日志（上）/13.awebp">
+<img src="/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/13.awebp" class="">
 <h2 id="redo日志的写入过程"><a href="#redo日志的写入过程" class="headerlink" title="redo日志的写入过程"></a><span style="color:#00ACC1;">redo日志的写入过程</span></h2><p><strong>redo log block</strong></p>
 <p>设计InnoDB的大叔为了更好的进行系统崩溃恢复，他们把通过mtr生成的redo日志都放在了大小为512字节的页中。为了和我们前边提到的表空间中的页做区别，我们这里把用来存储redo日志的页称为block（你心里清楚页和block的意思其实差不多就行了）。一个redo log block的示意图如下：</p>
-<img src="/2022/06/08/redo日志（上）/14.awebp">
+<img src="/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/14.awebp" class="">
 <p>真正的redo日志都是存储到占用496字节大小的log block body中，图中的log block header和log block trailer存储的是一些管理信息。我们来看看这些所谓的管理信息都是啥：</p>
-<img src="/2022/06/08/redo日志（上）/15.awebp">
+<img src="/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/15.awebp" class="">
 <p>其中log block header的几个属性的意思分别如下：</p>
 <ul>
 <li>LOG_BLOCK_HDR_NO：每一个block都有一个大于0的唯一标号，本属性就表示该标号值。</li>
@@ -726,19 +727,19 @@
 <ul>
 <li>LOG_BLOCK_CHECKSUM：表示block的校验值，用于正确性校验，我们暂时不关心它。</li>
 </ul>
-<h2 id="redo日志缓冲区"><a href="#redo日志缓冲区" class="headerlink" title="redo日志缓冲区"></a><span style="color:#00ACC1;">redo日志缓冲区</span></h2><p>我们前边说过，设计InnoDB的大叔为了解决磁盘速度过慢的问题而引入了Buffer Pool。同理，写入redo日志时也不能直接直接写到磁盘上，实际上在服务器启动时就向操作系统申请了一大片称之为redo log buffer的连续内存空间，翻译成中文就是redo日志缓冲区，我们也可以简称为log buffer。这片内存空间被划分成若干个连续的redo log block，就像这样：</p>
-<img src="/2022/06/08/redo日志（上）/16.awebp">
+<h2 id="redo日志缓冲区"><a href="#redo日志缓冲区" class="headerlink" title="redo日志缓冲区"></a><span style="color:#00ACC1;">redo日志缓冲区</h2><p>我们前边说过，设计InnoDB的大叔为了解决磁盘速度过慢的问题而引入了Buffer Pool。同理，写入redo日志时也不能直接直接写到磁盘上，实际上在服务器启动时就向操作系统申请了一大片称之为redo log buffer的连续内存空间，翻译成中文就是redo日志缓冲区，我们也可以简称为log buffer。这片内存空间被划分成若干个连续的redo log block，就像这样：</p>
+<img src="/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/16.awebp" class="">
 <p>我们可以通过启动参数innodb_log_buffer_size来指定log buffer的大小，在MySQL 5.7.21这个版本中，该启动参数的默认值为16MB。</p>
 <p><strong>redo日志写入log buffer</strong></p>
 <p>向log buffer中写入redo日志的过程是顺序的，也就是先往前边的block中写，当该block的空闲空间用完之后再往下一个block中写。当我们想往log buffer中写入redo日志时，第一个遇到的问题就是应该写在哪个block的哪个偏移量处，所以设计InnoDB的大叔特意提供了一个称之为buf_free的全局变量，该变量指明后续写入的redo日志应该写入到log buffer中的哪个位置，如图所示：</p>
-<img src="/2022/06/08/redo日志（上）/17.awebp">
+<img src="/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/17.awebp" class="">
 <p>我们前边说过一个mtr执行过程中可能产生若干条redo日志，这些redo日志是一个不可分割的组，所以其实并不是每生成一条redo日志，就将其插入到log buffer中，而是每个mtr运行过程中产生的日志先暂时存到一个地方，当该mtr结束的时候，将过程中产生的一组redo日志再全部复制到log buffer中。我们现在假设有两个名为T1、T2的事务，每个事务都包含2个mtr，我们给这几个mtr命名一下：</p>
 <p>事务T1的两个mtr分别称为mtr_T1_1和mtr_T1_2。</p>
 <p>事务T2的两个mtr分别称为mtr_T2_1和mtr_T2_2。</p>
 <p>每个mtr都会产生一组redo日志，用示意图来描述一下这些mtr产生的日志情况：</p>
-<img src="/2022/06/08/redo日志（上）/18.awebp">
+<img src="/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/18.awebp" class="">
 <p>不同的事务可能是并发执行的，所以T1、T2之间的mtr可能是交替执行的。每当一个mtr执行完成时，伴随该mtr生成的一组redo日志就需要被复制到log buffer中，也就是说不同事务的mtr可能是交替写入log buffer的，我们画个示意图（为了美观，我们把一个mtr中产生的所有的redo日志当作一个整体来画）：</p>
-<img src="/2022/06/08/redo日志（上）/19.awebp">
+<img src="/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/19.awebp" class="">
 <p>从示意图中我们可以看出来，不同的mtr产生的一组redo日志占用的存储空间可能不一样，有的mtr产生的redo日志量很少，比如mtr_t1_1、mtr_t2_1就被放到同一个block中存储，有的mtr产生的redo日志量非常大，比如mtr_t1_2产生的redo日志甚至占用了3个block来存储。</p>
 <blockquote>
 <p>小贴士：对照着上图，自己分析一下每个block的LOG_BLOCK_HDR_DATA_LEN、LOG_BLOCK_FIRST_REC_GROUP属性值都是什么哈～</p>
@@ -766,7 +767,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/MySQL是怎样运行的：从根儿上理解MySQL/" rel="tag"># MySQL是怎样运行的：从根儿上理解MySQL</a>
+            <a href="/tags/MySQL%E6%98%AF%E6%80%8E%E6%A0%B7%E8%BF%90%E8%A1%8C%E7%9A%84%EF%BC%9A%E4%BB%8E%E6%A0%B9%E5%84%BF%E4%B8%8A%E7%90%86%E8%A7%A3MySQL/" rel="tag"># MySQL是怎样运行的：从根儿上理解MySQL</a>
           
         </div>
       
@@ -779,7 +780,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/06/08/事务简介/" rel="next" title="事务简介">
+              <a href="/2022/06/08/%E4%BA%8B%E5%8A%A1%E7%AE%80%E4%BB%8B/" rel="next" title="事务简介">
                 <i class="fa fa-chevron-left"></i> 事务简介
               </a>
             
@@ -789,7 +790,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/06/08/redo日志（下）/" rel="prev" title="redo日志（下）">
+              <a href="/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8B%EF%BC%89/" rel="prev" title="redo日志（下）">
                 redo日志（下） <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -849,7 +850,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -860,9 +863,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -874,26 +877,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -965,7 +952,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1140,115 +1127,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1279,23 +1158,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1321,7 +1200,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#redo日志是个啥"><span class="nav-number">1.</span> <span class="nav-text">redo日志是个啥</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redo日志格式"><span class="nav-number">2.</span> <span class="nav-text">redo日志格式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单的redo日志类型"><span class="nav-number">2.1.</span> <span class="nav-text">简单的redo日志类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复杂一些的redo日志类型"><span class="nav-number">2.2.</span> <span class="nav-text">复杂一些的redo日志类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redo日志格式小结"><span class="nav-number">2.3.</span> <span class="nav-text">redo日志格式小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mini-Transaction"><span class="nav-number">3.</span> <span class="nav-text">Mini-Transaction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#以组的形式写入redo日志"><span class="nav-number">3.1.</span> <span class="nav-text">以组的形式写入redo日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mini-Transaction的概念"><span class="nav-number">3.2.</span> <span class="nav-text">Mini-Transaction的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redo日志的写入过程"><span class="nav-number">3.3.</span> <span class="nav-text">redo日志的写入过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redo日志缓冲区"><span class="nav-number">3.4.</span> <span class="nav-text">redo日志缓冲区</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#redo%E6%97%A5%E5%BF%97%E6%98%AF%E4%B8%AA%E5%95%A5"><span class="nav-number">1.</span> <span class="nav-text">redo日志是个啥</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#redo%E6%97%A5%E5%BF%97%E6%A0%BC%E5%BC%8F"><span class="nav-number">2.</span> <span class="nav-text">redo日志格式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E7%9A%84redo%E6%97%A5%E5%BF%97%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">简单的redo日志类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E6%9D%82%E4%B8%80%E4%BA%9B%E7%9A%84redo%E6%97%A5%E5%BF%97%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">复杂一些的redo日志类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redo%E6%97%A5%E5%BF%97%E6%A0%BC%E5%BC%8F%E5%B0%8F%E7%BB%93"><span class="nav-number">2.3.</span> <span class="nav-text">redo日志格式小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Mini-Transaction"><span class="nav-number">3.</span> <span class="nav-text">Mini-Transaction</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A5%E7%BB%84%E7%9A%84%E5%BD%A2%E5%BC%8F%E5%86%99%E5%85%A5redo%E6%97%A5%E5%BF%97"><span class="nav-number">3.1.</span> <span class="nav-text">以组的形式写入redo日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mini-Transaction%E7%9A%84%E6%A6%82%E5%BF%B5"><span class="nav-number">3.2.</span> <span class="nav-text">Mini-Transaction的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redo%E6%97%A5%E5%BF%97%E7%9A%84%E5%86%99%E5%85%A5%E8%BF%87%E7%A8%8B"><span class="nav-number">3.3.</span> <span class="nav-text">redo日志的写入过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redo%E6%97%A5%E5%BF%97%E7%BC%93%E5%86%B2%E5%8C%BA"><span class="nav-number">3.4.</span> <span class="nav-text">redo日志缓冲区</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1356,7 +1235,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1367,12 +1246,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1380,7 +1259,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

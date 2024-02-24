@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,29 +104,29 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="手把手带你搭建秒杀系统">
 <meta property="og:type" content="article">
 <meta property="og:title" content="01｜直面痛点：秒杀系统的挑战和设计原则">
-<meta property="og:url" content="http://yoursite.com/2023/04/03/01｜直面痛点：秒杀系统的挑战和设计原则/index.html">
+<meta property="og:url" content="http://yoursite.com/2023/04/03/01%EF%BD%9C%E7%9B%B4%E9%9D%A2%E7%97%9B%E7%82%B9%EF%BC%9A%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8C%91%E6%88%98%E5%92%8C%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2023/04/03/01｜直面痛点：秒杀系统的挑战和设计原则/1.webp">
-<meta property="og:image" content="http://yoursite.com/2023/04/03/01｜直面痛点：秒杀系统的挑战和设计原则/2.webp">
-<meta property="og:image" content="http://yoursite.com/2023/04/03/01｜直面痛点：秒杀系统的挑战和设计原则/3.webp">
-<meta property="og:image" content="http://yoursite.com/2023/04/03/01｜直面痛点：秒杀系统的挑战和设计原则/4.webp">
-<meta property="og:updated_time" content="2023-04-05T09:10:52.677Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2023/04/03/01%EF%BD%9C%E7%9B%B4%E9%9D%A2%E7%97%9B%E7%82%B9%EF%BC%9A%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8C%91%E6%88%98%E5%92%8C%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/1.webp">
+<meta property="og:image" content="http://yoursite.com/2023/04/03/01%EF%BD%9C%E7%9B%B4%E9%9D%A2%E7%97%9B%E7%82%B9%EF%BC%9A%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8C%91%E6%88%98%E5%92%8C%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/2.webp">
+<meta property="og:image" content="http://yoursite.com/2023/04/03/01%EF%BD%9C%E7%9B%B4%E9%9D%A2%E7%97%9B%E7%82%B9%EF%BC%9A%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8C%91%E6%88%98%E5%92%8C%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/3.webp">
+<meta property="og:image" content="http://yoursite.com/2023/04/03/01%EF%BD%9C%E7%9B%B4%E9%9D%A2%E7%97%9B%E7%82%B9%EF%BC%9A%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8C%91%E6%88%98%E5%92%8C%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/4.webp">
+<meta property="article:published_time" content="2023-04-03T03:10:56.000Z">
+<meta property="article:modified_time" content="2023-04-05T09:10:52.677Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="手把手带你搭建秒杀系统">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="01｜直面痛点：秒杀系统的挑战和设计原则">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2023/04/03/01｜直面痛点：秒杀系统的挑战和设计原则/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2023/04/03/01%EF%BD%9C%E7%9B%B4%E9%9D%A2%E7%97%9B%E7%82%B9%EF%BC%9A%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8C%91%E6%88%98%E5%92%8C%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2023/04/03/01｜直面痛点：秒杀系统的挑战和设计原则/">
+  <link rel="canonical" href="http://yoursite.com/2023/04/03/01｜直面痛点：秒杀系统的挑战和设计原则/"/>
 
 
 
@@ -175,7 +175,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -236,7 +236,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -253,7 +253,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -270,7 +270,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -287,7 +287,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -304,7 +304,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -315,7 +315,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -335,7 +335,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -385,16 +387,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/04/03/01｜直面痛点：秒杀系统的挑战和设计原则/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/04/03/01%EF%BD%9C%E7%9B%B4%E9%9D%A2%E7%97%9B%E7%82%B9%EF%BC%9A%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8C%91%E6%88%98%E5%92%8C%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -465,7 +467,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/架构/" itemprop="url" rel="index"><span itemprop="name">架构</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/%E6%9E%B6%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">架构</span></a></span>
 
                 
                 
@@ -494,7 +496,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">4.1k</span>
+                <span title="本文字数">6.4k</span>
               
 
               
@@ -508,7 +510,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">4 分钟</span>
+                <span title="阅读时长">6 分钟</span>
               
             </div>
           
@@ -529,14 +531,14 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>每年的618、双11都是电商平台的狂欢日，各种营销活动、营销方式层出不穷，而秒杀就是其中最重要的手段之一。飞天茅台、华为手机、高端显卡等热门商品的抢购活动，即使你没有抢过，也或许听过，这就是秒杀带来的影响力。用具有价格优势的稀缺商品，来增加电商平台的关注度，带来空前的流量，进而可以为平台的拉新带来新助力，如果再辅以其他营销手段，比如抢购资格限制VIP等，那么这又是一笔可观的创收。</p>
 <p>所以在当下这个流量为王的网络时代，能够提供秒杀的营销手段，就显得异常重要，这也是我们为什么需要做秒杀系统。</p>
 <p>当然，实现一个秒杀系统也并不是那么容易的事，要考虑的点有很多。比如，我们首先要知道秒杀活动的业务特点，其次是要清楚秒杀系统的请求链路，这样才能根据其特点，针对请求链路中可能存在的瓶颈点做优化与设计。除此之外还有很多其他问题，我会在之后的课程中一一详解。</p>
 <p>那么作为专栏的第一课，为了让你对秒杀系统有一个整体的认知，接下来我们就综合看一下当下秒杀系统都存在哪些挑战，以及所要遵循的设计原则，这些可以为我们后面的实战打下一个很好的基础。</p>
 <h1 id="秒杀怎么玩"><a href="#秒杀怎么玩" class="headerlink" title="秒杀怎么玩"></a><span style="color:#339AFF;">秒杀怎么玩</span></h1><p>我先简单介绍下秒杀业务具体是怎么玩的。</p>
 <p>通常情况下，平台商家会拿出稀缺商品，事先在秒杀的运营系统中设置好活动的开始、结束时间，以及投入的库存（简单的玩法，只要这几个主要元素即可）。在活动开始之后，用户可以通过活动抢购入口（一个商品详情页，或是一个广告链接），进入到活动的结算页，然后点击下单，完成商品的抢购操作，整个过程如下：</p>
-<img src="/2023/04/03/01｜直面痛点：秒杀系统的挑战和设计原则/1.webp">
+<img src="/2023/04/03/01%EF%BD%9C%E7%9B%B4%E9%9D%A2%E7%97%9B%E7%82%B9%EF%BC%9A%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8C%91%E6%88%98%E5%92%8C%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/1.webp" class="">
 <p>这种方式通用性很强，可以适配大部分的平台。当然如果想对流量有个预期上限，方便做备战工作，那么你可以加上预约功能，即在活动开始前，先开放一段时间的预约，让用户先去进行预约，然后才能获得参加抢购活动的资格。</p>
 <p>如果面对的业务场景复杂些，你还可以联合风控，在参加活动时校验用户资质，踢掉黄牛以及有过不良行为的人，尽量将资源给到优质用户。</p>
 <p>那么如果业务再复杂些呢？可以搭配限购开展活动，控制个人维度下一段时间内的购买数，让抢购成功的快乐触达更多的人。</p>
@@ -552,14 +554,14 @@
 <p>这样高频次的请求，会挤占正常用户的抢购通道，同时，刷子也获得了更高的秒杀成功率。这不仅破坏了公平的抢购环境，也给系统服务带来了巨大的额外负担。</p>
 <p>其实总结来说，瞬时的大流量就是最大的挑战，当业务系统流量成几何增长时，有些业务接口加机器便可以支持。但考虑到成本与收益，在有限的资源下，如何通过合理的系统设计来达到预期的业务目标，就显得格外重要了。</p>
 <h1 id="秒杀系统如何设计"><a href="#秒杀系统如何设计" class="headerlink" title="秒杀系统如何设计"></a><span style="color:#339AFF;">秒杀系统如何设计</span></h1><p>清楚了秒杀系统所面临的挑战，接下来我们就可以考虑如何应对了。所谓知己知彼，百战不殆。在设计系统之前，我们不妨先来看下，一次HTTP请求所经过的链路路径：</p>
-<img src="/2023/04/03/01｜直面痛点：秒杀系统的挑战和设计原则/2.webp">
+<img src="/2023/04/03/01%EF%BD%9C%E7%9B%B4%E9%9D%A2%E7%97%9B%E7%82%B9%EF%BC%9A%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8C%91%E6%88%98%E5%92%8C%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/2.webp" class="">
 <p>这是一个比较宏观的图谱，如果我们提供的是一个HTTP服务，那么每个客户端请求进来都要经过这些链路，而每个链路节点的作用又是什么呢？我们逐一看下。</p>
 <p><strong>DNS</strong>：负责域名解析，会将你的域名请求指定一个实际的IP来处理（事先配置好处理请求的IP，DNS按顺序指定），并且一般客户端浏览器会缓存这个IP一段时间，当下次再请求时就直接用这个IP来建立连接，当然如果指定的IP挂了，DNS并不会自动剔除，下次依然会使用它。</p>
 <p><strong>Nginx</strong>：也就是上面的被DNS指定来处理请求的IP，一般都会被用来当做反向代理和负载均衡器使用，因为它具有良好的吞吐性能，所以一般也可以用来做静态资源服务器。当Nginx接收到客户端请求后，根据负载均衡算法（默认是轮询）将请求分发给下游的Web服务。</p>
 <p><strong>Web服务</strong>：这个就是我们都比较熟知的领域了，一般我们写业务接口的地方就是这了，还有我们的H5页面，也都可以放到这里，这里是我们做业务聚合的地方，提供页面需要的数据以及元素。</p>
 <p><strong>RPC服务</strong>：一般提供支撑业务的基础服务，服务功能相对单一，可灵活、快速部署，复用性高。RPC服务一般都是公司内部服务，仅供内部服务间调用，不对外开放，安全性高。</p>
 <p>在了解了一次请求所经过的链路节点后，接下来我们再看下，在用户的一次抢购过程中，每次和系统的交互都要做什么事情。</p>
-<img src="/2023/04/03/01｜直面痛点：秒杀系统的挑战和设计原则/3.webp">
+<img src="/2023/04/03/01%EF%BD%9C%E7%9B%B4%E9%9D%A2%E7%97%9B%E7%82%B9%EF%BC%9A%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8C%91%E6%88%98%E5%92%8C%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/3.webp" class="">
 <p>结合上图来看，商详页部分和支付页部分，对于一般平台来说，都是通用板块，而从“点击抢购”开始到“下单成功待支付”，这一段是属于秒杀系统的业务范畴，在这里我们梳理下，有哪几件事情是需要秒杀系统来做的。</p>
 <p><strong>1，提供活动数据</strong>：提供参加秒杀活动的商品信息，主要用于商详页判断活动的倒计时、开始、结束等页面展示和抢购入口校验。</p>
 <p><strong>2，提供结算页</strong>：如果把秒杀做成一个单独业务模块，可跨平台（安卓、PC、iOS）嵌入，那么就需要提供一整套服务，包括H5页面，主要用于展示商品的抢购信息，包括商品名称、价格、抢购数量、地址、支付方式、虚拟资产等等。</p>
@@ -571,7 +573,7 @@
 <blockquote>
 <p>流量漏斗图</p>
 </blockquote>
-<img src="/2023/04/03/01｜直面痛点：秒杀系统的挑战和设计原则/4.webp">
+<img src="/2023/04/03/01%EF%BD%9C%E7%9B%B4%E9%9D%A2%E7%97%9B%E7%82%B9%EF%BC%9A%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8C%91%E6%88%98%E5%92%8C%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/4.webp" class="">
 <p>一般我们会在<strong>DNS层</strong>做一些和网络相关的防攻击措施，公司的网络安全部门有统一的一些配置措施，这层我们无法写业务，但是可以拦截一些攻击请求。</p>
 <p>接下来到<strong>Nginx层</strong>。Nginx不仅可以作为反向代理和负载均衡器，也可以做大流量的Web服务器，同时也是一款非常优秀的静态资源服务器。如果把业务校验也放到这里来，就可以实现校验前置的原则了吗？</p>
 <p>Nginx+Lua说，没问题。这时候可能你会有顾虑，Nginx担负了那么多任务，会被拖垮吗？不会，因为Nginx很强大，能力越大，责任越大。那么Nginx为什么比Apache服务更强大呢？第1课我们留个悬念，后面会讲。</p>
@@ -604,7 +606,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/手把手带你搭建秒杀系统/" rel="tag"># 手把手带你搭建秒杀系统</a>
+            <a href="/tags/%E6%89%8B%E6%8A%8A%E6%89%8B%E5%B8%A6%E4%BD%A0%E6%90%AD%E5%BB%BA%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F/" rel="tag"># 手把手带你搭建秒杀系统</a>
           
         </div>
       
@@ -617,7 +619,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2023/04/03/开篇词｜如何设计一个高并发、高可用的秒杀系统？/" rel="next" title="开篇词｜如何设计一个高并发、高可用的秒杀系统？">
+              <a href="/2023/04/03/%E5%BC%80%E7%AF%87%E8%AF%8D%EF%BD%9C%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AA%E9%AB%98%E5%B9%B6%E5%8F%91%E3%80%81%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%EF%BC%9F/" rel="next" title="开篇词｜如何设计一个高并发、高可用的秒杀系统？">
                 <i class="fa fa-chevron-left"></i> 开篇词｜如何设计一个高并发、高可用的秒杀系统？
               </a>
             
@@ -627,7 +629,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2023/04/03/02｜蓄势待发：秒杀系统架构设计和环境准备/" rel="prev" title="02｜蓄势待发：秒杀系统架构设计和环境准备">
+              <a href="/2023/04/03/02%EF%BD%9C%E8%93%84%E5%8A%BF%E5%BE%85%E5%8F%91%EF%BC%9A%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1%E5%92%8C%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87/" rel="prev" title="02｜蓄势待发：秒杀系统架构设计和环境准备">
                 02｜蓄势待发：秒杀系统架构设计和环境准备 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -687,7 +689,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -698,9 +702,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -712,26 +716,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -803,7 +791,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -978,115 +966,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1117,23 +997,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1159,7 +1039,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#秒杀怎么玩"><span class="nav-number">1.</span> <span class="nav-text">秒杀怎么玩</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#秒杀系统的挑战"><span class="nav-number">2.</span> <span class="nav-text">秒杀系统的挑战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#巨大的瞬时流量"><span class="nav-number">2.1.</span> <span class="nav-text">巨大的瞬时流量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#热点数据问题"><span class="nav-number">2.2.</span> <span class="nav-text">热点数据问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#刷子流量"><span class="nav-number">2.3.</span> <span class="nav-text">刷子流量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#秒杀系统如何设计"><span class="nav-number">3.</span> <span class="nav-text">秒杀系统如何设计</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">5.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A7%92%E6%9D%80%E6%80%8E%E4%B9%88%E7%8E%A9"><span class="nav-number">1.</span> <span class="nav-text">秒杀怎么玩</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E7%9A%84%E6%8C%91%E6%88%98"><span class="nav-number">2.</span> <span class="nav-text">秒杀系统的挑战</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%A8%E5%A4%A7%E7%9A%84%E7%9E%AC%E6%97%B6%E6%B5%81%E9%87%8F"><span class="nav-number">2.1.</span> <span class="nav-text">巨大的瞬时流量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%83%AD%E7%82%B9%E6%95%B0%E6%8D%AE%E9%97%AE%E9%A2%98"><span class="nav-number">2.2.</span> <span class="nav-text">热点数据问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%B7%E5%AD%90%E6%B5%81%E9%87%8F"><span class="nav-number">2.3.</span> <span class="nav-text">刷子流量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1"><span class="nav-number">3.</span> <span class="nav-text">秒杀系统如何设计</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">5.</span> <span class="nav-text">思考题</span></a></li></ol></div>
             
 
           </div>
@@ -1194,7 +1074,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1205,12 +1085,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1218,7 +1098,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

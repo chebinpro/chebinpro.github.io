@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,31 +104,31 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="手把手带你写一个Web框架">
 <meta property="og:type" content="article">
 <meta property="og:title" content="06｜重启：如何进行优雅关闭？">
-<meta property="og:url" content="http://yoursite.com/2021/12/20/06｜重启：如何进行优雅关闭？/index.html">
+<meta property="og:url" content="http://yoursite.com/2021/12/20/06%EF%BD%9C%E9%87%8D%E5%90%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2021/12/20/06｜重启：如何进行优雅关闭？/1.webp">
-<meta property="og:image" content="http://yoursite.com/2021/12/20/06｜重启：如何进行优雅关闭？/2.webp">
-<meta property="og:image" content="http://yoursite.com/2021/12/20/06｜重启：如何进行优雅关闭？/3.webp">
-<meta property="og:image" content="http://yoursite.com/2021/12/20/06｜重启：如何进行优雅关闭？/4.webp">
-<meta property="og:image" content="http://yoursite.com/2021/12/20/06｜重启：如何进行优雅关闭？/5.webp">
-<meta property="og:image" content="http://yoursite.com/2021/12/20/06｜重启：如何进行优雅关闭？/6.webp">
-<meta property="og:updated_time" content="2022-12-10T02:08:18.708Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2021/12/20/06%EF%BD%9C%E9%87%8D%E5%90%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%EF%BC%9F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2021/12/20/06%EF%BD%9C%E9%87%8D%E5%90%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%EF%BC%9F/2.webp">
+<meta property="og:image" content="http://yoursite.com/2021/12/20/06%EF%BD%9C%E9%87%8D%E5%90%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%EF%BC%9F/3.webp">
+<meta property="og:image" content="http://yoursite.com/2021/12/20/06%EF%BD%9C%E9%87%8D%E5%90%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%EF%BC%9F/4.webp">
+<meta property="og:image" content="http://yoursite.com/2021/12/20/06%EF%BD%9C%E9%87%8D%E5%90%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%EF%BC%9F/5.webp">
+<meta property="og:image" content="http://yoursite.com/2021/12/20/06%EF%BD%9C%E9%87%8D%E5%90%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%EF%BC%9F/6.webp">
+<meta property="article:published_time" content="2021-12-20T03:05:18.000Z">
+<meta property="article:modified_time" content="2022-12-10T02:08:18.708Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="手把手带你写一个Web框架">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="06｜重启：如何进行优雅关闭？">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2021/12/20/06｜重启：如何进行优雅关闭？/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2021/12/20/06%EF%BD%9C%E9%87%8D%E5%90%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%EF%BC%9F/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2021/12/20/06｜重启：如何进行优雅关闭？/">
+  <link rel="canonical" href="http://yoursite.com/2021/12/20/06｜重启：如何进行优雅关闭？/"/>
 
 
 
@@ -177,7 +177,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -238,7 +238,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -255,7 +255,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -272,7 +272,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -289,7 +289,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -306,7 +306,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -317,7 +317,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -337,7 +337,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -387,16 +389,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/20/06｜重启：如何进行优雅关闭？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/20/06%EF%BD%9C%E9%87%8D%E5%90%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -496,7 +498,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">7.7k</span>
+                <span title="本文字数">20k</span>
               
 
               
@@ -510,7 +512,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">7 分钟</span>
+                <span title="阅读时长">18 分钟</span>
               
             </div>
           
@@ -531,7 +533,7 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>通过前面几节课的学习，我们已经能启动一个按照路由规则接收请求、进入控制器计算逻辑的服务器了。</p>
 <p>但是，在实际业务开发过程中，功能和需求一定是不断迭代的，在迭代过程中，势必需要重启服务，这里的重启就是指一个关闭、启动进程的完成过程。</p>
 <p>目前所有服务基本都无单点问题，都是集群化部署。对一个服务的关闭、启动进程来说，启动的流程基本上问题不大，可以由集群的统一管理器，比如Kubernetes，来进行服务的启动，启动之后慢慢将流量引入到新启动的节点，整个服务是无损的。</p>
@@ -555,15 +557,13 @@
 <p>当使用后台模式挂起一个进程的时候，操作系统会给这个进程分配一个进程号pid，我们可以通过killpid或者kill-9pid来杀死某个进程。</p>
 <p>killpid会向进程发送SIGTERM信号，而kill-9会向进程发送SIGKILL信号。这两个信号都用于立刻结束进程，但是SIGTERM是可以被阻塞和处理的，而SIGKILL信号是不能被阻塞和处理的。</p>
 <p>用表格总结一下终止进程的这几个信号和对应的操作：</p>
-<img src="/2021/12/20/06｜重启：如何进行优雅关闭？/1.webp">
+<img src="/2021/12/20/06%EF%BD%9C%E9%87%8D%E5%90%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%EF%BC%9F/1.webp" class="">
 <p>除了SIGKILL信号无法被捕获之外，其他的信号都能捕获，所以，只要在程序中捕获住这些信号，就能实现控制关闭进程操作了。那么接下来要解决的问题就是，在Golang中如何捕获信号呢？</p>
 <p>对于这个问题，标准库提供了os/signal这个库，还记得第一节课说的快速了解一个库的方法么，库函数&gt;结构定义&gt;结构函数。</p>
 <p>os/signal库</p>
-<p>所以，第一步我们使用godocos/signal|grep”^func”来了解下这个库的函数，看看提供了哪些功能。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 忽略某个信号</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Ignore</span><span class="params">(sig ...os.Signal)</span></span>&#123;&#125;</span><br><span class="line"><span class="comment">// 判断某个信号是否被忽略了</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Ignored</span><span class="params">(sig os.Signal)</span> <span class="title">bool</span></span>&#123;&#125;</span><br><span class="line"><span class="comment">// 关注某个/某些/全部 信号</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Notify</span><span class="params">(c <span class="keyword">chan</span>&lt;- os.Signal, sig ...os.Signal)</span></span>&#123;&#125;</span><br><span class="line"><span class="comment">// 取消使用 notify 对信号产生的效果</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Reset</span><span class="params">(sig ...os.Signal)</span></span>&#123;&#125;</span><br><span class="line"><span class="comment">// 停止所有向 channel 发送的效果</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Stop</span><span class="params">(c <span class="keyword">chan</span>&lt;- os.Signal)</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这个库提供了订阅信号的方法Notify和忽略信号的方法Ignore，为了全局管理方便，也提供了停止所有订阅的Stop函数。另外还有，停止某些订阅的Reset函数，当我们已经订阅了某些信号之后，想重新将其中的某些信号不进行订阅，那么可以使用Reset方法。</p>
+<p>所以，第一步我们使用godocos/signal|grep”^func”来了解下这个库的函数，看看提供了哪些功能。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 忽略某个信号</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Ignore</span><span class="params">(sig ...os.Signal)</span></span>&#123;&#125;</span><br><span class="line"><span class="comment">// 判断某个信号是否被忽略了</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Ignored</span><span class="params">(sig os.Signal)</span></span> <span class="type">bool</span>&#123;&#125;</span><br><span class="line"><span class="comment">// 关注某个/某些/全部 信号</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Notify</span><span class="params">(c <span class="keyword">chan</span>&lt;- os.Signal, sig ...os.Signal)</span></span>&#123;&#125;</span><br><span class="line"><span class="comment">// 取消使用 notify 对信号产生的效果</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Reset</span><span class="params">(sig ...os.Signal)</span></span>&#123;&#125;</span><br><span class="line"><span class="comment">// 停止所有向 channel 发送的效果</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Stop</span><span class="params">(c <span class="keyword">chan</span>&lt;- os.Signal)</span></span>&#123;&#125;</span><br></pre></td></tr></table></figure><br>这个库提供了订阅信号的方法Notify和忽略信号的方法Ignore，为了全局管理方便，也提供了停止所有订阅的Stop函数。另外还有，停止某些订阅的Reset函数，当我们已经订阅了某些信号之后，想重新将其中的某些信号不进行订阅，那么可以使用Reset方法。</p>
 <p>然后就是第二、第三步，通过godocos/signal|grep”^type”了解到，这个库比较简单，没有任何结构定义和结构函数，因为管理信号只需要几个库函数即可，不需要进行更多的模块划分和数据结构抽象。在Golang的官方类库中，有不少都是这样只提供库函数，而没有自定义的模块数据结构的。</p>
-<p>理解完了捕获信号的os/signal库，我们就明白了，要控制这些信号量可以使用Notify方法，所以在业务main.go里补充：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// 这个 Goroutine 是启动服务的 Goroutine</span></span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        server.ListenAndServe()</span><br><span class="line">    &#125;()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 当前的 Goroutine 等待信号量</span></span><br><span class="line">    quit := <span class="built_in">make</span>(<span class="keyword">chan</span> os.Signal)</span><br><span class="line">    <span class="comment">// 监控信号：SIGINT, SIGTERM, SIGQUIT</span></span><br><span class="line">    signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT)</span><br><span class="line">    <span class="comment">// 这里会阻塞当前 Goroutine 等待信号</span></span><br><span class="line">    &lt;-quit</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>注意下这里有两个Goroutine，一个Goroutine是提供启动服务的，另外一个Goroutine用于监听信号并且结束进程。那么哪个Goroutine用于监听信号呢？</p>
+<p>理解完了捕获信号的os/signal库，我们就明白了，要控制这些信号量可以使用Notify方法，所以在业务main.go里补充：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// 这个 Goroutine 是启动服务的 Goroutine</span></span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        server.ListenAndServe()</span><br><span class="line">    &#125;()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 当前的 Goroutine 等待信号量</span></span><br><span class="line">    quit := <span class="built_in">make</span>(<span class="keyword">chan</span> os.Signal)</span><br><span class="line">    <span class="comment">// 监控信号：SIGINT, SIGTERM, SIGQUIT</span></span><br><span class="line">    signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT)</span><br><span class="line">    <span class="comment">// 这里会阻塞当前 Goroutine 等待信号</span></span><br><span class="line">    &lt;-quit</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>注意下这里有两个Goroutine，一个Goroutine是提供启动服务的，另外一个Goroutine用于监听信号并且结束进程。那么哪个Goroutine用于监听信号呢？</p>
 <p>答案是main函数所在的当前Goroutine。因为使用Ctrl或者kill命令，它们发送的信号是进入main函数的，即只有main函数所在的Goroutine会接收到，所以必须在main函数所在的Goroutine监听信号。</p>
 <p>在监听信号的Goroutine中，我们先创建了一个等待信号量的channel，然后通过Notify方法，订阅SIGINT、SIGTERM、SIGQUIT三个可以捕获处理的信号量，并且将信号量导入到channel中。</p>
 <p>最后，使用channel的导出操作，来阻塞当前Goroutine，让当前Goroutine只有捕获到结束进程的信号之后，才进行后续的关闭操作。这样就实现了第一个问题进程关闭的可控。</p>
@@ -573,43 +573,37 @@
 <p>而在1.8版本之后，net/http引入了server.Shutdown来进行优雅重启。</p>
 <p>server.Shutdown方法是个阻塞方法，一旦执行之后，它会阻塞当前Goroutine，并且在所有连接请求都结束之后，才继续往后执行。实现非常容易，思路也和之前的第三方解法差不多，所以就重点理解这个方法。</p>
 <h2 id="server-Shutdown源码"><a href="#server-Shutdown源码" class="headerlink" title="server.Shutdown源码"></a><span style="color:#339AFF;">server.Shutdown源码</span></h2><p>来看server.Shutdown的源码，同样你可以通过IDE跳转工具直接跳转到Shutdown源码进行阅读，使用第一节课教的思维导图的方式，列出Shutdown函数的代码逻辑流程图。我们还是从前往后讲。</p>
-<img src="/2021/12/20/06｜重启：如何进行优雅关闭？/2.webp">
-<p>第一层，在运行Shutdown方法的时候，先做一个标记，将server中的isShutdown标记为true。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">srv.inShutdown.setTrue()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b *atomicBool)</span> <span class="title">setTrue</span><span class="params">()</span></span>    &#123; atomic.StoreInt32((*<span class="keyword">int32</span>)(b), <span class="number">1</span>)</span><br></pre></td></tr></table></figure></p>
-<p>这里标准库实现的就很细节了。inShutdown是一个标记，它用来标记服务器是否正在关闭，标记的时候，还使用了atomic操作来保证标记的原子性。这里要琢磨一下，为什么要使用atomic操作呢？</p>
+<img src="/2021/12/20/06%EF%BD%9C%E9%87%8D%E5%90%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%EF%BC%9F/2.webp" class="">
+<p>第一层，在运行Shutdown方法的时候，先做一个标记，将server中的isShutdown标记为true。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">srv.inShutdown.setTrue()</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(b *atomicBool)</span></span> setTrue()    &#123; atomic.StoreInt32((*<span class="type">int32</span>)(b), <span class="number">1</span>) </span><br></pre></td></tr></table></figure><br>这里标准库实现的就很细节了。inShutdown是一个标记，它用来标记服务器是否正在关闭，标记的时候，还使用了atomic操作来保证标记的原子性。这里要琢磨一下，为什么要使用atomic操作呢？</p>
 <p>在Golang中，所有的赋值操作都不能保证是原子的，比如int类型的a=a+1，或者bool类型的a=true，这些赋值操作，在底层并不一定是由一个独立的CPU指令完成的。所以在并发场景下，我们并不能保证并发赋值的操作是安全的。</p>
 <p>比如有两个操作同时对a变量进行读写，写a变量的线程如果不是原子的，那么读a变量的线程就有可能读到写了一半的a变量。</p>
 <p>所以为保证原子性，Golang提供了一个atomic包，当对一个字段赋值的时候，如果你无法保证其是否原子操作，你可以使用atomic包来对这个字段进行赋值。atomic包，在底层一定会保证，这个操作是在一个单独的CPU指令内完成的。</p>
 <p>因为这里的srv.inShutdown是一个非常重要的标记位。一旦由于任何原因，它读取错误，会发生严重问题，比如进程已经在处理结束的时候，启动server的进程还继续监听请求，这个时候会导致新接收的请求有服务错误。所以，这里为了保险起见，使用了一个标准库atomic来保证其原子性操作。</p>
-<p>然后是逻辑代码：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> _, f := <span class="keyword">range</span> srv.onShutdown &#123;</span><br><span class="line">    <span class="keyword">go</span> f()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>onShutdown在server结构中按需求设置。这个字段保存的是回调方法，即用户希望server在关闭时进行的回调操作。比如用户可以设置在服务结束的时候，打印一个日志或者调用一个通知机制。如果用户设置了回调，则执行这些回调条件，如果没有设置，可以忽略。</p>
-<h2 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a><span style="color:#339AFF;">for循环</span></h2><p>接下来进入这一层最重要的for循环。这个for循环是一个无限循环，它使用ticker来控制每次循环的节奏，通过return来控制循环的终止条件。这个写法很值得我们学习。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">ticker := time.NewTicker(shutdownPollInterval) <span class="comment">// 设置轮询时间</span></span><br><span class="line"><span class="keyword">defer</span> ticker.Stop()</span><br><span class="line"><span class="keyword">for</span> &#123;</span><br><span class="line">    <span class="comment">// 真正的操作</span></span><br><span class="line">    <span class="keyword">if</span> srv.closeIdleConns() &amp;&amp; srv.numListeners() == <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> lnerr</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> &lt;-ctx.Done(): <span class="comment">// 如果ctx有设置超时，有可能触发超时结束</span></span><br><span class="line">        <span class="keyword">return</span> ctx.Err()</span><br><span class="line">    <span class="keyword">case</span> &lt;-ticker.C:  <span class="comment">// 如果没有结束，最长等待时间，进行轮询</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>我们在工作中经常会遇到类似的需求：每隔多少时间，执行一次操作，应该有不少同学会使用time.Sleep来做间隔时长，而这里演示了如何使用time.Ticker来进行轮询设置。这两种方式其实都能完成“每隔多少时间做一次操作”，但是又有一些不同。</p>
+<p>然后是逻辑代码：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> _, f := <span class="keyword">range</span> srv.onShutdown &#123;</span><br><span class="line">    <span class="keyword">go</span> f()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>onShutdown在server结构中按需求设置。这个字段保存的是回调方法，即用户希望server在关闭时进行的回调操作。比如用户可以设置在服务结束的时候，打印一个日志或者调用一个通知机制。如果用户设置了回调，则执行这些回调条件，如果没有设置，可以忽略。</p>
+<h2 id="for循环"><a href="#for循环" class="headerlink" title="for循环"></a><span style="color:#339AFF;">for循环</span></h2><p>接下来进入这一层最重要的for循环。这个for循环是一个无限循环，它使用ticker来控制每次循环的节奏，通过return来控制循环的终止条件。这个写法很值得我们学习。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">ticker := time.NewTicker(shutdownPollInterval) <span class="comment">// 设置轮询时间</span></span><br><span class="line"><span class="keyword">defer</span> ticker.Stop()</span><br><span class="line"><span class="keyword">for</span> &#123;</span><br><span class="line">    <span class="comment">// 真正的操作</span></span><br><span class="line">    <span class="keyword">if</span> srv.closeIdleConns() &amp;&amp; srv.numListeners() == <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> lnerr</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">select</span> &#123;</span><br><span class="line">    <span class="keyword">case</span> &lt;-ctx.Done(): <span class="comment">// 如果ctx有设置超时，有可能触发超时结束</span></span><br><span class="line">        <span class="keyword">return</span> ctx.Err()</span><br><span class="line">    <span class="keyword">case</span> &lt;-ticker.C:  <span class="comment">// 如果没有结束，最长等待时间，进行轮询</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>我们在工作中经常会遇到类似的需求：每隔多少时间，执行一次操作，应该有不少同学会使用time.Sleep来做间隔时长，而这里演示了如何使用time.Ticker来进行轮询设置。这两种方式其实都能完成“每隔多少时间做一次操作”，但是又有一些不同。</p>
 <p>time.Sleep是用阻塞当前Goroutine的方式来实现的，它需要调度先唤醒当前Goroutine，才能唤醒后续的逻辑。而Ticker创建了一个底层数据结构定时器runtimeTimer，并且监听runtimeTimer计时结束后产生的信号。</p>
 <p>这个runtimeTimer是Golang定义的定时器，做了一些比较复杂的优化。比如在有海量定时器的场景下，runtimeTimer会为每个核，创建一个runtimeTimer，进行统一调度，所以它的CPU消耗会远低于time.Sleep。所以说，使用ticker是Golang中最优的定时写法。</p>
-<img src="/2021/12/20/06｜重启：如何进行优雅关闭？/3.webp">
-<p>再回到源码思维导图中，可以看到真正执行操作的是closeIdleConns方法。这个方法的逻辑就是：判断所有连接中的请求是否已经完成操作（是否处于Idle状态），如果完成，关闭连接，如果未完成，则跳过，等待下次循环。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// closeIdleConns 关闭所有的连接并且记录是否服务器的连接已经全部关闭</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *Server)</span> <span class="title">closeIdleConns</span><span class="params">()</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    s.mu.Lock()</span><br><span class="line">    <span class="keyword">defer</span> s.mu.Unlock()</span><br><span class="line">    quiescent := <span class="literal">true</span></span><br><span class="line">    <span class="keyword">for</span> c := <span class="keyword">range</span> s.activeConn &#123;</span><br><span class="line">        st, unixSec := c.getState()</span><br><span class="line">        <span class="comment">// Issue 22682: 这里预留5s以防止在第一次读取连接头部信息的时候超过5s</span></span><br><span class="line">        <span class="keyword">if</span> st == StateNew &amp;&amp; unixSec &lt; time.Now().Unix()<span class="number">-5</span> &#123;</span><br><span class="line">            st = StateIdle</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> st != StateIdle || unixSec == <span class="number">0</span> &#123;</span><br><span class="line">            <span class="comment">// unixSec == 0 代表这个连接是非常新的连接，则标记位需要标记false</span></span><br><span class="line">            quiescent = <span class="literal">false</span></span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        &#125;</span><br><span class="line">        c.rwc.Close()</span><br><span class="line">        <span class="built_in">delete</span>(s.activeConn, c)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> quiescent</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这个函数返回的quiescent标记位，是用来标记是否所有的连接都已经关闭。如果有一个连接还未关闭，标记位返回false，否则返回true。</p>
+<img src="/2021/12/20/06%EF%BD%9C%E9%87%8D%E5%90%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%EF%BC%9F/3.webp" class="">
+<p>再回到源码思维导图中，可以看到真正执行操作的是closeIdleConns方法。这个方法的逻辑就是：判断所有连接中的请求是否已经完成操作（是否处于Idle状态），如果完成，关闭连接，如果未完成，则跳过，等待下次循环。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// closeIdleConns 关闭所有的连接并且记录是否服务器的连接已经全部关闭</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *Server)</span></span> closeIdleConns() <span class="type">bool</span> &#123;</span><br><span class="line">    s.mu.Lock()</span><br><span class="line">    <span class="keyword">defer</span> s.mu.Unlock()</span><br><span class="line">    quiescent := <span class="literal">true</span></span><br><span class="line">    <span class="keyword">for</span> c := <span class="keyword">range</span> s.activeConn &#123;</span><br><span class="line">        st, unixSec := c.getState()</span><br><span class="line">        <span class="comment">// Issue 22682: 这里预留5s以防止在第一次读取连接头部信息的时候超过5s</span></span><br><span class="line">        <span class="keyword">if</span> st == StateNew &amp;&amp; unixSec &lt; time.Now().Unix()<span class="number">-5</span> &#123;</span><br><span class="line">            st = StateIdle</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> st != StateIdle || unixSec == <span class="number">0</span> &#123;</span><br><span class="line">            <span class="comment">// unixSec == 0 代表这个连接是非常新的连接，则标记位需要标记false</span></span><br><span class="line">            quiescent = <span class="literal">false</span></span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line">        &#125;</span><br><span class="line">        c.rwc.Close()</span><br><span class="line">        <span class="built_in">delete</span>(s.activeConn, c)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> quiescent</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这个函数返回的quiescent标记位，是用来标记是否所有的连接都已经关闭。如果有一个连接还未关闭，标记位返回false，否则返回true。</p>
 <p>现在源码就梳理好了，再整理一下。</p>
 <p>为了实现先阻塞，然后等所有连接处理完再结束退出，Shutdown使用了两层循环。其中：</p>
 <ul>
 <li>第一层循环是定时无限循环，每过ticker的间隔时间，就进入第二层循环；</li>
 <li>第二层循环会遍历连接中的所有请求，如果已经处理完操作处于Idle状态，就关闭连接，直到所有连接都关闭，才返回。</li>
 </ul>
-<p>所以我们可以在业务代码main.go中这么写：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当前的 Goroutine 等待信号量</span></span><br><span class="line">    quit := <span class="built_in">make</span>(<span class="keyword">chan</span> os.Signal)</span><br><span class="line">    <span class="comment">// 监控信号：SIGINT, SIGTERM, SIGQUIT</span></span><br><span class="line">    signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT)</span><br><span class="line">    <span class="comment">// 这里会阻塞当前 Goroutine 等待信号</span></span><br><span class="line">    &lt;-quit</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 调用Server.Shutdown graceful结束</span></span><br><span class="line">    <span class="keyword">if</span> err := server.Shutdown(context.Background()); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatal(<span class="string">"Server Shutdown:"</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在监听到关闭进程的信号之后，直接执行server.Shutdown操作，等待这个程序执行结束，再结束main函数，就可以了。</p>
-<h1 id="验证"><a href="#验证" class="headerlink" title="验证"></a><span style="color:#339AFF;">验证</span></h1><p>到这里，我们就完成了优雅关闭的逻辑。最后验证成果，写一个10s才能结束的控制器：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">UserLoginController</span><span class="params">(c *framework.Context)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    foo, _ := c.QueryString(<span class="string">"foo"</span>, <span class="string">"def"</span>)</span><br><span class="line">    <span class="comment">// 等待10s才结束执行</span></span><br><span class="line">    time.Sleep(<span class="number">10</span> * time.Second)</span><br><span class="line">    <span class="comment">// 输出结果</span></span><br><span class="line">    c.SetOkStatus().Json(<span class="string">"ok, UserLoginController: "</span> + foo)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>按顺序执行下列操作，就能检验出你的关闭逻辑能不能跑通了。</p>
+<p>所以我们可以在业务代码main.go中这么写：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当前的 Goroutine 等待信号量</span></span><br><span class="line">    quit := <span class="built_in">make</span>(<span class="keyword">chan</span> os.Signal)</span><br><span class="line">    <span class="comment">// 监控信号：SIGINT, SIGTERM, SIGQUIT</span></span><br><span class="line">    signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM, syscall.SIGQUIT)</span><br><span class="line">    <span class="comment">// 这里会阻塞当前 Goroutine 等待信号</span></span><br><span class="line">    &lt;-quit</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 调用Server.Shutdown graceful结束</span></span><br><span class="line">    <span class="keyword">if</span> err := server.Shutdown(context.Background()); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatal(<span class="string">&quot;Server Shutdown:&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>在监听到关闭进程的信号之后，直接执行server.Shutdown操作，等待这个程序执行结束，再结束main函数，就可以了。</p>
+<h1 id="验证"><a href="#验证" class="headerlink" title="验证"></a><span style="color:#339AFF;">验证</span></h1><p>到这里，我们就完成了优雅关闭的逻辑。最后验证成果，写一个10s才能结束的控制器：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">UserLoginController</span><span class="params">(c *framework.Context)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">    foo, _ := c.QueryString(<span class="string">&quot;foo&quot;</span>, <span class="string">&quot;def&quot;</span>)</span><br><span class="line">    <span class="comment">// 等待10s才结束执行</span></span><br><span class="line">    time.Sleep(<span class="number">10</span> * time.Second)</span><br><span class="line">    <span class="comment">// 输出结果</span></span><br><span class="line">    c.SetOkStatus().Json(<span class="string">&quot;ok, UserLoginController: &quot;</span> + foo)</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>按顺序执行下列操作，就能检验出你的关闭逻辑能不能跑通了。</p>
 <p>1，在控制台启动Web服务</p>
 <p>2，在浏览器启动一个请求进入10s才能结束的控制器</p>
 <p>3，10s内在控制台执行Ctrl+C关闭程序</p>
 <p>4，观察控制台程序是否不会立刻结束，而是在10s后结束</p>
 <p>5，浏览器端正常输出</p>
 <p>依次操作后，你在控制台可以看到，在执行完成URI之后，程序才退出。</p>
-<img src="/2021/12/20/06｜重启：如何进行优雅关闭？/4.webp">
+<img src="/2021/12/20/06%EF%BD%9C%E9%87%8D%E5%90%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%EF%BC%9F/4.webp" class="">
 <p>而且，浏览器中正常输出控制器结果。说明你已经完整完成了优雅关闭逻辑！</p>
-<img src="/2021/12/20/06｜重启：如何进行优雅关闭？/5.webp">
+<img src="/2021/12/20/06%EF%BD%9C%E9%87%8D%E5%90%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%EF%BC%9F/5.webp" class="">
 <p>今天只修改了业务文件夹中的main.go代码，框架目录并没有什么变化。</p>
-<img src="/2021/12/20/06｜重启：如何进行优雅关闭？/6.webp">
+<img src="/2021/12/20/06%EF%BD%9C%E9%87%8D%E5%90%AF%EF%BC%9A%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%EF%BC%9F/6.webp" class="">
 <p>有的同学可能会很奇怪，重启这个逻辑不应该放在框架目录的某个地方么，难道每次启动一个服务都要写这个逻辑么？不急，先了解掌握好优雅关闭的原理，在后续章节我们会为框架引入命令行工具，这些优雅关闭的逻辑就会作为框架的一部分存放在框架目录中了。</p>
 <h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a><span style="color:#339AFF;">小结</span></h1><p>今天完成了优雅关闭进程的逻辑，通过标准库os.Signal来控制关闭进程的操作，并且通过net/http提供的server.Shutdown来实现优雅关闭。所有代码都同样放在GitHub上的geekbang/06分支了。</p>
 <p>讲了很多代码细节，相信你看完shutdown这个函数的实现原理后，会不由得感叹Golang源码的优雅。很多同学会说没有好的Golang项目可以跟着学习，其实Golang源码本身就是一个非常好的学习资料。</p>
@@ -638,7 +632,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/手把手带你写一个Web框架/" rel="tag"># 手把手带你写一个Web框架</a>
+            <a href="/tags/%E6%89%8B%E6%8A%8A%E6%89%8B%E5%B8%A6%E4%BD%A0%E5%86%99%E4%B8%80%E4%B8%AAWeb%E6%A1%86%E6%9E%B6/" rel="tag"># 手把手带你写一个Web框架</a>
           
         </div>
       
@@ -651,7 +645,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/12/20/05｜封装：如何让你的框架更好用？/" rel="next" title="05｜封装：如何让你的框架更好用？">
+              <a href="/2021/12/20/05%EF%BD%9C%E5%B0%81%E8%A3%85%EF%BC%9A%E5%A6%82%E4%BD%95%E8%AE%A9%E4%BD%A0%E7%9A%84%E6%A1%86%E6%9E%B6%E6%9B%B4%E5%A5%BD%E7%94%A8%EF%BC%9F/" rel="next" title="05｜封装：如何让你的框架更好用？">
                 <i class="fa fa-chevron-left"></i> 05｜封装：如何让你的框架更好用？
               </a>
             
@@ -661,7 +655,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/12/20/07｜目标：站在巨人肩膀，你的理想框架到底长什么样？/" rel="prev" title="07｜目标：站在巨人肩膀，你的理想框架到底长什么样？">
+              <a href="/2021/12/20/07%EF%BD%9C%E7%9B%AE%E6%A0%87%EF%BC%9A%E7%AB%99%E5%9C%A8%E5%B7%A8%E4%BA%BA%E8%82%A9%E8%86%80%EF%BC%8C%E4%BD%A0%E7%9A%84%E7%90%86%E6%83%B3%E6%A1%86%E6%9E%B6%E5%88%B0%E5%BA%95%E9%95%BF%E4%BB%80%E4%B9%88%E6%A0%B7%EF%BC%9F/" rel="prev" title="07｜目标：站在巨人肩膀，你的理想框架到底长什么样？">
                 07｜目标：站在巨人肩膀，你的理想框架到底长什么样？ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -721,7 +715,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -732,9 +728,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -746,26 +742,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -837,7 +817,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1012,115 +992,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1151,23 +1023,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1193,7 +1065,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#如何优雅关闭"><span class="nav-number">1.</span> <span class="nav-text">如何优雅关闭</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何控制关闭进程的操作"><span class="nav-number">2.</span> <span class="nav-text">如何控制关闭进程的操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何等待所有逻辑都处理结束"><span class="nav-number">3.</span> <span class="nav-text">如何等待所有逻辑都处理结束</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#server-Shutdown源码"><span class="nav-number">3.1.</span> <span class="nav-text">server.Shutdown源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for循环"><span class="nav-number">3.2.</span> <span class="nav-text">for循环</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#验证"><span class="nav-number">4.</span> <span class="nav-text">验证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">6.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD"><span class="nav-number">1.</span> <span class="nav-text">如何优雅关闭</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%8E%A7%E5%88%B6%E5%85%B3%E9%97%AD%E8%BF%9B%E7%A8%8B%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">如何控制关闭进程的操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E7%AD%89%E5%BE%85%E6%89%80%E6%9C%89%E9%80%BB%E8%BE%91%E9%83%BD%E5%A4%84%E7%90%86%E7%BB%93%E6%9D%9F"><span class="nav-number">3.</span> <span class="nav-text">如何等待所有逻辑都处理结束</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#server-Shutdown%E6%BA%90%E7%A0%81"><span class="nav-number">3.1.</span> <span class="nav-text">server.Shutdown源码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for%E5%BE%AA%E7%8E%AF"><span class="nav-number">3.2.</span> <span class="nav-text">for循环</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81"><span class="nav-number">4.</span> <span class="nav-text">验证</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">6.</span> <span class="nav-text">思考题</span></a></li></ol></div>
             
 
           </div>
@@ -1228,7 +1100,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1239,12 +1111,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1252,7 +1124,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

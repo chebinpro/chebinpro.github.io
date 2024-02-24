@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,30 +104,30 @@
 
 
   <meta name="description" content="思考并回答以下问题：  为什么不使用多线程？当有多个线程要修改这个共享资源时，为了保证共享资源的正确性，就需要有额外的机制进行保证，而这个额外的机制，就会带来额外的开销。而且，采用多线程开发一般会引入同步原语来保护共享资源的并发访问，这也会降低系统代码的易调试性和可维护性。为了避免这些问题，Redis直接采用了单线程模式。怎么理解？">
-<meta name="keywords" content="Redis核心技术与实战">
 <meta property="og:type" content="article">
 <meta property="og:title" content="03 | 高性能IO模型：为什么单线程Redis能那么快？">
-<meta property="og:url" content="http://yoursite.com/2022/05/01/03-高性能IO模型：为什么单线程Redis能那么快？/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/05/01/03-%E9%AB%98%E6%80%A7%E8%83%BDIO%E6%A8%A1%E5%9E%8B%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8D%95%E7%BA%BF%E7%A8%8BRedis%E8%83%BD%E9%82%A3%E4%B9%88%E5%BF%AB%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：  为什么不使用多线程？当有多个线程要修改这个共享资源时，为了保证共享资源的正确性，就需要有额外的机制进行保证，而这个额外的机制，就会带来额外的开销。而且，采用多线程开发一般会引入同步原语来保护共享资源的并发访问，这也会降低系统代码的易调试性和可维护性。为了避免这些问题，Redis直接采用了单线程模式。怎么理解？">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/05/01/03-高性能IO模型：为什么单线程Redis能那么快？/1.webp">
-<meta property="og:image" content="http://yoursite.com/2022/05/01/03-高性能IO模型：为什么单线程Redis能那么快？/2.webp">
-<meta property="og:image" content="http://yoursite.com/2022/05/01/03-高性能IO模型：为什么单线程Redis能那么快？/3.webp">
-<meta property="og:image" content="http://yoursite.com/2022/05/01/03-高性能IO模型：为什么单线程Redis能那么快？/4.webp">
-<meta property="og:image" content="http://yoursite.com/2022/05/01/03-高性能IO模型：为什么单线程Redis能那么快？/5.webp">
-<meta property="og:updated_time" content="2022-11-05T12:18:38.095Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/05/01/03-%E9%AB%98%E6%80%A7%E8%83%BDIO%E6%A8%A1%E5%9E%8B%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8D%95%E7%BA%BF%E7%A8%8BRedis%E8%83%BD%E9%82%A3%E4%B9%88%E5%BF%AB%EF%BC%9F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2022/05/01/03-%E9%AB%98%E6%80%A7%E8%83%BDIO%E6%A8%A1%E5%9E%8B%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8D%95%E7%BA%BF%E7%A8%8BRedis%E8%83%BD%E9%82%A3%E4%B9%88%E5%BF%AB%EF%BC%9F/2.webp">
+<meta property="og:image" content="http://yoursite.com/2022/05/01/03-%E9%AB%98%E6%80%A7%E8%83%BDIO%E6%A8%A1%E5%9E%8B%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8D%95%E7%BA%BF%E7%A8%8BRedis%E8%83%BD%E9%82%A3%E4%B9%88%E5%BF%AB%EF%BC%9F/3.webp">
+<meta property="og:image" content="http://yoursite.com/2022/05/01/03-%E9%AB%98%E6%80%A7%E8%83%BDIO%E6%A8%A1%E5%9E%8B%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8D%95%E7%BA%BF%E7%A8%8BRedis%E8%83%BD%E9%82%A3%E4%B9%88%E5%BF%AB%EF%BC%9F/4.webp">
+<meta property="og:image" content="http://yoursite.com/2022/05/01/03-%E9%AB%98%E6%80%A7%E8%83%BDIO%E6%A8%A1%E5%9E%8B%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8D%95%E7%BA%BF%E7%A8%8BRedis%E8%83%BD%E9%82%A3%E4%B9%88%E5%BF%AB%EF%BC%9F/5.webp">
+<meta property="article:published_time" content="2022-05-01T06:54:19.000Z">
+<meta property="article:modified_time" content="2022-11-05T12:18:38.095Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Redis核心技术与实战">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="03 | 高性能IO模型：为什么单线程Redis能那么快？">
-<meta name="twitter:description" content="思考并回答以下问题：  为什么不使用多线程？当有多个线程要修改这个共享资源时，为了保证共享资源的正确性，就需要有额外的机制进行保证，而这个额外的机制，就会带来额外的开销。而且，采用多线程开发一般会引入同步原语来保护共享资源的并发访问，这也会降低系统代码的易调试性和可维护性。为了避免这些问题，Redis直接采用了单线程模式。怎么理解？">
-<meta name="twitter:image" content="http://yoursite.com/2022/05/01/03-高性能IO模型：为什么单线程Redis能那么快？/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2022/05/01/03-%E9%AB%98%E6%80%A7%E8%83%BDIO%E6%A8%A1%E5%9E%8B%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8D%95%E7%BA%BF%E7%A8%8BRedis%E8%83%BD%E9%82%A3%E4%B9%88%E5%BF%AB%EF%BC%9F/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/05/01/03-高性能IO模型：为什么单线程Redis能那么快？/">
+  <link rel="canonical" href="http://yoursite.com/2022/05/01/03-高性能IO模型：为什么单线程Redis能那么快？/"/>
 
 
 
@@ -176,7 +176,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -237,7 +237,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -254,7 +254,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -271,7 +271,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -288,7 +288,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -305,7 +305,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -316,7 +316,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -336,7 +336,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -386,16 +388,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/05/01/03-高性能IO模型：为什么单线程Redis能那么快？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/05/01/03-%E9%AB%98%E6%80%A7%E8%83%BDIO%E6%A8%A1%E5%9E%8B%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8D%95%E7%BA%BF%E7%A8%8BRedis%E8%83%BD%E9%82%A3%E4%B9%88%E5%BF%AB%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -495,7 +497,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">4.7k</span>
+                <span title="本文字数">7.7k</span>
               
 
               
@@ -509,7 +511,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">4 分钟</span>
+                <span title="阅读时长">7 分钟</span>
               
             </div>
           
@@ -533,7 +535,7 @@
 <ul>
 <li>为什么不使用多线程？当有多个线程要修改这个共享资源时，为了保证共享资源的正确性，就需要有额外的机制进行保证，而这个额外的机制，就会带来额外的开销。而且，采用多线程开发一般会引入同步原语来保护共享资源的并发访问，这也会降低系统代码的易调试性和可维护性。为了避免这些问题，Redis直接采用了单线程模式。怎么理解？</li>
 </ul>
-<a id="more"></a>
+<span id="more"></span>
 <p>今天，我们来探讨一个很多人都很关心的问题：“为什么单线程的Redis能那么快？”</p>
 <p>首先，我要和你厘清一个事实，我们通常说，Redis是单线程，主要是指<strong>Redis的网络IO和键值对读写是由一个线程来完成的，这也是Redis对外提供键值存储服务的主要流程</strong>。但Redis的其他功能，比如持久化、异步删除、集群数据同步等，其实是由额外的线程执行的。</p>
 <p>所以，严格来说，Redis并不是单线程，但是我们一般把Redis称为单线程高性能，这样显得“酷”些。接下来，我也会把Redis称为单线程模式。而且，这也会促使你紧接着提问：“为什么用单线程？为什么单线程能这么快？”</p>
@@ -545,26 +547,26 @@
 <blockquote>
 <p>线程数与系统吞吐率</p>
 </blockquote>
-<img src="/2022/05/01/03-高性能IO模型：为什么单线程Redis能那么快？/1.webp">
+<img src="/2022/05/01/03-%E9%AB%98%E6%80%A7%E8%83%BDIO%E6%A8%A1%E5%9E%8B%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8D%95%E7%BA%BF%E7%A8%8BRedis%E8%83%BD%E9%82%A3%E4%B9%88%E5%BF%AB%EF%BC%9F/1.webp" class="">
 <h2 id="线程数与系统吞吐率"><a href="#线程数与系统吞吐率" class="headerlink" title="线程数与系统吞吐率"></a><span style="color:#00ACC1;">线程数与系统吞吐率</span></h2><p>为什么会出现这种情况呢？一个关键的瓶颈在于，系统中通常会存在被多线程同时访问的共享资源，比如一个共享的数据结构。当有多个线程要修改这个共享资源时，为了保证共享资源的正确性，就需要有额外的机制进行保证，而这个额外的机制，就会带来额外的开销。</p>
 <p>拿Redis来说，在上节课中，我提到过，Redis有List的数据类型，并提供出队（LPOP）和入队（LPUSH）操作。假设Redis采用多线程设计，如下图所示，现在有两个线程A和B，线程A对一个List做LPUSH操作，并对队列长度加1。同时，线程B对该List执行LPOP操作，并对队列长度减1。为了保证队列长度的正确性，Redis需要让线程A和B的LPUSH和LPOP串行执行，这样一来，Redis可以无误地记录它们对List长度的修改。否则，我们可能就会得到错误的长度结果。这就是<strong>多线程编程模式面临的共享资源的并发访问控制问题</strong>。</p>
 <blockquote>
 <p>多线程并发访问Redis</p>
 </blockquote>
-<img src="/2022/05/01/03-高性能IO模型：为什么单线程Redis能那么快？/2.webp">
+<img src="/2022/05/01/03-%E9%AB%98%E6%80%A7%E8%83%BDIO%E6%A8%A1%E5%9E%8B%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8D%95%E7%BA%BF%E7%A8%8BRedis%E8%83%BD%E9%82%A3%E4%B9%88%E5%BF%AB%EF%BC%9F/2.webp" class="">
 <p>并发访问控制一直是多线程开发中的一个难点问题，如果没有精细的设计，比如说，只是简单地采用一个粗粒度互斥锁，就会出现不理想的结果：即使增加了线程，大部分线程也在等待获取访问共享资源的互斥锁，并行变串行，系统吞吐率并没有随着线程的增加而增加。</p>
 <p>而且，采用多线程开发一般会引入同步原语来保护共享资源的并发访问，这也会降低系统代码的易调试性和可维护性。为了避免这些问题，Redis直接采用了单线程模式。</p>
 <p>讲到这里，你应该已经明白了“Redis为什么用单线程”，那么，接下来，我们就来看看，为什么单线程Redis能获得高性能。</p>
 <h1 id="单线程Redis为什么那么快？"><a href="#单线程Redis为什么那么快？" class="headerlink" title="单线程Redis为什么那么快？"></a><span style="color:#339AFF;">单线程Redis为什么那么快？</span></h1><p>通常来说，单线程的处理能力要比多线程差很多，但是Redis却能使用单线程模型达到每秒数十万级别的处理能力，这是为什么呢？其实，这是Redis多方面设计选择的一个综合结果。</p>
 <p>一方面，Redis的大部分操作在内存上完成，再加上它采用了高效的数据结构，例如哈希表和跳表，这是它实现高性能的一个重要原因。另一方面，就是Redis采用了<strong>多路复用机制</strong>，使其在网络IO操作中能并发处理大量的客户端请求，实现高吞吐率。接下来，我们就重点学习下多路复用机制。</p>
 <p>首先，我们要弄明白网络操作的基本IO模型和潜在的阻塞点。毕竟，Redis采用单线程进行IO，如果线程被阻塞了，就无法进行多路复用了。</p>
-<h2 id="基本IO模型与阻塞点"><a href="#基本IO模型与阻塞点" class="headerlink" title="基本IO模型与阻塞点"></a><span style="color:#00ACC1;">基本IO模型与阻塞点</span></h2><p>你还记得我在<a href="/2022/05/01/01-基本架构：一个键值数据库包含什么？/" title="第一节课">第一节课</a>介绍的具有网络框架的SimpleKV吗？</p>
+<h2 id="基本IO模型与阻塞点"><a href="#基本IO模型与阻塞点" class="headerlink" title="基本IO模型与阻塞点"></a><span style="color:#00ACC1;">基本IO模型与阻塞点</span></h2><p>你还记得我在<a href="/2022/05/01/01-%E5%9F%BA%E6%9C%AC%E6%9E%B6%E6%9E%84%EF%BC%9A%E4%B8%80%E4%B8%AA%E9%94%AE%E5%80%BC%E6%95%B0%E6%8D%AE%E5%BA%93%E5%8C%85%E5%90%AB%E4%BB%80%E4%B9%88%EF%BC%9F/" title="01 | 基本架构：一个键值数据库包含什么？">第一节课</a>介绍的具有网络框架的SimpleKV吗？</p>
 <p>以Get请求为例，SimpleKV为了处理一个Get请求，需要监听客户端请求（bind/listen），和客户端建立连接（accept），从socket中读取请求（recv），解析客户端发送请求（parse），根据请求类型读取键值数据（get），最后给客户端返回结果，即向socket中写回数据（send）。</p>
 <p>下图显示了这一过程，其中，bind/listen、accept、recv、parse和send属于网络IO处理，而get属于键值数据操作。既然Redis是单线程，那么，最基本的一种实现是在一个线程中依次执行上面说的这些操作。</p>
 <blockquote>
 <p>Redis基本IO模型</p>
 </blockquote>
-<img src="/2022/05/01/03-高性能IO模型：为什么单线程Redis能那么快？/3.webp">
+<img src="/2022/05/01/03-%E9%AB%98%E6%80%A7%E8%83%BDIO%E6%A8%A1%E5%9E%8B%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8D%95%E7%BA%BF%E7%A8%8BRedis%E8%83%BD%E9%82%A3%E4%B9%88%E5%BF%AB%EF%BC%9F/3.webp" class="">
 <h2 id="Redis基本IO模型"><a href="#Redis基本IO模型" class="headerlink" title="Redis基本IO模型"></a><span style="color:#00ACC1;">Redis基本IO模型</span></h2><p>但是，在这里的网络IO操作中，有潜在的阻塞点，分别是accept()和recv()。当Redis监听到一个客户端有连接请求，但一直未能成功建立起连接时，会阻塞在accept()函数这里，导致其他客户端无法和Redis建立连接。类似的，当Redis通过recv()从一个客户端读取数据时，如果数据一直没有到达，Redis也会一直阻塞在recv()。</p>
 <p>这就导致Redis整个线程阻塞，无法处理其他客户端请求，效率很低。不过，幸运的是，socket网络模型本身支持非阻塞模式。</p>
 <h2 id="非阻塞模式"><a href="#非阻塞模式" class="headerlink" title="非阻塞模式"></a><span style="color:#00ACC1;">非阻塞模式</span></h2><p>Socket网络模型的非阻塞模式设置，主要体现在三个关键的函数调用上，如果想要使用socket非阻塞模式，就必须要了解这三个函数的调用返回类型和设置模式。接下来，我们就重点学习下它们。</p>
@@ -572,7 +574,7 @@
 <blockquote>
 <p>Redis套接字类型与非阻塞设置</p>
 </blockquote>
-<img src="/2022/05/01/03-高性能IO模型：为什么单线程Redis能那么快？/4.webp">
+<img src="/2022/05/01/03-%E9%AB%98%E6%80%A7%E8%83%BDIO%E6%A8%A1%E5%9E%8B%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8D%95%E7%BA%BF%E7%A8%8BRedis%E8%83%BD%E9%82%A3%E4%B9%88%E5%BF%AB%EF%BC%9F/4.webp" class="">
 <p>针对监听套接字，我们可以设置非阻塞模式：当Redis调用accept()但一直未有连接请求到达时，Redis线程可以返回处理其他操作，而不用一直等待。但是，你要注意的是，调用accept()时，已经存在监听套接字了。</p>
 <p>虽然Redis线程可以不用继续等待，但是总得有机制继续在监听套接字上等待后续连接请求，并在有请求时通知Redis。</p>
 <p>类似的，我们也可以针对已连接套接字设置非阻塞模式：Redis调用recv()后，如果已连接套接字上一直没有数据到达，Redis线程同样可以返回处理其他操作。我们也需要有机制继续监听该已连接套接字，并在有数据达到时通知Redis。</p>
@@ -583,7 +585,7 @@
 <blockquote>
 <p>基于多路复用的Redis高性能IO模型</p>
 </blockquote>
-<img src="/2022/05/01/03-高性能IO模型：为什么单线程Redis能那么快？/5.webp">
+<img src="/2022/05/01/03-%E9%AB%98%E6%80%A7%E8%83%BDIO%E6%A8%A1%E5%9E%8B%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8D%95%E7%BA%BF%E7%A8%8BRedis%E8%83%BD%E9%82%A3%E4%B9%88%E5%BF%AB%EF%BC%9F/5.webp" class="">
 <p>为了在请求到达时能通知到Redis线程，select/epoll提供了<strong>基于事件的回调机制，即针对不同事件的发生，调用相应的处理函数</strong>。</p>
 <p>那么，回调机制是怎么工作的呢？其实，select/epoll一旦监测到FD上有请求到达时，就会触发相应的事件。</p>
 <p>这些事件会被放进一个事件队列，Redis单线程对该事件队列不断进行处理。这样一来，Redis无需一直轮询是否有请求实际发生，这就可以避免造成CPU资源浪费。同时，Redis在对事件队列中的事件进行处理时，会调用相应的处理函数，这就实现了基于事件的回调。因为Redis一直在对事件队列进行处理，所以能及时响应客户端请求，提升Redis的响应性能。</p>
@@ -619,7 +621,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Redis核心技术与实战/" rel="tag"># Redis核心技术与实战</a>
+            <a href="/tags/Redis%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E6%88%98/" rel="tag"># Redis核心技术与实战</a>
           
         </div>
       
@@ -632,7 +634,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/05/01/02-数据结构：快速的Redis有哪些慢操作？/" rel="next" title="02 | 数据结构：快速的Redis有哪些慢操作？">
+              <a href="/2022/05/01/02-%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%EF%BC%9A%E5%BF%AB%E9%80%9F%E7%9A%84Redis%E6%9C%89%E5%93%AA%E4%BA%9B%E6%85%A2%E6%93%8D%E4%BD%9C%EF%BC%9F/" rel="next" title="02 | 数据结构：快速的Redis有哪些慢操作？">
                 <i class="fa fa-chevron-left"></i> 02 | 数据结构：快速的Redis有哪些慢操作？
               </a>
             
@@ -642,7 +644,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/05/01/04-AOF日志：宕机了，Redis如何避免数据丢失？/" rel="prev" title="04 | AOF日志：宕机了，Redis如何避免数据丢失？">
+              <a href="/2022/05/01/04-AOF%E6%97%A5%E5%BF%97%EF%BC%9A%E5%AE%95%E6%9C%BA%E4%BA%86%EF%BC%8CRedis%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E6%95%B0%E6%8D%AE%E4%B8%A2%E5%A4%B1%EF%BC%9F/" rel="prev" title="04 | AOF日志：宕机了，Redis如何避免数据丢失？">
                 04 | AOF日志：宕机了，Redis如何避免数据丢失？ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -702,7 +704,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -713,9 +717,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -727,26 +731,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -818,7 +806,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -993,115 +981,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1132,23 +1012,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1174,7 +1054,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis为什么用单线程？"><span class="nav-number">1.</span> <span class="nav-text">Redis为什么用单线程？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#多线程的开销"><span class="nav-number">1.1.</span> <span class="nav-text">多线程的开销</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程数与系统吞吐率"><span class="nav-number">1.2.</span> <span class="nav-text">线程数与系统吞吐率</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#单线程Redis为什么那么快？"><span class="nav-number">2.</span> <span class="nav-text">单线程Redis为什么那么快？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本IO模型与阻塞点"><span class="nav-number">2.1.</span> <span class="nav-text">基本IO模型与阻塞点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis基本IO模型"><span class="nav-number">2.2.</span> <span class="nav-text">Redis基本IO模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非阻塞模式"><span class="nav-number">2.3.</span> <span class="nav-text">非阻塞模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于多路复用的高性能I-O模型"><span class="nav-number">2.4.</span> <span class="nav-text">基于多路复用的高性能I/O模型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#每课一问"><span class="nav-number">4.</span> <span class="nav-text">每课一问</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%A8%E5%8D%95%E7%BA%BF%E7%A8%8B%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">Redis为什么用单线程？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%BC%80%E9%94%80"><span class="nav-number">1.1.</span> <span class="nav-text">多线程的开销</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E6%95%B0%E4%B8%8E%E7%B3%BB%E7%BB%9F%E5%90%9E%E5%90%90%E7%8E%87"><span class="nav-number">1.2.</span> <span class="nav-text">线程数与系统吞吐率</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%95%E7%BA%BF%E7%A8%8BRedis%E4%B8%BA%E4%BB%80%E4%B9%88%E9%82%A3%E4%B9%88%E5%BF%AB%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">单线程Redis为什么那么快？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%ACIO%E6%A8%A1%E5%9E%8B%E4%B8%8E%E9%98%BB%E5%A1%9E%E7%82%B9"><span class="nav-number">2.1.</span> <span class="nav-text">基本IO模型与阻塞点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis%E5%9F%BA%E6%9C%ACIO%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">Redis基本IO模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9E%E9%98%BB%E5%A1%9E%E6%A8%A1%E5%BC%8F"><span class="nav-number">2.3.</span> <span class="nav-text">非阻塞模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8%E7%9A%84%E9%AB%98%E6%80%A7%E8%83%BDI-O%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.4.</span> <span class="nav-text">基于多路复用的高性能I&#x2F;O模型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AF%8F%E8%AF%BE%E4%B8%80%E9%97%AE"><span class="nav-number">4.</span> <span class="nav-text">每课一问</span></a></li></ol></div>
             
 
           </div>
@@ -1209,7 +1089,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1220,12 +1100,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1233,7 +1113,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

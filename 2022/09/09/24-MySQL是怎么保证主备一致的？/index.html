@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,34 +104,34 @@
 
 
   <meta name="description" content="思考并回答以下问题：  备库B拿到binlog后，写到本地文件，称为中转日志（relay log）。怎么理解？">
-<meta name="keywords" content="MySQL实战45讲">
 <meta property="og:type" content="article">
 <meta property="og:title" content="24 | MySQL是怎么保证主备一致的？">
-<meta property="og:url" content="http://yoursite.com/2022/09/09/24-MySQL是怎么保证主备一致的？/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/09/09/24-MySQL%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%BB%E5%A4%87%E4%B8%80%E8%87%B4%E7%9A%84%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：  备库B拿到binlog后，写到本地文件，称为中转日志（relay log）。怎么理解？">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/09/09/24-MySQL是怎么保证主备一致的？/1.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/09/24-MySQL是怎么保证主备一致的？/2.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/09/24-MySQL是怎么保证主备一致的？/3.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/09/24-MySQL是怎么保证主备一致的？/4.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/09/24-MySQL是怎么保证主备一致的？/5.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/09/24-MySQL是怎么保证主备一致的？/6.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/09/24-MySQL是怎么保证主备一致的？/7.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/09/24-MySQL是怎么保证主备一致的？/8.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/09/24-MySQL是怎么保证主备一致的？/9.webp">
-<meta property="og:updated_time" content="2022-11-07T10:04:20.981Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/09/09/24-MySQL%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%BB%E5%A4%87%E4%B8%80%E8%87%B4%E7%9A%84%EF%BC%9F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/09/24-MySQL%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%BB%E5%A4%87%E4%B8%80%E8%87%B4%E7%9A%84%EF%BC%9F/2.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/09/24-MySQL%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%BB%E5%A4%87%E4%B8%80%E8%87%B4%E7%9A%84%EF%BC%9F/3.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/09/24-MySQL%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%BB%E5%A4%87%E4%B8%80%E8%87%B4%E7%9A%84%EF%BC%9F/4.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/09/24-MySQL%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%BB%E5%A4%87%E4%B8%80%E8%87%B4%E7%9A%84%EF%BC%9F/5.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/09/24-MySQL%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%BB%E5%A4%87%E4%B8%80%E8%87%B4%E7%9A%84%EF%BC%9F/6.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/09/24-MySQL%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%BB%E5%A4%87%E4%B8%80%E8%87%B4%E7%9A%84%EF%BC%9F/7.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/09/24-MySQL%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%BB%E5%A4%87%E4%B8%80%E8%87%B4%E7%9A%84%EF%BC%9F/8.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/09/24-MySQL%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%BB%E5%A4%87%E4%B8%80%E8%87%B4%E7%9A%84%EF%BC%9F/9.webp">
+<meta property="article:published_time" content="2022-09-09T09:49:54.000Z">
+<meta property="article:modified_time" content="2022-11-07T10:04:20.981Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="MySQL实战45讲">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="24 | MySQL是怎么保证主备一致的？">
-<meta name="twitter:description" content="思考并回答以下问题：  备库B拿到binlog后，写到本地文件，称为中转日志（relay log）。怎么理解？">
-<meta name="twitter:image" content="http://yoursite.com/2022/09/09/24-MySQL是怎么保证主备一致的？/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2022/09/09/24-MySQL%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%BB%E5%A4%87%E4%B8%80%E8%87%B4%E7%9A%84%EF%BC%9F/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/09/09/24-MySQL是怎么保证主备一致的？/">
+  <link rel="canonical" href="http://yoursite.com/2022/09/09/24-MySQL是怎么保证主备一致的？/"/>
 
 
 
@@ -180,7 +180,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -241,7 +241,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -258,7 +258,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -275,7 +275,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -292,7 +292,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -309,7 +309,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -320,7 +320,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -340,7 +340,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -390,16 +392,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/09/24-MySQL是怎么保证主备一致的？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/09/24-MySQL%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%BB%E5%A4%87%E4%B8%80%E8%87%B4%E7%9A%84%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -499,7 +501,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">8.5k</span>
+                <span title="本文字数">16k</span>
               
 
               
@@ -513,7 +515,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">8 分钟</span>
+                <span title="阅读时长">15 分钟</span>
               
             </div>
           
@@ -537,7 +539,7 @@
 <ul>
 <li>备库B拿到binlog后，写到本地文件，称为中转日志（relay log）。怎么理解？</li>
 </ul>
-<a id="more"></a>
+<span id="more"></span>
 <p>在前面的文章中，我不止一次地和你提到了binlog，大家知道binlog可以用来归档，也可以用来做主备同步，但它的内容是什么样的呢？为什么备库执行了binlog就可以跟主库保持一致了呢？今天我就正式地和你介绍一下它。</p>
 <p>毫不夸张地说，MySQL能够成为现下最流行的开源数据库，binlog功不可没。</p>
 <p>在最开始，MySQL是以容易学习和方便的高可用架构，被开发人员青睐的。而它的几乎所有的高可用架构，都直接依赖于binlog。虽然这些高可用架构已经呈现出越来越复杂的趋势，但都是从最基本的一主一备演化过来的。</p>
@@ -546,7 +548,7 @@
 <blockquote>
 <p>图1 MySQL主备切换流程</p>
 </blockquote>
-<img src="/2022/09/09/24-MySQL是怎么保证主备一致的？/1.webp">
+<img src="/2022/09/09/24-MySQL%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%BB%E5%A4%87%E4%B8%80%E8%87%B4%E7%9A%84%EF%BC%9F/1.webp" class="">
 <p>在状态1中，客户端的读写都直接访问节点A，而节点B是A的备库，只是将A的更新都同步过来，到本地执行。这样可以保持节点B和A的数据是相同的。</p>
 <p>当需要切换的时候，就切成状态2。这时候客户端读写访问的都是节点B，而节点A是B的备库。</p>
 <p>在状态1中，虽然节点B没有被直接访问，但是我依然建议你把节点B（也就是备库）设置成只读（readonly）模式。这样做，有以下几个考虑：</p>
@@ -559,7 +561,7 @@
 <blockquote>
 <p>图2 主备流程图</p>
 </blockquote>
-<img src="/2022/09/09/24-MySQL是怎么保证主备一致的？/2.webp">
+<img src="/2022/09/09/24-MySQL%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%BB%E5%A4%87%E4%B8%80%E8%87%B4%E7%9A%84%EF%BC%9F/2.webp" class="">
 <p>图2中，包含了我在上一篇文章中讲到的binlog和redo log的写入机制相关的内容，可以看到：主库接收到客户端的更新请求后，执行内部事务的更新逻辑，同时写binlog。</p>
 <p>备库B跟主库A之间维持了一个长连接。主库A内部有一个线程，专门用于服务备库B的这个长连接。一个事务日志同步的完整过程是这样的：</p>
 <p>1，在备库B上通过<code>change master</code>命令，设置主库A的IP、端口、用户名、密码，以及要从哪个位置开始请求binlog，这个位置包含文件名和日志偏移量。</p>
@@ -569,16 +571,13 @@
 <p>5，sql_thread读取中转日志，解析出日志里的命令，并执行。</p>
 <p>这里需要说明，后来由于多线程复制方案的引入，sql_thread演化成为了多个线程，跟我们今天要介绍的原理没有直接关系，暂且不展开。</p>
 <p>分析完了这个长连接的逻辑，我们再来看一个问题：binlog里面到底是什么内容，为什么备库拿过去可以直接执行。</p>
-<h1 id="binlog的三种格式对比"><a href="#binlog的三种格式对比" class="headerlink" title="binlog的三种格式对比"></a><span style="color:#339AFF;">binlog的三种格式对比</span></h1><p>我在<a href="/2022/09/09/15-日志和索引相关问题/" title="第15篇答疑文章">第15篇答疑文章</a>中，和你提到过binlog有两种格式，一种是statement，一种是row。可能你在其他资料上还会看到有第三种格式，叫作mixed，其实它就是前两种格式的混合。</p>
-<p>为了便于描述binlog的这三种格式间的区别，我创建了一个表，并初始化几行数据。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`t`</span> (</span><br><span class="line">    <span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`a`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`t_modified`</span> <span class="built_in">timestamp</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">CURRENT_TIMESTAMP</span>,</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>),</span><br><span class="line">    <span class="keyword">KEY</span> <span class="string">`a`</span> (<span class="string">`a`</span>),</span><br><span class="line">    <span class="keyword">KEY</span> <span class="string">`t_modified`</span>(<span class="string">`t_modified`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t <span class="keyword">values</span>(<span class="number">1</span>,<span class="number">1</span>,<span class="string">'2018-11-13'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t <span class="keyword">values</span>(<span class="number">2</span>,<span class="number">2</span>,<span class="string">'2018-11-12'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t <span class="keyword">values</span>(<span class="number">3</span>,<span class="number">3</span>,<span class="string">'2018-11-11'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t <span class="keyword">values</span>(<span class="number">4</span>,<span class="number">4</span>,<span class="string">'2018-11-10'</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t <span class="keyword">values</span>(<span class="number">5</span>,<span class="number">5</span>,<span class="string">'2018-11-09'</span>);</span><br></pre></td></tr></table></figure></p>
-<p>如果要在表中删除一行数据的话，我们来看看这个delete语句的binlog是怎么记录的。</p>
-<p>注意，下面这个语句包含注释，如果你用MySQL客户端来做这个实验的话，要记得加<code>-c</code>参数，否则客户端会自动去掉注释。<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; delete from t /*comment*/  where a&gt;=4 and t_modified&lt;='2018-11-10' limit 1;</span><br></pre></td></tr></table></figure></p>
-<p>当<code>binlog_format=statement</code>时，binlog里面记录的就是SQL语句的原文。你可以用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show binlog events <span class="keyword">in</span> <span class="string">'master.000001'</span>;</span><br></pre></td></tr></table></figure></p>
-<p>命令看binlog中的内容。</p>
+<h1 id="binlog的三种格式对比"><a href="#binlog的三种格式对比" class="headerlink" title="binlog的三种格式对比"></a><span style="color:#339AFF;">binlog的三种格式对比</span></h1><p>我在<a href="/2022/09/09/15-%E6%97%A5%E5%BF%97%E5%92%8C%E7%B4%A2%E5%BC%95%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98/" title="15 | 日志和索引相关问题">第15篇答疑文章</a>中，和你提到过binlog有两种格式，一种是statement，一种是row。可能你在其他资料上还会看到有第三种格式，叫作mixed，其实它就是前两种格式的混合。</p>
+<p>为了便于描述binlog的这三种格式间的区别，我创建了一个表，并初始化几行数据。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `t` (</span><br><span class="line">    `id` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    `a` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    `t_modified` <span class="type">timestamp</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="built_in">CURRENT_TIMESTAMP</span>,</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (`id`),</span><br><span class="line">    KEY `a` (`a`),</span><br><span class="line">    KEY `t_modified`(`t_modified`)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB;</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t <span class="keyword">values</span>(<span class="number">1</span>,<span class="number">1</span>,<span class="string">&#x27;2018-11-13&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t <span class="keyword">values</span>(<span class="number">2</span>,<span class="number">2</span>,<span class="string">&#x27;2018-11-12&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t <span class="keyword">values</span>(<span class="number">3</span>,<span class="number">3</span>,<span class="string">&#x27;2018-11-11&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t <span class="keyword">values</span>(<span class="number">4</span>,<span class="number">4</span>,<span class="string">&#x27;2018-11-10&#x27;</span>);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t <span class="keyword">values</span>(<span class="number">5</span>,<span class="number">5</span>,<span class="string">&#x27;2018-11-09&#x27;</span>);</span><br></pre></td></tr></table></figure><br>如果要在表中删除一行数据的话，我们来看看这个delete语句的binlog是怎么记录的。</p>
+<p>注意，下面这个语句包含注释，如果你用MySQL客户端来做这个实验的话，要记得加<code>-c</code>参数，否则客户端会自动去掉注释。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">delete</span> <span class="keyword">from</span> t <span class="comment">/*comment*/</span>  <span class="keyword">where</span> a<span class="operator">&gt;=</span><span class="number">4</span> <span class="keyword">and</span> t_modified<span class="operator">&lt;=</span><span class="string">&#x27;2018-11-10&#x27;</span> limit <span class="number">1</span>;</span><br></pre></td></tr></table></figure><br>当<code>binlog_format=statement</code>时，binlog里面记录的就是SQL语句的原文。你可以用<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show binlog events <span class="keyword">in</span> <span class="string">&#x27;master.000001&#x27;</span>;</span><br></pre></td></tr></table></figure><br>命令看binlog中的内容。</p>
 <blockquote>
 <p>图3 statement格式binlog示例</p>
 </blockquote>
-<img src="/2022/09/09/24-MySQL是怎么保证主备一致的？/3.webp">
+<img src="/2022/09/09/24-MySQL%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%BB%E5%A4%87%E4%B8%80%E8%87%B4%E7%9A%84%EF%BC%9F/3.webp" class="">
 <p>现在，我们来看一下图3的输出结果。</p>
 <ul>
 <li>第一行<code>SET @@SESSION.GTID_NEXT=&#39;ANONYMOUS’</code>你可以先忽略，后面文章我们会在介绍主备切换的时候再提到；</li>
@@ -590,7 +589,7 @@
 <blockquote>
 <p>图4 delete执行warnings</p>
 </blockquote>
-<img src="/2022/09/09/24-MySQL是怎么保证主备一致的？/4.webp">
+<img src="/2022/09/09/24-MySQL%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%BB%E5%A4%87%E4%B8%80%E8%87%B4%E7%9A%84%EF%BC%9F/4.webp" class="">
 <p>可以看到，运行这条delete命令产生了一个warning，原因是当前binlog设置的是statement格式，并且语句中有limit，所以这个命令可能是unsafe的。</p>
 <p>为什么这么说呢？这是因为delete带limit，很可能会出现主备数据不一致的情况。比如上面这个例子：</p>
 <p>1，如果delete语句使用的是索引a，那么会根据索引a找到第一个满足条件的行，也就是说删除的是a=4这一行；</p>
@@ -600,7 +599,7 @@
 <blockquote>
 <p>图5 row格式binlog示例</p>
 </blockquote>
-<img src="/2022/09/09/24-MySQL是怎么保证主备一致的？/5.webp">
+<img src="/2022/09/09/24-MySQL%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%BB%E5%A4%87%E4%B8%80%E8%87%B4%E7%9A%84%EF%BC%9F/5.webp" class="">
 <p>可以看到，与statement格式的binlog相比，前后的BEGIN和COMMIT是一样的。但是，row格式的binlog里没有了SQL语句的原文，而是替换成了两个event：Table_map和Delete_rows。</p>
 <p>1，Table_map event，用于说明接下来要操作的表是test库的表t；</p>
 <p>2，Delete_rows event，用于定义删除的行为。</p>
@@ -608,7 +607,7 @@
 <blockquote>
 <p>图6 row格式binlog示例的详细信息</p>
 </blockquote>
-<img src="/2022/09/09/24-MySQL是怎么保证主备一致的？/6.webp">
+<img src="/2022/09/09/24-MySQL%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%BB%E5%A4%87%E4%B8%80%E8%87%B4%E7%9A%84%EF%BC%9F/6.webp" class="">
 <p>从这个图中，我们可以看到以下几个信息：</p>
 <ul>
 <li>server id 1，表示这个事务是在server_id=1的这个库上执行的。</li>
@@ -633,32 +632,30 @@
 <p>通过图6你可以看出来，即使我执行的是delete语句，row格式的binlog也会把被删掉的行的整行信息保存起来。所以，如果你在执行完一条delete语句以后，发现删错数据了，可以直接把binlog中记录的delete语句转成insert，把被错删的数据插入回去就可以恢复了。</p>
 <p>如果你是执行错了insert语句呢？那就更直接了。row格式下，insert语句的binlog里会记录所有的字段信息，这些信息可以用来精确定位刚刚被插入的那一行。这时，你直接把insert语句转成delete语句，删除掉这被误插入的一行数据就可以了。</p>
 <p>如果执行的是update语句的话，binlog里面会记录修改前整行的数据和修改后的整行数据。所以，如果你误执行了update语句的话，只需要把这个event前后的两行信息对调一下，再去数据库里面执行，就能恢复这个更新操作了。</p>
-<p>其实，由delete、insert或者update语句导致的数据操作错误，需要恢复到操作之前状态的情况，也时有发生。MariaDB的<a href="https://mariadb.com/kb/en/library/flashback/" target="_blank" rel="noopener">Flashback</a>工具就是基于上面介绍的原理来回滚数据的。</p>
-<p>虽然mixed格式的binlog现在已经用得不多了，但这里我还是要再借用一下mixed格式来说明一个问题，来看一下这条SQL语句：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; insert into t values(10,10, now());</span><br></pre></td></tr></table></figure></p>
-<p>如果我们把binlog格式设置为mixed，你觉得MySQL会把它记录为row格式还是statement格式呢？</p>
+<p>其实，由delete、insert或者update语句导致的数据操作错误，需要恢复到操作之前状态的情况，也时有发生。MariaDB的<a href="https://mariadb.com/kb/en/library/flashback/">Flashback</a>工具就是基于上面介绍的原理来回滚数据的。</p>
+<p>虽然mixed格式的binlog现在已经用得不多了，但这里我还是要再借用一下mixed格式来说明一个问题，来看一下这条SQL语句：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t <span class="keyword">values</span>(<span class="number">10</span>,<span class="number">10</span>, now());</span><br></pre></td></tr></table></figure><br>如果我们把binlog格式设置为mixed，你觉得MySQL会把它记录为row格式还是statement格式呢？</p>
 <p>先不要着急说结果，我们一起来看一下这条语句执行的效果。</p>
 <blockquote>
 <p>图7 mixed格式和now()</p>
 </blockquote>
-<img src="/2022/09/09/24-MySQL是怎么保证主备一致的？/7.webp">
+<img src="/2022/09/09/24-MySQL%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%BB%E5%A4%87%E4%B8%80%E8%87%B4%E7%9A%84%EF%BC%9F/7.webp" class="">
 <p>可以看到，MySQL用的居然是statement格式。你一定会奇怪，如果这个binlog过了1分钟才传给备库的话，那主备的数据不就不一致了吗？</p>
 <p>接下来，我们再用mysqlbinlog工具来看看：</p>
 <blockquote>
 <p>图8 TIMESTAMP命令</p>
 </blockquote>
-<img src="/2022/09/09/24-MySQL是怎么保证主备一致的？/8.webp">
+<img src="/2022/09/09/24-MySQL%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%BB%E5%A4%87%E4%B8%80%E8%87%B4%E7%9A%84%EF%BC%9F/8.webp" class="">
 <p>从图中的结果可以看到，原来binlog在记录event的时候，多记了一条命令：<code>SET TIMESTAMP=1546103491</code>。它用SETTIMESTAMP命令约定了接下来的now()函数的返回时间。</p>
 <p>因此，不论这个binlog是1分钟之后被备库执行，还是3天后用来恢复这个库的备份，这个insert语句插入的行，值都是固定的。也就是说，通过这条SETTIMESTAMP命令，MySQL就确保了主备数据的一致性。</p>
 <p>我之前看过有人在重放binlog数据的时候，是这么做的：用mysqlbinlog解析出日志，然后把里面的statement语句直接拷贝出来执行。</p>
 <p>你现在知道了，这个方法是有风险的。因为有些语句的执行结果是依赖于上下文命令的，直接执行的结果很可能是错误的。</p>
-<p>所以，用binlog来恢复数据的标准做法是，用mysqlbinlog工具解析出来，然后把解析结果整个发给MySQL执行。类似下面的命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqlbinlog master.000001  --start-position=2738 --stop-position=2973 | mysql -h127.0.0.1 -P13000 -u<span class="variable">$user</span> -p<span class="variable">$pwd</span>;</span><br></pre></td></tr></table></figure></p>
-<p>这个命令的意思是，将master.000001文件里面从第2738字节到第2973字节中间这段内容解析出来，放到MySQL去执行。</p>
+<p>所以，用binlog来恢复数据的标准做法是，用mysqlbinlog工具解析出来，然后把解析结果整个发给MySQL执行。类似下面的命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqlbinlog master.000001  --start-position=2738 --stop-position=2973 | mysql -h127.0.0.1 -P13000 -u<span class="variable">$user</span> -p<span class="variable">$pwd</span>;</span><br></pre></td></tr></table></figure><br>这个命令的意思是，将master.000001文件里面从第2738字节到第2973字节中间这段内容解析出来，放到MySQL去执行。</p>
 <h1 id="循环复制问题"><a href="#循环复制问题" class="headerlink" title="循环复制问题"></a><span style="color:#339AFF;">循环复制问题</span></h1><p>通过上面对MySQL中binlog基本内容的理解，你现在可以知道，binlog的特性确保了在备库执行相同的binlog，可以得到与主库相同的状态。</p>
 <p>因此，我们可以认为正常情况下主备的数据是一致的。也就是说，图1中A、B两个节点的内容是一致的。其实，图1中我画的是M-S结构，但实际生产上使用比较多的是双M结构，也就是图9所示的主备切换流程。</p>
 <blockquote>
 <p>图9 MySQL主备切换流程—双M结构</p>
 </blockquote>
-<img src="/2022/09/09/24-MySQL是怎么保证主备一致的？/9.webp">
+<img src="/2022/09/09/24-MySQL%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%BB%E5%A4%87%E4%B8%80%E8%87%B4%E7%9A%84%EF%BC%9F/9.webp" class="">
 <p>对比图9和图1，你可以发现，双M结构和M-S结构，其实区别只是多了一条线，即：节点A和B之间总是互为主备关系。这样在切换的时候就不用再修改主备关系。</p>
 <p>但是，双M结构还有一个问题需要解决。</p>
 <p>业务逻辑在节点A上更新了一条语句，然后再把生成的binlog发给节点B，节点B执行完这条更新语句后也会生成binlog。（我建议你把参数log_slave_updates设置为on，表示备库执行relay log后生成binlog）。</p>
@@ -710,7 +707,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/MySQL实战45讲/" rel="tag"># MySQL实战45讲</a>
+            <a href="/tags/MySQL%E5%AE%9E%E6%88%9845%E8%AE%B2/" rel="tag"># MySQL实战45讲</a>
           
         </div>
       
@@ -723,7 +720,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/09/09/23-MySQL是怎么保证数据不丢的？/" rel="next" title="23 | MySQL是怎么保证数据不丢的？">
+              <a href="/2022/09/09/23-MySQL%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E6%95%B0%E6%8D%AE%E4%B8%8D%E4%B8%A2%E7%9A%84%EF%BC%9F/" rel="next" title="23 | MySQL是怎么保证数据不丢的？">
                 <i class="fa fa-chevron-left"></i> 23 | MySQL是怎么保证数据不丢的？
               </a>
             
@@ -733,7 +730,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/09/09/25-MySQL是怎么保证高可用的？/" rel="prev" title="25 | MySQL是怎么保证高可用的？">
+              <a href="/2022/09/09/25-MySQL%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84%EF%BC%9F/" rel="prev" title="25 | MySQL是怎么保证高可用的？">
                 25 | MySQL是怎么保证高可用的？ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -793,7 +790,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -804,9 +803,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -818,26 +817,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -909,7 +892,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1084,115 +1067,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1223,23 +1098,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1265,7 +1140,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL主备的基本原理"><span class="nav-number">1.</span> <span class="nav-text">MySQL主备的基本原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#binlog的三种格式对比"><span class="nav-number">2.</span> <span class="nav-text">binlog的三种格式对比</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么会有mixed格式的binlog？"><span class="nav-number">3.</span> <span class="nav-text">为什么会有mixed格式的binlog？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#循环复制问题"><span class="nav-number">4.</span> <span class="nav-text">循环复制问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#上期问题时间"><span class="nav-number">6.</span> <span class="nav-text">上期问题时间</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL%E4%B8%BB%E5%A4%87%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">MySQL主备的基本原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#binlog%E7%9A%84%E4%B8%89%E7%A7%8D%E6%A0%BC%E5%BC%8F%E5%AF%B9%E6%AF%94"><span class="nav-number">2.</span> <span class="nav-text">binlog的三种格式对比</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E6%9C%89mixed%E6%A0%BC%E5%BC%8F%E7%9A%84binlog%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">为什么会有mixed格式的binlog？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E5%A4%8D%E5%88%B6%E9%97%AE%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">循环复制问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8A%E6%9C%9F%E9%97%AE%E9%A2%98%E6%97%B6%E9%97%B4"><span class="nav-number">6.</span> <span class="nav-text">上期问题时间</span></a></li></ol></div>
             
 
           </div>
@@ -1300,7 +1175,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1311,12 +1186,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1324,7 +1199,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

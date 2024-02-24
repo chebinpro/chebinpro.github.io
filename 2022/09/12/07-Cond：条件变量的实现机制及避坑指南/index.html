@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,27 +104,27 @@
 
 
   <meta name="description" content="思考并回答以下问题：  Cond通常应用于等待某个条件的一组goroutine，等条件变为true的时候，其中一个goroutine或者所有的goroutine都会被唤醒执行。怎么理解？">
-<meta name="keywords" content="Go并发编程实战课">
 <meta property="og:type" content="article">
 <meta property="og:title" content="07 | Cond：条件变量的实现机制及避坑指南">
-<meta property="og:url" content="http://yoursite.com/2022/09/12/07-Cond：条件变量的实现机制及避坑指南/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/09/12/07-Cond%EF%BC%9A%E6%9D%A1%E4%BB%B6%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6%E5%8F%8A%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：  Cond通常应用于等待某个条件的一组goroutine，等条件变为true的时候，其中一个goroutine或者所有的goroutine都会被唤醒执行。怎么理解？">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/07-Cond：条件变量的实现机制及避坑指南/1.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/07-Cond：条件变量的实现机制及避坑指南/2.webp">
-<meta property="og:updated_time" content="2022-10-14T06:03:48.607Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/07-Cond%EF%BC%9A%E6%9D%A1%E4%BB%B6%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6%E5%8F%8A%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97/1.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/07-Cond%EF%BC%9A%E6%9D%A1%E4%BB%B6%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6%E5%8F%8A%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97/2.webp">
+<meta property="article:published_time" content="2022-09-12T08:06:24.000Z">
+<meta property="article:modified_time" content="2022-10-14T06:03:48.607Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Go并发编程实战课">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="07 | Cond：条件变量的实现机制及避坑指南">
-<meta name="twitter:description" content="思考并回答以下问题：  Cond通常应用于等待某个条件的一组goroutine，等条件变为true的时候，其中一个goroutine或者所有的goroutine都会被唤醒执行。怎么理解？">
-<meta name="twitter:image" content="http://yoursite.com/2022/09/12/07-Cond：条件变量的实现机制及避坑指南/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2022/09/12/07-Cond%EF%BC%9A%E6%9D%A1%E4%BB%B6%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6%E5%8F%8A%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/09/12/07-Cond：条件变量的实现机制及避坑指南/">
+  <link rel="canonical" href="http://yoursite.com/2022/09/12/07-Cond：条件变量的实现机制及避坑指南/"/>
 
 
 
@@ -173,7 +173,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -234,7 +234,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -251,7 +251,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -268,7 +268,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -285,7 +285,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -302,7 +302,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -313,7 +313,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -333,7 +333,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -383,16 +385,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/12/07-Cond：条件变量的实现机制及避坑指南/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/12/07-Cond%EF%BC%9A%E6%9D%A1%E4%BB%B6%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6%E5%8F%8A%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -492,7 +494,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">9.1k</span>
+                <span title="本文字数">26k</span>
               
 
               
@@ -506,7 +508,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">8 分钟</span>
+                <span title="阅读时长">23 分钟</span>
               
             </div>
           
@@ -530,18 +532,17 @@
 <ul>
 <li>Cond通常应用于等待某个条件的一组goroutine，等条件变为true的时候，其中一个goroutine或者所有的goroutine都会被唤醒执行。怎么理解？</li>
 </ul>
-<a id="more"></a>
+<span id="more"></span>
 <p>在写Go程序之前，我曾经写了10多年的Java程序，也面试过不少Java程序员。在Java面试中，经常被问到的一个知识点就是等待/通知（wait/notify）机制。面试官经常会这样考察候选人：请实现一个限定容量的队列（queue），当队列满或者空的时候，利用等待/通知机制实现阻塞或者唤醒。</p>
 <p>在Go中，也可以实现一个类似的限定容量的队列，而且实现起来也比较简单，只要用条件变量（Cond）并发原语就可以。Cond并发原语相对来说不是那么常用，但是在特定的场景使用会事半功倍，比如你需要在唤醒一个或者所有的等待者做一些检查操作的时候。</p>
 <p>那么今天这一讲，我们就学习下Cond这个并发原语。</p>
 <h1 id="Go标准库的Cond"><a href="#Go标准库的Cond" class="headerlink" title="Go标准库的Cond"></a><span style="color:#339AFF;">Go标准库的Cond</span></h1><p>Go标准库提供Cond原语的目的是，为等待/通知场景下的并发问题提供支持。Cond通常应用于等待某个条件的一组goroutine，等条件变为true的时候，其中一个goroutine或者所有的goroutine都会被唤醒执行。</p>
 <p>顾名思义，Cond是和某个条件相关，这个条件需要一组goroutine协作共同完成，在条件还没有满足的时候，所有等待这个条件的goroutine都会被阻塞住，只有这一组goroutine通过协作达到了这个条件，等待的goroutine才可能继续进行下去。</p>
 <p>那这里等待的条件是什么呢？等待的条件，可以是某个变量达到了某个阈值或者某个时间点，也可以是一组变量分别都达到了某个阈值，还可以是某个对象的状态满足了特定的条件。总结来讲，等待的条件是一种可以用来计算结果是true还是false的条件。</p>
-<p>从开发实践上，我们真正使用Cond的场景比较少，因为一旦遇到需要使用Cond的场景，我们更多地会使用Channel的方式（我会在第12和第13讲展开Channel的用法）去实现，因为那才是更地道的Go语言的写法，甚至Go的开发者有个“把Cond从标准库移除”的提议（<a href="https://github.com/golang/go/issues/21165" target="_blank" rel="noopener">issue 21165</a>）。而有的开发者认为，Cond是唯一难以掌握的Go并发原语。至于其中原因，我先卖个关子，到这一讲的后半部分我再和你解释。</p>
+<p>从开发实践上，我们真正使用Cond的场景比较少，因为一旦遇到需要使用Cond的场景，我们更多地会使用Channel的方式（我会在第12和第13讲展开Channel的用法）去实现，因为那才是更地道的Go语言的写法，甚至Go的开发者有个“把Cond从标准库移除”的提议（<a href="https://github.com/golang/go/issues/21165">issue 21165</a>）。而有的开发者认为，Cond是唯一难以掌握的Go并发原语。至于其中原因，我先卖个关子，到这一讲的后半部分我再和你解释。</p>
 <p>今天，这一讲我们就带你仔细地学一学Cond这个并发原语吧。</p>
 <h1 id="Cond的基本用法"><a href="#Cond的基本用法" class="headerlink" title="Cond的基本用法"></a><span style="color:#339AFF;">Cond的基本用法</span></h1><p>标准库中的Cond并发原语初始化的时候，需要关联一个Locker接口的实例，一般我们使用Mutex或者RWMutex。</p>
-<p>我们看一下Cond的实现：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Cond</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NeWCond</span><span class="params">(l Locker)</span> *<span class="title">Cond</span></span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="params">(c *Cond)</span> <span class="title">Broadcast</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="params">(c *Cond)</span> <span class="title">Signal</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="params">(c *Cond)</span> <span class="title">Wait</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
-<p>首先，Cond关联的Locker实例可以通过c.L访问，它内部维护着一个先入先出的等待队列。</p>
+<p>我们看一下Cond的实现：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Cond</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NeWCond</span><span class="params">(l Locker)</span></span> *Cond</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *Cond)</span></span> Broadcast()</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *Cond)</span></span> Signal()</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *Cond)</span></span> Wait()</span><br></pre></td></tr></table></figure><br>首先，Cond关联的Locker实例可以通过c.L访问，它内部维护着一个先入先出的等待队列。</p>
 <p>然后，我们分别看下它的三个方法Broadcast、Signal和Wait方法。</p>
 <p>Signal方法，允许调用者Caller唤醒一个等待此Cond的goroutine。如果此时没有等待的goroutine，显然无需通知waiter；如果Cond等待队列中有一个或者多个等待的goroutine，则需要从等待队列中移除第一个goroutine并把它唤醒。在其他编程语言中，比如Java语言中，Signal方法也被叫做notify方法。</p>
 <p>调用Signal方法时，不强求你一定要持有c.L的锁。</p>
@@ -552,23 +553,19 @@
 <p>Go实现的sync.Cond的方法名是Wait、Signal和Broadcast，这是计算机科学中条件变量的通用方法名。比如，C语言中对应的方法名是pthread_cond_wait、pthread_cond_signal和pthread_cond_broadcast。</p>
 <p>知道了Cond提供的三个方法后，我们再通过一个百米赛跑开始时的例子，来学习下Cond的使用方法。10个运动员进入赛场之后需要先做拉伸活动活动筋骨，向观众和粉丝招手致敬，在自己的赛道上做好准备；等所有的运动员都准备好之后，裁判员才会打响发令枪。</p>
 <p>每个运动员做好准备之后，将ready加一，表明自己做好准备了，同时调用Broadcast方法通知裁判员。因为裁判员只有一个，所以这里可以直接替换成Signal方法调用。调用Broadcast方法的时候，我们并没有请求c.L锁，只是在更改等待变量的时候才使用到了锁。</p>
-<p>裁判员会等待运动员都准备好（第22行）。虽然每个运动员准备好之后都唤醒了裁判员，但是裁判员被唤醒之后需要检查等待条件是否满足（运动员都准备好了）。可以看到，裁判员被唤醒之后一定要检查等待条件，如果条件不满足还是要继续等待。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    c := sync.NewCond(&amp;sync.Mutex&#123;&#125;)</span><br><span class="line">    <span class="keyword">var</span> ready <span class="keyword">int</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>; i++ &#123;</span><br><span class="line">        <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(i <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">            time.Sleep(time.Duration(rand.Int63n(<span class="number">10</span>)) * time.Second)</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 加锁更改等待条件</span></span><br><span class="line">            c.L.Lock()</span><br><span class="line">            ready++</span><br><span class="line">            c.L.Unlock()</span><br><span class="line"></span><br><span class="line">            log.Printf(<span class="string">"运动员#%d 已准备就绪\n"</span>, i)</span><br><span class="line">            <span class="comment">// 广播唤醒所有的等待者</span></span><br><span class="line">            c.Broadcast()</span><br><span class="line">        &#125;(i)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    c.L.Lock()</span><br><span class="line">    <span class="keyword">for</span> ready != <span class="number">10</span> &#123;</span><br><span class="line">        c.Wait()</span><br><span class="line">        log.Println(<span class="string">"裁判员被唤醒一次"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    c.L.Unlock()</span><br><span class="line"></span><br><span class="line">    <span class="comment">//所有的运动员是否就绪</span></span><br><span class="line">    log.Println(<span class="string">"所有运动员都准备就绪。比赛开始，3，2，1, ......"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>你看，Cond的使用其实没那么简单。它的复杂在于：一，这段代码有时候需要加锁，有时候可以不加；二，Wait唤醒后需要检查条件；三，条件变量的更改，其实是需要原子操作或者互斥锁保护的。所以，有的开发者会认为，Cond是唯一难以掌握的Go并发原语。</p>
+<p>裁判员会等待运动员都准备好（第22行）。虽然每个运动员准备好之后都唤醒了裁判员，但是裁判员被唤醒之后需要检查等待条件是否满足（运动员都准备好了）。可以看到，裁判员被唤醒之后一定要检查等待条件，如果条件不满足还是要继续等待。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    c := sync.NewCond(&amp;sync.Mutex&#123;&#125;)</span><br><span class="line">    <span class="keyword">var</span> ready <span class="type">int</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>; i++ &#123;</span><br><span class="line">        <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(i <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">            time.Sleep(time.Duration(rand.Int63n(<span class="number">10</span>)) * time.Second)</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 加锁更改等待条件</span></span><br><span class="line">            c.L.Lock()</span><br><span class="line">            ready++</span><br><span class="line">            c.L.Unlock()</span><br><span class="line"></span><br><span class="line">            log.Printf(<span class="string">&quot;运动员#%d 已准备就绪\n&quot;</span>, i)</span><br><span class="line">            <span class="comment">// 广播唤醒所有的等待者</span></span><br><span class="line">            c.Broadcast()</span><br><span class="line">        &#125;(i)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    c.L.Lock()</span><br><span class="line">    <span class="keyword">for</span> ready != <span class="number">10</span> &#123;</span><br><span class="line">        c.Wait()</span><br><span class="line">        log.Println(<span class="string">&quot;裁判员被唤醒一次&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    c.L.Unlock()</span><br><span class="line"></span><br><span class="line">    <span class="comment">//所有的运动员是否就绪</span></span><br><span class="line">    log.Println(<span class="string">&quot;所有运动员都准备就绪。比赛开始，3，2，1, ......&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>你看，Cond的使用其实没那么简单。它的复杂在于：一，这段代码有时候需要加锁，有时候可以不加；二，Wait唤醒后需要检查条件；三，条件变量的更改，其实是需要原子操作或者互斥锁保护的。所以，有的开发者会认为，Cond是唯一难以掌握的Go并发原语。</p>
 <p>我们继续看看Cond的实现原理。</p>
-<h1 id="Cond的实现原理"><a href="#Cond的实现原理" class="headerlink" title="Cond的实现原理"></a><span style="color:#339AFF;">Cond的实现原理</span></h1><p>其实，Cond的实现非常简单，或者说复杂的逻辑已经被Locker或者runtime的等待队列实现了。我们直接看看Cond的源码吧。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Cond <span class="keyword">struct</span> &#123;</span><br><span class="line">    noCopy noCopy</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当观察或者修改等待条件的时候需要加锁</span></span><br><span class="line">    L Locker</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 等待队列</span></span><br><span class="line">    notify  notifyList</span><br><span class="line">    checker copyChecker</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewCond</span><span class="params">(l Locker)</span> *<span class="title">Cond</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &amp;Cond&#123;L: l&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *Cond)</span> <span class="title">Wait</span><span class="params">()</span></span> &#123;</span><br><span class="line">    c.checker.check()</span><br><span class="line">    <span class="comment">// 增加到等待队列中</span></span><br><span class="line">    t := runtime_notifyListAdd(&amp;c.notify)</span><br><span class="line">    c.L.Unlock()</span><br><span class="line">    <span class="comment">// 阻塞休眠直到被唤醒</span></span><br><span class="line">    runtime_notifyListWait(&amp;c.notify, t)</span><br><span class="line">    c.L.Lock()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *Cond)</span> <span class="title">Signal</span><span class="params">()</span></span> &#123;</span><br><span class="line">    c.checker.check()</span><br><span class="line">    runtime_notifyListNotifyOne(&amp;c.notify)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *Cond)</span> <span class="title">Broadcast</span><span class="params">()</span></span> &#123;</span><br><span class="line">    c.checker.check()</span><br><span class="line">    runtime_notifyListNotifyAll(&amp;c.notify）</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>这部分源码确实很简单，我来带你学习下其中比较关键的逻辑。</p>
+<h1 id="Cond的实现原理"><a href="#Cond的实现原理" class="headerlink" title="Cond的实现原理"></a><span style="color:#339AFF;">Cond的实现原理</span></h1><p>其实，Cond的实现非常简单，或者说复杂的逻辑已经被Locker或者runtime的等待队列实现了。我们直接看看Cond的源码吧。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Cond <span class="keyword">struct</span> &#123;</span><br><span class="line">    noCopy noCopy</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 当观察或者修改等待条件的时候需要加锁</span></span><br><span class="line">    L Locker</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 等待队列</span></span><br><span class="line">    notify  notifyList</span><br><span class="line">    checker copyChecker</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewCond</span><span class="params">(l Locker)</span></span> *Cond &#123;</span><br><span class="line">    <span class="keyword">return</span> &amp;Cond&#123;L: l&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *Cond)</span></span> Wait() &#123;</span><br><span class="line">    c.checker.check()</span><br><span class="line">    <span class="comment">// 增加到等待队列中</span></span><br><span class="line">    t := runtime_notifyListAdd(&amp;c.notify)</span><br><span class="line">    c.L.Unlock()</span><br><span class="line">    <span class="comment">// 阻塞休眠直到被唤醒</span></span><br><span class="line">    runtime_notifyListWait(&amp;c.notify, t)</span><br><span class="line">    c.L.Lock()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *Cond)</span></span> Signal() &#123;</span><br><span class="line">    c.checker.check()</span><br><span class="line">    runtime_notifyListNotifyOne(&amp;c.notify)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *Cond)</span></span> Broadcast() &#123;</span><br><span class="line">    c.checker.check()</span><br><span class="line">    runtime_notifyListNotifyAll(&amp;c.notify）</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这部分源码确实很简单，我来带你学习下其中比较关键的逻辑。</p>
 <p>runtime_notifyListXXX是运行时实现的方法，实现了一个等待/通知的队列。如果你想深入学习这部分，可以再去看看runtime/sema.go代码中。</p>
 <p>copyChecker是一个辅助结构，可以在运行时检查Cond是否被复制使用。</p>
 <p>Signal和Broadcast只涉及到notifyList数据结构，不涉及到锁。</p>
 <p>Wait把调用者加入到等待队列时会释放锁，在被唤醒之后还会请求锁。在阻塞休眠期间，调用者是不持有锁的，这样能让其他goroutine有机会检查或者更新等待变量。</p>
 <p>我们继续看看使用Cond常见的两个错误，一个是调用Wait的时候没有加锁，另一个是没有检查条件是否满足程序就继续执行了。</p>
 <h1 id="使用Cond的2个常见错误"><a href="#使用Cond的2个常见错误" class="headerlink" title="使用Cond的2个常见错误"></a><span style="color:#339AFF;">使用Cond的2个常见错误</span></h1><p>我们先看Cond最常见的使用错误，也就是调用Wait的时候没有加锁。</p>
-<p>以前面百米赛跑的程序为例，在调用cond.Wait时，把前后的Lock/Unlock注释掉，如下面的代码中的第20行和第25行：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    c := sync.NewCond(&amp;sync.Mutex&#123;&#125;)</span><br><span class="line">    <span class="keyword">var</span> ready <span class="keyword">int</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>; i++ &#123;</span><br><span class="line">        <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(i <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">            time.Sleep(time.Duration(rand.Int63n(<span class="number">10</span>)) * time.Second)</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 加锁更改等待条件</span></span><br><span class="line">            c.L.Lock()</span><br><span class="line">            ready++</span><br><span class="line">            c.L.Unlock()</span><br><span class="line"></span><br><span class="line">            log.Printf(<span class="string">"运动员#%d 已准备就绪\n"</span>, i)</span><br><span class="line">            <span class="comment">// 广播唤醒所有的等待者</span></span><br><span class="line">            c.Broadcast()</span><br><span class="line">        &#125;(i)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// c.L.Lock()</span></span><br><span class="line">    <span class="keyword">for</span> ready != <span class="number">10</span> &#123;</span><br><span class="line">        c.Wait()</span><br><span class="line">        log.Println(<span class="string">"裁判员被唤醒一次"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// c.L.Unlock()</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//所有的运动员是否就绪</span></span><br><span class="line">    log.Println(<span class="string">"所有运动员都准备就绪。比赛开始，3，2，1, ......"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>再运行程序，就会报释放未加锁的panic：</p>
-<img src="/2022/09/12/07-Cond：条件变量的实现机制及避坑指南/1.webp">
+<p>以前面百米赛跑的程序为例，在调用cond.Wait时，把前后的Lock/Unlock注释掉，如下面的代码中的第20行和第25行：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    c := sync.NewCond(&amp;sync.Mutex&#123;&#125;)</span><br><span class="line">    <span class="keyword">var</span> ready <span class="type">int</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>; i++ &#123;</span><br><span class="line">        <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(i <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">            time.Sleep(time.Duration(rand.Int63n(<span class="number">10</span>)) * time.Second)</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 加锁更改等待条件</span></span><br><span class="line">            c.L.Lock()</span><br><span class="line">            ready++</span><br><span class="line">            c.L.Unlock()</span><br><span class="line"></span><br><span class="line">            log.Printf(<span class="string">&quot;运动员#%d 已准备就绪\n&quot;</span>, i)</span><br><span class="line">            <span class="comment">// 广播唤醒所有的等待者</span></span><br><span class="line">            c.Broadcast()</span><br><span class="line">        &#125;(i)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// c.L.Lock()</span></span><br><span class="line">    <span class="keyword">for</span> ready != <span class="number">10</span> &#123;</span><br><span class="line">        c.Wait()</span><br><span class="line">        log.Println(<span class="string">&quot;裁判员被唤醒一次&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// c.L.Unlock()</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//所有的运动员是否就绪</span></span><br><span class="line">    log.Println(<span class="string">&quot;所有运动员都准备就绪。比赛开始，3，2，1, ......&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>再运行程序，就会报释放未加锁的panic：</p>
+<img src="/2022/09/12/07-Cond%EF%BC%9A%E6%9D%A1%E4%BB%B6%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6%E5%8F%8A%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97/1.webp" class="">
 <p>出现这个问题的原因在于，cond.Wait方法的实现是，把当前调用者加入到notify队列之中后会释放锁（如果不释放锁，其他Wait的调用者就没有机会加入到notify队列中了），然后一直等待；等调用者被唤醒之后，又会去争抢这把锁。如果调用Wait之前不加锁的话，就有可能Unlock一个未加锁的Locker。所以切记，调用cond.Wait方法之前一定要加锁。</p>
-<p>使用Cond的另一个常见错误是，只调用了一次Wait，没有检查等待条件是否满足，结果条件没满足，程序就继续执行了。出现这个问题的原因在于，误以为Cond的使用，就像WaitGroup那样调用一下Wait方法等待那么简单。比如下面的代码中，把第21行和第24行注释掉：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    c := sync.NewCond(&amp;sync.Mutex&#123;&#125;)</span><br><span class="line">    <span class="keyword">var</span> ready <span class="keyword">int</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>; i++ &#123;</span><br><span class="line">        <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(i <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">            time.Sleep(time.Duration(rand.Int63n(<span class="number">10</span>)) * time.Second)</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 加锁更改等待条件</span></span><br><span class="line">            c.L.Lock()</span><br><span class="line">            ready++</span><br><span class="line">            c.L.Unlock()</span><br><span class="line"></span><br><span class="line">            log.Printf(<span class="string">"运动员#%d 已准备就绪\n"</span>, i)</span><br><span class="line">            <span class="comment">// 广播唤醒所有的等待者</span></span><br><span class="line">            c.Broadcast()</span><br><span class="line">        &#125;(i)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    c.L.Lock()</span><br><span class="line">    <span class="comment">// for ready != 10 &#123;</span></span><br><span class="line">    c.Wait()</span><br><span class="line">    log.Println(<span class="string">"裁判员被唤醒一次"</span>)</span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    c.L.Unlock()</span><br><span class="line"></span><br><span class="line">    <span class="comment">//所有的运动员是否就绪</span></span><br><span class="line">    log.Println(<span class="string">"所有运动员都准备就绪。比赛开始，3，2，1, ......"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>运行这个程序，你会发现，可能只有几个运动员准备好之后程序就运行完了，而不是我们期望的所有运动员都准备好才进行下一步。原因在于，每一个运动员准备好之后都会唤醒所有的等待者，也就是这里的裁判员，比如第一个运动员准备好后就唤醒了裁判员，结果这个裁判员傻傻地没做任何检查，以为所有的运动员都准备好了，就继续执行了。</p>
+<p>使用Cond的另一个常见错误是，只调用了一次Wait，没有检查等待条件是否满足，结果条件没满足，程序就继续执行了。出现这个问题的原因在于，误以为Cond的使用，就像WaitGroup那样调用一下Wait方法等待那么简单。比如下面的代码中，把第21行和第24行注释掉：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    c := sync.NewCond(&amp;sync.Mutex&#123;&#125;)</span><br><span class="line">    <span class="keyword">var</span> ready <span class="type">int</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">10</span>; i++ &#123;</span><br><span class="line">        <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(i <span class="type">int</span>)</span></span> &#123;</span><br><span class="line">            time.Sleep(time.Duration(rand.Int63n(<span class="number">10</span>)) * time.Second)</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 加锁更改等待条件</span></span><br><span class="line">            c.L.Lock()</span><br><span class="line">            ready++</span><br><span class="line">            c.L.Unlock()</span><br><span class="line"></span><br><span class="line">            log.Printf(<span class="string">&quot;运动员#%d 已准备就绪\n&quot;</span>, i)</span><br><span class="line">            <span class="comment">// 广播唤醒所有的等待者</span></span><br><span class="line">            c.Broadcast()</span><br><span class="line">        &#125;(i)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    c.L.Lock()</span><br><span class="line">    <span class="comment">// for ready != 10 &#123;</span></span><br><span class="line">    c.Wait()</span><br><span class="line">    log.Println(<span class="string">&quot;裁判员被唤醒一次&quot;</span>)</span><br><span class="line">    <span class="comment">// &#125;</span></span><br><span class="line">    c.L.Unlock()</span><br><span class="line"></span><br><span class="line">    <span class="comment">//所有的运动员是否就绪</span></span><br><span class="line">    log.Println(<span class="string">&quot;所有运动员都准备就绪。比赛开始，3，2，1, ......&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>运行这个程序，你会发现，可能只有几个运动员准备好之后程序就运行完了，而不是我们期望的所有运动员都准备好才进行下一步。原因在于，每一个运动员准备好之后都会唤醒所有的等待者，也就是这里的裁判员，比如第一个运动员准备好后就唤醒了裁判员，结果这个裁判员傻傻地没做任何检查，以为所有的运动员都准备好了，就继续执行了。</p>
 <p>所以，我们一定要记住，waitergoroutine被唤醒不等于等待条件被满足，只是有goroutine把它唤醒了而已，等待条件有可能已经满足了，也有可能不满足，我们需要进一步检查。你也可以理解为，等待者被唤醒，只是得到了一次检查的机会而已。</p>
 <p>到这里，我们小结下。如果你想在使用Cond的时候避免犯错，只要时刻记住调用cond.Wait方法之前一定要加锁，以及waitergoroutine被唤醒不等于等待条件被满足这两个知识点。</p>
 <h1 id="知名项目中Cond的使用"><a href="#知名项目中Cond的使用" class="headerlink" title="知名项目中Cond的使用"></a><span style="color:#339AFF;">知名项目中Cond的使用</span></h1><p>Cond在实际项目中被使用的机会比较少，原因总结起来有两个。</p>
@@ -583,16 +580,13 @@
 <p>开源项目中使用sync.Cond的代码少之又少，包括标准库原先一些使用Cond的代码也改成使用Channel实现了，所以别说找Cond相关的使用Bug了，想找到的一个使用的例子都不容易，我找了Kubernetes中的一个例子，我们一起看看它是如何使用Cond的。</p>
 <p>Kubernetes项目中定义了优先级队列PriorityQueue这样一个数据结构，用来实现Pod的调用。它内部有三个Pod的队列，即activeQ、podBackoffQ和unschedulableQ，其中activeQ就是用来调度的活跃队列（heap）。</p>
 <p>Pop方法调用的时候，如果这个队列为空，并且这个队列没有Close的话，会调用Cond的Wait方法等待。</p>
-<p>你可以看到，调用Wait方法的时候，调用者是持有锁的，并且被唤醒的时候检查等待条件（队列是否为空）。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从队列中取出一个元素</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *PriorityQueue)</span> <span class="title">Pop</span><span class="params">()</span> <span class="params">(*framework.QueuedPodInfo, error)</span></span> &#123;</span><br><span class="line">    p.lock.Lock()</span><br><span class="line">    <span class="keyword">defer</span> p.lock.Unlock()</span><br><span class="line">    <span class="keyword">for</span> p.activeQ.Len() == <span class="number">0</span> &#123; <span class="comment">// 如果队列为空</span></span><br><span class="line">      <span class="keyword">if</span> p.closed &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, fmt.Errorf(queueClosed)</span><br><span class="line">      &#125;</span><br><span class="line">      p.cond.Wait() <span class="comment">// 等待，直到被唤醒</span></span><br><span class="line">    &#125;</span><br><span class="line">    ......</span><br><span class="line">    <span class="keyword">return</span> pInfo, err</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
-<p>当activeQ增加新的元素时，会调用条件变量的Boradcast方法，通知被Pop阻塞的调用者。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 增加元素到队列中</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *PriorityQueue)</span> <span class="title">Add</span><span class="params">(pod *v1.Pod)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    p.lock.Lock()</span><br><span class="line">    <span class="keyword">defer</span> p.lock.Unlock()</span><br><span class="line">    pInfo := p.newQueuedPodInfo(pod)</span><br><span class="line">    <span class="keyword">if</span> err := p.activeQ.Add(pInfo); err != <span class="literal">nil</span> &#123;<span class="comment">//增加元素到队列中</span></span><br><span class="line">      klog.Errorf(<span class="string">"Error adding pod %v to the scheduling queue: %v"</span>, nsNameForPod(pod), err)</span><br><span class="line">      <span class="keyword">return</span> err</span><br><span class="line">    &#125;</span><br><span class="line">    ......</span><br><span class="line">    p.cond.Broadcast() <span class="comment">//通知其它等待的goroutine，队列中有元素了</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
-<p>这个优先级队列被关闭的时候，也会调用Broadcast方法，避免被Pop阻塞的调用者永远hang住。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *PriorityQueue)</span> <span class="title">Close</span><span class="params">()</span></span> &#123;</span><br><span class="line">    p.lock.Lock()</span><br><span class="line">    <span class="keyword">defer</span> p.lock.Unlock()</span><br><span class="line">    <span class="built_in">close</span>(p.stop)</span><br><span class="line">    p.closed = <span class="literal">true</span></span><br><span class="line">    p.cond.Broadcast() <span class="comment">//关闭时通知等待的goroutine，避免它们永远等待</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>你可以思考一下，这里为什么使用Cond这个并发原语，能不能换成Channel实现呢？</p>
+<p>你可以看到，调用Wait方法的时候，调用者是持有锁的，并且被唤醒的时候检查等待条件（队列是否为空）。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从队列中取出一个元素</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *PriorityQueue)</span></span> Pop() (*framework.QueuedPodInfo, <span class="type">error</span>) &#123;</span><br><span class="line">    p.lock.Lock()</span><br><span class="line">    <span class="keyword">defer</span> p.lock.Unlock()</span><br><span class="line">    <span class="keyword">for</span> p.activeQ.Len() == <span class="number">0</span> &#123; <span class="comment">// 如果队列为空</span></span><br><span class="line">      <span class="keyword">if</span> p.closed &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, fmt.Errorf(queueClosed)</span><br><span class="line">      &#125;</span><br><span class="line">      p.cond.Wait() <span class="comment">// 等待，直到被唤醒</span></span><br><span class="line">    &#125;</span><br><span class="line">    ......</span><br><span class="line">    <span class="keyword">return</span> pInfo, err</span><br><span class="line">  &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>当activeQ增加新的元素时，会调用条件变量的Boradcast方法，通知被Pop阻塞的调用者。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 增加元素到队列中</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *PriorityQueue)</span></span> Add(pod *v1.Pod) <span class="type">error</span> &#123;</span><br><span class="line">    p.lock.Lock()</span><br><span class="line">    <span class="keyword">defer</span> p.lock.Unlock()</span><br><span class="line">    pInfo := p.newQueuedPodInfo(pod)</span><br><span class="line">    <span class="keyword">if</span> err := p.activeQ.Add(pInfo); err != <span class="literal">nil</span> &#123;<span class="comment">//增加元素到队列中</span></span><br><span class="line">      klog.Errorf(<span class="string">&quot;Error adding pod %v to the scheduling queue: %v&quot;</span>, nsNameForPod(pod), err)</span><br><span class="line">      <span class="keyword">return</span> err</span><br><span class="line">    &#125;</span><br><span class="line">    ......</span><br><span class="line">    p.cond.Broadcast() <span class="comment">//通知其它等待的goroutine，队列中有元素了</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure><br>这个优先级队列被关闭的时候，也会调用Broadcast方法，避免被Pop阻塞的调用者永远hang住。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *PriorityQueue)</span></span> Close() &#123;</span><br><span class="line">    p.lock.Lock()</span><br><span class="line">    <span class="keyword">defer</span> p.lock.Unlock()</span><br><span class="line">    <span class="built_in">close</span>(p.stop)</span><br><span class="line">    p.closed = <span class="literal">true</span></span><br><span class="line">    p.cond.Broadcast() <span class="comment">//关闭时通知等待的goroutine，避免它们永远等待</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>你可以思考一下，这里为什么使用Cond这个并发原语，能不能换成Channel实现呢？</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><span style="color:#339AFF;">总结</span></h1><p>好了，我们来做个总结。</p>
 <p>Cond是为等待/通知场景下的并发问题提供支持的。它提供了条件变量的三个基本方法Signal、Broadcast和Wait，为并发的goroutine提供等待/通知机制。</p>
 <p>在实践中，处理等待/通知的场景时，我们常常会使用Channel替换Cond，因为Channel类型使用起来更简洁，而且不容易出错。但是对于需要重复调用Broadcast的场景，比如上面Kubernetes的例子，每次往队列中成功增加了元素后就需要调用Broadcast通知所有的等待者，使用Cond就再合适不过了。</p>
 <p>使用Cond之所以容易出错，就是Wait调用需要加锁，以及被唤醒后一定要检查条件是否真的已经满足。你需要牢记这两点。</p>
 <p>虽然我们讲到的百米赛跑的例子，也可以通过WaitGroup来实现，但是本质上WaitGroup和Cond是有区别的：WaitGroup是主goroutine等待确定数量的子goroutine完成任务；而Cond是等待某个条件满足，这个条件的修改可以被任意多的goroutine更新，而且Cond的Wait不关心也不知道其他goroutine的数量，只关心等待条件。而且Cond还有单个通知的机制，也就是Signal方法。</p>
-<img src="/2022/09/12/07-Cond：条件变量的实现机制及避坑指南/2.webp">
+<img src="/2022/09/12/07-Cond%EF%BC%9A%E6%9D%A1%E4%BB%B6%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%9C%BA%E5%88%B6%E5%8F%8A%E9%81%BF%E5%9D%91%E6%8C%87%E5%8D%97/2.webp" class="">
 <h1 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a><span style="color:#339AFF;">思考题</span></h1><p>1，一个Cond的waiter被唤醒的时候，为什么需要再检查等待条件，而不是唤醒后进行下一步？</p>
 <p>2，你能否利用Cond实现一个容量有限的queue？</p>
 
@@ -618,7 +612,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Go并发编程实战课/" rel="tag"># Go并发编程实战课</a>
+            <a href="/tags/Go%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%AE%9E%E6%88%98%E8%AF%BE/" rel="tag"># Go并发编程实战课</a>
           
         </div>
       
@@ -631,7 +625,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/09/12/06-WaitGroup：协同等待，任务编排利器/" rel="next" title="06 | WaitGroup：协同等待，任务编排利器">
+              <a href="/2022/09/12/06-WaitGroup%EF%BC%9A%E5%8D%8F%E5%90%8C%E7%AD%89%E5%BE%85%EF%BC%8C%E4%BB%BB%E5%8A%A1%E7%BC%96%E6%8E%92%E5%88%A9%E5%99%A8/" rel="next" title="06 | WaitGroup：协同等待，任务编排利器">
                 <i class="fa fa-chevron-left"></i> 06 | WaitGroup：协同等待，任务编排利器
               </a>
             
@@ -641,7 +635,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/09/12/08-Once：一个简约而不简单的并发原语/" rel="prev" title="08 | Once：一个简约而不简单的并发原语">
+              <a href="/2022/09/12/08-Once%EF%BC%9A%E4%B8%80%E4%B8%AA%E7%AE%80%E7%BA%A6%E8%80%8C%E4%B8%8D%E7%AE%80%E5%8D%95%E7%9A%84%E5%B9%B6%E5%8F%91%E5%8E%9F%E8%AF%AD/" rel="prev" title="08 | Once：一个简约而不简单的并发原语">
                 08 | Once：一个简约而不简单的并发原语 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -701,7 +695,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -712,9 +708,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -726,26 +722,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -817,7 +797,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -992,115 +972,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1131,23 +1003,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1173,7 +1045,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Go标准库的Cond"><span class="nav-number">1.</span> <span class="nav-text">Go标准库的Cond</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cond的基本用法"><span class="nav-number">2.</span> <span class="nav-text">Cond的基本用法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cond的实现原理"><span class="nav-number">3.</span> <span class="nav-text">Cond的实现原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Cond的2个常见错误"><span class="nav-number">4.</span> <span class="nav-text">使用Cond的2个常见错误</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#知名项目中Cond的使用"><span class="nav-number">5.</span> <span class="nav-text">知名项目中Cond的使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">7.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Go%E6%A0%87%E5%87%86%E5%BA%93%E7%9A%84Cond"><span class="nav-number">1.</span> <span class="nav-text">Go标准库的Cond</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cond%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">Cond的基本用法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Cond%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">Cond的实现原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Cond%E7%9A%842%E4%B8%AA%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF"><span class="nav-number">4.</span> <span class="nav-text">使用Cond的2个常见错误</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9F%A5%E5%90%8D%E9%A1%B9%E7%9B%AE%E4%B8%ADCond%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">5.</span> <span class="nav-text">知名项目中Cond的使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">7.</span> <span class="nav-text">思考题</span></a></li></ol></div>
             
 
           </div>
@@ -1208,7 +1080,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1219,12 +1091,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1232,7 +1104,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

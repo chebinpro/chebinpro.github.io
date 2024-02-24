@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,24 +104,24 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="MySQL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL的B+树索引的概念、使用、优化及使用场景">
-<meta property="og:url" content="http://yoursite.com/2020/05/28/MySQL的B-树索引的概念、使用、优化及使用场景/index.html">
+<meta property="og:url" content="http://yoursite.com/2020/05/28/MySQL%E7%9A%84B-%E6%A0%91%E7%B4%A2%E5%BC%95%E7%9A%84%E6%A6%82%E5%BF%B5%E3%80%81%E4%BD%BF%E7%94%A8%E3%80%81%E4%BC%98%E5%8C%96%E5%8F%8A%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-07-04T10:22:50.000Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-28T08:05:22.000Z">
+<meta property="article:modified_time" content="2020-07-04T10:22:50.000Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MySQL的B+树索引的概念、使用、优化及使用场景">
-<meta name="twitter:description" content="思考并回答以下问题：">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/05/28/MySQL的B-树索引的概念、使用、优化及使用场景/">
+  <link rel="canonical" href="http://yoursite.com/2020/05/28/MySQL的B-树索引的概念、使用、优化及使用场景/"/>
 
 
 
@@ -170,7 +170,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -231,7 +231,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -248,7 +248,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -265,7 +265,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -282,7 +282,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -299,7 +299,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -310,7 +310,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -330,7 +330,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -380,16 +382,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/28/MySQL的B-树索引的概念、使用、优化及使用场景/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/05/28/MySQL%E7%9A%84B-%E6%A0%91%E7%B4%A2%E5%BC%95%E7%9A%84%E6%A6%82%E5%BF%B5%E3%80%81%E4%BD%BF%E7%94%A8%E3%80%81%E4%BC%98%E5%8C%96%E5%8F%8A%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -489,7 +491,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">7.7k</span>
+                <span title="本文字数">21k</span>
               
 
               
@@ -503,7 +505,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">7 分钟</span>
+                <span title="阅读时长">20 分钟</span>
               
             </div>
           
@@ -524,11 +526,11 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <h1 id="索引的管理"><a href="#索引的管理" class="headerlink" title="索引的管理"></a><span style="color:#339AFF;">索引的管理</span></h1><p>索引有很多种类型：普通索引、唯一索引、主键索引、组合索引、全文索引。</p>
 <p><strong>使用SHOW INDEX命令查看索引信息</strong></p>
 <p>如果想要查看表中的索引信息，可以使用命令SHOW INDEX，下面的例子，我们查看表table_index的索引信息。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> <span class="keyword">INDEX</span> <span class="keyword">FROM</span> table_index\G;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SHOW</span> INDEX <span class="keyword">FROM</span> table_index\G;</span><br></pre></td></tr></table></figure>
 
 <p>得到上面的信息，上面的信息什么意思呢？我们逐一介绍！</p>
 <div class="table-container">
@@ -578,7 +580,7 @@
 <h2 id="Cardinality关键字解析"><a href="#Cardinality关键字解析" class="headerlink" title="Cardinality关键字解析"></a><span style="color:#00ACC1;">Cardinality关键字解析</span></h2><p>在上面介绍了那么多个关键字的意思，但是Cardinality这个关键字非常的关键，优化器会根据这个值来判断是否使用这个索引。在B+树索引中，只有高选择性的字段才是有意义的，高选择性就是这个字段的取值范围很广，比如姓名字段，会有很多的名字，可选择性就高了。</p>
 <p>一般来说，判断是否需要使用索引，就可以通过Cardinality关键字来判断，如果非常接近1，说明有必要使用，如果非常小，那么就要考虑是否使用索引了。</p>
 <p>需要注意的一个问题是，这个关键字不是及时更新的，需要更新的话，需要使用ANALYZE TABLE，例如</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">analyze</span> <span class="keyword">table</span> table_index;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">analyze <span class="keyword">table</span> table_index;</span><br></pre></td></tr></table></figure>
 
 <p>因为目前没有数据，所以，你会发现，这个值一直都是0，没有变化。</p>
 
@@ -600,7 +602,7 @@
 <p>这种方式的策略为：每次为创建索引的表加上一个S锁（共享锁），在创建的时候，不需要重新建表，删除辅助索引只需要更新内部视图，并将辅助索引空间标记为可用，所以，这种效率就大大提高了。</p>
 <h2 id="在线数据定义"><a href="#在线数据定义" class="headerlink" title="在线数据定义"></a>在线数据定义</h2><p>MySQL5.6开始支持的在线数据定义操作就是：允许辅助索引创建的同时，还允许其他insert、update、delete这类DM操作，这就极大提高了数据库的可用性。</p>
 <p>所以，我们可以使用新的语法进行创建索引：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">ADD</span> [<span class="keyword">UNIQUE</span>|FULLLTEXT] <span class="keyword">INDEX</span> index_name (<span class="keyword">column</span>(<span class="keyword">length</span>))</span><br><span class="line">[ALGORITHM = &#123;<span class="keyword">DEFAULT</span>|INPLACE|COPY&#125;]</span><br><span class="line">[<span class="keyword">LOCK</span> = &#123;<span class="keyword">DEFAULT</span>|<span class="keyword">NONE</span>|<span class="keyword">SHARED</span>|EXLUSIVE&#125;]</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">TABLE</span> table_name <span class="keyword">ADD</span> [<span class="keyword">UNIQUE</span><span class="operator">|</span>FULLLTEXT] INDEX index_name (<span class="keyword">column</span>(length))</span><br><span class="line">[ALGORITHM <span class="operator">=</span> &#123;<span class="keyword">DEFAULT</span><span class="operator">|</span>INPLACE<span class="operator">|</span><span class="keyword">COPY</span>&#125;]</span><br><span class="line">[LOCK <span class="operator">=</span> &#123;<span class="keyword">DEFAULT</span><span class="operator">|</span><span class="keyword">NONE</span><span class="operator">|</span>SHARED<span class="operator">|</span>EXLUSIVE&#125;]</span><br></pre></td></tr></table></figure>
 <p>ALGORITHM指定创建或者删除索引的算法</p>
 <ul>
 <li>COPY：创建临时表的方式</li>
@@ -616,27 +618,27 @@
 </ul>
 <h1 id="B-树索引的使用"><a href="#B-树索引的使用" class="headerlink" title="B+树索引的使用"></a>B+树索引的使用</h1><h2 id="联合索引"><a href="#联合索引" class="headerlink" title="联合索引"></a>联合索引</h2><p>联合索引是指对表上的多个列进行索引，这一部分我们将通过几个例子来讲解联合索引的相关知识点。</p>
 <p>首先，我们先创建一张表以及为这张表创建联合索引。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t_index(</span><br><span class="line">a <span class="built_in">char</span>(<span class="number">2</span>) <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">default</span> <span class="string">''</span>,</span><br><span class="line">b <span class="built_in">char</span>(<span class="number">2</span>) <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">default</span> <span class="string">''</span>,</span><br><span class="line">c <span class="built_in">char</span>(<span class="number">2</span>) <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">default</span> <span class="string">''</span>,</span><br><span class="line">d <span class="built_in">char</span>(<span class="number">2</span>) <span class="keyword">not</span> <span class="literal">null</span> <span class="keyword">default</span> <span class="string">''</span></span><br><span class="line">)<span class="keyword">engine</span> myisam <span class="keyword">charset</span> utf8;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> t_index(</span><br><span class="line">a <span class="type">char</span>(<span class="number">2</span>) <span class="keyword">not</span> <span class="keyword">null</span> <span class="keyword">default</span> <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">b <span class="type">char</span>(<span class="number">2</span>) <span class="keyword">not</span> <span class="keyword">null</span> <span class="keyword">default</span> <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">c <span class="type">char</span>(<span class="number">2</span>) <span class="keyword">not</span> <span class="keyword">null</span> <span class="keyword">default</span> <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">d <span class="type">char</span>(<span class="number">2</span>) <span class="keyword">not</span> <span class="keyword">null</span> <span class="keyword">default</span> <span class="string">&#x27;&#x27;</span></span><br><span class="line">)engine myisam charset utf8;</span><br></pre></td></tr></table></figure>
 <p>创建联合索引</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t_index <span class="keyword">add</span> <span class="keyword">index</span> abcd(a,b,c,d);</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t_index <span class="keyword">add</span> index abcd(a,b,c,d);</span><br></pre></td></tr></table></figure>
 <p>插入几条测试数据</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t_index <span class="keyword">values</span>(<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d'</span>),</span><br><span class="line">(<span class="string">'a2'</span>,<span class="string">'b2'</span>,<span class="string">'c2'</span>,<span class="string">'d2'</span>),</span><br><span class="line">(<span class="string">'a3'</span>,<span class="string">'b3'</span>,<span class="string">'c3'</span>,<span class="string">'d3'</span>),</span><br><span class="line">(<span class="string">'a4'</span>,<span class="string">'b4'</span>,<span class="string">'c4'</span>,<span class="string">'d4'</span>),</span><br><span class="line">(<span class="string">'a5'</span>,<span class="string">'b5'</span>,<span class="string">'c5'</span>,<span class="string">'d5'</span>),</span><br><span class="line">(<span class="string">'a6'</span>,<span class="string">'b6'</span>,<span class="string">'c6'</span>,<span class="string">'d6'</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t_index <span class="keyword">values</span>(<span class="string">&#x27;a&#x27;</span>,<span class="string">&#x27;b&#x27;</span>,<span class="string">&#x27;c&#x27;</span>,<span class="string">&#x27;d&#x27;</span>),</span><br><span class="line">(<span class="string">&#x27;a2&#x27;</span>,<span class="string">&#x27;b2&#x27;</span>,<span class="string">&#x27;c2&#x27;</span>,<span class="string">&#x27;d2&#x27;</span>),</span><br><span class="line">(<span class="string">&#x27;a3&#x27;</span>,<span class="string">&#x27;b3&#x27;</span>,<span class="string">&#x27;c3&#x27;</span>,<span class="string">&#x27;d3&#x27;</span>),</span><br><span class="line">(<span class="string">&#x27;a4&#x27;</span>,<span class="string">&#x27;b4&#x27;</span>,<span class="string">&#x27;c4&#x27;</span>,<span class="string">&#x27;d4&#x27;</span>),</span><br><span class="line">(<span class="string">&#x27;a5&#x27;</span>,<span class="string">&#x27;b5&#x27;</span>,<span class="string">&#x27;c5&#x27;</span>,<span class="string">&#x27;d5&#x27;</span>),</span><br><span class="line">(<span class="string">&#x27;a6&#x27;</span>,<span class="string">&#x27;b6&#x27;</span>,<span class="string">&#x27;c6&#x27;</span>,<span class="string">&#x27;d6&#x27;</span>);</span><br></pre></td></tr></table></figure>
 <p>到这一步，我们已经基本准备好了需要的数据，我们可以进行更深一步的联合索引的探讨。</p>
 <h2 id="我们什么时候需要创建联合索引呢"><a href="#我们什么时候需要创建联合索引呢" class="headerlink" title="我们什么时候需要创建联合索引呢"></a>我们什么时候需要创建联合索引呢</h2><p>索引建立的主要目的就是为了提高查询的效率，那么联合索引的目的也是类似的，联合索引的目的就是为了提高存在多个查询条件的情况下的效率，就如上面建立的表一样，有多个字段，当我们需要利用多个字段进行查询的时候，我们就需要利用到联合索引了。</p>
 <h2 id="什么时候联合索引才会发挥作用呢"><a href="#什么时候联合索引才会发挥作用呢" class="headerlink" title="什么时候联合索引才会发挥作用呢"></a>什么时候联合索引才会发挥作用呢</h2><p>有时候，我们会用联合索引，但是，我们并不清楚其原理，不知道什么时候联合索引会起到作用，什么时候又是会失效的？</p>
 <p>带着这个问题，我们了解一下联合索引的最左匹配原则。</p>
 <p><strong>最左匹配原则</strong>：这个原则的意思就是创建组合索引，以最左边的为准，只要查询条件中带有最左边的列，那么查询就会使用到索引。</p>
 <p>下面，我们用几个例子来看看这个原则。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> t_index <span class="keyword">WHERE</span> a = <span class="string">'a'</span> \G;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t_index <span class="keyword">WHERE</span> a <span class="operator">=</span> <span class="string">&#x27;a&#x27;</span> \G;</span><br></pre></td></tr></table></figure>
 
 <p>我们看看这条语句的结果，首先，我们看到使用了索引，因为<strong>查询条件中带有最左边的列a</strong>，那么利用了几个索引呢？这个我们需要看key_len这个字段，我们知道utf8编码的一个字符3个字节，而我们使用的数据类型是 char(2)，占两个字节，索引就是2*3等于6个字节，所以只有一个索引起到了作用。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> t_index <span class="keyword">WHERE</span> b = <span class="string">'b2'</span> \G;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t_index <span class="keyword">WHERE</span> b <span class="operator">=</span> <span class="string">&#x27;b2&#x27;</span> \G;</span><br></pre></td></tr></table></figure>
 
 <p>这个语句我们可以看出，这个没有使用索引，因为possible_keys为空，而且，从查询的行数 rows可以看出为6（我们测试数据总共6条），说明进行了全盘扫描的，说明这种情况是不符合最左匹配原则，所以不会使用索引查询。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> t_index <span class="keyword">WHERE</span> a = <span class="string">'a2'</span> <span class="keyword">AND</span> b = <span class="string">'b2'</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> d \G;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t_index <span class="keyword">WHERE</span> a <span class="operator">=</span> <span class="string">&#x27;a2&#x27;</span> <span class="keyword">AND</span> b <span class="operator">=</span> <span class="string">&#x27;b2&#x27;</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> d \G;</span><br></pre></td></tr></table></figure>
 
 <p>这种情况又有点不一样了，我们使用了一个排序，可以看出使用了索引，通过key_len为12可以得到使用了2个索引a、b，另外在Extra选项中可以看到使用了Using filesort，也就是文件排序，这里使用文件排序的原因是这样的：上面的查询使用了a、b索引，但是当我们用d字段来排序时，（a，d）或者（b，d）这两个索引是没有排序的，联合索引的使用有一个好处，就是索引的下一个字段是会自动排序的，在这里的这种情况来说，c字段就是排序的，但是d是不会，如果我们用c来排序就会得到不一样的结果。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> t_index <span class="keyword">WHERE</span> a = <span class="string">'a2'</span> <span class="keyword">AND</span> b = <span class="string">'b2'</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> c \G;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t_index <span class="keyword">WHERE</span> a <span class="operator">=</span> <span class="string">&#x27;a2&#x27;</span> <span class="keyword">AND</span> b <span class="operator">=</span> <span class="string">&#x27;b2&#x27;</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> c \G;</span><br></pre></td></tr></table></figure>
 
 <p>是不是可以看到，当我们用c进行排序的时候，因为使用了a、b索引，所以c就自动排序了，所以也就不用filesort了。</p>
 <p>讲到这里，我相信通过上面的几个例子，对于联合索引的相关知识已经非常的透彻清晰了，最后，我们再来聊几个常见的问题。</p>
@@ -649,9 +651,9 @@
 <p><strong>覆盖索引</strong>。对联合索引(col1,col2,col3)，如果有如下的sql: select col1,col2,col3 from test where col1=1 and col2=2。那么MySQL可以直接通过遍历索引取得数据，而无需回表，这减少了很多的随机io操作。减少io操作，特别的随机io其实是dba主要的优化策略。所以，在真正的实际应用中，覆盖索引是主要的提升性能的优化手段之一。</p>
 <p><strong>效率高</strong>。索引列越多，通过索引筛选出的数据越少。有1000W条数据的表，有如下sql:select from table where col1=1 and col2=2 and col3=3,假设假设每个条件可以筛选出10%的数据，如果只有单值索引，那么通过该索引能筛选出1000W10%=100w条数据，然后再回表从100w条数据中找到符合col2=2 and col3= 3的数据，然后再排序，再分页；如果是联合索引，通过索引筛选出1000w10% 10% *10%=1w，效率提升可想而知！</p>
 <blockquote>
-<p>覆盖索引<br>覆盖索引是一种从辅助索引中就可以得到查询的记录，而不需要查询聚集索引中的记录，使用覆盖索引的一个好处是辅助索引不包含整行记录的所有信息，所以大小远小于聚集索引，因此可以大大减少IO操作。覆盖索引的另外一个好处就是对于统计问题有优化，我们看下面的一个例子。</p>
+<p>覆盖索引<br/>覆盖索引是一种从辅助索引中就可以得到查询的记录，而不需要查询聚集索引中的记录，使用覆盖索引的一个好处是辅助索引不包含整行记录的所有信息，所以大小远小于聚集索引，因此可以大大减少IO操作。覆盖索引的另外一个好处就是对于统计问题有优化，我们看下面的一个例子。</p>
 </blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> <span class="keyword">count</span>(*) <span class="keyword">from</span> t_index \G;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain <span class="keyword">select</span> <span class="built_in">count</span>(<span class="operator">*</span>) <span class="keyword">from</span> t_index \G;</span><br></pre></td></tr></table></figure>
 
 <p>如果是myisam引擎，Extra列会输出 Select tables optimized away语句，myisam引擎已经保存了记录的总数，直接返回结果，就不需要覆盖索引优化了。</p>
 <p>如果是InnoDB引擎，Extra列会输出 Using index语句，说明InnoDB引擎优化器使用了覆盖索引操作。</p>
@@ -661,15 +663,15 @@
 <li>某SQL语句可以选择的索引非常的多，这时优化器选择执行计划时间的开销可能会大于SQL语句本身。</li>
 </ul>
 <p>这里我们接着上面的例子来讲解，首先，我们先为上面的t_index表添加几个索引；</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t_index <span class="keyword">add</span> <span class="keyword">index</span> a (a);</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t_index <span class="keyword">add</span> <span class="keyword">index</span> b (b);</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t_index <span class="keyword">add</span> <span class="keyword">index</span> c (c);</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t_index <span class="keyword">add</span> index a (a);</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t_index <span class="keyword">add</span> index b (b);</span><br><span class="line"><span class="keyword">alter</span> <span class="keyword">table</span> t_index <span class="keyword">add</span> index c (c);</span><br></pre></td></tr></table></figure>
 <p>接着，我们执行下面的语句；</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> t_index <span class="keyword">WHERE</span> a = <span class="string">'a'</span> <span class="keyword">AND</span> b = <span class="string">'b'</span> <span class="keyword">AND</span> c = <span class="string">'c'</span> \G;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t_index <span class="keyword">WHERE</span> a <span class="operator">=</span> <span class="string">&#x27;a&#x27;</span> <span class="keyword">AND</span> b <span class="operator">=</span> <span class="string">&#x27;b&#x27;</span> <span class="keyword">AND</span> c <span class="operator">=</span> <span class="string">&#x27;c&#x27;</span> \G;</span><br></pre></td></tr></table></figure>
 
 <p>你会发现这条语句就可以使用三个索引，这个时候，我们可以显示的使用索引提示来使用a这个索引，如下：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> t_index <span class="keyword">USE</span> <span class="keyword">INDEX</span>(a) <span class="keyword">WHERE</span> a = <span class="string">'a'</span> <span class="keyword">AND</span> b = <span class="string">'b'</span> <span class="keyword">AND</span> c = <span class="string">'c'</span> \G;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t_index USE INDEX(a) <span class="keyword">WHERE</span> a <span class="operator">=</span> <span class="string">&#x27;a&#x27;</span> <span class="keyword">AND</span> b <span class="operator">=</span> <span class="string">&#x27;b&#x27;</span> <span class="keyword">AND</span> c <span class="operator">=</span> <span class="string">&#x27;c&#x27;</span> \G;</span><br></pre></td></tr></table></figure>
 
 <p>这样就显示的使用索引a了，如果这种方式有时候优化器还是没有选择你想要的索引，那么，我们可以另外一种方式 FORCE INDEX。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">EXPLAIN</span> <span class="keyword">SELECT</span> * <span class="keyword">FROM</span> t_index <span class="keyword">FORCE</span> <span class="keyword">INDEX</span>(a) <span class="keyword">WHERE</span> a = <span class="string">'a'</span> <span class="keyword">AND</span> b = <span class="string">'b'</span> <span class="keyword">AND</span> c = <span class="string">'c'</span> \G;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EXPLAIN <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t_index FORCE INDEX(a) <span class="keyword">WHERE</span> a <span class="operator">=</span> <span class="string">&#x27;a&#x27;</span> <span class="keyword">AND</span> b <span class="operator">=</span> <span class="string">&#x27;b&#x27;</span> <span class="keyword">AND</span> c <span class="operator">=</span> <span class="string">&#x27;c&#x27;</span> \G;</span><br></pre></td></tr></table></figure>
 
 <p>这种方式则一定会选择你想要的索引。</p>
 <h2 id="索引优化"><a href="#索引优化" class="headerlink" title="索引优化"></a>索引优化</h2><p><strong>Multi-Range Read优化</strong></p>
@@ -681,14 +683,14 @@
 <li>批量处理对键值的查询操作。</li>
 </ul>
 <p>我们可以使用参数 optimizer_switch中的标记来控制是否开启Multi-Range Read优化。下面的方式将设置为总是开启状态：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> @@optimizer_switch=<span class="string">'mrr=on,mrr_cost_based=off'</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SET</span> @<span class="variable">@optimizer_switch</span><span class="operator">=</span><span class="string">&#x27;mrr=on,mrr_cost_based=off&#x27;</span>;</span><br></pre></td></tr></table></figure>
 <p><strong>Index Condition Pushdown（ICP）优化</strong></p>
 <p>这种优化方式也是从MySQL5.6开始支持的，不支持这种方式之前，当进行索引查询时，首先我们先根据索引查找记录，然后再根据where条件来过滤记录。然而，当支持ICP优化后，MySQL数据库会在取出索引的同时，判断是否可以进行where条件过滤，也就是将where过滤部分放在了存储引擎层，大大减少了上层SQL对记录的索取。</p>
 <p>ICP支持range、ref、eq_ref、ref_or_null类型的查询，当前支持MyISAM和InnoDB存储引擎。</p>
 <p>我们可以使用下面语句开启ICP：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> @@optimizer_switch = <span class="string">"index_condition_pushdown=on"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> @<span class="variable">@optimizer_switch</span> <span class="operator">=</span> &quot;index_condition_pushdown=on&quot;</span><br></pre></td></tr></table></figure>
 <p>或者关闭：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> @@optimizer_switch = <span class="string">"index_condition_pushdown=off"</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> @<span class="variable">@optimizer_switch</span> <span class="operator">=</span> &quot;index_condition_pushdown=off&quot;</span><br></pre></td></tr></table></figure>
 <p>当开启了ICP之后，在执行计划Extra可以看到 Using index condition提示。</p>
 <h1 id="索引的特点、优点、缺点及适用场景"><a href="#索引的特点、优点、缺点及适用场景" class="headerlink" title="索引的特点、优点、缺点及适用场景"></a><span style="color:#339AFF;">索引的特点、优点、缺点及适用场景</span></h1><h2 id="索引的特点"><a href="#索引的特点" class="headerlink" title="索引的特点"></a><span style="color:#00ACC1;">索引的特点</span></h2><ul>
 <li>可以加快数据库的检索速度</li>
@@ -734,7 +736,7 @@
 <li><p>如果列名是索引，那么使用 column_name is null 就会使用索引，例如下面的就会使用索引：</p>
 </li>
 </ul>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> t_index <span class="keyword">where</span> a <span class="keyword">is</span> <span class="literal">null</span> \G</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t_index <span class="keyword">where</span> a <span class="keyword">is</span> <span class="keyword">null</span> \G</span><br></pre></td></tr></table></figure>
 <ul>
 <li>经常出现在关键字order by、group by、distinct后面的字段</li>
 <li>在union等集合操作的结果集字段</li>
@@ -788,7 +790,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/05/28/MySQL事务，这篇文章就够了/" rel="next" title="MySQL事务，这篇文章就够了">
+              <a href="/2020/05/28/MySQL%E4%BA%8B%E5%8A%A1%EF%BC%8C%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%B0%B1%E5%A4%9F%E4%BA%86/" rel="next" title="MySQL事务，这篇文章就够了">
                 <i class="fa fa-chevron-left"></i> MySQL事务，这篇文章就够了
               </a>
             
@@ -798,7 +800,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/05/31/第2章-选择排序/" rel="prev" title="第2章 选择排序">
+              <a href="/2020/05/31/%E7%AC%AC2%E7%AB%A0-%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F/" rel="prev" title="第2章 选择排序">
                 第2章 选择排序 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -858,7 +860,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -869,9 +873,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -883,26 +887,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -974,7 +962,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1149,115 +1137,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1288,23 +1168,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1330,7 +1210,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#索引的管理"><span class="nav-number">1.</span> <span class="nav-text">索引的管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cardinality关键字解析"><span class="nav-number">1.1.</span> <span class="nav-text">Cardinality关键字解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fast-Index-Creation"><span class="nav-number">1.2.</span> <span class="nav-text">Fast Index Creation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在线数据定义"><span class="nav-number">1.3.</span> <span class="nav-text">在线数据定义</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#B-树索引的使用"><span class="nav-number">2.</span> <span class="nav-text">B+树索引的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#联合索引"><span class="nav-number">2.1.</span> <span class="nav-text">联合索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我们什么时候需要创建联合索引呢"><span class="nav-number">2.2.</span> <span class="nav-text">我们什么时候需要创建联合索引呢</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么时候联合索引才会发挥作用呢"><span class="nav-number">2.3.</span> <span class="nav-text">什么时候联合索引才会发挥作用呢</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引提示"><span class="nav-number">2.4.</span> <span class="nav-text">索引提示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引优化"><span class="nav-number">2.5.</span> <span class="nav-text">索引优化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#索引的特点、优点、缺点及适用场景"><span class="nav-number">3.</span> <span class="nav-text">索引的特点、优点、缺点及适用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#索引的特点"><span class="nav-number">3.1.</span> <span class="nav-text">索引的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引的优点"><span class="nav-number">3.2.</span> <span class="nav-text">索引的优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引的缺点"><span class="nav-number">3.3.</span> <span class="nav-text">索引的缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引的适用场景"><span class="nav-number">3.4.</span> <span class="nav-text">索引的适用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引失效情况"><span class="nav-number">3.5.</span> <span class="nav-text">索引失效情况</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E7%AE%A1%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">索引的管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cardinality%E5%85%B3%E9%94%AE%E5%AD%97%E8%A7%A3%E6%9E%90"><span class="nav-number">1.1.</span> <span class="nav-text">Cardinality关键字解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fast-Index-Creation"><span class="nav-number">1.2.</span> <span class="nav-text">Fast Index Creation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E7%BA%BF%E6%95%B0%E6%8D%AE%E5%AE%9A%E4%B9%89"><span class="nav-number">1.3.</span> <span class="nav-text">在线数据定义</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#B-%E6%A0%91%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">B+树索引的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95"><span class="nav-number">2.1.</span> <span class="nav-text">联合索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E4%BB%AC%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E9%9C%80%E8%A6%81%E5%88%9B%E5%BB%BA%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E5%91%A2"><span class="nav-number">2.2.</span> <span class="nav-text">我们什么时候需要创建联合索引呢</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E8%81%94%E5%90%88%E7%B4%A2%E5%BC%95%E6%89%8D%E4%BC%9A%E5%8F%91%E6%8C%A5%E4%BD%9C%E7%94%A8%E5%91%A2"><span class="nav-number">2.3.</span> <span class="nav-text">什么时候联合索引才会发挥作用呢</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E6%8F%90%E7%A4%BA"><span class="nav-number">2.4.</span> <span class="nav-text">索引提示</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96"><span class="nav-number">2.5.</span> <span class="nav-text">索引优化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E7%89%B9%E7%82%B9%E3%80%81%E4%BC%98%E7%82%B9%E3%80%81%E7%BC%BA%E7%82%B9%E5%8F%8A%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">3.</span> <span class="nav-text">索引的特点、优点、缺点及适用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">3.1.</span> <span class="nav-text">索引的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E4%BC%98%E7%82%B9"><span class="nav-number">3.2.</span> <span class="nav-text">索引的优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="nav-number">3.3.</span> <span class="nav-text">索引的缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E7%9A%84%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">3.4.</span> <span class="nav-text">索引的适用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E5%A4%B1%E6%95%88%E6%83%85%E5%86%B5"><span class="nav-number">3.5.</span> <span class="nav-text">索引失效情况</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1365,7 +1245,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1376,12 +1256,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1389,7 +1269,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

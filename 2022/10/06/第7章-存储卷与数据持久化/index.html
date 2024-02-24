@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,31 +104,31 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="Kubernetes进阶实战">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第7章 存储卷与数据持久化">
-<meta property="og:url" content="http://yoursite.com/2022/10/06/第7章-存储卷与数据持久化/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/10/06/%E7%AC%AC7%E7%AB%A0-%E5%AD%98%E5%82%A8%E5%8D%B7%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/10/06/第7章-存储卷与数据持久化/2.png">
-<meta property="og:image" content="http://yoursite.com/2022/10/06/第7章-存储卷与数据持久化/3.png">
-<meta property="og:image" content="http://yoursite.com/2022/10/06/第7章-存储卷与数据持久化/4.png">
-<meta property="og:image" content="http://yoursite.com/2022/10/06/第7章-存储卷与数据持久化/5.png">
-<meta property="og:image" content="http://yoursite.com/2022/10/06/第7章-存储卷与数据持久化/6.png">
-<meta property="og:image" content="http://yoursite.com/2022/10/06/第7章-存储卷与数据持久化/7.png">
-<meta property="og:updated_time" content="2023-09-02T16:31:26.286Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/10/06/%E7%AC%AC7%E7%AB%A0-%E5%AD%98%E5%82%A8%E5%8D%B7%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/2.png">
+<meta property="og:image" content="http://yoursite.com/2022/10/06/%E7%AC%AC7%E7%AB%A0-%E5%AD%98%E5%82%A8%E5%8D%B7%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/3.png">
+<meta property="og:image" content="http://yoursite.com/2022/10/06/%E7%AC%AC7%E7%AB%A0-%E5%AD%98%E5%82%A8%E5%8D%B7%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/4.png">
+<meta property="og:image" content="http://yoursite.com/2022/10/06/%E7%AC%AC7%E7%AB%A0-%E5%AD%98%E5%82%A8%E5%8D%B7%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/5.png">
+<meta property="og:image" content="http://yoursite.com/2022/10/06/%E7%AC%AC7%E7%AB%A0-%E5%AD%98%E5%82%A8%E5%8D%B7%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/6.png">
+<meta property="og:image" content="http://yoursite.com/2022/10/06/%E7%AC%AC7%E7%AB%A0-%E5%AD%98%E5%82%A8%E5%8D%B7%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/7.png">
+<meta property="article:published_time" content="2022-10-06T08:20:09.000Z">
+<meta property="article:modified_time" content="2023-09-02T16:31:26.286Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Kubernetes进阶实战">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第7章 存储卷与数据持久化">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2022/10/06/第7章-存储卷与数据持久化/2.png">
+<meta name="twitter:image" content="http://yoursite.com/2022/10/06/%E7%AC%AC7%E7%AB%A0-%E5%AD%98%E5%82%A8%E5%8D%B7%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/2.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/10/06/第7章-存储卷与数据持久化/">
+  <link rel="canonical" href="http://yoursite.com/2022/10/06/第7章-存储卷与数据持久化/"/>
 
 
 
@@ -177,7 +177,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -238,7 +238,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -255,7 +255,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -272,7 +272,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -289,7 +289,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -306,7 +306,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -317,7 +317,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -337,7 +337,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -387,16 +389,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/10/06/第7章-存储卷与数据持久化/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/10/06/%E7%AC%AC7%E7%AB%A0-%E5%AD%98%E5%82%A8%E5%8D%B7%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -496,7 +498,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">23k</span>
+                <span title="本文字数">39k</span>
               
 
               
@@ -510,7 +512,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">21 分钟</span>
+                <span title="阅读时长">35 分钟</span>
               
             </div>
           
@@ -531,7 +533,7 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>应用程序在处理请求时，可根据其对当前请求的处理是否受影响于此前的请求，将应用划分为有状态应用和无状态应用两种。微服务体系中，各种应用均被拆分成了众多微服务或更小的应用模块，因此往往会存在为数不少的有状态应用，当然，也会存在数量可观的无状态应用。而对于有状态应用来说，数据持久化几乎是必然之需。</p>
 <p>Kubernetes提供的存储卷（Volume）属于Pod资源级别，共享于Pod内的所有容器，可用于在容器的文件系统之外存储应用程序的相关数据，甚至还可独立于Pod的生命周期之外实现数据持久化。本章主要介绍Kubernetes系统之上的主流存储卷类型及其应用。</p>
 <h1 id="存储卷概述"><a href="#存储卷概述" class="headerlink" title="存储卷概述"></a><span style="color:#339AFF;">存储卷概述</span></h1><p>Pod本身具有生命周期，故其内部运行的容器及其相关数据自身均无法持久存在。Docker支持配置容器使用存储卷将数据持久存储于容器自身文件系统之外的存储空间中，它们可以是节点文件系统或网络文件系统之上的存储空间。相应地，Kubernetes也支持类似的存储卷功能，不过，其存储卷是与Pod资源绑定而非容器。简单来说，存储卷是定义在Pod资源之上、可被其内部的所有容器挂载的共享目录，它关联至某外部的存储设备之上的存储空间，从而独立于容器自身的文件系统，而数据是否具有持久能力则取决于存储卷自身是否支持持久机制。Pod、容器与存储卷的关系如图7-1所示。</p>
@@ -543,8 +545,7 @@
 <p>2）ConfigMap资源则用于向Pod注人非敏感数据，使用时，用户将数据直接存储于ConfigMap对象中，而后直接在Pod中使用ConfigMap卷引用它即可，它可以帮助实现容器配置文件集中化定义和管理。</p>
 <p>另外，Kubernetes自1.9版本起对存储的支持做了进一步的增强，引入了容器存储接口（ContainerStorageInterface，CSI）的一套alpha实现版本，其能够将插件的安装流程简化至与创建Pod相当，并允许第三方存储供应商在无须修改Kubernetes代码库的前提下提供自己的解决方案。因此，Kubernetes系统支持的卷存储机制必将进一步增强。</p>
 <h2 id="存储卷的使用方式"><a href="#存储卷的使用方式" class="headerlink" title="存储卷的使用方式"></a><span style="color:#00ACC1;">存储卷的使用方式</span></h2><p>在Pod中定义使用存储卷的配置由两部分组成：一是通过.spec.volumes字段定义在Pod之上的存储卷列表，其支持使用多种不同类型的存储卷且配置参数差别很大；另一个是通过.spec.containers.volumeMounts字段在容器上定义的存储卷挂载列表，它只能挂载当前Pod资源中定义的具体存储卷，当然，也可以不挂载任何存储卷。如图7-1所示。</p>
-<p>在Pod级别定义存储卷时，.spec.volumes字段的值是对象列表格式，每个对象为一个存储卷的定义，它由存储卷名称（<code>.spec.volumes.name&lt;String&gt;</code>）或存储卷对象（<code>.spec.volumes.VOL_TYPE&lt;Object&gt;</code>）组成，其中VOL_TYPE是使用的存储卷类型名称，它的内嵌字段随类型的不同而不同。下面的资源清单片段定义了由两个存储卷组成的卷列表，一个是emptyDir类型，一个是gitRepo类型：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">volumes:</span></span><br><span class="line"><span class="attr">-name:</span><span class="string">logdata</span></span><br><span class="line"><span class="attr">emptyDir:</span><span class="string">&#123;]</span></span><br><span class="line"><span class="attr">-name:</span><span class="string">example</span></span><br><span class="line"><span class="attr">gitRepo:</span></span><br><span class="line"><span class="attr">repository:</span><span class="attr">https://github.com/iKubernetes/k8s_book.gitrevision:master</span></span><br><span class="line"><span class="string">directory;</span></span><br></pre></td></tr></table></figure></p>
-<p>定义好的存储卷可由当前Pod资源内的各容器进行挂载。事实上，也只有多个容器挂载同一个存储卷时，“共享”才有了具体的意义。当Pod中只有一个容器时，使用存储卷的目的通常在于数据持久化。.spec.containers.volumeMounts字段的值也是对象列表格式，由一到多个存储卷挂载定义组成。无论何种类型的存储卷，它们的挂载格式基本上都是相同的，下面的代码段是在容器中定义挂载卷时的通用语法形式：</p>
+<p>在Pod级别定义存储卷时，.spec.volumes字段的值是对象列表格式，每个对象为一个存储卷的定义，它由存储卷名称（<code>.spec.volumes.name&lt;String&gt;</code>）或存储卷对象（<code>.spec.volumes.VOL_TYPE&lt;Object&gt;</code>）组成，其中VOL_TYPE是使用的存储卷类型名称，它的内嵌字段随类型的不同而不同。下面的资源清单片段定义了由两个存储卷组成的卷列表，一个是emptyDir类型，一个是gitRepo类型：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">volumes:</span></span><br><span class="line"><span class="string">-name:logdata</span></span><br><span class="line"><span class="string">emptyDir:&#123;]</span></span><br><span class="line"><span class="string">-name:example</span></span><br><span class="line"><span class="attr">gitRepo:</span></span><br><span class="line"><span class="string">repository:https://github.com/iKubernetes/k8s_book.gitrevision:master</span></span><br><span class="line"><span class="string">directory;</span></span><br></pre></td></tr></table></figure><br>定义好的存储卷可由当前Pod资源内的各容器进行挂载。事实上，也只有多个容器挂载同一个存储卷时，“共享”才有了具体的意义。当Pod中只有一个容器时，使用存储卷的目的通常在于数据持久化。.spec.containers.volumeMounts字段的值也是对象列表格式，由一到多个存储卷挂载定义组成。无论何种类型的存储卷，它们的挂载格式基本上都是相同的，下面的代码段是在容器中定义挂载卷时的通用语法形式：</p>
 <p>其中各字段的意义及使用要求具体如下。</p>
 <ul>
 <li><code>name&lt;string&gt;</code>：指定要挂载的存储的名称，必选字段。</li>
@@ -552,8 +553,7 @@
 <li><code>readOnly&lt;boolean&gt;</code>：是否挂载为只读卷。</li>
 <li><code>subPath&lt;string&gt;</code>：挂载存储卷时使用的子路径，即在mountPath指定的路径下使用一个子路径作为其挂载点。</li>
 </ul>
-<p>下面是一个挂载示例，容器myapp将logdata存储卷挂载于/var/log/myapp，将example挂载到/webdata/example目录：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">containers:</span></span><br><span class="line"><span class="string">一name：myapp</span></span><br><span class="line"><span class="attr">image:</span><span class="string">ikubernetes/myapp:v7</span></span><br><span class="line"><span class="attr">volumeMounts:</span></span><br><span class="line"><span class="attr">-name:</span><span class="string">logdata</span></span><br><span class="line"><span class="attr">mountPath:</span><span class="string">/var/log/myapp/</span></span><br><span class="line"><span class="attr">name:</span><span class="string">example</span></span><br><span class="line"><span class="attr">mountPath:</span><span class="string">/webdata/example/</span></span><br></pre></td></tr></table></figure></p>
-<p>存储卷的定义基本相似，因此本章后面的篇幅将重点放在介绍主流存储卷类型的配置及使用方式，而且出于保持示例简洁及节约篇幅的目的，本章的示例主要以自主式Pod资源为主。</p>
+<p>下面是一个挂载示例，容器myapp将logdata存储卷挂载于/var/log/myapp，将example挂载到/webdata/example目录：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">containers:</span></span><br><span class="line"><span class="string">一name：myapp</span></span><br><span class="line"><span class="string">image:ikubernetes/myapp:v7</span></span><br><span class="line"><span class="attr">volumeMounts:</span></span><br><span class="line"><span class="string">-name:logdata</span></span><br><span class="line"><span class="string">mountPath:/var/log/myapp/</span></span><br><span class="line"><span class="string">name:example</span></span><br><span class="line"><span class="string">mountPath:/webdata/example/</span></span><br></pre></td></tr></table></figure><br>存储卷的定义基本相似，因此本章后面的篇幅将重点放在介绍主流存储卷类型的配置及使用方式，而且出于保持示例简洁及节约篇幅的目的，本章的示例主要以自主式Pod资源为主。</p>
 <h1 id="临时存储卷"><a href="#临时存储卷" class="headerlink" title="临时存储卷"></a><span style="color:#339AFF;">临时存储卷</span></h1><p>Kubernetes支持存储卷类型中，emptyDir存储卷的生命周期与其所属的Pod对象相同，它无法脱离Pod对象的生命周期提供数据存储功能，因此emptyDir通常仅用于数据缓存或临时存储。不过，基于emptyDir构建的gitRepo存储卷可以在Pod对象的生命周期起始时从相应的Git仓库中复制相应的数据文件到底层的emptyDir中，从而使得它具有了一定意义上的持久性。</p>
 <h2 id="emptyDir存储卷"><a href="#emptyDir存储卷" class="headerlink" title="emptyDir存储卷"></a><span style="color:#00ACC1;">emptyDir存储卷</span></h2><p>emptyDir存储卷是Pod对象生命周期中的一个临时目录，类似于Docker上的“docker挂载卷”，在Pod对象启动时即被创建，而在Pod对象被移除时会被一并删除。不具有持久能力的emptyDir存储卷只能用于某些特殊场景中，例如，同一Pod内的多个容器间文件的共享，或者作为容器数据的临时存储目录用于数据缓存系统等。</p>
 <p>emptyDir存储卷则定义于.spec.volumes.emptyDir嵌套字段中，可用字段主要包含两个，具体如下。</p>
@@ -566,11 +566,10 @@
 <blockquote>
 <p>图7-2 存储卷使用示意图</p>
 </blockquote>
-<img src="/2022/10/06/第7章-存储卷与数据持久化/2.png">
+<img src="/2022/10/06/%E7%AC%AC7%E7%AB%A0-%E5%AD%98%E5%82%A8%E5%8D%B7%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/2.png" class="">
 <p>Pod资源的详细信息中会显示存储卷的相关状态，包括其是否创建成功（在Events字段中输出）、相关的类型及参数（在Volumes字段中输出）以及容器中的挂载状态等信息（在Containers字段中输出）。如下面的命令结果所示：</p>
 <p>而后，可以为其创建Service资源并进行访问测试，或者在集群中直接对Pod的地址发起访问请求，以测试两个容器通过emptyDir卷共享数据的结果状态：</p>
-<p>作为边车（sidecar）的容器paggen，其每隔10秒生成一行信息追加到存储卷上的index.html文件中，因此，通过主容器nginx的应用访问到的内容也会处于不停的变动中。另外，emptyDir存储卷也可以基于RAM创建tmpfs文件系统的存储卷，常用于为容器的应用提供高性能缓存，下面是一个配置示例：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">volumes:</span></span><br><span class="line"><span class="attr">-name:</span><span class="string">cache</span></span><br><span class="line"><span class="attr">emptyDir:</span></span><br><span class="line"><span class="attr">medium:</span><span class="string">Memory</span></span><br></pre></td></tr></table></figure></p>
-<p>emptyDir卷简单易用，但仅能用于临时存储。另外还存在一些类型的存储卷建构在emptyDir之上，并额外提供了它所没有的功能，例如，将于7.2.2节介绍的gitRepo存储卷。</p>
+<p>作为边车（sidecar）的容器paggen，其每隔10秒生成一行信息追加到存储卷上的index.html文件中，因此，通过主容器nginx的应用访问到的内容也会处于不停的变动中。另外，emptyDir存储卷也可以基于RAM创建tmpfs文件系统的存储卷，常用于为容器的应用提供高性能缓存，下面是一个配置示例：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">volumes:</span></span><br><span class="line"><span class="string">-name:cache</span></span><br><span class="line"><span class="attr">emptyDir:</span></span><br><span class="line"><span class="string">medium:Memory</span></span><br></pre></td></tr></table></figure><br>emptyDir卷简单易用，但仅能用于临时存储。另外还存在一些类型的存储卷建构在emptyDir之上，并额外提供了它所没有的功能，例如，将于7.2.2节介绍的gitRepo存储卷。</p>
 <h2 id="gitRepo存储卷"><a href="#gitRepo存储卷" class="headerlink" title="gitRepo存储卷"></a><span style="color:#00ACC1;">gitRepo存储卷</span></h2><p>gitRepo存储卷可以看作是emptyDir存储卷的一种实际应用，使用该存储卷的Pod资源可以通过挂载目录访问指定的代码仓库中的数据。使用gitRepo存储卷的Pod资源在创建时，会首先创建一个空目录（emptyDir）并克隆（clone）一份指定的Git仓库中的数据至该目录，而后再创建容器并挂载该存储卷。</p>
 <p>定义gitRepo类型的存储卷时，其可嵌套使用的字段具体包含如下三个。</p>
 <ul>
@@ -607,10 +606,8 @@
 </ul>
 <p>Redis（REmoteDIctionaryServer）是一个著名的高性能key-value存储系统，应用非常广泛，将其部署运行于Kubernetes系统之上时，需要持久化存储卷的支持。下面是简单使用Redis的一个示例：</p>
 <p>上面的示例定义在资源配置文件vol-nfs.yaml中，其中的Pod资源拥有一个关联至NFS服务器nfs.ilinux.io的存储卷，Redis容器将其挂载于/data目录上，它是运行于容器中的redis-server数据的持久保存位置。<br>提这里应确保事先要存在一个名为nfs.ilinux.io的NFS服务器，其输出了/data/redis目示录，并授权给了Kubernetes集群中的节点访问。主机和目录都可以按需要进行调整。</p>
-<p>资源创建完成后，可通过其命令客户端redis-cli创建测试数据，并手动触发其同步于存储系统中，下面加粗部分的字体为要执行的Redis命令：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">~]$kubectlexec-itvol-nfs-podredis-cli</span><br><span class="line">127.0.0.1:6379&gt;setmykey"helloilinux.io.</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt;getmykey</span><br><span class="line">"helloilinux.io"</span><br><span class="line">127.0.0.1:6379&gt;BGSAVE</span><br><span class="line">Backgroundsavingstarted</span><br><span class="line">127.0.0.1:6379&gt;exit</span><br></pre></td></tr></table></figure></p>
-<p>为了测试其数据持久化效果，下面删除Pod资源vol-nfs-pod，并于再次重建后检测数据是否依然能够访问：</p>
-<p>待其重建完成后，通过再一次创建的Pod资源的详细信息，我们可以观察到它挂载使用NFS存储卷的相关信息。接下来再次检查redis-server中是否还保存有此前存储的数据：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~]$kubectlexec-itvol-nfs-podredis-cli</span><br><span class="line">7.0.0.1:6379&gt;getmykey</span><br><span class="line">"helloilinux.io"</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure></p>
-<p>从上面的命令结果中可以看出，此前创建的键mykey及其数据在Pod资源重建后依然存在，这表明在删除Pod资源时，其关联的外部存储卷并不会被一同删除。如果需要清除此类的数据，需要用户通过存储系统的管理接口手动进行。</p>
+<p>资源创建完成后，可通过其命令客户端redis-cli创建测试数据，并手动触发其同步于存储系统中，下面加粗部分的字体为要执行的Redis命令：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">~]$</span><span class="language-bash">kubectlexec-itvol-nfs-podredis-cli</span></span><br><span class="line">127.0.0.1:6379&gt;setmykey&quot;helloilinux.io.</span><br><span class="line">OK</span><br><span class="line">127.0.0.1:6379&gt;getmykey</span><br><span class="line">&quot;helloilinux.io&quot;</span><br><span class="line">127.0.0.1:6379&gt;BGSAVE</span><br><span class="line">Backgroundsavingstarted</span><br><span class="line">127.0.0.1:6379&gt;exit</span><br></pre></td></tr></table></figure><br>为了测试其数据持久化效果，下面删除Pod资源vol-nfs-pod，并于再次重建后检测数据是否依然能够访问：</p>
+<p>待其重建完成后，通过再一次创建的Pod资源的详细信息，我们可以观察到它挂载使用NFS存储卷的相关信息。接下来再次检查redis-server中是否还保存有此前存储的数据：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">~]$</span><span class="language-bash">kubectlexec-itvol-nfs-podredis-cli</span></span><br><span class="line">7.0.0.1:6379&gt;getmykey</span><br><span class="line">&quot;helloilinux.io&quot;</span><br><span class="line">127.0.0.1:6379&gt;</span><br></pre></td></tr></table></figure><br>从上面的命令结果中可以看出，此前创建的键mykey及其数据在Pod资源重建后依然存在，这表明在删除Pod资源时，其关联的外部存储卷并不会被一同删除。如果需要清除此类的数据，需要用户通过存储系统的管理接口手动进行。</p>
 <h2 id="RBD存储卷"><a href="#RBD存储卷" class="headerlink" title="RBD存储卷"></a><span style="color:#00ACC1;">RBD存储卷</span></h2><p>Ceph是一个专注于分布式的、弹性可扩展的、高可靠的、性能优异的存储系统平台，同时支持提供块设备、文件系统和REST三种存储接口。它是一个高度可配置的系统，并提供了一个命令行界面用于监视和控制其存储集群。Ceph还包含鉴证和授权功能，可兼容多种存储网关接口，如OpenStackSwift和AmazonS3。Kubemetes也支持通过RBD卷类型使用Ceph存储系统为Pod提供存储卷。要配置Pod资源使用RBD存储卷，需要事先满足如下几个前提条件。口存在某可用的CephRBD存储集群，否则就需要创建-个。</p>
 <ul>
 <li>在CephRBD集群中创建一个能满足Pod资源数据存储需要的存储映像（image）。口在Kubernetes集群内的各节点上安装Ceph客户端程序包（ceph-common）<br>在配置RBD类型的存储卷时，需要指定要连接的目标服务器和认证信息等，这一点通常使用以下嵌套字段进行定义。</li>
@@ -628,7 +625,7 @@
 <blockquote>
 <p>图7-3 RBD存储卷</p>
 </blockquote>
-<img src="/2022/10/06/第7章-存储卷与数据持久化/3.png">
+<img src="/2022/10/06/%E7%AC%AC7%E7%AB%A0-%E5%AD%98%E5%82%A8%E5%8D%B7%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/3.png" class="">
 <p>提示此配置示例依赖于一个可用的Ceph集群，且上述配置示例中的部分参数需要参照实际环境进行修改。</p>
 <h2 id="GlusterFS存储卷"><a href="#GlusterFS存储卷" class="headerlink" title="GlusterFS存储卷"></a><span style="color:#00ACC1;">GlusterFS存储卷</span></h2><p>GlusterFS（GlusterFileSystem）是一个开源的分布式文件系统，是水平扩展存储解决方案Gluster的核心，具有强大的横向扩展能力，GlusterFS通过扩展能够支持数PB存储容量和处理数千客户端。GlusterFS借助TCP/IP或InfiniBandRDMA网络将物理分布的存储资源聚集在一起，使用单一全局命名空间来管理数据。另外，GlusterFS基于可堆叠的用户空间设计，可为各种不同的数据负载提供优异的性能，是另-种流行的分布式存储解决方案。要配置Pod资源使用GlusterFS存储卷，需要事先满足以下前提条件。</p>
 <p>1）存在某可用的GlusterFS存储集群，否则就要创建一个。</p>
@@ -657,7 +654,7 @@
 <blockquote>
 <p>图7-4 Pod存储卷、PVC、PV及存储设备的调用关系</p>
 </blockquote>
-<img src="/2022/10/06/第7章-存储卷与数据持久化/4.png">
+<img src="/2022/10/06/%E7%AC%AC7%E7%AB%A0-%E5%AD%98%E5%82%A8%E5%8D%B7%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/4.png" class="">
 <p>尽管PVC使得用户可以以抽象的方式访问存储资源，但很多时候还是会涉及PV的不少属性，例如，用于不同场景时设置的性能参数等。为此，集群管理员不得不通过多种方式提供多种不同的PV以满足用户不同的使用需求，两者衔接上的偏差必然会导致用户的需求无法全部及时有效地得到满足。Kubernetes自1.4版起引人了一个新的资源对象StorageClass，可用于将存储资源定义为具有显著特性的类别（Class）而不是具体的PV，例如“fast”“slow”或“glod”“silver”“bronze”等。用户通过PVC直接向意向的类别发出申请，匹配由管理员事先创建的PV，或者由其按需为用户动态创建PV，这样做甚至免去了需要事先创建PV的过程。</p>
 <p>PV对存储系统的支持可通过其插件来实现，目前，Kubernetes支持如下类型的插件。</p>
 <h2 id="创建PV"><a href="#创建PV" class="headerlink" title="创建PV"></a><span style="color:#00ACC1;">创建PV</span></h2><p>PersistentVolumeSpec主要支持以下几个通用字段，用于定义PV的容量、访问模式和回收策略。</p>
@@ -680,10 +677,9 @@
 <blockquote>
 <p>图7-5 各PV支持的访问模式</p>
 </blockquote>
-<img src="/2022/10/06/第7章-存储卷与数据持久化/5.png">
+<img src="/2022/10/06/%E7%AC%AC7%E7%AB%A0-%E5%AD%98%E5%82%A8%E5%8D%B7%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/5.png" class="">
 <p>下面的资源清单配置示例中定义了一个使用NFS存储后端的PV，空间大小为10GB，支持多路的读写操作。待后端存储系统满足需求时，即可进行如下PV资源的创建：</p>
-<p>创建完成后，可以看到其状态为“Available”，即“可用”状态，表示目前尚未被PVC资源所“绑定”：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~]$kubectlgetpvpv-nfs-0001-ocustom-columns=NAME:metadataname,STATUS:status.</span><br><span class="line">phase</span><br><span class="line">NAMESTATUS</span><br><span class="line">pv-nfs-0001Available</span><br></pre></td></tr></table></figure></p>
-<p>下面是另一个PV资源的配置清单，它使用RBD存储后端，空间大小为2GB，仅支持单个客户端的读写访问。将RBD相关属性设定为匹配实际的环境需求，例如在Ceph集群中创建映像pv-rbd-0001，大小为2GB，并在映射后进行映像文件格式化，随后即可创建如下的PV资源：</p>
+<p>创建完成后，可以看到其状态为“Available”，即“可用”状态，表示目前尚未被PVC资源所“绑定”：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">~]$</span><span class="language-bash">kubectlgetpvpv-nfs-0001-ocustom-columns=NAME:metadataname,STATUS:status.</span></span><br><span class="line">phase</span><br><span class="line">NAMESTATUS</span><br><span class="line">pv-nfs-0001Available</span><br></pre></td></tr></table></figure><br>下面是另一个PV资源的配置清单，它使用RBD存储后端，空间大小为2GB，仅支持单个客户端的读写访问。将RBD相关属性设定为匹配实际的环境需求，例如在Ceph集群中创建映像pv-rbd-0001，大小为2GB，并在映射后进行映像文件格式化，随后即可创建如下的PV资源：</p>
 <p>使用资源的查看命令可列出PV资源的相关信息。创建完成的PV资源可能处于下列四种状态中的某一种，它们代表着PV资源生命周期中的各个阶段。</p>
 <ul>
 <li>Available：可用状态的自由资源，尚未被PVC绑定。</li>
@@ -701,10 +697,8 @@
 <li>volumeName：用于直接指定要绑定的PV的卷名。</li>
 </ul>
 <p>下面的配置清单（pvc-nfs-0001.yaml文件）定义了一个PVC资源示例，其选择选机制是使用了标签选择器，适配的标签是release：stable，存储类为slow，这会关联到前面创建的PV资源pv-nfs-0001：</p>
-<p>使用资源创建命令完成资源创建，而后即可查看其绑定PV资源的相关信息：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">~]$kubectlgetpvcpvc-nfs-0001</span><br><span class="line">NAME</span><br><span class="line">STATUSVOLUME</span><br><span class="line">CAPACITYACCESSMODES</span><br><span class="line">STORAGECLASS</span><br><span class="line">AGE</span><br><span class="line">pvc-nfs-0001Boundpv-nfs-00015Gi</span><br><span class="line">RWX</span><br><span class="line">slow</span><br><span class="line">6s</span><br></pre></td></tr></table></figure></p>
-<p>如果需要绑定此前创建的PV资源pv-rbd-0001，那么创建类似如下的资源配置即可，它将保存于配置文件pvc-rbd-0001.yaml中：</p>
-<p>使用资源创建命令完成资源创建，而后即可查看其绑定PV资源的相关信息：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">~]$kubectlgetpvc/pvc-rbd-0001</span><br><span class="line">NAME</span><br><span class="line">STATUSVOLUME</span><br><span class="line">CAPACITYACCESSMODESSTORAGECLASSAGE</span><br><span class="line">pvc-rbd-0001</span><br><span class="line">Boundpv-rbd-0001</span><br><span class="line">2Gi</span><br><span class="line">RWO</span><br><span class="line">fast</span><br><span class="line">5s</span><br></pre></td></tr></table></figure></p>
-<p>创建好PVC资源之后，即可在Pod资源中通过persistenVolumeClain存储卷引用它，而后挂载于容器中进行数据持久化。需要注意的是，PV是集群级别的资源，而PVC则隶属于名称空间，因此，PVC在绑定目标PV时不受名称空间的限制，但Pod引用PVC时，则只能是属于同一名称空间中的资源。</p>
+<p>使用资源创建命令完成资源创建，而后即可查看其绑定PV资源的相关信息：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">~]$</span><span class="language-bash">kubectlgetpvcpvc-nfs-0001</span></span><br><span class="line">NAME</span><br><span class="line">STATUSVOLUME</span><br><span class="line">CAPACITYACCESSMODES</span><br><span class="line">STORAGECLASS</span><br><span class="line">AGE</span><br><span class="line">pvc-nfs-0001Boundpv-nfs-00015Gi</span><br><span class="line">RWX</span><br><span class="line">slow</span><br><span class="line">6s</span><br></pre></td></tr></table></figure><br>如果需要绑定此前创建的PV资源pv-rbd-0001，那么创建类似如下的资源配置即可，它将保存于配置文件pvc-rbd-0001.yaml中：</p>
+<p>使用资源创建命令完成资源创建，而后即可查看其绑定PV资源的相关信息：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">~]$</span><span class="language-bash">kubectlgetpvc/pvc-rbd-0001</span></span><br><span class="line">NAME</span><br><span class="line">STATUSVOLUME</span><br><span class="line">CAPACITYACCESSMODESSTORAGECLASSAGE</span><br><span class="line">pvc-rbd-0001</span><br><span class="line">Boundpv-rbd-0001</span><br><span class="line">2Gi</span><br><span class="line">RWO</span><br><span class="line">fast</span><br><span class="line">5s</span><br></pre></td></tr></table></figure><br>创建好PVC资源之后，即可在Pod资源中通过persistenVolumeClain存储卷引用它，而后挂载于容器中进行数据持久化。需要注意的是，PV是集群级别的资源，而PVC则隶属于名称空间，因此，PVC在绑定目标PV时不受名称空间的限制，但Pod引用PVC时，则只能是属于同一名称空间中的资源。</p>
 <h2 id="在Pod中使用PVC"><a href="#在Pod中使用PVC" class="headerlink" title="在Pod中使用PVC"></a><span style="color:#00ACC1;">在Pod中使用PVC</span></h2><p>在Pod资源中调用PVC资源，只需要在定义volumes时使用persistentVolumeClaims字段嵌套指定两个字段即可，具体如下。</p>
 <ul>
 <li>claimName：要调用的PVC存储卷的名称，PVC卷要与Pod在同一名称空间中。</li>
@@ -716,7 +710,7 @@
 <blockquote>
 <p>图7-6 基于综合服务质量的存储系统分类</p>
 </blockquote>
-<img src="/2022/10/06/第7章-存储卷与数据持久化/6.png">
+<img src="/2022/10/06/%E7%AC%AC7%E7%AB%A0-%E5%AD%98%E5%82%A8%E5%8D%B7%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/6.png" class="">
 <p>存储类的好处之一便是支持PV的动态创建。用户用到持久性存储时，需要通过创建PVC来绑定匹配的PV，此类操作需求量较大，或者当管理员手动创建的PV无法满足PVC的所有需求时，系统按PVC的需求标准动态创建适配的会为存储管理带来极大的灵活性。</p>
 <p>存储类对象的名称至关重要，它是用户调用的标识。创建存储类对象时，除了名称之外，还需要为其定义三个关键字段：provisioner、parameter和reclaimPolicy。</p>
 <p>1，StorageClassSpec</p>
@@ -727,17 +721,15 @@
 <li>volumeBindingMode：定义如何为PVC完成供给和绑定，默认值为“VolumeBindingImmediate”；此选项仅在启用了存储卷调度功能时才能生效。</li>
 <li>mountOptions：由当前类动态创建的PV的挂载选项列表。</li>
 </ul>
-<p>下面是一个定义在glusterfs-storageclass.yaml配置文件中的资源清单，它定义了一个使用Gluster存储系统的存储类glusterfs，并通过annotations字段将其定义为默认的存储类：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">kind:</span><span class="string">storageClass</span></span><br><span class="line"><span class="attr">apiVersion:</span><span class="string">storage.k8s.io/v1betal</span></span><br><span class="line"><span class="string">metadata：何s</span></span><br><span class="line"><span class="attr">name:</span><span class="string">glusterfs</span></span><br><span class="line"><span class="attr">provisioner:</span><span class="string">kubernetes.io/qlusterfs</span></span><br><span class="line"><span class="string">narameters.</span></span><br><span class="line"><span class="attr">Darameters:</span></span><br><span class="line"><span class="attr">resturl:</span><span class="string">"http://heketi.ilinux.io:8080"</span></span><br><span class="line"><span class="attr">restauthenabled:</span><span class="string">"false"</span></span><br><span class="line"><span class="attr">restuser:</span><span class="string">"ik8s"</span></span><br><span class="line"><span class="attr">restuserkey:</span><span class="string">■ik8s.io"</span></span><br><span class="line"><span class="string">tuse</span></span><br></pre></td></tr></table></figure></p>
-<p>这里需要特别提醒读者的是，parameters.resturl字段用于指定Gluster存储系统的RESTful风格的访问接口，本示例中使用的“http：/heketi.linux.io：8080”应替换为读者自己实际环境中的可用地址。Gluster存储系统本身并不支持这种访问方式，管理员需要额外部署heketi配合Gluster以提供此类服务接口。Heketi支持认证访问，不过只有在restauthenabled设置为“true”时，restuser和restuserkey字段才会启用。Heketi的设置及使用方式请参考附录B。</p>
+<p>下面是一个定义在glusterfs-storageclass.yaml配置文件中的资源清单，它定义了一个使用Gluster存储系统的存储类glusterfs，并通过annotations字段将其定义为默认的存储类：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">kind:storageClass</span></span><br><span class="line"><span class="string">apiVersion:storage.k8s.io/v1betal</span></span><br><span class="line"><span class="string">metadata：何s</span></span><br><span class="line"><span class="string">name:glusterfs</span></span><br><span class="line"><span class="string">provisioner:kubernetes.io/qlusterfs</span></span><br><span class="line"><span class="string">narameters.</span></span><br><span class="line"><span class="attr">Darameters:</span></span><br><span class="line"><span class="string">resturl:&quot;http://heketi.ilinux.io:8080&quot;</span></span><br><span class="line"><span class="string">restauthenabled:&quot;false&quot;</span></span><br><span class="line"><span class="string">restuser:&quot;ik8s&quot;</span></span><br><span class="line"><span class="string">restuserkey:■ik8s.io&quot;</span></span><br><span class="line"><span class="string">tuse</span></span><br></pre></td></tr></table></figure><br>这里需要特别提醒读者的是，parameters.resturl字段用于指定Gluster存储系统的RESTful风格的访问接口，本示例中使用的“http：/heketi.linux.io：8080”应替换为读者自己实际环境中的可用地址。Gluster存储系统本身并不支持这种访问方式，管理员需要额外部署heketi配合Gluster以提供此类服务接口。Heketi支持认证访问，不过只有在restauthenabled设置为“true”时，restuser和restuserkey字段才会启用。Heketi的设置及使用方式请参考附录B。</p>
 <p>2.动态PV供给</p>
 <p>动态PV供给的启用，需要事先由管理员创建至少—个存储类，不同的Provisoner的创建方法各有不同，具体内容如前一节所示。另外，并非所有的存储卷插件都由Kubernetes内建支持PV动态供给功能，具体信息如图7-7所示。</p>
 <p>.上文中定义glusterfs存储类资源创建完成后，便可以据此使用动态PV供给功能。下面的资源清单定义在pvc-gluserfs-dynamic-0001.yaml配置文件中，它将从glusterfs存储类中申请使用5GB的存储空间：</p>
 <blockquote>
 <p>图7-7 各存储插件对动态供给方式的支持状况</p>
 </blockquote>
-<img src="/2022/10/06/第7章-存储卷与数据持久化/7.png">
-<p>目前，在PVC的定义中指定使用的存储类资源的方式共有两种：一种是使用spec.storageClassName字段，另一种是使用“volume.beta.kubernetes.io/storage-class”注解信息，如上面示例中所示。不过，建议仅使用一种方式，以免两者设置为不同的值时会出现配置错误。接下来创建定义的PVC，并检查其绑定状态：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~]$kubectlcreate-fpvc-glusterfs-dynamic-0001.yaml</span><br><span class="line">persistentvolumeclaim"pvc-gluster-dynamic-0ool"created</span><br></pre></td></tr></table></figure></p>
-<p>通过如下命令输出的PVC资源的描述信息可以看到，PVC存储卷已创建完成且已经完成了PV绑定，绑定的PV资源由persistentvolume-controller控制器动态提供：</p>
+<img src="/2022/10/06/%E7%AC%AC7%E7%AB%A0-%E5%AD%98%E5%82%A8%E5%8D%B7%E4%B8%8E%E6%95%B0%E6%8D%AE%E6%8C%81%E4%B9%85%E5%8C%96/7.png" class="">
+<p>目前，在PVC的定义中指定使用的存储类资源的方式共有两种：一种是使用spec.storageClassName字段，另一种是使用“volume.beta.kubernetes.io/storage-class”注解信息，如上面示例中所示。不过，建议仅使用一种方式，以免两者设置为不同的值时会出现配置错误。接下来创建定义的PVC，并检查其绑定状态：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">~]$</span><span class="language-bash">kubectlcreate-fpvc-glusterfs-dynamic-0001.yaml</span></span><br><span class="line">persistentvolumeclaim&quot;pvc-gluster-dynamic-0ool&quot;created</span><br></pre></td></tr></table></figure><br>通过如下命令输出的PVC资源的描述信息可以看到，PVC存储卷已创建完成且已经完成了PV绑定，绑定的PV资源由persistentvolume-controller控制器动态提供：</p>
 <p>任何支持PV动态供给的存储系统都可以在定义为存储类后由PVC动态申请使用，这对于难以事先预估使用到的存储空间大小及存储卷数量的使用场景尤为有用，例如由StatefulSet控制器管理Pod对象时，存储卷是必备资源，且随着规模的变动，存储卷的数量也会随之变动。</p>
 <p>另外，用户也可以使用云端存储提供的PV动态供给机制，如AWSEBS、AzureDisk、Cinder或GCEPersistentDisk等，将Kubernetes部署于IaaS云端时，此种存储方式使用的较多。各类云存储动态供给的具体使用方式请参考相关的使用手册。</p>
 <h2 id="PV和PVC的生命周期"><a href="#PV和PVC的生命周期" class="headerlink" title="PV和PVC的生命周期"></a><span style="color:#00ACC1;">PV和PVC的生命周期</span></h2><p>PV是Kubernetes集群的存储资源，而PVC则代表着资源需求。创建PVC时对PV发起的使用申请，即为“绑定”。PV和PVC是一对应的关系，可用于响应PVC申请的PV必须要能够容纳PVC的请求条件，它们二者的交互遵循如下生命周期。</p>
@@ -787,13 +779,11 @@
 <li>spec.serviceAccountName：Pod对象使用的ServiceAccount资源的名称。</li>
 <li>metadata.uid：Pod对象的UID。</li>
 <li><code>metadata.labels[&#39;&lt;KEY&gt;&quot;]</code>：Pod对象标签中的指定键的值，例如metadata.labels[‘mylabel]，仅Kubernetes1.9及之后的版本才支持。</li>
-<li>metadata.annotations[‘<key>]：Pod对象注解信息中的指定键的值，仅Kubernetes1.9及之后的版本才支持。</key></li>
+<li>metadata.annotations[‘<KEY>]：Pod对象注解信息中的指定键的值，仅Kubernetes1.9及之后的版本才支持。</li>
 </ul>
 <p>另外，可通过resourceFieldRef字段引用的信息是指当前容器的资源请求及资源限额的定义，因此它们包括requests.cpu、limits.cpu、requests.memory和limits.memory四项。</p>
 <p>下面的资源配置清单示例（downwardAPI-env.yaml）中定义的Pod对象通过环境变量向容器env-test-container中注人了Pod对象的名称、隶属的名称空间、标签app的值以及容器自身的CPU资源限额和内存资源请求等信息：</p>
-<p>此Pod对象创建完成后，向控制台打印所有的环境变量即可终止运行，它仅用于测试通过环境变量注入信息到容器的使用效果：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">~]$kubectlcreate-fdownwardApI-env.yamlpod"env-test-pod"created</span><br><span class="line"><span class="meta">$</span><span class="bash">kubectlgetpods-lapp=env-test-pod</span></span><br><span class="line">NAME</span><br><span class="line">READY</span><br><span class="line">STATUS</span><br><span class="line">RESTARTS</span><br><span class="line">AGE</span><br><span class="line">env-test-pod</span><br><span class="line">0/1</span><br><span class="line">Completed</span><br><span class="line">0</span><br><span class="line">1m</span><br></pre></td></tr></table></figure></p>
-<p>而后即可通过控制台日志获取注人的环境变量：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~]$kubectllogsenv-test-podgrep"^MY_"MY_POD_NAMESPACE=default</span><br><span class="line">MY_CPU_LIMIT=1</span><br><span class="line">MY_APP_LABEL=env-test-pod</span><br><span class="line">MY_MEM_REQUEST=32</span><br><span class="line">MY_POD_NAME=env-test-pod</span><br></pre></td></tr></table></figure></p>
-<p>如示例中的最后一个环境变量所示，在定义资源请求或资源限制时还可额外指定一个“divisor”字段，用于为引用的值指定一个除数以实现所引用的相关值的单位换算。CPU资源的divisor字段其默认值为1，表示为1个核心，相除的结果不足1个单位时则向上圆整（例如，0.25向上圆整的结果为1），它的另一个可用单位为1m，即表示1个微核心。内存资源的divisor字段其默认值为也是1，不过，它意指1个字节，此时，32Mi的内存资源则要换算为33554432的结果予以输出。其他可用的单位还有1Ki、1Mi、1Gi等，于是，在将divisor字段的值设置为1Mi时，32Mi的内存资源的换算结果即为32。</p>
+<p>此Pod对象创建完成后，向控制台打印所有的环境变量即可终止运行，它仅用于测试通过环境变量注入信息到容器的使用效果：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">~]$</span><span class="language-bash">kubectlcreate-fdownwardApI-env.yamlpod<span class="string">&quot;env-test-pod&quot;</span>created</span></span><br><span class="line"><span class="meta prompt_">$</span><span class="language-bash">kubectlgetpods-lapp=env-test-pod</span></span><br><span class="line">NAME</span><br><span class="line">READY</span><br><span class="line">STATUS</span><br><span class="line">RESTARTS</span><br><span class="line">AGE</span><br><span class="line">env-test-pod</span><br><span class="line">0/1</span><br><span class="line">Completed</span><br><span class="line">0</span><br><span class="line">1m</span><br></pre></td></tr></table></figure><br>而后即可通过控制台日志获取注人的环境变量：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">~]$</span><span class="language-bash">kubectllogsenv-test-podgrep<span class="string">&quot;^MY_&quot;</span>MY_POD_NAMESPACE=default</span></span><br><span class="line">MY_CPU_LIMIT=1</span><br><span class="line">MY_APP_LABEL=env-test-pod</span><br><span class="line">MY_MEM_REQUEST=32</span><br><span class="line">MY_POD_NAME=env-test-pod</span><br></pre></td></tr></table></figure><br>如示例中的最后一个环境变量所示，在定义资源请求或资源限制时还可额外指定一个“divisor”字段，用于为引用的值指定一个除数以实现所引用的相关值的单位换算。CPU资源的divisor字段其默认值为1，表示为1个核心，相除的结果不足1个单位时则向上圆整（例如，0.25向上圆整的结果为1），它的另一个可用单位为1m，即表示1个微核心。内存资源的divisor字段其默认值为也是1，不过，它意指1个字节，此时，32Mi的内存资源则要换算为33554432的结果予以输出。其他可用的单位还有1Ki、1Mi、1Gi等，于是，在将divisor字段的值设置为1Mi时，32Mi的内存资源的换算结果即为32。</p>
 <p>未为容器定义资源请求及资源限额时，downwardAPI引用的值即默认为节点的可分注意配CPU及内存资源量。</p>
 <h2 id="存储卷式元数据注入"><a href="#存储卷式元数据注入" class="headerlink" title="存储卷式元数据注入="></a><span style="color:#00ACC1;">存储卷式元数据注入</span>=</h2><p>向容器注人元数据信息的另一种方式是使用downwardAPI存储卷，它将配置的字段数据映射为文件并可通过容器中的挂载点进行访问。7.2.5节中能够通过环境变量的方式注人的元数据信息也都可以使用存储卷的方式进行信息暴露，除此之外，还可以在downwardAPI存储卷中使用fieldRef引用如下两个数据源。</p>
 <ul>
@@ -801,11 +791,8 @@
 <li>metadata.annotations：Pod对象的所有注解信息，每行一个，格式为annotation-key=”escaped-annotation-value”。</li>
 </ul>
 <p>下面的资源配置清单示例（downwardAPI-vol.yaml）中定义的Pod对象通过downwardAPI存储卷向容器volume-test-container中注人了Pod对象隶属的名称空间、标签、注解以及容器自身的CPU资源限额和内存资源请求等信息。存储卷在容器中的挂载点为/etc/podinfo目录，因此，注人的每一项信息均会映射为此路径下的一个文件：</p>
-<p>创建资源配置清单中定义的Pod对象后即可测试访问由downwardAPI存储卷映射的文件pod_namespace、pod_labels.pod_annotations、limits_cpu和mem_request等：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~]$kubectlcreate-fdownwardApl-vol.yaml</span><br><span class="line">pod"dapi-vol-pod"created</span><br></pre></td></tr></table></figure></p>
-<p>接下来即可测试访问上述的映射文件，例如，查看Pod对象的标签列表：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~]$kubectlexecdapi-vol-pod--cat/etc/podinfo/pod_labels</span><br><span class="line">app="dapi-vol-pod"</span><br><span class="line">rack="rack-101"</span><br><span class="line">zone="east-china"</span><br></pre></td></tr></table></figure></p>
-<p>如命令结果所示，Pod对象的标签信息每行一个地映射于自定义的路径/etc/podinfo/pod_labels文件中，类似地，注解信息也以这种方式进行处理。如前面的章节中所述，标签和注解支持运行时修改，其改动的结果也会实时映射进downwardAPI生成的文件中。例如，为dapi-vol-pod添加新的标签：</p>
-<p>而后再次查看容器内的pod_labels文件的内容，由如下的命令结果可知新的标签已经能够通过相关的文件获取到：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">~]$kubectlexecdapi-vol-pod--cat/etc/podinfo/pod_labels</span><br><span class="line">app="dapi-vol-pod"</span><br><span class="line">env="test"</span><br><span class="line">rack="rack-101"</span><br><span class="line">zone="east-china"</span><br></pre></td></tr></table></figure></p>
-<p>downwardAPI存储卷为Kubernetes上运行容器化应用提供了获取外部环境信息的有效途径，这一点对那些非为云原生开发的应用程序在不进行代码重构的前提下，获取环境信息进行自身配置等操作时尤为有用。</p>
+<p>创建资源配置清单中定义的Pod对象后即可测试访问由downwardAPI存储卷映射的文件pod_namespace、pod_labels.pod_annotations、limits_cpu和mem_request等：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">~]$</span><span class="language-bash">kubectlcreate-fdownwardApl-vol.yaml</span></span><br><span class="line">pod&quot;dapi-vol-pod&quot;created</span><br></pre></td></tr></table></figure><br>接下来即可测试访问上述的映射文件，例如，查看Pod对象的标签列表：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">~]$</span><span class="language-bash">kubectlexecdapi-vol-pod--cat/etc/podinfo/pod_labels</span></span><br><span class="line">app=&quot;dapi-vol-pod&quot;</span><br><span class="line">rack=&quot;rack-101&quot;</span><br><span class="line">zone=&quot;east-china&quot;</span><br></pre></td></tr></table></figure><br>如命令结果所示，Pod对象的标签信息每行一个地映射于自定义的路径/etc/podinfo/pod_labels文件中，类似地，注解信息也以这种方式进行处理。如前面的章节中所述，标签和注解支持运行时修改，其改动的结果也会实时映射进downwardAPI生成的文件中。例如，为dapi-vol-pod添加新的标签：</p>
+<p>而后再次查看容器内的pod_labels文件的内容，由如下的命令结果可知新的标签已经能够通过相关的文件获取到：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">~]$</span><span class="language-bash">kubectlexecdapi-vol-pod--cat/etc/podinfo/pod_labels</span></span><br><span class="line">app=&quot;dapi-vol-pod&quot;</span><br><span class="line">env=&quot;test&quot;</span><br><span class="line">rack=&quot;rack-101&quot;</span><br><span class="line">zone=&quot;east-china&quot;</span><br></pre></td></tr></table></figure><br>downwardAPI存储卷为Kubernetes上运行容器化应用提供了获取外部环境信息的有效途径，这一点对那些非为云原生开发的应用程序在不进行代码重构的前提下，获取环境信息进行自身配置等操作时尤为有用。</p>
 <h1 id="本章小结"><a href="#本章小结" class="headerlink" title="本章小结"></a><span style="color:#339AFF;">本章小结</span></h1><p>本章主要讲解了Kubernetes的存储卷及其功用，并通过应用示例给出了部署存储卷类型的使用方法，具体如下。</p>
 <ul>
 <li>临时存储卷emptyDir和gitRepo的生命周期与Pod对象相同，但gitRepo能够通过引用外部Git仓库的数据来实现数据的持久性。</li>
@@ -838,7 +825,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Kubernetes进阶实战/" rel="tag"># Kubernetes进阶实战</a>
+            <a href="/tags/Kubernetes%E8%BF%9B%E9%98%B6%E5%AE%9E%E6%88%98/" rel="tag"># Kubernetes进阶实战</a>
           
         </div>
       
@@ -851,7 +838,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/10/06/第6章-Service和Ingress/" rel="next" title="第6章 Service和Ingress">
+              <a href="/2022/10/06/%E7%AC%AC6%E7%AB%A0-Service%E5%92%8CIngress/" rel="next" title="第6章 Service和Ingress">
                 <i class="fa fa-chevron-left"></i> 第6章 Service和Ingress
               </a>
             
@@ -861,7 +848,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/10/06/第8章-配置容器应用：ConfigMap和Secret/" rel="prev" title="第8章 配置容器应用：ConfigMap和Secret">
+              <a href="/2022/10/06/%E7%AC%AC8%E7%AB%A0-%E9%85%8D%E7%BD%AE%E5%AE%B9%E5%99%A8%E5%BA%94%E7%94%A8%EF%BC%9AConfigMap%E5%92%8CSecret/" rel="prev" title="第8章 配置容器应用：ConfigMap和Secret">
                 第8章 配置容器应用：ConfigMap和Secret <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -921,7 +908,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -932,9 +921,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -946,26 +935,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -1037,7 +1010,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1212,115 +1185,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1351,23 +1216,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1393,7 +1258,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#存储卷概述"><span class="nav-number">1.</span> <span class="nav-text">存储卷概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Kubernetes支持的存储卷类型"><span class="nav-number">1.1.</span> <span class="nav-text">Kubernetes支持的存储卷类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存储卷的使用方式"><span class="nav-number">1.2.</span> <span class="nav-text">存储卷的使用方式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#临时存储卷"><span class="nav-number">2.</span> <span class="nav-text">临时存储卷</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#emptyDir存储卷"><span class="nav-number">2.1.</span> <span class="nav-text">emptyDir存储卷</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gitRepo存储卷"><span class="nav-number">2.2.</span> <span class="nav-text">gitRepo存储卷</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#节点存储卷hostPath"><span class="nav-number">3.</span> <span class="nav-text">节点存储卷hostPath</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络存储卷"><span class="nav-number">4.</span> <span class="nav-text">网络存储卷</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#NFS存储卷"><span class="nav-number">4.1.</span> <span class="nav-text">NFS存储卷</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RBD存储卷"><span class="nav-number">4.2.</span> <span class="nav-text">RBD存储卷</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GlusterFS存储卷"><span class="nav-number">4.3.</span> <span class="nav-text">GlusterFS存储卷</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cinder存储卷"><span class="nav-number">4.4.</span> <span class="nav-text">Cinder存储卷</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#持久存储卷"><span class="nav-number">5.</span> <span class="nav-text">持久存储卷</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建PV"><span class="nav-number">5.1.</span> <span class="nav-text">创建PV</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建PVC"><span class="nav-number">5.2.</span> <span class="nav-text">创建PVC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在Pod中使用PVC"><span class="nav-number">5.3.</span> <span class="nav-text">在Pod中使用PVC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存储类"><span class="nav-number">5.4.</span> <span class="nav-text">存储类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PV和PVC的生命周期"><span class="nav-number">5.5.</span> <span class="nav-text">PV和PVC的生命周期</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#downwardAPI存储卷"><span class="nav-number">6.</span> <span class="nav-text">downwardAPI存储卷</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境变量式元数据注入"><span class="nav-number">6.1.</span> <span class="nav-text">环境变量式元数据注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#存储卷式元数据注入"><span class="nav-number">6.2.</span> <span class="nav-text">存储卷式元数据注入=</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本章小结"><span class="nav-number">7.</span> <span class="nav-text">本章小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%8D%B7%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">存储卷概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Kubernetes%E6%94%AF%E6%8C%81%E7%9A%84%E5%AD%98%E5%82%A8%E5%8D%B7%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">Kubernetes支持的存储卷类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%8D%B7%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E5%BC%8F"><span class="nav-number">1.2.</span> <span class="nav-text">存储卷的使用方式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%B4%E6%97%B6%E5%AD%98%E5%82%A8%E5%8D%B7"><span class="nav-number">2.</span> <span class="nav-text">临时存储卷</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#emptyDir%E5%AD%98%E5%82%A8%E5%8D%B7"><span class="nav-number">2.1.</span> <span class="nav-text">emptyDir存储卷</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#gitRepo%E5%AD%98%E5%82%A8%E5%8D%B7"><span class="nav-number">2.2.</span> <span class="nav-text">gitRepo存储卷</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8A%82%E7%82%B9%E5%AD%98%E5%82%A8%E5%8D%B7hostPath"><span class="nav-number">3.</span> <span class="nav-text">节点存储卷hostPath</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BD%91%E7%BB%9C%E5%AD%98%E5%82%A8%E5%8D%B7"><span class="nav-number">4.</span> <span class="nav-text">网络存储卷</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#NFS%E5%AD%98%E5%82%A8%E5%8D%B7"><span class="nav-number">4.1.</span> <span class="nav-text">NFS存储卷</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RBD%E5%AD%98%E5%82%A8%E5%8D%B7"><span class="nav-number">4.2.</span> <span class="nav-text">RBD存储卷</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GlusterFS%E5%AD%98%E5%82%A8%E5%8D%B7"><span class="nav-number">4.3.</span> <span class="nav-text">GlusterFS存储卷</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cinder%E5%AD%98%E5%82%A8%E5%8D%B7"><span class="nav-number">4.4.</span> <span class="nav-text">Cinder存储卷</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8C%81%E4%B9%85%E5%AD%98%E5%82%A8%E5%8D%B7"><span class="nav-number">5.</span> <span class="nav-text">持久存储卷</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAPV"><span class="nav-number">5.1.</span> <span class="nav-text">创建PV</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAPVC"><span class="nav-number">5.2.</span> <span class="nav-text">创建PVC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8Pod%E4%B8%AD%E4%BD%BF%E7%94%A8PVC"><span class="nav-number">5.3.</span> <span class="nav-text">在Pod中使用PVC</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E7%B1%BB"><span class="nav-number">5.4.</span> <span class="nav-text">存储类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PV%E5%92%8CPVC%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">5.5.</span> <span class="nav-text">PV和PVC的生命周期</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#downwardAPI%E5%AD%98%E5%82%A8%E5%8D%B7"><span class="nav-number">6.</span> <span class="nav-text">downwardAPI存储卷</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%E5%BC%8F%E5%85%83%E6%95%B0%E6%8D%AE%E6%B3%A8%E5%85%A5"><span class="nav-number">6.1.</span> <span class="nav-text">环境变量式元数据注入</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%98%E5%82%A8%E5%8D%B7%E5%BC%8F%E5%85%83%E6%95%B0%E6%8D%AE%E6%B3%A8%E5%85%A5"><span class="nav-number">6.2.</span> <span class="nav-text">存储卷式元数据注入&#x3D;</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%AC%E7%AB%A0%E5%B0%8F%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">本章小结</span></a></li></ol></div>
             
 
           </div>
@@ -1428,7 +1293,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1439,12 +1304,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1452,7 +1317,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

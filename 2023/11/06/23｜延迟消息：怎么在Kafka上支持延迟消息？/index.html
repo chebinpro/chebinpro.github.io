@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,37 +104,37 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="后端工程师进阶">
 <meta property="og:type" content="article">
 <meta property="og:title" content="23｜延迟消息：怎么在Kafka上支持延迟消息？">
-<meta property="og:url" content="http://yoursite.com/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/index.html">
+<meta property="og:url" content="http://yoursite.com/2023/11/06/23%EF%BD%9C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9A%E6%80%8E%E4%B9%88%E5%9C%A8Kafka%E4%B8%8A%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/1.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/2.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/3.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/4.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/5.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/6.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/7.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/8.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/9.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/10.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/11.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/12.webp">
-<meta property="og:updated_time" content="2023-11-18T15:07:33.808Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2023/11/06/23%EF%BD%9C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9A%E6%80%8E%E4%B9%88%E5%9C%A8Kafka%E4%B8%8A%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/06/23%EF%BD%9C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9A%E6%80%8E%E4%B9%88%E5%9C%A8Kafka%E4%B8%8A%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9F/2.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/06/23%EF%BD%9C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9A%E6%80%8E%E4%B9%88%E5%9C%A8Kafka%E4%B8%8A%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9F/3.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/06/23%EF%BD%9C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9A%E6%80%8E%E4%B9%88%E5%9C%A8Kafka%E4%B8%8A%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9F/4.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/06/23%EF%BD%9C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9A%E6%80%8E%E4%B9%88%E5%9C%A8Kafka%E4%B8%8A%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9F/5.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/06/23%EF%BD%9C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9A%E6%80%8E%E4%B9%88%E5%9C%A8Kafka%E4%B8%8A%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9F/6.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/06/23%EF%BD%9C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9A%E6%80%8E%E4%B9%88%E5%9C%A8Kafka%E4%B8%8A%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9F/7.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/06/23%EF%BD%9C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9A%E6%80%8E%E4%B9%88%E5%9C%A8Kafka%E4%B8%8A%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9F/8.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/06/23%EF%BD%9C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9A%E6%80%8E%E4%B9%88%E5%9C%A8Kafka%E4%B8%8A%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9F/9.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/06/23%EF%BD%9C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9A%E6%80%8E%E4%B9%88%E5%9C%A8Kafka%E4%B8%8A%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9F/10.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/06/23%EF%BD%9C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9A%E6%80%8E%E4%B9%88%E5%9C%A8Kafka%E4%B8%8A%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9F/11.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/06/23%EF%BD%9C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9A%E6%80%8E%E4%B9%88%E5%9C%A8Kafka%E4%B8%8A%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9F/12.webp">
+<meta property="article:published_time" content="2023-11-06T03:16:27.000Z">
+<meta property="article:modified_time" content="2023-11-18T15:07:33.808Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="后端工程师进阶">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="23｜延迟消息：怎么在Kafka上支持延迟消息？">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2023/11/06/23%EF%BD%9C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9A%E6%80%8E%E4%B9%88%E5%9C%A8Kafka%E4%B8%8A%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9F/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/">
+  <link rel="canonical" href="http://yoursite.com/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/"/>
 
 
 
@@ -183,7 +183,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -244,7 +244,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -261,7 +261,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -278,7 +278,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -295,7 +295,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -312,7 +312,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -323,7 +323,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -343,7 +343,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -393,16 +395,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/06/23%EF%BD%9C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9A%E6%80%8E%E4%B9%88%E5%9C%A8Kafka%E4%B8%8A%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -473,7 +475,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/消息队列/" itemprop="url" rel="index"><span itemprop="name">消息队列</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97/" itemprop="url" rel="index"><span itemprop="name">消息队列</span></a></span>
 
                 
                 
@@ -502,7 +504,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">7.6k</span>
+                <span title="本文字数">13k</span>
               
 
               
@@ -516,7 +518,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">7 分钟</span>
+                <span title="阅读时长">12 分钟</span>
               
             </div>
           
@@ -537,7 +539,7 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>今天我们来讨论一个在消息队列面试中非常热的话题——延迟消息。</p>
 <p>延迟消息在Kafka面试里面是非常热门的，其他消息队列多少也会问，但是不如Kafka问得频繁。因为Kafka不支持延迟消息是大家都知道的。但是偏偏Kafka又用得多，很多业务场景也要求使用延迟消息，因此面试的时候延迟消息就成了一个重要的考察点。</p>
 <p>和之前的面试点不同，能把延迟消息的方案讲得清楚透彻的人就不多，更不要说刷亮点了。那么今天我就带你深入延迟消息，并且给出一个非常高级的方案。这个方案会涉及到分库分表，所以能帮助你把这些知识融会贯通。</p>
@@ -547,7 +549,7 @@
 <h1 id="支持延迟消息的其他消息队列"><a href="#支持延迟消息的其他消息队列" class="headerlink" title="支持延迟消息的其他消息队列"></a><span style="color:#339AFF;">支持延迟消息的其他消息队列</span></h1><p>目前，大部分云厂商版本的消息队列都支持了延迟消息，不过我们这里讨论的是原生支持的消息队列。如果你本身使用了今天我们介绍的这些中间件，那么你可以直接使用这些内容来面试。如果你使用的是Kafka，那么你在面试的时候要注意结合着这些消息队列，对比着面试。</p>
 <p>RabbitMQ有插件支持延迟消息功能，而RocketMQ和Kafka则只能自己研发。</p>
 <h2 id="RabbitMQ"><a href="#RabbitMQ" class="headerlink" title="RabbitMQ"></a><span style="color:#00ACC1;">RabbitMQ</span></h2><p>RabbitMQ有一个延迟消息的插件rabbitmq_delayed_message_exchange，只需要启用这个插件就可以使用延迟消息。这个插件的基本原理也比较简单，就是实现了一个exchange。这个exchange控制住了消息什么时候会被真的投递到队列里。</p>
-<img src="/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/1.webp">
+<img src="/2023/11/06/23%EF%BD%9C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9A%E6%80%8E%E4%B9%88%E5%9C%A8Kafka%E4%B8%8A%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9F/1.webp" class="">
 <p>如上图所示，消息会先暂时存储在exchange里面。它使用的是Mnesia来存储，如果你不知道Mnesia是什么，就直观地把它看作一个基于文件的数据库。</p>
 <p>当延迟的时间满足条件之后，这些存储的数据就会被投递到真正的消息队列里面。紧接着消费者就可以消费到这个消息了。你可以从这里得到一个启发，就是如果要实现一个延迟队列，是可以借助数据库的。</p>
 <p>那么这个插件本身也是有很多限制的，在它的官网主页里面就有说明，其中有两个最突出的限制。</p>
@@ -558,7 +560,7 @@
 <p>除了这个插件，开发者也可以自己手动实现延迟消息。这就要利用到RabbitMQ的ttl功能和所谓的死信队列了。</p>
 <p>死信队列是一种逻辑上的概念，也就是说它本身只是一个普通的队列。而死信的意思是指过期的无法被消费的消息，这些消息会被投送到这个死信队列。</p>
 <p>简单来说，就是开发者准备一个队列delay_queue，为这个delay_queue设置过期时间，这个delay_queue不需要消费者。然后把你真实的业务biz_queue绑定到这个delay_queue，作为它的死信队列。</p>
-<img src="/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/2.webp">
+<img src="/2023/11/06/23%EF%BD%9C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9A%E6%80%8E%E4%B9%88%E5%9C%A8Kafka%E4%B8%8A%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9F/2.webp" class="">
 <p>生产者发送消息到delay_queue，因为没有消费者，所以消息会过期。过期之后的消息被转发到死信队列，也就是biz_queue里面。这时候消费者就能拿到消息了。</p>
 <p>这种方案并没有插件的那两个缺点。但是ttl的设置是在队列级别上，也就是你一个delay_queue的延时是固定的，不能做到随机。比如说我这一条消息延后三分钟，另外一条消息延后五分钟，这是不可能的。因此，你可能需要创建很多不同ttl的delay_queue才能满足业务需要。</p>
 <h1 id="面试准备"><a href="#面试准备" class="headerlink" title="面试准备"></a><span style="color:#339AFF;">面试准备</span></h1><p>在准备延迟消息面试的时候，你需要先弄清楚公司内部的一些情况。</p>
@@ -575,7 +577,7 @@
 </ul>
 <h1 id="基础思路"><a href="#基础思路" class="headerlink" title="基础思路"></a><span style="color:#339AFF;">基础思路</span></h1><p>这里我给出了很多比较简单的方案，你可以从这些方案里选择一个作为公司的方案，其他方案你就作为自己了解但是没有实践过的方案。</p>
 <h2 id="利用定时任务调度"><a href="#利用定时任务调度" class="headerlink" title="利用定时任务调度"></a><span style="color:#00ACC1;">利用定时任务调度</span></h2><p>利用定时任务来实现延迟消息是最好、最简单的办法。对于一个延迟消息来说，一个延迟到30分钟后才可以被消费的消息，也可以认为是30分钟后才可以发送。也就是说，你可以设定一个定时任务，这个任务会在30分钟后把消息发送到消息服务器上。</p>
-<img src="/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/3.webp">
+<img src="/2023/11/06/23%EF%BD%9C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9A%E6%80%8E%E4%B9%88%E5%9C%A8Kafka%E4%B8%8A%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9F/3.webp" class="">
 <p>所以你可以这么介绍这个方案。</p>
 <blockquote>
 <p>最简单的做法就是利用定时任务，最好是解决了持久化的分布式任务平台。那么业务发送者就相当于注册一个任务，这个任务就是在30分钟之后发送一条消息到Kafka上。之后业务消费者就能够消费了。</p>
@@ -586,7 +588,7 @@
 </blockquote>
 <p>最后一句话是为了让你把话题重新拉回消息队列这里，并且阐述下面这个方案。</p>
 <h2 id="分区设置不同延迟时间"><a href="#分区设置不同延迟时间" class="headerlink" title="分区设置不同延迟时间"></a><span style="color:#00ACC1;">分区设置不同延迟时间</span></h2><p>这种方案应该算是很简单，而且也很好用的方案。你可以看一下它的基本架构图。</p>
-<img src="/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/4.webp">
+<img src="/2023/11/06/23%EF%BD%9C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9A%E6%80%8E%E4%B9%88%E5%9C%A8Kafka%E4%B8%8A%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9F/4.webp" class="">
 <p>这里关键的角色是delay_topic和延迟消费组。</p>
 <ul>
 <li>delay_topic里面的分区被用来接收不同延迟时间的消息。比如说在上图中分成了p0、p1、p2三个分区，分别用于接收延迟时间为1min、3min和10min的消息。</li>
@@ -605,7 +607,7 @@
 <p>总体来说N就是一个根据业务来设计的东西。</p>
 <p>接下来就是你刷亮点的地方了，第一个就是rebalance问题。</p>
 <h2 id="rebalance问题"><a href="#rebalance问题" class="headerlink" title="rebalance问题"></a><span style="color:#00ACC1;">rebalance问题</span></h2><p>在这个方案中，因为消费者睡眠了，睡眠期间不会消费消息，所以Kafka就会判定这个消费者已经崩溃了，就会触发rebalance。发生rebalance之后，等消费者再恢复过来，就不知道又会被分配到哪个分区，那么之前的睡眠就可以认为是白睡了。</p>
-<img src="/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/5.webp">
+<img src="/2023/11/06/23%EF%BD%9C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9A%E6%80%8E%E4%B9%88%E5%9C%A8Kafka%E4%B8%8A%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9F/5.webp" class="">
 <p>为了避免这个问题，就需要确保在睡眠期间不会触发rebalance。因此需要利用Kafka的暂停（Pause）功能，在睡眠结束之后，再恢复（Resume）。注意，Kafka的暂停功能相当于拉取0条数据，并不是说不拉数据，也就是说还是会发起Poll调用。</p>
 <p>所以整体逻辑就是这样的：</p>
 <p>1，拉取一条消息，假如说offset=N，查看剩余的延迟时间t。</p>
@@ -622,9 +624,9 @@
 <p>这个rebalance问题还是不太容易想到，但是一致性问题，面试官就很容易想到了。</p>
 <h2 id="一致性问题"><a href="#一致性问题" class="headerlink" title="一致性问题"></a><span style="color:#00ACC1;">一致性问题</span></h2><p>前面说的最后几个步骤是从服务端拉取到消息，然后转发到biz_topic里面。那么你应该意识到这里面涉及到了一个关键问题，是先提交消息，还是先转发？</p>
 <p>如果是先提交，那么就会出现消息提交了，但是还来不及转发biz_topic就宕机的情况，这显然不能容忍。</p>
-<img src="/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/6.webp">
+<img src="/2023/11/06/23%EF%BD%9C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9A%E6%80%8E%E4%B9%88%E5%9C%A8Kafka%E4%B8%8A%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9F/6.webp" class="">
 <p>但是如果先转发biz_topic，然后提交。那如果提交之前宕机了，后面恢复过来，又会转发一次。好在多发一次并不是什么问题，因为你可以要求业务消费者确保自己的逻辑是幂等的。</p>
-<img src="/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/7.webp">
+<img src="/2023/11/06/23%EF%BD%9C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9A%E6%80%8E%E4%B9%88%E5%9C%A8Kafka%E4%B8%8A%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9F/7.webp" class="">
 <p>其实，即便是非延迟消息，还是需要消费者保证自己的逻辑是幂等的。因为本身发送者就存在重复发送的可能，不然没办法确保消息一定投递到消息服务器上。</p>
 <p>面试官很可能会问这个一致性的问题，那么你就可以抓住关键词后提交来回答。</p>
 <blockquote>
@@ -642,7 +644,7 @@
 <p>这里你会把话题引导到消息积压如何解决的问题上，这个我们在后面第25讲会讲到。同时你又可以把话题引导到亮点方案里，就是如何实现随机延迟时间。</p>
 <h1 id="基于MySQL的亮点方案"><a href="#基于MySQL的亮点方案" class="headerlink" title="基于MySQL的亮点方案"></a><span style="color:#339AFF;">基于MySQL的亮点方案</span></h1><p>如果在实践中，我会劝你放弃支持随机延迟时间。因为绝大多数情况下，业务是用不着非得随机延迟时间的，他们完全可以通过调整业务来适配固定的几个延迟时间。不过在面试中，你还是需要利用一下支持随机延迟时间来进一步加深面试官对你的印象。</p>
 <p>你可以看一下基于MySQL方案的基本架构图。</p>
-<img src="/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/8.webp">
+<img src="/2023/11/06/23%EF%BD%9C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9A%E6%80%8E%E4%B9%88%E5%9C%A8Kafka%E4%B8%8A%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9F/8.webp" class="">
 <p>这个方案里面的关键点是创建一个delay_topic，业务发送者把消息发送到这个topic里面，消息里面带上了需要延迟的时间。里面有一个延迟消费者，它会消费delay_topic里面的消息，转储到数据库中。还有一个延迟发送者，它会轮询数据库里的消息，把已经可以转发出去的消息转发到真正的biz_topic上。发送完之后，延迟发送者把数据库的状态更新成已发送。最后业务消费者消费biz_topic。</p>
 <p>这个方案在落地的时候，要想支撑住高并发，还是一个比较麻烦的事情，所以怎么支撑住高并发就是我们的关注点。</p>
 <p>在前面的基本架构里面，最明显的性能瓶颈就是MySQL，因为这个场景是一个写密集的场景。所以要想撑住高并发就要想办法提高MySQL的性能。当然最佳的策略还是换一个存储结构，比如说换TiDB或者Elasticsearch。不过你要是回答换一种存储结构，那就没办法刷出亮点了。使用MySQL的话，你就可以从分区表、表交替、分库分表、批量操作几个方案里面选择。</p>
@@ -653,7 +655,7 @@
 </blockquote>
 <p>与分区表类似的解决方案，还有表交替方案。</p>
 <h2 id="表交替"><a href="#表交替" class="headerlink" title="表交替"></a><span style="color:#00ACC1;">表交替</span></h2><p>表交替要复杂一点，但是也很好用。表交替的意思是你准备两个表，然后交替写、交替查询。比如说你今天用tab_0，明天用tab_1。当你用tab_1的时候你就可以直接清空（TRUNCATE）tab_0的数据，反过来也是这样。这种按天交替的方案对延迟时间是有限制的，延迟时间不能超过一天。</p>
-<img src="/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/9.webp">
+<img src="/2023/11/06/23%EF%BD%9C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9A%E6%80%8E%E4%B9%88%E5%9C%A8Kafka%E4%B8%8A%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9F/9.webp" class="">
 <blockquote>
 <p>还可以考虑使用表交替方案，也就是说准备两个表tab_0、tab_1。那么最开始的时候可以读写tab_0，然后换成读写tab_1。每次交替的时候，都可以把之前使用的数据TRUNCATE掉。TRUNCATE本身很快，所以没什么性能问题。</p>
 </blockquote>
@@ -667,12 +669,12 @@
 <p>如果不考虑消息有序性的问题，那么也可以考虑轮询。比如说分库分表是<code>4*8=32</code>张表，那么就可以要求每一个延迟消费者，轮流往这些表里插入数据。因为延迟消息有一个很显著的特点，就是查找的时候只会按照发送时间来找，所以随机插入都没问题。</p>
 </blockquote>
 <p>这个你可能难以理解，我给你举个例子，比如说我有一个消息发送给biz_topic_1，要求是一分钟后发出去。那么不管这个消息被存在哪个表，延迟发送者都可以找出来，然后转发到biz_topic_1。</p>
-<img src="/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/10.webp">
+<img src="/2023/11/06/23%EF%BD%9C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9A%E6%80%8E%E4%B9%88%E5%9C%A8Kafka%E4%B8%8A%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9F/10.webp" class="">
 <p>当然你的回答也引到了另一个亮点，就是消息有序性。</p>
 <blockquote>
 <p>要想做到延迟消息有序性，有一个比较简单的方案。在分库分表的时候，确保同一个biz_topic的消息都落到同一张表里面。并且最开始发送到delay_topic上也是按照biz_topic的名字来选择分区的，那么就可以保证延迟消息转发到biz_topic上跟它们被发送到delay_topic上是一样的。</p>
 </blockquote>
-<img src="/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/11.webp">
+<img src="/2023/11/06/23%EF%BD%9C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9A%E6%80%8E%E4%B9%88%E5%9C%A8Kafka%E4%B8%8A%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9F/11.webp" class="">
 <p>到这里，你还剩下一个可以同时在延迟消费者和延迟发送者上使用的策略：批量操作。</p>
 <h2 id="批量操作"><a href="#批量操作" class="headerlink" title="批量操作"></a><span style="color:#00ACC1;">批量操作</span></h2><p>这个也非常简单，而且性能会有大幅提升。简单来说，就是批量插入、批量更新。</p>
 <blockquote>
@@ -683,7 +685,7 @@
 <h1 id="面试思路总结"><a href="#面试思路总结" class="headerlink" title="面试思路总结"></a><span style="color:#339AFF;">面试思路总结</span></h1><p>最后我们来总结一下这节课的内容，消息队列有两个基本的延迟消息解决方案：利用定时任务调度和分区设置不同延迟时间。在为分区设置不同的延迟时间时，你要注意rebalance和一致性的问题。</p>
 <p>最后我给出了一个基于MySQL的亮点方案。你要记住里面的四个关键点：分区表、表交替、分库分表、批量操作。这里我强调一下分库分表，因为本身它也是一个高级话题，所以你把延迟消息和分库分表结合在一起去面试，优势显著。</p>
 <p>当然，如果你本身不是使用Kafka的，这些方案也是有参考价值的。比如说你用RabbitMQ，但是RabbitMQ已有的插件缺陷太多，你完全可以使用我后面描述的MySQL方案做一个类似的插件出来。</p>
-<img src="/2023/11/06/23｜延迟消息：怎么在Kafka上支持延迟消息？/12.webp">
+<img src="/2023/11/06/23%EF%BD%9C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9A%E6%80%8E%E4%B9%88%E5%9C%A8Kafka%E4%B8%8A%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%EF%BC%9F/12.webp" class="">
 <h1 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a><span style="color:#339AFF;">思考题</span></h1><ul>
 <li>在基础思路里面，我讲了一个不同分区设置不同延迟时间的方案，你觉得这个地方可以考虑换成不同topic设置不同延迟时间的方案吗？如果可以的话，topic的分区该怎么设置？延迟消费者又该怎么办？</li>
 <li>我在最后亮点方案的分库分表里面还提到了解决消息有序性的一种方案，你能试着改造其他解决方案来满足消息有序的要求吗？</li>
@@ -711,7 +713,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/后端工程师进阶/" rel="tag"># 后端工程师进阶</a>
+            <a href="/tags/%E5%90%8E%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%9B%E9%98%B6/" rel="tag"># 后端工程师进阶</a>
           
         </div>
       
@@ -724,7 +726,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2023/11/06/22｜消息队列：消息队列可以用来解决什么问题？/" rel="next" title="22｜消息队列：消息队列可以用来解决什么问题？">
+              <a href="/2023/11/06/22%EF%BD%9C%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%EF%BC%9A%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%8F%AF%E4%BB%A5%E7%94%A8%E6%9D%A5%E8%A7%A3%E5%86%B3%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F/" rel="next" title="22｜消息队列：消息队列可以用来解决什么问题？">
                 <i class="fa fa-chevron-left"></i> 22｜消息队列：消息队列可以用来解决什么问题？
               </a>
             
@@ -734,7 +736,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2023/11/06/24｜消息顺序：保证消息有序，一个topic只能有一个partition吗？/" rel="prev" title="24｜消息顺序：保证消息有序，一个topic只能有一个partition吗？">
+              <a href="/2023/11/06/24%EF%BD%9C%E6%B6%88%E6%81%AF%E9%A1%BA%E5%BA%8F%EF%BC%9A%E4%BF%9D%E8%AF%81%E6%B6%88%E6%81%AF%E6%9C%89%E5%BA%8F%EF%BC%8C%E4%B8%80%E4%B8%AAtopic%E5%8F%AA%E8%83%BD%E6%9C%89%E4%B8%80%E4%B8%AApartition%E5%90%97%EF%BC%9F/" rel="prev" title="24｜消息顺序：保证消息有序，一个topic只能有一个partition吗？">
                 24｜消息顺序：保证消息有序，一个topic只能有一个partition吗？ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -794,7 +796,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -805,9 +809,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -819,26 +823,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -910,7 +898,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1085,115 +1073,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1224,23 +1104,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1266,7 +1146,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#延迟队列和延迟消息"><span class="nav-number">1.</span> <span class="nav-text">延迟队列和延迟消息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#支持延迟消息的其他消息队列"><span class="nav-number">2.</span> <span class="nav-text">支持延迟消息的其他消息队列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RabbitMQ"><span class="nav-number">2.1.</span> <span class="nav-text">RabbitMQ</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面试准备"><span class="nav-number">3.</span> <span class="nav-text">面试准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基础思路"><span class="nav-number">4.</span> <span class="nav-text">基础思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#利用定时任务调度"><span class="nav-number">4.1.</span> <span class="nav-text">利用定时任务调度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分区设置不同延迟时间"><span class="nav-number">4.2.</span> <span class="nav-text">分区设置不同延迟时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rebalance问题"><span class="nav-number">4.3.</span> <span class="nav-text">rebalance问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一致性问题"><span class="nav-number">4.4.</span> <span class="nav-text">一致性问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优缺点分析"><span class="nav-number">4.5.</span> <span class="nav-text">优缺点分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基于MySQL的亮点方案"><span class="nav-number">5.</span> <span class="nav-text">基于MySQL的亮点方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分区表"><span class="nav-number">5.1.</span> <span class="nav-text">分区表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表交替"><span class="nav-number">5.2.</span> <span class="nav-text">表交替</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分库分表"><span class="nav-number">5.3.</span> <span class="nav-text">分库分表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#批量操作"><span class="nav-number">5.4.</span> <span class="nav-text">批量操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面试思路总结"><span class="nav-number">6.</span> <span class="nav-text">面试思路总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">7.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BB%B6%E8%BF%9F%E9%98%9F%E5%88%97%E5%92%8C%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF"><span class="nav-number">1.</span> <span class="nav-text">延迟队列和延迟消息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%94%AF%E6%8C%81%E5%BB%B6%E8%BF%9F%E6%B6%88%E6%81%AF%E7%9A%84%E5%85%B6%E4%BB%96%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="nav-number">2.</span> <span class="nav-text">支持延迟消息的其他消息队列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RabbitMQ"><span class="nav-number">2.1.</span> <span class="nav-text">RabbitMQ</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87"><span class="nav-number">3.</span> <span class="nav-text">面试准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E6%80%9D%E8%B7%AF"><span class="nav-number">4.</span> <span class="nav-text">基础思路</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6"><span class="nav-number">4.1.</span> <span class="nav-text">利用定时任务调度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%8C%BA%E8%AE%BE%E7%BD%AE%E4%B8%8D%E5%90%8C%E5%BB%B6%E8%BF%9F%E6%97%B6%E9%97%B4"><span class="nav-number">4.2.</span> <span class="nav-text">分区设置不同延迟时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rebalance%E9%97%AE%E9%A2%98"><span class="nav-number">4.3.</span> <span class="nav-text">rebalance问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7%E9%97%AE%E9%A2%98"><span class="nav-number">4.4.</span> <span class="nav-text">一致性问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E7%BC%BA%E7%82%B9%E5%88%86%E6%9E%90"><span class="nav-number">4.5.</span> <span class="nav-text">优缺点分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8EMySQL%E7%9A%84%E4%BA%AE%E7%82%B9%E6%96%B9%E6%A1%88"><span class="nav-number">5.</span> <span class="nav-text">基于MySQL的亮点方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%8C%BA%E8%A1%A8"><span class="nav-number">5.1.</span> <span class="nav-text">分区表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E4%BA%A4%E6%9B%BF"><span class="nav-number">5.2.</span> <span class="nav-text">表交替</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8"><span class="nav-number">5.3.</span> <span class="nav-text">分库分表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E6%93%8D%E4%BD%9C"><span class="nav-number">5.4.</span> <span class="nav-text">批量操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E6%80%9D%E8%B7%AF%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">面试思路总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">7.</span> <span class="nav-text">思考题</span></a></li></ol></div>
             
 
           </div>
@@ -1301,7 +1181,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1312,12 +1192,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1325,7 +1205,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

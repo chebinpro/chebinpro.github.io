@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,33 +104,33 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="Go进阶·分布式爬虫实战">
 <meta property="og:type" content="article">
 <meta property="og:title" content="29｜细节决定成败：切片与哈希表的陷阱与原理">
-<meta property="og:url" content="http://yoursite.com/2023/01/27/29｜细节决定成败：切片与哈希表的陷阱与原理/index.html">
+<meta property="og:url" content="http://yoursite.com/2023/01/27/29%EF%BD%9C%E7%BB%86%E8%8A%82%E5%86%B3%E5%AE%9A%E6%88%90%E8%B4%A5%EF%BC%9A%E5%88%87%E7%89%87%E4%B8%8E%E5%93%88%E5%B8%8C%E8%A1%A8%E7%9A%84%E9%99%B7%E9%98%B1%E4%B8%8E%E5%8E%9F%E7%90%86/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2023/01/27/29｜细节决定成败：切片与哈希表的陷阱与原理/1.jpeg">
-<meta property="og:image" content="http://yoursite.com/2023/01/27/29｜细节决定成败：切片与哈希表的陷阱与原理/2.jpeg">
-<meta property="og:image" content="http://yoursite.com/2023/01/27/29｜细节决定成败：切片与哈希表的陷阱与原理/3.jpeg">
-<meta property="og:image" content="http://yoursite.com/2023/01/27/29｜细节决定成败：切片与哈希表的陷阱与原理/4.jpeg">
-<meta property="og:image" content="http://yoursite.com/2023/01/27/29｜细节决定成败：切片与哈希表的陷阱与原理/5.jpeg">
-<meta property="og:image" content="http://yoursite.com/2023/01/27/29｜细节决定成败：切片与哈希表的陷阱与原理/6.jpeg">
-<meta property="og:image" content="http://yoursite.com/2023/01/27/29｜细节决定成败：切片与哈希表的陷阱与原理/7.jpeg">
-<meta property="og:image" content="http://yoursite.com/2023/01/27/29｜细节决定成败：切片与哈希表的陷阱与原理/8.jpeg">
-<meta property="og:updated_time" content="2023-07-31T03:39:25.606Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2023/01/27/29%EF%BD%9C%E7%BB%86%E8%8A%82%E5%86%B3%E5%AE%9A%E6%88%90%E8%B4%A5%EF%BC%9A%E5%88%87%E7%89%87%E4%B8%8E%E5%93%88%E5%B8%8C%E8%A1%A8%E7%9A%84%E9%99%B7%E9%98%B1%E4%B8%8E%E5%8E%9F%E7%90%86/1.jpeg">
+<meta property="og:image" content="http://yoursite.com/2023/01/27/29%EF%BD%9C%E7%BB%86%E8%8A%82%E5%86%B3%E5%AE%9A%E6%88%90%E8%B4%A5%EF%BC%9A%E5%88%87%E7%89%87%E4%B8%8E%E5%93%88%E5%B8%8C%E8%A1%A8%E7%9A%84%E9%99%B7%E9%98%B1%E4%B8%8E%E5%8E%9F%E7%90%86/2.jpeg">
+<meta property="og:image" content="http://yoursite.com/2023/01/27/29%EF%BD%9C%E7%BB%86%E8%8A%82%E5%86%B3%E5%AE%9A%E6%88%90%E8%B4%A5%EF%BC%9A%E5%88%87%E7%89%87%E4%B8%8E%E5%93%88%E5%B8%8C%E8%A1%A8%E7%9A%84%E9%99%B7%E9%98%B1%E4%B8%8E%E5%8E%9F%E7%90%86/3.jpeg">
+<meta property="og:image" content="http://yoursite.com/2023/01/27/29%EF%BD%9C%E7%BB%86%E8%8A%82%E5%86%B3%E5%AE%9A%E6%88%90%E8%B4%A5%EF%BC%9A%E5%88%87%E7%89%87%E4%B8%8E%E5%93%88%E5%B8%8C%E8%A1%A8%E7%9A%84%E9%99%B7%E9%98%B1%E4%B8%8E%E5%8E%9F%E7%90%86/4.jpeg">
+<meta property="og:image" content="http://yoursite.com/2023/01/27/29%EF%BD%9C%E7%BB%86%E8%8A%82%E5%86%B3%E5%AE%9A%E6%88%90%E8%B4%A5%EF%BC%9A%E5%88%87%E7%89%87%E4%B8%8E%E5%93%88%E5%B8%8C%E8%A1%A8%E7%9A%84%E9%99%B7%E9%98%B1%E4%B8%8E%E5%8E%9F%E7%90%86/5.jpeg">
+<meta property="og:image" content="http://yoursite.com/2023/01/27/29%EF%BD%9C%E7%BB%86%E8%8A%82%E5%86%B3%E5%AE%9A%E6%88%90%E8%B4%A5%EF%BC%9A%E5%88%87%E7%89%87%E4%B8%8E%E5%93%88%E5%B8%8C%E8%A1%A8%E7%9A%84%E9%99%B7%E9%98%B1%E4%B8%8E%E5%8E%9F%E7%90%86/6.jpeg">
+<meta property="og:image" content="http://yoursite.com/2023/01/27/29%EF%BD%9C%E7%BB%86%E8%8A%82%E5%86%B3%E5%AE%9A%E6%88%90%E8%B4%A5%EF%BC%9A%E5%88%87%E7%89%87%E4%B8%8E%E5%93%88%E5%B8%8C%E8%A1%A8%E7%9A%84%E9%99%B7%E9%98%B1%E4%B8%8E%E5%8E%9F%E7%90%86/7.jpeg">
+<meta property="og:image" content="http://yoursite.com/2023/01/27/29%EF%BD%9C%E7%BB%86%E8%8A%82%E5%86%B3%E5%AE%9A%E6%88%90%E8%B4%A5%EF%BC%9A%E5%88%87%E7%89%87%E4%B8%8E%E5%93%88%E5%B8%8C%E8%A1%A8%E7%9A%84%E9%99%B7%E9%98%B1%E4%B8%8E%E5%8E%9F%E7%90%86/8.jpeg">
+<meta property="article:published_time" content="2023-01-27T03:12:20.000Z">
+<meta property="article:modified_time" content="2023-07-31T03:39:25.606Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Go进阶·分布式爬虫实战">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="29｜细节决定成败：切片与哈希表的陷阱与原理">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2023/01/27/29｜细节决定成败：切片与哈希表的陷阱与原理/1.jpeg">
+<meta name="twitter:image" content="http://yoursite.com/2023/01/27/29%EF%BD%9C%E7%BB%86%E8%8A%82%E5%86%B3%E5%AE%9A%E6%88%90%E8%B4%A5%EF%BC%9A%E5%88%87%E7%89%87%E4%B8%8E%E5%93%88%E5%B8%8C%E8%A1%A8%E7%9A%84%E9%99%B7%E9%98%B1%E4%B8%8E%E5%8E%9F%E7%90%86/1.jpeg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2023/01/27/29｜细节决定成败：切片与哈希表的陷阱与原理/">
+  <link rel="canonical" href="http://yoursite.com/2023/01/27/29｜细节决定成败：切片与哈希表的陷阱与原理/"/>
 
 
 
@@ -179,7 +179,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -240,7 +240,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -257,7 +257,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -274,7 +274,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -291,7 +291,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -308,7 +308,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -319,7 +319,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -339,7 +339,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -389,16 +391,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/01/27/29｜细节决定成败：切片与哈希表的陷阱与原理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/01/27/29%EF%BD%9C%E7%BB%86%E8%8A%82%E5%86%B3%E5%AE%9A%E6%88%90%E8%B4%A5%EF%BC%9A%E5%88%87%E7%89%87%E4%B8%8E%E5%93%88%E5%B8%8C%E8%A1%A8%E7%9A%84%E9%99%B7%E9%98%B1%E4%B8%8E%E5%8E%9F%E7%90%86/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -498,7 +500,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">5.4k</span>
+                <span title="本文字数">17k</span>
               
 
               
@@ -512,7 +514,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">5 分钟</span>
+                <span title="阅读时长">16 分钟</span>
               
             </div>
           
@@ -533,34 +535,25 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>这节课，让我们来看一看切片与哈希表的原理。</p>
-<p>我想先考你两道面试题。下面的代码中，foo与bar最后的值是什么？<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">foo := []<span class="keyword">int</span>&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">42</span>,<span class="number">100</span>&#125;</span><br><span class="line">bar := foo[<span class="number">1</span>:<span class="number">4</span>]</span><br><span class="line">bar[<span class="number">1</span>] = <span class="number">99</span></span><br><span class="line">fmt.Println(<span class="string">"foo:"</span>, foo)</span><br><span class="line">fmt.Println(<span class="string">"bar:"</span>, bar)</span><br></pre></td></tr></table></figure></p>
-<p>下面的程序又会输出什么呢?<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">x := []<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;</span><br><span class="line">y := x[:<span class="number">2</span>]</span><br><span class="line">fmt.Println(<span class="built_in">cap</span>(x), <span class="built_in">cap</span>(y))</span><br><span class="line">y = <span class="built_in">append</span>(y, <span class="number">30</span>)</span><br><span class="line">fmt.Println(<span class="string">"x:"</span>, x)</span><br><span class="line">fmt.Println(<span class="string">"y:"</span>, y)</span><br></pre></td></tr></table></figure></p>
-<p>其实之前我们在初始化seeds切片的时候，也有一些不合理之处。你发现了吗？<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> seeds []*collect.Request</span><br></pre></td></tr></table></figure></p>
-<p>切片和哈希表是Go语言内置、并且使用广泛的结构。如果你对上面问题的答案都很模糊，很可能就是不太理解切片底层的原理。理清这些原理可以帮助我们更好地规避常见陷阱，写出高性能的代码。</p>
+<p>我想先考你两道面试题。下面的代码中，foo与bar最后的值是什么？<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">foo := []<span class="type">int</span>&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">42</span>,<span class="number">100</span>&#125;</span><br><span class="line">bar := foo[<span class="number">1</span>:<span class="number">4</span>]</span><br><span class="line">bar[<span class="number">1</span>] = <span class="number">99</span></span><br><span class="line">fmt.Println(<span class="string">&quot;foo:&quot;</span>, foo)</span><br><span class="line">fmt.Println(<span class="string">&quot;bar:&quot;</span>, bar)</span><br></pre></td></tr></table></figure><br>下面的程序又会输出什么呢?<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">x := []<span class="type">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;</span><br><span class="line">y := x[:<span class="number">2</span>]</span><br><span class="line">fmt.Println(<span class="built_in">cap</span>(x), <span class="built_in">cap</span>(y))</span><br><span class="line">y = <span class="built_in">append</span>(y, <span class="number">30</span>)</span><br><span class="line">fmt.Println(<span class="string">&quot;x:&quot;</span>, x)</span><br><span class="line">fmt.Println(<span class="string">&quot;y:&quot;</span>, y)</span><br></pre></td></tr></table></figure><br>其实之前我们在初始化seeds切片的时候，也有一些不合理之处。你发现了吗？<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> seeds []*collect.Request</span><br></pre></td></tr></table></figure><br>切片和哈希表是Go语言内置、并且使用广泛的结构。如果你对上面问题的答案都很模糊，很可能就是不太理解切片底层的原理。理清这些原理可以帮助我们更好地规避常见陷阱，写出高性能的代码。</p>
 <h1 id="切片的底层原理"><a href="#切片的底层原理" class="headerlink" title="切片的底层原理"></a><span style="color:#339AFF;">切片的底层原理</span></h1><p>我们先来看看切片的底层原理。</p>
-<p>和C语言中的数组是一个指针不同，Go中的切片是一个复合结构。一个切片在运行时由指针（data）、长度（len）和容量（cap）三部分构成。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> SliceHeader <span class="keyword">struct</span> &#123;</span><br><span class="line">    Data <span class="keyword">uintptr</span></span><br><span class="line">    Len <span class="keyword">int</span></span><br><span class="line">    Cap <span class="keyword">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>和C语言中的数组是一个指针不同，Go中的切片是一个复合结构。一个切片在运行时由指针（data）、长度（len）和容量（cap）三部分构成。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> SliceHeader <span class="keyword">struct</span> &#123;</span><br><span class="line">    Data <span class="type">uintptr</span></span><br><span class="line">    Len <span class="type">int</span></span><br><span class="line">    Cap <span class="type">int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>指针data指向切片元素对应的底层数组元素的地址。</li>
 <li>长度len对应切片中元素的数目，总长度不能超过容量。</li>
 <li>容量cap提供了额外的元素空间，可以在之后更快地添加元素。容量的大小一般指的是从切片的开始位置到底层数据的结尾位置的长度。</li>
 </ul>
-<img src="/2023/01/27/29｜细节决定成败：切片与哈希表的陷阱与原理/1.jpeg">
+<img src="/2023/01/27/29%EF%BD%9C%E7%BB%86%E8%8A%82%E5%86%B3%E5%AE%9A%E6%88%90%E8%B4%A5%EF%BC%9A%E5%88%87%E7%89%87%E4%B8%8E%E5%93%88%E5%B8%8C%E8%A1%A8%E7%9A%84%E9%99%B7%E9%98%B1%E4%B8%8E%E5%8E%9F%E7%90%86/1.jpeg" class="">
 <h2 id="切片的截取"><a href="#切片的截取" class="headerlink" title="切片的截取"></a><span style="color:#00ACC1;">切片的截取</span></h2><p>了解了切片的底层结构，我们来看看切片在截取时发生了什么。</p>
 <p>切片在被截取时的一个特点是，截取后的切片长度和容量可能会发生变化。</p>
-<p>和数组一样，切片中的数据仍然是内存中一片连续的区域。要获取切片某一区域的连续数据，可以通过下标的方式对切片进行截断。被截取后的切片，它的长度和容量都发生了变化。就像下面这个例子，numbers切片的长度为8。number1截取了numbers切片中的第2、3号元素。number1切片的长度变为了2，容量变为了6（即从第2号元素开始到元素数组的末尾）。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">numbers:= []<span class="keyword">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>&#125;</span><br><span class="line"><span class="comment">// 从下标2 一直到下标4，但是不包括下标4</span></span><br><span class="line">numbers1 :=numbers[<span class="number">2</span>:<span class="number">4</span>]</span><br><span class="line"><span class="comment">// 从下标0 一直到下标3，但是不包括下标3</span></span><br><span class="line">numbers2 :=numbers[:<span class="number">3</span>]</span><br><span class="line"><span class="comment">// 从下标3 一直到结尾</span></span><br><span class="line">numbers3 :=numbers[<span class="number">3</span>:]</span><br></pre></td></tr></table></figure></p>
-<p>切片在被截取时的另一个特点是，被截取后的数组仍然指向原始切片的底层数据。例如之前提到的案例，bar截取了foo切片中间的元素，并修改了bar中的第2号元素。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">foo := []<span class="keyword">int</span>&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">42</span>,<span class="number">100</span>&#125;</span><br><span class="line">bar := foo[<span class="number">1</span>:<span class="number">4</span>]</span><br><span class="line">bar[<span class="number">1</span>] = <span class="number">99</span></span><br></pre></td></tr></table></figure></p>
-<p>底层结构图如下：</p>
-<img src="/2023/01/27/29｜细节决定成败：切片与哈希表的陷阱与原理/2.jpeg">
+<p>和数组一样，切片中的数据仍然是内存中一片连续的区域。要获取切片某一区域的连续数据，可以通过下标的方式对切片进行截断。被截取后的切片，它的长度和容量都发生了变化。就像下面这个例子，numbers切片的长度为8。number1截取了numbers切片中的第2、3号元素。number1切片的长度变为了2，容量变为了6（即从第2号元素开始到元素数组的末尾）。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">numbers:= []<span class="type">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>&#125;</span><br><span class="line"><span class="comment">// 从下标2 一直到下标4，但是不包括下标4</span></span><br><span class="line">numbers1 :=numbers[<span class="number">2</span>:<span class="number">4</span>]</span><br><span class="line"><span class="comment">// 从下标0 一直到下标3，但是不包括下标3</span></span><br><span class="line">numbers2 :=numbers[:<span class="number">3</span>]</span><br><span class="line"><span class="comment">// 从下标3 一直到结尾</span></span><br><span class="line">numbers3 :=numbers[<span class="number">3</span>:]</span><br></pre></td></tr></table></figure><br>切片在被截取时的另一个特点是，被截取后的数组仍然指向原始切片的底层数据。例如之前提到的案例，bar截取了foo切片中间的元素，并修改了bar中的第2号元素。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">foo := []<span class="type">int</span>&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">42</span>,<span class="number">100</span>&#125;</span><br><span class="line">bar := foo[<span class="number">1</span>:<span class="number">4</span>]</span><br><span class="line">bar[<span class="number">1</span>] = <span class="number">99</span></span><br></pre></td></tr></table></figure><br>底层结构图如下：</p>
+<img src="/2023/01/27/29%EF%BD%9C%E7%BB%86%E8%8A%82%E5%86%B3%E5%AE%9A%E6%88%90%E8%B4%A5%EF%BC%9A%E5%88%87%E7%89%87%E4%B8%8E%E5%93%88%E5%B8%8C%E8%A1%A8%E7%9A%84%E9%99%B7%E9%98%B1%E4%B8%8E%E5%8E%9F%E7%90%86/2.jpeg" class="">
 <p>这时，bar的cap容量会到原始切片的末尾，所以当前bar的cap长度为4。</p>
-<p>这意味着什么呢？我们看下面的例子，bar执行了append函数之后，最终也修改了foo的最后一个元素，这是一个在实践中非常常见的陷阱。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">foo := []<span class="keyword">int</span>&#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">42</span>, <span class="number">100</span>&#125;</span><br><span class="line">bar := foo[<span class="number">1</span>:<span class="number">4</span>]</span><br><span class="line">bar = <span class="built_in">append</span>(bar, <span class="number">99</span>)</span><br><span class="line">fmt.Println(<span class="string">"foo:"</span>, foo) <span class="comment">// foo: [0 0 0 42 99]</span></span><br><span class="line">fmt.Println(<span class="string">"bar:"</span>, bar) <span class="comment">// bar: [0 0 42 99]</span></span><br></pre></td></tr></table></figure></p>
-<p>如果要解决这样的问题，其实可以在截取时指定容量：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">foo := []<span class="keyword">int</span>&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">42</span>,<span class="number">100</span>&#125;</span><br><span class="line">bar := foo[<span class="number">1</span>:<span class="number">4</span>:<span class="number">4</span>]</span><br><span class="line">bar = <span class="built_in">append</span>(bar, <span class="number">99</span>)</span><br><span class="line">fmt.Println(<span class="string">"foo:"</span>, foo) <span class="comment">// foo: [0 0 0 42 100]</span></span><br><span class="line">fmt.Println(<span class="string">"bar:"</span>, bar) <span class="comment">// bar: [0 0 42 99]</span></span><br></pre></td></tr></table></figure></p>
-<p>foo[1:4:4]这种方式可能很多人没有见到过。这里，第三个参数4代表cap的位置一直到下标4，但是不包括下标4。所以当前bar的Cap变为了3，和它的长度相同。当bar进行append操作时，将发生扩容，它会指向与foo不同的底层数据空间。</p>
+<p>这意味着什么呢？我们看下面的例子，bar执行了append函数之后，最终也修改了foo的最后一个元素，这是一个在实践中非常常见的陷阱。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">foo := []<span class="type">int</span>&#123;<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">42</span>, <span class="number">100</span>&#125;</span><br><span class="line">bar := foo[<span class="number">1</span>:<span class="number">4</span>]</span><br><span class="line">bar = <span class="built_in">append</span>(bar, <span class="number">99</span>)</span><br><span class="line">fmt.Println(<span class="string">&quot;foo:&quot;</span>, foo) <span class="comment">// foo: [0 0 0 42 99]</span></span><br><span class="line">fmt.Println(<span class="string">&quot;bar:&quot;</span>, bar) <span class="comment">// bar: [0 0 42 99]</span></span><br></pre></td></tr></table></figure><br>如果要解决这样的问题，其实可以在截取时指定容量：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">foo := []<span class="type">int</span>&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">42</span>,<span class="number">100</span>&#125;</span><br><span class="line">bar := foo[<span class="number">1</span>:<span class="number">4</span>:<span class="number">4</span>]</span><br><span class="line">bar = <span class="built_in">append</span>(bar, <span class="number">99</span>)</span><br><span class="line">fmt.Println(<span class="string">&quot;foo:&quot;</span>, foo) <span class="comment">// foo: [0 0 0 42 100]</span></span><br><span class="line">fmt.Println(<span class="string">&quot;bar:&quot;</span>, bar) <span class="comment">// bar: [0 0 42 99]</span></span><br></pre></td></tr></table></figure><br>foo[1:4:4]这种方式可能很多人没有见到过。这里，第三个参数4代表cap的位置一直到下标4，但是不包括下标4。所以当前bar的Cap变为了3，和它的长度相同。当bar进行append操作时，将发生扩容，它会指向与foo不同的底层数据空间。</p>
 <h2 id="切片的扩容"><a href="#切片的扩容" class="headerlink" title="切片的扩容"></a><span style="color:#00ACC1;">切片的扩容</span></h2><p>Go语言内置的append函数可以把新的元素添加到切片的末尾，它可以接受可变长度的元素，并且可以自动扩容。如果原有数组的长度和容量已经相同，那么在扩容后，长度和容量都会相应增加。</p>
-<p>如下所示，numbers切片一开始的长度和容量都是4，添加一个元素后，它的长度变为了5，容量变为8，相当于扩容了一倍。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">numbers:= []int&#123;1,2,3,4&#125;</span><br><span class="line">numbers = append(numbers,5)</span><br></pre></td></tr></table></figure></p>
-<p>不过，Go语言并不会每增加一个元素就扩容一次，这是因为扩容常会涉及到内存的分配，频繁扩容会减慢append的速度。append函数在运行时调用了runtime/slice.go文件下的growslice函数：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">growslice</span><span class="params">(et *_type, old slice, <span class="built_in">cap</span> <span class="keyword">int</span>)</span> <span class="title">slice</span></span> &#123;</span><br><span class="line">    newcap := old.<span class="built_in">cap</span></span><br><span class="line">    doublecap := newcap + newcap</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">cap</span> &gt; doublecap &#123;</span><br><span class="line">        newcap = <span class="built_in">cap</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> old.<span class="built_in">len</span> &lt; <span class="number">1024</span> &#123;</span><br><span class="line">            newcap = doublecap</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> <span class="number">0</span> &lt; newcap &amp;&amp; newcap &lt; <span class="built_in">cap</span> &#123;</span><br><span class="line">                newcap += newcap / <span class="number">4</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> newcap &lt;= <span class="number">0</span> &#123;</span><br><span class="line">                newcap = <span class="built_in">cap</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>上面这段代码显示了扩容的核心逻辑。Go语言中切片扩容的策略为：</p>
+<p>如下所示，numbers切片一开始的长度和容量都是4，添加一个元素后，它的长度变为了5，容量变为8，相当于扩容了一倍。<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">numbers:= []int&#123;1,2,3,4&#125;</span><br><span class="line">numbers = append(numbers,5)</span><br></pre></td></tr></table></figure><br>不过，Go语言并不会每增加一个元素就扩容一次，这是因为扩容常会涉及到内存的分配，频繁扩容会减慢append的速度。append函数在运行时调用了runtime/slice.go文件下的growslice函数：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">growslice</span><span class="params">(et *_type, old slice, <span class="built_in">cap</span> <span class="type">int</span>)</span></span> slice &#123;</span><br><span class="line">    newcap := old.<span class="built_in">cap</span></span><br><span class="line">    doublecap := newcap + newcap</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">cap</span> &gt; doublecap &#123;</span><br><span class="line">        newcap = <span class="built_in">cap</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> old.<span class="built_in">len</span> &lt; <span class="number">1024</span> &#123;</span><br><span class="line">            newcap = doublecap</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> <span class="number">0</span> &lt; newcap &amp;&amp; newcap &lt; <span class="built_in">cap</span> &#123;</span><br><span class="line">                newcap += newcap / <span class="number">4</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> newcap &lt;= <span class="number">0</span> &#123;</span><br><span class="line">                newcap = <span class="built_in">cap</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>上面这段代码显示了扩容的核心逻辑。Go语言中切片扩容的策略为：</p>
 <ul>
 <li>如果新申请容量（cap）大于旧容量（old.cap）的两倍，则最终容量（newcap）是新申请的容量（cap）；</li>
 <li>如果旧切片的长度小于1024，则最终容量是旧容量的2倍，即“newcap=doublecap”；</li>
@@ -574,22 +567,21 @@
 <h2 id="哈希碰撞"><a href="#哈希碰撞" class="headerlink" title="哈希碰撞"></a><span style="color:#00ACC1;">哈希碰撞</span></h2><p>哈希函数在实际运用中最常见的问题是哈希碰撞（HashCollision），即不同的键使用哈希算法可能产生相同的哈希值。如果将2450个键随机分配到一百万个桶中，根据概率计算，至少有两个键被分配到同一个桶中的可能性超过95％。哈希碰撞导致同一个桶中可能存在多个元素，会减慢数据查找的速度。</p>
 <p>有多种方式可以避免哈希碰撞，常用的两种策略是：拉链法和开放寻址法。</p>
 <p>如图所示，拉链法是将同一个桶中的元素通过链表的形式进行链接，这是一种最简单、最常用的策略。随着桶中元素的增加，我们可以不断链接新的元素，而且不用预先为元素分配内存。不过拉链法的不足之处在于，我们需要存储额外的指针来链接元素，这就增加了整个哈希表的大小。同时由于链表存储的地址不连续，所以无法高效利用CPU缓存。</p>
-<img src="/2023/01/27/29｜细节决定成败：切片与哈希表的陷阱与原理/3.jpeg">
+<img src="/2023/01/27/29%EF%BD%9C%E7%BB%86%E8%8A%82%E5%86%B3%E5%AE%9A%E6%88%90%E8%B4%A5%EF%BC%9A%E5%88%87%E7%89%87%E4%B8%8E%E5%93%88%E5%B8%8C%E8%A1%A8%E7%9A%84%E9%99%B7%E9%98%B1%E4%B8%8E%E5%8E%9F%E7%90%86/3.jpeg" class="">
 <p>与拉链法对应的另一种解决哈希碰撞的策略为开放寻址法（Open Addressing）。这种方法是将所有元素都存储在桶的数组中。当必须插入新条目时，开放寻址法将按某种探测策略顺序查找，直到找到未使用的数组插槽为止。当搜索元素时，开放寻址法将按相同顺序扫描存储桶，直到查找到目标记录或找到未使用的插槽为止。</p>
-<img src="/2023/01/27/29｜细节决定成败：切片与哈希表的陷阱与原理/4.jpeg">
+<img src="/2023/01/27/29%EF%BD%9C%E7%BB%86%E8%8A%82%E5%86%B3%E5%AE%9A%E6%88%90%E8%B4%A5%EF%BC%9A%E5%88%87%E7%89%87%E4%B8%8E%E5%93%88%E5%B8%8C%E8%A1%A8%E7%9A%84%E9%99%B7%E9%98%B1%E4%B8%8E%E5%8E%9F%E7%90%86/4.jpeg" class="">
 <p>Go语言中的哈希表采用的是优化的拉链法，它在桶中存储了8个元素用于加速访问。</p>
 <h2 id="哈希表读取"><a href="#哈希表读取" class="headerlink" title="哈希表读取"></a><span style="color:#00ACC1;">哈希表读取</span></h2><p>在Go中进行Map访问操作时，会首先通过上面的伪代码找到桶的位置，之后遍历桶中的tophash数组。tophash数组存储了8个元素用于加速访问。如果在tophash数组中找到了相同的hash值，就可以通过指针的寻址操作找到对应的Key与Value。</p>
-<img src="/2023/01/27/29｜细节决定成败：切片与哈希表的陷阱与原理/5.jpeg">
+<img src="/2023/01/27/29%EF%BD%9C%E7%BB%86%E8%8A%82%E5%86%B3%E5%AE%9A%E6%88%90%E8%B4%A5%EF%BC%9A%E5%88%87%E7%89%87%E4%B8%8E%E5%93%88%E5%B8%8C%E8%A1%A8%E7%9A%84%E9%99%B7%E9%98%B1%E4%B8%8E%E5%8E%9F%E7%90%86/5.jpeg" class="">
 <p>此外，在Go语言中还有一个溢出桶的概念。在执行hash[key]=value的赋值操作时，当指定桶中的数据超过8个时，并不会直接开辟一个新桶，而是将数据放置到溢出桶中，每个桶的最后都存储了overflow，即溢出桶的指针。</p>
 <p>在正常情况下，数据是很少会跑到溢出桶里面去的。同理，在Map执行查找操作时，如果Key的hash不在指定桶的tophash数组中，我们就需要遍历溢出桶中的数据。</p>
-<img src="/2023/01/27/29｜细节决定成败：切片与哈希表的陷阱与原理/6.jpeg">
-<h2 id="哈希表重建原理"><a href="#哈希表重建原理" class="headerlink" title="哈希表重建原理"></a><span style="color:#00ACC1;">哈希表重建原理</span></h2><p>不过，如果溢出桶的数量过多，或者Map超过了负载因子大小，Map就要进行重建。负载因子是哈希表中的经典概念：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">负载因子 = 哈希表中的元素数量 / 桶的数量</span><br></pre></td></tr></table></figure></p>
-<p>负载因子的增大意味着更多的元素会被分配到同一个桶中，此时效率会减慢。试想一下，如果桶的数量只有1个，这个时候负载因子到达最大，搜索就和遍历数组一样了，它的复杂度为o(n)。</p>
+<img src="/2023/01/27/29%EF%BD%9C%E7%BB%86%E8%8A%82%E5%86%B3%E5%AE%9A%E6%88%90%E8%B4%A5%EF%BC%9A%E5%88%87%E7%89%87%E4%B8%8E%E5%93%88%E5%B8%8C%E8%A1%A8%E7%9A%84%E9%99%B7%E9%98%B1%E4%B8%8E%E5%8E%9F%E7%90%86/6.jpeg" class="">
+<h2 id="哈希表重建原理"><a href="#哈希表重建原理" class="headerlink" title="哈希表重建原理"></a><span style="color:#00ACC1;">哈希表重建原理</span></h2><p>不过，如果溢出桶的数量过多，或者Map超过了负载因子大小，Map就要进行重建。负载因子是哈希表中的经典概念：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">负载因子 = 哈希表中的元素数量 / 桶的数量</span><br></pre></td></tr></table></figure><br>负载因子的增大意味着更多的元素会被分配到同一个桶中，此时效率会减慢。试想一下，如果桶的数量只有1个，这个时候负载因子到达最大，搜索就和遍历数组一样了，它的复杂度为o(n)。</p>
 <p>Go语言中的负载因子为6.5，当哈希表负载因子的大小超过6.5时，Map就会扩容，变为旧表的两倍。当旧桶中的数据全部转移到新桶后，旧桶就会被清空。Map的重建还存在第二种情况，那就是溢出桶的数量太多。这时Map只会新建和原来一样大的桶，目的是防止溢出桶的数量缓慢增长导致内存泄露。</p>
 <blockquote>
 <p>Map桶扩容原理</p>
 </blockquote>
-<img src="/2023/01/27/29｜细节决定成败：切片与哈希表的陷阱与原理/7.jpeg">
+<img src="/2023/01/27/29%EF%BD%9C%E7%BB%86%E8%8A%82%E5%86%B3%E5%AE%9A%E6%88%90%E8%B4%A5%EF%BC%9A%E5%88%87%E7%89%87%E4%B8%8E%E5%93%88%E5%B8%8C%E8%A1%A8%E7%9A%84%E9%99%B7%E9%98%B1%E4%B8%8E%E5%8E%9F%E7%90%86/7.jpeg" class="">
 <p>哈希表的重建过程提示我们，可以在初始化时评估并指定放入Map的数据大小，从而减少重建的性能消耗。</p>
 <h2 id="哈希表删除原理"><a href="#哈希表删除原理" class="headerlink" title="哈希表删除原理"></a><span style="color:#00ACC1;">哈希表删除原理</span></h2><p>再来看下删除哈希表的底层原理。</p>
 <p>和赋值操作类似，当进行Map的delete函数时，delete函数会根据Key找到指定的桶，如果存在指定的Key，那么就释放掉Key与Value引用的内存。tophash中的指定位置会存储emptyOne，代表当前位置是空的。同时，删除操作会探测当前要删除的元素之后是否都是空的。</p>
@@ -597,7 +589,7 @@
 <blockquote>
 <p>Map删除原理</p>
 </blockquote>
-<img src="/2023/01/27/29｜细节决定成败：切片与哈希表的陷阱与原理/8.jpeg">
+<img src="/2023/01/27/29%EF%BD%9C%E7%BB%86%E8%8A%82%E5%86%B3%E5%AE%9A%E6%88%90%E8%B4%A5%EF%BC%9A%E5%88%87%E7%89%87%E4%B8%8E%E5%93%88%E5%B8%8C%E8%A1%A8%E7%9A%84%E9%99%B7%E9%98%B1%E4%B8%8E%E5%8E%9F%E7%90%86/8.jpeg" class="">
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><span style="color:#339AFF;">总结</span></h1><p>切片与哈希表是Go中使用非常频繁的数据结构，然而在实践过程中，由于对它们的内部结构和运行机制不了解，我们容易陷入到一些陷阱中，无意识地写出低性能的代码。</p>
 <p>切片和哈希表的扩容机制提醒我们，在实践当中一定要评估容器容纳的数据量大小，并在初始化时候指定容量，这会提高程序的性能。</p>
 <p>此外，混合使用切片截取和append非常容易犯错，所以我们要尽量避免这种用法。如果必须使用，也要确认自己真的理解了切片的底层图像，防止切片的误操作。</p>
@@ -627,7 +619,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Go进阶·分布式爬虫实战/" rel="tag"># Go进阶·分布式爬虫实战</a>
+            <a href="/tags/Go%E8%BF%9B%E9%98%B6%C2%B7%E5%88%86%E5%B8%83%E5%BC%8F%E7%88%AC%E8%99%AB%E5%AE%9E%E6%88%98/" rel="tag"># Go进阶·分布式爬虫实战</a>
           
         </div>
       
@@ -640,7 +632,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2023/01/27/28｜调度引擎：负载均衡与调度器实战/" rel="next" title="28｜调度引擎：负载均衡与调度器实战">
+              <a href="/2023/01/27/28%EF%BD%9C%E8%B0%83%E5%BA%A6%E5%BC%95%E6%93%8E%EF%BC%9A%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E4%B8%8E%E8%B0%83%E5%BA%A6%E5%99%A8%E5%AE%9E%E6%88%98/" rel="next" title="28｜调度引擎：负载均衡与调度器实战">
                 <i class="fa fa-chevron-left"></i> 28｜调度引擎：负载均衡与调度器实战
               </a>
             
@@ -650,7 +642,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2023/01/27/30｜辅助任务管理：任务优先级、去重与失败处理/" rel="prev" title="30｜辅助任务管理：任务优先级、去重与失败处理">
+              <a href="/2023/01/27/30%EF%BD%9C%E8%BE%85%E5%8A%A9%E4%BB%BB%E5%8A%A1%E7%AE%A1%E7%90%86%EF%BC%9A%E4%BB%BB%E5%8A%A1%E4%BC%98%E5%85%88%E7%BA%A7%E3%80%81%E5%8E%BB%E9%87%8D%E4%B8%8E%E5%A4%B1%E8%B4%A5%E5%A4%84%E7%90%86/" rel="prev" title="30｜辅助任务管理：任务优先级、去重与失败处理">
                 30｜辅助任务管理：任务优先级、去重与失败处理 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -710,7 +702,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -721,9 +715,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -735,26 +729,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -826,7 +804,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1001,115 +979,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1140,23 +1010,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1182,7 +1052,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#切片的底层原理"><span class="nav-number">1.</span> <span class="nav-text">切片的底层原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#切片的截取"><span class="nav-number">1.1.</span> <span class="nav-text">切片的截取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#切片的扩容"><span class="nav-number">1.2.</span> <span class="nav-text">切片的扩容</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#哈希表原理"><span class="nav-number">2.</span> <span class="nav-text">哈希表原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#哈希碰撞"><span class="nav-number">2.1.</span> <span class="nav-text">哈希碰撞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哈希表读取"><span class="nav-number">2.2.</span> <span class="nav-text">哈希表读取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哈希表重建原理"><span class="nav-number">2.3.</span> <span class="nav-text">哈希表重建原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#哈希表删除原理"><span class="nav-number">2.4.</span> <span class="nav-text">哈希表删除原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课后题"><span class="nav-number">4.</span> <span class="nav-text">课后题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%87%E7%89%87%E7%9A%84%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">切片的底层原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%87%E7%89%87%E7%9A%84%E6%88%AA%E5%8F%96"><span class="nav-number">1.1.</span> <span class="nav-text">切片的截取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%87%E7%89%87%E7%9A%84%E6%89%A9%E5%AE%B9"><span class="nav-number">1.2.</span> <span class="nav-text">切片的扩容</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E8%A1%A8%E5%8E%9F%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">哈希表原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E7%A2%B0%E6%92%9E"><span class="nav-number">2.1.</span> <span class="nav-text">哈希碰撞</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E8%A1%A8%E8%AF%BB%E5%8F%96"><span class="nav-number">2.2.</span> <span class="nav-text">哈希表读取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E8%A1%A8%E9%87%8D%E5%BB%BA%E5%8E%9F%E7%90%86"><span class="nav-number">2.3.</span> <span class="nav-text">哈希表重建原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%93%88%E5%B8%8C%E8%A1%A8%E5%88%A0%E9%99%A4%E5%8E%9F%E7%90%86"><span class="nav-number">2.4.</span> <span class="nav-text">哈希表删除原理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BE%E5%90%8E%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">课后题</span></a></li></ol></div>
             
 
           </div>
@@ -1217,7 +1087,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1228,12 +1098,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1241,7 +1111,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,28 +104,28 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="高并发系统设计40问">
 <meta property="og:type" content="article">
 <meta property="og:title" content="17丨消息队列：秒杀时如何处理每秒上万次的下单请求？">
-<meta property="og:url" content="http://yoursite.com/2023/03/14/17-消息队列：秒杀时如何处理每秒上万次的下单请求？/index.html">
+<meta property="og:url" content="http://yoursite.com/2023/03/14/17-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%EF%BC%9A%E7%A7%92%E6%9D%80%E6%97%B6%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E6%AF%8F%E7%A7%92%E4%B8%8A%E4%B8%87%E6%AC%A1%E7%9A%84%E4%B8%8B%E5%8D%95%E8%AF%B7%E6%B1%82%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2023/03/14/17-消息队列：秒杀时如何处理每秒上万次的下单请求？/1.jpg">
-<meta property="og:image" content="http://yoursite.com/2023/03/14/17-消息队列：秒杀时如何处理每秒上万次的下单请求？/2.jpg">
-<meta property="og:image" content="http://yoursite.com/2023/03/14/17-消息队列：秒杀时如何处理每秒上万次的下单请求？/3.jpg">
-<meta property="og:updated_time" content="2023-03-13T09:54:01.652Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2023/03/14/17-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%EF%BC%9A%E7%A7%92%E6%9D%80%E6%97%B6%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E6%AF%8F%E7%A7%92%E4%B8%8A%E4%B8%87%E6%AC%A1%E7%9A%84%E4%B8%8B%E5%8D%95%E8%AF%B7%E6%B1%82%EF%BC%9F/1.jpg">
+<meta property="og:image" content="http://yoursite.com/2023/03/14/17-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%EF%BC%9A%E7%A7%92%E6%9D%80%E6%97%B6%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E6%AF%8F%E7%A7%92%E4%B8%8A%E4%B8%87%E6%AC%A1%E7%9A%84%E4%B8%8B%E5%8D%95%E8%AF%B7%E6%B1%82%EF%BC%9F/2.jpg">
+<meta property="og:image" content="http://yoursite.com/2023/03/14/17-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%EF%BC%9A%E7%A7%92%E6%9D%80%E6%97%B6%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E6%AF%8F%E7%A7%92%E4%B8%8A%E4%B8%87%E6%AC%A1%E7%9A%84%E4%B8%8B%E5%8D%95%E8%AF%B7%E6%B1%82%EF%BC%9F/3.jpg">
+<meta property="article:published_time" content="2023-03-14T03:02:29.000Z">
+<meta property="article:modified_time" content="2023-03-13T09:54:01.652Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="高并发系统设计40问">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="17丨消息队列：秒杀时如何处理每秒上万次的下单请求？">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2023/03/14/17-消息队列：秒杀时如何处理每秒上万次的下单请求？/1.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2023/03/14/17-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%EF%BC%9A%E7%A7%92%E6%9D%80%E6%97%B6%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E6%AF%8F%E7%A7%92%E4%B8%8A%E4%B8%87%E6%AC%A1%E7%9A%84%E4%B8%8B%E5%8D%95%E8%AF%B7%E6%B1%82%EF%BC%9F/1.jpg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2023/03/14/17-消息队列：秒杀时如何处理每秒上万次的下单请求？/">
+  <link rel="canonical" href="http://yoursite.com/2023/03/14/17-消息队列：秒杀时如何处理每秒上万次的下单请求？/"/>
 
 
 
@@ -174,7 +174,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -235,7 +235,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -252,7 +252,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -269,7 +269,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -286,7 +286,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -303,7 +303,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -314,7 +314,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -334,7 +334,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -384,16 +386,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/03/14/17-消息队列：秒杀时如何处理每秒上万次的下单请求？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/03/14/17-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%EF%BC%9A%E7%A7%92%E6%9D%80%E6%97%B6%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E6%AF%8F%E7%A7%92%E4%B8%8A%E4%B8%87%E6%AC%A1%E7%9A%84%E4%B8%8B%E5%8D%95%E8%AF%B7%E6%B1%82%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -464,7 +466,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/架构/" itemprop="url" rel="index"><span itemprop="name">架构</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/%E6%9E%B6%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">架构</span></a></span>
 
                 
                 
@@ -493,7 +495,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">3.9k</span>
+                <span title="本文字数">6k</span>
               
 
               
@@ -507,7 +509,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">4 分钟</span>
+                <span title="阅读时长">5 分钟</span>
               
             </div>
           
@@ -528,7 +530,7 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>在课程一开始，我就带你了解了高并发系统设计的三个目标：性能、可用性和可扩展性，而在提升系统性能方面我们一直关注的是系统的查询性能，也用了很多的篇幅去讲解数据库的分布式改造，各类缓存的原理和使用技巧。<strong>究其原因在于我们遇到的大部分场景都是读多写少，尤其是在一个系统的初级阶段</strong>。</p>
 <p>比如一个社区的系统初期一定是只有少量的种子用户在生产内容，而大部分的用户都在“围观”别人在说什么。此时，整体的流量比较小，而写流量可能只占整体流量的百分之一，那么即使整体的QPS到了10000次/秒，写请求也只是到了每秒100次，如果要对写请求做性能优化，它的性价比确实不太高。</p>
 <p>但随着业务发展，你可能会遇到一些存在<strong>高并发写请求的场景，其中秒杀抢购就是最典型的场景</strong>。假设你的商城策划了一期秒杀活动，活动在第五天的00:00开始，仅限前200名，那么秒杀即将开始时，后台会显示用户正在疯狂地刷新APP或者浏览器来保证自己能够尽量早的看到商品。</p>
@@ -552,7 +554,7 @@
 <p>而在秒杀场景下高并发的写请求并不是持续的，也不是经常发生的，而只有在秒杀活动开始后的几秒或者十几秒时间内才会存在。为了应对这十几秒的瞬间写高峰花费几天甚至几周的时间来扩容数据库，再在秒杀之后花费几天的时间来做缩容，<strong>这无疑是得不偿失的</strong>。</p>
 <p><strong>所以我们的思路是</strong>：将秒杀请求暂存在消息队列中，然后业务服务器会响应用户“秒杀结果正在计算中”，释放了系统资源之后再处理其它用户的请求。</p>
 <p>我们会在后台启动若干个队列处理程序消费消息队列中的消息，再执行校验库存、下单等逻辑。因为只有有限个队列处理线程在执行，所以落入后端数据库上的并发请求是有限的。而请求是可以在消息队列中被短暂地堆积，当库存被消耗完之后，消息队列中堆积的请求就可以被丢弃了。</p>
-<img src="/2023/03/14/17-消息队列：秒杀时如何处理每秒上万次的下单请求？/1.jpg">
+<img src="/2023/03/14/17-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%EF%BC%9A%E7%A7%92%E6%9D%80%E6%97%B6%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E6%AF%8F%E7%A7%92%E4%B8%8A%E4%B8%87%E6%AC%A1%E7%9A%84%E4%B8%8B%E5%8D%95%E8%AF%B7%E6%B1%82%EF%BC%9F/1.jpg" class="">
 <p>这就是消息队列在秒杀系统中最主要的作用：<strong>削峰填谷</strong>，也就是说它可以削平短暂的流量高峰，虽说堆积会造成请求被短暂延迟处理，但是只要我们时刻监控消息队列中的堆积长度，在堆积量超过一定量时，增加队列处理机数量来提升消息的处理能力就好了，而且秒杀的用户对于短暂延迟知晓秒杀的结果也是有一定容忍度的。</p>
 <p><strong>这里需要注意一下</strong>，我所说的是“短暂”延迟，如果长时间没有给用户公示秒杀结果，那么用户可能就会怀疑你的秒杀活动有猫腻了。所以在使用消息队列应对流量峰值时，需要对队列处理的时间、前端写入流量的大小、数据库处理能力做好评估，然后根据不同的量级来决定部署多少台队列处理程序。</p>
 <p>比如你的秒杀商品有1000件，处理一次购买请求的时间是500ms，那么总共就需要500s的时间。这时你部署10个队列处理程序，那么秒杀请求的处理时间就是50s，也就是说用户需要等待50s才可以看到秒杀的结果，这是可以接受的。这时会并发10个请求到达数据库，并不会对数据库造成很大的压力。</p>
@@ -560,7 +562,7 @@
 <p>你想，在刚才提到的秒杀场景下，我们在处理购买请求时需要500ms。这时你分析了一下整个的购买流程，发现<strong>这里面会有主要的业务逻辑，也会有次要的业务逻辑</strong>：比如说，主要的流程是生成订单、扣减库存；次要的流程可能是我们在下单购买成功之后会给用户发放优惠券，会增加用户的积分。</p>
 <p>假如发放优惠券的耗时是50ms，增加用户积分的耗时也是50ms，那么如果我们将发放优惠券、增加积分的操作放在另外一个队列处理机中执行，那么整个流程就缩短到了400ms，性能提升了20%，处理这1000件商品的时间就变成了400s。如果我们还是希望能在50s之内看到秒杀结果的话，只需要部署8个队列程序就好了。</p>
 <p>经过将一些业务流程异步处理之后，我们的秒杀系统部署结构也会有所改变：</p>
-<img src="/2023/03/14/17-消息队列：秒杀时如何处理每秒上万次的下单请求？/2.jpg">
+<img src="/2023/03/14/17-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%EF%BC%9A%E7%A7%92%E6%9D%80%E6%97%B6%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E6%AF%8F%E7%A7%92%E4%B8%8A%E4%B8%87%E6%AC%A1%E7%9A%84%E4%B8%8B%E5%8D%95%E8%AF%B7%E6%B1%82%EF%BC%9F/2.jpg" class="">
 <h1 id="解耦实现秒杀系统模块之间松耦合"><a href="#解耦实现秒杀系统模块之间松耦合" class="headerlink" title="解耦实现秒杀系统模块之间松耦合"></a><span style="color:#339AFF;">解耦实现秒杀系统模块之间松耦合</span></h1><p>除了异步处理和削峰填谷以外，消息队列在秒杀系统中起到的另一个作用是解耦合。</p>
 <p>比如数据团队对你说，在秒杀活动之后想要统计活动的数据，借此来分析活动商品的受欢迎程度、购买者人群的特点以及用户对于秒杀互动的满意程度等等指标。而我们需要将大量的数据发送给数据团队，那么要怎么做呢？</p>
 <p><strong>一个思路是</strong>：使用HTTP或者RPC的方式来同步地调用，也就是数据团队这边提供一个接口，我们实时将秒杀的数据推送给它，<strong>但是这样调用会有两个问题</strong>：</p>
@@ -571,7 +573,7 @@
 <p>这时，我们可以考虑使用消息队列降低业务系统和数据系统的直接耦合度。</p>
 <p>秒杀系统产生一条购买数据后，我们可以先把全部数据发送给消息队列，然后数据团队再订阅这个消息队列的话题，这样它们就可以接收到数据，然后再做过滤和处理了。</p>
 <p>秒杀系统在这样解耦合之后，数据系统的故障就不会影响到秒杀系统了，同时当数据系统需要新的字段时，只需要解析消息队列中的消息，拿到需要的数据就好了。</p>
-<img src="/2023/03/14/17-消息队列：秒杀时如何处理每秒上万次的下单请求？/3.jpg">
+<img src="/2023/03/14/17-%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%EF%BC%9A%E7%A7%92%E6%9D%80%E6%97%B6%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E6%AF%8F%E7%A7%92%E4%B8%8A%E4%B8%87%E6%AC%A1%E7%9A%84%E4%B8%8B%E5%8D%95%E8%AF%B7%E6%B1%82%EF%BC%9F/3.jpg" class="">
 <p><strong>异步处理、解耦合和削峰填谷</strong>是消息队列在秒杀系统设计中起到的主要作用，其中异步处理可以简化业务流程中的步骤，提升系统性能；削峰填谷可以削去到达秒杀系统的峰值流量，让业务逻辑的处理更加缓和；解耦合可以将秒杀系统和数据系统解耦开，这样两个系统的任何变更都不会影响到另一个系统，如果你的系统想要提升写入性能实现系统的低耦合，想要抵挡高并发的写流量，那么你就可以考虑使用消息队列来完成。</p>
 <h1 id="课程小结"><a href="#课程小结" class="headerlink" title="课程小结"></a><span style="color:#339AFF;">课程小结</span></h1><p>本节课，我结合自己的实际经验，主要带你了解了消息队列在高并发系统设计中起到的作用以及一些注意事项，你需要了解的重点如下：</p>
 <ul>
@@ -605,7 +607,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/高并发系统设计40问/" rel="tag"># 高并发系统设计40问</a>
+            <a href="/tags/%E9%AB%98%E5%B9%B6%E5%8F%91%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A140%E9%97%AE/" rel="tag"># 高并发系统设计40问</a>
           
         </div>
       
@@ -618,7 +620,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2023/03/13/16丨CDN：静态资源如何加速？/" rel="next" title="16丨CDN：静态资源如何加速？">
+              <a href="/2023/03/13/16%E4%B8%A8CDN%EF%BC%9A%E9%9D%99%E6%80%81%E8%B5%84%E6%BA%90%E5%A6%82%E4%BD%95%E5%8A%A0%E9%80%9F%EF%BC%9F/" rel="next" title="16丨CDN：静态资源如何加速？">
                 <i class="fa fa-chevron-left"></i> 16丨CDN：静态资源如何加速？
               </a>
             
@@ -628,7 +630,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2023/03/20/23丨索引的概览：用还是不用索引，这是一个问题/" rel="prev" title="23丨索引的概览：用还是不用索引，这是一个问题">
+              <a href="/2023/03/20/23%E4%B8%A8%E7%B4%A2%E5%BC%95%E7%9A%84%E6%A6%82%E8%A7%88%EF%BC%9A%E7%94%A8%E8%BF%98%E6%98%AF%E4%B8%8D%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%8C%E8%BF%99%E6%98%AF%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98/" rel="prev" title="23丨索引的概览：用还是不用索引，这是一个问题">
                 23丨索引的概览：用还是不用索引，这是一个问题 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -688,7 +690,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -699,9 +703,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -713,26 +717,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -804,7 +792,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -979,115 +967,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1118,23 +998,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1160,7 +1040,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#我所理解的消息队列"><span class="nav-number">1.</span> <span class="nav-text">我所理解的消息队列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#削去秒杀场景下的峰值写流量"><span class="nav-number">2.</span> <span class="nav-text">削去秒杀场景下的峰值写流量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通过异步处理简化秒杀请求中的业务流程"><span class="nav-number">3.</span> <span class="nav-text">通过异步处理简化秒杀请求中的业务流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解耦实现秒杀系统模块之间松耦合"><span class="nav-number">4.</span> <span class="nav-text">解耦实现秒杀系统模块之间松耦合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课程小结"><span class="nav-number">5.</span> <span class="nav-text">课程小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一课一思"><span class="nav-number">6.</span> <span class="nav-text">一课一思</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%88%91%E6%89%80%E7%90%86%E8%A7%A3%E7%9A%84%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97"><span class="nav-number">1.</span> <span class="nav-text">我所理解的消息队列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8A%E5%8E%BB%E7%A7%92%E6%9D%80%E5%9C%BA%E6%99%AF%E4%B8%8B%E7%9A%84%E5%B3%B0%E5%80%BC%E5%86%99%E6%B5%81%E9%87%8F"><span class="nav-number">2.</span> <span class="nav-text">削去秒杀场景下的峰值写流量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86%E7%AE%80%E5%8C%96%E7%A7%92%E6%9D%80%E8%AF%B7%E6%B1%82%E4%B8%AD%E7%9A%84%E4%B8%9A%E5%8A%A1%E6%B5%81%E7%A8%8B"><span class="nav-number">3.</span> <span class="nav-text">通过异步处理简化秒杀请求中的业务流程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E8%80%A6%E5%AE%9E%E7%8E%B0%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F%E6%A8%A1%E5%9D%97%E4%B9%8B%E9%97%B4%E6%9D%BE%E8%80%A6%E5%90%88"><span class="nav-number">4.</span> <span class="nav-text">解耦实现秒杀系统模块之间松耦合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BE%E7%A8%8B%E5%B0%8F%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">课程小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E8%AF%BE%E4%B8%80%E6%80%9D"><span class="nav-number">6.</span> <span class="nav-text">一课一思</span></a></li></ol></div>
             
 
           </div>
@@ -1195,7 +1075,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1206,12 +1086,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1219,7 +1099,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

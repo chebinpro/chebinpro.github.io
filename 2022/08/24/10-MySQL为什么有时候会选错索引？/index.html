@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,36 +104,36 @@
 
 
   <meta name="description" content="思考并回答以下问题：  选择索引是优化器的工作。在数据库里面，扫描行数是影响执行代价的因素之一。扫描的行数越少，意味着访问磁盘数据的次数越少，消耗的CPU资源越少。优化器还会结合是否使用临时表、是否排序等因素进行综合判断。怎么理解？ show index from t;能看到一个索引的基数。有什么作用？ analyze table t命令，可以用来重新统计索引信息。怎么理解？ 优化器会计算在主键索">
-<meta name="keywords" content="MySQL实战45讲">
 <meta property="og:type" content="article">
 <meta property="og:title" content="10 | MySQL为什么有时候会选错索引？">
-<meta property="og:url" content="http://yoursite.com/2022/08/24/10-MySQL为什么有时候会选错索引？/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/08/24/10-MySQL%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：  选择索引是优化器的工作。在数据库里面，扫描行数是影响执行代价的因素之一。扫描的行数越少，意味着访问磁盘数据的次数越少，消耗的CPU资源越少。优化器还会结合是否使用临时表、是否排序等因素进行综合判断。怎么理解？ show index from t;能看到一个索引的基数。有什么作用？ analyze table t命令，可以用来重新统计索引信息。怎么理解？ 优化器会计算在主键索">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/08/24/10-MySQL为什么有时候会选错索引？/1.webp">
-<meta property="og:image" content="http://yoursite.com/2022/08/24/10-MySQL为什么有时候会选错索引？/2.webp">
-<meta property="og:image" content="http://yoursite.com/2022/08/24/10-MySQL为什么有时候会选错索引？/3.webp">
-<meta property="og:image" content="http://yoursite.com/2022/08/24/10-MySQL为什么有时候会选错索引？/4.webp">
-<meta property="og:image" content="http://yoursite.com/2022/08/24/10-MySQL为什么有时候会选错索引？/5.webp">
-<meta property="og:image" content="http://yoursite.com/2022/08/24/10-MySQL为什么有时候会选错索引？/6.webp">
-<meta property="og:image" content="http://yoursite.com/2022/08/24/10-MySQL为什么有时候会选错索引？/7.webp">
-<meta property="og:image" content="http://yoursite.com/2022/08/24/10-MySQL为什么有时候会选错索引？/8.webp">
-<meta property="og:image" content="http://yoursite.com/2022/08/24/10-MySQL为什么有时候会选错索引？/9.webp">
-<meta property="og:image" content="http://yoursite.com/2022/08/24/10-MySQL为什么有时候会选错索引？/10.webp">
-<meta property="og:image" content="http://yoursite.com/2022/08/24/10-MySQL为什么有时候会选错索引？/11.webp">
-<meta property="og:updated_time" content="2022-10-31T07:34:20.474Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/08/24/10-MySQL%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95%EF%BC%9F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2022/08/24/10-MySQL%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95%EF%BC%9F/2.webp">
+<meta property="og:image" content="http://yoursite.com/2022/08/24/10-MySQL%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95%EF%BC%9F/3.webp">
+<meta property="og:image" content="http://yoursite.com/2022/08/24/10-MySQL%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95%EF%BC%9F/4.webp">
+<meta property="og:image" content="http://yoursite.com/2022/08/24/10-MySQL%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95%EF%BC%9F/5.webp">
+<meta property="og:image" content="http://yoursite.com/2022/08/24/10-MySQL%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95%EF%BC%9F/6.webp">
+<meta property="og:image" content="http://yoursite.com/2022/08/24/10-MySQL%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95%EF%BC%9F/7.webp">
+<meta property="og:image" content="http://yoursite.com/2022/08/24/10-MySQL%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95%EF%BC%9F/8.webp">
+<meta property="og:image" content="http://yoursite.com/2022/08/24/10-MySQL%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95%EF%BC%9F/9.webp">
+<meta property="og:image" content="http://yoursite.com/2022/08/24/10-MySQL%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95%EF%BC%9F/10.webp">
+<meta property="og:image" content="http://yoursite.com/2022/08/24/10-MySQL%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95%EF%BC%9F/11.webp">
+<meta property="article:published_time" content="2022-08-24T06:01:41.000Z">
+<meta property="article:modified_time" content="2022-10-31T07:34:20.474Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="MySQL实战45讲">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="10 | MySQL为什么有时候会选错索引？">
-<meta name="twitter:description" content="思考并回答以下问题：  选择索引是优化器的工作。在数据库里面，扫描行数是影响执行代价的因素之一。扫描的行数越少，意味着访问磁盘数据的次数越少，消耗的CPU资源越少。优化器还会结合是否使用临时表、是否排序等因素进行综合判断。怎么理解？ show index from t;能看到一个索引的基数。有什么作用？ analyze table t命令，可以用来重新统计索引信息。怎么理解？ 优化器会计算在主键索">
-<meta name="twitter:image" content="http://yoursite.com/2022/08/24/10-MySQL为什么有时候会选错索引？/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2022/08/24/10-MySQL%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95%EF%BC%9F/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/08/24/10-MySQL为什么有时候会选错索引？/">
+  <link rel="canonical" href="http://yoursite.com/2022/08/24/10-MySQL为什么有时候会选错索引？/"/>
 
 
 
@@ -182,7 +182,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -243,7 +243,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -260,7 +260,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -277,7 +277,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -294,7 +294,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -311,7 +311,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -322,7 +322,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -342,7 +342,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -392,16 +394,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/08/24/10-MySQL为什么有时候会选错索引？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/08/24/10-MySQL%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -420,7 +422,7 @@
 
           
             <i class="fa fa-thumb-tack"></i>
-            <font color="FF0000">置顶</font>
+            <font color=FF0000>置顶</font>
             <span class="post-meta-divider">|</span>
           
 
@@ -505,7 +507,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">7.2k</span>
+                <span title="本文字数">17k</span>
               
 
               
@@ -519,7 +521,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">7 分钟</span>
+                <span title="阅读时长">16 分钟</span>
               
             </div>
           
@@ -546,30 +548,27 @@
 <li><code>analyze table t</code>命令，可以用来重新统计索引信息。怎么理解？</li>
 <li><span style="color:red">优化器会计算在主键索引直接扫描和使用普通索引回表的代价，从而做出选择。</span>怎么理解？</li>
 </ul>
-<a id="more"></a>
+<span id="more"></span>
 <p>前面我们介绍过索引，你已经知道了在MySQL中一张表其实是可以支持多个索引的。但是，你写SQL语句的时候，并没有主动指定使用哪个索引。也就是说，使用哪个索引是由MySQL来确定的。</p>
 <p>不知道你有没有碰到过这种情况，一条本来可以执行得很快的语句，却由于MySQL选错了索引，而导致执行速度变得很慢？</p>
 <p>我们一起来看一个例子吧。</p>
-<p>我们先建一个简单的表，表里有a、b两个字段，并分别建上索引：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`t`</span> (</span><br><span class="line">  <span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">11</span>) AUTO_INCREMENT <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">  <span class="string">`a`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line">  <span class="string">`b`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line">  PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>),</span><br><span class="line">  <span class="keyword">KEY</span> <span class="string">`a`</span> (<span class="string">`a`</span>),</span><br><span class="line">  <span class="keyword">KEY</span> <span class="string">`b`</span> (<span class="string">`b`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span>;</span><br></pre></td></tr></table></figure></p>
-<p>然后，我们往表t中插入10万行记录，取值按整数递增，即：(1,1,1)，(2,2,2)，(3,3,3)直到(100000,100000,100000)。</p>
-<p>我是用存储过程来插入数据的，这里我贴出来方便你复现：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">delimiter ;;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">procedure</span> idata()</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">  <span class="keyword">declare</span> i <span class="built_in">int</span>;</span><br><span class="line">  <span class="keyword">set</span> i=<span class="number">1</span>;</span><br><span class="line">  while(i&lt;=100000)do</span><br><span class="line">    <span class="keyword">insert</span> <span class="keyword">into</span> t(a, b) <span class="keyword">values</span>(i, i);</span><br><span class="line">    <span class="keyword">set</span> i=i+<span class="number">1</span>;</span><br><span class="line">  <span class="keyword">end</span> <span class="keyword">while</span>;</span><br><span class="line"><span class="keyword">end</span>;;</span><br><span class="line">delimiter ;</span><br><span class="line"></span><br><span class="line"><span class="keyword">call</span> idata();</span><br></pre></td></tr></table></figure></p>
-<p>接下来，我们分析一条SQL语句：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> t <span class="keyword">where</span> a <span class="keyword">between</span> <span class="number">10000</span> <span class="keyword">and</span> <span class="number">20000</span>;</span><br></pre></td></tr></table></figure></p>
-<p>你一定会说，这个语句还用分析吗，很简单呀，a上有索引，肯定是要使用索引a的。</p>
+<p>我们先建一个简单的表，表里有a、b两个字段，并分别建上索引：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `t` (</span><br><span class="line">  `id` <span class="type">int</span>(<span class="number">11</span>) AUTO_INCREMENT <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `a` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `b` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`id`),</span><br><span class="line">  KEY `a` (`a`),</span><br><span class="line">  KEY `b` (`b`)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB;</span><br></pre></td></tr></table></figure><br>然后，我们往表t中插入10万行记录，取值按整数递增，即：(1,1,1)，(2,2,2)，(3,3,3)直到(100000,100000,100000)。</p>
+<p>我是用存储过程来插入数据的，这里我贴出来方便你复现：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">delimiter ;;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">procedure</span> idata()</span><br><span class="line"><span class="keyword">begin</span></span><br><span class="line">  <span class="keyword">declare</span> i <span class="type">int</span>;</span><br><span class="line">  <span class="keyword">set</span> i<span class="operator">=</span><span class="number">1</span>;</span><br><span class="line">  while(i<span class="operator">&lt;=</span><span class="number">100000</span>)do</span><br><span class="line">    <span class="keyword">insert</span> <span class="keyword">into</span> t(a, b) <span class="keyword">values</span>(i, i);</span><br><span class="line">    <span class="keyword">set</span> i<span class="operator">=</span>i<span class="operator">+</span><span class="number">1</span>;</span><br><span class="line">  <span class="keyword">end</span> while;</span><br><span class="line"><span class="keyword">end</span>;;</span><br><span class="line">delimiter ;</span><br><span class="line"></span><br><span class="line"><span class="keyword">call</span> idata();</span><br></pre></td></tr></table></figure><br>接下来，我们分析一条SQL语句：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t <span class="keyword">where</span> a <span class="keyword">between</span> <span class="number">10000</span> <span class="keyword">and</span> <span class="number">20000</span>;</span><br></pre></td></tr></table></figure><br>你一定会说，这个语句还用分析吗，很简单呀，a上有索引，肯定是要使用索引a的。</p>
 <p>你说得没错，图1显示的就是使用explain命令看到的这条语句的执行情况。</p>
 <blockquote>
 <p>图1 使用explain命令查看语句执行情况</p>
 </blockquote>
-<img src="/2022/08/24/10-MySQL为什么有时候会选错索引？/1.webp">
+<img src="/2022/08/24/10-MySQL%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95%EF%BC%9F/1.webp" class="">
 <p>从图1看上去，这条查询语句的执行也确实符合预期，key这个字段值是a，表示优化器选择了索引a。</p>
 <p>不过别急，这个案例不会这么简单。在我们已经准备好的包含了10万行数据的表上，我们再做如下操作。</p>
 <blockquote>
 <p>图2 session A和session B的执行流程</p>
 </blockquote>
-<img src="/2022/08/24/10-MySQL为什么有时候会选错索引？/2.webp">
+<img src="/2022/08/24/10-MySQL%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95%EF%BC%9F/2.webp" class="">
 <p>这里，session A的操作你已经很熟悉了，它就是开启了一个事务。随后，session B把数据都删除后，又调用了idata这个存储过程，插入了10万行数据。</p>
 <p>这时候，session B的查询语句<code>select * from t where a between 10000 and 20000</code>就不会再选择索引a了。我们可以通过慢查询日志（slow log）来查看一下具体的执行情况。</p>
 <p>为了说明优化器选择的结果是否正确，我增加了一个对照，即：使用<code>force index(a)</code>来让优化器强制使用索引a（这部分内容，我还会在这篇文章的后半部分中提到）。</p>
-<p>下面的三条SQL语句，就是这个实验过程。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> long_query_time=<span class="number">0</span>;</span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> t <span class="keyword">where</span> a <span class="keyword">between</span> <span class="number">10000</span> <span class="keyword">and</span> <span class="number">20000</span>; <span class="comment">/*Q1*/</span></span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> t <span class="keyword">force</span> <span class="keyword">index</span>(a) <span class="keyword">where</span> a <span class="keyword">between</span> <span class="number">10000</span> <span class="keyword">and</span> <span class="number">20000</span>;<span class="comment">/*Q2*/</span></span><br></pre></td></tr></table></figure></p>
+<p>下面的三条SQL语句，就是这个实验过程。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> long_query_time<span class="operator">=</span><span class="number">0</span>;</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t <span class="keyword">where</span> a <span class="keyword">between</span> <span class="number">10000</span> <span class="keyword">and</span> <span class="number">20000</span>; <span class="comment">/*Q1*/</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t force index(a) <span class="keyword">where</span> a <span class="keyword">between</span> <span class="number">10000</span> <span class="keyword">and</span> <span class="number">20000</span>;<span class="comment">/*Q2*/</span></span><br></pre></td></tr></table></figure></p>
 <ul>
 <li>第一句，是将慢查询日志的阈值设置为0，表示这个线程接下来的语句都会被记录入慢查询日志中；</li>
 <li>第二句，Q1是session B原来的查询；</li>
@@ -579,7 +578,7 @@
 <blockquote>
 <p>图3 slow log结果</p>
 </blockquote>
-<img src="/2022/08/24/10-MySQL为什么有时候会选错索引？/3.webp">
+<img src="/2022/08/24/10-MySQL%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95%EF%BC%9F/3.webp" class="">
 <p>可以看到，Q1扫描了10万行，显然是走了全表扫描，执行时间是40毫秒。Q2扫描了10001行，执行了21毫秒。也就是说，我们在没有使用<code>force index</code>的时候，MySQL用错了索引，导致了更长的执行时间。</p>
 <p>这个例子对应的是我们平常不断地删除历史数据和新增数据的场景。这时，MySQL竟然会选错索引，是不是有点奇怪呢？今天，我们就从这个奇怪的结果说起吧。</p>
 <h1 id="优化器的逻辑"><a href="#优化器的逻辑" class="headerlink" title="优化器的逻辑"></a><span style="color:#339AFF;">优化器的逻辑</span></h1><p>在第一篇文章中，我们就提到过，选择索引是优化器的工作。</p>
@@ -593,7 +592,7 @@
 <blockquote>
 <p>图4 表t的<code>show index</code>结果</p>
 </blockquote>
-<img src="/2022/08/24/10-MySQL为什么有时候会选错索引？/4.webp">
+<img src="/2022/08/24/10-MySQL%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95%EF%BC%9F/4.webp" class="">
 <p>那么，<strong>MySQL是怎样得到索引的基数的呢？</strong>这里，我给你简单介绍一下MySQL采样统计的方法。</p>
 <p>为什么要采样统计呢？因为把整张表取出来一行行统计，虽然可以得到精确的结果，但是代价太高了，所以只能选择“采样统计”。</p>
 <p>采样统计的时候，InnoDB默认会选择N个数据页，统计这些页面上的不同值，得到一个平均值，然后乘以这个索引的页面数，就得到了这个索引的基数。</p>
@@ -611,7 +610,7 @@
 <blockquote>
 <p>图5 意外的explain结果</p>
 </blockquote>
-<img src="/2022/08/24/10-MySQL为什么有时候会选错索引？/5.webp">
+<img src="/2022/08/24/10-MySQL%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95%EF%BC%9F/5.webp" class="">
 <p>rows这个字段表示的是预计扫描行数。</p>
 <p>其中，Q1的结果还是符合预期的，rows的值是104620；但是Q2的rows值是37116，偏差就大了。而图1中我们用explain命令看到的rows是只有10001行，是这个偏差误导了优化器的判断。</p>
 <p>到这里，可能你的第一个疑问不是为什么不准，而是优化器为什么放着扫描37000行的执行计划不用，却选择了扫描行数是100000的执行计划呢？</p>
@@ -624,27 +623,26 @@
 <blockquote>
 <p>图6 执行<code>analyze table t</code>命令恢复的explain结果</p>
 </blockquote>
-<img src="/2022/08/24/10-MySQL为什么有时候会选错索引？/6.webp">
+<img src="/2022/08/24/10-MySQL%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95%EF%BC%9F/6.webp" class="">
 <p>这回对了。</p>
 <p>所以在实践中，如果你发现explain的结果预估的rows值跟实际情况差距比较大，可以采用这个方法来处理。</p>
 <p>其实，如果只是索引统计不准确，通过analyze命令可以解决很多问题，但是前面我们说了，优化器可不止是看扫描行数。</p>
-<p>依然是基于这个表t，我们看看另外一个语句：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> t <span class="keyword">where</span> (a <span class="keyword">between</span> <span class="number">1</span> <span class="keyword">and</span> <span class="number">1000</span>)  <span class="keyword">and</span> (b <span class="keyword">between</span> <span class="number">50000</span> <span class="keyword">and</span> <span class="number">100000</span>) <span class="keyword">order</span> <span class="keyword">by</span> b <span class="keyword">limit</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure></p>
-<p>从条件上看，这个查询没有符合条件的记录，因此会返回空集合。</p>
+<p>依然是基于这个表t，我们看看另外一个语句：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t <span class="keyword">where</span> (a <span class="keyword">between</span> <span class="number">1</span> <span class="keyword">and</span> <span class="number">1000</span>)  <span class="keyword">and</span> (b <span class="keyword">between</span> <span class="number">50000</span> <span class="keyword">and</span> <span class="number">100000</span>) <span class="keyword">order</span> <span class="keyword">by</span> b limit <span class="number">1</span>;</span><br></pre></td></tr></table></figure><br>从条件上看，这个查询没有符合条件的记录，因此会返回空集合。</p>
 <p>在开始执行这条语句之前，你可以先设想一下，如果你来选择索引，会选择哪一个呢？</p>
 <p>为了便于分析，我们先来看一下a、b这两个索引的结构图。</p>
 <blockquote>
 <p>图7 a、b索引的结构图</p>
 </blockquote>
-<img src="/2022/08/24/10-MySQL为什么有时候会选错索引？/7.webp">
+<img src="/2022/08/24/10-MySQL%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95%EF%BC%9F/7.webp" class="">
 <p>如果使用索引a进行查询，那么就是扫描索引a的前1000个值，然后取到对应的id，再到主键索引上去查出每一行，然后根据字段b来过滤。显然这样需要扫描1000行。</p>
 <p>如果使用索引b进行查询，那么就是扫描索引b的最后50001个值，与上面的执行过程相同，也是需要回到主键索引上取值再判断，所以需要扫描50001行。</p>
 <p>所以你一定会想，如果使用索引a的话，执行速度明显会快很多。那么，下面我们就来看看到底是不是这么一回事儿。</p>
 <p>图8是执行explain的结果。</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">explain</span> <span class="keyword">select</span> * <span class="keyword">from</span> t <span class="keyword">where</span> (a <span class="keyword">between</span> <span class="number">1</span> <span class="keyword">and</span> <span class="number">1000</span>) <span class="keyword">and</span> (b <span class="keyword">between</span> <span class="number">50000</span> <span class="keyword">and</span> <span class="number">100000</span>) <span class="keyword">order</span> <span class="keyword">by</span> b <span class="keyword">limit</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">explain <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t <span class="keyword">where</span> (a <span class="keyword">between</span> <span class="number">1</span> <span class="keyword">and</span> <span class="number">1000</span>) <span class="keyword">and</span> (b <span class="keyword">between</span> <span class="number">50000</span> <span class="keyword">and</span> <span class="number">100000</span>) <span class="keyword">order</span> <span class="keyword">by</span> b limit <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>图8 使用explain方法查看执行计划2</p>
 </blockquote>
-<img src="/2022/08/24/10-MySQL为什么有时候会选错索引？/8.webp">
+<img src="/2022/08/24/10-MySQL%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95%EF%BC%9F/8.webp" class="">
 <p>可以看到，返回结果中key字段显示，这次优化器选择了索引b，而rows字段显示需要扫描的行数是50198。</p>
 <p>从这个结果中，你可以得到两个结论：</p>
 <p>1，扫描行数的估计值依然不准确；</p>
@@ -655,7 +653,7 @@
 <blockquote>
 <p>图9 使用不同索引的语句执行耗时</p>
 </blockquote>
-<img src="/2022/08/24/10-MySQL为什么有时候会选错索引？/9.webp">
+<img src="/2022/08/24/10-MySQL%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95%EF%BC%9F/9.webp" class="">
 <p>可以看到，原本语句需要执行2.23秒，而当你使用<code>force index(a)</code>的时候，只用了0.05秒，比优化器的选择快了40多倍。</p>
 <p>也就是说，优化器没有选择正确的索引，<code>force index</code>起到了“矫正”的作用。</p>
 <p>不过很多程序员不喜欢使用<code>force index</code>，一来这么写不优美，二来如果索引改了名字，这个语句也得改，显得很麻烦。而且如果以后迁移到别的数据库的话，这个语法还可能会不兼容。</p>
@@ -666,15 +664,15 @@
 <blockquote>
 <p>图10 <code>order by b,a limit 1</code>执行结果</p>
 </blockquote>
-<img src="/2022/08/24/10-MySQL为什么有时候会选错索引？/10.webp">
+<img src="/2022/08/24/10-MySQL%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95%EF%BC%9F/10.webp" class="">
 <p>之前优化器选择使用索引b，是因为它认为使用索引b可以避免排序（b本身是索引，已经是有序的了，如果选择索引b的话，不需要再做排序，只需要遍历），所以即使扫描行数多，也判定为代价更小。</p>
 <p>现在<code>order by b,a</code>这种写法，要求按照<code>b,a</code>排序，就意味着使用这两个索引都需要排序。因此，扫描行数成了影响决策的主要条件，于是此时优化器选了只需要扫描1000行的索引a。</p>
 <p>当然，这种修改并不是通用的优化手段，只是刚好在这个语句里面有<code>limit 1</code>，因此如果有满足条件的记录，<code>order by b limit 1</code>和<code>order by b,a limit 1</code>都会返回b是最小的那一行，逻辑上一致，才可以这么做。</p>
-<p>如果你觉得修改语义这件事儿不太好，这里还有一种改法，图11是执行效果。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span>  (<span class="keyword">select</span> * <span class="keyword">from</span> t <span class="keyword">where</span> (a <span class="keyword">between</span> <span class="number">1</span> <span class="keyword">and</span> <span class="number">1000</span>)  <span class="keyword">and</span> (b <span class="keyword">between</span> <span class="number">50000</span> <span class="keyword">and</span> <span class="number">100000</span>) <span class="keyword">order</span> <span class="keyword">by</span> b <span class="keyword">limit</span> <span class="number">100</span>)<span class="keyword">alias</span> <span class="keyword">limit</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure></p>
+<p>如果你觉得修改语义这件事儿不太好，这里还有一种改法，图11是执行效果。<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span>  (<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t <span class="keyword">where</span> (a <span class="keyword">between</span> <span class="number">1</span> <span class="keyword">and</span> <span class="number">1000</span>)  <span class="keyword">and</span> (b <span class="keyword">between</span> <span class="number">50000</span> <span class="keyword">and</span> <span class="number">100000</span>) <span class="keyword">order</span> <span class="keyword">by</span> b limit <span class="number">100</span>)alias limit <span class="number">1</span>;</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>图11 改写SQL的explain</p>
 </blockquote>
-<img src="/2022/08/24/10-MySQL为什么有时候会选错索引？/11.webp">
+<img src="/2022/08/24/10-MySQL%E4%B8%BA%E4%BB%80%E4%B9%88%E6%9C%89%E6%97%B6%E5%80%99%E4%BC%9A%E9%80%89%E9%94%99%E7%B4%A2%E5%BC%95%EF%BC%9F/11.webp" class="">
 <p>在这个例子里，我们用<code>limit 100</code>让优化器意识到，使用b索引代价是很高的。其实是我们根据数据特征诱导了一下优化器，也不具备通用性。</p>
 <p><strong>第三种方法是，在有些场景下，我们可以新建一个更合适的索引，来提供给优化器做选择，或删掉误用的索引。</strong></p>
 <p>不过，在这个例子中，我没有找到通过新增索引来改变优化器行为的方法。这种情况其实比较少，尤其是经过DBA索引优化过的库，再碰到这个bug，找到一个更合适的索引一般比较难。</p>
@@ -718,7 +716,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/MySQL实战45讲/" rel="tag"># MySQL实战45讲</a>
+            <a href="/tags/MySQL%E5%AE%9E%E6%88%9845%E8%AE%B2/" rel="tag"># MySQL实战45讲</a>
           
         </div>
       
@@ -731,7 +729,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/08/24/09-普通索引和唯一索引，应该怎么选择？/" rel="next" title="09 | 普通索引和唯一索引，应该怎么选择？">
+              <a href="/2022/08/24/09-%E6%99%AE%E9%80%9A%E7%B4%A2%E5%BC%95%E5%92%8C%E5%94%AF%E4%B8%80%E7%B4%A2%E5%BC%95%EF%BC%8C%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E9%80%89%E6%8B%A9%EF%BC%9F/" rel="next" title="09 | 普通索引和唯一索引，应该怎么选择？">
                 <i class="fa fa-chevron-left"></i> 09 | 普通索引和唯一索引，应该怎么选择？
               </a>
             
@@ -741,7 +739,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/08/25/01-工作区和GOPATH/" rel="prev" title="01 | 工作区和GOPATH">
+              <a href="/2022/08/25/01-%E5%B7%A5%E4%BD%9C%E5%8C%BA%E5%92%8CGOPATH/" rel="prev" title="01 | 工作区和GOPATH">
                 01 | 工作区和GOPATH <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -801,7 +799,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -812,9 +812,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -826,26 +826,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -917,7 +901,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1092,115 +1076,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1231,23 +1107,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1273,7 +1149,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#优化器的逻辑"><span class="nav-number">1.</span> <span class="nav-text">优化器的逻辑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#索引选择异常和处理"><span class="nav-number">2.</span> <span class="nav-text">索引选择异常和处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#上期问题时间"><span class="nav-number">4.</span> <span class="nav-text">上期问题时间</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E5%99%A8%E7%9A%84%E9%80%BB%E8%BE%91"><span class="nav-number">1.</span> <span class="nav-text">优化器的逻辑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E9%80%89%E6%8B%A9%E5%BC%82%E5%B8%B8%E5%92%8C%E5%A4%84%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">索引选择异常和处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8A%E6%9C%9F%E9%97%AE%E9%A2%98%E6%97%B6%E9%97%B4"><span class="nav-number">4.</span> <span class="nav-text">上期问题时间</span></a></li></ol></div>
             
 
           </div>
@@ -1308,7 +1184,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1319,12 +1195,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1332,7 +1208,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

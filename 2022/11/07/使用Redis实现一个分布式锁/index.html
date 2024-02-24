@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,35 +104,35 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="分布式锁">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用Redis实现一个分布式锁">
-<meta property="og:url" content="http://yoursite.com/2022/11/07/使用Redis实现一个分布式锁/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/11/07/%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/11/07/使用Redis实现一个分布式锁/1.png">
-<meta property="og:image" content="http://yoursite.com/2022/11/07/使用Redis实现一个分布式锁/2.png">
-<meta property="og:image" content="http://yoursite.com/2022/11/07/使用Redis实现一个分布式锁/3.png">
-<meta property="og:image" content="http://yoursite.com/2022/11/07/使用Redis实现一个分布式锁/4.png">
-<meta property="og:image" content="http://yoursite.com/2022/11/07/使用Redis实现一个分布式锁/5.png">
-<meta property="og:image" content="http://yoursite.com/2022/11/07/使用Redis实现一个分布式锁/6.png">
-<meta property="og:image" content="http://yoursite.com/2022/11/07/使用Redis实现一个分布式锁/7.png">
-<meta property="og:image" content="http://yoursite.com/2022/11/07/使用Redis实现一个分布式锁/8.png">
-<meta property="og:image" content="http://yoursite.com/2022/11/07/使用Redis实现一个分布式锁/9.png">
-<meta property="og:image" content="http://yoursite.com/2022/11/07/使用Redis实现一个分布式锁/10.png">
-<meta property="og:updated_time" content="2022-11-07T01:59:14.275Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/11/07/%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/1.png">
+<meta property="og:image" content="http://yoursite.com/2022/11/07/%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/2.png">
+<meta property="og:image" content="http://yoursite.com/2022/11/07/%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/3.png">
+<meta property="og:image" content="http://yoursite.com/2022/11/07/%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/4.png">
+<meta property="og:image" content="http://yoursite.com/2022/11/07/%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/5.png">
+<meta property="og:image" content="http://yoursite.com/2022/11/07/%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/6.png">
+<meta property="og:image" content="http://yoursite.com/2022/11/07/%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/7.png">
+<meta property="og:image" content="http://yoursite.com/2022/11/07/%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/8.png">
+<meta property="og:image" content="http://yoursite.com/2022/11/07/%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/9.png">
+<meta property="og:image" content="http://yoursite.com/2022/11/07/%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/10.png">
+<meta property="article:published_time" content="2022-11-07T01:19:18.000Z">
+<meta property="article:modified_time" content="2022-11-07T01:59:14.275Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="分布式锁">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用Redis实现一个分布式锁">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2022/11/07/使用Redis实现一个分布式锁/1.png">
+<meta name="twitter:image" content="http://yoursite.com/2022/11/07/%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/1.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/11/07/使用Redis实现一个分布式锁/">
+  <link rel="canonical" href="http://yoursite.com/2022/11/07/使用Redis实现一个分布式锁/"/>
 
 
 
@@ -181,7 +181,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -242,7 +242,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -259,7 +259,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -276,7 +276,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -293,7 +293,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -310,7 +310,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -321,7 +321,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -341,7 +341,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -391,16 +393,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/11/07/使用Redis实现一个分布式锁/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/11/07/%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -459,7 +461,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/分布式/" itemprop="url" rel="index"><span itemprop="name">分布式</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">分布式</span></a></span>
 
                 
                 
@@ -488,7 +490,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">7.3k</span>
+                <span title="本文字数">28k</span>
               
 
               
@@ -502,7 +504,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">7 分钟</span>
+                <span title="阅读时长">25 分钟</span>
               
             </div>
           
@@ -523,59 +525,59 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <h1 id="什么是分布式锁"><a href="#什么是分布式锁" class="headerlink" title="什么是分布式锁"></a><span style="color:#339AFF;">什么是分布式锁</span></h1><p>分布式锁，<span style="color:red">简单来说就是在分布式环境下不同实例之间抢一把锁。</span></p>
 <p>和普通的锁比起来，也就是抢锁的从线程（协程）变成了实例。</p>
-<img src="/2022/11/07/使用Redis实现一个分布式锁/1.png">
+<img src="/2022/11/07/%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/1.png" class="">
 <p>分布式锁之所以难，基本上都和网络有关。</p>
 <h1 id="用Redis来实现一个分布式锁"><a href="#用Redis来实现一个分布式锁" class="headerlink" title="用Redis来实现一个分布式锁"></a><span style="color:#339AFF;">用Redis来实现一个分布式锁</span></h1><p>我们这里使用Redis来实现一个简单的分布式锁。</p>
 <p>那么在Redis里面，抢锁，或者获得一把锁，是指什么呢？</p>
 <p>实现一个分布式锁的起点，就是利用setnx命令，<span style="color:red">确保可以排他地设置一个键值对。</span></p>
 <p><span style="color:red">本质上Redis的分布式锁就是一个键值对。</span></p>
-<img src="/2022/11/07/使用Redis实现一个分布式锁/2.png">
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *LockClientDemo)</span> <span class="title">Lock</span><span class="params">(ctx context.Context, key <span class="keyword">string</span>, expiration time.Duration)</span> <span class="params">(*LockDemo, error)</span></span> &#123;</span><br><span class="line">    token := uuid.New().String()</span><br><span class="line">    ok, err := c.client.SetNX(ctx, key, token, expiration).Result()</span><br><span class="line">    <span class="keyword">if</span> ok &#123;</span><br><span class="line">        <span class="keyword">return</span> &amp;LockDemo&#123;</span><br><span class="line">            key: key,</span><br><span class="line">            token: token,</span><br><span class="line">            client: c.client,</span><br><span class="line">            <span class="built_in">close</span>: <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;, <span class="number">1</span>),</span><br><span class="line">        &#125;, <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<img src="/2022/11/07/%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/2.png" class="">
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *LockClientDemo)</span></span> Lock(ctx context.Context, key <span class="type">string</span>, expiration time.Duration) (*LockDemo, <span class="type">error</span>) &#123;</span><br><span class="line">    token := uuid.New().String()</span><br><span class="line">    ok, err := c.client.SetNX(ctx, key, token, expiration).Result()</span><br><span class="line">    <span class="keyword">if</span> ok &#123;</span><br><span class="line">        <span class="keyword">return</span> &amp;LockDemo&#123;</span><br><span class="line">            key: key,</span><br><span class="line">            token: token,</span><br><span class="line">            client: c.client,</span><br><span class="line">            <span class="built_in">close</span>: <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;, <span class="number">1</span>),</span><br><span class="line">        &#125;, <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这个代码奇怪的地方在于：</p>
 <ul>
 <li><span style="color:red">为什么要设置过期时间？</span>不应该是用户主动释放吗？</li>
 <li><span style="color:red">为什么要用uuid来作为值？</span></li>
 </ul>
-<h2 id="Redis分布式锁如果没有过期时间"><a href="#Redis分布式锁如果没有过期时间" class="headerlink" title="Redis分布式锁如果没有过期时间"></a><span style="color:#00ACC1;">Redis分布式锁如果没有过期时间</span></h2><img src="/2022/11/07/使用Redis实现一个分布式锁/3.png">
+<h2 id="Redis分布式锁如果没有过期时间"><a href="#Redis分布式锁如果没有过期时间" class="headerlink" title="Redis分布式锁如果没有过期时间"></a><span style="color:#00ACC1;">Redis分布式锁如果没有过期时间</span></h2><img src="/2022/11/07/%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/3.png" class="">
 <p>如果没有过期时间，那么原本加锁的实例崩溃之后，<span style="color:red">永远也没有人去释放锁。</span></p>
 <h2 id="为什么用uuid作为值"><a href="#为什么用uuid作为值" class="headerlink" title="为什么用uuid作为值"></a><span style="color:#00ACC1;">为什么用uuid作为值</span></h2><p><span style="color:red">本质上，我们就是需要一个唯一的值，用来比较这是某个实例加的锁。</span></p>
 <p>UUID就成了一个不错的选择。当然也可以使用其它的值，只要确保同一把锁的值不会冲突就可以。</p>
-<img src="/2022/11/07/使用Redis实现一个分布式锁/4.png">
+<img src="/2022/11/07/%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/4.png" class="">
 <p>实例1在释放锁的时候，根本没有检查是不是自己加的锁，所以会把实例2的锁释放掉。</p>
-<h2 id="锁释放"><a href="#锁释放" class="headerlink" title="锁释放"></a><span style="color:#00ACC1;">锁释放</span></h2><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(l *Lock)</span> <span class="title">Release</span><span class="params">(ctx context.Context)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    <span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        l.<span class="built_in">close</span> &lt;- <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">    &#125;()</span><br><span class="line">    status, err := luaRelease.Run(ctx, l.client,</span><br><span class="line">        []<span class="keyword">string</span>&#123;l.key&#125;, l.token).Result()</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> status == <span class="keyword">int64</span>(<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ErrFailedToRelease</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="锁释放"><a href="#锁释放" class="headerlink" title="锁释放"></a><span style="color:#00ACC1;">锁释放</span></h2><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(l *Lock)</span></span> Release(ctx context.Context) <span class="type">error</span> &#123;</span><br><span class="line">    <span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        l.<span class="built_in">close</span> &lt;- <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">    &#125;()</span><br><span class="line">    status, err := luaRelease.Run(ctx, l.client,</span><br><span class="line">        []<span class="type">string</span>&#123;l.key&#125;, l.token).Result()</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> status == <span class="type">int64</span>(<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ErrFailedToRelease</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>释放锁的时候，需要做两件事：</p>
 <ul>
 <li><span style="color:red">看看是不是自己加的锁</span>（比较Redis里面的token是不是自己的）</li>
 <li><span style="color:red">如果是，直接释放锁</span></li>
 </ul>
 <p>lua脚本里面要检测key的对应的值是不是我设置的值，是的话就释放锁。如果不是，说明出了点问题。</p>
-<h2 id="过期时间设置多长？"><a href="#过期时间设置多长？" class="headerlink" title="过期时间设置多长？"></a><span style="color:#00ACC1;">过期时间设置多长？</span></h2><img src="/2022/11/07/使用Redis实现一个分布式锁/5.png">
+<h2 id="过期时间设置多长？"><a href="#过期时间设置多长？" class="headerlink" title="过期时间设置多长？"></a><span style="color:#00ACC1;">过期时间设置多长？</span></h2><img src="/2022/11/07/%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/5.png" class="">
 <p>对于锁的用户来说，他很难确定锁的过期时间应该设置多长：</p>
 <ul>
 <li>设置短了，那么业务还没完成，锁就超时了</li>
 <li>设置长了，万一实例真的崩溃了，那么其它实例长时间拿不到锁</li>
 </ul>
-<p><span style="color:red">更严重的是，不管你设置多长，极端情况下，都会出现业务执行时间超过超时时间。</span></p>
+<p><span style="color:red">更严重的是，不管你设置多长，极端情况下，都会出现业务执行时间超过超时时间。</p>
 <p>不管你用一分钟还是十分钟，极端情况下，业务执行时间都会超过锁超时时间。&lt;/span&gt;</p>
 <h2 id="续约"><a href="#续约" class="headerlink" title="续约"></a><span style="color:#00ACC1;">续约</span></h2><p>我们可以考虑在锁还没有超时的时候，再一次延长超时时间，那么：</p>
 <ul>
 <li><span style="color:red">超时时间不必设置得很长，自动续约会帮我们设置好</span></li>
 <li>如果实例崩溃了，则没有人再续约，<span style="color:red">过一段时间之后自然就会过期，其它实例就能拿到锁了</span></li>
 </ul>
-<img src="/2022/11/07/使用Redis实现一个分布式锁/6.png">
+<img src="/2022/11/07/%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/6.png" class="">
 <p>这种自动续约的API还是很难设计的，要考虑：</p>
 <ul>
 <li><span style="color:red">每一次调用Redis续约，超时时间多长？</span></li>
 <li><span style="color:red">隔多久续约一次？</span></li>
 <li><span style="color:red">每次续约续多长？</span></li>
 </ul>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(l *LockDemo)</span> <span class="title">AutoRefresh</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    timeout time.Duration,</span></span></span><br><span class="line"><span class="function"><span class="params">    interval time.Duration, newExpire time.Duration)</span> &lt;- <span class="title">chan</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    ch := <span class="built_in">make</span>(<span class="keyword">chan</span> error, <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        ticker := time.NewTicker(interval)</span><br><span class="line">        <span class="keyword">for</span> &#123;</span><br><span class="line">            <span class="keyword">select</span> &#123;</span><br><span class="line">            <span class="keyword">case</span> &lt;- ticker.C:</span><br><span class="line">                ctx, cancel := context.WithTimeout(context.Background(), timeout)</span><br><span class="line">                status, err := luaRefresh.Run(ctx,</span><br><span class="line">                    l.client, []<span class="keyword">string</span>&#123;l.key&#125;, l.token, newExpire.Milliseconds()).Result()</span><br><span class="line">                cancel()</span><br><span class="line">                <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">                    ch &lt;- err</span><br><span class="line">                    <span class="comment">// 这里没有有关闭 l.close，其实问题也不大，因为最终都是垃圾回收</span></span><br><span class="line">                    <span class="built_in">close</span>(ch)</span><br><span class="line">                    <span class="keyword">return</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> status != <span class="keyword">int64</span>(<span class="number">1</span>) &#123;</span><br><span class="line">                    ch &lt;- ErrFailedToRefresh</span><br><span class="line">                    <span class="built_in">close</span>(ch)</span><br><span class="line">                &#125;</span><br><span class="line">            <span class="keyword">case</span> &lt;- l.<span class="built_in">close</span>:</span><br><span class="line">                <span class="built_in">close</span>(ch)</span><br><span class="line">                <span class="built_in">close</span>(l.<span class="built_in">close</span>)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br><span class="line">    <span class="keyword">return</span> ch</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(l *LockDemo)</span></span> AutoRefresh(</span><br><span class="line">    timeout time.Duration,</span><br><span class="line">    interval time.Duration, newExpire time.Duration) &lt;- <span class="keyword">chan</span> <span class="type">error</span> &#123;</span><br><span class="line">    ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">error</span>, <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        ticker := time.NewTicker(interval)</span><br><span class="line">        <span class="keyword">for</span> &#123;</span><br><span class="line">            <span class="keyword">select</span> &#123;</span><br><span class="line">            <span class="keyword">case</span> &lt;- ticker.C:</span><br><span class="line">                ctx, cancel := context.WithTimeout(context.Background(), timeout)</span><br><span class="line">                status, err := luaRefresh.Run(ctx,</span><br><span class="line">                    l.client, []<span class="type">string</span>&#123;l.key&#125;, l.token, newExpire.Milliseconds()).Result()</span><br><span class="line">                cancel()</span><br><span class="line">                <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">                    ch &lt;- err</span><br><span class="line">                    <span class="comment">// 这里没有有关闭 l.close，其实问题也不大，因为最终都是垃圾回收</span></span><br><span class="line">                    <span class="built_in">close</span>(ch)</span><br><span class="line">                    <span class="keyword">return</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> status != <span class="type">int64</span>(<span class="number">1</span>) &#123;</span><br><span class="line">                    ch &lt;- ErrFailedToRefresh</span><br><span class="line">                    <span class="built_in">close</span>(ch)</span><br><span class="line">                &#125;</span><br><span class="line">            <span class="keyword">case</span> &lt;- l.<span class="built_in">close</span>:</span><br><span class="line">                <span class="built_in">close</span>(ch)</span><br><span class="line">                <span class="built_in">close</span>(l.<span class="built_in">close</span>)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br><span class="line">    <span class="keyword">return</span> ch</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>AutoRefresh将这些参数完全交给用户来指定。同时返回了一个channel，如果在续约过程中出现问题，则会返回错误。用户需要在收到信号之后考虑中断当前的业务。</p>
 <p>更加偷懒的做法就是，<span style="color:red">直接不提供</span>AutoRefresh，而仅仅提供Refresh，用户自己写类似AutoRefresh的方法。</p>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(l *LockDemo)</span> <span class="title">Refresh</span><span class="params">(ctx context.Context, newExpire time.Duration)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    status, err := luaRefresh.Run(ctx, l.client,</span><br><span class="line">        []<span class="keyword">string</span>&#123;l.key&#125;, l.token, newExpire.Milliseconds()).Result()</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> status == <span class="keyword">int64</span>(<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ErrFailedToRefresh</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(l *LockDemo)</span></span> Refresh(ctx context.Context, newExpire time.Duration) <span class="type">error</span> &#123;</span><br><span class="line">    status, err := luaRefresh.Run(ctx, l.client,</span><br><span class="line">        []<span class="type">string</span>&#123;l.key&#125;, l.token, newExpire.Milliseconds()).Result()</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> status == <span class="type">int64</span>(<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ErrFailedToRefresh</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>Refresh和释放锁一样，也需要检查是不是自己的锁，所以也用lua脚本来执行。</p>
 <h1 id="使用注意事项"><a href="#使用注意事项" class="headerlink" title="使用注意事项"></a><span style="color:#339AFF;">使用注意事项</span></h1><p>对于用户来说，即便我们进行了一定的封装，他们依旧要处理—些异常情况：</p>
 <ul>
@@ -590,26 +592,26 @@
 <li><span style="color:red">检查一下key对应的值是不是我们刚才超时加锁请求的值</span>，如果是，直接返回，前一次加锁成功了（这里你可能需要考虑重置一下过期时间）</li>
 <li><span style="color:red">如果不是，直接返回，加锁失败</span></li>
 </ul>
-<img src="/2022/11/07/使用Redis实现一个分布式锁/7.png">
+<img src="/2022/11/07/%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/7.png" class="">
 <h1 id="Redis主从切换"><a href="#Redis主从切换" class="headerlink" title="Redis主从切换"></a><span style="color:#339AFF;">Redis主从切换</span></h1><p>前面讨论的都是单点的Redis，在集群部署的时候，需要额外考虑一个问题：<span style="color:red">主从切换。</span></p>
 <blockquote>
 <p>这是一切顺利的情况</p>
 </blockquote>
-<img src="/2022/11/07/使用Redis实现一个分布式锁/8.png">
+<img src="/2022/11/07/%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/8.png" class="">
 <blockquote>
 <p>这是主从切换异常情况</p>
 </blockquote>
-<img src="/2022/11/07/使用Redis实现一个分布式锁/9.png">
+<img src="/2022/11/07/%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/9.png" class="">
 <h2 id="Redlock"><a href="#Redlock" class="headerlink" title="Redlock"></a><span style="color:#00ACC1;">Redlock</span></h2><p>Redlock之前几位大佬还battle过，这里只做简单的介绍。思路都是类似的，就是我们<span style="color:red">这一次不再部署单一主从集群，而是多个主节点没有从节点）。</span></p>
 <p>比如说我们部署五个主节点，那么加锁过程是类似的，只是要<span style="color:red">在五个主节点上都加上锁，如果多数（这里是三个）都成功了，那么就认为加锁成功。</span></p>
-<img src="/2022/11/07/使用Redis实现一个分布式锁/10.png">
+<img src="/2022/11/07/%E4%BD%BF%E7%94%A8Redis%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/10.png" class="">
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><span style="color:#339AFF;">总结</span></h1><ul>
 <li>使用分布式锁，<span style="color:red">你不能指望框架提供万无一失的方案</span>，自己还是要处理各种异常情况（超时）</li>
 <li>自己写分布式锁，<span style="color:red">要考虑过期时间</span>，以及要不要续约</li>
 <li>不管要对锁做什么操作，首先要确认这把锁是我们自己的锁</li>
 <li>大多数时候，<span style="color:red">与其选择复杂方案，不如直接让业务失败，可能成本还要低一点</span>。（有时候直接赔钱，比你部署一大堆节点，招一大堆开发，搞好几个机房还要便宜，而且便宜很多）也就是选择恰好的方案，而不是完美的方案</li>
 </ul>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a><span style="color:#339AFF;">代码</span></h1><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cache</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"context"</span></span><br><span class="line">    <span class="string">"errors"</span></span><br><span class="line">    <span class="string">"github.com/go-redis/redis/v9"</span></span><br><span class="line">    <span class="string">"github.com/google/uuid"</span></span><br><span class="line">    <span class="string">"time"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> (</span><br><span class="line">    luaRefresh = redis.NewScript(<span class="string">`if redis.call("get", KEYS[1]) == ARGV[1] then return redis.call("pexpire", KEYS[1], ARGV[2]) else return 0 end`</span>)</span><br><span class="line"></span><br><span class="line">    luaRelease = redis.NewScript(<span class="string">`if redis.call("get", KEYS[1]) == ARGV[1] then return redis.call("del", KEYS[1]) else return 0 end`</span>)</span><br><span class="line"></span><br><span class="line">    ErrFailedToRefresh = errors.New(<span class="string">"续约失败"</span>)</span><br><span class="line">    ErrFailedToRelease = errors.New(<span class="string">"释放锁失败"</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> LockClientDemo <span class="keyword">struct</span> &#123;</span><br><span class="line">    client *redis.Client</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *LockClientDemo)</span> <span class="title">Lock</span><span class="params">(ctx context.Context, key <span class="keyword">string</span>, expiration time.Duration)</span> <span class="params">(*LockDemo, error)</span></span> &#123;</span><br><span class="line">    token := uuid.New().String()</span><br><span class="line">    ok, err := c.client.SetNX(ctx, key, token, expiration).Result()</span><br><span class="line">    <span class="keyword">if</span> ok &#123;</span><br><span class="line">        <span class="keyword">return</span> &amp;LockDemo&#123;</span><br><span class="line">            key: key,</span><br><span class="line">            token: token,</span><br><span class="line">            client: c.client,</span><br><span class="line">            <span class="built_in">close</span>: <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;, <span class="number">1</span>),</span><br><span class="line">        &#125;, <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> LockDemo <span class="keyword">struct</span> &#123;</span><br><span class="line">    key <span class="keyword">string</span></span><br><span class="line">    token <span class="keyword">string</span></span><br><span class="line">    client *redis.Client</span><br><span class="line">    <span class="built_in">close</span> <span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(l *LockDemo)</span> <span class="title">AutoRefresh</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    timeout time.Duration,</span></span></span><br><span class="line"><span class="function"><span class="params">    interval time.Duration, newExpire time.Duration)</span> &lt;- <span class="title">chan</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    ch := <span class="built_in">make</span>(<span class="keyword">chan</span> error, <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        ticker := time.NewTicker(interval)</span><br><span class="line">        <span class="keyword">for</span> &#123;</span><br><span class="line">            <span class="keyword">select</span> &#123;</span><br><span class="line">            <span class="keyword">case</span> &lt;- ticker.C:</span><br><span class="line">                ctx, cancel := context.WithTimeout(context.Background(), timeout)</span><br><span class="line">                status, err := luaRefresh.Run(ctx,</span><br><span class="line">                    l.client, []<span class="keyword">string</span>&#123;l.key&#125;, l.token, newExpire.Milliseconds()).Result()</span><br><span class="line">                cancel()</span><br><span class="line">                <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">                    ch &lt;- err</span><br><span class="line">                    <span class="comment">// 这里咩有关闭 l.close，其实问题也不大，因为最终都是垃圾回收</span></span><br><span class="line">                    <span class="built_in">close</span>(ch)</span><br><span class="line">                    <span class="keyword">return</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> status != <span class="keyword">int64</span>(<span class="number">1</span>) &#123;</span><br><span class="line">                    ch &lt;- ErrFailedToRefresh</span><br><span class="line">                    <span class="built_in">close</span>(ch)</span><br><span class="line">                &#125;</span><br><span class="line">            <span class="keyword">case</span> &lt;- l.<span class="built_in">close</span>:</span><br><span class="line">                <span class="built_in">close</span>(ch)</span><br><span class="line">                <span class="built_in">close</span>(l.<span class="built_in">close</span>)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br><span class="line">    <span class="keyword">return</span> ch</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(l *LockDemo)</span> <span class="title">Refresh</span><span class="params">(ctx context.Context, newExpire time.Duration)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    status, err := luaRefresh.Run(ctx, l.client,</span><br><span class="line">        []<span class="keyword">string</span>&#123;l.key&#125;, l.token, newExpire.Milliseconds()).Result()</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> status == <span class="keyword">int64</span>(<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ErrFailedToRefresh</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(l *LockDemo)</span> <span class="title">Release</span><span class="params">(ctx context.Context)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    <span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        l.<span class="built_in">close</span> &lt;- <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">    &#125;()</span><br><span class="line">    status, err := luaRelease.Run(ctx, l.client,</span><br><span class="line">        []<span class="keyword">string</span>&#123;l.key&#125;, l.token).Result()</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> status == <span class="keyword">int64</span>(<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ErrFailedToRelease</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a><span style="color:#339AFF;">代码</span></h1><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cache</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;context&quot;</span></span><br><span class="line">    <span class="string">&quot;errors&quot;</span></span><br><span class="line">    <span class="string">&quot;github.com/go-redis/redis/v9&quot;</span></span><br><span class="line">    <span class="string">&quot;github.com/google/uuid&quot;</span></span><br><span class="line">    <span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> (</span><br><span class="line">    luaRefresh = redis.NewScript(<span class="string">`if redis.call(&quot;get&quot;, KEYS[1]) == ARGV[1] then return redis.call(&quot;pexpire&quot;, KEYS[1], ARGV[2]) else return 0 end`</span>)</span><br><span class="line"></span><br><span class="line">    luaRelease = redis.NewScript(<span class="string">`if redis.call(&quot;get&quot;, KEYS[1]) == ARGV[1] then return redis.call(&quot;del&quot;, KEYS[1]) else return 0 end`</span>)</span><br><span class="line"></span><br><span class="line">    ErrFailedToRefresh = errors.New(<span class="string">&quot;续约失败&quot;</span>)</span><br><span class="line">    ErrFailedToRelease = errors.New(<span class="string">&quot;释放锁失败&quot;</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> LockClientDemo <span class="keyword">struct</span> &#123;</span><br><span class="line">    client *redis.Client</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *LockClientDemo)</span></span> Lock(ctx context.Context, key <span class="type">string</span>, expiration time.Duration) (*LockDemo, <span class="type">error</span>) &#123;</span><br><span class="line">    token := uuid.New().String()</span><br><span class="line">    ok, err := c.client.SetNX(ctx, key, token, expiration).Result()</span><br><span class="line">    <span class="keyword">if</span> ok &#123;</span><br><span class="line">        <span class="keyword">return</span> &amp;LockDemo&#123;</span><br><span class="line">            key: key,</span><br><span class="line">            token: token,</span><br><span class="line">            client: c.client,</span><br><span class="line">            <span class="built_in">close</span>: <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;, <span class="number">1</span>),</span><br><span class="line">        &#125;, <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>, err</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> LockDemo <span class="keyword">struct</span> &#123;</span><br><span class="line">    key <span class="type">string</span></span><br><span class="line">    token <span class="type">string</span></span><br><span class="line">    client *redis.Client</span><br><span class="line">    <span class="built_in">close</span> <span class="keyword">chan</span> <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(l *LockDemo)</span></span> AutoRefresh(</span><br><span class="line">    timeout time.Duration,</span><br><span class="line">    interval time.Duration, newExpire time.Duration) &lt;- <span class="keyword">chan</span> <span class="type">error</span> &#123;</span><br><span class="line">    ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">error</span>, <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        ticker := time.NewTicker(interval)</span><br><span class="line">        <span class="keyword">for</span> &#123;</span><br><span class="line">            <span class="keyword">select</span> &#123;</span><br><span class="line">            <span class="keyword">case</span> &lt;- ticker.C:</span><br><span class="line">                ctx, cancel := context.WithTimeout(context.Background(), timeout)</span><br><span class="line">                status, err := luaRefresh.Run(ctx,</span><br><span class="line">                    l.client, []<span class="type">string</span>&#123;l.key&#125;, l.token, newExpire.Milliseconds()).Result()</span><br><span class="line">                cancel()</span><br><span class="line">                <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">                    ch &lt;- err</span><br><span class="line">                    <span class="comment">// 这里咩有关闭 l.close，其实问题也不大，因为最终都是垃圾回收</span></span><br><span class="line">                    <span class="built_in">close</span>(ch)</span><br><span class="line">                    <span class="keyword">return</span></span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">if</span> status != <span class="type">int64</span>(<span class="number">1</span>) &#123;</span><br><span class="line">                    ch &lt;- ErrFailedToRefresh</span><br><span class="line">                    <span class="built_in">close</span>(ch)</span><br><span class="line">                &#125;</span><br><span class="line">            <span class="keyword">case</span> &lt;- l.<span class="built_in">close</span>:</span><br><span class="line">                <span class="built_in">close</span>(ch)</span><br><span class="line">                <span class="built_in">close</span>(l.<span class="built_in">close</span>)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br><span class="line">    <span class="keyword">return</span> ch</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(l *LockDemo)</span></span> Refresh(ctx context.Context, newExpire time.Duration) <span class="type">error</span> &#123;</span><br><span class="line">    status, err := luaRefresh.Run(ctx, l.client,</span><br><span class="line">        []<span class="type">string</span>&#123;l.key&#125;, l.token, newExpire.Milliseconds()).Result()</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> status == <span class="type">int64</span>(<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ErrFailedToRefresh</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(l *LockDemo)</span></span> Release(ctx context.Context) <span class="type">error</span> &#123;</span><br><span class="line">    <span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        l.<span class="built_in">close</span> &lt;- <span class="keyword">struct</span>&#123;&#125;&#123;&#125;</span><br><span class="line">    &#125;()</span><br><span class="line">    status, err := luaRelease.Run(ctx, l.client,</span><br><span class="line">        []<span class="type">string</span>&#123;l.key&#125;, l.token).Result()</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> status == <span class="type">int64</span>(<span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ErrFailedToRelease</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -632,7 +634,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/分布式锁/" rel="tag"># 分布式锁</a>
+            <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" rel="tag"># 分布式锁</a>
           
         </div>
       
@@ -645,7 +647,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/11/06/14-隔离性：实现悲观协议，除了锁还有别的办法吗？/" rel="next" title="14 | 隔离性：实现悲观协议，除了锁还有别的办法吗？">
+              <a href="/2022/11/06/14-%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E5%AE%9E%E7%8E%B0%E6%82%B2%E8%A7%82%E5%8D%8F%E8%AE%AE%EF%BC%8C%E9%99%A4%E4%BA%86%E9%94%81%E8%BF%98%E6%9C%89%E5%88%AB%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/" rel="next" title="14 | 隔离性：实现悲观协议，除了锁还有别的办法吗？">
                 <i class="fa fa-chevron-left"></i> 14 | 隔离性：实现悲观协议，除了锁还有别的办法吗？
               </a>
             
@@ -715,7 +717,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -726,9 +730,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -740,26 +744,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -831,7 +819,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1006,115 +994,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1145,23 +1025,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1187,7 +1067,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是分布式锁"><span class="nav-number">1.</span> <span class="nav-text">什么是分布式锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用Redis来实现一个分布式锁"><span class="nav-number">2.</span> <span class="nav-text">用Redis来实现一个分布式锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis分布式锁如果没有过期时间"><span class="nav-number">2.1.</span> <span class="nav-text">Redis分布式锁如果没有过期时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么用uuid作为值"><span class="nav-number">2.2.</span> <span class="nav-text">为什么用uuid作为值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#锁释放"><span class="nav-number">2.3.</span> <span class="nav-text">锁释放</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#过期时间设置多长？"><span class="nav-number">2.4.</span> <span class="nav-text">过期时间设置多长？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#续约"><span class="nav-number">2.5.</span> <span class="nav-text">续约</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用注意事项"><span class="nav-number">3.</span> <span class="nav-text">使用注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#加锁超时与重试"><span class="nav-number">3.1.</span> <span class="nav-text">加锁超时与重试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis主从切换"><span class="nav-number">4.</span> <span class="nav-text">Redis主从切换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redlock"><span class="nav-number">4.1.</span> <span class="nav-text">Redlock</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码"><span class="nav-number">6.</span> <span class="nav-text">代码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="nav-number">1.</span> <span class="nav-text">什么是分布式锁</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%A8Redis%E6%9D%A5%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="nav-number">2.</span> <span class="nav-text">用Redis来实现一个分布式锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E5%A6%82%E6%9E%9C%E6%B2%A1%E6%9C%89%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4"><span class="nav-number">2.1.</span> <span class="nav-text">Redis分布式锁如果没有过期时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E7%94%A8uuid%E4%BD%9C%E4%B8%BA%E5%80%BC"><span class="nav-number">2.2.</span> <span class="nav-text">为什么用uuid作为值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%81%E9%87%8A%E6%94%BE"><span class="nav-number">2.3.</span> <span class="nav-text">锁释放</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%87%E6%9C%9F%E6%97%B6%E9%97%B4%E8%AE%BE%E7%BD%AE%E5%A4%9A%E9%95%BF%EF%BC%9F"><span class="nav-number">2.4.</span> <span class="nav-text">过期时间设置多长？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%AD%E7%BA%A6"><span class="nav-number">2.5.</span> <span class="nav-text">续约</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">3.</span> <span class="nav-text">使用注意事项</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8A%A0%E9%94%81%E8%B6%85%E6%97%B6%E4%B8%8E%E9%87%8D%E8%AF%95"><span class="nav-number">3.1.</span> <span class="nav-text">加锁超时与重试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis%E4%B8%BB%E4%BB%8E%E5%88%87%E6%8D%A2"><span class="nav-number">4.</span> <span class="nav-text">Redis主从切换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Redlock"><span class="nav-number">4.1.</span> <span class="nav-text">Redlock</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81"><span class="nav-number">6.</span> <span class="nav-text">代码</span></a></li></ol></div>
             
 
           </div>
@@ -1222,7 +1102,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1233,12 +1113,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1246,7 +1126,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,24 +104,24 @@
 
 
   <meta name="description" content="思考并回答以下问题：  总结一下，这章作者最主要想表达什么观点？">
-<meta name="keywords" content="MySQL是怎样运行的：从根儿上理解MySQL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="MySQL介于普通读和锁定读的加锁方式——semi-consistent read">
-<meta property="og:url" content="http://yoursite.com/2022/08/26/MySQL介于普通读和锁定读的加锁方式——semi-consistent-read/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/08/26/MySQL%E4%BB%8B%E4%BA%8E%E6%99%AE%E9%80%9A%E8%AF%BB%E5%92%8C%E9%94%81%E5%AE%9A%E8%AF%BB%E7%9A%84%E5%8A%A0%E9%94%81%E6%96%B9%E5%BC%8F%E2%80%94%E2%80%94semi-consistent-read/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：  总结一下，这章作者最主要想表达什么观点？">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2022-10-25T07:15:01.791Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-26T09:45:37.000Z">
+<meta property="article:modified_time" content="2022-10-25T07:15:01.791Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="MySQL是怎样运行的：从根儿上理解MySQL">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MySQL介于普通读和锁定读的加锁方式——semi-consistent read">
-<meta name="twitter:description" content="思考并回答以下问题：  总结一下，这章作者最主要想表达什么观点？">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/08/26/MySQL介于普通读和锁定读的加锁方式——semi-consistent-read/">
+  <link rel="canonical" href="http://yoursite.com/2022/08/26/MySQL介于普通读和锁定读的加锁方式——semi-consistent-read/"/>
 
 
 
@@ -170,7 +170,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -231,7 +231,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -248,7 +248,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -265,7 +265,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -282,7 +282,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -299,7 +299,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -310,7 +310,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -330,7 +330,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -380,16 +382,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/08/26/MySQL介于普通读和锁定读的加锁方式——semi-consistent-read/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/08/26/MySQL%E4%BB%8B%E4%BA%8E%E6%99%AE%E9%80%9A%E8%AF%BB%E5%92%8C%E9%94%81%E5%AE%9A%E8%AF%BB%E7%9A%84%E5%8A%A0%E9%94%81%E6%96%B9%E5%BC%8F%E2%80%94%E2%80%94semi-consistent-read/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -489,7 +491,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">15k</span>
+                <span title="本文字数">42k</span>
               
 
               
@@ -503,7 +505,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">13 分钟</span>
+                <span title="阅读时长">38 分钟</span>
               
             </div>
           
@@ -527,18 +529,11 @@
 <ul>
 <li>总结一下，这章作者最主要想表达什么观点？</li>
 </ul>
-<a id="more"></a>
-<h1 id="事前准备"><a href="#事前准备" class="headerlink" title="事前准备"></a>事前准备</h1><p>为了故事的顺利发展，我们先建一个表，并向表中插入一些记录，下边是SQL语句：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> hero (</span><br><span class="line">    <span class="built_in">number</span> <span class="built_in">INT</span>,</span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">VARCHAR</span>(<span class="number">100</span>),</span><br><span class="line">    country <span class="built_in">varchar</span>(<span class="number">100</span>),</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="built_in">number</span>),</span><br><span class="line">    <span class="keyword">KEY</span> idx_name (<span class="keyword">name</span>)</span><br><span class="line">) <span class="keyword">Engine</span>=<span class="keyword">InnoDB</span> <span class="keyword">CHARSET</span>=utf8;</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> hero <span class="keyword">VALUES</span></span><br><span class="line">    (<span class="number">1</span>, <span class="string">'l刘备'</span>, <span class="string">'蜀'</span>),</span><br><span class="line">    (<span class="number">3</span>, <span class="string">'z诸葛亮'</span>, <span class="string">'蜀'</span>),</span><br><span class="line">    (<span class="number">8</span>, <span class="string">'c曹操'</span>, <span class="string">'魏'</span>),</span><br><span class="line">    (<span class="number">15</span>, <span class="string">'x荀彧'</span>, <span class="string">'魏'</span>),</span><br><span class="line">    (<span class="number">20</span>, <span class="string">'s孙权'</span>, <span class="string">'吴'</span>);</span><br></pre></td></tr></table></figure></p>
-<p>现在hero表中的记录情况就如下所示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM hero;</span><br><span class="line">+--------+------------+---------+</span><br><span class="line">| number | name       | country |</span><br><span class="line">+--------+------------+---------+</span><br><span class="line">|      1 | l刘备      | 蜀      |</span><br><span class="line">|      3 | z诸葛亮    | 蜀      |</span><br><span class="line">|      8 | c曹操      | 魏      |</span><br><span class="line">|     15 | x荀彧      | 魏      |</span><br><span class="line">|     20 | s孙权      | 吴      |</span><br><span class="line">+--------+------------+---------+</span><br><span class="line">5 rows <span class="keyword">in</span> <span class="built_in">set</span> (0.01 sec)</span><br></pre></td></tr></table></figure></p>
-<h1 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h1><p>在小册答疑群里有一位同学提了一个问题：说是在READ COMMITTED隔离级别下发生了一件百思不得其解的事儿。好的，首先构造环境，将当前会话默认的隔离级别设置成READ COMMITTED：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line">事务T1先执行：</span><br><span class="line"></span><br><span class="line"><span class="comment"># T1中，隔离级别为READ COMMITTED</span></span><br><span class="line">mysql&gt; BEGIN;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; SELECT * FROM hero WHERE country = <span class="string">'魏'</span> FOR UPDATE;</span><br><span class="line">+--------+---------+---------+</span><br><span class="line">| number | name    | country |</span><br><span class="line">+--------+---------+---------+</span><br><span class="line">|      8 | c曹操   | 魏      |</span><br><span class="line">|     15 | x荀彧   | 魏      |</span><br><span class="line">+--------+---------+---------+</span><br><span class="line">2 rows <span class="keyword">in</span> <span class="built_in">set</span> (0.01 sec)</span><br></pre></td></tr></table></figure></p>
-<p>country列并不是索引列，所以本条语句执行时肯定是使用扫描聚簇索引的全表扫描方式来执行，EXPLAIN语句也证明了我们的想法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; EXPLAIN SELECT * FROM hero WHERE country = <span class="string">'魏'</span> FOR UPDATE;</span><br><span class="line">+----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+</span><br><span class="line">| id | select_type | table | partitions | <span class="built_in">type</span> | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |</span><br><span class="line">+----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+</span><br><span class="line">|  1 | SIMPLE      | hero  | NULL       | ALL  | NULL          | NULL | NULL    | NULL |    5 |    20.00 | Using <span class="built_in">where</span> |</span><br><span class="line">+----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+</span><br><span class="line">1 row <span class="keyword">in</span> <span class="built_in">set</span>, 1 warning (0.02 sec)</span><br></pre></td></tr></table></figure></p>
-<p>我们之前学过MySQL语句的加锁分析，知道在READ COMMITTED隔离级别下，如果采用全表扫描的方式执行查询语句时，InnoDB存储引擎将依次对每条记录加正经记录锁，在server层测试该记录是否符合WHERE条件，如果不符合则将加在该记录上的锁释放掉。本例中使用FOR UPDATE语句，肯定加的是X型正经记录锁。只有两条记录符合WHERE条件，所以最终其实只对这两条符合条件的记录加了X型正经记录锁（就是number列值为8和15的两条记录）。当然，我们可以使用SHOW ENGINE INNODB STATUS命令证明我们的分析：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SHOW ENGINE INNODB STATUS\G</span><br><span class="line">... 省略了很多内容</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">TRANSACTIONS</span><br><span class="line">------------</span><br><span class="line">Trx id counter 39764</span><br><span class="line">Purge <span class="keyword">done</span> <span class="keyword">for</span> trx<span class="string">'s n:o &lt; 39763 undo n:o &lt; 0 state: running but idle</span></span><br><span class="line"><span class="string">History list length 36</span></span><br><span class="line"><span class="string">Total number of lock structs in row lock hash table 1</span></span><br><span class="line"><span class="string">LIST OF TRANSACTIONS FOR EACH SESSION:</span></span><br><span class="line"><span class="string">---TRANSACTION 281479653009568, not started</span></span><br><span class="line"><span class="string">0 lock struct(s), heap size 1160, 0 row lock(s)</span></span><br><span class="line"><span class="string">---TRANSACTION 281479653012832, not started</span></span><br><span class="line"><span class="string">0 lock struct(s), heap size 1160, 0 row lock(s)</span></span><br><span class="line"><span class="string">---TRANSACTION 39763, ACTIVE 468 sec</span></span><br><span class="line"><span class="string">2 lock struct(s), heap size 1160, 2 row lock(s)</span></span><br><span class="line"><span class="string">MySQL thread id 19, OS thread handle 123145470611456, query id 586 localhost 127.0.0.1 root</span></span><br><span class="line"><span class="string">TABLE LOCK table `xiaohaizi`.`hero` trx id 39763 lock mode IX</span></span><br><span class="line"><span class="string">RECORD LOCKS space id 287 page no 3 n bits 72 index PRIMARY of table `xiaohaizi`.`hero` trx id 39763 lock_mode X locks rec but not gap</span></span><br><span class="line"><span class="string">Record lock, heap no 4 PHYSICAL RECORD: n_fields 5; compact format; info bits 0</span></span><br><span class="line"><span class="string"> 0: len 4; hex 80000008; asc     ;;</span></span><br><span class="line"><span class="string"> 1: len 6; hex 000000009b4a; asc      J;;</span></span><br><span class="line"><span class="string"> 2: len 7; hex 80000001d3012a; asc       *;;</span></span><br><span class="line"><span class="string"> 3: len 7; hex 63e69bb9e6938d; asc c      ;;</span></span><br><span class="line"><span class="string"> 4: len 3; hex e9ad8f; asc    ;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Record lock, heap no 5 PHYSICAL RECORD: n_fields 5; compact format; info bits 0</span></span><br><span class="line"><span class="string"> 0: len 4; hex 8000000f; asc     ;;</span></span><br><span class="line"><span class="string"> 1: len 6; hex 000000009b4a; asc      J;;</span></span><br><span class="line"><span class="string"> 2: len 7; hex 80000001d30137; asc       7;;</span></span><br><span class="line"><span class="string"> 3: len 7; hex 78e88d80e5bda7; asc x      ;;</span></span><br><span class="line"><span class="string"> 4: len 3; hex e9ad8f; asc    ;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"> ... 省略了很多内容</span></span><br></pre></td></tr></table></figure></p>
-<p>其中id为39763的事务就是指T1，可以看出它为heap no值为4和5的两条记录加了X型正经记录锁（lock_mode X locks rec but not gap）。</p>
-<p>然后再开启一个隔离级别也为READ COMMITTED的事务T2，在其中执行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># T2中，隔离级别为READ COMMITTED</span></span><br><span class="line">mysql&gt; BEGIN;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; SELECT * FROM hero WHERE country = <span class="string">'吴'</span> FOR UPDATE;</span><br><span class="line">(进入阻塞状态)</span><br></pre></td></tr></table></figure></p>
-<p>很显然，这条语句也会采用全表扫描的方式来执行，会依次去获取每一条聚簇索引记录的锁。不过因为number值为8的记录已经被T1加了X型正经记录锁，T2想得却得不到，只能眼巴巴的进行阻塞状态，此时的SHOW ENGINE INNODB STATUS也能证明我们的猜想（只截取了一部分）：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">---TRANSACTION 39764, ACTIVE 34 sec fetching rows</span><br><span class="line">mysql tables <span class="keyword">in</span> use 1, locked 1</span><br><span class="line">LOCK WAIT 3 lock struct(s), heap size 1160, 1 row lock(s)</span><br><span class="line">MySQL thread id 20, OS thread handle 123145471168512, query id 590 localhost 127.0.0.1 root Sending data</span><br><span class="line">SELECT * FROM hero WHERE country = <span class="string">'吴'</span> FOR UPDATE</span><br><span class="line">------- TRX HAS BEEN WAITING 34 SEC FOR THIS LOCK TO BE GRANTED:</span><br><span class="line">RECORD LOCKS space id 287 page no 3 n bits 72 index PRIMARY of table `xiaohaizi`.`hero` trx id 39764 lock_mode X locks rec but not gap waiting</span><br><span class="line">Record lock, heap no 4 PHYSICAL RECORD: n_fields 5; compact format; info bits 0</span><br><span class="line"> 0: len 4; hex 80000008; asc     ;;</span><br><span class="line"> 1: len 6; hex 000000009b4a; asc      J;;</span><br><span class="line"> 2: len 7; hex 80000001d3012a; asc       *;;</span><br><span class="line"> 3: len 7; hex 63e69bb9e6938d; asc c      ;;</span><br><span class="line"> 4: len 3; hex e9ad8f; asc    ;;</span><br></pre></td></tr></table></figure></p>
-<p>可以看到T2正在等待获取heap no为4的记录上的X型正经记录锁（lock_mode X locks rec but not gap waiting）。</p>
-<p>以上是很正常的阻塞逻辑，我们都可以分析出来，不过如果在T2中执行下边的UPDATE语句：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># T2中，隔离级别为READ COMMITTED</span></span><br><span class="line">mysql&gt; BEGIN;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; UPDATE hero SET name = <span class="string">'xxx'</span> WHERE country = <span class="string">'吴'</span>;</span><br><span class="line">Query OK, 1 row affected (0.02 sec)</span><br><span class="line">Rows matched: 1  Changed: 1  Warnings: 0</span><br></pre></td></tr></table></figure></p>
-<p>WTF? 竟然没有阻塞，就这么随意地执行成功了？同样的WHERE条件，同样的执行计划，怎么SELECT … FOR UPDATE和UPDATE语句的加锁情况不一样？</p>
+<span id="more"></span>
+<h1 id="事前准备"><a href="#事前准备" class="headerlink" title="事前准备"></a>事前准备</h1><p>为了故事的顺利发展，我们先建一个表，并向表中插入一些记录，下边是SQL语句：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> hero (</span><br><span class="line">    number <span class="type">INT</span>,</span><br><span class="line">    name <span class="type">VARCHAR</span>(<span class="number">100</span>),</span><br><span class="line">    country <span class="type">varchar</span>(<span class="number">100</span>),</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (number),</span><br><span class="line">    KEY idx_name (name)</span><br><span class="line">) Engine<span class="operator">=</span>InnoDB CHARSET<span class="operator">=</span>utf8;</span><br><span class="line"></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> hero <span class="keyword">VALUES</span></span><br><span class="line">    (<span class="number">1</span>, <span class="string">&#x27;l刘备&#x27;</span>, <span class="string">&#x27;蜀&#x27;</span>),</span><br><span class="line">    (<span class="number">3</span>, <span class="string">&#x27;z诸葛亮&#x27;</span>, <span class="string">&#x27;蜀&#x27;</span>),</span><br><span class="line">    (<span class="number">8</span>, <span class="string">&#x27;c曹操&#x27;</span>, <span class="string">&#x27;魏&#x27;</span>),</span><br><span class="line">    (<span class="number">15</span>, <span class="string">&#x27;x荀彧&#x27;</span>, <span class="string">&#x27;魏&#x27;</span>),</span><br><span class="line">    (<span class="number">20</span>, <span class="string">&#x27;s孙权&#x27;</span>, <span class="string">&#x27;吴&#x27;</span>);</span><br></pre></td></tr></table></figure><br>现在hero表中的记录情况就如下所示：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM hero;</span><br><span class="line">+--------+------------+---------+</span><br><span class="line">| number | name       | country |</span><br><span class="line">+--------+------------+---------+</span><br><span class="line">|      1 | l刘备      | 蜀      |</span><br><span class="line">|      3 | z诸葛亮    | 蜀      |</span><br><span class="line">|      8 | c曹操      | 魏      |</span><br><span class="line">|     15 | x荀彧      | 魏      |</span><br><span class="line">|     20 | s孙权      | 吴      |</span><br><span class="line">+--------+------------+---------+</span><br><span class="line">5 rows <span class="keyword">in</span> <span class="built_in">set</span> (0.01 sec)</span><br></pre></td></tr></table></figure></p>
+<h1 id="现象"><a href="#现象" class="headerlink" title="现象"></a>现象</h1><p>在小册答疑群里有一位同学提了一个问题：说是在READ COMMITTED隔离级别下发生了一件百思不得其解的事儿。好的，首先构造环境，将当前会话默认的隔离级别设置成READ COMMITTED：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line">事务T1先执行：</span><br><span class="line"></span><br><span class="line"><span class="comment"># T1中，隔离级别为READ COMMITTED</span></span><br><span class="line">mysql&gt; BEGIN;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; SELECT * FROM hero WHERE country = <span class="string">&#x27;魏&#x27;</span> FOR UPDATE;</span><br><span class="line">+--------+---------+---------+</span><br><span class="line">| number | name    | country |</span><br><span class="line">+--------+---------+---------+</span><br><span class="line">|      8 | c曹操   | 魏      |</span><br><span class="line">|     15 | x荀彧   | 魏      |</span><br><span class="line">+--------+---------+---------+</span><br><span class="line">2 rows <span class="keyword">in</span> <span class="built_in">set</span> (0.01 sec)</span><br></pre></td></tr></table></figure><br>country列并不是索引列，所以本条语句执行时肯定是使用扫描聚簇索引的全表扫描方式来执行，EXPLAIN语句也证明了我们的想法：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; EXPLAIN SELECT * FROM hero WHERE country = <span class="string">&#x27;魏&#x27;</span> FOR UPDATE;</span><br><span class="line">+----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+</span><br><span class="line">| <span class="built_in">id</span> | select_type | table | partitions | <span class="built_in">type</span> | possible_keys | key  | key_len | ref  | rows | filtered | Extra       |</span><br><span class="line">+----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+</span><br><span class="line">|  1 | SIMPLE      | hero  | NULL       | ALL  | NULL          | NULL | NULL    | NULL |    5 |    20.00 | Using <span class="built_in">where</span> |</span><br><span class="line">+----+-------------+-------+------------+------+---------------+------+---------+------+------+----------+-------------+</span><br><span class="line">1 row <span class="keyword">in</span> <span class="built_in">set</span>, 1 warning (0.02 sec)</span><br></pre></td></tr></table></figure><br>我们之前学过MySQL语句的加锁分析，知道在READ COMMITTED隔离级别下，如果采用全表扫描的方式执行查询语句时，InnoDB存储引擎将依次对每条记录加正经记录锁，在server层测试该记录是否符合WHERE条件，如果不符合则将加在该记录上的锁释放掉。本例中使用FOR UPDATE语句，肯定加的是X型正经记录锁。只有两条记录符合WHERE条件，所以最终其实只对这两条符合条件的记录加了X型正经记录锁（就是number列值为8和15的两条记录）。当然，我们可以使用SHOW ENGINE INNODB STATUS命令证明我们的分析：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SHOW ENGINE INNODB STATUS\G</span><br><span class="line">... 省略了很多内容</span><br><span class="line"></span><br><span class="line">------------</span><br><span class="line">TRANSACTIONS</span><br><span class="line">------------</span><br><span class="line">Trx <span class="built_in">id</span> counter 39764</span><br><span class="line">Purge <span class="keyword">done</span> <span class="keyword">for</span> trx<span class="string">&#x27;s n:o &lt; 39763 undo n:o &lt; 0 state: running but idle</span></span><br><span class="line"><span class="string">History list length 36</span></span><br><span class="line"><span class="string">Total number of lock structs in row lock hash table 1</span></span><br><span class="line"><span class="string">LIST OF TRANSACTIONS FOR EACH SESSION:</span></span><br><span class="line"><span class="string">---TRANSACTION 281479653009568, not started</span></span><br><span class="line"><span class="string">0 lock struct(s), heap size 1160, 0 row lock(s)</span></span><br><span class="line"><span class="string">---TRANSACTION 281479653012832, not started</span></span><br><span class="line"><span class="string">0 lock struct(s), heap size 1160, 0 row lock(s)</span></span><br><span class="line"><span class="string">---TRANSACTION 39763, ACTIVE 468 sec</span></span><br><span class="line"><span class="string">2 lock struct(s), heap size 1160, 2 row lock(s)</span></span><br><span class="line"><span class="string">MySQL thread id 19, OS thread handle 123145470611456, query id 586 localhost 127.0.0.1 root</span></span><br><span class="line"><span class="string">TABLE LOCK table `xiaohaizi`.`hero` trx id 39763 lock mode IX</span></span><br><span class="line"><span class="string">RECORD LOCKS space id 287 page no 3 n bits 72 index PRIMARY of table `xiaohaizi`.`hero` trx id 39763 lock_mode X locks rec but not gap</span></span><br><span class="line"><span class="string">Record lock, heap no 4 PHYSICAL RECORD: n_fields 5; compact format; info bits 0</span></span><br><span class="line"><span class="string"> 0: len 4; hex 80000008; asc     ;;</span></span><br><span class="line"><span class="string"> 1: len 6; hex 000000009b4a; asc      J;;</span></span><br><span class="line"><span class="string"> 2: len 7; hex 80000001d3012a; asc       *;;</span></span><br><span class="line"><span class="string"> 3: len 7; hex 63e69bb9e6938d; asc c      ;;</span></span><br><span class="line"><span class="string"> 4: len 3; hex e9ad8f; asc    ;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">Record lock, heap no 5 PHYSICAL RECORD: n_fields 5; compact format; info bits 0</span></span><br><span class="line"><span class="string"> 0: len 4; hex 8000000f; asc     ;;</span></span><br><span class="line"><span class="string"> 1: len 6; hex 000000009b4a; asc      J;;</span></span><br><span class="line"><span class="string"> 2: len 7; hex 80000001d30137; asc       7;;</span></span><br><span class="line"><span class="string"> 3: len 7; hex 78e88d80e5bda7; asc x      ;;</span></span><br><span class="line"><span class="string"> 4: len 3; hex e9ad8f; asc    ;;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"> ... 省略了很多内容</span></span><br></pre></td></tr></table></figure><br>其中id为39763的事务就是指T1，可以看出它为heap no值为4和5的两条记录加了X型正经记录锁（lock_mode X locks rec but not gap）。</p>
+<p>然后再开启一个隔离级别也为READ COMMITTED的事务T2，在其中执行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># T2中，隔离级别为READ COMMITTED</span></span><br><span class="line">mysql&gt; BEGIN;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; SELECT * FROM hero WHERE country = <span class="string">&#x27;吴&#x27;</span> FOR UPDATE;</span><br><span class="line">(进入阻塞状态)</span><br></pre></td></tr></table></figure><br>很显然，这条语句也会采用全表扫描的方式来执行，会依次去获取每一条聚簇索引记录的锁。不过因为number值为8的记录已经被T1加了X型正经记录锁，T2想得却得不到，只能眼巴巴的进行阻塞状态，此时的SHOW ENGINE INNODB STATUS也能证明我们的猜想（只截取了一部分）：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">---TRANSACTION 39764, ACTIVE 34 sec fetching rows</span><br><span class="line">mysql tables <span class="keyword">in</span> use 1, locked 1</span><br><span class="line">LOCK WAIT 3 lock struct(s), heap size 1160, 1 row lock(s)</span><br><span class="line">MySQL thread <span class="built_in">id</span> 20, OS thread handle 123145471168512, query <span class="built_in">id</span> 590 localhost 127.0.0.1 root Sending data</span><br><span class="line">SELECT * FROM hero WHERE country = <span class="string">&#x27;吴&#x27;</span> FOR UPDATE</span><br><span class="line">------- TRX HAS BEEN WAITING 34 SEC FOR THIS LOCK TO BE GRANTED:</span><br><span class="line">RECORD LOCKS space <span class="built_in">id</span> 287 page no 3 n bits 72 index PRIMARY of table `xiaohaizi`.`hero` trx <span class="built_in">id</span> 39764 lock_mode X locks rec but not gap waiting</span><br><span class="line">Record lock, heap no 4 PHYSICAL RECORD: n_fields 5; compact format; info bits 0</span><br><span class="line"> 0: len 4; hex 80000008; asc     ;;</span><br><span class="line"> 1: len 6; hex 000000009b4a; asc      J;;</span><br><span class="line"> 2: len 7; hex 80000001d3012a; asc       *;;</span><br><span class="line"> 3: len 7; hex 63e69bb9e6938d; asc c      ;;</span><br><span class="line"> 4: len 3; hex e9ad8f; asc    ;;</span><br></pre></td></tr></table></figure><br>可以看到T2正在等待获取heap no为4的记录上的X型正经记录锁（lock_mode X locks rec but not gap waiting）。</p>
+<p>以上是很正常的阻塞逻辑，我们都可以分析出来，不过如果在T2中执行下边的UPDATE语句：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># T2中，隔离级别为READ COMMITTED</span></span><br><span class="line">mysql&gt; BEGIN;</span><br><span class="line">Query OK, 0 rows affected (0.00 sec)</span><br><span class="line"></span><br><span class="line">mysql&gt; UPDATE hero SET name = <span class="string">&#x27;xxx&#x27;</span> WHERE country = <span class="string">&#x27;吴&#x27;</span>;</span><br><span class="line">Query OK, 1 row affected (0.02 sec)</span><br><span class="line">Rows matched: 1  Changed: 1  Warnings: 0</span><br></pre></td></tr></table></figure><br>WTF? 竟然没有阻塞，就这么随意地执行成功了？同样的WHERE条件，同样的执行计划，怎么SELECT … FOR UPDATE和UPDATE语句的加锁情况不一样？</p>
 <p>原因<br>哈哈，是的，的确不一样。其实MySQL支持3种类型的读语句：</p>
 <ul>
 <li>普通读（也称一致性读，英文名：Consistent Read）。</li>
@@ -561,38 +556,23 @@
 <p>很显然，我们上边所唠叨的例子中是因为事务T2执行UPDATE语句时使用了半一致性读，判断number列值为8和15这两条记录的最新提交版本的country列值均不为UPDATE语句中WHERE条件中的’吴’，所以直接就跳过它们，不对它们加锁了。</p>
 <p>本知识点容易被忽略，各位同学在工作过程中分析的时候别忘记考虑一下Semi-Consistent Read喔，码字不易，有帮助帮着转发喔，么么哒～</p>
 <h1 id="死锁分析"><a href="#死锁分析" class="headerlink" title="死锁分析"></a>死锁分析</h1><p>如果我们的业务处在一个非常初级的阶段，并发程度比较低，那么我们可以几年都遇不到一次死锁问题的发生，反之，我们业务的并发程度非常高，那么时不时爆出的死锁问题肯定让我们非常挠头。不过在死锁问题发生时，很多没有经验的同学的第一反应就是成为一直鸵鸟：这玩意儿很高深，我也看不懂，听天由命吧，又不是一直发生。其实如果大家认真研读了我们之前写了3篇关于MySQL中语句加锁分析的文章，加上本篇关于死锁日志的分析，那么解决死锁问题应该也不是那么摸不着头脑的事情了。</p>
-<p>准备工作<br>为了故事的顺利发展，我们需要建一个表：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> hero (</span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">INT</span>,</span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">VARCHAR</span>(<span class="number">100</span>),</span><br><span class="line">    country <span class="built_in">varchar</span>(<span class="number">100</span>),</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="keyword">id</span>),</span><br><span class="line">    <span class="keyword">KEY</span> idx_name (<span class="keyword">name</span>)</span><br><span class="line">) <span class="keyword">Engine</span>=<span class="keyword">InnoDB</span> <span class="keyword">CHARSET</span>=utf8;</span><br></pre></td></tr></table></figure></p>
-<p>我们为hero表的id列创建了聚簇索引，为name列创建了一个二级索引。这个hero表主要是为了存储三国时的一些英雄，我们向表中插入一些记录：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> hero <span class="keyword">VALUES</span></span><br><span class="line">    (<span class="number">1</span>, <span class="string">'l刘备'</span>, <span class="string">'蜀'</span>),</span><br><span class="line">    (<span class="number">3</span>, <span class="string">'z诸葛亮'</span>, <span class="string">'蜀'</span>),</span><br><span class="line">    (<span class="number">8</span>, <span class="string">'c曹操'</span>, <span class="string">'魏'</span>),</span><br><span class="line">    (<span class="number">15</span>, <span class="string">'x荀彧'</span>, <span class="string">'魏'</span>),</span><br><span class="line">    (<span class="number">20</span>, <span class="string">'s孙权'</span>, <span class="string">'吴'</span>);</span><br></pre></td></tr></table></figure></p>
-<p>现在表中的数据就是这样的：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SELECT * FROM hero;</span><br><span class="line">+<span class="comment">----+------------+---------+</span></span><br><span class="line">| id | name       | country |</span><br><span class="line">+<span class="comment">----+------------+---------+</span></span><br><span class="line">|  1 | l刘备      | 蜀      |</span><br><span class="line">|  3 | z诸葛亮    | 蜀      |</span><br><span class="line">|  8 | c曹操      | 魏      |</span><br><span class="line">| 15 | x荀彧      | 魏      |</span><br><span class="line">| 20 | s孙权      | 吴      |</span><br><span class="line">+<span class="comment">----+------------+---------+</span></span><br><span class="line">5 rows in <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure></p>
-<p>准备工作就做完了。</p>
+<p>准备工作<br>为了故事的顺利发展，我们需要建一个表：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> hero (</span><br><span class="line">    id <span class="type">INT</span>,</span><br><span class="line">    name <span class="type">VARCHAR</span>(<span class="number">100</span>),</span><br><span class="line">    country <span class="type">varchar</span>(<span class="number">100</span>),</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (id),</span><br><span class="line">    KEY idx_name (name)</span><br><span class="line">) Engine<span class="operator">=</span>InnoDB CHARSET<span class="operator">=</span>utf8;</span><br></pre></td></tr></table></figure><br>我们为hero表的id列创建了聚簇索引，为name列创建了一个二级索引。这个hero表主要是为了存储三国时的一些英雄，我们向表中插入一些记录：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> hero <span class="keyword">VALUES</span></span><br><span class="line">    (<span class="number">1</span>, <span class="string">&#x27;l刘备&#x27;</span>, <span class="string">&#x27;蜀&#x27;</span>),</span><br><span class="line">    (<span class="number">3</span>, <span class="string">&#x27;z诸葛亮&#x27;</span>, <span class="string">&#x27;蜀&#x27;</span>),</span><br><span class="line">    (<span class="number">8</span>, <span class="string">&#x27;c曹操&#x27;</span>, <span class="string">&#x27;魏&#x27;</span>),</span><br><span class="line">    (<span class="number">15</span>, <span class="string">&#x27;x荀彧&#x27;</span>, <span class="string">&#x27;魏&#x27;</span>),</span><br><span class="line">    (<span class="number">20</span>, <span class="string">&#x27;s孙权&#x27;</span>, <span class="string">&#x27;吴&#x27;</span>);</span><br></pre></td></tr></table></figure><br>现在表中的数据就是这样的：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> hero;</span><br><span class="line"><span class="operator">+</span><span class="comment">----+------------+---------+</span></span><br><span class="line"><span class="operator">|</span> id <span class="operator">|</span> name       <span class="operator">|</span> country <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----+------------+---------+</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">1</span> <span class="operator">|</span> l刘备      <span class="operator">|</span> 蜀      <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">3</span> <span class="operator">|</span> z诸葛亮    <span class="operator">|</span> 蜀      <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">8</span> <span class="operator">|</span> c曹操      <span class="operator">|</span> 魏      <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">15</span> <span class="operator">|</span> x荀彧      <span class="operator">|</span> 魏      <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">20</span> <span class="operator">|</span> s孙权      <span class="operator">|</span> 吴      <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----+------------+---------+</span></span><br><span class="line"><span class="number">5</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure><br>准备工作就做完了。</p>
 <p>创建死锁情景<br>我们先创建一个发生死锁的情景，在Session A和Session B中分别执行两个事务，具体情况如下：</p>
 <p>我们分析一下：</p>
 <p>从第③步中可以看出，Session A中的事务先对hero表聚簇索引的id值为1的记录加了一个X型正经记录锁。</p>
 <p>从第④步中可以看出，Session B中的事务对hero表聚簇索引的id值为3的记录加了一个X型正经记录锁。</p>
 <p>从第⑤步中可以看出，Session A中的事务接着想对hero表聚簇索引的id值为3的记录也加了一个X型正经记录锁，但是与第④步中Session B中的事务加的锁冲突，所以Session A进入阻塞状态，等待获取锁。</p>
-<p>从第⑥步中可以看出，Session B中的事务想对hero表聚簇索引的id值为1的记录加了一个X型正经记录锁，但是与第③步中Session A中的事务加的锁冲突，而此时Session A和Session B中的事务循环等待对方持有的锁，死锁发生，被MySQL服务器的死锁检测机制检测到了，所以选择了一个事务进行回滚，并向客户端发送一条消息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR 1213 (40001): Deadlock found when trying to get lock; try restarting transaction</span><br></pre></td></tr></table></figure></p>
-<p>以上是我们从语句加了什么锁的角度出发来进行死锁情况分析的，但是实际应用中我们可能压根儿不知道到底是哪几条语句产生了死锁，我们需要根据MySQL在死锁发生时产生的死锁日志来逆向定位一下到底是什么语句产生了死锁，从而再优化我们的业务。</p>
-<p>查看死锁日志<br>设计InnoDB的大叔给我们提供了SHOW ENGINE INNODB STATUS命令来查看关于InnoDB存储引擎的一些状态信息，其中就包括了系统最近一次发生死锁时的加锁情况。在上边例子中的死锁发生时，我们运行一下这个命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SHOW ENGINE INNODB STATUS\G</span><br><span class="line">...省略了好多其他信息</span><br><span class="line">------------------------</span><br><span class="line">LATEST DETECTED DEADLOCK</span><br><span class="line">------------------------</span><br><span class="line">2019-06-20 13:39:19 0x70000697e000</span><br><span class="line">*** (1) TRANSACTION:</span><br><span class="line">TRANSACTION 30477, ACTIVE 10 sec starting index <span class="built_in">read</span></span><br><span class="line">mysql tables <span class="keyword">in</span> use 1, locked 1</span><br><span class="line">LOCK WAIT 3 lock struct(s), heap size 1160, 2 row lock(s)</span><br><span class="line">MySQL thread id 2, OS thread handle 123145412648960, query id 46 localhost 127.0.0.1 root statistics</span><br><span class="line">select * from hero <span class="built_in">where</span> id = 3 <span class="keyword">for</span> update</span><br><span class="line">*** (1) WAITING FOR THIS LOCK TO BE GRANTED:</span><br><span class="line">RECORD LOCKS space id 171 page no 3 n bits 72 index PRIMARY of table `dahaizi`.`hero` trx id 30477 lock_mode X locks rec but not gap waiting</span><br><span class="line">Record lock, heap no 3 PHYSICAL RECORD: n_fields 5; compact format; info bits 0</span><br><span class="line"> 0: len 4; hex 80000003; asc     ;;</span><br><span class="line"> 1: len 6; hex 000000007517; asc     u ;;</span><br><span class="line"> 2: len 7; hex 80000001d0011d; asc        ;;</span><br><span class="line"> 3: len 10; hex 7ae8afb8e8919be4baae; asc z         ;;</span><br><span class="line"> 4: len 3; hex e89c80; asc    ;;</span><br><span class="line"></span><br><span class="line">*** (2) TRANSACTION:</span><br><span class="line">TRANSACTION 30478, ACTIVE 8 sec starting index <span class="built_in">read</span></span><br><span class="line">mysql tables <span class="keyword">in</span> use 1, locked 1</span><br><span class="line">3 lock struct(s), heap size 1160, 2 row lock(s)</span><br><span class="line">MySQL thread id 3, OS thread handle 123145412927488, query id 47 localhost 127.0.0.1 root statistics</span><br><span class="line">select * from hero <span class="built_in">where</span> id = 1 <span class="keyword">for</span> update</span><br><span class="line">*** (2) HOLDS THE LOCK(S):</span><br><span class="line">RECORD LOCKS space id 171 page no 3 n bits 72 index PRIMARY of table `dahaizi`.`hero` trx id 30478 lock_mode X locks rec but not gap</span><br><span class="line">Record lock, heap no 3 PHYSICAL RECORD: n_fields 5; compact format; info bits 0</span><br><span class="line"> 0: len 4; hex 80000003; asc     ;;</span><br><span class="line"> 1: len 6; hex 000000007517; asc     u ;;</span><br><span class="line"> 2: len 7; hex 80000001d0011d; asc        ;;</span><br><span class="line"> 3: len 10; hex 7ae8afb8e8919be4baae; asc z         ;;</span><br><span class="line"> 4: len 3; hex e89c80; asc    ;;</span><br><span class="line"></span><br><span class="line">*** (2) WAITING FOR THIS LOCK TO BE GRANTED:</span><br><span class="line">RECORD LOCKS space id 171 page no 3 n bits 72 index PRIMARY of table `dahaizi`.`hero` trx id 30478 lock_mode X locks rec but not gap waiting</span><br><span class="line">Record lock, heap no 2 PHYSICAL RECORD: n_fields 5; compact format; info bits 0</span><br><span class="line"> 0: len 4; hex 80000001; asc     ;;</span><br><span class="line"> 1: len 6; hex 000000007517; asc     u ;;</span><br><span class="line"> 2: len 7; hex 80000001d00110; asc        ;;</span><br><span class="line"> 3: len 7; hex 6ce58898e5a487; asc l      ;;</span><br><span class="line"> 4: len 3; hex e89c80; asc    ;;</span><br><span class="line"></span><br><span class="line">*** WE ROLL BACK TRANSACTION (2)</span><br><span class="line">------------</span><br><span class="line">...省略了好多其他信息</span><br></pre></td></tr></table></figure></p>
-<p>我们只关心最近发生的死锁信息，所以就把以LATEST DETECTED DEADLOCK这一部分给单独提出来分析一下。下边我们就逐行看一下这个输出的死锁日志都是什么意思：</p>
-<p>首先看第一句：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2019-06-20 13:39:19 0x70000697e000</span><br></pre></td></tr></table></figure></p>
-<p>这句话的意思就是死锁发生的时间是：2019-06-20 13:39:19，后边的一串十六进制0x70000697e000表示的操作系统为当前session分配的线程的线程id。</p>
-<p>然后是关于死锁发生时第一个事务的有关信息：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">*** (1) TRANSACTION:</span><br><span class="line"></span><br><span class="line"><span class="comment"># 为事务分配的id为30477，事务处于ACTIVE状态已经10秒了，事务现在正在做的操作就是：“starting index read”</span></span><br><span class="line">TRANSACTION 30477, ACTIVE 10 sec starting index <span class="built_in">read</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 此事务使用了1个表，为1个表上了锁（此处不是说为该表加了表锁，只要不是进行一致性读的表，都需要加锁，具体怎么加锁请看加锁语句分析或者小册章节）</span></span><br><span class="line">mysql tables <span class="keyword">in</span> use 1, locked 1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 此事务处于LOCK WAIT状态，拥有3个锁结构（2个行锁结构，1个表级别X型意向锁结构，锁结构在小册中重点介绍过），heap size是为了存储锁结构而申请的内存大小（我们可以忽略），其中有2个行锁的结构</span></span><br><span class="line">LOCK WAIT 3 lock struct(s), heap size 1160, 2 row lock(s)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 本事务所在线程的id是2（MySQL自己命名的线程id），该线程在操作系统级别的id就是那一长串数字，当前查询的id为46（MySQL内部使用，可以忽略），还有用户名主机信息</span></span><br><span class="line">MySQL thread id 2, OS thread handle 123145412648960, query id 46 localhost 127.0.0.1 root statistics</span><br><span class="line"></span><br><span class="line"><span class="comment"># 本事务发生阻塞的语句</span></span><br><span class="line">select * from hero <span class="built_in">where</span> id = 3 <span class="keyword">for</span> update</span><br><span class="line"></span><br><span class="line"><span class="comment"># 本事务当前在等待获取的锁：</span></span><br><span class="line">*** (1) WAITING FOR THIS LOCK TO BE GRANTED:</span><br><span class="line"></span><br><span class="line"><span class="comment"># 等待获取的表空间ID为151，页号为3，也就是表hero的PRIMAY索引中的某条记录的锁（n_bits是为了存储本页面的锁信息而分配的一串内存空间，小册中有详细介绍），该锁的类型是X型正经记录锁（rec but not gap）</span></span><br><span class="line">RECORD LOCKS space id 171 page no 3 n bits 72 index PRIMARY of table `dahaizi`.`hero` trx id 30477 lock_mode X locks rec but not gap waiting</span><br><span class="line"></span><br><span class="line"><span class="comment"># 该记录在页面中的heap_no为2，具体的记录信息如下：</span></span><br><span class="line">Record lock, heap no 3 PHYSICAL RECORD: n_fields 5; compact format; info bits 0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这是主键值</span></span><br><span class="line">0: len 4; hex 80000003; asc     ;;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这是trx_id隐藏列</span></span><br><span class="line">1: len 6; hex 000000007517; asc     u ;;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这是roll_pointer隐藏列</span></span><br><span class="line">2: len 7; hex 80000001d0011d; asc        ;;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这是name列</span></span><br><span class="line">3: len 10; hex 7ae8afb8e8919be4baae; asc z         ;;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这是country列</span></span><br><span class="line">4: len 3; hex e89c80; asc    ;;</span><br></pre></td></tr></table></figure></p>
-<p>从这个信息中可以看出，Session A中的事务为2条记录生成了锁结构，但是其中有一条记录上的X型正经记录锁（rec but not gap）并没有获取到，没有获取到锁的这条记录的位置是：表空间ID为151，页号为3，heap_no为2。当然，设计InnoDB的大叔还贴心的给出了这条记录的详细情况，它的主键值为80000003，这其实是InnoDB内部存储使用的格式，其实就代表数字3，也就是该事务在等待获取hero表聚簇索引主键值为3的那条记录的X型正经记录锁。</p>
+<p>从第⑥步中可以看出，Session B中的事务想对hero表聚簇索引的id值为1的记录加了一个X型正经记录锁，但是与第③步中Session A中的事务加的锁冲突，而此时Session A和Session B中的事务循环等待对方持有的锁，死锁发生，被MySQL服务器的死锁检测机制检测到了，所以选择了一个事务进行回滚，并向客户端发送一条消息：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ERROR 1213 (40001): Deadlock found when trying to get lock; try restarting transaction</span><br></pre></td></tr></table></figure><br>以上是我们从语句加了什么锁的角度出发来进行死锁情况分析的，但是实际应用中我们可能压根儿不知道到底是哪几条语句产生了死锁，我们需要根据MySQL在死锁发生时产生的死锁日志来逆向定位一下到底是什么语句产生了死锁，从而再优化我们的业务。</p>
+<p>查看死锁日志<br>设计InnoDB的大叔给我们提供了SHOW ENGINE INNODB STATUS命令来查看关于InnoDB存储引擎的一些状态信息，其中就包括了系统最近一次发生死锁时的加锁情况。在上边例子中的死锁发生时，我们运行一下这个命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SHOW ENGINE INNODB STATUS\G</span><br><span class="line">...省略了好多其他信息</span><br><span class="line">------------------------</span><br><span class="line">LATEST DETECTED DEADLOCK</span><br><span class="line">------------------------</span><br><span class="line">2019-06-20 13:39:19 0x70000697e000</span><br><span class="line">*** (1) TRANSACTION:</span><br><span class="line">TRANSACTION 30477, ACTIVE 10 sec starting index <span class="built_in">read</span></span><br><span class="line">mysql tables <span class="keyword">in</span> use 1, locked 1</span><br><span class="line">LOCK WAIT 3 lock struct(s), heap size 1160, 2 row lock(s)</span><br><span class="line">MySQL thread <span class="built_in">id</span> 2, OS thread handle 123145412648960, query <span class="built_in">id</span> 46 localhost 127.0.0.1 root statistics</span><br><span class="line"><span class="keyword">select</span> * from hero <span class="built_in">where</span> <span class="built_in">id</span> = 3 <span class="keyword">for</span> update</span><br><span class="line">*** (1) WAITING FOR THIS LOCK TO BE GRANTED:</span><br><span class="line">RECORD LOCKS space <span class="built_in">id</span> 171 page no 3 n bits 72 index PRIMARY of table `dahaizi`.`hero` trx <span class="built_in">id</span> 30477 lock_mode X locks rec but not gap waiting</span><br><span class="line">Record lock, heap no 3 PHYSICAL RECORD: n_fields 5; compact format; info bits 0</span><br><span class="line"> 0: len 4; hex 80000003; asc     ;;</span><br><span class="line"> 1: len 6; hex 000000007517; asc     u ;;</span><br><span class="line"> 2: len 7; hex 80000001d0011d; asc        ;;</span><br><span class="line"> 3: len 10; hex 7ae8afb8e8919be4baae; asc z         ;;</span><br><span class="line"> 4: len 3; hex e89c80; asc    ;;</span><br><span class="line"></span><br><span class="line">*** (2) TRANSACTION:</span><br><span class="line">TRANSACTION 30478, ACTIVE 8 sec starting index <span class="built_in">read</span></span><br><span class="line">mysql tables <span class="keyword">in</span> use 1, locked 1</span><br><span class="line">3 lock struct(s), heap size 1160, 2 row lock(s)</span><br><span class="line">MySQL thread <span class="built_in">id</span> 3, OS thread handle 123145412927488, query <span class="built_in">id</span> 47 localhost 127.0.0.1 root statistics</span><br><span class="line"><span class="keyword">select</span> * from hero <span class="built_in">where</span> <span class="built_in">id</span> = 1 <span class="keyword">for</span> update</span><br><span class="line">*** (2) HOLDS THE LOCK(S):</span><br><span class="line">RECORD LOCKS space <span class="built_in">id</span> 171 page no 3 n bits 72 index PRIMARY of table `dahaizi`.`hero` trx <span class="built_in">id</span> 30478 lock_mode X locks rec but not gap</span><br><span class="line">Record lock, heap no 3 PHYSICAL RECORD: n_fields 5; compact format; info bits 0</span><br><span class="line"> 0: len 4; hex 80000003; asc     ;;</span><br><span class="line"> 1: len 6; hex 000000007517; asc     u ;;</span><br><span class="line"> 2: len 7; hex 80000001d0011d; asc        ;;</span><br><span class="line"> 3: len 10; hex 7ae8afb8e8919be4baae; asc z         ;;</span><br><span class="line"> 4: len 3; hex e89c80; asc    ;;</span><br><span class="line"></span><br><span class="line">*** (2) WAITING FOR THIS LOCK TO BE GRANTED:</span><br><span class="line">RECORD LOCKS space <span class="built_in">id</span> 171 page no 3 n bits 72 index PRIMARY of table `dahaizi`.`hero` trx <span class="built_in">id</span> 30478 lock_mode X locks rec but not gap waiting</span><br><span class="line">Record lock, heap no 2 PHYSICAL RECORD: n_fields 5; compact format; info bits 0</span><br><span class="line"> 0: len 4; hex 80000001; asc     ;;</span><br><span class="line"> 1: len 6; hex 000000007517; asc     u ;;</span><br><span class="line"> 2: len 7; hex 80000001d00110; asc        ;;</span><br><span class="line"> 3: len 7; hex 6ce58898e5a487; asc l      ;;</span><br><span class="line"> 4: len 3; hex e89c80; asc    ;;</span><br><span class="line"></span><br><span class="line">*** WE ROLL BACK TRANSACTION (2)</span><br><span class="line">------------</span><br><span class="line">...省略了好多其他信息</span><br></pre></td></tr></table></figure><br>我们只关心最近发生的死锁信息，所以就把以LATEST DETECTED DEADLOCK这一部分给单独提出来分析一下。下边我们就逐行看一下这个输出的死锁日志都是什么意思：</p>
+<p>首先看第一句：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">2019-06-20 13:39:19 0x70000697e000</span><br></pre></td></tr></table></figure><br>这句话的意思就是死锁发生的时间是：2019-06-20 13:39:19，后边的一串十六进制0x70000697e000表示的操作系统为当前session分配的线程的线程id。</p>
+<p>然后是关于死锁发生时第一个事务的有关信息：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">*** (1) TRANSACTION:</span><br><span class="line"></span><br><span class="line"><span class="comment"># 为事务分配的id为30477，事务处于ACTIVE状态已经10秒了，事务现在正在做的操作就是：“starting index read”</span></span><br><span class="line">TRANSACTION 30477, ACTIVE 10 sec starting index <span class="built_in">read</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 此事务使用了1个表，为1个表上了锁（此处不是说为该表加了表锁，只要不是进行一致性读的表，都需要加锁，具体怎么加锁请看加锁语句分析或者小册章节）</span></span><br><span class="line">mysql tables <span class="keyword">in</span> use 1, locked 1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 此事务处于LOCK WAIT状态，拥有3个锁结构（2个行锁结构，1个表级别X型意向锁结构，锁结构在小册中重点介绍过），heap size是为了存储锁结构而申请的内存大小（我们可以忽略），其中有2个行锁的结构</span></span><br><span class="line">LOCK WAIT 3 lock struct(s), heap size 1160, 2 row lock(s)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 本事务所在线程的id是2（MySQL自己命名的线程id），该线程在操作系统级别的id就是那一长串数字，当前查询的id为46（MySQL内部使用，可以忽略），还有用户名主机信息</span></span><br><span class="line">MySQL thread <span class="built_in">id</span> 2, OS thread handle 123145412648960, query <span class="built_in">id</span> 46 localhost 127.0.0.1 root statistics</span><br><span class="line"></span><br><span class="line"><span class="comment"># 本事务发生阻塞的语句</span></span><br><span class="line"><span class="keyword">select</span> * from hero <span class="built_in">where</span> <span class="built_in">id</span> = 3 <span class="keyword">for</span> update</span><br><span class="line"></span><br><span class="line"><span class="comment"># 本事务当前在等待获取的锁：</span></span><br><span class="line">*** (1) WAITING FOR THIS LOCK TO BE GRANTED:</span><br><span class="line"></span><br><span class="line"><span class="comment"># 等待获取的表空间ID为151，页号为3，也就是表hero的PRIMAY索引中的某条记录的锁（n_bits是为了存储本页面的锁信息而分配的一串内存空间，小册中有详细介绍），该锁的类型是X型正经记录锁（rec but not gap）</span></span><br><span class="line">RECORD LOCKS space <span class="built_in">id</span> 171 page no 3 n bits 72 index PRIMARY of table `dahaizi`.`hero` trx <span class="built_in">id</span> 30477 lock_mode X locks rec but not gap waiting</span><br><span class="line"></span><br><span class="line"><span class="comment"># 该记录在页面中的heap_no为2，具体的记录信息如下：</span></span><br><span class="line">Record lock, heap no 3 PHYSICAL RECORD: n_fields 5; compact format; info bits 0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这是主键值</span></span><br><span class="line">0: len 4; hex 80000003; asc     ;;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这是trx_id隐藏列</span></span><br><span class="line">1: len 6; hex 000000007517; asc     u ;;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这是roll_pointer隐藏列</span></span><br><span class="line">2: len 7; hex 80000001d0011d; asc        ;;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这是name列</span></span><br><span class="line">3: len 10; hex 7ae8afb8e8919be4baae; asc z         ;;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这是country列</span></span><br><span class="line">4: len 3; hex e89c80; asc    ;;</span><br></pre></td></tr></table></figure><br>从这个信息中可以看出，Session A中的事务为2条记录生成了锁结构，但是其中有一条记录上的X型正经记录锁（rec but not gap）并没有获取到，没有获取到锁的这条记录的位置是：表空间ID为151，页号为3，heap_no为2。当然，设计InnoDB的大叔还贴心的给出了这条记录的详细情况，它的主键值为80000003，这其实是InnoDB内部存储使用的格式，其实就代表数字3，也就是该事务在等待获取hero表聚簇索引主键值为3的那条记录的X型正经记录锁。</p>
 <p>然后是关于死锁发生时第二个事务的有关信息：</p>
-<p>其中的大部分信息我们都已经介绍过了，我们就挑重要的说：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">*** (2) TRANSACTION:</span><br><span class="line">TRANSACTION 30478, ACTIVE 8 sec starting index <span class="built_in">read</span></span><br><span class="line">mysql tables <span class="keyword">in</span> use 1, locked 1</span><br><span class="line">3 lock struct(s), heap size 1160, 2 row lock(s)</span><br><span class="line">MySQL thread id 3, OS thread handle 123145412927488, query id 47 localhost 127.0.0.1 root statistics</span><br><span class="line">select * from hero <span class="built_in">where</span> id = 1 <span class="keyword">for</span> update</span><br><span class="line"></span><br><span class="line"><span class="comment"># 表示该事务获取到的锁信息</span></span><br><span class="line">*** (2) HOLDS THE LOCK(S):</span><br><span class="line">RECORD LOCKS space id 171 page no 3 n bits 72 index PRIMARY of table `dahaizi`.`hero` trx id 30478 lock_mode X locks rec but not gap</span><br><span class="line">Record lock, heap no 3 PHYSICAL RECORD: n_fields 5; compact format; info bits 0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 主键值为3</span></span><br><span class="line">0: len 4; hex 80000003; asc     ;;</span><br><span class="line">1: len 6; hex 000000007517; asc     u ;;</span><br><span class="line">2: len 7; hex 80000001d0011d; asc        ;;</span><br><span class="line">3: len 10; hex 7ae8afb8e8919be4baae; asc z         ;;</span><br><span class="line">4: len 3; hex e89c80; asc    ;;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 表示该事务等待获取的锁信息</span></span><br><span class="line">*** (2) WAITING FOR THIS LOCK TO BE GRANTED:</span><br><span class="line">RECORD LOCKS space id 171 page no 3 n bits 72 index PRIMARY of table `dahaizi`.`hero` trx id 30478 lock_mode X locks rec but not gap waiting</span><br><span class="line">Record lock, heap no 2 PHYSICAL RECORD: n_fields 5; compact format; info bits 0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 主键值为1</span></span><br><span class="line">0: len 4; hex 80000001; asc     ;;</span><br><span class="line">1: len 6; hex 000000007517; asc     u ;;</span><br><span class="line">2: len 7; hex 80000001d00110; asc        ;;</span><br><span class="line">3: len 7; hex 6ce58898e5a487; asc l      ;;</span><br><span class="line">4: len 3; hex e89c80; asc    ;;</span><br></pre></td></tr></table></figure></p>
-<p>从上边的输出可以看出来，Session B中的事务获取了hero表聚簇索引主键值为3的记录的X型正经记录锁，等待获取hero表聚簇索引主键值为1的记录的X型正经记录锁（隐含的意思就是这个hero表聚簇索引主键值为1的记录的X型正经记录锁已经被SESSION A中的事务获取到了）。</p>
-<p>看最后一部分：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*** WE ROLL BACK TRANSACTION (2)</span><br></pre></td></tr></table></figure></p>
-<p>最终InnoDB存储引擎决定回滚第2个食物，也就是Session B中的那个事务。</p>
+<p>其中的大部分信息我们都已经介绍过了，我们就挑重要的说：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">*** (2) TRANSACTION:</span><br><span class="line">TRANSACTION 30478, ACTIVE 8 sec starting index <span class="built_in">read</span></span><br><span class="line">mysql tables <span class="keyword">in</span> use 1, locked 1</span><br><span class="line">3 lock struct(s), heap size 1160, 2 row lock(s)</span><br><span class="line">MySQL thread <span class="built_in">id</span> 3, OS thread handle 123145412927488, query <span class="built_in">id</span> 47 localhost 127.0.0.1 root statistics</span><br><span class="line"><span class="keyword">select</span> * from hero <span class="built_in">where</span> <span class="built_in">id</span> = 1 <span class="keyword">for</span> update</span><br><span class="line"></span><br><span class="line"><span class="comment"># 表示该事务获取到的锁信息</span></span><br><span class="line">*** (2) HOLDS THE LOCK(S):</span><br><span class="line">RECORD LOCKS space <span class="built_in">id</span> 171 page no 3 n bits 72 index PRIMARY of table `dahaizi`.`hero` trx <span class="built_in">id</span> 30478 lock_mode X locks rec but not gap</span><br><span class="line">Record lock, heap no 3 PHYSICAL RECORD: n_fields 5; compact format; info bits 0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 主键值为3</span></span><br><span class="line">0: len 4; hex 80000003; asc     ;;</span><br><span class="line">1: len 6; hex 000000007517; asc     u ;;</span><br><span class="line">2: len 7; hex 80000001d0011d; asc        ;;</span><br><span class="line">3: len 10; hex 7ae8afb8e8919be4baae; asc z         ;;</span><br><span class="line">4: len 3; hex e89c80; asc    ;;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 表示该事务等待获取的锁信息</span></span><br><span class="line">*** (2) WAITING FOR THIS LOCK TO BE GRANTED:</span><br><span class="line">RECORD LOCKS space <span class="built_in">id</span> 171 page no 3 n bits 72 index PRIMARY of table `dahaizi`.`hero` trx <span class="built_in">id</span> 30478 lock_mode X locks rec but not gap waiting</span><br><span class="line">Record lock, heap no 2 PHYSICAL RECORD: n_fields 5; compact format; info bits 0</span><br><span class="line"></span><br><span class="line"><span class="comment"># 主键值为1</span></span><br><span class="line">0: len 4; hex 80000001; asc     ;;</span><br><span class="line">1: len 6; hex 000000007517; asc     u ;;</span><br><span class="line">2: len 7; hex 80000001d00110; asc        ;;</span><br><span class="line">3: len 7; hex 6ce58898e5a487; asc l      ;;</span><br><span class="line">4: len 3; hex e89c80; asc    ;;</span><br></pre></td></tr></table></figure><br>从上边的输出可以看出来，Session B中的事务获取了hero表聚簇索引主键值为3的记录的X型正经记录锁，等待获取hero表聚簇索引主键值为1的记录的X型正经记录锁（隐含的意思就是这个hero表聚簇索引主键值为1的记录的X型正经记录锁已经被SESSION A中的事务获取到了）。</p>
+<p>看最后一部分：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*** WE ROLL BACK TRANSACTION (2)</span><br></pre></td></tr></table></figure><br>最终InnoDB存储引擎决定回滚第2个食物，也就是Session B中的那个事务。</p>
 <p>思索分析的思路<br>查看死锁日志时，首先看一下发生死锁的事务等待获取锁的语句都是啥。</p>
-<p>本例中，发现SESSION A发生阻塞的语句是：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> hero <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">3</span> <span class="keyword">for</span> <span class="keyword">update</span></span><br></pre></td></tr></table></figure></p>
-<p>SESSION B发生阻塞的语句是：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> hero <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">1</span> <span class="keyword">for</span> <span class="keyword">update</span></span><br></pre></td></tr></table></figure></p>
-<p>然后切记：到自己的业务代码中找出这两条语句所在事务的其他语句。</p>
+<p>本例中，发现SESSION A发生阻塞的语句是：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> hero <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">3</span> <span class="keyword">for</span> <span class="keyword">update</span></span><br></pre></td></tr></table></figure><br>SESSION B发生阻塞的语句是：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> hero <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">1</span> <span class="keyword">for</span> <span class="keyword">update</span></span><br></pre></td></tr></table></figure><br>然后切记：到自己的业务代码中找出这两条语句所在事务的其他语句。</p>
 <p>找到发生死锁的事务中所有的语句之后，对照着事务获取到的锁和正在等待的锁的信息来分析死锁发生过程。</p>
-<p>从死锁日志中可以看出来，SESSION A获取了hero表聚簇索引id值为1的记录的X型正经记录锁（这其实是从SESSION B正在等待的锁中获取的），查看SESSION A中的语句，发现是下边这个语句造成的（对照着语句加锁分析那三篇文章）:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> hero <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">1</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure></p>
-<p>还有SESSION B获取了hero表聚簇索引id值为3的记录的X型正经记录锁，查看SESSION B中的语句，发现是下边这个语句造成的（对照着语句加锁分析那三篇文章）:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> hero <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">3</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure></p>
-<p>然后看SESSION A正在等待hero表聚簇索引id值为3的记录的X型正经记录锁，这个是由于下边这个语句造成的：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> hero <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">3</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure></p>
-<p>然后看SESSION B正在等待hero表聚簇索引id值为1的记录的X型正经记录锁，这个是由于下边这个语句造成的：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> hero <span class="keyword">where</span> <span class="keyword">id</span> = <span class="number">1</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure></p>
-<p>然后整个死锁形成过程就根据死锁日志给还原出来了。</p>
+<p>从死锁日志中可以看出来，SESSION A获取了hero表聚簇索引id值为1的记录的X型正经记录锁（这其实是从SESSION B正在等待的锁中获取的），查看SESSION A中的语句，发现是下边这个语句造成的（对照着语句加锁分析那三篇文章）:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> hero <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">1</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure><br>还有SESSION B获取了hero表聚簇索引id值为3的记录的X型正经记录锁，查看SESSION B中的语句，发现是下边这个语句造成的（对照着语句加锁分析那三篇文章）:<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> hero <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">3</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure><br>然后看SESSION A正在等待hero表聚簇索引id值为3的记录的X型正经记录锁，这个是由于下边这个语句造成的：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> hero <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">3</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure><br>然后看SESSION B正在等待hero表聚簇索引id值为1的记录的X型正经记录锁，这个是由于下边这个语句造成的：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> hero <span class="keyword">where</span> id <span class="operator">=</span> <span class="number">1</span> <span class="keyword">for</span> <span class="keyword">update</span>;</span><br></pre></td></tr></table></figure><br>然后整个死锁形成过程就根据死锁日志给还原出来了。</p>
 
       
     </div>
@@ -616,7 +596,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/MySQL是怎样运行的：从根儿上理解MySQL/" rel="tag"># MySQL是怎样运行的：从根儿上理解MySQL</a>
+            <a href="/tags/MySQL%E6%98%AF%E6%80%8E%E6%A0%B7%E8%BF%90%E8%A1%8C%E7%9A%84%EF%BC%9A%E4%BB%8E%E6%A0%B9%E5%84%BF%E4%B8%8A%E7%90%86%E8%A7%A3MySQL/" rel="tag"># MySQL是怎样运行的：从根儿上理解MySQL</a>
           
         </div>
       
@@ -629,7 +609,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/08/26/MySQL如何查看事务加锁情况/" rel="next" title="MySQL如何查看事务加锁情况">
+              <a href="/2022/08/26/MySQL%E5%A6%82%E4%BD%95%E6%9F%A5%E7%9C%8B%E4%BA%8B%E5%8A%A1%E5%8A%A0%E9%94%81%E6%83%85%E5%86%B5/" rel="next" title="MySQL如何查看事务加锁情况">
                 <i class="fa fa-chevron-left"></i> MySQL如何查看事务加锁情况
               </a>
             
@@ -639,7 +619,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/08/26/两条一样的INSERT语句竟然引发了死锁？/" rel="prev" title="两条一样的INSERT语句竟然引发了死锁？">
+              <a href="/2022/08/26/%E4%B8%A4%E6%9D%A1%E4%B8%80%E6%A0%B7%E7%9A%84INSERT%E8%AF%AD%E5%8F%A5%E7%AB%9F%E7%84%B6%E5%BC%95%E5%8F%91%E4%BA%86%E6%AD%BB%E9%94%81%EF%BC%9F/" rel="prev" title="两条一样的INSERT语句竟然引发了死锁？">
                 两条一样的INSERT语句竟然引发了死锁？ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -699,7 +679,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -710,9 +692,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -724,26 +706,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -815,7 +781,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -990,115 +956,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1129,23 +987,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1171,7 +1029,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#事前准备"><span class="nav-number">1.</span> <span class="nav-text">事前准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#现象"><span class="nav-number">2.</span> <span class="nav-text">现象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#死锁分析"><span class="nav-number">3.</span> <span class="nav-text">死锁分析</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8B%E5%89%8D%E5%87%86%E5%A4%87"><span class="nav-number">1.</span> <span class="nav-text">事前准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%B0%E8%B1%A1"><span class="nav-number">2.</span> <span class="nav-text">现象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AD%BB%E9%94%81%E5%88%86%E6%9E%90"><span class="nav-number">3.</span> <span class="nav-text">死锁分析</span></a></li></ol></div>
             
 
           </div>
@@ -1206,7 +1064,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1217,12 +1075,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1230,7 +1088,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

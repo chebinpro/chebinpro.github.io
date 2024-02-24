@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,37 +104,37 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="Kubernetes入门实战课">
 <meta property="og:type" content="article">
 <meta property="og:title" content="05丨镜像仓库：该怎样用好Docker Hub这个宝藏">
-<meta property="og:url" content="http://yoursite.com/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/09/12/05%EF%BD%9C%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%9A%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%94%A8%E5%A5%BDDocker-Hub%E8%BF%99%E4%B8%AA%E5%AE%9D%E8%97%8F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/1.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/2.png">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/3.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/4.png">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/5.png">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/6.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/7.png">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/8.png">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/9.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/10.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/11.png">
-<meta property="og:image" content="http://yoursite.com/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/12.jpg">
-<meta property="og:updated_time" content="2023-08-16T01:24:35.161Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/05%EF%BD%9C%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%9A%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%94%A8%E5%A5%BDDocker-Hub%E8%BF%99%E4%B8%AA%E5%AE%9D%E8%97%8F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/05%EF%BD%9C%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%9A%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%94%A8%E5%A5%BDDocker-Hub%E8%BF%99%E4%B8%AA%E5%AE%9D%E8%97%8F/2.png">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/05%EF%BD%9C%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%9A%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%94%A8%E5%A5%BDDocker-Hub%E8%BF%99%E4%B8%AA%E5%AE%9D%E8%97%8F/3.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/05%EF%BD%9C%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%9A%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%94%A8%E5%A5%BDDocker-Hub%E8%BF%99%E4%B8%AA%E5%AE%9D%E8%97%8F/4.png">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/05%EF%BD%9C%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%9A%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%94%A8%E5%A5%BDDocker-Hub%E8%BF%99%E4%B8%AA%E5%AE%9D%E8%97%8F/5.png">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/05%EF%BD%9C%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%9A%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%94%A8%E5%A5%BDDocker-Hub%E8%BF%99%E4%B8%AA%E5%AE%9D%E8%97%8F/6.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/05%EF%BD%9C%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%9A%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%94%A8%E5%A5%BDDocker-Hub%E8%BF%99%E4%B8%AA%E5%AE%9D%E8%97%8F/7.png">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/05%EF%BD%9C%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%9A%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%94%A8%E5%A5%BDDocker-Hub%E8%BF%99%E4%B8%AA%E5%AE%9D%E8%97%8F/8.png">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/05%EF%BD%9C%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%9A%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%94%A8%E5%A5%BDDocker-Hub%E8%BF%99%E4%B8%AA%E5%AE%9D%E8%97%8F/9.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/05%EF%BD%9C%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%9A%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%94%A8%E5%A5%BDDocker-Hub%E8%BF%99%E4%B8%AA%E5%AE%9D%E8%97%8F/10.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/05%EF%BD%9C%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%9A%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%94%A8%E5%A5%BDDocker-Hub%E8%BF%99%E4%B8%AA%E5%AE%9D%E8%97%8F/11.png">
+<meta property="og:image" content="http://yoursite.com/2022/09/12/05%EF%BD%9C%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%9A%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%94%A8%E5%A5%BDDocker-Hub%E8%BF%99%E4%B8%AA%E5%AE%9D%E8%97%8F/12.jpg">
+<meta property="article:published_time" content="2022-09-12T10:34:53.000Z">
+<meta property="article:modified_time" content="2023-08-16T01:24:35.161Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Kubernetes入门实战课">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="05丨镜像仓库：该怎样用好Docker Hub这个宝藏">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2022/09/12/05%EF%BD%9C%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%9A%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%94%A8%E5%A5%BDDocker-Hub%E8%BF%99%E4%B8%AA%E5%AE%9D%E8%97%8F/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/">
+  <link rel="canonical" href="http://yoursite.com/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/"/>
 
 
 
@@ -183,7 +183,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -244,7 +244,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -261,7 +261,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -278,7 +278,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -295,7 +295,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -312,7 +312,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -323,7 +323,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -343,7 +343,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -393,16 +395,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/12/05%EF%BD%9C%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%9A%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%94%A8%E5%A5%BDDocker-Hub%E8%BF%99%E4%B8%AA%E5%AE%9D%E8%97%8F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -502,7 +504,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">5.2k</span>
+                <span title="本文字数">10k</span>
               
 
               
@@ -516,7 +518,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">5 分钟</span>
+                <span title="阅读时长">9 分钟</span>
               
             </div>
           
@@ -537,47 +539,47 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>上一次课里我们学习了“Dockerfile”和<code>docker build</code>的用法，知道了如何创建自己的镜像。那么镜像文件应该如何管理呢，具体来说，应该如何存储、检索、分发、共享镜像呢？不解决这些问题，我们的容器化应用还是无法顺利地实施。</p>
 <p>今天，我就来谈一下这个话题，聊聊什么是镜像仓库，还有该怎么用好镜像仓库。</p>
 <h1 id="什么是镜像仓库（Registry）"><a href="#什么是镜像仓库（Registry）" class="headerlink" title="什么是镜像仓库（Registry）"></a><span style="color:#339AFF;">什么是镜像仓库（Registry）</span></h1><p>之前我们已经用过<code>docker pull</code>命令拉取镜像，也说过有一个“镜像仓库”（Registry）的概念，那到底什么是镜像仓库呢？</p>
 <p>还是来看Docker的官方架构图（它真的非常重要）：</p>
-<img src="/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/1.webp">
+<img src="/2022/09/12/05%EF%BD%9C%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%9A%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%94%A8%E5%A5%BDDocker-Hub%E8%BF%99%E4%B8%AA%E5%AE%9D%E8%97%8F/1.webp" class="">
 <p>图里右边的区域就是镜像仓库，术语叫Registry，直译就是“注册中心”，意思是所有镜像的Repository都在这里登记保管，就像是一个巨大的档案馆。</p>
 <p>然后我们再来看左边的<code>docker pull</code>，虚线显示了它的工作流程，先到“Docker daemon”，再到Registry，只有当Registry里存有镜像才能真正把它下载到本地。</p>
 <p>当然了，拉取镜像只是镜像仓库最基本的一个功能，它还会提供更多的功能，比如上传、查询、删除等等，是一个全面的镜像管理服务站点。</p>
 <p>你也可以把镜像仓库类比成手机上的应用商店，里面分门别类存放了许多容器化的应用，需要什么去找一下就行了。有了它，我们使用镜像才能够免除后顾之忧。</p>
-<h1 id="什么是Docker-Hub"><a href="#什么是Docker-Hub" class="headerlink" title="什么是Docker Hub"></a><span style="color:#339AFF;">什么是Docker Hub</span></h1><p>不过，你有没有注意到，在使用<code>docker pull</code>获取镜像的时候，我们并没有明确地指定镜像仓库。在这种情况下，Docker就会使用一个默认的镜像仓库，也就是大名鼎鼎的<a href="https://hub.docker.com/" target="_blank" rel="noopener"><strong>“Docker Hub”</strong></a>。</p>
+<h1 id="什么是Docker-Hub"><a href="#什么是Docker-Hub" class="headerlink" title="什么是Docker Hub"></a><span style="color:#339AFF;">什么是Docker Hub</span></h1><p>不过，你有没有注意到，在使用<code>docker pull</code>获取镜像的时候，我们并没有明确地指定镜像仓库。在这种情况下，Docker就会使用一个默认的镜像仓库，也就是大名鼎鼎的<a href="https://hub.docker.com/"><strong>“Docker Hub”</strong></a>。</p>
 <p>Docker Hub是Docker公司搭建的官方Registry服务，创立于2014年6月，和Docker 1.0同时发布。它号称是世界上最大的镜像仓库，和GitHub一样，几乎成为了容器世界的基础设施。</p>
 <p>Docker Hub里面不仅有Docker自己打包的镜像，而且还对公众免费开放，任何人都可以上传自己的作品。经过这8年的发展，Docker Hub已经不再是一个单纯的镜像仓库了，更应该说是一个丰富而繁荣的容器社区。</p>
 <p>你可以看看下面的这张截图，里面列出的都是下载量超过10亿次的最受欢迎的应用程序，比如Nginx、MongoDB、Node.js、Redis、OpenJDK等等。显然，把这些容器化的应用引入到我们自己的系统里，就像是站在了巨人的肩膀上，一开始就会有一个高水平的起点。</p>
-<img src="/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/2.png">
+<img src="/2022/09/12/05%EF%BD%9C%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%9A%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%94%A8%E5%A5%BDDocker-Hub%E8%BF%99%E4%B8%AA%E5%AE%9D%E8%97%8F/2.png" class="">
 <p>但和GitHub、AppStore一样，面向所有人公开的Docker Hub也有一个不可避免的缺点，就是“良莠不齐”。</p>
 <p>在Docker Hub搜索框里输入关键字，比如Nginx、MySQL，它立即就会给出几百几千个搜索结果，有点“乱花迷人眼”的感觉，这么多镜像，应该如何挑选出最适合自己的呢？下面我就来说说自己在这方面的一些经验。</p>
 <h1 id="如何在Docker-Hub上挑选镜像"><a href="#如何在Docker-Hub上挑选镜像" class="headerlink" title="如何在Docker Hub上挑选镜像"></a><span style="color:#339AFF;">如何在Docker Hub上挑选镜像</span></h1><p>首先，你应该知道，在Docker Hub上有官方镜像、认证镜像和非官方镜像的区别。</p>
-<p><a href="https://github.com/docker-library/official-images" target="_blank" rel="noopener">官方镜像</a>是指Docker公司官方提供的高质量镜像，都经过了严格的漏洞扫描和安全检测，支持x86_64、arm64等多种硬件架构，还具有清晰易读的文档，一般来说是我们构建镜像的首选，也是我们编写Dockerfile的最佳范例。</p>
+<p><a href="https://github.com/docker-library/official-images">官方镜像</a>是指Docker公司官方提供的高质量镜像，都经过了严格的漏洞扫描和安全检测，支持x86_64、arm64等多种硬件架构，还具有清晰易读的文档，一般来说是我们构建镜像的首选，也是我们编写Dockerfile的最佳范例。</p>
 <p>官方镜像目前有大约100多个，基本上囊括了现在的各种流行技术，下面就是官方的Nginx镜像网页截图：</p>
-<img src="/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/3.webp">
+<img src="/2022/09/12/05%EF%BD%9C%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%9A%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%94%A8%E5%A5%BDDocker-Hub%E8%BF%99%E4%B8%AA%E5%AE%9D%E8%97%8F/3.webp" class="">
 <p>你会看到，官方镜像会有一个特殊的“<strong>Official image</strong>”的标记，这就表示这个镜像经过了Docker公司的认证，有专门的团队负责审核、发布和更新，质量上绝对可以放心。</p>
 <p>第二类是认证镜像，标记是“<strong>Verified publisher</strong>”，也就是认证发行商，比如Bitnami、Rancher、Ubuntu等。它们都是颇具规模的大公司，具有不逊于Docker公司的实力，所以就在Docker Hub上开了个认证账号，发布自己打包的镜像，有点类似我们微博上的“大V”。</p>
-<img src="/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/4.png">
+<img src="/2022/09/12/05%EF%BD%9C%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%9A%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%94%A8%E5%A5%BDDocker-Hub%E8%BF%99%E4%B8%AA%E5%AE%9D%E8%97%8F/4.png" class="">
 <p>这些镜像有公司背书，当然也很值得信赖，不过它们难免会带上一些各自公司的“烙印”，比如Bitnami的镜像就统一以“minideb”为基础，灵活性上比Docker官方镜像略差，有的时候也许会不符合我们的需求。</p>
 <p>除了官方镜像和认证镜像，剩下的就都属于非官方镜像了，不过这里面也可以分出两类。</p>
 <p>第一类是“<strong>半官方</strong>”镜像。因为成为“Verified publisher”是要给Docker公司交钱的，而很多公司不想花这笔“冤枉钱”，所以只在Docker Hub上开了公司账号，但并不加入认证。</p>
 <p>这里我以OpenResty为例，看一下它的Docker Hub页面，可以看到显示的是OpenResty官方发布，但并没有经过Docker正式认证，所以难免就会存在一些风险，有被“冒名顶替”的可能，需要我们在使用的时候留心鉴别一下。不过一般来说，这种“半官方”镜像也是比较可靠的。</p>
-<img src="/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/5.png">
+<img src="/2022/09/12/05%EF%BD%9C%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%9A%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%94%A8%E5%A5%BDDocker-Hub%E8%BF%99%E4%B8%AA%E5%AE%9D%E8%97%8F/5.png" class="">
 <p>第二类就是纯粹的“<strong>民间</strong>”镜像了，通常是个人上传到Docker Hub的，因为条件所限，测试不完全甚至没有测试，质量上难以得到保证，下载的时候需要小心谨慎。</p>
 <p>除了查看镜像是否为官方认证，我们还应该再结合其他的条件来判断镜像质量是否足够好。做法和GitHub差不多，就是看它的下载量、星数、还有更新历史，简单来说就是“好评”数量。</p>
 <p>一般来说下载量是最重要的参考依据，好的镜像下载量通常都在百万级别（超过1M），而有的镜像虽然也是官方认证，但缺乏维护，更新不及时，用的人很少，星数、下载数都寥寥无几，那么还是应该选择下载量最多的镜像，通俗来说就是“随大流”。</p>
 <p>下面的这张截图就是OpenResty在Docker Hub上的搜索结果。可以看到，有两个认证发行商的镜像（Bitnami、IBM），但下载量都很少，还有一个“民间”镜像下载量虽然超过了1M，但更新时间是3年前，所以毫无疑问，我们应该选择排在第三位，但下载量超过10M、有360多个星的“半官方”镜像。</p>
-<img src="/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/6.webp">
+<img src="/2022/09/12/05%EF%BD%9C%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%9A%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%94%A8%E5%A5%BDDocker-Hub%E8%BF%99%E4%B8%AA%E5%AE%9D%E8%97%8F/6.webp" class="">
 <p>看了这么多Docker Hub上的镜像，你一定注意到了，应用都是一样的名字，比如都是Nginx、Redis、OpenResty，该怎么区分不同作者打包出的镜像呢？</p>
 <p>如果你熟悉GitHub，就会发现Docker Hub也使用了同样的规则，就是“用户名/应用名”的形式，比如bitnami/nginx、ubuntu/nginx、rancher/nginx等等。</p>
 <p>所以，我们在使用<code>docker pull</code>下载这些非官方镜像的时候，就必须把用户名也带上，否则默认就会使用官方镜像：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull bitnami/nginx</span><br><span class="line">docker pull ubuntu/nginx</span><br></pre></td></tr></table></figure></p>
 <h1 id="Docker-Hub上镜像命名的规则是什么"><a href="#Docker-Hub上镜像命名的规则是什么" class="headerlink" title="Docker Hub上镜像命名的规则是什么"></a><span style="color:#339AFF;">Docker Hub上镜像命名的规则是什么</span></h1><p>确定了要使用的镜像还不够，因为镜像还会有许多不同的版本，也就是“标签”（tag）。</p>
 <p>直接使用默认的“latest”虽然简单方便，但在生产环境里是一种非常不负责任的做法，会导致版本不可控。所以我们还需要理解Docker Hub上标签命名的含义，才能够挑选出最适合我们自己的镜像版本。</p>
 <p>下面我就拿官方的Redis镜像作为例子，解释一下这些标签都是什么意思。</p>
-<img src="/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/7.png">
+<img src="/2022/09/12/05%EF%BD%9C%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%9A%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%94%A8%E5%A5%BDDocker-Hub%E8%BF%99%E4%B8%AA%E5%AE%9D%E8%97%8F/7.png" class="">
 <p>通常来说，镜像标签的格式是<strong>应用的版本号加上操作系统</strong>。</p>
 <p>版本号你应该比较了解吧，基本上都是<strong>主版本号+次版本号+补丁号</strong>的形式，有的还会在正式发布前出rc版（候选版本，release candidate）。而操作系统的情况略微复杂一些，因为各个Linux发行版的命名方式“花样”太多了。</p>
 <p>Alpine、CentOS的命名比较简单明了，就是数字的版本号，像这里的alpine3.15，而Ubuntu、Debian则采用了代号的形式。比如Ubuntu18.04是bionic，Ubuntu20.04是focal，Debian9是stretch，Debian10是buster，Debian11是bullseye。</p>
@@ -592,14 +594,13 @@
 <p>这件事其实一点也不难，只需要4个步骤就能完成。</p>
 <p>第一步，你需要在Docker Hub上注册一个用户，这个就不必再多说了。</p>
 <p>第二步，你需要在本机上使用<code>docker login</code>命令，用刚才注册的用户名和密码认证身份登录，像这里就用了我的用户名“chronolaw”：</p>
-<img src="/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/8.png">
+<img src="/2022/09/12/05%EF%BD%9C%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%9A%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%94%A8%E5%A5%BDDocker-Hub%E8%BF%99%E4%B8%AA%E5%AE%9D%E8%97%8F/8.png" class="">
 <p>第三步很关键，需要使用<code>docker tag</code>命令，给镜像改成带用户名的完整名字，表示镜像是属于这个用户的。或者简单一点，直接用<code>docker build -t</code>在创建镜像的时候就起好名字。</p>
-<p>这里我就用上次课里的镜像“ngx-app”作为例子，给它改名成chronolaw/ngx-app:1.0：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker tag ngx-app chronolaw/ngx-app:1.0</span><br></pre></td></tr></table></figure></p>
-<img src="/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/9.webp">
+<p>这里我就用上次课里的镜像“ngx-app”作为例子，给它改名成chronolaw/ngx-app:1.0：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker tag ngx-app chronolaw/ngx-app:1.0</span><br></pre></td></tr></table></figure><br><img src="/2022/09/12/05%EF%BD%9C%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%9A%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%94%A8%E5%A5%BDDocker-Hub%E8%BF%99%E4%B8%AA%E5%AE%9D%E8%97%8F/9.webp" class=""></p>
 <p>第四步，用<code>docker push</code>把这个镜像推上去，我们的镜像发布工作就大功告成了：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker push chronolaw/ngx-app:1.0</span><br></pre></td></tr></table></figure></p>
-<img src="/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/10.webp">
+<img src="/2022/09/12/05%EF%BD%9C%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%9A%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%94%A8%E5%A5%BDDocker-Hub%E8%BF%99%E4%B8%AA%E5%AE%9D%E8%97%8F/10.webp" class="">
 <p>你还可以登录Docker Hub网站验证一下镜像发布的效果，可以看到它会自动为我们生成一个页面模板，里面还可以进一步丰富完善，比如添加描述信息、使用说明等等：</p>
-<img src="/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/11.png">
+<img src="/2022/09/12/05%EF%BD%9C%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%9A%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%94%A8%E5%A5%BDDocker-Hub%E8%BF%99%E4%B8%AA%E5%AE%9D%E8%97%8F/11.png" class="">
 <p>现在你就可以把这个镜像的名字（用户名/应用名:标签）告诉你的同事，让他去用<code>docker pull</code>下载部署了。</p>
 <h1 id="离线环境该怎么办"><a href="#离线环境该怎么办" class="headerlink" title="离线环境该怎么办"></a><span style="color:#339AFF;">离线环境该怎么办</span></h1><p>使用Docker Hub来管理镜像的确是非常方便，不过有一种场景下它却是无法发挥作用，那就是企业内网的离线环境，连不上外网，自然也就不能使用<code>docker push</code>、<code>docker pull</code>来推送拉取镜像了。</p>
 <p>那这种情况有没有解决办法呢？</p>
@@ -615,7 +616,7 @@
 <p>5，离线环境可以自己搭建私有镜像仓库，或者使用<code>docker save</code>把镜像存成压缩包，再用<code>docker load</code>从压缩包恢复成镜像。</p>
 <h1 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a><span style="color:#339AFF;">课下作业</span></h1><p>1，很多应用（如Nginx、Redis、Go）都已经有了Docker官方镜像，为什么其他公司（Bitnami、Rancher）还要重复劳动，发布自己打包的镜像呢？</p>
 <p>2，你能否对比一下GitHub和Docker Hub，说说它们两个在功能、服务对象、影响范围等方面的异同点呢？</p>
-<img src="/2022/09/12/05｜镜像仓库：该怎样用好Docker-Hub这个宝藏/12.jpg">
+<img src="/2022/09/12/05%EF%BD%9C%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%9A%E8%AF%A5%E6%80%8E%E6%A0%B7%E7%94%A8%E5%A5%BDDocker-Hub%E8%BF%99%E4%B8%AA%E5%AE%9D%E8%97%8F/12.jpg" class="">
       
     </div>
 
@@ -638,7 +639,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Kubernetes入门实战课/" rel="tag"># Kubernetes入门实战课</a>
+            <a href="/tags/Kubernetes%E5%85%A5%E9%97%A8%E5%AE%9E%E6%88%98%E8%AF%BE/" rel="tag"># Kubernetes入门实战课</a>
           
         </div>
       
@@ -651,7 +652,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/09/12/04｜创建容器镜像：如何编写正确、高效的Dockerfile/" rel="next" title="04丨创建容器镜像：如何编写正确、高效的Dockerfile">
+              <a href="/2022/09/12/04%EF%BD%9C%E5%88%9B%E5%BB%BA%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F%EF%BC%9A%E5%A6%82%E4%BD%95%E7%BC%96%E5%86%99%E6%AD%A3%E7%A1%AE%E3%80%81%E9%AB%98%E6%95%88%E7%9A%84Dockerfile/" rel="next" title="04丨创建容器镜像：如何编写正确、高效的Dockerfile">
                 <i class="fa fa-chevron-left"></i> 04丨创建容器镜像：如何编写正确、高效的Dockerfile
               </a>
             
@@ -661,7 +662,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/09/12/06｜打破次元壁：容器该如何与外界互联互通/" rel="prev" title="06丨打破次元壁：容器该如何与外界互联互通">
+              <a href="/2022/09/12/06%EF%BD%9C%E6%89%93%E7%A0%B4%E6%AC%A1%E5%85%83%E5%A3%81%EF%BC%9A%E5%AE%B9%E5%99%A8%E8%AF%A5%E5%A6%82%E4%BD%95%E4%B8%8E%E5%A4%96%E7%95%8C%E4%BA%92%E8%81%94%E4%BA%92%E9%80%9A/" rel="prev" title="06丨打破次元壁：容器该如何与外界互联互通">
                 06丨打破次元壁：容器该如何与外界互联互通 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -721,7 +722,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -732,9 +735,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -746,26 +749,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -837,7 +824,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1012,115 +999,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1151,23 +1030,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1193,7 +1072,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是镜像仓库（Registry）"><span class="nav-number">1.</span> <span class="nav-text">什么是镜像仓库（Registry）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是Docker-Hub"><span class="nav-number">2.</span> <span class="nav-text">什么是Docker Hub</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何在Docker-Hub上挑选镜像"><span class="nav-number">3.</span> <span class="nav-text">如何在Docker Hub上挑选镜像</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker-Hub上镜像命名的规则是什么"><span class="nav-number">4.</span> <span class="nav-text">Docker Hub上镜像命名的规则是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#该怎么上传自己的镜像"><span class="nav-number">5.</span> <span class="nav-text">该怎么上传自己的镜像</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#离线环境该怎么办"><span class="nav-number">6.</span> <span class="nav-text">离线环境该怎么办</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">7.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课下作业"><span class="nav-number">8.</span> <span class="nav-text">课下作业</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%95%9C%E5%83%8F%E4%BB%93%E5%BA%93%EF%BC%88Registry%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">什么是镜像仓库（Registry）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFDocker-Hub"><span class="nav-number">2.</span> <span class="nav-text">什么是Docker Hub</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%9C%A8Docker-Hub%E4%B8%8A%E6%8C%91%E9%80%89%E9%95%9C%E5%83%8F"><span class="nav-number">3.</span> <span class="nav-text">如何在Docker Hub上挑选镜像</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Docker-Hub%E4%B8%8A%E9%95%9C%E5%83%8F%E5%91%BD%E5%90%8D%E7%9A%84%E8%A7%84%E5%88%99%E6%98%AF%E4%BB%80%E4%B9%88"><span class="nav-number">4.</span> <span class="nav-text">Docker Hub上镜像命名的规则是什么</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%A5%E6%80%8E%E4%B9%88%E4%B8%8A%E4%BC%A0%E8%87%AA%E5%B7%B1%E7%9A%84%E9%95%9C%E5%83%8F"><span class="nav-number">5.</span> <span class="nav-text">该怎么上传自己的镜像</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A6%BB%E7%BA%BF%E7%8E%AF%E5%A2%83%E8%AF%A5%E6%80%8E%E4%B9%88%E5%8A%9E"><span class="nav-number">6.</span> <span class="nav-text">离线环境该怎么办</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BE%E4%B8%8B%E4%BD%9C%E4%B8%9A"><span class="nav-number">8.</span> <span class="nav-text">课下作业</span></a></li></ol></div>
             
 
           </div>
@@ -1228,7 +1107,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1239,12 +1118,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1252,7 +1131,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

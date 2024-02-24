@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,44 +104,44 @@
 
 
   <meta name="description" content="思考并回答以下问题：  binlog属于server层，redo、undo属于存储引擎层。怎么理解？ 先更新记录的聚簇索引记录，再更新记录的二级索引记录。怎么理解？ 将记录所在的页面加载到buffer pool，先将undo日志写入Undo页面，然后再记录修改该页面对应的redo日志。在一条更新语句执行完成后（也就是将所有待更新记录都更新完了），就需要该语句对应的binlog日志了。怎么理解？ 先">
-<meta name="keywords" content="MySQL是怎样运行的：从根儿上理解MySQL">
 <meta property="og:type" content="article">
 <meta property="og:title" content="redo、undo、buffer pool、binlog，谁先谁后，有点儿乱">
-<meta property="og:url" content="http://yoursite.com/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：  binlog属于server层，redo、undo属于存储引擎层。怎么理解？ 先更新记录的聚簇索引记录，再更新记录的二级索引记录。怎么理解？ 将记录所在的页面加载到buffer pool，先将undo日志写入Undo页面，然后再记录修改该页面对应的redo日志。在一条更新语句执行完成后（也就是将所有待更新记录都更新完了），就需要该语句对应的binlog日志了。怎么理解？ 先">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/1.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/2.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/3.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/4.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/5.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/6.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/7.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/8.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/9.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/10.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/11.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/12.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/13.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/14.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/15.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/16.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/17.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/18.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/19.awebp">
-<meta property="og:updated_time" content="2022-11-08T00:30:21.733Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/1.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/2.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/3.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/4.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/5.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/6.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/7.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/8.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/9.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/10.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/11.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/12.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/13.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/14.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/15.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/16.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/17.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/18.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/19.awebp">
+<meta property="article:published_time" content="2022-09-06T03:53:44.000Z">
+<meta property="article:modified_time" content="2022-11-08T00:30:21.733Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="MySQL是怎样运行的：从根儿上理解MySQL">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="redo、undo、buffer pool、binlog，谁先谁后，有点儿乱">
-<meta name="twitter:description" content="思考并回答以下问题：  binlog属于server层，redo、undo属于存储引擎层。怎么理解？ 先更新记录的聚簇索引记录，再更新记录的二级索引记录。怎么理解？ 将记录所在的页面加载到buffer pool，先将undo日志写入Undo页面，然后再记录修改该页面对应的redo日志。在一条更新语句执行完成后（也就是将所有待更新记录都更新完了），就需要该语句对应的binlog日志了。怎么理解？ 先">
-<meta name="twitter:image" content="http://yoursite.com/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/1.awebp">
+<meta name="twitter:image" content="http://yoursite.com/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/1.awebp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/">
+  <link rel="canonical" href="http://yoursite.com/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/"/>
 
 
 
@@ -190,7 +190,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -251,7 +251,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -268,7 +268,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -285,7 +285,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -302,7 +302,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -319,7 +319,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -330,7 +330,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -350,7 +350,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -400,16 +402,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -509,7 +511,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">7.3k</span>
+                <span title="本文字数">17k</span>
               
 
               
@@ -523,7 +525,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">7 分钟</span>
+                <span title="阅读时长">15 分钟</span>
               
             </div>
           
@@ -550,7 +552,7 @@
 <li>将记录所在的页面加载到buffer pool，先将undo日志写入Undo页面，然后再记录修改该页面对应的redo日志。在一条更新语句执行完成后（也就是将所有待更新记录都更新完了），就需要该语句对应的binlog日志了。怎么理解？</li>
 <li>先在B+树中定位到该记录（这个过程也被称作加锁读）。怎么理解？</li>
 </ul>
-<a id="more"></a>
+<span id="more"></span>
 <p>这篇文章我们来讨论一下一条DML语句从客户端发出后，服务器都做了哪些处理。</p>
 <blockquote>
 <p>小贴士：虽然SELECT语句的处理也很复杂，但SELECT语句并不会修改数据库中的数据，也就不会记录诸如redo、undo、binlog这些日志，本文主要是想讨论redo、undo、binlog这些日志是在什么时候生成的，啥时候写到磁盘的。</p>
@@ -560,20 +562,16 @@
 <h1 id="预备知识"><a href="#预备知识" class="headerlink" title="预备知识"></a><span style="color:#339AFF;">预备知识</span></h1><p>我们讨论的是基于InnoDB存储引擎的表，数据会被保存在硬盘上的表空间（文件系统中的一个或多个文件）中。</p>
 <p>InnoDB会将磁盘中的数据看成是若干个页的集合，页的大小默认是16KB。其中某些页面用于存储关于系统的一些属性，某些页面用于存储undo日志，某些页面用于存储B+树的节点（也就是包含记录的页面），反正总共有十来种不同类型的页面。</p>
 <p>不过不论是什么类型的页面，每当我们从页面中读取或写入数据时，都必须先将其从硬盘上加载到内存中的buffer pool中（也就是说内存中的页面其实就是硬盘中页面的一个副本），然后才能对内存中页面进行读取或写入。如果要修改内存中的页面，为了减少磁盘I/O，修改后的页面并不立即同步到磁盘，而是作为脏页继续呆在内存中，等待后续合适时机将其刷新到硬盘（一般是有后台线程异步刷新）。</p>
-<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a><span style="color:#339AFF;">准备工作</span></h1><p>为了故事的顺利发展，我们先建立一个表：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> hero (</span><br><span class="line">    <span class="built_in">number</span> <span class="built_in">INT</span>,</span><br><span class="line">    <span class="keyword">name</span> <span class="built_in">VARCHAR</span>(<span class="number">100</span>),</span><br><span class="line">    country <span class="built_in">varchar</span>(<span class="number">100</span>),</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="built_in">number</span>),</span><br><span class="line">    <span class="keyword">KEY</span> idx_name (<span class="keyword">name</span>)</span><br><span class="line">) <span class="keyword">Engine</span>=<span class="keyword">InnoDB</span> <span class="keyword">CHARSET</span>=utf8;</span><br></pre></td></tr></table></figure></p>
-<p>然后向这个表里插入几条记录：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> hero <span class="keyword">VALUES</span></span><br><span class="line">    (<span class="number">1</span>, <span class="string">'l刘备'</span>, <span class="string">'蜀'</span>),</span><br><span class="line">    (<span class="number">3</span>, <span class="string">'z诸葛亮'</span>, <span class="string">'蜀'</span>),</span><br><span class="line">    (<span class="number">8</span>, <span class="string">'c曹操'</span>, <span class="string">'魏'</span>),</span><br><span class="line">    (<span class="number">15</span>, <span class="string">'x荀彧'</span>, <span class="string">'魏'</span>),</span><br><span class="line">    (<span class="number">20</span>, <span class="string">'s孙权'</span>, <span class="string">'吴'</span>);</span><br></pre></td></tr></table></figure></p>
-<p>然后现在hero表就有了两个索引（一个二级索引，一个聚簇索引），示意图如下： </p>
-<img src="/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/1.awebp">
-<h1 id="执行计划的生成"><a href="#执行计划的生成" class="headerlink" title="执行计划的生成"></a><span style="color:#339AFF;">执行计划的生成</span></h1><p>假设我们想执行下边这条UPDATE语句：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> hero <span class="keyword">SET</span> country = <span class="string">'汉'</span> <span class="keyword">WHERE</span> <span class="keyword">name</span> &gt;= <span class="string">'x荀彧'</span>;</span><br></pre></td></tr></table></figure></p>
-<p>MySQL优化器首先会分析一下使用不同索引执行查询的成本，然后选取成本最低的那个索引去执行查询。</p>
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a><span style="color:#339AFF;">准备工作</span></h1><p>为了故事的顺利发展，我们先建立一个表：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> hero (</span><br><span class="line">    number <span class="type">INT</span>,</span><br><span class="line">    name <span class="type">VARCHAR</span>(<span class="number">100</span>),</span><br><span class="line">    country <span class="type">varchar</span>(<span class="number">100</span>),</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (number),</span><br><span class="line">    KEY idx_name (name)</span><br><span class="line">) Engine<span class="operator">=</span>InnoDB CHARSET<span class="operator">=</span>utf8;</span><br></pre></td></tr></table></figure><br>然后向这个表里插入几条记录：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> hero <span class="keyword">VALUES</span></span><br><span class="line">    (<span class="number">1</span>, <span class="string">&#x27;l刘备&#x27;</span>, <span class="string">&#x27;蜀&#x27;</span>),</span><br><span class="line">    (<span class="number">3</span>, <span class="string">&#x27;z诸葛亮&#x27;</span>, <span class="string">&#x27;蜀&#x27;</span>),</span><br><span class="line">    (<span class="number">8</span>, <span class="string">&#x27;c曹操&#x27;</span>, <span class="string">&#x27;魏&#x27;</span>),</span><br><span class="line">    (<span class="number">15</span>, <span class="string">&#x27;x荀彧&#x27;</span>, <span class="string">&#x27;魏&#x27;</span>),</span><br><span class="line">    (<span class="number">20</span>, <span class="string">&#x27;s孙权&#x27;</span>, <span class="string">&#x27;吴&#x27;</span>);</span><br></pre></td></tr></table></figure><br>然后现在hero表就有了两个索引（一个二级索引，一个聚簇索引），示意图如下： </p>
+<img src="/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/1.awebp" class="">
+<h1 id="执行计划的生成"><a href="#执行计划的生成" class="headerlink" title="执行计划的生成"></a><span style="color:#339AFF;">执行计划的生成</span></h1><p>假设我们想执行下边这条UPDATE语句：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> hero <span class="keyword">SET</span> country <span class="operator">=</span> <span class="string">&#x27;汉&#x27;</span> <span class="keyword">WHERE</span> name <span class="operator">&gt;=</span> <span class="string">&#x27;x荀彧&#x27;</span>;</span><br></pre></td></tr></table></figure><br>MySQL优化器首先会分析一下使用不同索引执行查询的成本，然后选取成本最低的那个索引去执行查询。</p>
 <p>对于上述语句来说，可选的执行方案有2种：</p>
 <ul>
 <li>方案一：使用全表扫描执行查询，即扫描全部聚簇索引记录，我们可以认为此时的扫描区间就是<code>(-∞, +∞)</code>。</li>
 <li>方案二：使用二级索引idx_name执行查询，此时的扫描区间就是<code>[&#39;x荀彧&#39;, +∞)</code>。</li>
 </ul>
 <p>优化器会计算上述两种方案的成本，选取成本最低的方案作为最终的执行计划。</p>
-<p>我们作为用户，可以通过EXPLAIN语句来看一下这个语句的执行计划（当然也可以通过MySQL提供的optimizer trace功能查看具体执行计划分析流程）：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; explain UPDATE hero SET country = <span class="string">'汉'</span> WHERE name &gt;= <span class="string">'x荀彧'</span>;</span><br><span class="line">+----+-------------+-------+------------+-------+---------------+----------+---------+-------+------+----------+-------------+</span><br><span class="line">| id | select_type | table | partitions | <span class="built_in">type</span>  | possible_keys | key      | key_len | ref   | rows | filtered | Extra       |</span><br><span class="line">+----+-------------+-------+------------+-------+---------------+----------+---------+-------+------+----------+-------------+</span><br><span class="line">|  1 | UPDATE      | hero  | NULL       | range | idx_name      | idx_name | 303     | const |    2 |   100.00 | Using <span class="built_in">where</span> |</span><br><span class="line">+----+-------------+-------+------------+-------+---------------+----------+---------+-------+------+----------+-------------+</span><br><span class="line">1 row <span class="keyword">in</span> <span class="built_in">set</span>, 1 warning (0.01 sec)</span><br></pre></td></tr></table></figure></p>
-<p>可以看到，MySQL优化器决定采用方案二，即扫描二级索引idx_name在<code>[&#39;x荀彧&#39;, +∞)</code>这个扫描区间中的记录。</p>
+<p>我们作为用户，可以通过EXPLAIN语句来看一下这个语句的执行计划（当然也可以通过MySQL提供的optimizer trace功能查看具体执行计划分析流程）：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; explain UPDATE hero SET country = <span class="string">&#x27;汉&#x27;</span> WHERE name &gt;= <span class="string">&#x27;x荀彧&#x27;</span>;</span><br><span class="line">+----+-------------+-------+------------+-------+---------------+----------+---------+-------+------+----------+-------------+</span><br><span class="line">| <span class="built_in">id</span> | select_type | table | partitions | <span class="built_in">type</span>  | possible_keys | key      | key_len | ref   | rows | filtered | Extra       |</span><br><span class="line">+----+-------------+-------+------------+-------+---------------+----------+---------+-------+------+----------+-------------+</span><br><span class="line">|  1 | UPDATE      | hero  | NULL       | range | idx_name      | idx_name | 303     | const |    2 |   100.00 | Using <span class="built_in">where</span> |</span><br><span class="line">+----+-------------+-------+------------+-------+---------------+----------+---------+-------+------+----------+-------------+</span><br><span class="line">1 row <span class="keyword">in</span> <span class="built_in">set</span>, 1 warning (0.01 sec)</span><br></pre></td></tr></table></figure><br>可以看到，MySQL优化器决定采用方案二，即扫描二级索引idx_name在<code>[&#39;x荀彧&#39;, +∞)</code>这个扫描区间中的记录。</p>
 <h1 id="真正开始执行"><a href="#真正开始执行" class="headerlink" title="真正开始执行"></a><span style="color:#339AFF;">真正开始执行</span></h1><p>MySQL分为server层和存储引擎层，我们前边的多篇文章有唠叨这两层之间的关系。考虑到没有看过前边文章的小伙伴，我们再不厌其烦的唠叨一下在执行上述UPDATE语句时server层和InnoDB层之间是如何沟通的。优化器的执行计划中得到了若干个扫描区间（本例中只有1个扫描区间<code>[&#39;x荀彧&#39;, +∞)</code>），针对每个扫描区间，都会执行下边的步骤：</p>
 <p><strong>处理扫描区间的第一条记录</strong></p>
 <ul>
@@ -592,9 +590,9 @@
 <p><strong>处理扫描区间的剩余记录</strong></p>
 <p>该扫描区间中的其他记录的处理就和第2条记录的处理过程是一样一样的了，这里就不赘述了。</p>
 <h1 id="详细的更新过程"><a href="#详细的更新过程" class="headerlink" title="详细的更新过程"></a><span style="color:#339AFF;">详细的更新过程</span></h1><p>MySQL使用mysql_update函数处理我们上述的更新语句：</p>
-<img src="/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/2.awebp">
+<img src="/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/2.awebp" class="">
 <p>最主要的处理流程写在了一个循环里：</p>
-<img src="/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/3.awebp">
+<img src="/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/3.awebp" class="">
 <p>上图所示的while循环就是依次处理各条记录的过程。</p>
 <p>其中<code>info.read_record</code>是用于获取扫描区间的一条记录，读取到该记录后随后展开详细的更新操作。处理完了之后再回到这个while循环的起点，通过<code>info.read_record</code>获取下一条记录，然后进行详细的更新操作。</p>
 <p>也就是说，其实处理每一条记录的过程都是类似的，只不过定位扫描区间的第一条记录会有点儿麻烦（需要从B+树根页面一层一层向下找）。</p>
@@ -605,29 +603,29 @@
 <p>小贴士：再一次强调，不论我们想读写任何页面，都需要先将该页面从硬盘加载到buffer pool中。在定位扫描区间的第一条记录时，我们首先要读取B+树根页面中的记录，所以首先需要先把B+树根页面加载到buffer pool中，然后再读取下一层的页面，然后再读取下下层的页面，直到叶子节点。每当要读取的页面不在buffer pool中，都得将其先加载到buffer pool后才能使用。</p>
 </blockquote>
 <p>Innodb使用row_search_mvcc处理读取一条记录的过程（不论是加锁读还是一致性读都调用这个函数），在该函数内btr_pcur_open_with_no_init用于从B+树定位记录：</p>
-<img src="/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/4.awebp">
+<img src="/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/4.awebp" class="">
 <p>在定位记录时就需要将记录所在的页面加载到buffer pool，完成这个过程的函数是：</p>
-<img src="/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/5.awebp">
+<img src="/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/5.awebp" class="">
 <h2 id="检测更新前后记录是否一样"><a href="#检测更新前后记录是否一样" class="headerlink" title="检测更新前后记录是否一样"></a><span style="color:#00ACC1;">检测更新前后记录是否一样</span></h2><p>在mysql_update函数中，当通过<code>info.read_record</code>读取到一条记录之后，就要分析一下这条记录更新前后是否发生变化：</p>
-<img src="/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/6.awebp">
+<img src="/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/6.awebp" class="">
 <p>上图中的compare_records用于比较记录更新前后是否一样。</p>
 <p>如果更新前和更新后的记录是一样的，那就直接跳过该记录，否则继续向下处理。</p>
-<h2 id="调用存储引擎接口进行更新"><a href="#调用存储引擎接口进行更新" class="headerlink" title="调用存储引擎接口进行更新"></a><span style="color:#00ACC1;">调用存储引擎接口进行更新</span></h2><img src="/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/7.awebp">
+<h2 id="调用存储引擎接口进行更新"><a href="#调用存储引擎接口进行更新" class="headerlink" title="调用存储引擎接口进行更新"></a><span style="color:#00ACC1;">调用存储引擎接口进行更新</span></h2><img src="/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/7.awebp" class="">
 <p>上图中的ha_update_row就是要存储引擎去更新记录，其中的<code>table-&gt;record[1]</code>代表旧记录，<code>table-&gt;record[0]</code>代表新记录。</p>
 <h2 id="更新聚簇索引记录"><a href="#更新聚簇索引记录" class="headerlink" title="更新聚簇索引记录"></a><span style="color:#00ACC1;">更新聚簇索引记录</span></h2><p>InnoDB会首先更新聚簇索引记录，然后再更新二级索引记录。</p>
 <p>我们先看更新聚簇索引记录时都发生了什么。更新聚簇索引的函数如下所示：</p>
-<img src="/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/8.awebp">
+<img src="/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/8.awebp" class="">
 <p>下边首先会尝试在同一个页面中更新记录，这被称作乐观更新，调用btr_cur_optimistic_update函数：</p>
-<img src="/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/9.awebp">
+<img src="/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/9.awebp" class="">
 <p>如果不能在本页面中完成更新（比方说更新后的记录非常大啊，本页面容纳不下），就会尝试悲观更新：</p>
-<img src="/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/10.awebp">
+<img src="/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/10.awebp" class="">
 <p>本例中使用乐观更新即可。</p>
 <h2 id="记录undo日志"><a href="#记录undo日志" class="headerlink" title="记录undo日志"></a><span style="color:#00ACC1;">记录undo日志</span></h2><p>更新记录前，首先要记录相应的undo日志，调用trx_undo_report_row_operation来记录undo日志：</p>
-<img src="/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/11.awebp">
+<img src="/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/11.awebp" class="">
 <p>首先我们要知道，MySQL的undo日志是要写到一种专门存储undo日志的页面中的。如果一个事务写入的undo日志非常多，需要占用多个Undo页面，那这些页面会被串联成一个链表，称作Undo页面链表。</p>
-<img src="/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/12.awebp">
+<img src="/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/12.awebp" class="">
 <p>trx_undo_page_report_modify函数用于真正的向Undo页面中写入undo日志。另外，由于我们这里是在修改页面，一个事务执行过程中凡是修改页面的地方，都需要记录相应的redo日志，所以在这个函数的末尾，有一个记录修改这个Undo页面的redo日志的函数trx_undof_page_add_undo_rec_log：</p>
-<img src="/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/13.awebp">
+<img src="/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/13.awebp" class="">
 <p>有同学在这里肯定会疑惑：是先将undo日志写入Undo页面，然后再记录修改该页面对应的redo日志吗？</p>
 <p>先说答案：是的。</p>
 <p>不过这里修改后的页面并没有加入buffer pool的flush链表，记录的redo日志也没有加入到redo log buffer。当这个函数执行完后，才会：</p>
@@ -636,7 +634,7 @@
 <li>再将这个过程修改的页面加入到buffer pool的flush链表中。</li>
 </ul>
 <p>上述过程是在mtr_commit中完成的：</p>
-<img src="/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/14.awebp">
+<img src="/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/14.awebp" class="">
 <blockquote>
 <p>小贴士：设计MySQL的大叔把对底层页面的一次原子修改称作一个Mini Trasaction，即MTR。一个MTR中包含若干条redo日志，在崩溃恢复时，要么全部恢复该MTR对应的redo日志，要么全部不恢复。</p>
 </blockquote>
@@ -647,23 +645,23 @@
 </blockquote>
 <h2 id="修改页面内容"><a href="#修改页面内容" class="headerlink" title="修改页面内容"></a><span style="color:#00ACC1;">修改页面内容</span></h2><p>上一步骤是先把undo日志写到Undo页面中以及记录相应的redo日志，接下来该真正修改聚簇索引记录了。</p>
 <p>首先更新系统字段trx_id以及roll_pointer：</p>
-<img src="/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/15.awebp">
+<img src="/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/15.awebp" class="">
 <p>然后真正的修改记录内容：</p>
-<img src="/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/16.awebp">
+<img src="/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/16.awebp" class="">
 <blockquote>
 <p>小贴士：由于本例中的更新语句更新前后的各个字段占用的存储空间大小是不变的，所以可以直接就地（in place）更新。</p>
 </blockquote>
 <p>然后记录更新的redo日志：</p>
-<img src="/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/17.awebp">
+<img src="/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/17.awebp" class="">
 <p>像向Undo页面写入undo日志一样，InnoDB规定更新一个页面中的一条记录也属于一个MTR。在该MTR提交时，也是先将MTR中的redo日志复制到redo log buffer，然后再将修改的页面加入到flush链表。</p>
 <p>所以我们也可以认为在这个过程中，先记录修改页面的redo日志，然后再真正的修改页面。</p>
 <p>至此，一条聚簇索引记录就更新完毕了。</p>
 <h2 id="更新二级索引记录"><a href="#更新二级索引记录" class="headerlink" title="更新二级索引记录"></a><span style="color:#00ACC1;">更新二级索引记录</span></h2><p>更新二级索引记录的函数如下所示：</p>
-<img src="/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/18.awebp">
+<img src="/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/18.awebp" class="">
 <p>更新二级索引记录时不会再记录undo日志，但由于是在修改页面内容，会先记录相应的redo日志。</p>
 <p>由于本例子中并不会更新二级索引记录，所以就跳过本步骤了。</p>
 <h2 id="记录binlog"><a href="#记录binlog" class="headerlink" title="记录binlog"></a><span style="color:#00ACC1;">记录binlog</span></h2><p>在一条更新语句执行完成后（也就是将所有待更新记录都更新完了），就需要该语句对应的binlog日志了（下图中的<code>thd-&gt;binlog_query</code>函数）：</p>
-<img src="/2022/09/06/redo、undo、buffer-pool、binlog，谁先谁后，有点儿乱/19.awebp">
+<img src="/2022/09/06/redo%E3%80%81undo%E3%80%81buffer-pool%E3%80%81binlog%EF%BC%8C%E8%B0%81%E5%85%88%E8%B0%81%E5%90%8E%EF%BC%8C%E6%9C%89%E7%82%B9%E5%84%BF%E4%B9%B1/19.awebp" class="">
 <p>不过值得注意的是，此时记录的binlog日志并不会被写到binlog日志文件中，而是被暂时保存到内存的某个地方，等之后事务提交的时候才会真正将该事物执行过程中产生的所有binlog统一写入binlog日志文件。</p>
 <h2 id="提交事务的时候"><a href="#提交事务的时候" class="headerlink" title="提交事务的时候"></a><span style="color:#00ACC1;">提交事务的时候</span></h2><p>终于要唠叨到所谓的两阶段提交（two phase commit）啦～</p>
 <p>在事务提交时，binlog才会被真正刷新到binlog日志文件中，redo日志也会被刷新到redo日志文件中。不过由于这个部分涉及较多的知识点，所以我们本篇先不唠叨了，留在下一篇里吧。</p>
@@ -698,7 +696,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/MySQL是怎样运行的：从根儿上理解MySQL/" rel="tag"># MySQL是怎样运行的：从根儿上理解MySQL</a>
+            <a href="/tags/MySQL%E6%98%AF%E6%80%8E%E6%A0%B7%E8%BF%90%E8%A1%8C%E7%9A%84%EF%BC%9A%E4%BB%8E%E6%A0%B9%E5%84%BF%E4%B8%8A%E7%90%86%E8%A7%A3MySQL/" rel="tag"># MySQL是怎样运行的：从根儿上理解MySQL</a>
           
         </div>
       
@@ -711,7 +709,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/09/06/binlog那些事儿（二）/" rel="next" title="binlog那些事儿（二）">
+              <a href="/2022/09/06/binlog%E9%82%A3%E4%BA%9B%E4%BA%8B%E5%84%BF%EF%BC%88%E4%BA%8C%EF%BC%89/" rel="next" title="binlog那些事儿（二）">
                 <i class="fa fa-chevron-left"></i> binlog那些事儿（二）
               </a>
             
@@ -721,7 +719,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/09/06/XA事务与两阶段提交/" rel="prev" title="XA事务与两阶段提交">
+              <a href="/2022/09/06/XA%E4%BA%8B%E5%8A%A1%E4%B8%8E%E4%B8%A4%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4/" rel="prev" title="XA事务与两阶段提交">
                 XA事务与两阶段提交 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -781,7 +779,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -792,9 +792,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -806,26 +806,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -897,7 +881,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1072,115 +1056,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1211,23 +1087,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1253,7 +1129,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#预备知识"><span class="nav-number">1.</span> <span class="nav-text">预备知识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#准备工作"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#执行计划的生成"><span class="nav-number">3.</span> <span class="nav-text">执行计划的生成</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#真正开始执行"><span class="nav-number">4.</span> <span class="nav-text">真正开始执行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#详细的更新过程"><span class="nav-number">5.</span> <span class="nav-text">详细的更新过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#将记录所在的页面加载到buffer-pool"><span class="nav-number">5.1.</span> <span class="nav-text">将记录所在的页面加载到buffer pool</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#检测更新前后记录是否一样"><span class="nav-number">5.2.</span> <span class="nav-text">检测更新前后记录是否一样</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调用存储引擎接口进行更新"><span class="nav-number">5.3.</span> <span class="nav-text">调用存储引擎接口进行更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新聚簇索引记录"><span class="nav-number">5.4.</span> <span class="nav-text">更新聚簇索引记录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#记录undo日志"><span class="nav-number">5.5.</span> <span class="nav-text">记录undo日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改页面内容"><span class="nav-number">5.6.</span> <span class="nav-text">修改页面内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新二级索引记录"><span class="nav-number">5.7.</span> <span class="nav-text">更新二级索引记录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#记录binlog"><span class="nav-number">5.8.</span> <span class="nav-text">记录binlog</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交事务的时候"><span class="nav-number">5.9.</span> <span class="nav-text">提交事务的时候</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">预备知识</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%A7%E8%A1%8C%E8%AE%A1%E5%88%92%E7%9A%84%E7%94%9F%E6%88%90"><span class="nav-number">3.</span> <span class="nav-text">执行计划的生成</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9C%9F%E6%AD%A3%E5%BC%80%E5%A7%8B%E6%89%A7%E8%A1%8C"><span class="nav-number">4.</span> <span class="nav-text">真正开始执行</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%A6%E7%BB%86%E7%9A%84%E6%9B%B4%E6%96%B0%E8%BF%87%E7%A8%8B"><span class="nav-number">5.</span> <span class="nav-text">详细的更新过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E8%AE%B0%E5%BD%95%E6%89%80%E5%9C%A8%E7%9A%84%E9%A1%B5%E9%9D%A2%E5%8A%A0%E8%BD%BD%E5%88%B0buffer-pool"><span class="nav-number">5.1.</span> <span class="nav-text">将记录所在的页面加载到buffer pool</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A3%80%E6%B5%8B%E6%9B%B4%E6%96%B0%E5%89%8D%E5%90%8E%E8%AE%B0%E5%BD%95%E6%98%AF%E5%90%A6%E4%B8%80%E6%A0%B7"><span class="nav-number">5.2.</span> <span class="nav-text">检测更新前后记录是否一样</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B0%83%E7%94%A8%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E6%8E%A5%E5%8F%A3%E8%BF%9B%E8%A1%8C%E6%9B%B4%E6%96%B0"><span class="nav-number">5.3.</span> <span class="nav-text">调用存储引擎接口进行更新</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E8%81%9A%E7%B0%87%E7%B4%A2%E5%BC%95%E8%AE%B0%E5%BD%95"><span class="nav-number">5.4.</span> <span class="nav-text">更新聚簇索引记录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%B0%E5%BD%95undo%E6%97%A5%E5%BF%97"><span class="nav-number">5.5.</span> <span class="nav-text">记录undo日志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E9%A1%B5%E9%9D%A2%E5%86%85%E5%AE%B9"><span class="nav-number">5.6.</span> <span class="nav-text">修改页面内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E4%BA%8C%E7%BA%A7%E7%B4%A2%E5%BC%95%E8%AE%B0%E5%BD%95"><span class="nav-number">5.7.</span> <span class="nav-text">更新二级索引记录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%B0%E5%BD%95binlog"><span class="nav-number">5.8.</span> <span class="nav-text">记录binlog</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E4%BA%A4%E4%BA%8B%E5%8A%A1%E7%9A%84%E6%97%B6%E5%80%99"><span class="nav-number">5.9.</span> <span class="nav-text">提交事务的时候</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -1288,7 +1164,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1299,12 +1175,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1312,7 +1188,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

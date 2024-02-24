@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,37 +104,37 @@
 
 
   <meta name="description" content="思考并回答以下问题：  我们每多建立一个索引，就相当于多建立一棵B+树。怎么理解？">
-<meta name="keywords" content="MySQL是怎样运行的：从根儿上理解MySQL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MySQL查询成本和扫描区间(MySQL中IS NULL、IS NOT NULL、!=不能用索引？胡扯！)">
-<meta property="og:url" content="http://yoursite.com/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/index.html">
+<meta property="og:title" content="MySQL查询成本和扫描区间(MySQL中IS NULL、IS NOT NULL、!&#x3D;不能用索引？胡扯！)">
+<meta property="og:url" content="http://yoursite.com/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：  我们每多建立一个索引，就相当于多建立一棵B+树。怎么理解？">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/1.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/2.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/3.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/4.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/5.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/6.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/7.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/8.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/9.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/10.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/11.awebp">
-<meta property="og:image" content="http://yoursite.com/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/12.awebp">
-<meta property="og:updated_time" content="2022-08-26T08:41:00.099Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/1.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/2.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/3.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/4.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/5.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/6.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/7.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/8.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/9.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/10.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/11.awebp">
+<meta property="og:image" content="http://yoursite.com/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/12.awebp">
+<meta property="article:published_time" content="2022-06-10T03:20:37.000Z">
+<meta property="article:modified_time" content="2022-08-26T08:41:00.099Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="MySQL是怎样运行的：从根儿上理解MySQL">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MySQL查询成本和扫描区间(MySQL中IS NULL、IS NOT NULL、!=不能用索引？胡扯！)">
-<meta name="twitter:description" content="思考并回答以下问题：  我们每多建立一个索引，就相当于多建立一棵B+树。怎么理解？">
-<meta name="twitter:image" content="http://yoursite.com/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/1.awebp">
+<meta name="twitter:image" content="http://yoursite.com/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/1.awebp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/">
+  <link rel="canonical" href="http://yoursite.com/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/"/>
 
 
 
@@ -183,7 +183,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -244,7 +244,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -261,7 +261,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -278,7 +278,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -295,7 +295,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -312,7 +312,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -323,7 +323,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -343,7 +343,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -393,16 +395,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -502,7 +504,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">5.9k</span>
+                <span title="本文字数">20k</span>
               
 
               
@@ -516,7 +518,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">5 分钟</span>
+                <span title="阅读时长">18 分钟</span>
               
             </div>
           
@@ -540,32 +542,28 @@
 <ul>
 <li>我们每多建立一个索引，就相当于多建立一棵B+树。怎么理解？</li>
 </ul>
-<a id="more"></a>
+<span id="more"></span>
 <h1 id="前情回顾"><a href="#前情回顾" class="headerlink" title="前情回顾"></a><span style="color:#339AFF;">前情回顾</span></h1><p>经过前面的学习我们知道了对于InnoDB存储引擎来说，表中的数据都存储在所谓的B+树中，我们每多建立一个索引，就相当于多建立一棵B+树。</p>
 <ul>
 <li>对于聚簇索引对应的B+树来说，叶子节点处存储了完整的用户记录（所谓完整用户记录，就是指一条聚簇索引记录中包含所有用户定义的列以及一些内建的列），并且这些聚簇索引记录按照主键值从小到大排序。</li>
 <li>对于二级索引对应的B+树来说，叶子节点处存储了不完整的用户记录（所谓不完整用户记录，就是指一条二级索引记录只包含索引列和主键），并且这些二级索引记录按照索引列的值从小到大排序。</li>
 </ul>
 <p>我们向表中存储了多少条记录，每一棵B+树的叶子节点中就包含多少条记录（注意是“每一棵”，包括聚簇索引对应的B+树以及二级索引对应的B+树）。</p>
-<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a><span style="color:#339AFF;">示例</span></h1><p>我们举个例子：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> t (</span><br><span class="line">    <span class="keyword">id</span> <span class="built_in">INT</span> <span class="keyword">UNSIGNED</span> <span class="keyword">NOT</span> <span class="literal">NULL</span> AUTO_INCREMENT,</span><br><span class="line">    key1 <span class="built_in">INT</span>,</span><br><span class="line">    common_field <span class="built_in">VARCHAR</span>(<span class="number">100</span>),</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="keyword">id</span>),</span><br><span class="line">    <span class="keyword">KEY</span> idx_key1 (key1)</span><br><span class="line">) <span class="keyword">Engine</span>=<span class="keyword">InnoDB</span> <span class="keyword">CHARSET</span>=utf8;</span><br></pre></td></tr></table></figure></p>
-<p>这个表就包含2个索引（也就是2棵B+树）：</p>
+<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a><span style="color:#339AFF;">示例</span></h1><p>我们举个例子：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> t (</span><br><span class="line">    id <span class="type">INT</span> UNSIGNED <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT,</span><br><span class="line">    key1 <span class="type">INT</span>,</span><br><span class="line">    common_field <span class="type">VARCHAR</span>(<span class="number">100</span>),</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (id),</span><br><span class="line">    KEY idx_key1 (key1)</span><br><span class="line">) Engine<span class="operator">=</span>InnoDB CHARSET<span class="operator">=</span>utf8;</span><br></pre></td></tr></table></figure><br>这个表就包含2个索引（也就是2棵B+树）：</p>
 <ul>
 <li>以id列为主键对应的聚簇索引。</li>
 <li>为key1列建立的二级索引idx_key1。</li>
 </ul>
-<p>我们向表中插入一些记录：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t <span class="keyword">VALUES</span></span><br><span class="line">    (<span class="number">1</span>, <span class="number">30</span>, <span class="string">'b'</span>),</span><br><span class="line">    (<span class="number">2</span>, <span class="number">80</span>, <span class="string">'b'</span>),</span><br><span class="line">    (<span class="number">3</span>, <span class="number">23</span>, <span class="string">'b'</span>),</span><br><span class="line">    (<span class="number">4</span>, <span class="literal">NULL</span>, <span class="string">'b'</span>),</span><br><span class="line">    (<span class="number">5</span>, <span class="number">11</span>, <span class="string">'b'</span>),</span><br><span class="line">    (<span class="number">6</span>, <span class="number">53</span>, <span class="string">'b'</span>),</span><br><span class="line">    (<span class="number">7</span>, <span class="number">63</span>, <span class="string">'b'</span>),</span><br><span class="line">    (<span class="number">8</span>, <span class="literal">NULL</span>, <span class="string">'b'</span>),</span><br><span class="line">    (<span class="number">9</span>, <span class="number">99</span>, <span class="string">'b'</span>),</span><br><span class="line">    (<span class="number">10</span>, <span class="number">12</span>, <span class="string">'b'</span>),</span><br><span class="line">    (<span class="number">11</span>, <span class="number">66</span>, <span class="string">'b'</span>),</span><br><span class="line">    (<span class="number">12</span>, <span class="literal">NULL</span>, <span class="string">'b'</span>),</span><br><span class="line">    (<span class="number">13</span>, <span class="number">66</span>, <span class="string">'b'</span>),</span><br><span class="line">    (<span class="number">14</span>, <span class="number">30</span>, <span class="string">'b'</span>),</span><br><span class="line">    (<span class="number">15</span>, <span class="number">11</span>, <span class="string">'b'</span>),</span><br><span class="line">    (<span class="number">16</span>, <span class="number">90</span>, <span class="string">'b'</span>);</span><br></pre></td></tr></table></figure></p>
-<p>所以现在s1表的聚簇索引示意图就是这样：</p>
-<img src="/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/1.awebp">
+<p>我们向表中插入一些记录：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> t <span class="keyword">VALUES</span></span><br><span class="line">    (<span class="number">1</span>, <span class="number">30</span>, <span class="string">&#x27;b&#x27;</span>),</span><br><span class="line">    (<span class="number">2</span>, <span class="number">80</span>, <span class="string">&#x27;b&#x27;</span>),</span><br><span class="line">    (<span class="number">3</span>, <span class="number">23</span>, <span class="string">&#x27;b&#x27;</span>),</span><br><span class="line">    (<span class="number">4</span>, <span class="keyword">NULL</span>, <span class="string">&#x27;b&#x27;</span>),</span><br><span class="line">    (<span class="number">5</span>, <span class="number">11</span>, <span class="string">&#x27;b&#x27;</span>),</span><br><span class="line">    (<span class="number">6</span>, <span class="number">53</span>, <span class="string">&#x27;b&#x27;</span>),</span><br><span class="line">    (<span class="number">7</span>, <span class="number">63</span>, <span class="string">&#x27;b&#x27;</span>),</span><br><span class="line">    (<span class="number">8</span>, <span class="keyword">NULL</span>, <span class="string">&#x27;b&#x27;</span>),</span><br><span class="line">    (<span class="number">9</span>, <span class="number">99</span>, <span class="string">&#x27;b&#x27;</span>),</span><br><span class="line">    (<span class="number">10</span>, <span class="number">12</span>, <span class="string">&#x27;b&#x27;</span>),</span><br><span class="line">    (<span class="number">11</span>, <span class="number">66</span>, <span class="string">&#x27;b&#x27;</span>),</span><br><span class="line">    (<span class="number">12</span>, <span class="keyword">NULL</span>, <span class="string">&#x27;b&#x27;</span>),</span><br><span class="line">    (<span class="number">13</span>, <span class="number">66</span>, <span class="string">&#x27;b&#x27;</span>),</span><br><span class="line">    (<span class="number">14</span>, <span class="number">30</span>, <span class="string">&#x27;b&#x27;</span>),</span><br><span class="line">    (<span class="number">15</span>, <span class="number">11</span>, <span class="string">&#x27;b&#x27;</span>),</span><br><span class="line">    (<span class="number">16</span>, <span class="number">90</span>, <span class="string">&#x27;b&#x27;</span>);</span><br></pre></td></tr></table></figure><br>所以现在s1表的聚簇索引示意图就是这样：</p>
+<img src="/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/1.awebp" class="">
 <p>s1表的二级索引示意图就是这样：</p>
-<img src="/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/2.awebp">
-<p>从图中可以看出，值为NULL的二级索引记录都被放到了B+树的最左边，这是因为设计InnoDB的大叔们有规定：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">We define the SQL null to be the smallest possible value of a field.</span><br></pre></td></tr></table></figure></p>
-<p>也就是认为NULL值是最小的。</p>
+<img src="/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/2.awebp" class="">
+<p>从图中可以看出，值为NULL的二级索引记录都被放到了B+树的最左边，这是因为设计InnoDB的大叔们有规定：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">We define the SQL null to be the smallest possible value of a field.</span><br></pre></td></tr></table></figure><br>也就是认为NULL值是最小的。</p>
 <blockquote>
 <p>小贴士：原谅我们把B+树的结构做了一个如此这般的简化，我们省略了页面的结构，省略了所有的内节点（只画了三角形替代），省略了记录之间的链表，因为这些不是本文的重点，画成如图所示的样子只是为了突出叶子节点处的记录是按照给定索引的键值进行排序的。</p>
 </blockquote>
-<h1 id="查询是怎么执行的"><a href="#查询是怎么执行的" class="headerlink" title="查询是怎么执行的"></a><span style="color:#339AFF;">查询是怎么执行的</span></h1><p>比方说我们现在执行下边这个查询语句：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> t <span class="keyword">WHERE</span> key1 = <span class="number">53</span>;</span><br></pre></td></tr></table></figure></p>
-<p>那么语句的执行过程就如下图所示：</p>
-<img src="/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/3.awebp">
+<h1 id="查询是怎么执行的"><a href="#查询是怎么执行的" class="headerlink" title="查询是怎么执行的"></a><span style="color:#339AFF;">查询是怎么执行的</span></h1><p>比方说我们现在执行下边这个查询语句：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t <span class="keyword">WHERE</span> key1 <span class="operator">=</span> <span class="number">53</span>;</span><br></pre></td></tr></table></figure><br>那么语句的执行过程就如下图所示：</p>
+<img src="/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/3.awebp" class="">
 <p>用文字描述一下这个过程也就是：</p>
 <ul>
 <li>先通过二级索引idx_key1对应的B+树快速定位到key1列值为53的那条二级索引记录。</li>
@@ -574,9 +572,8 @@
 <blockquote>
 <p>小贴士：B+树叶子节点中的记录都是按照键值按照从小到大的顺序排好序的，通过B+树索引定位到叶子节点中的一条记录是非常快速的。</p>
 </blockquote>
-<p>像下边这个查询：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> t <span class="keyword">WHERE</span> key1 &gt; <span class="number">20</span> <span class="keyword">AND</span> key1 &lt; <span class="number">50</span>;</span><br></pre></td></tr></table></figure></p>
-<p>它的执行示意图就是这样：</p>
-<img src="/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/4.awebp">
+<p>像下边这个查询：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t <span class="keyword">WHERE</span> key1 <span class="operator">&gt;</span> <span class="number">20</span> <span class="keyword">AND</span> key1 <span class="operator">&lt;</span> <span class="number">50</span>;</span><br></pre></td></tr></table></figure><br>它的执行示意图就是这样：</p>
+<img src="/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/4.awebp" class="">
 <p>用文字表述就是这样：</p>
 <ul>
 <li>先通过二级索引idx_key1对应的B+树快速定位到满足<code>key1 &gt; 20</code>的第一条记录，也就是我们图中所示的key1值为23的那条记录，然后根据该二级索引中的主键值3执行回表操作，得到完整的用户记录后发送到客户端。</li>
@@ -586,20 +583,19 @@
 </ul>
 <p>从上边的步骤中也可以看出来：需要扫描的二级索引记录越多，需要执行的回表操作也就越多。如果需要扫描的二级索引记录占全部记录的比例达到某个范围，那优化器就可能选择使用全表扫描的方式执行查询（一个极端的例子就是扫描全部的二级索引记录，那么将对所有的二级索引记录执行回表操作，显然还不如直接全表扫描）。</p>
 <p>所以现在的结论就是：判定某个查询是否可以使用索引的条件就是需要扫描的二级索引记录占全部记录的比例是否比较低，较低的话说明成本较低，那就可以使用二级索引来执行查询，否则要采用全表扫描。</p>
-<h1 id="扫描区间和边界条件"><a href="#扫描区间和边界条件" class="headerlink" title="扫描区间和边界条件"></a><span style="color:#339AFF;">扫描区间和边界条件</span></h1><p>对于下边这个查询来说：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> t <span class="keyword">WHERE</span> key1 &gt; <span class="number">20</span> <span class="keyword">AND</span> key1 &lt; <span class="number">50</span>;</span><br></pre></td></tr></table></figure></p>
-<p>如果我们使用idx_key1执行该查询的话，那么就需要扫描key1值在<code>(20, 50)</code>这个区间中的所有二级索引记录，我们就把<code>(20, 50)</code>称作使用idx_key1执行上述查询时的扫描区间，把<code>key1 &gt; 20 AND key1 &lt; 50</code>称作形成该扫描区间的边界条件。</p>
+<h1 id="扫描区间和边界条件"><a href="#扫描区间和边界条件" class="headerlink" title="扫描区间和边界条件"></a><span style="color:#339AFF;">扫描区间和边界条件</span></h1><p>对于下边这个查询来说：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t <span class="keyword">WHERE</span> key1 <span class="operator">&gt;</span> <span class="number">20</span> <span class="keyword">AND</span> key1 <span class="operator">&lt;</span> <span class="number">50</span>;</span><br></pre></td></tr></table></figure><br>如果我们使用idx_key1执行该查询的话，那么就需要扫描key1值在<code>(20, 50)</code>这个区间中的所有二级索引记录，我们就把<code>(20, 50)</code>称作使用idx_key1执行上述查询时的扫描区间，把<code>key1 &gt; 20 AND key1 &lt; 50</code>称作形成该扫描区间的边界条件。</p>
 <p>只要索引列和常数使用<code>=、&lt;=&gt;、IN、NOT IN、IS NULL、IS NOT NULL、&gt;、&lt;、&gt;=、&lt;=、BETWEEN、!=</code>或者<code>LIKE</code>操作符连接起来，就可以产生所谓的扫描区间。这里头有一些比较容易让人忽略的扫描区间：</p>
 <ul>
-<li><code>IN</code>操作符的语义和若干个等值匹配操作符<code>=</code>之间用<code>OR</code>连接起来的语义是一样的，它们都会产生多个单点扫描区间，比如下边这两个语句的语义上的效果是一样的：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> single_table <span class="keyword">WHERE</span> key1 <span class="keyword">IN</span> (<span class="string">'a'</span>, <span class="string">'b'</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> single_table <span class="keyword">WHERE</span> key1 = <span class="string">'a'</span> <span class="keyword">OR</span> key1 = <span class="string">'b'</span>;</span><br></pre></td></tr></table></figure>
+<li><code>IN</code>操作符的语义和若干个等值匹配操作符<code>=</code>之间用<code>OR</code>连接起来的语义是一样的，它们都会产生多个单点扫描区间，比如下边这两个语句的语义上的效果是一样的：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> single_table <span class="keyword">WHERE</span> key1 <span class="keyword">IN</span> (<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;b&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> single_table <span class="keyword">WHERE</span> key1 <span class="operator">=</span> <span class="string">&#x27;a&#x27;</span> <span class="keyword">OR</span> key1 <span class="operator">=</span> <span class="string">&#x27;b&#x27;</span>;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 <ul>
-<li><code>!=</code>产生的扫描区间比较有趣，也容易被大家忽略，比如：<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> single_table <span class="keyword">WHERE</span> key1 != <span class="string">'a'</span>;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
+<li><p><code>!=</code>产生的扫描区间比较有趣，也容易被大家忽略，比如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> single_table <span class="keyword">WHERE</span> key1 <span class="operator">!=</span> <span class="string">&#x27;a&#x27;</span>;</span><br></pre></td></tr></table></figure>
 <p>此时使用idx_key1执行查询时对应的扫描区间就是：<code>(-∞, &#39;a&#39;)</code>和<code>(&#39;a&#39;, +∞)</code>。</p>
-<ul>
-<li>LIKE操作符比较特殊，只有在匹配完整字符串或者匹配字符串前缀时才可以产生合适的扫描区间。</li>
+</li>
+<li><p>LIKE操作符比较特殊，只有在匹配完整字符串或者匹配字符串前缀时才可以产生合适的扫描区间。</p>
+</li>
 </ul>
 <p>比较字符串的大小其实就相当于依次比较每个字符的大小，那么：</p>
 <ul>
@@ -617,33 +613,28 @@
 </blockquote>
 <p>3，比较使用不同索引执行查询的成本以及全表扫描的成本哪个更低，选择成本最低的那个方案去执行查询，这个方案就是所谓的执行计划。</p>
 <h1 id="具体的查询条件分析"><a href="#具体的查询条件分析" class="headerlink" title="具体的查询条件分析"></a><span style="color:#339AFF;">具体的查询条件分析</span></h1><p>我们分别看一下WHERE子句中出现<code>IS NULL、IS NOT NULL、!=</code>这些条件时优化器是怎么做决策的。</p>
-<h2 id="IS-NULL的情况"><a href="#IS-NULL的情况" class="headerlink" title="IS NULL的情况"></a><code>IS NULL</code>的情况</h2><p>比方说这个查询：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> t <span class="keyword">WHERE</span> key1 <span class="keyword">IS</span> <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure></p>
-<p>优化器在真正执行查询前，会首先少量的访问一下索引，调查一下key1在<code>[NULL, NULL]</code>这个区间的记录有多少条：</p>
-<img src="/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/5.awebp">
+<h2 id="IS-NULL的情况"><a href="#IS-NULL的情况" class="headerlink" title="IS NULL的情况"></a><code>IS NULL</code>的情况</h2><p>比方说这个查询：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t <span class="keyword">WHERE</span> key1 <span class="keyword">IS</span> <span class="keyword">NULL</span>;</span><br></pre></td></tr></table></figure><br>优化器在真正执行查询前，会首先少量的访问一下索引，调查一下key1在<code>[NULL, NULL]</code>这个区间的记录有多少条：</p>
+<img src="/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/5.awebp" class="">
 <blockquote>
 <p>小贴士：<code>[NULL, NULL]</code>这个区间代表区间里只有一个NULL值。</p>
 </blockquote>
 <p>优化器经过调查得知，需要扫描的二级索引记录占总记录条数的比例是3/16，它觉得这个查询使用二级索引来执行比较靠谱，所以在执行计划中就显示使用这个idx_key1来执行查询：</p>
-<img src="/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/6.awebp">
-<h2 id="IS-NOT-NULL的情况"><a href="#IS-NOT-NULL的情况" class="headerlink" title="IS NOT NULL的情况"></a><code>IS NOT NULL</code>的情况</h2><p>比方说这个查询：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> t <span class="keyword">WHERE</span> key1 <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure></p>
-<p>优化器在真正执行查询前，会首先少量的访问一下索引，调查一下key1在<code>(NULL, +∞)</code>这个区间内记录有多少条：</p>
-<img src="/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/7.awebp">
+<img src="/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/6.awebp" class="">
+<h2 id="IS-NOT-NULL的情况"><a href="#IS-NOT-NULL的情况" class="headerlink" title="IS NOT NULL的情况"></a><code>IS NOT NULL</code>的情况</h2><p>比方说这个查询：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t <span class="keyword">WHERE</span> key1 <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span>;</span><br></pre></td></tr></table></figure><br>优化器在真正执行查询前，会首先少量的访问一下索引，调查一下key1在<code>(NULL, +∞)</code>这个区间内记录有多少条：</p>
+<img src="/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/7.awebp" class="">
 <blockquote>
 <p>小贴士：我们这里把NULL当作是最小值对待，你可以认为它比<code>-∞</code>都小。另外注意区间<code>(NULL, +∞)</code>是开区间，也就意味这不包括NULL值。</p>
 </blockquote>
 <p>优化器经过调查得知，需要扫描的二级索引记录占总记录条数的比例是13/16，跟显然这个比例已经非常大了，所以优化器决定使用全表扫描的方式来执行查询：</p>
-<img src="/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/8.awebp">
-<p>那怎么才能让使用<code>IS NOT NULL</code>条件的查询使用到二级索引呢？这还不简单，让表中符合<code>IS NOT NULL</code>条件的记录少不就行了，我们可以执行一下：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> t <span class="keyword">SET</span> key1 = <span class="literal">NULL</span> <span class="keyword">WHERE</span> key1 &lt; <span class="number">80</span>;</span><br></pre></td></tr></table></figure></p>
-<p>这样再去执行这个查询：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> t <span class="keyword">WHERE</span> key1 <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure></p>
-<p>优化器在真正执行查询前，会首先少量的访问一下索引，调查一下key1在<code>(NULL, +∞)</code>这个区间内记录有多少条：：</p>
-<img src="/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/9.awebp">
+<img src="/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/8.awebp" class="">
+<p>那怎么才能让使用<code>IS NOT NULL</code>条件的查询使用到二级索引呢？这还不简单，让表中符合<code>IS NOT NULL</code>条件的记录少不就行了，我们可以执行一下：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">UPDATE</span> t <span class="keyword">SET</span> key1 <span class="operator">=</span> <span class="keyword">NULL</span> <span class="keyword">WHERE</span> key1 <span class="operator">&lt;</span> <span class="number">80</span>;</span><br></pre></td></tr></table></figure><br>这样再去执行这个查询：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t <span class="keyword">WHERE</span> key1 <span class="keyword">IS</span> <span class="keyword">NOT</span> <span class="keyword">NULL</span>;</span><br></pre></td></tr></table></figure><br>优化器在真正执行查询前，会首先少量的访问一下索引，调查一下key1在<code>(NULL, +∞)</code>这个区间内记录有多少条：：</p>
+<img src="/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/9.awebp" class="">
 <p>优化器经过调查得知，需要扫描的二级索引记录占总记录条数的比例是3/16，它觉得这个查询使用二级索引来执行比较靠谱，所以在执行计划中就显示使用这个idx_key1来执行查询：</p>
-<img src="/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/10.awebp">
-<h2 id="的情况"><a href="#的情况" class="headerlink" title="!=的情况"></a><code>!=</code>的情况</h2><p>比方说这个查询：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> * <span class="keyword">FROM</span> t <span class="keyword">WHERE</span> key1 != <span class="number">80</span>;</span><br></pre></td></tr></table></figure></p>
-<p>优化器在真正执行查询前，会首先少量的访问一下索引，调查一下key1在<code>(NULL, 80)</code>和<code>(80, +∞)</code>这两个区间内记录有多少条：</p>
-<img src="/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/11.awebp">
+<img src="/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/10.awebp" class="">
+<h2 id="的情况"><a href="#的情况" class="headerlink" title="!=的情况"></a><code>!=</code>的情况</h2><p>比方说这个查询：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> t <span class="keyword">WHERE</span> key1 <span class="operator">!=</span> <span class="number">80</span>;</span><br></pre></td></tr></table></figure><br>优化器在真正执行查询前，会首先少量的访问一下索引，调查一下key1在<code>(NULL, 80)</code>和<code>(80, +∞)</code>这两个区间内记录有多少条：</p>
+<img src="/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/11.awebp" class="">
 <p>优化器经过调查得知，需要扫描的二级索引记录占总记录条数的比例是2/16，它觉得这个查询使用二级索引来执行比较靠谱，所以在执行计划中就显示使用这个idx_key1来执行查询：</p>
-<img src="/2022/06/10/MySQL查询成本和扫描区间-MySQL中IS-NULL、IS-NOT-NULL、-不能用索引？胡扯！/12.awebp">
+<img src="/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/12.awebp" class="">
 <p>且慢！为啥执行计划的rows列的值为3呢？？？这是个什么鬼，明明只有2条记录符合条件嘛。哈哈，我们罗列一下每个区间找到的符合条件的记录数量：</p>
 <ul>
 <li><code>(NULL, 80)</code>区间中有0条记录满足条件<code>key1 != 80</code>。</li>
@@ -655,7 +646,7 @@
 </blockquote>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><span style="color:#339AFF;">总结</span></h1><p>至此，我们分别分析了拥有<code>IS NULL、IS NOT NULL、!=</code>这三个条件的查询是在什么情况下使用二级索引来执行的，核心结论就是：成本决定执行计划，跟使用什么查询条件并没有什么关系。优化器会首先针对可能使用到的二级索引划分几个扫描区间，然后分别调查这些区间内有多少条记录，在这些扫描区间内的二级索引记录的总和占总共的记录数量的比例达到某个值时，优化器将放弃使用二级索引执行查询，转而采用全表扫描。</p>
 <blockquote>
-<p>小贴士：其实扫描区间划分的太多也会影响优化器的决策，比方说IN条件中有太多个参数，将会降低优化器决定使用二级索引执行查询的几率。<br><br>另外，优化器调查在某个扫描区间内的索引记录的条数的方式有两种，一种是所谓的index dive（这种方式在数据少的时候是精确的，在数据多时会有些偏差），一种是依赖index statistics，也就是统计数据来做调查（这种方式的统计是很不精确的，有时候偏差是超级巨大的），反正不论采用哪种方式，优化器都会将各个扫描区间中的索引记录数量给计算出来。关于这两种调查方式在《MySQL是怎样运行：从根儿上理解MySQL》中都给出了详细的算法，当然都占用了相当大的篇幅，写在MySQL是怎样运行的里就有点杀鸡用牛刀了。</p>
+<p>小贴士：其实扫描区间划分的太多也会影响优化器的决策，比方说IN条件中有太多个参数，将会降低优化器决定使用二级索引执行查询的几率。<br><br/>另外，优化器调查在某个扫描区间内的索引记录的条数的方式有两种，一种是所谓的index dive（这种方式在数据少的时候是精确的，在数据多时会有些偏差），一种是依赖index statistics，也就是统计数据来做调查（这种方式的统计是很不精确的，有时候偏差是超级巨大的），反正不论采用哪种方式，优化器都会将各个扫描区间中的索引记录数量给计算出来。关于这两种调查方式在《MySQL是怎样运行：从根儿上理解MySQL》中都给出了详细的算法，当然都占用了相当大的篇幅，写在MySQL是怎样运行的里就有点杀鸡用牛刀了。</p>
 </blockquote>
 
       
@@ -680,7 +671,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/MySQL是怎样运行的：从根儿上理解MySQL/" rel="tag"># MySQL是怎样运行的：从根儿上理解MySQL</a>
+            <a href="/tags/MySQL%E6%98%AF%E6%80%8E%E6%A0%B7%E8%BF%90%E8%A1%8C%E7%9A%84%EF%BC%9A%E4%BB%8E%E6%A0%B9%E5%84%BF%E4%B8%8A%E7%90%86%E8%A7%A3MySQL/" rel="tag"># MySQL是怎样运行的：从根儿上理解MySQL</a>
           
         </div>
       
@@ -693,7 +684,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/06/09/MySQL的server层和存储引擎层是如何交互的/" rel="next" title="MySQL的server层和存储引擎层是如何交互的">
+              <a href="/2022/06/09/MySQL%E7%9A%84server%E5%B1%82%E5%92%8C%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E5%B1%82%E6%98%AF%E5%A6%82%E4%BD%95%E4%BA%A4%E4%BA%92%E7%9A%84/" rel="next" title="MySQL的server层和存储引擎层是如何交互的">
                 <i class="fa fa-chevron-left"></i> MySQL的server层和存储引擎层是如何交互的
               </a>
             
@@ -703,7 +694,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/06/11/听说有一个最左原则？这回终于讲清楚了/" rel="prev" title="听说有一个最左原则？这回终于讲清楚了">
+              <a href="/2022/06/11/%E5%90%AC%E8%AF%B4%E6%9C%89%E4%B8%80%E4%B8%AA%E6%9C%80%E5%B7%A6%E5%8E%9F%E5%88%99%EF%BC%9F%E8%BF%99%E5%9B%9E%E7%BB%88%E4%BA%8E%E8%AE%B2%E6%B8%85%E6%A5%9A%E4%BA%86/" rel="prev" title="听说有一个最左原则？这回终于讲清楚了">
                 听说有一个最左原则？这回终于讲清楚了 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -763,7 +754,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -774,9 +767,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -788,26 +781,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -879,7 +856,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1054,115 +1031,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1193,23 +1062,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1235,7 +1104,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前情回顾"><span class="nav-number">1.</span> <span class="nav-text">前情回顾</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#示例"><span class="nav-number">2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查询是怎么执行的"><span class="nav-number">3.</span> <span class="nav-text">查询是怎么执行的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#扫描区间和边界条件"><span class="nav-number">4.</span> <span class="nav-text">扫描区间和边界条件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#具体的查询条件分析"><span class="nav-number">5.</span> <span class="nav-text">具体的查询条件分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IS-NULL的情况"><span class="nav-number">5.1.</span> <span class="nav-text">IS NULL的情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IS-NOT-NULL的情况"><span class="nav-number">5.2.</span> <span class="nav-text">IS NOT NULL的情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#的情况"><span class="nav-number">5.3.</span> <span class="nav-text">!=的情况</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E6%83%85%E5%9B%9E%E9%A1%BE"><span class="nav-number">1.</span> <span class="nav-text">前情回顾</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E6%98%AF%E6%80%8E%E4%B9%88%E6%89%A7%E8%A1%8C%E7%9A%84"><span class="nav-number">3.</span> <span class="nav-text">查询是怎么执行的</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4%E5%92%8C%E8%BE%B9%E7%95%8C%E6%9D%A1%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">扫描区间和边界条件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E7%9A%84%E6%9F%A5%E8%AF%A2%E6%9D%A1%E4%BB%B6%E5%88%86%E6%9E%90"><span class="nav-number">5.</span> <span class="nav-text">具体的查询条件分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#IS-NULL%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-number">5.1.</span> <span class="nav-text">IS NULL的情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IS-NOT-NULL%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-number">5.2.</span> <span class="nav-text">IS NOT NULL的情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-number">5.3.</span> <span class="nav-text">!&#x3D;的情况</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -1270,7 +1139,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1281,12 +1150,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1294,7 +1163,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

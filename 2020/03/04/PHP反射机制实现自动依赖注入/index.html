@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,24 +104,24 @@
 
 
   <meta name="description" content="思考并回答以下问题：  依赖注入为什么又叫控制反转？ 只要知道类的名字就能实例化该类。依赖注入就是传类名做参数，然后保证有这个类就好了。怎么理解？ 手动和自动依赖注入的区别是什么？ PHP支持可变长度参数吗？">
-<meta name="keywords" content="设计模式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PHP反射机制实现自动依赖注入">
-<meta property="og:url" content="http://yoursite.com/2020/03/04/PHP反射机制实现自动依赖注入/index.html">
+<meta property="og:url" content="http://yoursite.com/2020/03/04/PHP%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：  依赖注入为什么又叫控制反转？ 只要知道类的名字就能实例化该类。依赖注入就是传类名做参数，然后保证有这个类就好了。怎么理解？ 手动和自动依赖注入的区别是什么？ PHP支持可变长度参数吗？">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-07-05T11:38:26.000Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-03-04T06:05:45.000Z">
+<meta property="article:modified_time" content="2020-07-05T11:38:26.000Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="设计模式">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PHP反射机制实现自动依赖注入">
-<meta name="twitter:description" content="思考并回答以下问题：  依赖注入为什么又叫控制反转？ 只要知道类的名字就能实例化该类。依赖注入就是传类名做参数，然后保证有这个类就好了。怎么理解？ 手动和自动依赖注入的区别是什么？ PHP支持可变长度参数吗？">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2020/03/04/PHP反射机制实现自动依赖注入/">
+  <link rel="canonical" href="http://yoursite.com/2020/03/04/PHP反射机制实现自动依赖注入/"/>
 
 
 
@@ -170,7 +170,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -231,7 +231,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -248,7 +248,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -265,7 +265,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -282,7 +282,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -299,7 +299,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -310,7 +310,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -330,7 +330,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -380,16 +382,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/04/PHP反射机制实现自动依赖注入/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/04/PHP%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%8A%A8%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -408,7 +410,7 @@
 
           
             <i class="fa fa-thumb-tack"></i>
-            <font color="FF0000">置顶</font>
+            <font color=FF0000>置顶</font>
             <span class="post-meta-divider">|</span>
           
 
@@ -493,7 +495,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">7.2k</span>
+                <span title="本文字数">38k</span>
               
 
               
@@ -507,7 +509,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">7 分钟</span>
+                <span title="阅读时长">35 分钟</span>
               
             </div>
           
@@ -534,27 +536,26 @@
 <li>手动和自动依赖注入的区别是什么？</li>
 <li>PHP支持可变长度参数吗？</li>
 </ul>
-<a id="more"></a>
-<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a><span style="color:#339AFF;">使用</span></h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> $bObj;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 构造函数依赖注入</span></span><br><span class="line"><span class="comment">     * 用于测试多级依赖注入 A依赖B，B依赖C</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> B $b [使用依赖注入B]</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">(B $b)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;bObj = $b;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 方法调用依赖注入</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>  C      $c     [依赖注入C]</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>  string $param [这个是自己手动填写的参数]</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> void</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">aa</span><span class="params">(C $c, $param)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        $c-&gt;cc();</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">"&lt;br/&gt;"</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'params:'</span> . $param;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 验证依赖注入是否成功</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> void</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">aaa</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;bObj-&gt;bbc();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> $cObj;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 构造函数依赖注入</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> C $c [使用依赖注入C]</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">(C $c)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;cObj = $c;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">bb</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'this is B-&gt;bb()'</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">bbc</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;cObj-&gt;cc();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">cc</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">'this is C-&gt;cc()'</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a><span style="color:#339AFF;">使用</span></h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">A</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$bObj</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 构造函数依赖注入</span></span><br><span class="line"><span class="comment">     * 用于测试多级依赖注入 A依赖B，B依赖C</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> B $b [使用依赖注入B]</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params">B <span class="variable">$b</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;bObj = <span class="variable">$b</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 方法调用依赖注入</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>  C      $c     [依赖注入C]</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>  string $param [这个是自己手动填写的参数]</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> void</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">aa</span>(<span class="params">C <span class="variable">$c</span>, <span class="variable">$param</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable">$c</span>-&gt;<span class="title function_ invoke__">cc</span>();</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;&lt;br/&gt;&quot;</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&#x27;params:&#x27;</span> . <span class="variable">$param</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 验证依赖注入是否成功</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> void</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">aaa</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;bObj-&gt;<span class="title function_ invoke__">bbc</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">B</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$cObj</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 构造函数依赖注入</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> C $c [使用依赖注入C]</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params">C <span class="variable">$c</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;cObj = <span class="variable">$c</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">bb</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&#x27;this is B-&gt;bb()&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">bbc</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;cObj-&gt;<span class="title function_ invoke__">cc</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">C</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">cc</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&#x27;this is C-&gt;cc()&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><strong>测试构造函数的依赖注入</strong></p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用IOC来创建A类的实例，A的构造函数依赖B类，B的构造函数依赖C类。</span></span><br><span class="line">$aObj = IOC::getInstance(<span class="string">'A'</span>);</span><br><span class="line">$aObj-&gt;aaa(); <span class="comment">// 输出：this is C-&gt;cc() ， 说明依赖注入成功。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 打印$aObj</span></span><br><span class="line">print_r($aObj);</span><br><span class="line"><span class="comment">// 打印结果，可以看出A中有B实例，B中有C实例，说明依赖注入成功。</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">A Object</span></span><br><span class="line"><span class="comment">(</span></span><br><span class="line"><span class="comment">    [bObj:protected] =&gt; B Object</span></span><br><span class="line"><span class="comment">        (</span></span><br><span class="line"><span class="comment">            [cObj:protected] =&gt; C Object</span></span><br><span class="line"><span class="comment">                (</span></span><br><span class="line"><span class="comment">                )</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">        )</span></span><br><span class="line"><span class="comment">)</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用IOC来创建A类的实例，A的构造函数依赖B类，B的构造函数依赖C类。</span></span><br><span class="line"><span class="variable">$aObj</span> = IOC::<span class="title function_ invoke__">getInstance</span>(<span class="string">&#x27;A&#x27;</span>);</span><br><span class="line"><span class="variable">$aObj</span>-&gt;<span class="title function_ invoke__">aaa</span>(); <span class="comment">// 输出：this is C-&gt;cc() ， 说明依赖注入成功。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 打印$aObj</span></span><br><span class="line"><span class="title function_ invoke__">print_r</span>(<span class="variable">$aObj</span>);</span><br><span class="line"><span class="comment">// 打印结果，可以看出A中有B实例，B中有C实例，说明依赖注入成功。</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">A Object</span></span><br><span class="line"><span class="comment">(</span></span><br><span class="line"><span class="comment">    [bObj:protected] =&gt; B Object</span></span><br><span class="line"><span class="comment">        (</span></span><br><span class="line"><span class="comment">            [cObj:protected] =&gt; C Object</span></span><br><span class="line"><span class="comment">                (</span></span><br><span class="line"><span class="comment">                )</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">        )</span></span><br><span class="line"><span class="comment">)</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 <p><strong>测试方法依赖注入</strong></p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$methodResult = IOC::make(<span class="string">'A'</span>, <span class="string">'aa'</span>, [<span class="string">'this is param a'</span>]);</span><br><span class="line"></span><br><span class="line">print_r($methodResult);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出结果，可以看出依赖注入成功。</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">this is C-&gt;cc()</span></span><br><span class="line"><span class="comment">params:this is param a</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$methodResult</span> = IOC::<span class="title function_ invoke__">make</span>(<span class="string">&#x27;A&#x27;</span>, <span class="string">&#x27;aa&#x27;</span>, [<span class="string">&#x27;this is param a&#x27;</span>]);</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">print_r</span>(<span class="variable">$methodResult</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出结果，可以看出依赖注入成功。</span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">this is C-&gt;cc()</span></span><br><span class="line"><span class="comment">params:this is param a</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
 <p>从上面两个例子可以看出我们创建对象或者调用方法时，根本就不用知道该类或该方法依赖了哪个类。使用反射机制可以轻松的为我们自动注入所需要的类。</p>
 <h1 id="源码"><a href="#源码" class="headerlink" title="源码"></a><span style="color:#339AFF;">源码</span></h1><p>使用php的反射函数，创建一个容器类，使用该类来实现其他类的依赖注入功能。依赖注入分为两种，一种是构造函数的依赖注入，一种是方法的依赖注入。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 工具类，使用该类来实现自动依赖注入。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IOC</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 获得类的对象实例</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> string $className [类名]</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> object 实例对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getInstance</span><span class="params">($className)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        $paramArr = <span class="keyword">self</span>::getMethodParams($className);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">new</span> ReflectionClass($className))-&gt;newInstanceArgs($paramArr);</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        A Object</span></span><br><span class="line"><span class="comment">        (</span></span><br><span class="line"><span class="comment">            [bObj:protected] =&gt; B Object</span></span><br><span class="line"><span class="comment">                (</span></span><br><span class="line"><span class="comment">                    [cObj:protected] =&gt; C Object</span></span><br><span class="line"><span class="comment">                        (</span></span><br><span class="line"><span class="comment">                        )</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">                )</span></span><br><span class="line"><span class="comment">        )</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 执行类的方法</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>  string $className  [类名]</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>  string $methodName [方法名称]</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>  array $params      [额外的参数]</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> </span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">make</span><span class="params">($className, $methodName, $params = [])</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// 获取类的实例</span></span><br><span class="line">        $instance = <span class="keyword">self</span>::getInstance($className);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取该方法所需要依赖注入的参数</span></span><br><span class="line">        $paramArr = <span class="keyword">self</span>::getMethodParams($className, $methodName);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> $instance-&gt;&#123;$methodName&#125;(...array_merge($paramArr, $params));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获得类的方法参数，只获得有类型的参数</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>  string $className   [类名]</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>  string $methodsName [构造函数]</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> array               [参数数组]</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getMethodParams</span><span class="params">($className, $methodsName = <span class="string">'__construct'</span>)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// 获得该类的反射类</span></span><br><span class="line">        $class = <span class="keyword">new</span> ReflectionClass($className); <span class="comment">// ReflectionClass Object ( [name] =&gt; A )</span></span><br><span class="line">      </span><br><span class="line">        $paramArr = []; <span class="comment">// 记录参数，和参数类型</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 判断该类是否有构造函数</span></span><br><span class="line">        <span class="keyword">if</span> ($class-&gt;hasMethod($methodsName))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 获得构造函数</span></span><br><span class="line">            $construct = $class-&gt;getMethod($methodsName); <span class="comment">// ReflectionMethod Object ( [name] =&gt; __construct [class] =&gt; A )</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 判断构造函数是否有参数</span></span><br><span class="line">            $params = $construct-&gt;getParameters(); <span class="comment">// Array ( [0] =&gt; ReflectionParameter Object ( [name] =&gt; b ) )</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (count($params) &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 判断参数类型</span></span><br><span class="line">                <span class="keyword">foreach</span> ($params <span class="keyword">as</span> $key =&gt; $param)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span> ($paramClass = $param-&gt;getClass())  <span class="comment">// ReflectionClass Object ( [name] =&gt; B )</span></span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="comment">// 获得参数类型名称</span></span><br><span class="line">                        $paramClassName = $paramClass-&gt;getName(); <span class="comment">// B</span></span><br><span class="line">               </span><br><span class="line">                        <span class="comment">// 获得参数类型</span></span><br><span class="line">                        <span class="comment">// 递归</span></span><br><span class="line">                        $args = <span class="keyword">self</span>::getMethodParams($paramClassName); </span><br><span class="line"></span><br><span class="line">                        <span class="comment">// print_r($args);</span></span><br><span class="line"></span><br><span class="line">                        <span class="comment">/*</span></span><br><span class="line"><span class="comment">                        Array</span></span><br><span class="line"><span class="comment">                        (</span></span><br><span class="line"><span class="comment">                        )</span></span><br><span class="line"><span class="comment">                        Array</span></span><br><span class="line"><span class="comment">                        (</span></span><br><span class="line"><span class="comment">                            [0] =&gt; C Object</span></span><br><span class="line"><span class="comment">                                (</span></span><br><span class="line"><span class="comment">                                )</span></span><br><span class="line"><span class="comment">                        )</span></span><br><span class="line"><span class="comment">                        */</span></span><br><span class="line"></span><br><span class="line">                        $paramArr[] = (<span class="keyword">new</span> ReflectionClass($paramClass-&gt;getName()))-&gt;newInstanceArgs($args); <span class="comment">// $args这个参数以array形式传递到类的构造函数。</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// print_r($paramArr);</span></span><br><span class="line"></span><br><span class="line">         <span class="comment">/*</span></span><br><span class="line"><span class="comment">        Array</span></span><br><span class="line"><span class="comment">        (</span></span><br><span class="line"><span class="comment">        )</span></span><br><span class="line"><span class="comment">        Array</span></span><br><span class="line"><span class="comment">        (</span></span><br><span class="line"><span class="comment">            [0] =&gt; C Object</span></span><br><span class="line"><span class="comment">                (</span></span><br><span class="line"><span class="comment">                )</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">        )</span></span><br><span class="line"><span class="comment">        Array</span></span><br><span class="line"><span class="comment">        (</span></span><br><span class="line"><span class="comment">            [0] =&gt; B Object</span></span><br><span class="line"><span class="comment">                (</span></span><br><span class="line"><span class="comment">                    [cObj:protected] =&gt; C Object</span></span><br><span class="line"><span class="comment">                        (</span></span><br><span class="line"><span class="comment">                        )</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">                )</span></span><br><span class="line"><span class="comment">        )</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> $paramArr;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 工具类，使用该类来实现自动依赖注入。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IOC</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 获得类的对象实例</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> string $className [类名]</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> object 实例对象</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getInstance</span>(<span class="params"><span class="variable">$className</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable">$paramArr</span> = <span class="built_in">self</span>::<span class="title function_ invoke__">getMethodParams</span>(<span class="variable">$className</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">new</span> <span class="title class_">ReflectionClass</span>(<span class="variable">$className</span>))-&gt;<span class="title function_ invoke__">newInstanceArgs</span>(<span class="variable">$paramArr</span>);</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">        A Object</span></span><br><span class="line"><span class="comment">        (</span></span><br><span class="line"><span class="comment">            [bObj:protected] =&gt; B Object</span></span><br><span class="line"><span class="comment">                (</span></span><br><span class="line"><span class="comment">                    [cObj:protected] =&gt; C Object</span></span><br><span class="line"><span class="comment">                        (</span></span><br><span class="line"><span class="comment">                        )</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">                )</span></span><br><span class="line"><span class="comment">        )</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 执行类的方法</span></span><br><span class="line"><span class="comment">     * </span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>  string $className  [类名]</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>  string $methodName [方法名称]</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>  array $params      [额外的参数]</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> </span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">make</span>(<span class="params"><span class="variable">$className</span>, <span class="variable">$methodName</span>, <span class="variable">$params</span> = []</span>) </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// 获取类的实例</span></span><br><span class="line">        <span class="variable">$instance</span> = <span class="built_in">self</span>::<span class="title function_ invoke__">getInstance</span>(<span class="variable">$className</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 获取该方法所需要依赖注入的参数</span></span><br><span class="line">        <span class="variable">$paramArr</span> = <span class="built_in">self</span>::<span class="title function_ invoke__">getMethodParams</span>(<span class="variable">$className</span>, <span class="variable">$methodName</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$instance</span>-&gt;&#123;<span class="variable">$methodName</span>&#125;(...<span class="title function_ invoke__">array_merge</span>(<span class="variable">$paramArr</span>, <span class="variable">$params</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 获得类的方法参数，只获得有类型的参数</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>  string $className   [类名]</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span>  string $methodsName [构造函数]</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> array               [参数数组]</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="built_in">static</span> <span class="function"><span class="keyword">function</span> <span class="title">getMethodParams</span>(<span class="params"><span class="variable">$className</span>, <span class="variable">$methodsName</span> = <span class="string">&#x27;__construct&#x27;</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// 获得该类的反射类</span></span><br><span class="line">        <span class="variable">$class</span> = <span class="keyword">new</span> <span class="title class_">ReflectionClass</span>(<span class="variable">$className</span>); <span class="comment">// ReflectionClass Object ( [name] =&gt; A )</span></span><br><span class="line">      </span><br><span class="line">        <span class="variable">$paramArr</span> = []; <span class="comment">// 记录参数，和参数类型</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 判断该类是否有构造函数</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$class</span>-&gt;<span class="title function_ invoke__">hasMethod</span>(<span class="variable">$methodsName</span>))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 获得构造函数</span></span><br><span class="line">            <span class="variable">$construct</span> = <span class="variable">$class</span>-&gt;<span class="title function_ invoke__">getMethod</span>(<span class="variable">$methodsName</span>); <span class="comment">// ReflectionMethod Object ( [name] =&gt; __construct [class] =&gt; A )</span></span><br><span class="line"></span><br><span class="line">            <span class="comment">// 判断构造函数是否有参数</span></span><br><span class="line">            <span class="variable">$params</span> = <span class="variable">$construct</span>-&gt;<span class="title function_ invoke__">getParameters</span>(); <span class="comment">// Array ( [0] =&gt; ReflectionParameter Object ( [name] =&gt; b ) )</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> (<span class="title function_ invoke__">count</span>(<span class="variable">$params</span>) &gt; <span class="number">0</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// 判断参数类型</span></span><br><span class="line">                <span class="keyword">foreach</span> (<span class="variable">$params</span> <span class="keyword">as</span> <span class="variable">$key</span> =&gt; <span class="variable">$param</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">if</span> (<span class="variable">$paramClass</span> = <span class="variable">$param</span>-&gt;<span class="title function_ invoke__">getClass</span>())  <span class="comment">// ReflectionClass Object ( [name] =&gt; B )</span></span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="comment">// 获得参数类型名称</span></span><br><span class="line">                        <span class="variable">$paramClassName</span> = <span class="variable">$paramClass</span>-&gt;<span class="title function_ invoke__">getName</span>(); <span class="comment">// B</span></span><br><span class="line">               </span><br><span class="line">                        <span class="comment">// 获得参数类型</span></span><br><span class="line">                        <span class="comment">// 递归</span></span><br><span class="line">                        <span class="variable">$args</span> = <span class="built_in">self</span>::<span class="title function_ invoke__">getMethodParams</span>(<span class="variable">$paramClassName</span>); </span><br><span class="line"></span><br><span class="line">                        <span class="comment">// print_r($args);</span></span><br><span class="line"></span><br><span class="line">                        <span class="comment">/*</span></span><br><span class="line"><span class="comment">                        Array</span></span><br><span class="line"><span class="comment">                        (</span></span><br><span class="line"><span class="comment">                        )</span></span><br><span class="line"><span class="comment">                        Array</span></span><br><span class="line"><span class="comment">                        (</span></span><br><span class="line"><span class="comment">                            [0] =&gt; C Object</span></span><br><span class="line"><span class="comment">                                (</span></span><br><span class="line"><span class="comment">                                )</span></span><br><span class="line"><span class="comment">                        )</span></span><br><span class="line"><span class="comment">                        */</span></span><br><span class="line"></span><br><span class="line">                        <span class="variable">$paramArr</span>[] = (<span class="keyword">new</span> <span class="title class_">ReflectionClass</span>(<span class="variable">$paramClass</span>-&gt;<span class="title function_ invoke__">getName</span>()))-&gt;<span class="title function_ invoke__">newInstanceArgs</span>(<span class="variable">$args</span>); <span class="comment">// $args这个参数以array形式传递到类的构造函数。</span></span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// print_r($paramArr);</span></span><br><span class="line"></span><br><span class="line">         <span class="comment">/*</span></span><br><span class="line"><span class="comment">        Array</span></span><br><span class="line"><span class="comment">        (</span></span><br><span class="line"><span class="comment">        )</span></span><br><span class="line"><span class="comment">        Array</span></span><br><span class="line"><span class="comment">        (</span></span><br><span class="line"><span class="comment">            [0] =&gt; C Object</span></span><br><span class="line"><span class="comment">                (</span></span><br><span class="line"><span class="comment">                )</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">        )</span></span><br><span class="line"><span class="comment">        Array</span></span><br><span class="line"><span class="comment">        (</span></span><br><span class="line"><span class="comment">            [0] =&gt; B Object</span></span><br><span class="line"><span class="comment">                (</span></span><br><span class="line"><span class="comment">                    [cObj:protected] =&gt; C Object</span></span><br><span class="line"><span class="comment">                        (</span></span><br><span class="line"><span class="comment">                        )</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">                )</span></span><br><span class="line"><span class="comment">        )</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$paramArr</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="laravel中利用反射实现依赖注入"><a href="#laravel中利用反射实现依赖注入" class="headerlink" title="laravel中利用反射实现依赖注入"></a><span style="color:#339AFF;">laravel中利用反射实现依赖注入</span></h1><p>在一个类中经常会依赖于其他的对象，先看一下经典的写法。</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $bar;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;bar = <span class="keyword">new</span> Bar();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$foo = <span class="keyword">new</span> Foo();</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$bar</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;bar = <span class="keyword">new</span> <span class="title class_">Bar</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$foo</span> = <span class="keyword">new</span> <span class="title class_">Foo</span>();</span><br></pre></td></tr></table></figure>
 <p>当类的依赖发生改变时，比如Bar这个类需要实例化参数时，而依赖于它的类有很多，总不能一个一个地去修改吧。</p>
 <p>再看一下使用依赖注入怎么做、</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> $bar;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span><span class="params">($bar)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">$this</span>-&gt;bar = $bar;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">$bar = <span class="keyword">new</span> Bar();</span><br><span class="line">$foo = <span class="keyword">new</span> Foo($bar);</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span> </span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="variable">$bar</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">__construct</span>(<span class="params"><span class="variable">$bar</span></span>) </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;bar = <span class="variable">$bar</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$bar</span> = <span class="keyword">new</span> <span class="title class_">Bar</span>();</span><br><span class="line"><span class="variable">$foo</span> = <span class="keyword">new</span> <span class="title class_">Foo</span>(<span class="variable">$bar</span>);</span><br></pre></td></tr></table></figure>
 <p>将Bar类在外部实例化好后，作为一个参数传入进Foo类，从而实现了控制反转，假如现在Bar类需要参数了，外部修改就好了，不必一个个地去修改依赖于它的类。</p>
 <p>在laravel中，经常写出下面这种代码：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SomeController</span> </span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span><span class="params">(Request $request)</span> </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        dd($request-&gt;all());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SomeController</span> </span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span>(<span class="params">Request <span class="variable">$request</span></span>) </span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="title function_ invoke__">dd</span>(<span class="variable">$request</span>-&gt;<span class="title function_ invoke__">all</span>());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>只要在方法参数中申明Request $request，就可以直接使用$request对象了，非常地方便。</p>
 <p>其实laravel在背后利用PHP的反射机制为我们做了$request = new Request这一步。反射是一种类的反省能力，可以导出类的详细信息包括属性、方法、甚至注释等等。</p>
-<p>实现，看代码：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$method = <span class="keyword">new</span> ReflectionMethod(<span class="string">'SomeController'</span>, <span class="string">'index'</span>);</span><br><span class="line">$args = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span>($method-&gt;getParameters() <span class="keyword">as</span> $parameter) </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> ($class = $parameter-&gt;getClass()) </span><br><span class="line">    &#123;</span><br><span class="line">        $args[] = <span class="keyword">new</span> $class-&gt;name; <span class="comment">//$request = new Request</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">$method-&gt;invokeArgs(<span class="keyword">new</span> SomeController, $args);</span><br></pre></td></tr></table></figure></p>
-<p>通过ReflectionMethod获取类方法的参数，如果参数是其他的类，就实例化后作为参数使用ReflectionMethod::invokeArgs 传入到类方法中，原理就是这么简单。</p>
+<p>实现，看代码：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$method</span> = <span class="keyword">new</span> <span class="title class_">ReflectionMethod</span>(<span class="string">&#x27;SomeController&#x27;</span>, <span class="string">&#x27;index&#x27;</span>);</span><br><span class="line"><span class="variable">$args</span> = [];</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span>(<span class="variable">$method</span>-&gt;<span class="title function_ invoke__">getParameters</span>() <span class="keyword">as</span> <span class="variable">$parameter</span>) </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$class</span> = <span class="variable">$parameter</span>-&gt;<span class="title function_ invoke__">getClass</span>()) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="variable">$args</span>[] = <span class="keyword">new</span> <span class="variable">$class</span>-&gt;name; <span class="comment">//$request = new Request</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable">$method</span>-&gt;<span class="title function_ invoke__">invokeArgs</span>(<span class="keyword">new</span> <span class="title class_">SomeController</span>, <span class="variable">$args</span>);</span><br></pre></td></tr></table></figure><br>通过ReflectionMethod获取类方法的参数，如果参数是其他的类，就实例化后作为参数使用ReflectionMethod::invokeArgs 传入到类方法中，原理就是这么简单。</p>
 <p>通常使用new ReflectionClass(‘className’) 来反射类，ReflectionMethod来反射类方法。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><span style="color:#339AFF;">总结</span></h1><p>只要熟悉php的反射机制，依赖注入并不难实现，上面的代码为了方便理解，所以写的简单粗暴，在实际的项目中肯定不会这么简单，比如：会对注入的类和参数进行配置，比如会缓存实例化过的类，下次需要该类的实例时，可以直接使用，而不用在重新初始化，等等。不过相信原理了解了，其他的可以随着项目的需求自己去完善。</p>
 
@@ -580,7 +581,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/设计模式/" rel="tag"># 设计模式</a>
+            <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"># 设计模式</a>
           
         </div>
       
@@ -593,7 +594,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2020/03/03/Hyperf-依赖注入/" rel="next" title="Hyperf-依赖注入">
+              <a href="/2020/03/03/Hyperf-%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/" rel="next" title="Hyperf-依赖注入">
                 <i class="fa fa-chevron-left"></i> Hyperf-依赖注入
               </a>
             
@@ -603,7 +604,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/03/05/PHP算法学习之分治法/" rel="prev" title="PHP算法学习之分治法">
+              <a href="/2020/03/05/PHP%E7%AE%97%E6%B3%95%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%88%86%E6%B2%BB%E6%B3%95/" rel="prev" title="PHP算法学习之分治法">
                 PHP算法学习之分治法 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -663,7 +664,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -674,9 +677,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -688,26 +691,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -779,7 +766,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -954,115 +941,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1093,23 +972,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1135,7 +1014,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用"><span class="nav-number">1.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#源码"><span class="nav-number">2.</span> <span class="nav-text">源码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#laravel中利用反射实现依赖注入"><span class="nav-number">3.</span> <span class="nav-text">laravel中利用反射实现依赖注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BA%90%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">源码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#laravel%E4%B8%AD%E5%88%A9%E7%94%A8%E5%8F%8D%E5%B0%84%E5%AE%9E%E7%8E%B0%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5"><span class="nav-number">3.</span> <span class="nav-text">laravel中利用反射实现依赖注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -1170,7 +1049,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1181,12 +1060,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1194,7 +1073,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

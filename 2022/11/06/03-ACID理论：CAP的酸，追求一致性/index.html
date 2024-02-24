@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,32 +104,32 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="分布式协议与算法实战">
 <meta property="og:type" content="article">
 <meta property="og:title" content="03 | ACID理论：CAP的酸，追求一致性">
-<meta property="og:url" content="http://yoursite.com/2022/11/06/03-ACID理论：CAP的酸，追求一致性/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/11/06/03-ACID%E7%90%86%E8%AE%BA%EF%BC%9ACAP%E7%9A%84%E9%85%B8%EF%BC%8C%E8%BF%BD%E6%B1%82%E4%B8%80%E8%87%B4%E6%80%A7/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/03-ACID理论：CAP的酸，追求一致性/1.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/03-ACID理论：CAP的酸，追求一致性/2.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/03-ACID理论：CAP的酸，追求一致性/3.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/03-ACID理论：CAP的酸，追求一致性/4.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/03-ACID理论：CAP的酸，追求一致性/5.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/03-ACID理论：CAP的酸，追求一致性/6.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/03-ACID理论：CAP的酸，追求一致性/7.webp">
-<meta property="og:updated_time" content="2022-11-06T14:20:43.769Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/03-ACID%E7%90%86%E8%AE%BA%EF%BC%9ACAP%E7%9A%84%E9%85%B8%EF%BC%8C%E8%BF%BD%E6%B1%82%E4%B8%80%E8%87%B4%E6%80%A7/1.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/03-ACID%E7%90%86%E8%AE%BA%EF%BC%9ACAP%E7%9A%84%E9%85%B8%EF%BC%8C%E8%BF%BD%E6%B1%82%E4%B8%80%E8%87%B4%E6%80%A7/2.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/03-ACID%E7%90%86%E8%AE%BA%EF%BC%9ACAP%E7%9A%84%E9%85%B8%EF%BC%8C%E8%BF%BD%E6%B1%82%E4%B8%80%E8%87%B4%E6%80%A7/3.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/03-ACID%E7%90%86%E8%AE%BA%EF%BC%9ACAP%E7%9A%84%E9%85%B8%EF%BC%8C%E8%BF%BD%E6%B1%82%E4%B8%80%E8%87%B4%E6%80%A7/4.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/03-ACID%E7%90%86%E8%AE%BA%EF%BC%9ACAP%E7%9A%84%E9%85%B8%EF%BC%8C%E8%BF%BD%E6%B1%82%E4%B8%80%E8%87%B4%E6%80%A7/5.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/03-ACID%E7%90%86%E8%AE%BA%EF%BC%9ACAP%E7%9A%84%E9%85%B8%EF%BC%8C%E8%BF%BD%E6%B1%82%E4%B8%80%E8%87%B4%E6%80%A7/6.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/03-ACID%E7%90%86%E8%AE%BA%EF%BC%9ACAP%E7%9A%84%E9%85%B8%EF%BC%8C%E8%BF%BD%E6%B1%82%E4%B8%80%E8%87%B4%E6%80%A7/7.webp">
+<meta property="article:published_time" content="2022-11-06T14:11:27.000Z">
+<meta property="article:modified_time" content="2022-11-06T14:20:43.769Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="分布式协议与算法实战">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="03 | ACID理论：CAP的酸，追求一致性">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2022/11/06/03-ACID理论：CAP的酸，追求一致性/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2022/11/06/03-ACID%E7%90%86%E8%AE%BA%EF%BC%9ACAP%E7%9A%84%E9%85%B8%EF%BC%8C%E8%BF%BD%E6%B1%82%E4%B8%80%E8%87%B4%E6%80%A7/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/11/06/03-ACID理论：CAP的酸，追求一致性/">
+  <link rel="canonical" href="http://yoursite.com/2022/11/06/03-ACID理论：CAP的酸，追求一致性/"/>
 
 
 
@@ -178,7 +178,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -239,7 +239,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -256,7 +256,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -273,7 +273,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -290,7 +290,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -307,7 +307,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -318,7 +318,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -338,7 +338,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -388,16 +390,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/11/06/03-ACID理论：CAP的酸，追求一致性/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/11/06/03-ACID%E7%90%86%E8%AE%BA%EF%BC%9ACAP%E7%9A%84%E9%85%B8%EF%BC%8C%E8%BF%BD%E6%B1%82%E4%B8%80%E8%87%B4%E6%80%A7/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -456,7 +458,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/分布式/" itemprop="url" rel="index"><span itemprop="name">分布式</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">分布式</span></a></span>
 
                 
                 
@@ -485,7 +487,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">3.6k</span>
+                <span title="本文字数">5.9k</span>
               
 
               
@@ -499,7 +501,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">3 分钟</span>
+                <span title="阅读时长">5 分钟</span>
               
             </div>
           
@@ -520,26 +522,26 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>提到ACID，我想你并不陌生，很多同学也会觉得它容易理解，在单机上实现ACID也不难，比如可以通过锁、时间序列等机制保障操作的顺序执行，让系统实现ACID特性。但是，一说要实现分布式系统的ACID特性，很多同学就犯难了。那么问题来了，为什么分布式系统的ACID特性在实现上，比较难掌握呢？</p>
 <p>在我看来，ACID理论是对事务特性的抽象和总结，方便我们实现事务。你可以理解成：如果实现了操作的ACID特性，那么就实现了事务。而大多数人觉得比较难，是因为分布式系统涉及多个节点间的操作。加锁、时间序列等机制，只能保证单个节点上操作的ACID特性，无法保证节点间操作的ACID特性。</p>
 <p>那么怎么做才会让实现不那么难呢？答案是你要掌握分布式事务协议，比如二阶段提交协议和TCC（Try-Confirm-Cancel）。这也是我接下来重点和你分享的内容。</p>
 <p>不过在带你了解二阶段提交协议和TCC之前，咱们先继续看看苏秦的故事，看这回苏秦又遇到了什么事儿。</p>
 <p>最近呢，秦国按捺不住自己躁动的心，开始骚扰魏国边境，魏王头疼，向苏秦求助，苏秦认为“三晋一家亲”，建议魏王联合赵、韩一起对抗秦国。但是这三个国家实力都很弱，需要大家都同意联合，一致行动，如果有任何一方不方便行动，就取消整个计划。</p>
-<img src="/2022/11/06/03-ACID理论：CAP的酸，追求一致性/1.webp">
+<img src="/2022/11/06/03-ACID%E7%90%86%E8%AE%BA%EF%BC%9ACAP%E7%9A%84%E9%85%B8%EF%BC%8C%E8%BF%BD%E6%B1%82%E4%B8%80%E8%87%B4%E6%80%A7/1.webp" class="">
 <p>根据侦查情况，明天发动反攻胜算比较大。苏秦想协调赵、魏、韩，明天一起行动。<strong>那么对苏秦来说，他面临的问题是，如何高效协同赵、魏、韩一起行动，并且保证当有一方不方便行动时，取消整个计划。</strong></p>
 <p>苏秦面对的这个新问题，就是典型的如何实现分布式事务的问题，<strong>赵、魏、韩明天攻打秦国，这三个操作组成一个分布式事务，要么全部执行，要么全部不执行。</strong></p>
 <p>了解了这个问题之后，我们看看如何通过二阶段提交协议和TCC，来帮助苏秦解决这个难题。</p>
 <h1 id="二阶段提交协议"><a href="#二阶段提交协议" class="headerlink" title="二阶段提交协议"></a><span style="color:#339AFF;">二阶段提交协议</span></h1><p>二阶段提交协议，顾名思义，就是通过二阶段的协商来完成一个提交操作，那么具体是怎么操作的呢？</p>
 <p>首先，苏秦发消息给赵，赵接收到消息后就扮演协调者（Coordinator）的身份，由赵联系魏和韩，发起二阶段提交：</p>
-<img src="/2022/11/06/03-ACID理论：CAP的酸，追求一致性/2.webp">
+<img src="/2022/11/06/03-ACID%E7%90%86%E8%AE%BA%EF%BC%9ACAP%E7%9A%84%E9%85%B8%EF%BC%8C%E8%BF%BD%E6%B1%82%E4%B8%80%E8%87%B4%E6%80%A7/2.webp" class="">
 <p>赵发起二阶段提交后，先进入<strong>提交请求阶段（又称投票阶段）</strong>。为了方便演示，我们先假设赵、魏、韩明天都能去攻打秦国：</p>
-<img src="/2022/11/06/03-ACID理论：CAP的酸，追求一致性/3.webp">
+<img src="/2022/11/06/03-ACID%E7%90%86%E8%AE%BA%EF%BC%9ACAP%E7%9A%84%E9%85%B8%EF%BC%8C%E8%BF%BD%E6%B1%82%E4%B8%80%E8%87%B4%E6%80%A7/3.webp" class="">
 <p>也就是说，第一步，赵分别向魏、韩发送消息：“明天攻打秦国，方便吗？”</p>
 <p>第二步，赵、魏、韩，分别评估明天能否去攻打秦国，如果能，就预留时间并锁定，不再安排其他军事活动。</p>
 <p>第三步，赵得到全部的回复结果（包括他自己的评估结果），都是YES。</p>
 <p>赵收到所有回复后，进入<strong>提交执行阶段（又称完成阶段）</strong>，也就是具体执行操作了，大致步骤如下：</p>
-<img src="/2022/11/06/03-ACID理论：CAP的酸，追求一致性/4.webp">
+<img src="/2022/11/06/03-ACID%E7%90%86%E8%AE%BA%EF%BC%9ACAP%E7%9A%84%E9%85%B8%EF%BC%8C%E8%BF%BD%E6%B1%82%E4%B8%80%E8%87%B4%E6%80%A7/4.webp" class="">
 <p>首先，赵按照“要么全部执行，要么放弃”的原则，统计投票结果，因为所有的回复结果都是YES，所以赵决定执行分布式事务，明天攻打秦国。</p>
 <p>然后，赵通知魏、韩：“明天攻打秦国。”</p>
 <p>接到通知之后，魏、韩执行事务，明天攻打秦国。</p>
@@ -554,7 +556,7 @@
 </ul>
 <p>需要注意的是，在第一个阶段，每个参与者投票表决事务是放弃还是提交。一旦参与者投票要求提交事务，那么就不允许放弃事务。也就是说，<strong>在一个参与者投票要求提交事务之前，它必须保证能够执行提交协议中它自己那一部分，即使参与者出现故障或者中途被替换掉。</strong>这个特性，是我们需要在代码实现时保障的。</p>
 <p>还需要你注意的是，在第二个阶段，事务的每个参与者执行最终统一的决定，提交事务或者放弃事务。这个约定，是为了实现ACID中的原子性。</p>
-<p><a href="https://courses.cs.washington.edu/courses/cse551/09au/papers/CSE550BHG-Ch7.pdf" target="_blank" rel="noopener">二阶段提交协议</a>最早是用来实现数据库的分布式事务的，不过现在最常用的协议是XA协议。这个协议是X/Open国际联盟基于二阶段提交协议提出的，也叫作X/OpenDistributedTransactionProcessing（DTP）模型，比如MySQL就是通过MySQLXA实现了分布式事务。</p>
+<p><a href="https://courses.cs.washington.edu/courses/cse551/09au/papers/CSE550BHG-Ch7.pdf">二阶段提交协议</a>最早是用来实现数据库的分布式事务的，不过现在最常用的协议是XA协议。这个协议是X/Open国际联盟基于二阶段提交协议提出的，也叫作X/OpenDistributedTransactionProcessing（DTP）模型，比如MySQL就是通过MySQLXA实现了分布式事务。</p>
 <p>但是不管是原始的二阶段提交协议，还是XA协议，都存在一些问题：</p>
 <ul>
 <li>在提交请求阶段，需要预留资源，在资源预留期间，其他人不能操作（比如，XA在第一阶段会将相关资源锁定）；</li>
@@ -563,15 +565,15 @@
 <p>因为上面这两点，我们无法根据业务特点弹性地调整锁的粒度，而这些都会影响数据库的并发性能。那用什么办法可以解决这些问题呢？答案就是TCC。</p>
 <h1 id="TCC（Try-Confirm-Cancel）"><a href="#TCC（Try-Confirm-Cancel）" class="headerlink" title="TCC（Try-Confirm-Cancel）"></a><span style="color:#339AFF;">TCC（Try-Confirm-Cancel）</span></h1><p>TCC是Try（预留）、Confirm（确认）、Cancel（撤销）3个操作的简称，它包含了预留、确认或撤销这2个阶段。那么你如何使用TCC协议，解决苏秦面临的问题呢？</p>
 <p>首先，我们先<strong>进入到预留阶段</strong>，大致的步骤如下：</p>
-<img src="/2022/11/06/03-ACID理论：CAP的酸，追求一致性/5.webp">
+<img src="/2022/11/06/03-ACID%E7%90%86%E8%AE%BA%EF%BC%9ACAP%E7%9A%84%E9%85%B8%EF%BC%8C%E8%BF%BD%E6%B1%82%E4%B8%80%E8%87%B4%E6%80%A7/5.webp" class="">
 <p>第一步，苏秦分别发送消息通知赵、魏、韩，让他们预留明天的时间和相关资源。然后苏秦实现确认操作（明天攻打秦国），和撤销操作（取消明天攻打秦国）。</p>
 <p>第二步，苏秦收到赵、魏、韩的预留答复，都是OK。</p>
 <p>如果预留阶段的执行都没有问题，就进入<strong>确认阶段</strong>，大致步骤如下：</p>
-<img src="/2022/11/06/03-ACID理论：CAP的酸，追求一致性/6.webp">
+<img src="/2022/11/06/03-ACID%E7%90%86%E8%AE%BA%EF%BC%9ACAP%E7%9A%84%E9%85%B8%EF%BC%8C%E8%BF%BD%E6%B1%82%E4%B8%80%E8%87%B4%E6%80%A7/6.webp" class="">
 <p>第一步，苏秦执行确认操作，通知赵、魏、韩明天攻打秦国。</p>
 <p>第二步，收到确认操作的响应，完成分布式事务。</p>
 <p>如果预留阶段执行出错，比如赵的一部分军队还在赶来的路上，无法出兵，那么就进入<strong>撤销阶段</strong>，大致步骤如下：</p>
-<img src="/2022/11/06/03-ACID理论：CAP的酸，追求一致性/7.webp">
+<img src="/2022/11/06/03-ACID%E7%90%86%E8%AE%BA%EF%BC%9ACAP%E7%9A%84%E9%85%B8%EF%BC%8C%E8%BF%BD%E6%B1%82%E4%B8%80%E8%87%B4%E6%80%A7/7.webp" class="">
 <p>第一步，苏秦执行撤销操作，通知赵、魏、韩取消明天攻打秦国的计划。</p>
 <p>第二步，收到撤销操作的响应。</p>
 <p>你看，在经过了预留和确认（或撤销）2阶段的协商，苏秦实现这个分布式事务：赵、魏、韩三国，要么明天一起进攻，要么明天都按兵不动。</p>
@@ -580,7 +582,7 @@
 <h1 id="内容小结"><a href="#内容小结" class="headerlink" title="内容小结"></a><span style="color:#339AFF;">内容小结</span></h1><p>本节课我主要带你了解了实现分布式系统ACID特性的方法，二阶段提交协议和TCC，我希望你明确这样几个重点。</p>
 <p>1，二阶段提交协议，不仅仅是协议，也是一种非常经典的思想。二阶段提交在达成提交操作共识的算法中应用广泛，比如XA协议、TCC、Paxos、Raft等。我希望你不仅能理解二阶段提交协议，更能理解协议背后的二阶段提交的思想，当后续需要时，能灵活地根据二阶段提交思想，设计新的事务或一致性协议。</p>
 <p>2，幂等性，是指同一操作对同一系统的任意多次执行，所产生的影响均与一次执行的影响相同，不会因为多次执行而产生副作用。常见的实现方法有Token、索引等。它的本质是通过唯一标识，标记同一操作的方式，来消除多次执行的副作用。</p>
-<p>另外，我想补充一下，三阶段提交协议，虽然针对二阶段提交协议的“协调者故障，参与者长期锁定资源”的痛点，通过引入了询问阶段和超时机制，来减少资源被长时间锁定的情况，不过这会导致集群各节点在正常运行的情况下，使用更多的消息进行协商，增加系统负载和响应延迟。也正是因为这些问题，三阶段提交协议很少被使用，所以，你只要知道有这么个协议就可以了，但如果你想继续研究，可以参考《<a href="https://courses.cs.washington.edu/courses/cse551/09au/papers/CSE550BHG-Ch7.pdf" target="_blank" rel="noopener">Concurrency Control and Recovery in Database Systems</a>》来学习。</p>
+<p>另外，我想补充一下，三阶段提交协议，虽然针对二阶段提交协议的“协调者故障，参与者长期锁定资源”的痛点，通过引入了询问阶段和超时机制，来减少资源被长时间锁定的情况，不过这会导致集群各节点在正常运行的情况下，使用更多的消息进行协商，增加系统负载和响应延迟。也正是因为这些问题，三阶段提交协议很少被使用，所以，你只要知道有这么个协议就可以了，但如果你想继续研究，可以参考《<a href="https://courses.cs.washington.edu/courses/cse551/09au/papers/CSE550BHG-Ch7.pdf">Concurrency Control and Recovery in Database Systems</a>》来学习。</p>
 <p>最后我想强调的是，你可以将ACID特性理解为CAP中一致性的边界，最强的一致性，也就是CAP的酸（Acid）。根据CAP理论，如果在分布式系统中实现了一致性，可用性必然受到影响。比如，如果出现一个节点故障，则整个分布式事务的执行都是失败的。实际上，绝大部分场景对一致性要求没那么高，短暂的不一致是能接受的，另外，也基于可用性和并发性能的考虑，<strong>建议在开发实现分布式系统，如果不是必须，尽量不要实现事务，可以考虑采用最终一致性。</strong></p>
 <h1 id="课堂思考"><a href="#课堂思考" class="headerlink" title="课堂思考"></a><span style="color:#339AFF;">课堂思考</span></h1><p>既然我提了一些实现分布式事务的方法，比如二阶段提交协议、TCC等，那么你不妨思考一下，事务型分布式系统有哪些优点，哪些缺点呢？</p>
 
@@ -606,7 +608,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/分布式协议与算法实战/" rel="tag"># 分布式协议与算法实战</a>
+            <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E5%8D%8F%E8%AE%AE%E4%B8%8E%E7%AE%97%E6%B3%95%E5%AE%9E%E6%88%98/" rel="tag"># 分布式协议与算法实战</a>
           
         </div>
       
@@ -619,7 +621,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/11/06/11｜隔离性：读写冲突时，快照是最好的办法吗？/" rel="next" title="11 ｜ 隔离性：读写冲突时，快照是最好的办法吗？">
+              <a href="/2022/11/06/11%EF%BD%9C%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E8%AF%BB%E5%86%99%E5%86%B2%E7%AA%81%E6%97%B6%EF%BC%8C%E5%BF%AB%E7%85%A7%E6%98%AF%E6%9C%80%E5%A5%BD%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/" rel="next" title="11 ｜ 隔离性：读写冲突时，快照是最好的办法吗？">
                 <i class="fa fa-chevron-left"></i> 11 ｜ 隔离性：读写冲突时，快照是最好的办法吗？
               </a>
             
@@ -629,7 +631,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/11/06/07｜分布式锁：所有的分布式锁都是错误的？/" rel="prev" title="07 ｜ 分布式锁：所有的分布式锁都是错误的？">
+              <a href="/2022/11/06/07%EF%BD%9C%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%EF%BC%9A%E6%89%80%E6%9C%89%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E9%83%BD%E6%98%AF%E9%94%99%E8%AF%AF%E7%9A%84%EF%BC%9F/" rel="prev" title="07 ｜ 分布式锁：所有的分布式锁都是错误的？">
                 07 ｜ 分布式锁：所有的分布式锁都是错误的？ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -689,7 +691,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -700,9 +704,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -714,26 +718,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -805,7 +793,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -980,115 +968,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1119,23 +999,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1161,7 +1041,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#二阶段提交协议"><span class="nav-number">1.</span> <span class="nav-text">二阶段提交协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCC（Try-Confirm-Cancel）"><span class="nav-number">2.</span> <span class="nav-text">TCC（Try-Confirm-Cancel）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内容小结"><span class="nav-number">3.</span> <span class="nav-text">内容小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课堂思考"><span class="nav-number">4.</span> <span class="nav-text">课堂思考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E9%98%B6%E6%AE%B5%E6%8F%90%E4%BA%A4%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.</span> <span class="nav-text">二阶段提交协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TCC%EF%BC%88Try-Confirm-Cancel%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">TCC（Try-Confirm-Cancel）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AE%B9%E5%B0%8F%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">内容小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BE%E5%A0%82%E6%80%9D%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">课堂思考</span></a></li></ol></div>
             
 
           </div>
@@ -1196,7 +1076,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1207,12 +1087,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1220,7 +1100,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

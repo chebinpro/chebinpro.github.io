@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,35 +104,35 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="分布式协议与算法实战">
 <meta property="og:type" content="article">
 <meta property="og:title" content="10 | 一致哈希算法：如何分群，突破集群的“领导者”限制？">
-<meta property="og:url" content="http://yoursite.com/2022/11/06/10-一致哈希算法：如何分群，突破集群的“领导者”限制？/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/11/06/10-%E4%B8%80%E8%87%B4%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%EF%BC%9A%E5%A6%82%E4%BD%95%E5%88%86%E7%BE%A4%EF%BC%8C%E7%AA%81%E7%A0%B4%E9%9B%86%E7%BE%A4%E7%9A%84%E2%80%9C%E9%A2%86%E5%AF%BC%E8%80%85%E2%80%9D%E9%99%90%E5%88%B6%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/10-一致哈希算法：如何分群，突破集群的“领导者”限制？/1.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/10-一致哈希算法：如何分群，突破集群的“领导者”限制？/2.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/10-一致哈希算法：如何分群，突破集群的“领导者”限制？/3.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/10-一致哈希算法：如何分群，突破集群的“领导者”限制？/4.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/10-一致哈希算法：如何分群，突破集群的“领导者”限制？/5.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/10-一致哈希算法：如何分群，突破集群的“领导者”限制？/6.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/10-一致哈希算法：如何分群，突破集群的“领导者”限制？/7.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/10-一致哈希算法：如何分群，突破集群的“领导者”限制？/8.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/10-一致哈希算法：如何分群，突破集群的“领导者”限制？/9.webp">
-<meta property="og:image" content="http://yoursite.com/2022/11/06/10-一致哈希算法：如何分群，突破集群的“领导者”限制？/10.webp">
-<meta property="og:updated_time" content="2022-11-06T14:09:49.067Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/10-%E4%B8%80%E8%87%B4%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%EF%BC%9A%E5%A6%82%E4%BD%95%E5%88%86%E7%BE%A4%EF%BC%8C%E7%AA%81%E7%A0%B4%E9%9B%86%E7%BE%A4%E7%9A%84%E2%80%9C%E9%A2%86%E5%AF%BC%E8%80%85%E2%80%9D%E9%99%90%E5%88%B6%EF%BC%9F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/10-%E4%B8%80%E8%87%B4%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%EF%BC%9A%E5%A6%82%E4%BD%95%E5%88%86%E7%BE%A4%EF%BC%8C%E7%AA%81%E7%A0%B4%E9%9B%86%E7%BE%A4%E7%9A%84%E2%80%9C%E9%A2%86%E5%AF%BC%E8%80%85%E2%80%9D%E9%99%90%E5%88%B6%EF%BC%9F/2.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/10-%E4%B8%80%E8%87%B4%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%EF%BC%9A%E5%A6%82%E4%BD%95%E5%88%86%E7%BE%A4%EF%BC%8C%E7%AA%81%E7%A0%B4%E9%9B%86%E7%BE%A4%E7%9A%84%E2%80%9C%E9%A2%86%E5%AF%BC%E8%80%85%E2%80%9D%E9%99%90%E5%88%B6%EF%BC%9F/3.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/10-%E4%B8%80%E8%87%B4%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%EF%BC%9A%E5%A6%82%E4%BD%95%E5%88%86%E7%BE%A4%EF%BC%8C%E7%AA%81%E7%A0%B4%E9%9B%86%E7%BE%A4%E7%9A%84%E2%80%9C%E9%A2%86%E5%AF%BC%E8%80%85%E2%80%9D%E9%99%90%E5%88%B6%EF%BC%9F/4.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/10-%E4%B8%80%E8%87%B4%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%EF%BC%9A%E5%A6%82%E4%BD%95%E5%88%86%E7%BE%A4%EF%BC%8C%E7%AA%81%E7%A0%B4%E9%9B%86%E7%BE%A4%E7%9A%84%E2%80%9C%E9%A2%86%E5%AF%BC%E8%80%85%E2%80%9D%E9%99%90%E5%88%B6%EF%BC%9F/5.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/10-%E4%B8%80%E8%87%B4%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%EF%BC%9A%E5%A6%82%E4%BD%95%E5%88%86%E7%BE%A4%EF%BC%8C%E7%AA%81%E7%A0%B4%E9%9B%86%E7%BE%A4%E7%9A%84%E2%80%9C%E9%A2%86%E5%AF%BC%E8%80%85%E2%80%9D%E9%99%90%E5%88%B6%EF%BC%9F/6.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/10-%E4%B8%80%E8%87%B4%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%EF%BC%9A%E5%A6%82%E4%BD%95%E5%88%86%E7%BE%A4%EF%BC%8C%E7%AA%81%E7%A0%B4%E9%9B%86%E7%BE%A4%E7%9A%84%E2%80%9C%E9%A2%86%E5%AF%BC%E8%80%85%E2%80%9D%E9%99%90%E5%88%B6%EF%BC%9F/7.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/10-%E4%B8%80%E8%87%B4%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%EF%BC%9A%E5%A6%82%E4%BD%95%E5%88%86%E7%BE%A4%EF%BC%8C%E7%AA%81%E7%A0%B4%E9%9B%86%E7%BE%A4%E7%9A%84%E2%80%9C%E9%A2%86%E5%AF%BC%E8%80%85%E2%80%9D%E9%99%90%E5%88%B6%EF%BC%9F/8.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/10-%E4%B8%80%E8%87%B4%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%EF%BC%9A%E5%A6%82%E4%BD%95%E5%88%86%E7%BE%A4%EF%BC%8C%E7%AA%81%E7%A0%B4%E9%9B%86%E7%BE%A4%E7%9A%84%E2%80%9C%E9%A2%86%E5%AF%BC%E8%80%85%E2%80%9D%E9%99%90%E5%88%B6%EF%BC%9F/9.webp">
+<meta property="og:image" content="http://yoursite.com/2022/11/06/10-%E4%B8%80%E8%87%B4%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%EF%BC%9A%E5%A6%82%E4%BD%95%E5%88%86%E7%BE%A4%EF%BC%8C%E7%AA%81%E7%A0%B4%E9%9B%86%E7%BE%A4%E7%9A%84%E2%80%9C%E9%A2%86%E5%AF%BC%E8%80%85%E2%80%9D%E9%99%90%E5%88%B6%EF%BC%9F/10.webp">
+<meta property="article:published_time" content="2022-11-06T11:05:10.000Z">
+<meta property="article:modified_time" content="2022-11-06T14:09:49.067Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="分布式协议与算法实战">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="10 | 一致哈希算法：如何分群，突破集群的“领导者”限制？">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2022/11/06/10-一致哈希算法：如何分群，突破集群的“领导者”限制？/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2022/11/06/10-%E4%B8%80%E8%87%B4%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%EF%BC%9A%E5%A6%82%E4%BD%95%E5%88%86%E7%BE%A4%EF%BC%8C%E7%AA%81%E7%A0%B4%E9%9B%86%E7%BE%A4%E7%9A%84%E2%80%9C%E9%A2%86%E5%AF%BC%E8%80%85%E2%80%9D%E9%99%90%E5%88%B6%EF%BC%9F/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/11/06/10-一致哈希算法：如何分群，突破集群的“领导者”限制？/">
+  <link rel="canonical" href="http://yoursite.com/2022/11/06/10-一致哈希算法：如何分群，突破集群的“领导者”限制？/"/>
 
 
 
@@ -181,7 +181,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -242,7 +242,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -259,7 +259,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -276,7 +276,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -293,7 +293,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -310,7 +310,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -321,7 +321,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -341,7 +341,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -391,16 +393,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/11/06/10-一致哈希算法：如何分群，突破集群的“领导者”限制？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/11/06/10-%E4%B8%80%E8%87%B4%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%EF%BC%9A%E5%A6%82%E4%BD%95%E5%88%86%E7%BE%A4%EF%BC%8C%E7%AA%81%E7%A0%B4%E9%9B%86%E7%BE%A4%E7%9A%84%E2%80%9C%E9%A2%86%E5%AF%BC%E8%80%85%E2%80%9D%E9%99%90%E5%88%B6%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -459,7 +461,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/分布式/" itemprop="url" rel="index"><span itemprop="name">分布式</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">分布式</span></a></span>
 
                 
                 
@@ -488,7 +490,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">4.1k</span>
+                <span title="本文字数">8.9k</span>
               
 
               
@@ -502,7 +504,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">4 分钟</span>
+                <span title="阅读时长">8 分钟</span>
               
             </div>
           
@@ -523,7 +525,7 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>学完前面几讲后，有些同学可能有这样的疑问：如果我们通过Raft算法实现了KV存储，虽然领导者模型简化了算法实现和共识协商，但写请求只能限制在领导者节点上处理，导致了集群的接入性能约等于单机，那么随着业务发展，集群的性能可能就扛不住了，会造成系统过载和服务不可用，这时该怎么办呢？</p>
 <p>其实这是一个非常常见的问题。在我看来，这时我们就要通过分集群，突破单集群的性能限制了。</p>
 <p>说到这儿，有同学可能会说了，分集群还不简单吗？加个Proxy层，由Proxy层处理来自客户端的读写请求，接收到读写请求后，通过对Key做哈希找到对应的集群就可以了啊。</p>
@@ -532,49 +534,46 @@
 <p>对你来说，学完本讲内容之后，不仅能理解一致哈希的原理，还能掌握通过一致哈希实现数据访问冷热均匀的实战能力。</p>
 <p>老规矩，在正式开始学习之前，我们先看一道思考题。</p>
 <p>假设我们有一个由A、B、C三个节点组成（为了方便演示，我使用节点来替代集群）的KV服务，每个节点存放不同的KV数据：</p>
-<img src="/2022/11/06/10-一致哈希算法：如何分群，突破集群的“领导者”限制？/1.webp">
+<img src="/2022/11/06/10-%E4%B8%80%E8%87%B4%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%EF%BC%9A%E5%A6%82%E4%BD%95%E5%88%86%E7%BE%A4%EF%BC%8C%E7%AA%81%E7%A0%B4%E9%9B%86%E7%BE%A4%E7%9A%84%E2%80%9C%E9%A2%86%E5%AF%BC%E8%80%85%E2%80%9D%E9%99%90%E5%88%B6%EF%BC%9F/1.webp" class="">
 <p>那么，使用哈希算法实现哈希寻址时，到底有哪些问题呢？带着这个问题，让我们开始今天的内容吧。</p>
 <h1 id="使用哈希算法有什么问题？"><a href="#使用哈希算法有什么问题？" class="headerlink" title="使用哈希算法有什么问题？"></a><span style="color:#339AFF;">使用哈希算法有什么问题？</span></h1><p>通过哈希算法，每个key都可以寻址到对应的服务器，比如，查询key是key-01，计算公式为hash(key-01)%3，经过计算寻址到了编号为1的服务器节点A（就像图2的样子）。</p>
-<img src="/2022/11/06/10-一致哈希算法：如何分群，突破集群的“领导者”限制？/2.webp">
+<img src="/2022/11/06/10-%E4%B8%80%E8%87%B4%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%EF%BC%9A%E5%A6%82%E4%BD%95%E5%88%86%E7%BE%A4%EF%BC%8C%E7%AA%81%E7%A0%B4%E9%9B%86%E7%BE%A4%E7%9A%84%E2%80%9C%E9%A2%86%E5%AF%BC%E8%80%85%E2%80%9D%E9%99%90%E5%88%B6%EF%BC%9F/2.webp" class="">
 <p>但如果服务器数量发生变化，基于新的服务器数量来执行哈希算法的时候，就会出现路由寻址失败的情况，Proxy无法找到之前寻址到的那个服务器节点，这是为什么呢？</p>
 <p>想象一下，假如3个节点不能满足业务需要了，这时我们增加了一个节点，节点的数量从3变化为4，那么之前的hash(key-01)%3=1，就变成了hash(key-01)%4=X，因为取模运算发生了变化，所以这个X大概率不是1（可能X为2），这时你再查询，就会找不到数据了，因为key-01对应的数据，存储在节点A上，而不是节点B：</p>
-<img src="/2022/11/06/10-一致哈希算法：如何分群，突破集群的“领导者”限制？/3.webp">
+<img src="/2022/11/06/10-%E4%B8%80%E8%87%B4%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%EF%BC%9A%E5%A6%82%E4%BD%95%E5%88%86%E7%BE%A4%EF%BC%8C%E7%AA%81%E7%A0%B4%E9%9B%86%E7%BE%A4%E7%9A%84%E2%80%9C%E9%A2%86%E5%AF%BC%E8%80%85%E2%80%9D%E9%99%90%E5%88%B6%EF%BC%9F/3.webp" class="">
 <p>同样的道理，如果我们需要下线1个服务器节点（也就是缩容），也会存在类似的可能查询不到数据的问题。</p>
 <p>而解决这个问题的办法，在于我们要迁移数据，基于新的计算公式hash(key-01)%4，来重新对数据和节点做映射。需要你注意的是，数据的迁移成本是非常高的。</p>
-<p>为了便于你理解，我举个例子，对于1000万key的3节点KV存储，如果我们增加1个节点，变为4节点集群，则需要迁移75%的数据。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ go run ./hash.go  -keys 10000000 -nodes 3 -new-nodes 4</span><br><span class="line">74.999980%</span><br></pre></td></tr></table></figure></p>
-<p><strong>从示例代码的输出，你可以看到，迁移成本是非常高昂的，这在实际生产环境中也是无法想象的。</strong></p>
+<p>为了便于你理解，我举个例子，对于1000万key的3节点KV存储，如果我们增加1个节点，变为4节点集群，则需要迁移75%的数据。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ go run ./hash.go  -keys 10000000 -nodes 3 -new-nodes 4</span><br><span class="line">74.999980%</span><br></pre></td></tr></table></figure><br><strong>从示例代码的输出，你可以看到，迁移成本是非常高昂的，这在实际生产环境中也是无法想象的。</strong></p>
 <p>那我们如何通过一致哈希解决这个问题呢？</p>
 <h1 id="如何使用一致哈希实现哈希寻址？"><a href="#如何使用一致哈希实现哈希寻址？" class="headerlink" title="如何使用一致哈希实现哈希寻址？"></a><span style="color:#339AFF;">如何使用一致哈希实现哈希寻址？</span></h1><p>一致哈希算法也用了取模运算，但与哈希算法不同的是，哈希算法是对节点的数量进行取模运算，而一致哈希算法是对2^32进行取模运算。你可以想象下，一致哈希算法，将整个哈希值空间组织成一个虚拟的圆环，也就是哈希环：</p>
-<img src="/2022/11/06/10-一致哈希算法：如何分群，突破集群的“领导者”限制？/4.webp">
+<img src="/2022/11/06/10-%E4%B8%80%E8%87%B4%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%EF%BC%9A%E5%A6%82%E4%BD%95%E5%88%86%E7%BE%A4%EF%BC%8C%E7%AA%81%E7%A0%B4%E9%9B%86%E7%BE%A4%E7%9A%84%E2%80%9C%E9%A2%86%E5%AF%BC%E8%80%85%E2%80%9D%E9%99%90%E5%88%B6%EF%BC%9F/4.webp" class="">
 <p>从图4中你可以看到，哈希环的空间是按顺时针方向组织的，圆环的正上方的点代表0，0点右侧的第一个点代表1，以此类推，2、3、4、5、6……直到2^32-1，也就是说0点左侧的第一个点代表2^32-1。</p>
 <p>在一致哈希中，你可以通过执行哈希算法（为了演示方便，假设哈希算法函数为“c-hash()”），将节点映射到哈希环上，比如选择节点的主机名作为参数执行c-hash()，那么每个节点就能确定其在哈希环上的位置了：</p>
-<img src="/2022/11/06/10-一致哈希算法：如何分群，突破集群的“领导者”限制？/5.webp">
+<img src="/2022/11/06/10-%E4%B8%80%E8%87%B4%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%EF%BC%9A%E5%A6%82%E4%BD%95%E5%88%86%E7%BE%A4%EF%BC%8C%E7%AA%81%E7%A0%B4%E9%9B%86%E7%BE%A4%E7%9A%84%E2%80%9C%E9%A2%86%E5%AF%BC%E8%80%85%E2%80%9D%E9%99%90%E5%88%B6%EF%BC%9F/5.webp" class="">
 <p>当需要对指定key的值进行读写的时候，你可以通过下面2步进行寻址：</p>
 <ul>
 <li>首先，将key作为参数执行c-hash()计算哈希值，并确定此key在环上的位置；</li>
 <li>然后，从这个位置沿着哈希环顺时针“行走”，遇到的第一节点就是key对应的节点。</li>
 </ul>
 <p>为了帮助你更好地理解如何通过一致哈希进行寻址，我举个例子。假设key-01、key-02、key-03三个key，经过哈希算法c-hash()计算后，在哈希环上的位置就像图6的样子：</p>
-<img src="/2022/11/06/10-一致哈希算法：如何分群，突破集群的“领导者”限制？/6.webp">
+<img src="/2022/11/06/10-%E4%B8%80%E8%87%B4%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%EF%BC%9A%E5%A6%82%E4%BD%95%E5%88%86%E7%BE%A4%EF%BC%8C%E7%AA%81%E7%A0%B4%E9%9B%86%E7%BE%A4%E7%9A%84%E2%80%9C%E9%A2%86%E5%AF%BC%E8%80%85%E2%80%9D%E9%99%90%E5%88%B6%EF%BC%9F/6.webp" class="">
 <p>那么根据一致哈希算法，key-01将寻址到节点A，key-02将寻址到节点B，key-03将寻址到节点C。讲到这儿，你可能会问：“老韩，那一致哈希是如何避免哈希算法的问题呢？”</p>
 <p>别着急，接下来我分别以增加节点和移除节点为例，具体说一说一致哈希是如何避免上面的问题的。假设，现在有一个节点故障了（比如节点C）：</p>
-<img src="/2022/11/06/10-一致哈希算法：如何分群，突破集群的“领导者”限制？/7.webp">
+<img src="/2022/11/06/10-%E4%B8%80%E8%87%B4%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%EF%BC%9A%E5%A6%82%E4%BD%95%E5%88%86%E7%BE%A4%EF%BC%8C%E7%AA%81%E7%A0%B4%E9%9B%86%E7%BE%A4%E7%9A%84%E2%80%9C%E9%A2%86%E5%AF%BC%E8%80%85%E2%80%9D%E9%99%90%E5%88%B6%EF%BC%9F/7.webp" class="">
 <p>你可以看到，key-01和key-02不会受到影响，只有key-03的寻址被重定位到A。一般来说，在一致哈希算法中，如果某个节点宕机不可用了，那么受影响的数据仅仅是，会寻址到此节点和前一节点之间的数据。比如当节点C宕机了，受影响的数据是会寻址到节点B和节点C之间的数据（例如key-03），寻址到其他哈希环空间的数据（例如key-01），不会受到影响。</p>
 <p>那如果此时集群不能满足业务的需求，需要扩容一个节点（也就是增加一个节点，比如D）：</p>
-<img src="/2022/11/06/10-一致哈希算法：如何分群，突破集群的“领导者”限制？/8.webp">
+<img src="/2022/11/06/10-%E4%B8%80%E8%87%B4%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%EF%BC%9A%E5%A6%82%E4%BD%95%E5%88%86%E7%BE%A4%EF%BC%8C%E7%AA%81%E7%A0%B4%E9%9B%86%E7%BE%A4%E7%9A%84%E2%80%9C%E9%A2%86%E5%AF%BC%E8%80%85%E2%80%9D%E9%99%90%E5%88%B6%EF%BC%9F/8.webp" class="">
 <p>你可以看到，key-01、key-02不受影响，只有key-03的寻址被重定位到新节点D。一般而言，在一致哈希算法中，如果增加一个节点，受影响的数据仅仅是，会寻址到新节点和前一节点之间的数据，其它数据也不会受到影响。</p>
-<p>让我们一起来看一个例子。使用一致哈希的话，对于1000万key的3节点KV存储，如果我们增加1个节点，变为4节点集群，只需要迁移24.3%的数据：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ go run ./consistent-hash.go  -keys 10000000 -nodes 3 -new-nodes 4</span><br><span class="line">24.301550%</span><br></pre></td></tr></table></figure></p>
-<p><strong>你看，使用了一致哈希后，我们需要迁移的数据量仅为使用哈希算法时的三分之一，是不是大大提升效率了呢？</strong></p>
+<p>让我们一起来看一个例子。使用一致哈希的话，对于1000万key的3节点KV存储，如果我们增加1个节点，变为4节点集群，只需要迁移24.3%的数据：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ go run ./consistent-hash.go  -keys 10000000 -nodes 3 -new-nodes 4</span><br><span class="line">24.301550% </span><br></pre></td></tr></table></figure><br><strong>你看，使用了一致哈希后，我们需要迁移的数据量仅为使用哈希算法时的三分之一，是不是大大提升效率了呢？</strong></p>
 <p>总的来说，使用了一致哈希算法后，扩容或缩容的时候，都只需要重定位环空间中的一小部分数据。<strong>也就是说，一致哈希算法具有较好的容错性和可扩展性。</strong></p>
 <p><strong>需要你注意的是，在哈希寻址中常出现这样的问题</strong>：客户端访问请求集中在少数的节点上，出现了有些机器高负载，有些机器低负载的情况，那么在一致哈希中，有什么办法能让数据访问分布的比较均匀呢？答案就是虚拟节点。</p>
 <p>在一致哈希中，如果节点太少，容易因为节点分布不均匀造成数据访问的冷热不均，也就是说大多数访问请求都会集中少量几个节点上：</p>
-<img src="/2022/11/06/10-一致哈希算法：如何分群，突破集群的“领导者”限制？/9.webp">
+<img src="/2022/11/06/10-%E4%B8%80%E8%87%B4%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%EF%BC%9A%E5%A6%82%E4%BD%95%E5%88%86%E7%BE%A4%EF%BC%8C%E7%AA%81%E7%A0%B4%E9%9B%86%E7%BE%A4%E7%9A%84%E2%80%9C%E9%A2%86%E5%AF%BC%E8%80%85%E2%80%9D%E9%99%90%E5%88%B6%EF%BC%9F/9.webp" class="">
 <p>你能从图中看到，虽然有3个节点，但访问请求主要集中的节点A上。<strong>那如何通过虚拟节点解决冷热不均的问题呢？</strong></p>
 <p>其实，就是对每一个服务器节点计算多个哈希值，在每个计算结果位置上，都放置一个虚拟节点，并将虚拟节点映射到实际节点。比如，可以在主机名的后面增加编号，分别计算“Node-A-01”“Node-A-02”“Node-B-01”“Node-B-02”“Node-C-01”“Node-C-02”的哈希值，于是形成6个虚拟节点：</p>
-<img src="/2022/11/06/10-一致哈希算法：如何分群，突破集群的“领导者”限制？/10.webp">
+<img src="/2022/11/06/10-%E4%B8%80%E8%87%B4%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%EF%BC%9A%E5%A6%82%E4%BD%95%E5%88%86%E7%BE%A4%EF%BC%8C%E7%AA%81%E7%A0%B4%E9%9B%86%E7%BE%A4%E7%9A%84%E2%80%9C%E9%A2%86%E5%AF%BC%E8%80%85%E2%80%9D%E9%99%90%E5%88%B6%EF%BC%9F/10.webp" class="">
 <p>你可以从图中看到，增加了节点后，节点在哈希环上的分布就相对均匀了。这时，如果有访问请求寻址到“Node-A-01”这个虚拟节点，将被重定位到节点A。你看，这样我们就解决了冷热不均的问题。</p>
-<p>最后我想说的是，可能有同学已经发现了，当节点数越多的时候，使用哈希算法时，需要迁移的数据就越多，使用一致哈希时，需要迁移的数据就越少：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ go run ./hash.go  -keys 10000000 -nodes 3 -new-nodes 4</span><br><span class="line">74.999980%</span><br><span class="line">$ go run ./hash.go  -keys 10000000 -nodes 10 -new-nodes 11</span><br><span class="line">90.909000%</span><br><span class="line"></span><br><span class="line">$ go run ./consistent-hash.go  -keys 10000000 -nodes 3 -new-nodes 4</span><br><span class="line">24.301550%</span><br><span class="line">$ go run ./consistent-hash.go  -keys 10000000 -nodes 10 -new-nodes 11</span><br><span class="line">6.479330%</span><br></pre></td></tr></table></figure></p>
-<p>从示例代码的输出中你可以看到，当我们向10个节点集群中增加节点时，<strong>如果使用了哈希算法，需要迁移高达90.91%的数据，使用一致哈希的话，只需要迁移6.48%的数据。</strong></p>
+<p>最后我想说的是，可能有同学已经发现了，当节点数越多的时候，使用哈希算法时，需要迁移的数据就越多，使用一致哈希时，需要迁移的数据就越少：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$ go run ./hash.go  -keys 10000000 -nodes 3 -new-nodes 4</span><br><span class="line">74.999980%</span><br><span class="line">$ go run ./hash.go  -keys 10000000 -nodes 10 -new-nodes 11</span><br><span class="line">90.909000%</span><br><span class="line"></span><br><span class="line">$ go run ./consistent-hash.go  -keys 10000000 -nodes 3 -new-nodes 4</span><br><span class="line">24.301550%</span><br><span class="line">$ go run ./consistent-hash.go  -keys 10000000 -nodes 10 -new-nodes 11</span><br><span class="line">6.479330% </span><br></pre></td></tr></table></figure><br>从示例代码的输出中你可以看到，当我们向10个节点集群中增加节点时，<strong>如果使用了哈希算法，需要迁移高达90.91%的数据，使用一致哈希的话，只需要迁移6.48%的数据。</strong></p>
 <p>我希望你能注意到这个规律，使用一致哈希实现哈希寻址时，可以通过增加节点数降低节点宕机对整个集群的影响，以及故障恢复时需要迁移的数据量。后续在需要时，你可以通过增加节点数来提升系统的容灾能力和故障恢复效率。</p>
 <h1 id="内容小结"><a href="#内容小结" class="headerlink" title="内容小结"></a><span style="color:#339AFF;">内容小结</span></h1><p>以上就是本节课的全部内容了，本节课我主要带你了解了哈希算法的缺点、一致哈希的原理等内容。我希望你明确这样几个重点。</p>
 <ul>
@@ -606,7 +605,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/分布式协议与算法实战/" rel="tag"># 分布式协议与算法实战</a>
+            <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F%E5%8D%8F%E8%AE%AE%E4%B8%8E%E7%AE%97%E6%B3%95%E5%AE%9E%E6%88%98/" rel="tag"># 分布式协议与算法实战</a>
           
         </div>
       
@@ -619,7 +618,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/11/06/09｜原子性：2PC还是原子性协议的王者吗？/" rel="next" title="09 ｜ 原子性：2PC还是原子性协议的王者吗？">
+              <a href="/2022/11/06/09%EF%BD%9C%E5%8E%9F%E5%AD%90%E6%80%A7%EF%BC%9A2PC%E8%BF%98%E6%98%AF%E5%8E%9F%E5%AD%90%E6%80%A7%E5%8D%8F%E8%AE%AE%E7%9A%84%E7%8E%8B%E8%80%85%E5%90%97%EF%BC%9F/" rel="next" title="09 ｜ 原子性：2PC还是原子性协议的王者吗？">
                 <i class="fa fa-chevron-left"></i> 09 ｜ 原子性：2PC还是原子性协议的王者吗？
               </a>
             
@@ -629,7 +628,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/11/06/11｜隔离性：读写冲突时，快照是最好的办法吗？/" rel="prev" title="11 ｜ 隔离性：读写冲突时，快照是最好的办法吗？">
+              <a href="/2022/11/06/11%EF%BD%9C%E9%9A%94%E7%A6%BB%E6%80%A7%EF%BC%9A%E8%AF%BB%E5%86%99%E5%86%B2%E7%AA%81%E6%97%B6%EF%BC%8C%E5%BF%AB%E7%85%A7%E6%98%AF%E6%9C%80%E5%A5%BD%E7%9A%84%E5%8A%9E%E6%B3%95%E5%90%97%EF%BC%9F/" rel="prev" title="11 ｜ 隔离性：读写冲突时，快照是最好的办法吗？">
                 11 ｜ 隔离性：读写冲突时，快照是最好的办法吗？ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -689,7 +688,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -700,9 +701,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -714,26 +715,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -805,7 +790,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -980,115 +965,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1119,23 +996,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1161,7 +1038,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用哈希算法有什么问题？"><span class="nav-number">1.</span> <span class="nav-text">使用哈希算法有什么问题？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何使用一致哈希实现哈希寻址？"><span class="nav-number">2.</span> <span class="nav-text">如何使用一致哈希实现哈希寻址？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内容小结"><span class="nav-number">3.</span> <span class="nav-text">内容小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课堂思考"><span class="nav-number">4.</span> <span class="nav-text">课堂思考</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%93%88%E5%B8%8C%E7%AE%97%E6%B3%95%E6%9C%89%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">1.</span> <span class="nav-text">使用哈希算法有什么问题？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E4%B8%80%E8%87%B4%E5%93%88%E5%B8%8C%E5%AE%9E%E7%8E%B0%E5%93%88%E5%B8%8C%E5%AF%BB%E5%9D%80%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">如何使用一致哈希实现哈希寻址？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%86%85%E5%AE%B9%E5%B0%8F%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">内容小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BE%E5%A0%82%E6%80%9D%E8%80%83"><span class="nav-number">4.</span> <span class="nav-text">课堂思考</span></a></li></ol></div>
             
 
           </div>
@@ -1196,7 +1073,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1207,12 +1084,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1220,7 +1097,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

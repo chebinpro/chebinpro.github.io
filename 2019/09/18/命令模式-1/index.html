@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,30 +104,30 @@
 
 
   <meta name="description" content="思考并回答以下问题：  最简单的抽象命令类万年不变是什么意思？ 命令模式为什么是行为型模式？是如何将请求发送者与请求接收者解耦的？ 什么是命令对象？为什么实现了间接引用？ 是怎么做到可以在不修改现有系统源代码的情况下让相同的发送者对应不同的接收者的？ 命令模式的核心在于引入了抽象命令类和具体命令类。怎么理解？ 可以在具体命令类里直接new请求接收者，也可以在客户端注入。怎么理解？ “用不同的请求对">
-<meta name="keywords" content="C#设计模式（第2版）">
 <meta property="og:type" content="article">
 <meta property="og:title" content="命令模式">
-<meta property="og:url" content="http://yoursite.com/2019/09/18/命令模式-1/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/09/18/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F-1/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：  最简单的抽象命令类万年不变是什么意思？ 命令模式为什么是行为型模式？是如何将请求发送者与请求接收者解耦的？ 什么是命令对象？为什么实现了间接引用？ 是怎么做到可以在不修改现有系统源代码的情况下让相同的发送者对应不同的接收者的？ 命令模式的核心在于引入了抽象命令类和具体命令类。怎么理解？ 可以在具体命令类里直接new请求接收者，也可以在客户端注入。怎么理解？ “用不同的请求对">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2019/09/18/命令模式-1/1.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/18/命令模式-1/2.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/18/命令模式-1/3.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/18/命令模式-1/4.png">
-<meta property="og:image" content="http://yoursite.com/2019/09/18/命令模式-1/5.png">
-<meta property="og:updated_time" content="2020-06-12T06:29:16.000Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2019/09/18/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F-1/1.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/18/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F-1/2.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/18/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F-1/3.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/18/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F-1/4.png">
+<meta property="og:image" content="http://yoursite.com/2019/09/18/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F-1/5.png">
+<meta property="article:published_time" content="2019-09-18T13:19:50.000Z">
+<meta property="article:modified_time" content="2020-06-12T06:29:16.000Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="C#设计模式（第2版）">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="命令模式">
-<meta name="twitter:description" content="思考并回答以下问题：  最简单的抽象命令类万年不变是什么意思？ 命令模式为什么是行为型模式？是如何将请求发送者与请求接收者解耦的？ 什么是命令对象？为什么实现了间接引用？ 是怎么做到可以在不修改现有系统源代码的情况下让相同的发送者对应不同的接收者的？ 命令模式的核心在于引入了抽象命令类和具体命令类。怎么理解？ 可以在具体命令类里直接new请求接收者，也可以在客户端注入。怎么理解？ “用不同的请求对">
-<meta name="twitter:image" content="http://yoursite.com/2019/09/18/命令模式-1/1.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/18/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F-1/1.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/09/18/命令模式-1/">
+  <link rel="canonical" href="http://yoursite.com/2019/09/18/命令模式-1/"/>
 
 
 
@@ -176,7 +176,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -237,7 +237,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -254,7 +254,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -271,7 +271,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -288,7 +288,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -305,7 +305,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -316,7 +316,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -336,7 +336,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -386,16 +388,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/18/命令模式-1/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/09/18/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F-1/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -466,7 +468,7 @@
                 <span class="post-meta-item-text">分类于</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/设计模式/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a></span>
 
                 
                 
@@ -495,7 +497,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">15k</span>
+                <span title="本文字数">52k</span>
               
 
               
@@ -509,7 +511,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">13 分钟</span>
+                <span title="阅读时长">47 分钟</span>
               
             </div>
           
@@ -542,11 +544,11 @@
 <li>一个调用者并不需要在设计时确定其接收者，因此只与抽象命令类之间存在关联关系。怎么理解？</li>
 <li>在具体命令类里写代码时直接new Receiver了。怎么理解？</li>
 </ul>
-<a id="more"></a>
-<p><strong><font size="3">本章导学</font></strong></p>
+<span id="more"></span>
+<p><strong><font size=3>本章导学</font></strong></p>
 <p>命令模式是常用的行为型模式之一，它将请求发送者与请求接收者解耦，<span style="color:red">请求发送者通过命令对象来间接引用接收者</span>，使得系统具有更好的灵活性，可以在不修改现有系统源代码的情况下让相同的发送者对应不同的接收者。</p>
 <p>本章将学习命令模式的定义与结构，结合实例学习如何实现命令模式，并理解命令队列、请求日志、撤销操作和宏命令的实现原理。</p>
-<p><strong><font size="3">本章知识点</font></strong></p>
+<p><strong><font size=3>本章知识点</font></strong></p>
 <ul>
 <li>命令模式的定义</li>
 <li>命令模式的结构</li>
@@ -563,17 +565,16 @@
 <blockquote>
 <p>图1 开关与电灯、排气扇示意图</p>
 </blockquote>
-<img src="/2019/09/18/命令模式-1/1.png">
+<img src="/2019/09/18/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F-1/1.png" class="">
 <p>在图1中，可以将开关理解成一个请求的发送者，用户通过它来发送一个“开灯”请求，而电灯是“开灯”请求的最终接收者和处理者，开关和电灯之间并不存在直接耦合关系，它们通过电线连接在一起，使用不同的电线可以连接不同的请求接收者，只需更换一根电线，相同的发送者（开关）即可对应不同的接收者（电器）。</p>
 <p>在软件开发中也存在很多与开关和电器类似的请求发送者和接收者对象，例如一个按钮，它可能是一个“关闭窗口”请求的发送者，而按钮单击事件处理类则是该请求的接收者。<span style="color:red">为了降低系统的耦合度，将请求的发送者和接收者解耦，可以使用一种被称为命令模式的设计模式来设计系统。</span>在命令模式中，发送者与接收者之间引入了新的命令对象（类似图1中的电线），<span style="color:red">将发送者的请求封装在命令对象中，再通过命令对象来调用接收者的方法。</span>  </p>
 <p><span style="color:red">命令模式可以将请求发送者和接收者完全解耦，发送者与接收者之间没有直接引用关系，发送请求的对象只需要知道如何发送请求，而不必知道如何完成请求。</span>  </p>
-<p>命令模式的定义如下:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">将一个请求封装为一个对象，从而让你可以用不同的请求对客户进行参数化，对请求排队或者记录请求日志，以及支持可撤销的操作。</span><br></pre></td></tr></table></figure></p>
-<p>命令模式是一种对象行为型模式，其别名为动作（Action）模式或事务（Transaction）模式。命令模式的定义比较复杂，提到了很多术语，例如“用不同的请求对客户进行参数化”、“对请求排队”、“记录请求日志”、“支持可撤销操作”等。  </p>
+<p>命令模式的定义如下:<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">将一个请求封装为一个对象，从而让你可以用不同的请求对客户进行参数化，对请求排队或者记录请求日志，以及支持可撤销的操作。</span><br></pre></td></tr></table></figure><br>命令模式是一种对象行为型模式，其别名为动作（Action）模式或事务（Transaction）模式。命令模式的定义比较复杂，提到了很多术语，例如“用不同的请求对客户进行参数化”、“对请求排队”、“记录请求日志”、“支持可撤销操作”等。  </p>
 <h1 id="命令模式的结构与实现"><a href="#命令模式的结构与实现" class="headerlink" title="命令模式的结构与实现"></a><span style="color:#339AFF;">命令模式的结构与实现</span></h1><h2 id="命令模式的结构"><a href="#命令模式的结构" class="headerlink" title="命令模式的结构"></a><span style="color:#00ACC1;">命令模式的结构</span></h2><p><span style="color:red">命令模式的核心在于引入了抽象命令类和具体命令类</span>，通过命令类来降低发送者和接收者的耦合度，请求发送者只需指定一个命令对象，再通过命令对象来调用请求接收者的处理方法即可，其结构如图2所示。</p>
 <blockquote>
 <p>图2 命令模式结构图</p>
 </blockquote>
-<img src="/2019/09/18/命令模式-1/2.png">
+<img src="/2019/09/18/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F-1/2.png" class="">
 <p>由图2可知，命令模式包含以下4个角色。</p>
 <p>(1)<strong>Command（抽象命令类）</strong>：抽象命令类一般是一个抽象类或接口，在其中声明了用于执行请求的Execute()等方法，通过这些方法可以调用请求接收者的相关操作。</p>
 <p>(2)<strong>ConcreteCommand（具体命令类）</strong>：具体命令类是抽象命令类的子类，实现了在抽象命令类中声明的方法，它对应具体的接收者对象，将接收者对象的动作绑定其中。具体命令类在实现Execute()方法时，将调用接收者对象的相关操作。</p>
@@ -581,80 +582,74 @@
 <p>(4)<strong>Receiver（接收者）</strong>：接收者执行与请求相关的操作，具体实现对请求的业务处理。</p>
 <h2 id="命令模式的实现"><a href="#命令模式的实现" class="headerlink" title="命令模式的实现"></a><span style="color:#00ACC1;">命令模式的实现</span></h2><p>命令模式的本质是对请求进行封装，一个请求对应于一个命令，将发出命令的责任和执行命令的责任分开。每一个命令都是一个操作：请求的一方发出请求要求执行一个操作；接收的一方收到请求，并执行相应的操作。命令模式允许请求的一方和接收的一方独立开来，使得请求的一方不必知道接收请求的一方的接口，更不必知道请求如何被接收、操作是否被执行、何时被执行，以及是怎么被执行的。</p>
 <p><span style="color:red">命令模式的关键在于引入了抽象命令类，请求发送者针对抽象命令类编程，只有实现了抽象命令类的具体命令才与请求接收者相关联。</span>在最简单的抽象命令类中只包含了一个抽象的Execute()方法，每个具体命令类将一个Receiver类型的对象作为一个实例变量进行存储，从而具体指定一个请求的接收者，不同的具体命令类提供了Execute()方法的不同实现，并调用不同接收者的请求处理方法。</p>
-<p>典型的抽象命令类代码如下：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">Command</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Execute</span>(<span class="params"></span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>对于请求发送者（即调用者）而言，将针对抽象命令类进行编程，可以通过构造函数或者Setter方法在运行时注入具体命令类对象，并在业务方法中调用命令对象的Execute()方法。其典型代码如下：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Invoker</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> Command command;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构造注入</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Invoker</span>(<span class="params">Command command</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">this</span>.command = command;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Command command</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">get</span>&#123; <span class="keyword">return</span> command; &#125;</span><br><span class="line">        <span class="comment">// 设值注入</span></span><br><span class="line">        <span class="keyword">set</span>&#123; command = <span class="keyword">value</span>; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 业务方法，用于调用命令类的方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Call</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        command.Execute();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>具体命令类继承了抽象命令类，它与请求接收者相关联，实现了在抽象命令类中声明的Execute()方法，并在实现时调用接收者的请求响应方法Action()。其典型代码如下：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">ConcreteCommand</span> : <span class="title">Command</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 维持一个对请求接收者对象的引用</span></span><br><span class="line">    <span class="keyword">private</span> Receiver receiver;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Execute</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">// 调用请求接收者的业务处理方法Action()</span></span><br><span class="line">        receiver.Action();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>请求接收者Receiver具体实现对请求的业务处理，它拥有Action()方法，用于执行与请求相关的操作。其典型代码如下：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Receiver</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Action</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="comment">// 具体操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>典型的抽象命令类代码如下：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">Command</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Execute</span>()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>对于请求发送者（即调用者）而言，将针对抽象命令类进行编程，可以通过构造函数或者Setter方法在运行时注入具体命令类对象，并在业务方法中调用命令对象的Execute()方法。其典型代码如下：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Invoker</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> Command command;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 构造注入</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Invoker</span>(<span class="params">Command command</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">this</span>.command = command;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Command command</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">get</span>&#123; <span class="keyword">return</span> command; &#125;</span><br><span class="line">        <span class="comment">// 设值注入</span></span><br><span class="line">        <span class="keyword">set</span>&#123; command = <span class="keyword">value</span>; &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 业务方法，用于调用命令类的方法</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Call</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        command.Execute();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>具体命令类继承了抽象命令类，它与请求接收者相关联，实现了在抽象命令类中声明的Execute()方法，并在实现时调用接收者的请求响应方法Action()。其典型代码如下：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">ConcreteCommand</span> : <span class="title">Command</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 维持一个对请求接收者对象的引用</span></span><br><span class="line">    <span class="keyword">private</span> Receiver receiver;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Execute</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 调用请求接收者的业务处理方法Action()</span></span><br><span class="line">        receiver.Action();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>请求接收者Receiver具体实现对请求的业务处理，它拥有Action()方法，用于执行与请求相关的操作。其典型代码如下：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">Receiver</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Action</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 具体操作</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h1 id="命令模式的应用实例"><a href="#命令模式的应用实例" class="headerlink" title="命令模式的应用实例"></a><span style="color:#339AFF;">命令模式的应用实例</span></h1><p>下面通过一个应用实例来进一步学习和理解命令模式。</p>
-<p><strong><font size="3">1.实例说明</font></strong></p>
+<p><strong><font size=3>1.实例说明</font></strong></p>
 <blockquote>
-<p>为了用户使用方便，某系统提供了一系列功能键，用户可以自定义功能键的功能，例如功能键FunctionButton可以用于退出系统（由SystemExitClass类来实现），也可以用于显示帮助文档（由DisplayHelpClass类来实现）。<br><br>用户可以通过修改配置文件来改变功能键的用途，现使用命令模式来设计该系统，使得功能键类与功能类之间解耦，可为同一个功能键设置不同的功能。</p>
+<p>为了用户使用方便，某系统提供了一系列功能键，用户可以自定义功能键的功能，例如功能键FunctionButton可以用于退出系统（由SystemExitClass类来实现），也可以用于显示帮助文档（由DisplayHelpClass类来实现）。<br><br/>用户可以通过修改配置文件来改变功能键的用途，现使用命令模式来设计该系统，使得功能键类与功能类之间解耦，可为同一个功能键设置不同的功能。</p>
 </blockquote>
-<p><strong><font size="3">2.实例类图</font></strong></p>
+<p><strong><font size=3>2.实例类图</font></strong></p>
 <p>通过分析，本实例的结构如图3所示。</p>
 <blockquote>
 <p>图3 功能键设置结构图</p>
 </blockquote>
-<img src="/2019/09/18/命令模式-1/3.png">
+<img src="/2019/09/18/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F-1/3.png" class="">
 <p>在图3中，FunctionButton充当请求调用者，SystemExitClass和DisplayHelpClass充当请求接收者，Command是抽象命令类，ExitCommand和HelpCommand充当具体命令类。</p>
-<p><strong><font size="3">3.实例代码</font></strong></p>
+<p><strong><font size=3>3.实例代码</font></strong></p>
 <p>(1)FunctionButton：功能键，充当请求调用者（请求发送者）。</p>
 <blockquote>
 <p>FunctionButton.cs</p>
 </blockquote>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">CommandSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">FunctionButton</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> Command command; <span class="comment">// 维持一个抽象命令对象的引用</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 为功能键注入命令</span></span><br><span class="line">        <span class="keyword">public</span> Command Command</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">get</span>&#123; <span class="keyword">return</span> command; &#125;</span><br><span class="line">            <span class="keyword">set</span>&#123; command = <span class="keyword">value</span>; &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 发送请求的方法</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Click</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"单击功能键！"</span>);</span><br><span class="line">            command.Execute();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">CommandSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">FunctionButton</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> Command command; <span class="comment">// 维持一个抽象命令对象的引用</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 为功能键注入命令</span></span><br><span class="line">        <span class="keyword">public</span> Command Command</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">get</span>&#123; <span class="keyword">return</span> command; &#125;</span><br><span class="line">            <span class="keyword">set</span>&#123; command = <span class="keyword">value</span>; &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 发送请求的方法</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Click</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;单击功能键！&quot;</span>);</span><br><span class="line">            command.Execute();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>(2)Command：抽象命令类</p>
 <blockquote>
 <p>Command.cs</p>
 </blockquote>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">CommandSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">Command</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Execute</span>(<span class="params"></span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">CommandSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">Command</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">Execute</span>()</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>(3)ExitCommand：退出命令类，充当具体命令类</p>
 <blockquote>
 <p>ExitCommand.cs</p>
 </blockquote>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">CommandSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">ExitCommand</span> : <span class="title">Command</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> SystemExitClass seObj; <span class="comment">// 维持对请求接收者的引用</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ExitCommand</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            seObj = <span class="keyword">new</span> SystemExitClass();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 命令执行方法，将调用请求接收者的业务方法</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Execute</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            seObj.Exit();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">CommandSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">ExitCommand</span> : <span class="title">Command</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> SystemExitClass seObj; <span class="comment">// 维持对请求接收者的引用</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ExitCommand</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            seObj = <span class="keyword">new</span> SystemExitClass();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 命令执行方法，将调用请求接收者的业务方法</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Execute</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            seObj.Exit();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>(4)HelpCommand：帮助命令类，充当具体命令类。</p>
 <blockquote>
 <p>HelpCommand.cs</p>
 </blockquote>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">CommandSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">HelpCommand</span> : <span class="title">Command</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> DisplayHelpClass hcObj; <span class="comment">// 维持对请求接收者的引用</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">HelpCommand</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            hcObj = <span class="keyword">new</span> DisplayHelpClass();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 命令执行方法，将调用请求接收者的业务方法</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Execute</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            hcObj.Display();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">CommandSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">HelpCommand</span> : <span class="title">Command</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> DisplayHelpClass hcObj; <span class="comment">// 维持对请求接收者的引用</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">HelpCommand</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            hcObj = <span class="keyword">new</span> DisplayHelpClass();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 命令执行方法，将调用请求接收者的业务方法</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">Execute</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            hcObj.Display();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>(5)SystemExitClass：退出系统模拟实现类，充当请求接收者。</p>
 <blockquote>
 <p>SystemExitClass.cs</p>
 </blockquote>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">CommandSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">SystemExitClass</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Exit</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"退出系统"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">CommandSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">SystemExitClass</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Exit</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;退出系统&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>(6)DisplayHelpClass：显示帮助文档模拟实现类，充当请求接收者。</p>
 <blockquote>
 <p>DisplayHelpClass.cs</p>
 </blockquote>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">CommandSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">DisplayHelpClass</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Display</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"显示帮助文档！"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">CommandSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">DisplayHelpClass</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Display</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;显示帮助文档！&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>(7)配置文件App.config：在配置文件中存储了具体命令类的类名。</p>
 <blockquote>
 <p>App.config</p>
 </blockquote>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appSettings</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">add</span> <span class="attr">key</span>=<span class="string">"command"</span> <span class="attr">value</span>=<span class="string">"CommandSample.ExitCommand"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">appSettings</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span> ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appSettings</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">add</span> <span class="attr">key</span>=<span class="string">&quot;command&quot;</span> <span class="attr">value</span>=<span class="string">&quot;CommandSample.ExitCommand&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">appSettings</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>(8)Program：客户端测试类。</p>
 <blockquote>
 <p>Program.cs</p>
 </blockquote>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Configuration;</span><br><span class="line"><span class="keyword">using</span> System.Reflection;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">CommandSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            FunctionButton fb = <span class="keyword">new</span> FunctionButton();</span><br><span class="line"></span><br><span class="line">            Command command; <span class="comment">// 定义命令对象</span></span><br><span class="line">            <span class="comment">// 读取配置文件</span></span><br><span class="line">            <span class="keyword">string</span> commandStr = ConfigurationManager.AppSettings[<span class="string">"command"</span>];</span><br><span class="line">            <span class="comment">// 反射生成对象</span></span><br><span class="line">            command = (Command)Assembly.Load(<span class="string">"CommandSample"</span>).CreateInstance(commandStr);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 将命令对象注入功能键</span></span><br><span class="line">            fb.Command = command;</span><br><span class="line">            <span class="comment">// 调用功能键的业务方法</span></span><br><span class="line">            fb.Click();</span><br><span class="line"></span><br><span class="line">            Console.Read();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong><font size="3">4.结果及分析</font></strong></p>
-<p>编译并运行程序，输出结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">单击功能键！</span><br><span class="line">退出系统！</span><br></pre></td></tr></table></figure></p>
-<p>如果需要更换具体命令类，无需修改源代码，只需修改配置文件，例如将退出命令改为帮助命令，只需将存储在配置文件中的具体命令类类名ExitCommand改为HelpCommand。其代码如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="utf-8" ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appSettings</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">add</span> <span class="attr">key</span>=<span class="string">"command"</span> <span class="attr">value</span>=<span class="string">"CommandSample.HelpCommand"</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">appSettings</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>重新运行客户端程序，输出结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">单击功能键！</span><br><span class="line">显示帮助文档！</span><br></pre></td></tr></table></figure></p>
-<p>如果在系统中增加了新的功能，功能键需要与新功能对应，只需要对应增加一个新的具体命令类，在新的具体命令类中调用新功能类的业务方法，然后将该具体命令类的对象通过配置文件注入功能键即可，原有代码无须修改，符合开闭原则。  </p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Configuration;</span><br><span class="line"><span class="keyword">using</span> System.Reflection;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">CommandSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            FunctionButton fb = <span class="keyword">new</span> FunctionButton();</span><br><span class="line"></span><br><span class="line">            Command command; <span class="comment">// 定义命令对象</span></span><br><span class="line">            <span class="comment">// 读取配置文件</span></span><br><span class="line">            <span class="built_in">string</span> commandStr = ConfigurationManager.AppSettings[<span class="string">&quot;command&quot;</span>];</span><br><span class="line">            <span class="comment">// 反射生成对象</span></span><br><span class="line">            command = (Command)Assembly.Load(<span class="string">&quot;CommandSample&quot;</span>).CreateInstance(commandStr);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 将命令对象注入功能键</span></span><br><span class="line">            fb.Command = command;</span><br><span class="line">            <span class="comment">// 调用功能键的业务方法</span></span><br><span class="line">            fb.Click();</span><br><span class="line"></span><br><span class="line">            Console.Read();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong><font size=3>4.结果及分析</font></strong></p>
+<p>编译并运行程序，输出结果如下：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">单击功能键！</span><br><span class="line">退出系统！</span><br></pre></td></tr></table></figure><br>如果需要更换具体命令类，无需修改源代码，只需修改配置文件，例如将退出命令改为帮助命令，只需将存储在配置文件中的具体命令类类名ExitCommand改为HelpCommand。其代码如下：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span> ?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">appSettings</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">add</span> <span class="attr">key</span>=<span class="string">&quot;command&quot;</span> <span class="attr">value</span>=<span class="string">&quot;CommandSample.HelpCommand&quot;</span> /&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">appSettings</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure><br>重新运行客户端程序，输出结果如下：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">单击功能键！</span><br><span class="line">显示帮助文档！</span><br></pre></td></tr></table></figure><br>如果在系统中增加了新的功能，功能键需要与新功能对应，只需要对应增加一个新的具体命令类，在新的具体命令类中调用新功能类的业务方法，然后将该具体命令类的对象通过配置文件注入功能键即可，原有代码无须修改，符合开闭原则。  </p>
 <p>在命令模式中，每一个具体命令类对应一个请求的处理者（接收者），通过向请求发送者注入不同的具体命令对象可以使相同的发送者对应不同的接收者，从而实现“将一个请求封装为一个对象，用不同的请求对客户进行参数化”，客户端只需要将具体命令对象作为参数注入请求发送者，无须直接操作请求的接收者。</p>
 <h1 id="实现命令队列"><a href="#实现命令队列" class="headerlink" title="实现命令队列"></a><span style="color:#339AFF;">实现命令队列</span></h1><p>当一个请求发送者发送一个请求时，有不止一个请求接收者产生响应，这些请求接收者将逐个执行业务方法，完成对请求的处理。此时，可以通过命令队列来实现。 </p>
 <p>命令队列的实现方法有多种形式，其中最常用、灵活性最好的一种方式是增加一个CommandQueue类，由该类负责存储多个命令对象，而不同的命令对象可以对应不同的请求接收者。CommandQueue类的典型代码如下:</p>
 <blockquote>
 <p>CommandQueue.cs</p>
 </blockquote>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">CommandSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">CommandQueue</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 定义一个List来存储命令队列</span></span><br><span class="line">        <span class="keyword">private</span> List&lt;Command&gt; commands = <span class="keyword">new</span> List&lt;Command&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">AddCommand</span>(<span class="params">Command command</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            commands.Add(command);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">RemoveCommand</span>(<span class="params">Command command</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            commands.Remove(command);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 循环调用每一个命令对象的Execute()方法</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Execute</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">foreach</span>(<span class="keyword">object</span> command <span class="keyword">in</span> commands)</span><br><span class="line">            &#123;</span><br><span class="line">                ((Command)command).Execute();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">CommandSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">CommandQueue</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 定义一个List来存储命令队列</span></span><br><span class="line">        <span class="keyword">private</span> List&lt;Command&gt; commands = <span class="keyword">new</span> List&lt;Command&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">AddCommand</span>(<span class="params">Command command</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            commands.Add(command);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">RemoveCommand</span>(<span class="params">Command command</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            commands.Remove(command);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 循环调用每一个命令对象的Execute()方法</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Execute</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">foreach</span>(<span class="built_in">object</span> command <span class="keyword">in</span> commands)</span><br><span class="line">            &#123;</span><br><span class="line">                ((Command)command).Execute();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在增加了命令队列类CommandQueue以后，请求发送者Invoker将针对CommandQueue编程。其代码修改如下：</p>
 <blockquote>
 <p>Invoker.cs</p>
 </blockquote>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">CommandSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Invoker</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 维持一个CommandQueue对象的引用</span></span><br><span class="line">        <span class="keyword">private</span> CommandQueue commandQueue;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 构造注入</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Invoker</span>(<span class="params">CommandQueue commandQueue</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">this</span>.commandQueue = commandQueue;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设值注入</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SetCommandQueue</span>(<span class="params">CommandQueue commandQueue</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">this</span>.commandQueue = commandQueue;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 调用CommandQueue类的Execute()方法</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Call</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            commandQueue.Execute();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">CommandSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Invoker</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 维持一个CommandQueue对象的引用</span></span><br><span class="line">        <span class="keyword">private</span> CommandQueue commandQueue;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 构造注入</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">Invoker</span>(<span class="params">CommandQueue commandQueue</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">this</span>.commandQueue = commandQueue;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 设值注入</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">SetCommandQueue</span>(<span class="params">CommandQueue commandQueue</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">this</span>.commandQueue = commandQueue;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 调用CommandQueue类的Execute()方法</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Call</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            commandQueue.Execute();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>命令队列与人们常说的“批处理”有点类似。批处理，顾名思义，可以对一组命令对象进行批量处理，当一个发送者发送请求后，将有一系列接收者对请求作出响应。命令队列可以用于设计批处理应用程序，如果请求接收者的接收次序没有严格的先后次序，还可以使用多线程技术并发调用命令对象的Execute()方法，从而提高程序的执行效率。</p>
 <h1 id="记录请求日志"><a href="#记录请求日志" class="headerlink" title="记录请求日志"></a><span style="color:#339AFF;">记录请求日志</span></h1><p>请求日志就是将请求的历史记录保存下来，通常以日志文件（Log File）的形式永久存储在计算机中。很多系统都提供了日志文件，例如Windows日志文件，Oracle日志文件等，日志文件可以记录用户对系统的一些操作（例如对数据的更改）。请求日志文件可以实现很多功能，其常用功能如下：</p>
 <ul>
@@ -671,39 +666,38 @@
 <blockquote>
 <p>图4 简易计算器结构图</p>
 </blockquote>
-<img src="/2019/09/18/命令模式-1/4.png">
+<img src="/2019/09/18/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F-1/4.png" class="">
 <p>在实例中，加法类Adder充当请求接收者，其代码如下：</p>
 <blockquote>
 <p>Adder.cs</p>
 </blockquote>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">CommandUndoSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Adder</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 定义初始值为0</span></span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> num = <span class="number">0</span>; </span><br><span class="line"></span><br><span class="line">        <span class="comment">// 加法操作，每次将传入的值与num做加法运算，再将结果返回</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">Add</span>(<span class="params"><span class="keyword">int</span> <span class="keyword">value</span></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            num += <span class="keyword">value</span>;</span><br><span class="line">            <span class="keyword">return</span> num;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">CommandUndoSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">Adder</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// 定义初始值为0</span></span><br><span class="line">        <span class="keyword">private</span> <span class="built_in">int</span> num = <span class="number">0</span>; </span><br><span class="line"></span><br><span class="line">        <span class="comment">// 加法操作，每次将传入的值与num做加法运算，再将结果返回</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="built_in">int</span> <span class="title">Add</span>(<span class="params"><span class="built_in">int</span> <span class="keyword">value</span></span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            num += <span class="keyword">value</span>;</span><br><span class="line">            <span class="keyword">return</span> num;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>AbstractCommand充当抽象命令类，声明了Execute()方法和撤销方法Undo()。其代码如下：</p>
 <blockquote>
 <p>AbstractCommand.cs</p>
 </blockquote>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">CommandUndoSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">AbstractCommand</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">Execute</span>(<span class="params"><span class="keyword">int</span> <span class="keyword">value</span></span>)</span>;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">int</span> <span class="title">Undo</span>(<span class="params"></span>)</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">CommandUndoSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">abstract</span> <span class="keyword">class</span> <span class="title">AbstractCommand</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="built_in">int</span> <span class="title">Execute</span>(<span class="params"><span class="built_in">int</span> <span class="keyword">value</span></span>)</span>;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="built_in">int</span> <span class="title">Undo</span>()</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>AddCommand充当具体命令类，实现了在抽象命令类AbstractCommand中声明的Execute()方法和撤销方法Undo()。其代码如下：</p>
 <blockquote>
 <p>AddCommand.cs</p>
 </blockquote>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">CommandUndoSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">AddCommand</span> : <span class="title">AbstractCommand</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> Adder adder = <span class="keyword">new</span> Adder();</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> <span class="keyword">value</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 实现抽象命令类中声明的Execute()方法，调用加法类的加法操作</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">int</span> <span class="title">Execute</span>(<span class="params"><span class="keyword">int</span> <span class="keyword">value</span></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">this</span>.<span class="keyword">value</span> = <span class="keyword">value</span>;</span><br><span class="line">            <span class="keyword">return</span> adder.Add(<span class="keyword">value</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 实现抽象命令类中声明的Undo()方法，通过加一个相反数来实现加法的逆向操作</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">int</span> <span class="title">Undo</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">return</span> adder.Add(-<span class="keyword">value</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">CommandUndoSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">AddCommand</span> : <span class="title">AbstractCommand</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> Adder adder = <span class="keyword">new</span> Adder();</span><br><span class="line">        <span class="keyword">private</span> <span class="built_in">int</span> <span class="keyword">value</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 实现抽象命令类中声明的Execute()方法，调用加法类的加法操作</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">int</span> <span class="title">Execute</span>(<span class="params"><span class="built_in">int</span> <span class="keyword">value</span></span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">this</span>.<span class="keyword">value</span> = <span class="keyword">value</span>;</span><br><span class="line">            <span class="keyword">return</span> adder.Add(<span class="keyword">value</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 实现抽象命令类中声明的Undo()方法，通过加一个相反数来实现加法的逆向操作</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">int</span> <span class="title">Undo</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> adder.Add(-<span class="keyword">value</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>CalculatorForm充当请求发送者，它引用一个抽象命令AbstractCommand类型的对象command，通过该command对象间接调用请求接收者Adder类的业务处理方法。其代码如下：</p>
 <blockquote>
 <p>CalculatorForm.cs</p>
 </blockquote>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">CommandUndoSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">CalculatorForm</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> AbstractCommand command;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> AbstractCommand Command</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">get</span>&#123; <span class="keyword">return</span> command; &#125;</span><br><span class="line">            <span class="keyword">set</span>&#123; command = <span class="keyword">value</span>; &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 调用命令对象的Execute()方法执行运算</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Compute</span>(<span class="params"><span class="keyword">int</span> <span class="keyword">value</span></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">int</span> i = Command.Execute(<span class="keyword">value</span>);</span><br><span class="line">            Console.WriteLine(<span class="string">"执行运算，运算结果为："</span> + i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 调用命令对象的Undo()方法执行撤销</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Undo</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="keyword">int</span> i = Command.Undo();</span><br><span class="line">            Console.WriteLine(<span class="string">"执行撤销，运算结果为："</span> + i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">CommandUndoSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">CalculatorForm</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> AbstractCommand command;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> AbstractCommand Command</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">get</span>&#123; <span class="keyword">return</span> command; &#125;</span><br><span class="line">            <span class="keyword">set</span>&#123; command = <span class="keyword">value</span>; &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 调用命令对象的Execute()方法执行运算</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Compute</span>(<span class="params"><span class="built_in">int</span> <span class="keyword">value</span></span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">int</span> i = Command.Execute(<span class="keyword">value</span>);</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;执行运算，运算结果为：&quot;</span> + i);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 调用命令对象的Undo()方法执行撤销</span></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Undo</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">int</span> i = Command.Undo();</span><br><span class="line">            Console.WriteLine(<span class="string">&quot;执行撤销，运算结果为：&quot;</span> + i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在客户端测试类Program中定义了抽象命令类型的命令对象command，还创建了请求发送者对象form，通过调用form对象的Compute()方法实现加法运算，还可以调用Undo()方法撤销最后一次加法运算。其代码如下。</p>
 <blockquote>
 <p>Program.cs</p>
 </blockquote>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">CommandUndoSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="keyword">string</span>[] args</span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            CalculatorForm form = <span class="keyword">new</span> CalculatorForm();</span><br><span class="line">            AbstractCommand command;</span><br><span class="line">            command = <span class="keyword">new</span> AddCommand();</span><br><span class="line">            form.Command = command;</span><br><span class="line"></span><br><span class="line">            form.Compute(<span class="number">10</span>);</span><br><span class="line">            form.Compute(<span class="number">5</span>);</span><br><span class="line">            form.Compute(<span class="number">10</span>);</span><br><span class="line">            form.Undo(); <span class="comment">// 撤销</span></span><br><span class="line"></span><br><span class="line">            Console.Read();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>编译并运行程序，输出结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">执行运算，运算结果为：10</span><br><span class="line">执行运算，运算结果为：15</span><br><span class="line">执行运算，运算结果为：25</span><br><span class="line">执行撤销，运算结果为：15</span><br></pre></td></tr></table></figure></p>
-<p>需要注意的是，在本实例中只能实现一步撤销操作，因为没有保存命令对象的历史状态，用户可以通过引入一个命令集合或其他方式来存储每一次操作时命令的状态，从而实现多次撤销操作。除了撤销操作外，还可以采用类似的方式实现恢复（Redo）操作，即恢复所撤销的操作（或称为二次撤销）。</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">CommandUndoSample</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Program</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"><span class="built_in">string</span>[] args</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            CalculatorForm form = <span class="keyword">new</span> CalculatorForm();</span><br><span class="line">            AbstractCommand command;</span><br><span class="line">            command = <span class="keyword">new</span> AddCommand();</span><br><span class="line">            form.Command = command;</span><br><span class="line"></span><br><span class="line">            form.Compute(<span class="number">10</span>);</span><br><span class="line">            form.Compute(<span class="number">5</span>);</span><br><span class="line">            form.Compute(<span class="number">10</span>);</span><br><span class="line">            form.Undo(); <span class="comment">// 撤销</span></span><br><span class="line"></span><br><span class="line">            Console.Read();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译并运行程序，输出结果如下：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">执行运算，运算结果为：10</span><br><span class="line">执行运算，运算结果为：15</span><br><span class="line">执行运算，运算结果为：25</span><br><span class="line">执行撤销，运算结果为：15</span><br></pre></td></tr></table></figure><br>需要注意的是，在本实例中只能实现一步撤销操作，因为没有保存命令对象的历史状态，用户可以通过引入一个命令集合或其他方式来存储每一次操作时命令的状态，从而实现多次撤销操作。除了撤销操作外，还可以采用类似的方式实现恢复（Redo）操作，即恢复所撤销的操作（或称为二次撤销）。</p>
 <h1 id="宏命令"><a href="#宏命令" class="headerlink" title="宏命令"></a><span style="color:#339AFF;">宏命令</span></h1><p>宏命令（Macro Command）又称为组合命令（Composite Command），它是组合模式和命令模式联用的产物。宏命令是一个具体命令类，它拥有一个集合，在该集合中包含了对其他命令对象的引用。通常，宏命令不直接与请求接收者交互，而是通过它的成员来调用接收者的方法。当调用宏命令的Execute()方法时，将递归调用它所包含的每个成员命令的Execute()方法。一个宏命令的成员可以是简单命令，还可以继续是宏命令。执行一个宏命令将触发多个具体命令的执行，从而实现对命令的批处理。宏命令结构如图5所示。</p>
 <blockquote>
 <p>图5 宏命令结构图</p>
 </blockquote>
-<img src="/2019/09/18/命令模式-1/5.png">
+<img src="/2019/09/18/%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F-1/5.png" class="">
 <h1 id="命令模式的优缺点与适用环境"><a href="#命令模式的优缺点与适用环境" class="headerlink" title="命令模式的优缺点与适用环境"></a><span style="color:#339AFF;">命令模式的优缺点与适用环境</span></h1><p>命令模式是一种使用频率非常高的设计模式，它可以将请求发送者与接收者解耦，请求发送者通过命令对象来间接引用请求接收者，使得系统具有更好的灵活性与可扩展性。在基于GUI的软件开发，无论是计算机桌面应用还是手机移动应用中，命令模式都得到了广泛的应用。</p>
 <h2 id="命令模式的优点"><a href="#命令模式的优点" class="headerlink" title="命令模式的优点"></a><span style="color:#00ACC1;">命令模式的优点</span></h2><p>命令模式的主要优点如下：</p>
 <ul>
@@ -752,7 +746,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/C-设计模式（第2版）/" rel="tag"># C#设计模式（第2版）</a>
+            <a href="/tags/C-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%88%E7%AC%AC2%E7%89%88%EF%BC%89/" rel="tag"># C#设计模式（第2版）</a>
           
         </div>
       
@@ -765,7 +759,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/09/18/单例模式-1/" rel="next" title="单例模式">
+              <a href="/2019/09/18/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F-1/" rel="next" title="单例模式">
                 <i class="fa fa-chevron-left"></i> 单例模式
               </a>
             
@@ -775,7 +769,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/09/19/中介者模式-1/" rel="prev" title="中介者模式">
+              <a href="/2019/09/19/%E4%B8%AD%E4%BB%8B%E8%80%85%E6%A8%A1%E5%BC%8F-1/" rel="prev" title="中介者模式">
                 中介者模式 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -835,7 +829,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -846,9 +842,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -860,26 +856,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -951,7 +931,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1126,115 +1106,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1265,23 +1137,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1307,7 +1179,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#命令模式概述"><span class="nav-number">1.</span> <span class="nav-text">命令模式概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令模式的结构与实现"><span class="nav-number">2.</span> <span class="nav-text">命令模式的结构与实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#命令模式的结构"><span class="nav-number">2.1.</span> <span class="nav-text">命令模式的结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令模式的实现"><span class="nav-number">2.2.</span> <span class="nav-text">命令模式的实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令模式的应用实例"><span class="nav-number">3.</span> <span class="nav-text">命令模式的应用实例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现命令队列"><span class="nav-number">4.</span> <span class="nav-text">实现命令队列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#记录请求日志"><span class="nav-number">5.</span> <span class="nav-text">记录请求日志</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现撤销操作"><span class="nav-number">6.</span> <span class="nav-text">实现撤销操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#宏命令"><span class="nav-number">7.</span> <span class="nav-text">宏命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#命令模式的优缺点与适用环境"><span class="nav-number">8.</span> <span class="nav-text">命令模式的优缺点与适用环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#命令模式的优点"><span class="nav-number">8.1.</span> <span class="nav-text">命令模式的优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令模式的缺点"><span class="nav-number">8.2.</span> <span class="nav-text">命令模式的缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命令模式的适用环境"><span class="nav-number">8.3.</span> <span class="nav-text">命令模式的适用环境</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本章小结"><span class="nav-number">9.</span> <span class="nav-text">本章小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">命令模式概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.</span> <span class="nav-text">命令模式的结构与实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">2.1.</span> <span class="nav-text">命令模式的结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="nav-number">2.2.</span> <span class="nav-text">命令模式的实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E5%BA%94%E7%94%A8%E5%AE%9E%E4%BE%8B"><span class="nav-number">3.</span> <span class="nav-text">命令模式的应用实例</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E5%91%BD%E4%BB%A4%E9%98%9F%E5%88%97"><span class="nav-number">4.</span> <span class="nav-text">实现命令队列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%B0%E5%BD%95%E8%AF%B7%E6%B1%82%E6%97%A5%E5%BF%97"><span class="nav-number">5.</span> <span class="nav-text">记录请求日志</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%92%A4%E9%94%80%E6%93%8D%E4%BD%9C"><span class="nav-number">6.</span> <span class="nav-text">实现撤销操作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%8F%E5%91%BD%E4%BB%A4"><span class="nav-number">7.</span> <span class="nav-text">宏命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9%E4%B8%8E%E9%80%82%E7%94%A8%E7%8E%AF%E5%A2%83"><span class="nav-number">8.</span> <span class="nav-text">命令模式的优缺点与适用环境</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%BC%98%E7%82%B9"><span class="nav-number">8.1.</span> <span class="nav-text">命令模式的优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E7%BC%BA%E7%82%B9"><span class="nav-number">8.2.</span> <span class="nav-text">命令模式的缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E6%A8%A1%E5%BC%8F%E7%9A%84%E9%80%82%E7%94%A8%E7%8E%AF%E5%A2%83"><span class="nav-number">8.3.</span> <span class="nav-text">命令模式的适用环境</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%AC%E7%AB%A0%E5%B0%8F%E7%BB%93"><span class="nav-number">9.</span> <span class="nav-text">本章小结</span></a></li></ol></div>
             
 
           </div>
@@ -1342,7 +1214,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1353,12 +1225,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1366,7 +1238,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

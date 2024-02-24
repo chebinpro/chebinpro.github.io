@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,24 +104,24 @@
 
 
   <meta name="description" content="思考并回答以下问题：  如果Go方法要把对receiver参数代表的类型实例的修改，反映到原类型实例上，那么我们应该选择*T作为receiver参数的类型。怎么理解？ 无论是T类型实例，还是*T类型实例，都既可以调用receiver为T类型的方法，也可以调用receiver为*T类型的方法。怎么理解？">
-<meta name="keywords" content="Go语言第一课">
 <meta property="og:type" content="article">
 <meta property="og:title" content="25｜方法：方法集合与如何选择receiver类型？">
-<meta property="og:url" content="http://yoursite.com/2023/01/01/25｜方法：方法集合与如何选择receiver类型？/index.html">
+<meta property="og:url" content="http://yoursite.com/2023/01/01/25%EF%BD%9C%E6%96%B9%E6%B3%95%EF%BC%9A%E6%96%B9%E6%B3%95%E9%9B%86%E5%90%88%E4%B8%8E%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9receiver%E7%B1%BB%E5%9E%8B%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：  如果Go方法要把对receiver参数代表的类型实例的修改，反映到原类型实例上，那么我们应该选择*T作为receiver参数的类型。怎么理解？ 无论是T类型实例，还是*T类型实例，都既可以调用receiver为T类型的方法，也可以调用receiver为*T类型的方法。怎么理解？">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2023-02-20T06:43:01.166Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-01-01T03:42:54.000Z">
+<meta property="article:modified_time" content="2023-02-20T06:43:01.166Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Go语言第一课">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="25｜方法：方法集合与如何选择receiver类型？">
-<meta name="twitter:description" content="思考并回答以下问题：  如果Go方法要把对receiver参数代表的类型实例的修改，反映到原类型实例上，那么我们应该选择*T作为receiver参数的类型。怎么理解？ 无论是T类型实例，还是*T类型实例，都既可以调用receiver为T类型的方法，也可以调用receiver为*T类型的方法。怎么理解？">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2023/01/01/25｜方法：方法集合与如何选择receiver类型？/">
+  <link rel="canonical" href="http://yoursite.com/2023/01/01/25｜方法：方法集合与如何选择receiver类型？/"/>
 
 
 
@@ -170,7 +170,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -231,7 +231,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -248,7 +248,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -265,7 +265,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -282,7 +282,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -299,7 +299,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -310,7 +310,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -330,7 +330,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -380,16 +382,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/01/01/25｜方法：方法集合与如何选择receiver类型？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/01/01/25%EF%BD%9C%E6%96%B9%E6%B3%95%EF%BC%9A%E6%96%B9%E6%B3%95%E9%9B%86%E5%90%88%E4%B8%8E%E5%A6%82%E4%BD%95%E9%80%89%E6%8B%A9receiver%E7%B1%BB%E5%9E%8B%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -489,7 +491,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">8.5k</span>
+                <span title="本文字数">25k</span>
               
 
               
@@ -503,7 +505,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">8 分钟</span>
+                <span title="阅读时长">23 分钟</span>
               
             </div>
           
@@ -528,15 +530,14 @@
 <li>如果Go方法要把对receiver参数代表的类型实例的修改，反映到原类型实例上，那么我们应该选择<code>*T</code>作为receiver参数的类型。怎么理解？</li>
 <li>无论是T类型实例，还是<code>*T</code>类型实例，都既可以调用receiver为T类型的方法，也可以调用receiver为<code>*T</code>类型的方法。怎么理解？</li>
 </ul>
-<a id="more"></a>
+<span id="more"></span>
 <p>在上一节中我们开启了Go方法的学习，了解了Go语言中方法的组成、声明和实质。可以说，我们已经正式入门Go方法了。</p>
 <p>入门Go方法后，和函数一样，我们要考虑如何进行方法设计的问题。由于在Go语言中，<strong>方法本质上就是函数</strong>，所以我们之前讲解的、关于函数设计的内容对方法也同样适用，比如错误处理设计、针对异常的处理策略、使用defer提升简洁性，等等。</p>
 <p>但关于Go方法中独有的receiver组成部分，却没有现成的、可供我们参考的内容。而据我了解，初学者在学习Go方法时，最头疼的一个问题恰恰就是<strong>如何选择receiver参数的类型</strong>。</p>
 <p>那么，在这一讲中，我们就来学习一下不同receiver参数类型对Go方法的影响，以及我们选择receiver参数类型时的一些经验原则。</p>
 <h1 id="receiver参数类型对Go方法的影响"><a href="#receiver参数类型对Go方法的影响" class="headerlink" title="receiver参数类型对Go方法的影响"></a><span style="color:#339AFF;">receiver参数类型对Go方法的影响</span></h1><p>要想为receiver参数选出合理的类型，我们先要了解不同的receiver参数类型会对Go方法产生怎样的影响。在上一节课中，我们分析了Go方法的本质，得出了“Go方法实质上是<strong>以方法的receiver参数作为第一个参数的普通函数</strong>”的结论。</p>
 <p>对于函数参数类型对函数的影响，我们是很熟悉的。那么我们能不能将方法等价转换为对应的函数，再通过分析receiver参数类型对函数的影响，从而间接得出它对Go方法的影响呢？</p>
-<p>我们可以基于这个思路试试看。我们直接来看下面例子中的两个Go方法，以及它们等价转换后的函数：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t T)</span> <span class="title">M1</span><span class="params">()</span> &lt;=&gt; <span class="title">F1</span><span class="params">(t T)</span></span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="params">(t *T)</span> <span class="title">M2</span><span class="params">()</span> &lt;=&gt; <span class="title">F2</span><span class="params">(t *T)</span></span></span><br></pre></td></tr></table></figure></p>
-<p>这个例子中有方法M1和M2。M1方法是receiver参数类型为T的一类方法的代表，而M2方法则代表了receiver参数类型为<code>*T</code>的另一类。下面我们分别来看看不同的receiver参数类型对M1和M2的影响。</p>
+<p>我们可以基于这个思路试试看。我们直接来看下面例子中的两个Go方法，以及它们等价转换后的函数：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t T)</span></span> M1() &lt;=&gt; F1(t T)</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *T)</span></span> M2() &lt;=&gt; F2(t *T)</span><br></pre></td></tr></table></figure><br>这个例子中有方法M1和M2。M1方法是receiver参数类型为T的一类方法的代表，而M2方法则代表了receiver参数类型为<code>*T</code>的另一类。下面我们分别来看看不同的receiver参数类型对M1和M2的影响。</p>
 <ul>
 <li><strong>首先，当receiver参数的类型为T时</strong>：</li>
 </ul>
@@ -547,14 +548,12 @@
 </ul>
 <p>当我们选择以<code>*T</code>作为receiver参数类型时，M2方法等价转换为<code>F2(t *T)</code>。同上面分析，我们传递给F2函数的t是T类型实例的地址，这样F2函数体中对参数t做的任何修改，都会反映到原T类型实例上。</p>
 <p>据此我们也可以得出结论：当我们的方法M2采用类型为<code>*T</code>的receiver参数时，代表<code>*T</code>类型实例的receiver参数以值传递方式传递到M2方法体中的，实际上是<strong>T类型实例的地址</strong>，M2方法体通过该地址可以对原T类型实例进行任何修改操作。</p>
-<p>我们再通过一个更直观的例子，证明一下上面这个分析结果，看一下Go方法选择不同的receiver类型对原类型实例的影响：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line">  </span><br><span class="line"><span class="keyword">type</span> T <span class="keyword">struct</span> &#123;</span><br><span class="line">    a <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t T)</span> <span class="title">M1</span><span class="params">()</span></span> &#123;</span><br><span class="line">    t.a = <span class="number">10</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *T)</span> <span class="title">M2</span><span class="params">()</span></span> &#123;</span><br><span class="line">    t.a = <span class="number">11</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> t T</span><br><span class="line">    <span class="built_in">println</span>(t.a) <span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line">    t.M1()</span><br><span class="line">    <span class="built_in">println</span>(t.a) <span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line">    p := &amp;t</span><br><span class="line">    p.M2()</span><br><span class="line">    <span class="built_in">println</span>(t.a) <span class="comment">// 11</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在这个示例中，我们为基类型T定义了两个方法M1和M2，其中M1的receiver参数类型为T，而M2的receiver参数类型为<code>*T</code>。M1和M2方法体都通过receiver参数t对t的字段a进行了修改。</p>
+<p>我们再通过一个更直观的例子，证明一下上面这个分析结果，看一下Go方法选择不同的receiver类型对原类型实例的影响：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line">  </span><br><span class="line"><span class="keyword">type</span> T <span class="keyword">struct</span> &#123;</span><br><span class="line">    a <span class="type">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t T)</span></span> M1() &#123;</span><br><span class="line">    t.a = <span class="number">10</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *T)</span></span> M2() &#123;</span><br><span class="line">    t.a = <span class="number">11</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> t T</span><br><span class="line">    <span class="built_in">println</span>(t.a) <span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line">    t.M1()</span><br><span class="line">    <span class="built_in">println</span>(t.a) <span class="comment">// 0</span></span><br><span class="line"></span><br><span class="line">    p := &amp;t</span><br><span class="line">    p.M2()</span><br><span class="line">    <span class="built_in">println</span>(t.a) <span class="comment">// 11</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>在这个示例中，我们为基类型T定义了两个方法M1和M2，其中M1的receiver参数类型为T，而M2的receiver参数类型为<code>*T</code>。M1和M2方法体都通过receiver参数t对t的字段a进行了修改。</p>
 <p>但运行这个示例程序后，我们看到，方法M1由于使用了T作为receiver参数类型，它在方法体中修改的仅仅是T类型实例t的副本，原实例并没有受到影响。因此M1调用后，输出<code>t.a</code>的值仍为0。</p>
 <p>而方法M2呢，由于使用了<code>*T</code>作为receiver参数类型，它在方法体中通过t修改的是实例本身，因此M2调用后，<code>t.a</code>的值变为了11，这些输出结果与我们前面的分析是一致的。</p>
 <p>了解了不同类型的receiver参数对Go方法的影响后，我们就可以总结一下，日常编码中选择receiver的参数类型的时候，我们可以参考哪些原则。</p>
 <h1 id="选择receiver参数类型的第一个原则"><a href="#选择receiver参数类型的第一个原则" class="headerlink" title="选择receiver参数类型的第一个原则"></a><span style="color:#339AFF;">选择receiver参数类型的第一个原则</span></h1><p>基于上面的影响分析，我们可以得到选择receiver参数类型的第一个原则：<strong>如果Go方法要把对receiver参数代表的类型实例的修改，反映到原类型实例上，那么我们应该选择<code>*T</code>作为receiver参数的类型</strong>。</p>
-<p>这个原则似乎很好掌握，不过这个时候，你可能会有个疑问：如果我们选择了<code>*T</code>作为Go方法receiver参数的类型，那么我们是不是只能通过<code>*T</code>类型变量调用该方法，而不能通过T类型变量调用了呢？这个问题恰恰也是上节课我们遗留的一个问题。我们改造一下上面例子看一下：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> T <span class="keyword">struct</span> &#123;</span><br><span class="line">    a <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t T)</span> <span class="title">M1</span><span class="params">()</span></span> &#123;</span><br><span class="line">    t.a = <span class="number">10</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *T)</span> <span class="title">M2</span><span class="params">()</span></span> &#123;</span><br><span class="line">    t.a = <span class="number">11</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> t1 T</span><br><span class="line">    <span class="built_in">println</span>(t1.a) <span class="comment">// 0</span></span><br><span class="line">    t1.M1()</span><br><span class="line">    <span class="built_in">println</span>(t1.a) <span class="comment">// 0</span></span><br><span class="line">    t1.M2()</span><br><span class="line">    <span class="built_in">println</span>(t1.a) <span class="comment">// 11</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> t2 = &amp;T&#123;&#125;</span><br><span class="line">    <span class="built_in">println</span>(t2.a) <span class="comment">// 0</span></span><br><span class="line">    t2.M1()</span><br><span class="line">    <span class="built_in">println</span>(t2.a) <span class="comment">// 0</span></span><br><span class="line">    t2.M2()</span><br><span class="line">    <span class="built_in">println</span>(t2.a) <span class="comment">// 11</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>我们先来看看类型为T的实例t1。我们看到它不仅可以调用receiver参数类型为T的方法M1，它还可以直接调用receiver参数类型为<code>*T</code>的方法M2，并且调用完M2方法后，<code>t1.a</code>的值被修改为11了。</p>
+<p>这个原则似乎很好掌握，不过这个时候，你可能会有个疑问：如果我们选择了<code>*T</code>作为Go方法receiver参数的类型，那么我们是不是只能通过<code>*T</code>类型变量调用该方法，而不能通过T类型变量调用了呢？这个问题恰恰也是上节课我们遗留的一个问题。我们改造一下上面例子看一下：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> T <span class="keyword">struct</span> &#123;</span><br><span class="line">    a <span class="type">int</span></span><br><span class="line">&#125;</span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t T)</span></span> M1() &#123;</span><br><span class="line">    t.a = <span class="number">10</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *T)</span></span> M2() &#123;</span><br><span class="line">    t.a = <span class="number">11</span></span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> t1 T</span><br><span class="line">    <span class="built_in">println</span>(t1.a) <span class="comment">// 0</span></span><br><span class="line">    t1.M1()</span><br><span class="line">    <span class="built_in">println</span>(t1.a) <span class="comment">// 0</span></span><br><span class="line">    t1.M2()</span><br><span class="line">    <span class="built_in">println</span>(t1.a) <span class="comment">// 11</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> t2 = &amp;T&#123;&#125;</span><br><span class="line">    <span class="built_in">println</span>(t2.a) <span class="comment">// 0</span></span><br><span class="line">    t2.M1()</span><br><span class="line">    <span class="built_in">println</span>(t2.a) <span class="comment">// 0</span></span><br><span class="line">    t2.M2()</span><br><span class="line">    <span class="built_in">println</span>(t2.a) <span class="comment">// 11</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>我们先来看看类型为T的实例t1。我们看到它不仅可以调用receiver参数类型为T的方法M1，它还可以直接调用receiver参数类型为<code>*T</code>的方法M2，并且调用完M2方法后，<code>t1.a</code>的值被修改为11了。</p>
 <p>其实，T类型的实例t1之所以可以调用receiver参数类型为<code>*T</code>的方法M2，都是Go编译器在背后自动进行转换的结果。或者说，<code>t1.M2()</code>这种用法是Go提供的“语法糖”：Go判断t1的类型为T，也就是与方法M2的receiver参数类型<code>*T</code>不一致后，会自动将<code>t1.M2()</code>转换为<code>(&amp;t1).M2()</code>。</p>
 <p>同理，类型为<code>*T</code>的实例t2，它不仅可以调用receiver参数类型为<code>*T</code>的方法M2，还可以调用receiver参数类型为T的方法M1，这同样是因为Go编译器在背后做了转换。也就是，Go判断t2的类型为<code>*T</code>，与方法M1的receiver参数类型T不一致，就会自动将<code>t2.M1()</code>转换为<code>(*t2).M1()</code>。</p>
 <p>通过这个实例，我们知道了这样一个结论：<strong>无论是T类型实例，还是<code>*T</code>类型实例，都既可以调用receiver为T类型的方法，也可以调用receiver为<code>*T</code>类型的方法</strong>。这样，我们在为方法选择receiver参数的类型的时候，就不需要担心这个方法不能被与receiver参数类型不一致的类型实例调用了。</p>
@@ -564,23 +563,17 @@
 <p>以上这些可以作为我们<strong>选择receiver参数类型的第二个原则</strong>。</p>
 <p>到这里，你可能会发出感慨：即便有两个原则，这似乎依旧很容易掌握！不要大意，这可没那么简单，这两条只是基础原则，还有一条更难理解的原则在下面呢。</p>
 <p>不过在讲解这第三条原则之前，我们先要了解一个基本概念：<strong>方法集合</strong>（Method Set），它是我们理解第三条原则的前提。</p>
-<h1 id="方法集合"><a href="#方法集合" class="headerlink" title="方法集合"></a><span style="color:#339AFF;">方法集合</span></h1><p>在了解方法集合是什么之前，我们先通过一个示例，直观了解一下为什么要有方法集合，它主要用来解决什么问题：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Interface <span class="keyword">interface</span> &#123;</span><br><span class="line">    M1()</span><br><span class="line">    M2()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> T <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t T)</span> <span class="title">M1</span><span class="params">()</span></span>  &#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *T)</span> <span class="title">M2</span><span class="params">()</span></span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> t T</span><br><span class="line">    <span class="keyword">var</span> pt *T</span><br><span class="line">    <span class="keyword">var</span> i Interface</span><br><span class="line"></span><br><span class="line">    i = pt</span><br><span class="line">    i = t <span class="comment">// cannot use t (type T) as type Interface in assignment: T does not implement Interface (M2 method has pointer receiver)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在这个例子中，我们定义了一个接口类型Interface以及一个自定义类型T。Interface接口类型包含了两个方法M1和M2，代码中还定义了基类型为T的两个方法M1和M2，但它们的receiver参数类型不同，一个为T，另一个为<code>*T</code>。在main函数中，我们分别将T类型实例t和<code>*T</code>类型实例pt赋值给Interface类型变量i。</p>
+<h1 id="方法集合"><a href="#方法集合" class="headerlink" title="方法集合"></a><span style="color:#339AFF;">方法集合</span></h1><p>在了解方法集合是什么之前，我们先通过一个示例，直观了解一下为什么要有方法集合，它主要用来解决什么问题：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Interface <span class="keyword">interface</span> &#123;</span><br><span class="line">    M1()</span><br><span class="line">    M2()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> T <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t T)</span></span> M1()  &#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *T)</span></span> M2() &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> t T</span><br><span class="line">    <span class="keyword">var</span> pt *T</span><br><span class="line">    <span class="keyword">var</span> i Interface</span><br><span class="line"></span><br><span class="line">    i = pt</span><br><span class="line">    i = t <span class="comment">// cannot use t (type T) as type Interface in assignment: T does not implement Interface (M2 method has pointer receiver)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>在这个例子中，我们定义了一个接口类型Interface以及一个自定义类型T。Interface接口类型包含了两个方法M1和M2，代码中还定义了基类型为T的两个方法M1和M2，但它们的receiver参数类型不同，一个为T，另一个为<code>*T</code>。在main函数中，我们分别将T类型实例t和<code>*T</code>类型实例pt赋值给Interface类型变量i。</p>
 <p>运行一下这个示例程序，我们在i=t这一行会得到Go编译器的错误提示，Go编译器提示我们：<strong>T没有实现Interface类型方法列表中的M2，因此类型T的实例t不能赋值给Interface变量</strong>。</p>
 <p>可是，为什么呀？为什么<code>*T</code>类型的pt可以被正常赋值给Interface类型变量i，而T类型的t就不行呢？如果说T类型是因为只实现了M1方法，未实现M2方法而不满足Interface类型的要求，那么<code>*T</code>类型也只是实现了M2方法，并没有实现M1方法啊？</p>
 <p>有些事情并不是表面看起来这个样子的。了解方法集合后，这个问题就迎刃而解了。同时，<strong>方法集合也是用来判断一个类型是否实现了某接口类型的唯一手段</strong>，可以说，<strong>“方法集合决定了接口实现”</strong>。更具体的分析，我们等会儿再讲。</p>
 <p>那么，什么是类型的方法集合呢？</p>
 <p>Go中任何一个类型都有属于自己的方法集合，或者说方法集合是Go类型的一个“属性”。但不是所有类型都有自己的方法呀，比如int类型就没有。所以，对于没有定义方法的Go类型，我们称其拥有空方法集合。</p>
 <p>接口类型相对特殊，它只会列出代表接口的方法列表，不会具体定义某个方法，它的方法集合就是它的方法列表中的所有方法，我们可以一目了然地看到。因此，我们下面重点讲解的是非接口类型的方法集合。</p>
-<p>为了方便查看一个非接口类型的方法集合，我这里提供了一个函数dumpMethodSet，用于输出一个非接口类型的方法集合：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">dumpMethodSet</span><span class="params">(i <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">    dynTyp := reflect.TypeOf(i)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> dynTyp == <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Printf(<span class="string">"there is no dynamic type\n"</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    n := dynTyp.NumMethod()</span><br><span class="line">    <span class="keyword">if</span> n == <span class="number">0</span> &#123;</span><br><span class="line">        fmt.Printf(<span class="string">"%s's method set is empty!\n"</span>, dynTyp)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fmt.Printf(<span class="string">"%s's method set:\n"</span>, dynTyp)</span><br><span class="line">    <span class="keyword">for</span> j := <span class="number">0</span>; j &lt; n; j++ &#123;</span><br><span class="line">        fmt.Println(<span class="string">"-"</span>, dynTyp.Method(j).Name)</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Printf(<span class="string">"\n"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>下面我们利用这个函数，试着输出一下Go原生类型以及自定义类型的方法集合，看下面代码：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> T <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(T)</span> <span class="title">M1</span><span class="params">()</span></span> &#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(T)</span> <span class="title">M2</span><span class="params">()</span></span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*T)</span> <span class="title">M3</span><span class="params">()</span></span> &#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*T)</span> <span class="title">M4</span><span class="params">()</span></span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> n <span class="keyword">int</span></span><br><span class="line">    dumpMethodSet(n)</span><br><span class="line">    dumpMethodSet(&amp;n)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> t T</span><br><span class="line">    dumpMethodSet(t)</span><br><span class="line">    dumpMethodSet(&amp;t)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>运行这段代码，我们得到如下结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">int&apos;s method set is empty!</span><br><span class="line">*int&apos;s method set is empty!</span><br><span class="line">main.T&apos;s method set:</span><br><span class="line">- M1</span><br><span class="line">- M2</span><br><span class="line"></span><br><span class="line">*main.T&apos;s method set:</span><br><span class="line">- M1</span><br><span class="line">- M2</span><br><span class="line">- M3</span><br><span class="line">- M4</span><br></pre></td></tr></table></figure></p>
-<p>我们看到以int、<code>*int</code>为代表的Go原生类型由于没有定义方法，所以它们的方法集合都是空的。自定义类型T定义了方法M1和M2，因此它的方法集合包含了M1和M2，也符合我们预期。但<code>*T</code>的方法集合中除了预期的M3和M4之外，居然还包含了类型T的方法M1和M2！</p>
+<p>为了方便查看一个非接口类型的方法集合，我这里提供了一个函数dumpMethodSet，用于输出一个非接口类型的方法集合：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">dumpMethodSet</span><span class="params">(i <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">    dynTyp := reflect.TypeOf(i)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> dynTyp == <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Printf(<span class="string">&quot;there is no dynamic type\n&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    n := dynTyp.NumMethod()</span><br><span class="line">    <span class="keyword">if</span> n == <span class="number">0</span> &#123;</span><br><span class="line">        fmt.Printf(<span class="string">&quot;%s&#x27;s method set is empty!\n&quot;</span>, dynTyp)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fmt.Printf(<span class="string">&quot;%s&#x27;s method set:\n&quot;</span>, dynTyp)</span><br><span class="line">    <span class="keyword">for</span> j := <span class="number">0</span>; j &lt; n; j++ &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;-&quot;</span>, dynTyp.Method(j).Name)</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Printf(<span class="string">&quot;\n&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>下面我们利用这个函数，试着输出一下Go原生类型以及自定义类型的方法集合，看下面代码：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> T <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(T)</span></span> M1() &#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(T)</span></span> M2() &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*T)</span></span> M3() &#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(*T)</span></span> M4() &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> n <span class="type">int</span></span><br><span class="line">    dumpMethodSet(n)</span><br><span class="line">    dumpMethodSet(&amp;n)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> t T</span><br><span class="line">    dumpMethodSet(t)</span><br><span class="line">    dumpMethodSet(&amp;t)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>运行这段代码，我们得到如下结果：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">int&#x27;s method set is empty!</span><br><span class="line">*int&#x27;s method set is empty!</span><br><span class="line">main.T&#x27;s method set:</span><br><span class="line">- M1</span><br><span class="line">- M2</span><br><span class="line"></span><br><span class="line">*main.T&#x27;s method set:</span><br><span class="line">- M1</span><br><span class="line">- M2</span><br><span class="line">- M3</span><br><span class="line">- M4</span><br></pre></td></tr></table></figure><br>我们看到以int、<code>*int</code>为代表的Go原生类型由于没有定义方法，所以它们的方法集合都是空的。自定义类型T定义了方法M1和M2，因此它的方法集合包含了M1和M2，也符合我们预期。但<code>*T</code>的方法集合中除了预期的M3和M4之外，居然还包含了类型T的方法M1和M2！</p>
 <p>不过，这里程序的输出并没有错误。</p>
 <p>这是因为，Go语言规定，<code>*T</code>类型的方法集合包含所有以<code>*T</code>为receiver参数类型的方法，以及所有以T为receiver参数类型的方法。这就是这个示例中为何<code>*T</code>类型的方法集合包含四个方法的原因。</p>
-<p>这个时候，你是不是也找到了前面那个示例中为何i=pt没有报编译错误的原因了呢？我们同样可以使用dumpMethodSet工具函数，输出一下那个例子中pt与t各自所属类型的方法集合：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Interface <span class="keyword">interface</span> &#123;</span><br><span class="line">    M1()</span><br><span class="line">    M2()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> T <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t T)</span> <span class="title">M1</span><span class="params">()</span></span>  &#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *T)</span> <span class="title">M2</span><span class="params">()</span></span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> t T</span><br><span class="line">    <span class="keyword">var</span> pt *T</span><br><span class="line">    dumpMethodSet(t)</span><br><span class="line">    dumpMethodSet(pt)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>运行上述代码，我们得到如下结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">main.T&apos;s method set:</span><br><span class="line">- M1</span><br><span class="line"></span><br><span class="line">*main.T&apos;s method set:</span><br><span class="line">- M1</span><br><span class="line">- M2</span><br></pre></td></tr></table></figure></p>
-<p>通过这个输出结果，我们可以一目了然地看到T、<code>*T</code>各自的方法集合。</p>
+<p>这个时候，你是不是也找到了前面那个示例中为何i=pt没有报编译错误的原因了呢？我们同样可以使用dumpMethodSet工具函数，输出一下那个例子中pt与t各自所属类型的方法集合：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Interface <span class="keyword">interface</span> &#123;</span><br><span class="line">    M1()</span><br><span class="line">    M2()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> T <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t T)</span></span> M1()  &#123;&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *T)</span></span> M2() &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> t T</span><br><span class="line">    <span class="keyword">var</span> pt *T</span><br><span class="line">    dumpMethodSet(t)</span><br><span class="line">    dumpMethodSet(pt)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>运行上述代码，我们得到如下结果：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">main.T&#x27;s method set:</span><br><span class="line">- M1</span><br><span class="line"></span><br><span class="line">*main.T&#x27;s method set:</span><br><span class="line">- M1</span><br><span class="line">- M2</span><br></pre></td></tr></table></figure><br>通过这个输出结果，我们可以一目了然地看到T、<code>*T</code>各自的方法集合。</p>
 <p>我们看到，T类型的方法集合中只包含M1，没有Interface类型方法集合中的M2方法，这就是Go编译器认为变量t不能赋值给Interface类型变量的原因。</p>
 <p>在输出的结果中，我们还看到<code>*T</code>类型的方法集合除了包含它自身定义的M2方法外，还包含了T类型定义的M1方法，<code>*T</code>的方法集合与Interface接口类型的方法集合是一样的，因此pt可以被赋值给Interface接口类型的变量i。</p>
 <p>到这里，我们已经知道了所谓的<strong>方法集合决定接口</strong>实现的含义就是：如果某类型T的方法集合与某接口类型的方法集合相同，或者类型T的方法集合是接口类型I方法集合的超集，那么我们就说这个类型T实现了接口I。或者说，方法集合这个概念在Go语言中的主要用途，就是用来判断某个类型是否实现了某个接口。</p>
@@ -597,9 +590,7 @@
 <p>如果T类型不需要实现某一接口，那么我们就可以参考原则一和原则二来为receiver参数选择类型了。也就是，如果Go方法要把对receiver参数所代表的类型实例的修改反映到原类型实例上，那么我们应该选择<code>*T</code>作为receiver参数的类型。否则通常我们会为receiver参数选择T类型，这样可以减少外部修改类型实例内部状态的“渠道”。除非receiver参数类型的size较大，考虑到传值的较大性能开销，选择<code>*T</code>作为receiver类型可能更适合。</p>
 <p>在理解原则三时，我们还介绍了Go语言中的一个重要概念：<strong>方法集合</strong>。它在Go语言中的主要用途就是判断某个类型是否实现了某个接口。方法集合像“胶水”一样，将自定义类型与接口隐式地“粘结”在一起，我们后面理解带有类型嵌入的类型时还会借助这个概念。</p>
 <h1 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a><span style="color:#339AFF;">思考题</span></h1><p>方法集合是一个很重要也很实用的概念，我们在下一节课还会用到这个概念帮助我们理解具体的问题。所以这里，我给你出了一道与方法集合有关的预习题。</p>
-<p>如果一个类型T包含两个方法M1和M2：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> T <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(T)</span> <span class="title">M1</span><span class="params">()</span></span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="params">(T)</span> <span class="title">M2</span><span class="params">()</span></span></span><br></pre></td></tr></table></figure></p>
-<p>然后，我们再使用类型定义语法，又基于类型T定义了一个新类型S：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> S T</span><br></pre></td></tr></table></figure></p>
-<p>那么，这个S类型包含哪些方法呢？<code>*S</code>类型又包含哪些方法呢？请你自己分析一下，然后借助dumpMethodSet函数来验证一下你的结论。</p>
+<p>如果一个类型T包含两个方法M1和M2：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> T <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(T)</span></span> M1()</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(T)</span></span> M2()</span><br></pre></td></tr></table></figure><br>然后，我们再使用类型定义语法，又基于类型T定义了一个新类型S：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> S T</span><br></pre></td></tr></table></figure><br>那么，这个S类型包含哪些方法呢？<code>*S</code>类型又包含哪些方法呢？请你自己分析一下，然后借助dumpMethodSet函数来验证一下你的结论。</p>
 
       
     </div>
@@ -623,7 +614,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Go语言第一课/" rel="tag"># Go语言第一课</a>
+            <a href="/tags/Go%E8%AF%AD%E8%A8%80%E7%AC%AC%E4%B8%80%E8%AF%BE/" rel="tag"># Go语言第一课</a>
           
         </div>
       
@@ -636,7 +627,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2023/01/01/24｜方法：理解“方法”的本质/" rel="next" title="24｜方法：理解“方法”的本质">
+              <a href="/2023/01/01/24%EF%BD%9C%E6%96%B9%E6%B3%95%EF%BC%9A%E7%90%86%E8%A7%A3%E2%80%9C%E6%96%B9%E6%B3%95%E2%80%9D%E7%9A%84%E6%9C%AC%E8%B4%A8/" rel="next" title="24｜方法：理解“方法”的本质">
                 <i class="fa fa-chevron-left"></i> 24｜方法：理解“方法”的本质
               </a>
             
@@ -646,7 +637,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2023/01/01/26｜方法：如何用类型嵌入模拟实现“继承”？/" rel="prev" title="26｜方法：如何用类型嵌入模拟实现“继承”？">
+              <a href="/2023/01/01/26%EF%BD%9C%E6%96%B9%E6%B3%95%EF%BC%9A%E5%A6%82%E4%BD%95%E7%94%A8%E7%B1%BB%E5%9E%8B%E5%B5%8C%E5%85%A5%E6%A8%A1%E6%8B%9F%E5%AE%9E%E7%8E%B0%E2%80%9C%E7%BB%A7%E6%89%BF%E2%80%9D%EF%BC%9F/" rel="prev" title="26｜方法：如何用类型嵌入模拟实现“继承”？">
                 26｜方法：如何用类型嵌入模拟实现“继承”？ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -706,7 +697,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -717,9 +710,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -731,26 +724,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -822,7 +799,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -997,115 +974,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1136,23 +1005,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1178,7 +1047,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#receiver参数类型对Go方法的影响"><span class="nav-number">1.</span> <span class="nav-text">receiver参数类型对Go方法的影响</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#选择receiver参数类型的第一个原则"><span class="nav-number">2.</span> <span class="nav-text">选择receiver参数类型的第一个原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#选择receiver参数类型的第二个原则"><span class="nav-number">3.</span> <span class="nav-text">选择receiver参数类型的第二个原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法集合"><span class="nav-number">4.</span> <span class="nav-text">方法集合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#选择receiver参数类型的第三个原则"><span class="nav-number">5.</span> <span class="nav-text">选择receiver参数类型的第三个原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">7.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#receiver%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B%E5%AF%B9Go%E6%96%B9%E6%B3%95%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="nav-number">1.</span> <span class="nav-text">receiver参数类型对Go方法的影响</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%89%E6%8B%A9receiver%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%8E%9F%E5%88%99"><span class="nav-number">2.</span> <span class="nav-text">选择receiver参数类型的第一个原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%89%E6%8B%A9receiver%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%AC%AC%E4%BA%8C%E4%B8%AA%E5%8E%9F%E5%88%99"><span class="nav-number">3.</span> <span class="nav-text">选择receiver参数类型的第二个原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E9%9B%86%E5%90%88"><span class="nav-number">4.</span> <span class="nav-text">方法集合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%89%E6%8B%A9receiver%E5%8F%82%E6%95%B0%E7%B1%BB%E5%9E%8B%E7%9A%84%E7%AC%AC%E4%B8%89%E4%B8%AA%E5%8E%9F%E5%88%99"><span class="nav-number">5.</span> <span class="nav-text">选择receiver参数类型的第三个原则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">7.</span> <span class="nav-text">思考题</span></a></li></ol></div>
             
 
           </div>
@@ -1213,7 +1082,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1224,12 +1093,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1237,7 +1106,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

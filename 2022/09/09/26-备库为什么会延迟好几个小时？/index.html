@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,32 +104,32 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="MySQL实战45讲">
 <meta property="og:type" content="article">
 <meta property="og:title" content="26 | 备库为什么会延迟好几个小时？">
-<meta property="og:url" content="http://yoursite.com/2022/09/09/26-备库为什么会延迟好几个小时？/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/09/09/26-%E5%A4%87%E5%BA%93%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%BB%B6%E8%BF%9F%E5%A5%BD%E5%87%A0%E4%B8%AA%E5%B0%8F%E6%97%B6%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/09/09/26-备库为什么会延迟好几个小时？/1.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/09/26-备库为什么会延迟好几个小时？/2.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/09/26-备库为什么会延迟好几个小时？/3.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/09/26-备库为什么会延迟好几个小时？/4.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/09/26-备库为什么会延迟好几个小时？/5.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/09/26-备库为什么会延迟好几个小时？/6.webp">
-<meta property="og:image" content="http://yoursite.com/2022/09/09/26-备库为什么会延迟好几个小时？/7.webp">
-<meta property="og:updated_time" content="2022-11-07T10:16:45.686Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/09/09/26-%E5%A4%87%E5%BA%93%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%BB%B6%E8%BF%9F%E5%A5%BD%E5%87%A0%E4%B8%AA%E5%B0%8F%E6%97%B6%EF%BC%9F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/09/26-%E5%A4%87%E5%BA%93%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%BB%B6%E8%BF%9F%E5%A5%BD%E5%87%A0%E4%B8%AA%E5%B0%8F%E6%97%B6%EF%BC%9F/2.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/09/26-%E5%A4%87%E5%BA%93%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%BB%B6%E8%BF%9F%E5%A5%BD%E5%87%A0%E4%B8%AA%E5%B0%8F%E6%97%B6%EF%BC%9F/3.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/09/26-%E5%A4%87%E5%BA%93%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%BB%B6%E8%BF%9F%E5%A5%BD%E5%87%A0%E4%B8%AA%E5%B0%8F%E6%97%B6%EF%BC%9F/4.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/09/26-%E5%A4%87%E5%BA%93%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%BB%B6%E8%BF%9F%E5%A5%BD%E5%87%A0%E4%B8%AA%E5%B0%8F%E6%97%B6%EF%BC%9F/5.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/09/26-%E5%A4%87%E5%BA%93%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%BB%B6%E8%BF%9F%E5%A5%BD%E5%87%A0%E4%B8%AA%E5%B0%8F%E6%97%B6%EF%BC%9F/6.webp">
+<meta property="og:image" content="http://yoursite.com/2022/09/09/26-%E5%A4%87%E5%BA%93%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%BB%B6%E8%BF%9F%E5%A5%BD%E5%87%A0%E4%B8%AA%E5%B0%8F%E6%97%B6%EF%BC%9F/7.webp">
+<meta property="article:published_time" content="2022-09-09T09:50:16.000Z">
+<meta property="article:modified_time" content="2022-11-07T10:16:45.686Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="MySQL实战45讲">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="26 | 备库为什么会延迟好几个小时？">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2022/09/09/26-备库为什么会延迟好几个小时？/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2022/09/09/26-%E5%A4%87%E5%BA%93%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%BB%B6%E8%BF%9F%E5%A5%BD%E5%87%A0%E4%B8%AA%E5%B0%8F%E6%97%B6%EF%BC%9F/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/09/09/26-备库为什么会延迟好几个小时？/">
+  <link rel="canonical" href="http://yoursite.com/2022/09/09/26-备库为什么会延迟好几个小时？/"/>
 
 
 
@@ -178,7 +178,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -239,7 +239,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -256,7 +256,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -273,7 +273,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -290,7 +290,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -307,7 +307,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -318,7 +318,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -338,7 +338,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -388,16 +390,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/09/26-备库为什么会延迟好几个小时？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/09/26-%E5%A4%87%E5%BA%93%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%BB%B6%E8%BF%9F%E5%A5%BD%E5%87%A0%E4%B8%AA%E5%B0%8F%E6%97%B6%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -497,7 +499,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">8.7k</span>
+                <span title="本文字数">15k</span>
               
 
               
@@ -511,7 +513,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">8 分钟</span>
+                <span title="阅读时长">13 分钟</span>
               
             </div>
           
@@ -532,15 +534,15 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>在上一篇文章中，我和你介绍了几种可能导致备库延迟的原因。你会发现，这些场景里，不论是偶发性的查询压力，还是备份，对备库延迟的影响一般是分钟级的，而且在备库恢复正常以后都能够追上来。</p>
 <p>但是，如果备库执行日志的速度持续低于主库生成日志的速度，那这个延迟就有可能成了小时级别。而且对于一个压力持续比较高的主库来说，备库很可能永远都追不上主库的节奏。</p>
 <p>这就涉及到今天我要给你介绍的话题：备库并行复制能力。</p>
-<p>为了便于你理解，我们再一起看一下第24篇文章<a href="/2022/09/09/24-MySQL是怎么保证主备一致的？/" title="《MySQL是怎么保证主备一致的？》">《MySQL是怎么保证主备一致的？》</a>的主备流程图。</p>
+<p>为了便于你理解，我们再一起看一下第24篇文章<a href="/2022/09/09/24-MySQL%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E4%B8%BB%E5%A4%87%E4%B8%80%E8%87%B4%E7%9A%84%EF%BC%9F/" title="24 | MySQL是怎么保证主备一致的？">《MySQL是怎么保证主备一致的？》</a>的主备流程图。</p>
 <blockquote>
 <p>图1 主备流程图</p>
 </blockquote>
-<img src="/2022/09/09/26-备库为什么会延迟好几个小时？/1.webp">
+<img src="/2022/09/09/26-%E5%A4%87%E5%BA%93%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%BB%B6%E8%BF%9F%E5%A5%BD%E5%87%A0%E4%B8%AA%E5%B0%8F%E6%97%B6%EF%BC%9F/1.webp" class="">
 <p>谈到主备的并行复制能力，我们要关注的是图中黑色的两个箭头。一个箭头代表了客户端写入主库，另一箭头代表的是备库上sql_thread执行中转日志（relay log）。如果用箭头的粗细来代表并行度的话，那么真实情况就如图1所示，第一个箭头要明显粗于第二个箭头。</p>
 <p>在主库上，影响并发度的原因就是各种锁了。由于InnoDB引擎支持行锁，除了所有并发事务都在更新同一行（热点行）这种极端场景外，它对业务并发度的支持还是很友好的。所以，你在性能测试的时候会发现，并发压测线程32就比单线程时，总体吞吐量高。</p>
 <p>而日志在备库上的执行，就是图中备库上sql_thread更新数据（DATA）的逻辑。如果是用单线程的话，就会导致备库应用日志不够快，造成主备延迟。</p>
@@ -550,7 +552,7 @@
 <blockquote>
 <p>图2 多线程模型</p>
 </blockquote>
-<img src="/2022/09/09/26-备库为什么会延迟好几个小时？/2.webp">
+<img src="/2022/09/09/26-%E5%A4%87%E5%BA%93%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%BB%B6%E8%BF%9F%E5%A5%BD%E5%87%A0%E4%B8%AA%E5%B0%8F%E6%97%B6%EF%BC%9F/2.webp" class="">
 <p>图2中，coordinator就是原来的sql_thread，不过现在它不再直接更新数据了，只负责读取中转日志和分发事务。真正更新日志的，变成了worker线程。而work线程的个数，就是由参数slave_parallel_workers决定的。根据我的经验，把这个值设置为8~16之间最好（32核物理机的情况），毕竟备库还有可能要提供读查询，不能把CPU都吃光了。</p>
 <p>接下来，你需要先思考一个问题：事务能不能按照轮询的方式分发给各个worker，也就是第一个事务分给worker_1，第二个事务发给worker_2呢？</p>
 <p>其实是不行的。因为，事务被分发给worker以后，不同的worker就独立执行了。但是，由于CPU的调度策略，很可能第二个事务最终比第一个事务先执行。而如果这时候刚好这两个事务更新的是同一行，也就意味着，同一行上的两个事务，在主库和备库上的执行顺序相反，会导致主备不一致的问题。</p>
@@ -567,7 +569,7 @@
 <blockquote>
 <p>图3 按表并行复制程模型</p>
 </blockquote>
-<img src="/2022/09/09/26-备库为什么会延迟好几个小时？/3.webp">
+<img src="/2022/09/09/26-%E5%A4%87%E5%BA%93%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%BB%B6%E8%BF%9F%E5%A5%BD%E5%87%A0%E4%B8%AA%E5%B0%8F%E6%97%B6%EF%BC%9F/3.webp" class="">
 <p>可以看到，每个worker线程对应一个hash表，用于保存当前正在这个worker的“执行队列”里的事务所涉及的表。hash表的key是“库名.表名”，value是一个数字，表示队列中有多少个事务修改这个表。</p>
 <p>在有事务分配给worker时，事务里面涉及的表会被加到对应的hash表中。worker执行完成后，这个表会被从hash表中去掉。</p>
 <p>图3中，hash_table_1表示，现在worker_1的“待执行事务队列”里，有4个事务涉及到db1.t1表，有1个事务涉及到db2.t2表；hash_table_2表示，现在worker_2中有一个事务会更新到表t3的数据。</p>
@@ -587,12 +589,11 @@
 <h2 id="按行分发策略"><a href="#按行分发策略" class="headerlink" title="按行分发策略"></a><span style="color:#00ACC1;">按行分发策略</span></h2><p>要解决热点表的并行复制问题，就需要一个按行并行复制的方案。按行复制的核心思路是：如果两个事务没有更新相同的行，它们在备库上可以并行执行。显然，这个模式要求binlog格式必须是row。</p>
 <p>这时候，我们判断一个事务T和worker是否冲突，用的就规则就不是“修改同一个表”，而是“修改同一行”。</p>
 <p>按行复制和按表复制的数据结构差不多，也是为每个worker，分配一个hash表。只是要实现按行分发，这时候的key，就必须是“库名+表名+唯一键的值”。</p>
-<p>但是，这个“唯一键”只有主键id还是不够的，我们还需要考虑下面这种场景，表t1中除了主键，还有唯一索引a：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> <span class="string">`t1`</span> (</span><br><span class="line">    <span class="string">`id`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`a`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line">    <span class="string">`b`</span> <span class="built_in">int</span>(<span class="number">11</span>) <span class="keyword">DEFAULT</span> <span class="literal">NULL</span>,</span><br><span class="line">    PRIMARY <span class="keyword">KEY</span> (<span class="string">`id`</span>),</span><br><span class="line">    <span class="keyword">UNIQUE</span> <span class="keyword">KEY</span> <span class="string">`a`</span> (<span class="string">`a`</span>)</span><br><span class="line">) <span class="keyword">ENGINE</span>=<span class="keyword">InnoDB</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t1 <span class="keyword">values</span>(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>),(<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>),(<span class="number">3</span>,<span class="number">3</span>,<span class="number">3</span>),(<span class="number">4</span>,<span class="number">4</span>,<span class="number">4</span>),(<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>);</span><br></pre></td></tr></table></figure></p>
-<p>假设，接下来我们要在主库执行这两个事务：</p>
+<p>但是，这个“唯一键”只有主键id还是不够的，我们还需要考虑下面这种场景，表t1中除了主键，还有唯一索引a：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `t1` (</span><br><span class="line">    `id` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    `a` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    `b` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">    <span class="keyword">PRIMARY</span> KEY (`id`),</span><br><span class="line">    <span class="keyword">UNIQUE</span> KEY `a` (`a`)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB;</span><br><span class="line"></span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> t1 <span class="keyword">values</span>(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>),(<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>),(<span class="number">3</span>,<span class="number">3</span>,<span class="number">3</span>),(<span class="number">4</span>,<span class="number">4</span>,<span class="number">4</span>),(<span class="number">5</span>,<span class="number">5</span>,<span class="number">5</span>);</span><br></pre></td></tr></table></figure><br>假设，接下来我们要在主库执行这两个事务：</p>
 <blockquote>
 <p>图4 唯一键冲突示例</p>
 </blockquote>
-<img src="/2022/09/09/26-备库为什么会延迟好几个小时？/4.webp">
+<img src="/2022/09/09/26-%E5%A4%87%E5%BA%93%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%BB%B6%E8%BF%9F%E5%A5%BD%E5%87%A0%E4%B8%AA%E5%B0%8F%E6%97%B6%EF%BC%9F/4.webp" class="">
 <p>可以看到，这两个事务要更新的行的主键值不同，但是如果它们被分到不同的worker，就有可能session B的语句先执行。这时候id=1的行的a的值还是1，就会报唯一键冲突。</p>
 <p>因此，基于行的策略，事务hash表中还需要考虑唯一键，即key应该是“库名+表名+索引a的名字+a的值”。</p>
 <p>比如，在上面这个例子中，我要在表t1上执行<code>update t1 set a=1 where id=2</code>语句，在binlog里面记录了整行的数据修改前各个字段的值，和修改后各个字段的值。</p>
@@ -621,7 +622,7 @@
 <p>2，不要求binlog的格式。因为statement格式的binlog也可以很容易拿到库名。</p>
 <p>但是，如果你的主库上的表都放在同一个DB里面，这个策略就没有效果了；或者如果不同DB的热点不同，比如一个是业务逻辑库，一个是系统配置库，那也起不到并行的效果。</p>
 <p>理论上你可以创建不同的DB，把相同热度的表均匀分到这些不同的DB中，强行使用这个策略。不过据我所知，由于需要特地移动数据，这个策略用得并不多。</p>
-<h1 id="MariaDB的并行复制策略"><a href="#MariaDB的并行复制策略" class="headerlink" title="MariaDB的并行复制策略"></a><span style="color:#339AFF;">MariaDB的并行复制策略</span></h1><p>在<a href="/2022/09/09/23-MySQL是怎么保证数据不丢的？/" title="第23篇文章">第23篇文章</a>中，我给你介绍了redo log组提交（group commit）优化，而MariaDB的并行复制策略利用的就是这个特性：</p>
+<h1 id="MariaDB的并行复制策略"><a href="#MariaDB的并行复制策略" class="headerlink" title="MariaDB的并行复制策略"></a><span style="color:#339AFF;">MariaDB的并行复制策略</span></h1><p>在<a href="/2022/09/09/23-MySQL%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E6%95%B0%E6%8D%AE%E4%B8%8D%E4%B8%A2%E7%9A%84%EF%BC%9F/" title="23 | MySQL是怎么保证数据不丢的？">第23篇文章</a>中，我给你介绍了redo log组提交（group commit）优化，而MariaDB的并行复制策略利用的就是这个特性：</p>
 <p>1，能够在同一组里提交的事务，一定不会修改同一行；</p>
 <p>2，主库上可以并行执行的事务，备库上也一定是可以并行执行的。</p>
 <p>在实现上，MariaDB是这么做的：</p>
@@ -635,12 +636,12 @@
 <blockquote>
 <p>图5 主库并行事务</p>
 </blockquote>
-<img src="/2022/09/09/26-备库为什么会延迟好几个小时？/5.webp">
+<img src="/2022/09/09/26-%E5%A4%87%E5%BA%93%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%BB%B6%E8%BF%9F%E5%A5%BD%E5%87%A0%E4%B8%AA%E5%B0%8F%E6%97%B6%EF%BC%9F/5.webp" class="">
 <p>而按照MariaDB的并行复制策略，备库上的执行效果如图6所示。</p>
 <blockquote>
 <p>图6 MariaDB并行复制，备库并行效果</p>
 </blockquote>
-<img src="/2022/09/09/26-备库为什么会延迟好几个小时？/6.webp">
+<img src="/2022/09/09/26-%E5%A4%87%E5%BA%93%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%BB%B6%E8%BF%9F%E5%A5%BD%E5%87%A0%E4%B8%AA%E5%B0%8F%E6%97%B6%EF%BC%9F/6.webp" class="">
 <p>可以看到，在备库上执行的时候，要等第一组事务完全执行完成后，第二组事务才能开始执行，这样系统的吞吐量就不够。</p>
 <p>另外，这个方案很容易被大事务拖后腿。假设trx2是一个超大事务，那么在备库应用的时候，trx1和trx3执行完成后，就只能等trx2完全执行完成，下一组才能开始执行。这段时间，只有一个worker线程在工作，是对资源的浪费。</p>
 <p>不过即使如此，这个策略仍然是一个很漂亮的创新。因为，它对原系统的改造非常少，实现也很优雅。</p>
@@ -655,7 +656,7 @@
 <blockquote>
 <p>图7 两阶段提交细化过程图</p>
 </blockquote>
-<img src="/2022/09/09/26-备库为什么会延迟好几个小时？/7.webp">
+<img src="/2022/09/09/26-%E5%A4%87%E5%BA%93%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BC%9A%E5%BB%B6%E8%BF%9F%E5%A5%BD%E5%87%A0%E4%B8%AA%E5%B0%8F%E6%97%B6%EF%BC%9F/7.webp" class="">
 <p>其实，不用等到commit阶段，只要能够到达redo log prepare阶段，就表示事务已经通过锁冲突的检验了。</p>
 <p>因此，MySQL 5.7并行复制策略的思想是：</p>
 <p>1，同时处于prepare状态的事务，在备库执行时是可以并行的；</p>
@@ -694,10 +695,9 @@
 <p>产生这种现象典型的场景主要包括两种：</p>
 <ul>
 <li>一种是大事务（包括大表DDL、一个事务操作很多行）；</li>
-<li>还有一种情况比较隐蔽，就是备库起了一个长事务，比如<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">begin</span>; </span><br><span class="line"><span class="keyword">select</span> * <span class="keyword">from</span> t <span class="keyword">limit</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
-</li>
+<li>还有一种情况比较隐蔽，就是备库起了一个长事务，比如<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">begin</span>; </span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t limit <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+然后就不动了。</li>
 </ul>
-<p>然后就不动了。</p>
 <p>这时候主库对表t做了一个加字段操作，即使这个表很小，这个DDL在备库应用的时候也会被堵住，也不能看到这个现象。</p>
 <p>评论区还有同学说是不是主库多线程、从库单线程，备库跟不上主库的更新节奏导致的？今天这篇文章，我们刚好讲的是并行复制。所以，你知道了，这种情况会导致主备延迟，但不会表现为这种标准的呈45度的直线。</p>
 <p>评论区留言点赞板：</p>
@@ -726,7 +726,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/MySQL实战45讲/" rel="tag"># MySQL实战45讲</a>
+            <a href="/tags/MySQL%E5%AE%9E%E6%88%9845%E8%AE%B2/" rel="tag"># MySQL实战45讲</a>
           
         </div>
       
@@ -739,7 +739,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/09/09/25-MySQL是怎么保证高可用的？/" rel="next" title="25 | MySQL是怎么保证高可用的？">
+              <a href="/2022/09/09/25-MySQL%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E9%AB%98%E5%8F%AF%E7%94%A8%E7%9A%84%EF%BC%9F/" rel="next" title="25 | MySQL是怎么保证高可用的？">
                 <i class="fa fa-chevron-left"></i> 25 | MySQL是怎么保证高可用的？
               </a>
             
@@ -749,7 +749,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/09/09/27-主库出问题了，从库怎么办？/" rel="prev" title="27 | 主库出问题了，从库怎么办？">
+              <a href="/2022/09/09/27-%E4%B8%BB%E5%BA%93%E5%87%BA%E9%97%AE%E9%A2%98%E4%BA%86%EF%BC%8C%E4%BB%8E%E5%BA%93%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F/" rel="prev" title="27 | 主库出问题了，从库怎么办？">
                 27 | 主库出问题了，从库怎么办？ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -809,7 +809,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -820,9 +822,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -834,26 +836,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -925,7 +911,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1100,115 +1086,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1239,23 +1117,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1281,7 +1159,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-5-5版本的并行复制策略"><span class="nav-number">1.</span> <span class="nav-text">MySQL 5.5版本的并行复制策略</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#按表分发策略"><span class="nav-number">1.1.</span> <span class="nav-text">按表分发策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按行分发策略"><span class="nav-number">1.2.</span> <span class="nav-text">按行分发策略</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-5-6版本的并行复制策略"><span class="nav-number">2.</span> <span class="nav-text">MySQL 5.6版本的并行复制策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MariaDB的并行复制策略"><span class="nav-number">3.</span> <span class="nav-text">MariaDB的并行复制策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-5-7的并行复制策略"><span class="nav-number">4.</span> <span class="nav-text">MySQL 5.7的并行复制策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-5-7-22的并行复制策略"><span class="nav-number">5.</span> <span class="nav-text">MySQL 5.7.22的并行复制策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#上期问题时间"><span class="nav-number">7.</span> <span class="nav-text">上期问题时间</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-5-5%E7%89%88%E6%9C%AC%E7%9A%84%E5%B9%B6%E8%A1%8C%E5%A4%8D%E5%88%B6%E7%AD%96%E7%95%A5"><span class="nav-number">1.</span> <span class="nav-text">MySQL 5.5版本的并行复制策略</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%89%E8%A1%A8%E5%88%86%E5%8F%91%E7%AD%96%E7%95%A5"><span class="nav-number">1.1.</span> <span class="nav-text">按表分发策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8C%89%E8%A1%8C%E5%88%86%E5%8F%91%E7%AD%96%E7%95%A5"><span class="nav-number">1.2.</span> <span class="nav-text">按行分发策略</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-5-6%E7%89%88%E6%9C%AC%E7%9A%84%E5%B9%B6%E8%A1%8C%E5%A4%8D%E5%88%B6%E7%AD%96%E7%95%A5"><span class="nav-number">2.</span> <span class="nav-text">MySQL 5.6版本的并行复制策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MariaDB%E7%9A%84%E5%B9%B6%E8%A1%8C%E5%A4%8D%E5%88%B6%E7%AD%96%E7%95%A5"><span class="nav-number">3.</span> <span class="nav-text">MariaDB的并行复制策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-5-7%E7%9A%84%E5%B9%B6%E8%A1%8C%E5%A4%8D%E5%88%B6%E7%AD%96%E7%95%A5"><span class="nav-number">4.</span> <span class="nav-text">MySQL 5.7的并行复制策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#MySQL-5-7-22%E7%9A%84%E5%B9%B6%E8%A1%8C%E5%A4%8D%E5%88%B6%E7%AD%96%E7%95%A5"><span class="nav-number">5.</span> <span class="nav-text">MySQL 5.7.22的并行复制策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8A%E6%9C%9F%E9%97%AE%E9%A2%98%E6%97%B6%E9%97%B4"><span class="nav-number">7.</span> <span class="nav-text">上期问题时间</span></a></li></ol></div>
             
 
           </div>
@@ -1316,7 +1194,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1327,12 +1205,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1340,7 +1218,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

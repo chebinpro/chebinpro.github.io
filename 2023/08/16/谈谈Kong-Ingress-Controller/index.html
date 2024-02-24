@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,41 +104,41 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="Kubernetes入门实战课">
 <meta property="og:type" content="article">
 <meta property="og:title" content="谈谈Kong Ingress Controller">
-<meta property="og:url" content="http://yoursite.com/2023/08/16/谈谈Kong-Ingress-Controller/index.html">
+<meta property="og:url" content="http://yoursite.com/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2023/08/16/谈谈Kong-Ingress-Controller/1.webp">
-<meta property="og:image" content="http://yoursite.com/2023/08/16/谈谈Kong-Ingress-Controller/2.webp">
-<meta property="og:image" content="http://yoursite.com/2023/08/16/谈谈Kong-Ingress-Controller/3.webp">
-<meta property="og:image" content="http://yoursite.com/2023/08/16/谈谈Kong-Ingress-Controller/4.webp">
-<meta property="og:image" content="http://yoursite.com/2023/08/16/谈谈Kong-Ingress-Controller/5.webp">
-<meta property="og:image" content="http://yoursite.com/2023/08/16/谈谈Kong-Ingress-Controller/6.webp">
-<meta property="og:image" content="http://yoursite.com/2023/08/16/谈谈Kong-Ingress-Controller/7.webp">
-<meta property="og:image" content="http://yoursite.com/2023/08/16/谈谈Kong-Ingress-Controller/8.webp">
-<meta property="og:image" content="http://yoursite.com/2023/08/16/谈谈Kong-Ingress-Controller/9.webp">
-<meta property="og:image" content="http://yoursite.com/2023/08/16/谈谈Kong-Ingress-Controller/10.webp">
-<meta property="og:image" content="http://yoursite.com/2023/08/16/谈谈Kong-Ingress-Controller/11.webp">
-<meta property="og:image" content="http://yoursite.com/2023/08/16/谈谈Kong-Ingress-Controller/12.webp">
-<meta property="og:image" content="http://yoursite.com/2023/08/16/谈谈Kong-Ingress-Controller/13.webp">
-<meta property="og:image" content="http://yoursite.com/2023/08/16/谈谈Kong-Ingress-Controller/14.webp">
-<meta property="og:image" content="http://yoursite.com/2023/08/16/谈谈Kong-Ingress-Controller/15.webp">
-<meta property="og:image" content="http://yoursite.com/2023/08/16/谈谈Kong-Ingress-Controller/16.webp">
-<meta property="og:updated_time" content="2023-08-27T15:56:22.932Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/1.webp">
+<meta property="og:image" content="http://yoursite.com/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/2.webp">
+<meta property="og:image" content="http://yoursite.com/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/3.webp">
+<meta property="og:image" content="http://yoursite.com/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/4.webp">
+<meta property="og:image" content="http://yoursite.com/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/5.webp">
+<meta property="og:image" content="http://yoursite.com/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/6.webp">
+<meta property="og:image" content="http://yoursite.com/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/7.webp">
+<meta property="og:image" content="http://yoursite.com/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/8.webp">
+<meta property="og:image" content="http://yoursite.com/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/9.webp">
+<meta property="og:image" content="http://yoursite.com/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/10.webp">
+<meta property="og:image" content="http://yoursite.com/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/11.webp">
+<meta property="og:image" content="http://yoursite.com/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/12.webp">
+<meta property="og:image" content="http://yoursite.com/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/13.webp">
+<meta property="og:image" content="http://yoursite.com/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/14.webp">
+<meta property="og:image" content="http://yoursite.com/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/15.webp">
+<meta property="og:image" content="http://yoursite.com/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/16.webp">
+<meta property="article:published_time" content="2023-08-15T16:25:20.000Z">
+<meta property="article:modified_time" content="2023-08-27T15:56:22.932Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Kubernetes入门实战课">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="谈谈Kong Ingress Controller">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2023/08/16/谈谈Kong-Ingress-Controller/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2023/08/16/谈谈Kong-Ingress-Controller/">
+  <link rel="canonical" href="http://yoursite.com/2023/08/16/谈谈Kong-Ingress-Controller/"/>
 
 
 
@@ -187,7 +187,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -248,7 +248,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -265,7 +265,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -282,7 +282,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -299,7 +299,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -316,7 +316,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -327,7 +327,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -347,7 +347,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -397,16 +399,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/08/16/谈谈Kong-Ingress-Controller/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -506,7 +508,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">8.4k</span>
+                <span title="本文字数">25k</span>
               
 
               
@@ -520,7 +522,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">8 分钟</span>
+                <span title="阅读时长">22 分钟</span>
               
             </div>
           
@@ -541,42 +543,38 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <h1 id="认识Kong-Ingress-Controller"><a href="#认识Kong-Ingress-Controller" class="headerlink" title="认识Kong Ingress Controller"></a><span style="color:#339AFF;">认识Kong Ingress Controller</span></h1><p>我们先快速回顾一下Ingress的知识（第21讲）。</p>
 <p>Ingress类似Service，基于HTTP/HTTPS协议，是七层负载均衡规则的集合，但它自身没有管理能力，必须要借助Ingress Controller才能控制Kubernetes集群的进出口流量。</p>
 <p>所以，基于Ingress的定义，就出现了各式各样的Ingress Controller实现。</p>
 <p>我们已经见过了Nginx官方开发的Nginx Ingress Controller，但它局限于Nginx自身的能力，Ingress、Service等对象更新时必须要修改静态的配置文件，再重启进程（reload），在变动频繁的微服务系统里就会引发一些问题。</p>
 <p>而今天要说的Kong Ingress Controller，则是站在了Nginx这个巨人的肩膀之上，基于OpenResty和内嵌的LuaJIT环境，实现了完全动态的路由变更，消除了reload的成本，运行更加平稳，而且还有很多额外的增强功能，非常适合那些对Kubernetes集群流量有更高、更细致管理需求的用户（图片来源Kong官网）。</p>
-<img src="/2023/08/16/谈谈Kong-Ingress-Controller/1.webp">
+<img src="/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/1.webp" class="">
 <h1 id="安装Kong-Ingress-Controller"><a href="#安装Kong-Ingress-Controller" class="headerlink" title="安装Kong Ingress Controller"></a><span style="color:#339AFF;">安装Kong Ingress Controller</span></h1><p>接下来我们就来看看如何在Kubernetes集群里引入Kong Ingress Controller。</p>
 <p>简单起见，这次我选择了minikube环境，版本还是1.25.2，对应的Kubernetes也是之前的1.23.3：</p>
-<img src="/2023/08/16/谈谈Kong-Ingress-Controller/2.webp">
-<p>目前Kong Ingress Controller的最新版本是2.7.0，你可以从<a href="https://github.com/Kong/kubernetes-ingress-controller" target="_blank" rel="noopener">GitHub</a>上直接获取它的源码包：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/Kong/kubernetes-ingress-controller/archive/refs/tags/v2.7.0.tar.gz</span><br></pre></td></tr></table></figure></p>
-<p>Kong Ingress Controller安装所需的YAML文件，都存放在解压缩后的“deploy”目录里，提供“有数据库”和“无数据库”两种部署方式，这里我选择了最简单的“无数据库”方式，只需要一个all-in-one-dbless.yaml就可以完成部署工作，也就是执行这条<code>kubectl apply</code>命令：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f all-in-one-dbless.yaml</span><br></pre></td></tr></table></figure></p>
-<img src="/2023/08/16/谈谈Kong-Ingress-Controller/3.webp">
+<img src="/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/2.webp" class="">
+<p>目前Kong Ingress Controller的最新版本是2.7.0，你可以从<a href="https://github.com/Kong/kubernetes-ingress-controller">GitHub</a>上直接获取它的源码包：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://github.com/Kong/kubernetes-ingress-controller/archive/refs/tags/v2.7.0.tar.gz</span><br></pre></td></tr></table></figure><br>Kong Ingress Controller安装所需的YAML文件，都存放在解压缩后的“deploy”目录里，提供“有数据库”和“无数据库”两种部署方式，这里我选择了最简单的“无数据库”方式，只需要一个all-in-one-dbless.yaml就可以完成部署工作，也就是执行这条<code>kubectl apply</code>命令：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f all-in-one-dbless.yaml</span><br></pre></td></tr></table></figure></p>
+<img src="/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/3.webp" class="">
 <p>我们可以再对比一下两种Ingress Controller的安装方式。Nginx Ingress Controller是由多个分散的YAML文件组成的，需要顺序执行多次<code>kubectl apply</code>命令，有点麻烦；而Kong Ingress Controller则把Namespace、RBAC、Secret、CRD等对象都合并在了一个文件里，安装很方便，同时也不会发生遗忘创建资源的错误。</p>
 <p>安装之后，Kong Ingress Controller会创建一个新的名字空间“kong”，里面有一个默认的Ingress Controller，还有对应的Service，你可以用kubectlget来查看：</p>
-<img src="/2023/08/16/谈谈Kong-Ingress-Controller/4.webp">
+<img src="/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/4.webp" class="">
 <p>看这里的截图，你可能会注意到，在<code>kubectl get pod</code>输出的“READY”列里显示的是“2/2”，意思是这个Pod里有两个容器。</p>
 <p>这也是Kong Ingress Controller与Nginx Ingress Controller在实现架构方面的一个明显不同点。</p>
 <p>Kong Ingress Controller，在Pod里使用两个容器，分别运行管理进程Controller和代理进程Proxy，两个容器之间使用环回地址（Loopback）通信；而Nginx Ingress Controller则是因为要修改静态的Nginx配置文件，所以管理进程和代理进程必须在一个容器里（图片表示Kong架构设计）。</p>
-<img src="/2023/08/16/谈谈Kong-Ingress-Controller/5.webp">
+<img src="/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/5.webp" class="">
 <p>两种方式并没有优劣之分，但Kong Ingress Controller分离的好处是两个容器彼此独立，可以各自升级维护，对运维更友好一点。</p>
 <p>Kong Ingress Controller还创建了两个Service对象，其中的“kong-proxy”是转发流量的服务，注意它被定义成了“LoadBalancer”类型，显然是为了在生产环境里对外暴露服务，不过在我们的实验环境（无论是minikube还是kubeadm）中只能使用NodePort的形式，这里可以看到80端口被映射到了节点的32201。</p>
 <p>现在让我们尝试访问一下Kong Ingress Controller，IP就用worker节点的地址，如果你和我一样用的是minikube，则可以用$(minikubeip)的形式简单获取：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl $(minikube ip):32201 -i</span><br></pre></td></tr></table></figure></p>
-<img src="/2023/08/16/谈谈Kong-Ingress-Controller/6.webp">
+<img src="/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/6.webp" class="">
 <p>从curl获取的响应结果可以看到，Kong Ingress Controller2.7内部使用的Kong版本是3.0.1，因为现在我们没有为它配置任何Ingress资源，所以返回了状态码404，这是正常的。</p>
 <p>我们还可以用<code>kubectl exec</code>命令进入Pod，查看它的内部信息：</p>
-<img src="/2023/08/16/谈谈Kong-Ingress-Controller/7.webp">
+<img src="/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/7.webp" class="">
 <p>虽然Kong Ingress Controller里有两个容器，但我们不需要特意用<code>-c</code>选项指定容器，它会自动进入默认的Proxy容器（另一个Controller容器里因为不包含Shell，也是无法进入查看的）。</p>
 <h1 id="使用Kong-Ingress-Controller"><a href="#使用Kong-Ingress-Controller" class="headerlink" title="使用Kong Ingress Controller"></a><span style="color:#339AFF;">使用Kong Ingress Controller</span></h1><p>安装好了，我们看如何使用。和第21讲里的一样，我们仍然不使用默认的Ingress Controller，而是利用Ingress Class自己创建一个新的实例，这样能够更好地理解掌握Kong Ingress Controller的用法。</p>
 <p>首先，定义后端应用，还是用Nginx来模拟，做法和第20讲里的差不多，用ConfigMap定义配置文件再加载进NginxPod里，然后部署Deployment和Service，比较简单，你也比较熟悉，就不列出YAML代码了，只看一下运行命令后的截图：</p>
-<img src="/2023/08/16/谈谈Kong-Ingress-Controller/8.webp">
+<img src="/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/8.webp" class="">
 <p>显示我创建了两个NginxPod，Service对象的名字是ngx-svc。</p>
-<p>接下来是定义Ingress Class，名字是“kong-ink”，“spec.controller”字段的值是Kong Ingress Controller的名字“<code>ingress-controllers.konghq.com/kong</code>”，YAML的格式可以参考第21讲：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">IngressClass</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">kong-ink</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  controller:</span> <span class="string">ingress-controllers.konghq.com/kong</span></span><br></pre></td></tr></table></figure></p>
-<p>然后就是定义Ingress对象了，我们还是可以用<code>kubectl create</code>来生成YAML样板文件，用<code>--rule</code>指定路由规则，用<code>--class</code>指定Ingress Class：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create ing kong-ing --rule="kong.test/=ngx-svc:80" --class=kong-ink $out</span><br></pre></td></tr></table></figure></p>
-<p>生成的Ingress对象大概就是下面这样，域名是“kong.test”，流量会转发到后端的ngx-svc服务：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Ingress</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">kong-ing</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  ingressClassName:</span> <span class="string">kong-ink</span></span><br><span class="line"></span><br><span class="line"><span class="attr">  rules:</span></span><br><span class="line"><span class="attr">  - host:</span> <span class="string">kong.test</span></span><br><span class="line"><span class="attr">    http:</span></span><br><span class="line"><span class="attr">      paths:</span></span><br><span class="line"><span class="attr">      - path:</span> <span class="string">/</span></span><br><span class="line"><span class="attr">        pathType:</span> <span class="string">Prefix</span></span><br><span class="line"><span class="attr">        backend:</span></span><br><span class="line"><span class="attr">          service:</span></span><br><span class="line"><span class="attr">            name:</span> <span class="string">ngx-svc</span></span><br><span class="line"><span class="attr">            port:</span></span><br><span class="line"><span class="attr">              number:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure></p>
-<p>最后，我们要从all-in-one-dbless.yaml这个文件中分离出Ingress Controller的定义。其实也很简单，只要搜索“Deployment”就可以了，然后把它以及相关的Service代码复制一份，另存成“kic.yml”。</p>
+<p>接下来是定义Ingress Class，名字是“kong-ink”，“spec.controller”字段的值是Kong Ingress Controller的名字“<code>ingress-controllers.konghq.com/kong</code>”，YAML的格式可以参考第21讲：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">IngressClass</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kong-ink</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">controller:</span> <span class="string">ingress-controllers.konghq.com/kong</span></span><br></pre></td></tr></table></figure><br>然后就是定义Ingress对象了，我们还是可以用<code>kubectl create</code>来生成YAML样板文件，用<code>--rule</code>指定路由规则，用<code>--class</code>指定Ingress Class：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl create ing kong-ing --rule=&quot;kong.test/=ngx-svc:80&quot; --class=kong-ink $out</span><br></pre></td></tr></table></figure><br>生成的Ingress对象大概就是下面这样，域名是“kong.test”，流量会转发到后端的ngx-svc服务：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Ingress</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kong-ing</span></span><br><span class="line"></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">ingressClassName:</span> <span class="string">kong-ink</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">rules:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">host:</span> <span class="string">kong.test</span></span><br><span class="line">    <span class="attr">http:</span></span><br><span class="line">      <span class="attr">paths:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">path:</span> <span class="string">/</span></span><br><span class="line">        <span class="attr">pathType:</span> <span class="string">Prefix</span></span><br><span class="line">        <span class="attr">backend:</span></span><br><span class="line">          <span class="attr">service:</span></span><br><span class="line">            <span class="attr">name:</span> <span class="string">ngx-svc</span></span><br><span class="line">            <span class="attr">port:</span></span><br><span class="line">              <span class="attr">number:</span> <span class="number">80</span></span><br></pre></td></tr></table></figure><br>最后，我们要从all-in-one-dbless.yaml这个文件中分离出Ingress Controller的定义。其实也很简单，只要搜索“Deployment”就可以了，然后把它以及相关的Service代码复制一份，另存成“kic.yml”。</p>
 <p>当然了，刚复制的代码和默认的Kong Ingress Controller是完全相同的，所以我们必须要参考帮助文档做一些修改，要点我列在了这里：</p>
 <ul>
 <li>Deployment、Service里metadata的name都要重命名，比如改成ingress-kong-dep、ingress-kong-svc。</li>
@@ -585,13 +583,10 @@
 <li>第二个容器是规则管理Controller，要用环境变量“CONTROLLER_INGRESS_CLASS”指定新的Ingress Class名字kong-ink，同时用“CONTROLLER_PUBLISH_SERVICE”指定Service的名字ingress-kong-svc。</li>
 <li>Service对象可以把类型改成NodePort，方便后续的测试。</li>
 </ul>
-<p>改了这些之后，一个新的Kong Ingress Controller就完成了，大概是这样，修改点我也加注释了你可以对照着看：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">ingress-kong-dep</span>            <span class="comment"># 重命名</span></span><br><span class="line"><span class="attr">  namespace:</span> <span class="string">kong</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"><span class="attr">  replicas:</span> <span class="number">1</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line"><span class="attr">    matchLabels:</span></span><br><span class="line"><span class="attr">      app:</span> <span class="string">ingress-kong-dep</span>        <span class="comment"># 重命名</span></span><br><span class="line"><span class="attr">  template:</span></span><br><span class="line"><span class="attr">    metadata:</span></span><br><span class="line"><span class="attr">      labels:</span></span><br><span class="line"><span class="attr">        app:</span> <span class="string">ingress-kong-dep</span>        <span class="comment"># 重命名</span></span><br><span class="line"><span class="attr">    spec:</span></span><br><span class="line"><span class="attr">      containers:</span></span><br><span class="line"><span class="attr">      - env:</span>                       <span class="comment"># 第一个容器， Proxy</span></span><br><span class="line">        <span class="string">...</span></span><br><span class="line"><span class="attr">        image:</span> <span class="attr">kong:3.1</span>            <span class="comment"># 改镜像</span></span><br><span class="line"></span><br><span class="line"><span class="attr">      - env:</span>                       <span class="comment"># 第二个容器，Controller</span></span><br><span class="line"><span class="attr">        - name:</span> <span class="string">CONTROLLER_INGRESS_CLASS</span></span><br><span class="line"><span class="attr">          value:</span> <span class="string">kong-ink</span>                  <span class="comment"># 改Ingress Class</span></span><br><span class="line"><span class="attr">        - name:</span> <span class="string">CONTROLLER_PUBLISH_SERVICE</span></span><br><span class="line"><span class="attr">          value:</span> <span class="string">kong/ingress-kong-svc</span>     <span class="comment"># 改Service</span></span><br><span class="line">        <span class="string">...</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">ingress-kong-svc</span>          <span class="comment"># 重命名</span></span><br><span class="line"><span class="attr">  namespace:</span> <span class="string">kong</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="string">...</span></span><br><span class="line"><span class="attr">  selector:</span></span><br><span class="line"><span class="attr">    app:</span> <span class="string">ingress-kong-dep</span>         <span class="comment"># 重命名</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">NodePort</span>                  <span class="comment"># 改类型</span></span><br></pre></td></tr></table></figure></p>
-<p>在我们专栏的配套GitHub项目里，你也可以直接找到改好的YAML文件。</p>
-<p>把这些都准备好，我们就可以来测试验证Kong Ingress Controller了：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f ngx-deploy.yml</span><br><span class="line">kubectl apply -f ingress.yml</span><br><span class="line">kubectl apply -f kic.yml</span><br></pre></td></tr></table></figure></p>
-<img src="/2023/08/16/谈谈Kong-Ingress-Controller/9.webp">
+<p>改了这些之后，一个新的Kong Ingress Controller就完成了，大概是这样，修改点我也加注释了你可以对照着看：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">ingress-kong-dep</span>            <span class="comment"># 重命名</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kong</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">ingress-kong-dep</span>        <span class="comment"># 重命名</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">ingress-kong-dep</span>        <span class="comment"># 重命名</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">env:</span>                       <span class="comment"># 第一个容器， Proxy</span></span><br><span class="line">        <span class="string">...</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">kong:3.1</span>            <span class="comment"># 改镜像</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">env:</span>                       <span class="comment"># 第二个容器，Controller</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">CONTROLLER_INGRESS_CLASS</span></span><br><span class="line">          <span class="attr">value:</span> <span class="string">kong-ink</span>                  <span class="comment"># 改Ingress Class</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">CONTROLLER_PUBLISH_SERVICE</span></span><br><span class="line">          <span class="attr">value:</span> <span class="string">kong/ingress-kong-svc</span>     <span class="comment"># 改Service</span></span><br><span class="line">        <span class="string">...</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">ingress-kong-svc</span>          <span class="comment"># 重命名</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">kong</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="string">...</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">ingress-kong-dep</span>         <span class="comment"># 重命名</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">NodePort</span>                  <span class="comment"># 改类型 </span></span><br></pre></td></tr></table></figure><br>在我们专栏的配套GitHub项目里，你也可以直接找到改好的YAML文件。</p>
+<p>把这些都准备好，我们就可以来测试验证Kong Ingress Controller了：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f ngx-deploy.yml</span><br><span class="line">kubectl apply -f ingress.yml</span><br><span class="line">kubectl apply -f kic.yml</span><br></pre></td></tr></table></figure><br><img src="/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/9.webp" class=""></p>
 <p>这个截图显示了这些对象的创建结果，其中，新Service对象的NodePort端口是32521。</p>
-<p>下面我们就来用curl发送HTTP请求，注意，应该用“<code>--resolve</code>”或者“<code>-H</code>”参数指定Ingress里定义的域名“kong.test”，否则Kong Ingress Controller会找不到路由：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl $(minikube ip):32521 -H 'host: kong.test' -v</span><br></pre></td></tr></table></figure></p>
-<img src="/2023/08/16/谈谈Kong-Ingress-Controller/10.webp">
+<p>下面我们就来用curl发送HTTP请求，注意，应该用“<code>--resolve</code>”或者“<code>-H</code>”参数指定Ingress里定义的域名“kong.test”，否则Kong Ingress Controller会找不到路由：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl $(minikube ip):32521 -H &#x27;host: kong.test&#x27; -v</span><br></pre></td></tr></table></figure><br><img src="/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/10.webp" class=""></p>
 <p>你可以看到，Kong Ingress Controller正确应用了Ingress路由规则，返回了后端Nginx应用的响应数据，而且从响应头“Via”里还可以发现，它现在用的是Kong3.1。</p>
 <h1 id="扩展Kong-Ingress-Controller"><a href="#扩展Kong-Ingress-Controller" class="headerlink" title="扩展Kong Ingress Controller"></a><span style="color:#339AFF;">扩展Kong Ingress Controller</span></h1><p>到这里，Kong Ingress Controller的基本用法你就掌握了。</p>
 <p>不过，只使用Kubernetes标准的Ingress资源来管理流量，是无法发挥出Kong Ingress Controller的真正实力的，它还有很多非常好用、非常实用的增强功能。</p>
@@ -600,27 +595,23 @@
 <p>第一个是“konghq.com/host-aliases”，它可以为Ingress规则添加额外的域名。</p>
 <p>你应该知道吧，Ingress的域名里可以使用通配符<code>*</code>，比如<code>*.abc.com</code>，但问题在于<code>*</code>只能是前缀，不能是后缀，也就是说我们无法写出<code>abc.*</code>这样的域名，这在管理多个域名的时候就显得有点麻烦。</p>
 <p>有了“konghq.com/host-aliases”，我们就可以用它来“绕过”这个限制，让Ingress轻松匹配有不同后缀的域名。</p>
-<p>比如，我修改一下Ingress定义，在“metadata”里添加一个annotation，让它除了“kong.test”，还能够支持“kong.dev”“kong.ops”等域名，就是这样：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Ingress</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">kong-ing</span></span><br><span class="line"><span class="attr">  annotations:</span></span><br><span class="line">    <span class="string">konghq.com/host-aliases:</span> <span class="string">"kong.dev, kong.ops"</span>  <span class="comment">#注意这里</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="string">...</span></span><br></pre></td></tr></table></figure></p>
-<p>使用<code>kubectl apply</code>更新Ingress，再用curl来测试一下：</p>
-<img src="/2023/08/16/谈谈Kong-Ingress-Controller/11.webp">
+<p>比如，我修改一下Ingress定义，在“metadata”里添加一个annotation，让它除了“kong.test”，还能够支持“kong.dev”“kong.ops”等域名，就是这样：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Ingress</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kong-ing</span></span><br><span class="line">  <span class="attr">annotations:</span></span><br><span class="line">    <span class="attr">konghq.com/host-aliases:</span> <span class="string">&quot;kong.dev, kong.ops&quot;</span>  <span class="comment">#注意这里</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="string">...</span></span><br></pre></td></tr></table></figure><br>使用<code>kubectl apply</code>更新Ingress，再用curl来测试一下：</p>
+<img src="/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/11.webp" class="">
 <p>你就会发现Ingress已经支持了这几个新域名。</p>
 <p>第二个是“konghq.com/plugins”，它可以启用Kong Ingress Controller内置的各种插件（Plugins）。</p>
 <p>插件，是Kong Ingress Controller的一个特色功能，你可以理解成是“预制工件”，能够附加在流量转发的过程中，实现各种数据处理，并且这个插件机制是开放的，我们既可以使用官方插件，也可以使用第三方插件，还可以使用Lua、Go等语言编写符合自己特定需求的插件。</p>
-<p>Kong公司维护了一个经过认证的<a href="https://docs.konghq.com/hub/" target="_blank" rel="noopener">插件中心</a>，你可以在这里找到涉及认证、安全、流控、分析、日志等多个领域大约100多个插件，今天我们看两个常用的ResponseTransformer、RateLimiting。</p>
-<img src="/2023/08/16/谈谈Kong-Ingress-Controller/12.webp">
+<p>Kong公司维护了一个经过认证的<a href="https://docs.konghq.com/hub/">插件中心</a>，你可以在这里找到涉及认证、安全、流控、分析、日志等多个领域大约100多个插件，今天我们看两个常用的ResponseTransformer、RateLimiting。</p>
+<img src="/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/12.webp" class="">
 <p>ResponseTransformer插件实现了对响应数据的修改，能够添加、替换、删除响应头或者响应体；RateLimiting插件就是限速，能够以时分秒等单位任意限制客户端访问的次数。</p>
 <p>定义插件需要使用CRD资源，名字是“KongPlugin”，你也可以用<code>kubectl api-resources</code>、<code>kubectl explain</code>等命令来查看它的apiVersion、kind等信息：</p>
-<img src="/2023/08/16/谈谈Kong-Ingress-Controller/13.webp">
-<p>下面我就给出这两个插件对象的示例定义：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">configuration.konghq.com/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">KongPlugin</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">kong-add-resp-header-plugin</span></span><br><span class="line"></span><br><span class="line"><span class="attr">plugin:</span> <span class="string">response-transformer</span></span><br><span class="line"><span class="attr">config:</span></span><br><span class="line"><span class="attr">  add:</span></span><br><span class="line"><span class="attr">    headers:</span></span><br><span class="line"><span class="attr">    - Resp-New-Header:</span><span class="string">kong-kic</span></span><br><span class="line"></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">configuration.konghq.com/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">KongPlugin</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">kong-rate-limiting-plugin</span></span><br><span class="line"></span><br><span class="line"><span class="attr">plugin:</span> <span class="string">rate-limiting</span></span><br><span class="line"><span class="attr">config:</span></span><br><span class="line"><span class="attr">  minute:</span> <span class="number">2</span></span><br></pre></td></tr></table></figure></p>
-<p>KongPlugin对象，因为是自定义资源，所以和标准Kubernetes对象不一样，不使用“spec”字段，而是用“plugin”来指定插件名，用“config”来指定插件的配置参数。</p>
+<img src="/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/13.webp" class="">
+<p>下面我就给出这两个插件对象的示例定义：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">configuration.konghq.com/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">KongPlugin</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kong-add-resp-header-plugin</span></span><br><span class="line"></span><br><span class="line"><span class="attr">plugin:</span> <span class="string">response-transformer</span></span><br><span class="line"><span class="attr">config:</span></span><br><span class="line">  <span class="attr">add:</span></span><br><span class="line">    <span class="attr">headers:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">Resp-New-Header:kong-kic</span></span><br><span class="line"></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="meta"></span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">configuration.konghq.com/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">KongPlugin</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kong-rate-limiting-plugin</span></span><br><span class="line"></span><br><span class="line"><span class="attr">plugin:</span> <span class="string">rate-limiting</span></span><br><span class="line"><span class="attr">config:</span></span><br><span class="line">  <span class="attr">minute:</span> <span class="number">2</span></span><br></pre></td></tr></table></figure><br>KongPlugin对象，因为是自定义资源，所以和标准Kubernetes对象不一样，不使用“spec”字段，而是用“plugin”来指定插件名，用“config”来指定插件的配置参数。</p>
 <p>比如在这里，我就让ResponseTransformer插件添加一个新的响应头字段，让RateLimiting插件限制客户端每分钟只能发两个请求。</p>
-<p>定义好这两个插件之后，我们就可以在Ingress对象里用annotations来启用插件功能了：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Ingress</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"><span class="attr">  name:</span> <span class="string">kong-ing</span></span><br><span class="line"><span class="attr">  annotations:</span></span><br><span class="line">    <span class="string">konghq.com/plugins:</span> <span class="string">|</span></span><br><span class="line"><span class="string">        kong-add-resp-header-plugin,</span></span><br><span class="line"><span class="string">        kong-rate-limiting-plugin</span></span><br></pre></td></tr></table></figure></p>
-<p>现在让我们应用这些插件对象，并且更新Ingress：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f crd.yml</span><br></pre></td></tr></table></figure></p>
-<p>再发送curl请求：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl $(minikube ip):32521 -H 'host: kong.test' -i</span><br></pre></td></tr></table></figure></p>
-<img src="/2023/08/16/谈谈Kong-Ingress-Controller/14.webp">
+<p>定义好这两个插件之后，我们就可以在Ingress对象里用annotations来启用插件功能了：<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">networking.k8s.io/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Ingress</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kong-ing</span></span><br><span class="line">  <span class="attr">annotations:</span></span><br><span class="line">    <span class="attr">konghq.com/plugins:</span> <span class="string">|</span></span><br><span class="line"><span class="string">        kong-add-resp-header-plugin,</span></span><br><span class="line"><span class="string">        kong-rate-limiting-plugin</span></span><br></pre></td></tr></table></figure><br>现在让我们应用这些插件对象，并且更新Ingress：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f crd.yml</span><br></pre></td></tr></table></figure><br>再发送curl请求：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl $(minikube ip):32521 -H &#x27;host: kong.test&#x27; -i</span><br></pre></td></tr></table></figure></p>
+<img src="/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/14.webp" class="">
 <p>你就会发现响应头里多出了几个字段，其中的RateLimit-*是限速信息，而Resp-New-Header就是新加的响应头字段。</p>
 <p>把curl连续执行几次，就可以看到限速插件生效了：</p>
-<img src="/2023/08/16/谈谈Kong-Ingress-Controller/15.webp">
+<img src="/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/15.webp" class="">
 <p>Kong Ingress Controller会返回429错误，告诉你访问受限，而且会用“Retry-After”等字段来告诉你多少秒之后才能重新发请求。</p>
 <h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a><span style="color:#339AFF;">小结</span></h1><p>好了，今天我们学习了另一种在Kubernetes管理集群进出流量的工具：Kong Ingress Controller，小结一下要点内容：</p>
 <p>1，Kong Ingress Controller的底层内核仍然是Nginx，但基于OpenResty和LuaJIT，实现了对路由的完全动态管理，不需要reload。</p>
@@ -629,7 +620,7 @@
 <p>作为一个CNCF云原生项目，Kong Ingress Controller已经得到了广泛的应用和认可，而且在近年的发展过程中，它也开始支持新的GatewayAPI，等下次有机会我们再细聊吧。</p>
 <h1 id="课下作业"><a href="#课下作业" class="headerlink" title="课下作业"></a><span style="color:#339AFF;">课下作业</span></h1><p>1，你能否对比一下Kong Ingress Controller和Nginx Ingress Controller这两个产品，你看重的是它哪方面的表现呢？</p>
 <p>2，你觉得插件这种机制有什么好处，能否列举一些其他领域里的类似项目？</p>
-<img src="/2023/08/16/谈谈Kong-Ingress-Controller/16.webp">
+<img src="/2023/08/16/%E8%B0%88%E8%B0%88Kong-Ingress-Controller/16.webp" class="">
       
     </div>
 
@@ -652,7 +643,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Kubernetes入门实战课/" rel="tag"># Kubernetes入门实战课</a>
+            <a href="/tags/Kubernetes%E5%85%A5%E9%97%A8%E5%AE%9E%E6%88%98%E8%AF%BE/" rel="tag"># Kubernetes入门实战课</a>
           
         </div>
       
@@ -665,7 +656,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2023/08/15/docker-compose：单机环境下的容器编排工具/" rel="next" title="docker-compose：单机环境下的容器编排工具">
+              <a href="/2023/08/15/docker-compose%EF%BC%9A%E5%8D%95%E6%9C%BA%E7%8E%AF%E5%A2%83%E4%B8%8B%E7%9A%84%E5%AE%B9%E5%99%A8%E7%BC%96%E6%8E%92%E5%B7%A5%E5%85%B7/" rel="next" title="docker-compose：单机环境下的容器编排工具">
                 <i class="fa fa-chevron-left"></i> docker-compose：单机环境下的容器编排工具
               </a>
             
@@ -675,7 +666,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2023/08/17/玉米加速下跌，看涨情绪急速回落，玉米要危险了？/" rel="prev" title="玉米加速下跌，看涨情绪急速回落，玉米要危险了？">
+              <a href="/2023/08/17/%E7%8E%89%E7%B1%B3%E5%8A%A0%E9%80%9F%E4%B8%8B%E8%B7%8C%EF%BC%8C%E7%9C%8B%E6%B6%A8%E6%83%85%E7%BB%AA%E6%80%A5%E9%80%9F%E5%9B%9E%E8%90%BD%EF%BC%8C%E7%8E%89%E7%B1%B3%E8%A6%81%E5%8D%B1%E9%99%A9%E4%BA%86%EF%BC%9F/" rel="prev" title="玉米加速下跌，看涨情绪急速回落，玉米要危险了？">
                 玉米加速下跌，看涨情绪急速回落，玉米要危险了？ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -735,7 +726,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -746,9 +739,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -760,26 +753,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -851,7 +828,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1026,115 +1003,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1165,23 +1034,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1207,7 +1076,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#认识Kong-Ingress-Controller"><span class="nav-number">1.</span> <span class="nav-text">认识Kong Ingress Controller</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装Kong-Ingress-Controller"><span class="nav-number">2.</span> <span class="nav-text">安装Kong Ingress Controller</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Kong-Ingress-Controller"><span class="nav-number">3.</span> <span class="nav-text">使用Kong Ingress Controller</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#扩展Kong-Ingress-Controller"><span class="nav-number">4.</span> <span class="nav-text">扩展Kong Ingress Controller</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#课下作业"><span class="nav-number">6.</span> <span class="nav-text">课下作业</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%A4%E8%AF%86Kong-Ingress-Controller"><span class="nav-number">1.</span> <span class="nav-text">认识Kong Ingress Controller</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Kong-Ingress-Controller"><span class="nav-number">2.</span> <span class="nav-text">安装Kong Ingress Controller</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Kong-Ingress-Controller"><span class="nav-number">3.</span> <span class="nav-text">使用Kong Ingress Controller</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%A9%E5%B1%95Kong-Ingress-Controller"><span class="nav-number">4.</span> <span class="nav-text">扩展Kong Ingress Controller</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BE%E4%B8%8B%E4%BD%9C%E4%B8%9A"><span class="nav-number">6.</span> <span class="nav-text">课下作业</span></a></li></ol></div>
             
 
           </div>
@@ -1242,7 +1111,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1253,12 +1122,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1266,7 +1135,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

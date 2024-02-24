@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,26 +104,26 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="深入剖析Kubernetes">
 <meta property="og:type" content="article">
 <meta property="og:title" content="06 | 白话容器基础（二）：隔离与限制">
-<meta property="og:url" content="http://yoursite.com/2022/09/13/06-白话容器基础（二）：隔离与限制/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/09/13/06-%E7%99%BD%E8%AF%9D%E5%AE%B9%E5%99%A8%E5%9F%BA%E7%A1%80%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E9%9A%94%E7%A6%BB%E4%B8%8E%E9%99%90%E5%88%B6/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/09/13/06-白话容器基础（二）：隔离与限制/1.webp">
-<meta property="og:updated_time" content="2022-09-23T05:49:13.728Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/09/13/06-%E7%99%BD%E8%AF%9D%E5%AE%B9%E5%99%A8%E5%9F%BA%E7%A1%80%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E9%9A%94%E7%A6%BB%E4%B8%8E%E9%99%90%E5%88%B6/1.webp">
+<meta property="article:published_time" content="2022-09-13T08:55:47.000Z">
+<meta property="article:modified_time" content="2022-09-23T05:49:13.728Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="深入剖析Kubernetes">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="06 | 白话容器基础（二）：隔离与限制">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2022/09/13/06-白话容器基础（二）：隔离与限制/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2022/09/13/06-%E7%99%BD%E8%AF%9D%E5%AE%B9%E5%99%A8%E5%9F%BA%E7%A1%80%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E9%9A%94%E7%A6%BB%E4%B8%8E%E9%99%90%E5%88%B6/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/09/13/06-白话容器基础（二）：隔离与限制/">
+  <link rel="canonical" href="http://yoursite.com/2022/09/13/06-白话容器基础（二）：隔离与限制/"/>
 
 
 
@@ -172,7 +172,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -233,7 +233,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -250,7 +250,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -267,7 +267,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -284,7 +284,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -301,7 +301,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -312,7 +312,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -332,7 +332,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -382,16 +384,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/13/06-白话容器基础（二）：隔离与限制/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/13/06-%E7%99%BD%E8%AF%9D%E5%AE%B9%E5%99%A8%E5%9F%BA%E7%A1%80%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E9%9A%94%E7%A6%BB%E4%B8%8E%E9%99%90%E5%88%B6/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -491,7 +493,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">7.2k</span>
+                <span title="本文字数">12k</span>
               
 
               
@@ -505,7 +507,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">7 分钟</span>
+                <span title="阅读时长">11 分钟</span>
               
             </div>
           
@@ -526,10 +528,10 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <h1 id="正文"><a href="#正文" class="headerlink" title="正文"></a><span style="color:#339AFF;">正文</span></h1><p>在上一篇文章中，我详细介绍了Linux容器中用来实现“隔离”的技术手段：Namespace。而通过这些讲解，你应该能够明白，<strong>Namespace技术实际上修改了应用进程看待整个计算机“视图”，即它的“视线”被操作系统做了限制，只能“看到”某些指定的内容。</strong>但对于宿主机来说，这些被“隔离”了的进程跟其他进程并没有太大区别。</p>
 <p>说到这一点，相信你也能够知道我在上一篇文章最后给你留下的第一个思考题的答案了：在之前虚拟机与容器技术的对比图里，不应该把Docker Engine或者任何容器管理工具放在跟Hypervisor相同的位置，因为它们并不像Hypervisor那样对应用进程的隔离环境负责，也不会创建任何实体的“容器”，真正对隔离环境负责的是宿主机操作系统本身：</p>
-<img src="/2022/09/13/06-白话容器基础（二）：隔离与限制/1.webp">
+<img src="/2022/09/13/06-%E7%99%BD%E8%AF%9D%E5%AE%B9%E5%99%A8%E5%9F%BA%E7%A1%80%EF%BC%88%E4%BA%8C%EF%BC%89%EF%BC%9A%E9%9A%94%E7%A6%BB%E4%B8%8E%E9%99%90%E5%88%B6/1.webp" class="">
 <p>所以，在这个对比图里，我们应该把Docker画在跟应用同级别并且靠边的位置。这意味着，用户运行在容器里的应用进程，跟宿主机上的其他进程一样，都由宿主机操作系统统一管理，只不过这些被隔离的进程拥有额外设置过的Namespace参数。而Docker项目在这里扮演的角色，更多的是旁路式的辅助和管理工作。</p>
 <p>我在后续分享CRI和容器运行时的时候还会专门介绍，其实像Docker这样的角色甚至可以去掉。</p>
 <p>这样的架构也解释了为什么Docker项目比虚拟机更受欢迎的原因。</p>
@@ -554,24 +556,15 @@
 <p>有意思的是，Google的工程师在2006年发起这项特性的时候，曾将它命名为“进程容器”（process container）。实际上，在Google内部，“容器”这个术语长期以来都被用于形容被Cgroups限制过的进程组。后来Google的工程师们说，他们的KVM虚拟机也运行在Borg所管理的“容器”里，其实也是运行在Cgroups“容器”当中。这和我们今天说的Docker容器差别很大。</p>
 <p><strong>Linux Cgroups的全称是Linux Control Group。它最主要的作用，就是限制一个进程组能够使用的资源上限，包括CPU、内存、磁盘、网络带宽等等。</strong></p>
 <p>此外，Cgroups还能够对进程进行优先级设置、审计，以及将进程挂起和恢复等操作。在今天的分享中，我只和你重点探讨它与容器关系最紧密的“限制”能力，并通过一组实践来带你认识一下Cgroups。</p>
-<p>在Linux中，Cgroups给用户暴露出来的操作接口是文件系统，即它以文件和目录的方式组织在操作系统的/sys/fs/cgroup路径下。在Ubuntu 16.04机器里，我可以用mount指令把它们展示出来，这条命令是：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ mount -t cgroup </span><br><span class="line">cpuset on /sys/fs/cgroup/cpuset <span class="built_in">type</span> cgroup (rw,nosuid,nodev,noexec,relatime,cpuset)</span><br><span class="line">cpu on /sys/fs/cgroup/cpu <span class="built_in">type</span> cgroup (rw,nosuid,nodev,noexec,relatime,cpu)</span><br><span class="line">cpuacct on /sys/fs/cgroup/cpuacct <span class="built_in">type</span> cgroup (rw,nosuid,nodev,noexec,relatime,cpuacct)</span><br><span class="line">blkio on /sys/fs/cgroup/blkio <span class="built_in">type</span> cgroup (rw,nosuid,nodev,noexec,relatime,blkio)</span><br><span class="line">memory on /sys/fs/cgroup/memory <span class="built_in">type</span> cgroup (rw,nosuid,nodev,noexec,relatime,memory)</span><br><span class="line">...</span><br></pre></td></tr></table></figure></p>
-<p>它的输出结果，是一系列文件系统目录。如果你在自己的机器上没有看到这些目录，那你就需要自己去挂载Cgroups，具体做法可以自行Google。</p>
-<p>可以看到，在/sys/fs/cgroup下面有很多诸如cpuset、cpu、memory这样的子目录，也叫子系统。这些都是我这台机器当前可以被Cgroups进行限制的资源种类。而在子系统对应的资源种类下，你就可以看到该类资源具体可以被限制的方法。比如，对CPU子系统来说，我们就可以看到如下几个配置文件，这个指令是：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ls /sys/fs/cgroup/cpu</span><br><span class="line">cgroup.clone_children cpu.cfs_period_us cpu.rt_period_us  cpu.shares notify_on_release</span><br><span class="line">cgroup.procs      cpu.cfs_quota_us  cpu.rt_runtime_us cpu.stat  tasks</span><br></pre></td></tr></table></figure></p>
-<p>如果熟悉Linux CPU管理的话，你就会在它的输出里注意到cfs_period和cfs_quota这样的关键词。这两个参数需要组合使用，可以用来限制进程在长度为cfs_period的一段时间内，只能被分配到总量为cfs_quota的CPU时间。</p>
+<p>在Linux中，Cgroups给用户暴露出来的操作接口是文件系统，即它以文件和目录的方式组织在操作系统的/sys/fs/cgroup路径下。在Ubuntu 16.04机器里，我可以用mount指令把它们展示出来，这条命令是：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ mount -t cgroup </span><br><span class="line">cpuset on /sys/fs/cgroup/cpuset <span class="built_in">type</span> cgroup (rw,nosuid,nodev,noexec,relatime,cpuset)</span><br><span class="line">cpu on /sys/fs/cgroup/cpu <span class="built_in">type</span> cgroup (rw,nosuid,nodev,noexec,relatime,cpu)</span><br><span class="line">cpuacct on /sys/fs/cgroup/cpuacct <span class="built_in">type</span> cgroup (rw,nosuid,nodev,noexec,relatime,cpuacct)</span><br><span class="line">blkio on /sys/fs/cgroup/blkio <span class="built_in">type</span> cgroup (rw,nosuid,nodev,noexec,relatime,blkio)</span><br><span class="line">memory on /sys/fs/cgroup/memory <span class="built_in">type</span> cgroup (rw,nosuid,nodev,noexec,relatime,memory)</span><br><span class="line">...</span><br></pre></td></tr></table></figure><br>它的输出结果，是一系列文件系统目录。如果你在自己的机器上没有看到这些目录，那你就需要自己去挂载Cgroups，具体做法可以自行Google。</p>
+<p>可以看到，在/sys/fs/cgroup下面有很多诸如cpuset、cpu、memory这样的子目录，也叫子系统。这些都是我这台机器当前可以被Cgroups进行限制的资源种类。而在子系统对应的资源种类下，你就可以看到该类资源具体可以被限制的方法。比如，对CPU子系统来说，我们就可以看到如下几个配置文件，这个指令是：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">ls</span> /sys/fs/cgroup/cpu</span><br><span class="line">cgroup.clone_children cpu.cfs_period_us cpu.rt_period_us  cpu.shares notify_on_release</span><br><span class="line">cgroup.procs      cpu.cfs_quota_us  cpu.rt_runtime_us cpu.stat  tasks</span><br></pre></td></tr></table></figure><br>如果熟悉Linux CPU管理的话，你就会在它的输出里注意到cfs_period和cfs_quota这样的关键词。这两个参数需要组合使用，可以用来限制进程在长度为cfs_period的一段时间内，只能被分配到总量为cfs_quota的CPU时间。</p>
 <p>而这样的配置文件又如何使用呢？</p>
-<p>你需要在对应的子系统下面创建一个目录，比如，我们现在进入/sys/fs/cgroup/cpu目录下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:/sys/fs/cgroup/cpu$ mkdir container</span><br><span class="line">root@ubuntu:/sys/fs/cgroup/cpu$ ls container/</span><br><span class="line">cgroup.clone_children cpu.cfs_period_us cpu.rt_period_us  cpu.shares notify_on_release</span><br><span class="line">cgroup.procs      cpu.cfs_quota_us  cpu.rt_runtime_us cpu.stat  tasks</span><br></pre></td></tr></table></figure></p>
-<p>这个目录就称为一个“控制组”。你会发现，操作系统会在你新创建的container目录下，自动生成该子系统对应的资源限制文件。</p>
-<p>现在，我们在后台执行这样一条脚本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">while</span> : ; <span class="keyword">do</span> : ; <span class="keyword">done</span> &amp;</span><br><span class="line">[1] 226</span><br></pre></td></tr></table></figure></p>
-<p>显然，它执行了一个死循环，可以把计算机的CPU吃到100%，根据它的输出，我们可以看到这个脚本在后台运行的进程号（PID）是226。</p>
-<p>这样，我们可以用top指令来确认一下CPU有没有被打满：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ top</span><br><span class="line">%Cpu0 :100.0 us, 0.0 sy, 0.0 ni, 0.0 id, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st</span><br></pre></td></tr></table></figure></p>
-<p>在输出里可以看到，CPU的使用率已经100%了（%Cpu0 :100.0 us）。</p>
-<p>而此时，我们可以通过查看container目录下的文件，看到container控制组里的CPU quota还没有任何限制（即：-1），CPU period则是默认的100ms（100000us）：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ cat /sys/fs/cgroup/cpu/container/cpu.cfs_quota_us </span><br><span class="line">-1</span><br><span class="line">$ cat /sys/fs/cgroup/cpu/container/cpu.cfs_period_us </span><br><span class="line">100000</span><br></pre></td></tr></table></figure></p>
-<p>接下来，我们可以通过修改这些文件的内容来设置限制。</p>
-<p>比如，向container组里的cfs_quota文件写入20ms（20000us）：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> 20000 &gt; /sys/fs/cgroup/cpu/container/cpu.cfs_quota_us</span><br></pre></td></tr></table></figure></p>
-<p>结合前面的介绍，你应该能明白这个操作的含义，它意味着在每100ms的时间里，被该控制组限制的进程只能使用20ms的CPU时间，也就是说这个进程只能使用到20%的CPU带宽。</p>
-<p>接下来，我们把被限制的进程的PID写入container组里的tasks文件，上面的设置就会对该进程生效了：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> 226 &gt; /sys/fs/cgroup/cpu/container/tasks</span><br></pre></td></tr></table></figure></p>
-<p>我们可以用top指令查看一下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ top</span><br><span class="line">%Cpu0 : 20.3 us, 0.0 sy, 0.0 ni, 79.7 id, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st</span><br></pre></td></tr></table></figure></p>
-<p>可以看到，计算机的CPU使用率立刻降到了20%（%Cpu0 : 20.3 us）。</p>
+<p>你需要在对应的子系统下面创建一个目录，比如，我们现在进入/sys/fs/cgroup/cpu目录下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">root@ubuntu:/sys/fs/cgroup/cpu$ <span class="built_in">mkdir</span> container</span><br><span class="line">root@ubuntu:/sys/fs/cgroup/cpu$ <span class="built_in">ls</span> container/</span><br><span class="line">cgroup.clone_children cpu.cfs_period_us cpu.rt_period_us  cpu.shares notify_on_release</span><br><span class="line">cgroup.procs      cpu.cfs_quota_us  cpu.rt_runtime_us cpu.stat  tasks</span><br></pre></td></tr></table></figure><br>这个目录就称为一个“控制组”。你会发现，操作系统会在你新创建的container目录下，自动生成该子系统对应的资源限制文件。</p>
+<p>现在，我们在后台执行这样一条脚本：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">while</span> : ; <span class="keyword">do</span> : ; <span class="keyword">done</span> &amp;</span><br><span class="line">[1] 226</span><br></pre></td></tr></table></figure><br>显然，它执行了一个死循环，可以把计算机的CPU吃到100%，根据它的输出，我们可以看到这个脚本在后台运行的进程号（PID）是226。</p>
+<p>这样，我们可以用top指令来确认一下CPU有没有被打满：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ top</span><br><span class="line">%Cpu0 :100.0 us, 0.0 sy, 0.0 ni, 0.0 <span class="built_in">id</span>, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st</span><br></pre></td></tr></table></figure><br>在输出里可以看到，CPU的使用率已经100%了（%Cpu0 :100.0 us）。</p>
+<p>而此时，我们可以通过查看container目录下的文件，看到container控制组里的CPU quota还没有任何限制（即：-1），CPU period则是默认的100ms（100000us）：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> /sys/fs/cgroup/cpu/container/cpu.cfs_quota_us </span><br><span class="line">-1</span><br><span class="line">$ <span class="built_in">cat</span> /sys/fs/cgroup/cpu/container/cpu.cfs_period_us </span><br><span class="line">100000</span><br></pre></td></tr></table></figure><br>接下来，我们可以通过修改这些文件的内容来设置限制。</p>
+<p>比如，向container组里的cfs_quota文件写入20ms（20000us）：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> 20000 &gt; /sys/fs/cgroup/cpu/container/cpu.cfs_quota_us</span><br></pre></td></tr></table></figure><br>结合前面的介绍，你应该能明白这个操作的含义，它意味着在每100ms的时间里，被该控制组限制的进程只能使用20ms的CPU时间，也就是说这个进程只能使用到20%的CPU带宽。</p>
+<p>接下来，我们把被限制的进程的PID写入container组里的tasks文件，上面的设置就会对该进程生效了：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">echo</span> 226 &gt; /sys/fs/cgroup/cpu/container/tasks </span><br></pre></td></tr></table></figure><br>我们可以用top指令查看一下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ top</span><br><span class="line">%Cpu0 : 20.3 us, 0.0 sy, 0.0 ni, 79.7 <span class="built_in">id</span>, 0.0 wa, 0.0 hi, 0.0 si, 0.0 st</span><br></pre></td></tr></table></figure><br>可以看到，计算机的CPU使用率立刻降到了20%（%Cpu0 : 20.3 us）。</p>
 <p>除CPU子系统外，Cgroups的每一个子系统都有其独有的资源限制能力，比如：</p>
 <ul>
 <li>blkio，为块设备设定I/O限制，一般用于磁盘等设备；</li>
@@ -579,9 +572,7 @@
 <li>memory，为进程设定内存使用的限制。</li>
 </ul>
 <p><strong>Linux Cgroups的设计还是比较易用的，简单粗暴地理解呢，它就是一个子系统目录加上一组资源限制文件的组合。</strong>而对于Docker等Linux容器项目来说，它们只需要在每个子系统下面，为每个容器创建一个控制组（即创建一个新目录），然后在启动容器进程之后，把这个进程的PID填写到对应控制组的tasks文件中就可以了。</p>
-<p>而至于在这些控制组下面的资源文件里填上什么值，就靠用户执行<code>docker run</code>时的参数指定了，比如这样一条命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -it --cpu-period=100000 --cpu-quota=20000 ubuntu /bin/bash</span><br></pre></td></tr></table></figure></p>
-<p>在启动这个容器后，我们可以通过查看Cgroups文件系统下，CPU子系统中，“docker”这个控制组里的资源限制文件的内容来确认：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ cat /sys/fs/cgroup/cpu/docker/5d5c9f67d/cpu.cfs_period_us </span><br><span class="line">100000</span><br><span class="line">$ cat /sys/fs/cgroup/cpu/docker/5d5c9f67d/cpu.cfs_quota_us </span><br><span class="line">20000</span><br></pre></td></tr></table></figure></p>
-<p>这就意味着这个Docker容器，只能使用到20%的CPU带宽。</p>
+<p>而至于在这些控制组下面的资源文件里填上什么值，就靠用户执行<code>docker run</code>时的参数指定了，比如这样一条命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ docker run -it --cpu-period=100000 --cpu-quota=20000 ubuntu /bin/bash</span><br></pre></td></tr></table></figure><br>在启动这个容器后，我们可以通过查看Cgroups文件系统下，CPU子系统中，“docker”这个控制组里的资源限制文件的内容来确认：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> /sys/fs/cgroup/cpu/docker/5d5c9f67d/cpu.cfs_period_us </span><br><span class="line">100000</span><br><span class="line">$ <span class="built_in">cat</span> /sys/fs/cgroup/cpu/docker/5d5c9f67d/cpu.cfs_quota_us </span><br><span class="line">20000</span><br></pre></td></tr></table></figure><br>这就意味着这个Docker容器，只能使用到20%的CPU带宽。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><span style="color:#339AFF;">总结</span></h1><p>在这篇文章中，我首先介绍了容器使用Linux Namespace作为隔离手段的优势和劣势，对比了Linux容器跟虚拟机技术的不同，进一步明确了“容器只是一种特殊的进程”这个结论。</p>
 <p>除了创建Namespace之外，在后续关于容器网络的分享中，我还会介绍一些其他Namespace的操作，比如看不见摸不着的Linux Namespace在计算机中到底如何表示、一个进程如何“加入”到其他进程的Namespace当中，等等。</p>
 <p>紧接着，我详细介绍了容器在做好了隔离工作之后，又如何通过Linux Cgroups实现资源的限制，并通过一系列简单的实验，模拟了Docker项目创建容器限制的过程。</p>
@@ -622,7 +613,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/深入剖析Kubernetes/" rel="tag"># 深入剖析Kubernetes</a>
+            <a href="/tags/%E6%B7%B1%E5%85%A5%E5%89%96%E6%9E%90Kubernetes/" rel="tag"># 深入剖析Kubernetes</a>
           
         </div>
       
@@ -635,7 +626,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/09/13/05-白话容器基础（一）：从进程说开去/" rel="next" title="05 | 白话容器基础（一）：从进程说开去">
+              <a href="/2022/09/13/05-%E7%99%BD%E8%AF%9D%E5%AE%B9%E5%99%A8%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%80%EF%BC%89%EF%BC%9A%E4%BB%8E%E8%BF%9B%E7%A8%8B%E8%AF%B4%E5%BC%80%E5%8E%BB/" rel="next" title="05 | 白话容器基础（一）：从进程说开去">
                 <i class="fa fa-chevron-left"></i> 05 | 白话容器基础（一）：从进程说开去
               </a>
             
@@ -645,7 +636,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/09/13/07-白话容器基础（三）：深入理解容器镜像/" rel="prev" title="07 | 白话容器基础（三）：深入理解容器镜像">
+              <a href="/2022/09/13/07-%E7%99%BD%E8%AF%9D%E5%AE%B9%E5%99%A8%E5%9F%BA%E7%A1%80%EF%BC%88%E4%B8%89%EF%BC%89%EF%BC%9A%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F/" rel="prev" title="07 | 白话容器基础（三）：深入理解容器镜像">
                 07 | 白话容器基础（三）：深入理解容器镜像 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -705,7 +696,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -716,9 +709,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -730,26 +723,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -821,7 +798,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -996,115 +973,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1135,23 +1004,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1177,7 +1046,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#正文"><span class="nav-number">1.</span> <span class="nav-text">正文</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">3.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AD%A3%E6%96%87"><span class="nav-number">1.</span> <span class="nav-text">正文</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">3.</span> <span class="nav-text">思考题</span></a></li></ol></div>
             
 
           </div>
@@ -1212,7 +1081,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1223,12 +1092,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1236,7 +1105,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

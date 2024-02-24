@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,37 +104,36 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="Kubernetes in Action">
 <meta property="og:type" content="article">
 <meta property="og:title" content="10-StatefulSet：部署有姿态的多副本应用">
-<meta property="og:url" content="http://yoursite.com/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/index.html">
+<meta property="og:url" content="http://yoursite.com/2022/10/01/10-StatefulSet%EF%BC%9A%E9%83%A8%E7%BD%B2%E6%9C%89%E5%A7%BF%E6%80%81%E7%9A%84%E5%A4%9A%E5%89%AF%E6%9C%AC%E5%BA%94%E7%94%A8/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/1.png">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/2.png">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/3.png">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/4.png">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/5.png">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/6.png">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/7.png">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/8.png">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/9.png">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/10.png">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/11.png">
-<meta property="og:image" content="http://yoursite.com/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/12.png">
-<meta property="og:updated_time" content="2022-10-05T02:16:29.900Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/10-StatefulSet%EF%BC%9A%E9%83%A8%E7%BD%B2%E6%9C%89%E5%A7%BF%E6%80%81%E7%9A%84%E5%A4%9A%E5%89%AF%E6%9C%AC%E5%BA%94%E7%94%A8/1.png">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/10-StatefulSet%EF%BC%9A%E9%83%A8%E7%BD%B2%E6%9C%89%E5%A7%BF%E6%80%81%E7%9A%84%E5%A4%9A%E5%89%AF%E6%9C%AC%E5%BA%94%E7%94%A8/2.png">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/10-StatefulSet%EF%BC%9A%E9%83%A8%E7%BD%B2%E6%9C%89%E5%A7%BF%E6%80%81%E7%9A%84%E5%A4%9A%E5%89%AF%E6%9C%AC%E5%BA%94%E7%94%A8/3.png">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/10-StatefulSet%EF%BC%9A%E9%83%A8%E7%BD%B2%E6%9C%89%E5%A7%BF%E6%80%81%E7%9A%84%E5%A4%9A%E5%89%AF%E6%9C%AC%E5%BA%94%E7%94%A8/4.png">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/10-StatefulSet%EF%BC%9A%E9%83%A8%E7%BD%B2%E6%9C%89%E5%A7%BF%E6%80%81%E7%9A%84%E5%A4%9A%E5%89%AF%E6%9C%AC%E5%BA%94%E7%94%A8/5.png">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/10-StatefulSet%EF%BC%9A%E9%83%A8%E7%BD%B2%E6%9C%89%E5%A7%BF%E6%80%81%E7%9A%84%E5%A4%9A%E5%89%AF%E6%9C%AC%E5%BA%94%E7%94%A8/6.png">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/10-StatefulSet%EF%BC%9A%E9%83%A8%E7%BD%B2%E6%9C%89%E5%A7%BF%E6%80%81%E7%9A%84%E5%A4%9A%E5%89%AF%E6%9C%AC%E5%BA%94%E7%94%A8/7.png">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/10-StatefulSet%EF%BC%9A%E9%83%A8%E7%BD%B2%E6%9C%89%E5%A7%BF%E6%80%81%E7%9A%84%E5%A4%9A%E5%89%AF%E6%9C%AC%E5%BA%94%E7%94%A8/8.png">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/10-StatefulSet%EF%BC%9A%E9%83%A8%E7%BD%B2%E6%9C%89%E5%A7%BF%E6%80%81%E7%9A%84%E5%A4%9A%E5%89%AF%E6%9C%AC%E5%BA%94%E7%94%A8/9.png">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/10-StatefulSet%EF%BC%9A%E9%83%A8%E7%BD%B2%E6%9C%89%E5%A7%BF%E6%80%81%E7%9A%84%E5%A4%9A%E5%89%AF%E6%9C%AC%E5%BA%94%E7%94%A8/10.png">
+<meta property="og:image" content="http://yoursite.com/2022/10/01/10-StatefulSet%EF%BC%9A%E9%83%A8%E7%BD%B2%E6%9C%89%E5%A7%BF%E6%80%81%E7%9A%84%E5%A4%9A%E5%89%AF%E6%9C%AC%E5%BA%94%E7%94%A8/11.png">
+<meta property="article:published_time" content="2022-10-01T02:09:41.000Z">
+<meta property="article:modified_time" content="2022-10-05T02:16:29.900Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Kubernetes in Action">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="10-StatefulSet：部署有姿态的多副本应用">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/1.png">
+<meta name="twitter:image" content="http://yoursite.com/2022/10/01/10-StatefulSet%EF%BC%9A%E9%83%A8%E7%BD%B2%E6%9C%89%E5%A7%BF%E6%80%81%E7%9A%84%E5%A4%9A%E5%89%AF%E6%9C%AC%E5%BA%94%E7%94%A8/1.png">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/">
+  <link rel="canonical" href="http://yoursite.com/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/"/>
 
 
 
@@ -183,7 +182,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -244,7 +243,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -261,7 +260,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -278,7 +277,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -295,7 +294,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -312,7 +311,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -323,7 +322,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -343,7 +342,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -393,16 +394,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/10/01/10-StatefulSet%EF%BC%9A%E9%83%A8%E7%BD%B2%E6%9C%89%E5%A7%BF%E6%80%81%E7%9A%84%E5%A4%9A%E5%89%AF%E6%9C%AC%E5%BA%94%E7%94%A8/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -502,7 +503,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">18k</span>
+                <span title="本文字数">35k</span>
               
 
               
@@ -516,7 +517,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">16 分钟</span>
+                <span title="阅读时长">31 分钟</span>
               
             </div>
           
@@ -537,7 +538,7 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>【本章内容涵盖】</p>
 <ul>
 <li>部署有状态集群应用</li>
@@ -551,7 +552,7 @@
 <blockquote>
 <p>图10.1 ReplicaSet里的所有pod共享相同的持久卷声明和持久卷</p>
 </blockquote>
-<img src="/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/1.png">
+<img src="/2022/10/01/10-StatefulSet%EF%BC%9A%E9%83%A8%E7%BD%B2%E6%9C%89%E5%A7%BF%E6%80%81%E7%9A%84%E5%A4%9A%E5%89%AF%E6%9C%AC%E5%BA%94%E7%94%A8/1.png" class="">
 <p>因为是在pod模板里关联声明的，又会依据pod模板创建多个pod副本，则不能对每个副本都指定独立的持久卷声明。所以也不能通过一个ReplicaSet来运行一个每个实例都需要独立存储的分布式数据存储服务，至少通过单个ReplicaSet是做不到的。老实说，之前你学习到的所有API对象都不能提供这样的数据存储服务，还需要其他的对象。</p>
 <h2 id="运行每个实例都有单独存储的多副本"><a href="#运行每个实例都有单独存储的多副本" class="headerlink" title="运行每个实例都有单独存储的多副本"></a>运行每个实例都有单独存储的多副本</h2><p>那如何运行一个pod的多个副本，让每个pod都有独立的存储卷呢？ReplicaSet会依据一个pod创建一致的副本，所以不能通过它们来达到目的，那你可以使用什么呢？</p>
 <p>手动创建pod</p>
@@ -562,14 +563,14 @@
 <blockquote>
 <p>图10.2 每个pod实例对应一个ReplicaSet</p>
 </blockquote>
-<img src="/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/2.png">
+<img src="/2022/10/01/10-StatefulSet%EF%BC%9A%E9%83%A8%E7%BD%B2%E6%9C%89%E5%A7%BF%E6%80%81%E7%9A%84%E5%A4%9A%E5%89%AF%E6%9C%AC%E5%BA%94%E7%94%A8/2.png" class="">
 <p>所以说使用多个ReplicaSet也不是最好的方案。那是否可以创建一个ReplicaSet，即使在共享一个存储卷的情况下，让每个pod实例都独立保持自己的持久化状态呢？</p>
 <p>使用同一数据卷中的不同目录</p>
 <p>一个比较取巧的做法是：所有pod共享同一数据卷，但是每个pod在数据卷中使用不同的数据目录（如图10.3所示）。</p>
 <blockquote>
 <p>图10.3 每个pod中的应用使用同一数据卷中的不同目录</p>
 </blockquote>
-<img src="/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/3.png">
+<img src="/2022/10/01/10-StatefulSet%EF%BC%9A%E9%83%A8%E7%BD%B2%E6%9C%89%E5%A7%BF%E6%80%81%E7%9A%84%E5%A4%9A%E5%89%AF%E6%9C%AC%E5%BA%94%E7%94%A8/3.png" class="">
 <p>因为不能在一个pod模板中差异化配置pod副本，所以不能指定一个实例使用哪个特定目录！但是可以让每个实例自动选择（或创建）一个别的实例还没有使用的数据目录。这种方案要求实例之间相互协作，其正确性很难保证，同时共享存储也会成为整个应用的性能瓶颈。</p>
 <h2 id="每个pod都提供稳定的标识"><a href="#每个pod都提供稳定的标识" class="headerlink" title="每个pod都提供稳定的标识"></a>每个pod都提供稳定的标识</h2><p>除了上面说的存储需求，集群应用也会要求每一个实例拥有生命周期内唯一标识。pod可以随时被删掉，然后被新的pod替代。当一个ReplicaSet中的pod被替换时，尽管新的pod也可能使用被删掉pod数据卷中的数据，但它却是拥有全新主机名和IP的崭新pod。在一些应用中，当启动的实例拥有完全新的网络标识，但还使用旧实例的数据时，很可能引起问题。</p>
 <p>为什么一些应用需要维护一个稳定的网络标识呢？这个需求在有状态的分布式应用中很普遍。这类应用要求管理者在每个集群成员的配置文件中列出所有其他集群成员和它们的IP地址（或主机名）。但是在Kubermetes中，每次重新调度一个pod，这个新的pod就有一个新的主机名和IP地址，这样就要求当集群中任何一个成员被重新调度后，整个应用集群都需要重新配置。</p>
@@ -579,7 +580,7 @@
 <blockquote>
 <p>图10.4 每个pod对应一个Service和ReplicaSet提供稳定的网络地址，每个pod配置一个独立的数据卷</p>
 </blockquote>
-<img src="/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/4.png">
+<img src="/2022/10/01/10-StatefulSet%EF%BC%9A%E9%83%A8%E7%BD%B2%E6%9C%89%E5%A7%BF%E6%80%81%E7%9A%84%E5%A4%9A%E5%89%AF%E6%9C%AC%E5%BA%94%E7%94%A8/4.png" class="">
 <p>这种解决方案不仅令人厌恶，而且它也不是一个完美的解决办法。每个单独的pod没法知道它对应的Service（所以也无法知道对应的稳定IP），所以它们不能在别的pod里通过服务IP自行注册。</p>
 <p>幸运的是，Kubermetes为我们提供了这类需求的完美解决方案。在Kubemetes中运行这类特定需求应用的最简单的办法就是通过Statefiulset。</p>
 <h1 id="了解Statefulset"><a href="#了解Statefulset" class="headerlink" title="了解Statefulset"></a>了解Statefulset</h1><p>可以创建一个Statefulset资源替代ReplicaSet来运行这类pod。它是专门定制的一类应用，这类应用中每一个实例都是不可替代的个体，都拥有稳定的名字和状态。</p>
@@ -599,7 +600,7 @@
 <blockquote>
 <p>图10.5 与ReplicaSet不同，由Statefulset创建的pod拥有规则的名称（和主机名）</p>
 </blockquote>
-<img src="/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/5.png">
+<img src="/2022/10/01/10-StatefulSet%EF%BC%9A%E9%83%A8%E7%BD%B2%E6%9C%89%E5%A7%BF%E6%80%81%E7%9A%84%E5%A4%9A%E5%89%AF%E6%9C%AC%E5%BA%94%E7%94%A8/5.png" class="">
 <p>控制服务介绍</p>
 <p>让pod拥有可预知的名称和主机名并不是全部，与普通的pod不一样的是，有状态的pod有时候需要通过其主机名来定位，而无状态的pod则不需要，因为每个无状态的pod都是一样的，在需要的时候随便选择一个即可。但对于有状态的pod来说，因为它们都是彼此不同的（比如拥有不同的状态），通常希望操作的是其中特定的一个。</p>
 <p>基于以.上原因，-个Statefulset通常要求你创建一个用来记录每个pod网络标记的headlessService。通过这个Service，每个pod将拥有独立的DNS记录，这样集群里它的伙伴或者客户端可以通过主机名方便地找到它。比如说，一个属于default命名空间，名为foo的控制服务，它的一个pod名称为A-0，那么可以通过下面的完整域名来访问它：a-0.foo.default.svc.cluster.local。而在ReplicaSet中这样是行不通的。</p>
@@ -609,7 +610,7 @@
 <blockquote>
 <p>图10.6 Statefulset使用标识完全一致的新的pod替换，ReplicaSet则是使用一个不相干的新的pod替换</p>
 </blockquote>
-<img src="/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/6.png">
+<img src="/2022/10/01/10-StatefulSet%EF%BC%9A%E9%83%A8%E7%BD%B2%E6%9C%89%E5%A7%BF%E6%80%81%E7%9A%84%E5%A4%9A%E5%89%AF%E6%9C%AC%E5%BA%94%E7%94%A8/6.png" class="">
 <p>如你之前了解的那样，pod运行在哪个节点上并不重要，新的pod并不一定会调度到相同的节点上。对于有状态的pod来说也是这样，即使新的pod被调度到一个不同的节点，也同样可以通过主机名来访问。</p>
 <p>扩缩容Statefulset</p>
 <p>扩容一个Statefulset会使用下一个还没用到的顺序索引值创建一个新的pod实例。比如，要把一个Statefulset从两个实例扩容到三个实例，那么新实例的索引值就会是2（现有实例使用的索引值为0和1）。</p>
@@ -617,7 +618,7 @@
 <blockquote>
 <p>图10.7 缩容一个Statefulset将会最先删除最高索引值的实例</p>
 </blockquote>
-<img src="/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/7.png">
+<img src="/2022/10/01/10-StatefulSet%EF%BC%9A%E9%83%A8%E7%BD%B2%E6%9C%89%E5%A7%BF%E6%80%81%E7%9A%84%E5%A4%9A%E5%89%AF%E6%9C%AC%E5%BA%94%E7%94%A8/7.png" class="">
 <p>因为Statefulset缩容任何时候只会操作一个pod实例，所以有状态应用的缩容不会很迅速。举例来说，一个分布式存储应用若同时下线多个节点，则可能导致其数据丢失。比如说一个数据项副本数设置为2的数据存储应用，若同时有两个节点下线，一份数据记录就会丢失，如果它正好保存在这两个节点上。若缩容是线性的，则分布式存储应用就有时间把丢失的副本复制到其他节点，保证数据不会丢失。</p>
 <p>基于以上原因，Statefulset在有实例不健康的情况下是不允许做缩容操作的。若一个实例是不健康的，而这时再缩容一个实例的话，也就意味着你实际上同时失去了两个集群成员。</p>
 <h2 id="为每个有状态实例提供稳定的专属存储"><a href="#为每个有状态实例提供稳定的专属存储" class="headerlink" title="为每个有状态实例提供稳定的专属存储"></a>为每个有状态实例提供稳定的专属存储</h2><p>你已经知道了Statefulset如何保证一个有状态的pod拥有稳定的标识，那存储呢？一个有状态的pod需要拥有自己的存储，即使该有状态的pod被重新调度（新的pod与之前pod的标识完全一致），新的实例也必须挂载着相同的存储。那Statefulset是如何做到这一点的呢？</p>
@@ -627,7 +628,7 @@
 <blockquote>
 <p>图10.8 一个Statefulset创建pod和持久卷声明</p>
 </blockquote>
-<img src="/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/8.png">
+<img src="/2022/10/01/10-StatefulSet%EF%BC%9A%E9%83%A8%E7%BD%B2%E6%9C%89%E5%A7%BF%E6%80%81%E7%9A%84%E5%A4%9A%E5%89%AF%E6%9C%AC%E5%BA%94%E7%94%A8/8.png" class="">
 <p>声明的持久卷既可以通过administrator用户预先创建出来，也可以如第6章所述，由持久卷的动态供应机制实时创建出来。</p>
 <p>持久卷的创建和删除</p>
 <p>扩容StatefulSet增加一个副本数时，会创建两个或更多的API对象（一个pod和与之关联的一个或多个持久卷声明）。但是对缩容来说，则只会删除一个pod，而遗留下之前创建的声明。当你知道一个声明被删除会发生什么的话，你就明白为什么这么做了。当一个声明被删除后，与之绑定的持久卷就会被回收或删除，则其上面的数据就会丢失。</p>
@@ -637,7 +638,7 @@
 <blockquote>
 <p>图10.9 Statefulset缩容时不删除持久卷声明，扩容时会重新挂载上</p>
 </blockquote>
-<img src="/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/9.png">
+<img src="/2022/10/01/10-StatefulSet%EF%BC%9A%E9%83%A8%E7%BD%B2%E6%9C%89%E5%A7%BF%E6%80%81%E7%9A%84%E5%A4%9A%E5%89%AF%E6%9C%AC%E5%BA%94%E7%94%A8/9.png" class="">
 <h2 id="Statefulset的保障"><a href="#Statefulset的保障" class="headerlink" title="Statefulset的保障"></a>Statefulset的保障</h2><p>如之前描述的，Statefulset的行为与ReplicaSet或ReplicationController是不一样的。Statefulset不仅拥有稳定的标记和独立的存储，它的pod还有其他的一些保障。</p>
 <p>稳定标识和独立存储的影响</p>
 <p>通常来说，无状态的pod是可以替代的，而有状态的pod则不行。我们之前已经描述了一个有状态的pod总是会被一个完全一致的pod替换（两者有相同的名称、主机名和存储等）。这个替换发生在Kubernetes发现旧的pod不存在时（例如手动删除这个pod）。</p>
@@ -651,13 +652,13 @@
 <blockquote>
 <p>代码清单10.1 一个简单的有状态应用：kubia-pet-image/app.js</p>
 </blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 <p>当应用接收到一个POST请求时，它把请求中的body数据内容写入/var/data/kubia.txt文件中。而在收到GET请求时，它返回主机名和存储数据（文件中的内容）。是不是很简单呢？这是你的应用的第一版本。它还不是一个集群应用，但它足够让你可以开始工作。在本章的后面，你会来扩展这个应用。</p>
 <p>用来构建这个容器镜像的Dockerfile文件与之前的一样，如下面的代码清单所示。</p>
 <blockquote>
 <p>代码清单10.2 有状态应用的Dockerfile：kubia-pet-image/Dockerfile</p>
 </blockquote>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 <p>现在来构建容器镜像，或者使用笔者上传的镜像：docker.io/luksa/kubia-pet。</p>
 <h2 id="通过Statefulset部署应用"><a href="#通过Statefulset部署应用" class="headerlink" title="通过Statefulset部署应用"></a>通过Statefulset部署应用</h2><p>为了部署你的应用，需要创建两个（或三个）不同类型的对象：</p>
 <ul>
@@ -669,7 +670,7 @@
 <p>创建持久化存储卷</p>
 <p>因为你会调度Statefulset创建三个副本，所以这里需要三个持久卷。如果你计划调度创建更多副本，那么需要创建更多持久卷。</p>
 <p>如果你使用Minikube，请参考本书代码附件中的Chapter06/persistent-volumes-hostpath.yaml来部署持久卷。</p>
-<p>如果你在使用谷歌的Kubemetes引擎，需要首先创建实际的GCE持久磁盘：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<p>如果你在使用谷歌的Kubemetes引擎，需要首先创建实际的GCE持久磁盘：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>注意 保证创建的持久磁盘和运行的节点在同一区域。</p>
 </blockquote>
@@ -677,7 +678,7 @@
 <blockquote>
 <p>代码清单10.3 三个持久卷：persistent-volumes-gcepd.yaml</p>
 </blockquote>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>注意 在上一节通过在同一YAML文件中添加三个横杠（—-）来区分定义多个资源，这里使用另外一种方法，定义一个List对象，然后把各个资源作为List对象的各个项目。上述两种方法的效果是一样的。</p>
 </blockquote>
@@ -687,39 +688,32 @@
 <blockquote>
 <p>代码清单10.4 在Statefulset中使用的headless service：kubia-service-headless.yaml</p>
 </blockquote>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 <p>上面指定了clusterIP为None，这就标记了公是一个headlessService。它使得你的pod之间可以彼此发现（后续会用到这个功能）。创建完这个Service之后，就可以继续往下创建实际的Statefulset了。</p>
 <p>创建Statefulset详单</p>
 <p>最后可以创建Statefulset了，下面的代码清单显示了其详细信息。</p>
 <blockquote>
 <p>代码清单10.5 Statefulset详单：kubia-statefulset.yaml</p>
 </blockquote>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 <p>这个Statefulset详单与之前创建的ReplicaSet和Deployment的详单没太多区别，这里使用的新组件是volumeClaimTemplates列表。其中仅仅定义了一个名为data的卷声明，会依据这个模板为每个pod都创建一个持久卷声明。如之前在第6章中介绍的，pod通过在其详单中包含一个PersistentVolumeClaim卷来关联一个声明。但在上面的pod模板中并没有这样的卷，这是因为在Statefiulset创建指定pod时，会自动将PersistentVolumeClaim卷添加到pod详述中，然后将这个卷关联到一个声明上。</p>
 <p>创建Statefulset</p>
-<p>现在就要创建Statefulset了：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<p>现在列出你的pod：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<p>有没有发现不同之处？是否记得-个ReplicationController或ReplicaSet会同时创建所有的pod实例？你的Statefulset配置去创建两个副本，但是它仅仅创建了单个pod。</p>
+<p>现在就要创建Statefulset了：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>现在列出你的pod：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>有没有发现不同之处？是否记得-个ReplicationController或ReplicaSet会同时创建所有的pod实例？你的Statefulset配置去创建两个副本，但是它仅仅创建了单个pod。</p>
 <p>不要担心，这里没有出错。第二个pod会在第一个pod运行并且处于就绪状态后创建。Statefulset这样的行为是因为：状态明确的集群应用对同时有两个集群成员启动引起的竞争情况是非常敏感的。所以依次启动每个成员是比较安全可靠的。特定的有状态应用集群在两个或多个集群成员同时启动时引起的竞态条件是非常敏感的，所以在每个成员完全启动后再启动剩下的会更加安全。</p>
-<p>再次列出pod并查看pod的创建过程：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<p>可以看到，第一个启动的pod状态是running，第二个pod已经创建并在启动过程中。</p>
+<p>再次列出pod并查看pod的创建过程：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>可以看到，第一个启动的pod状态是running，第二个pod已经创建并在启动过程中。</p>
 <p>检查生成的有状态pod</p>
 <p>现在让我们看一下第一个pod的详细参数，看一下Statefulset如何从pod模板和持久卷声明模板来构建pod，如下面的代码清单所示。</p>
 <blockquote>
 <p>代码清单10.6 Statefulset创建的有状态pod</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 <p>通过持久卷声明模板来创建持久卷声明和pod中使用的与持久卷声明相关的数据卷。</p>
 <p>检查生成的持久卷声明</p>
-<p>现在列出生成的持久卷声明来确定它们被创建了：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<p>生成的持久卷声明的名称由在volumeClaimTemplate字段中定义的名称和每个pod的名称组成。可以检查声明的YAML文件来确认它们符合模板的定义。</p>
+<p>现在列出生成的持久卷声明来确定它们被创建了：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>生成的持久卷声明的名称由在volumeClaimTemplate字段中定义的名称和每个pod的名称组成。可以检查声明的YAML文件来确认它们符合模板的定义。</p>
 <h2 id="使用你的pod"><a href="#使用你的pod" class="headerlink" title="使用你的pod"></a>使用你的pod</h2><p>现在你的数据存储集群的节点都已经运行，可以开始使用它们了。因为之前创建的Service处于headless模式，所以不能通过它来访问你的pod。需要直接连接每个单独的pod来访问（或者创建一个普通的Service，但是这样还是不允许你访问指定的pod）。</p>
 <p>前面已经介绍过如何直接访问pod：借助另一个pod，然后在里面运行curl命令或者使用端口转发。这次来介绍另外一种方法，通过API服务器作为代理。</p>
 <p>通过API服务器与pod通信</p>
-<p>API服务器的一个很有用的功能就是通过代理直接连接到指定的pod。如果想请求当前的kubia-0pod，可以通过如下URL：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;apiServerHost&gt;:&lt;port&gt;/api/v1/namespaces/default/pods/kubia-0/proxy/&lt;path&gt;</span><br></pre></td></tr></table></figure></p>
-<p>因为API服务器是有安全保障的，所以通过API服务器发送请求到pod是烦琐的（需要额外在每次请求中添加授权令牌）。幸运的是，在第8章中已经学习了如何使用kubectlproxy来与API服务器通信，而不必使用麻烦的授权和SSL证书。再次运行代理如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<p>现在，因为要通过kubectl代理来与API服务器通信，将使用localhost：8001来代替实际的API服务器主机地址和端口。你将发送一个如下所示的请求到kubia-0pod:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<p>返回的消息表明你的请求被正确收到，并在kubia-0pod的应用中被正确处理。</p>
+<p>API服务器的一个很有用的功能就是通过代理直接连接到指定的pod。如果想请求当前的kubia-0pod，可以通过如下URL：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;apiServerHost&gt;:&lt;port&gt;/api/v1/namespaces/default/pods/kubia-0/proxy/&lt;path&gt;</span><br></pre></td></tr></table></figure><br>因为API服务器是有安全保障的，所以通过API服务器发送请求到pod是烦琐的（需要额外在每次请求中添加授权令牌）。幸运的是，在第8章中已经学习了如何使用kubectlproxy来与API服务器通信，而不必使用麻烦的授权和SSL证书。再次运行代理如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>现在，因为要通过kubectl代理来与API服务器通信，将使用localhost：8001来代替实际的API服务器主机地址和端口。你将发送一个如下所示的请求到kubia-0pod:<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>返回的消息表明你的请求被正确收到，并在kubia-0pod的应用中被正确处理。</p>
 <blockquote>
 <p>注意 如果你收到一个空的回应，请确保在URL的最后没有忘记输入/符号（或者用curl的-L选项来允许重定向）</p>
 </blockquote>
@@ -727,23 +721,17 @@
 <blockquote>
 <p>图10.10 通过kubectl代理和API服务器代理来与一个pod通信</p>
 </blockquote>
-<img src="/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/10.png">
+<img src="/2022/10/01/10-StatefulSet%EF%BC%9A%E9%83%A8%E7%BD%B2%E6%9C%89%E5%A7%BF%E6%80%81%E7%9A%84%E5%A4%9A%E5%89%AF%E6%9C%AC%E5%BA%94%E7%94%A8/10.png" class="">
 <p>上面介绍的是发送一个GET请求到pod，也可以通过API服务器发送POST请求。发送POST请求使用的代理URL与发送GET请求一致。</p>
-<p>当你的应用收到一个POST请求时，它把请求的主体内容保存到本地一个文件中。发送一个POST请求到kubia-0pod的示例：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<p>你发送的数据现在已经保存到pod中，那让我们检查一下当你再次发送一个GET请求时，它是否返回存储的数据：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<p>挺好的，到目前为止都工作正常。现在让我们看看集群其他节点（kubia-1pod):<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<p>与期望的一致，每个节点拥有独自的状态。那这些状态是否是持久的呢？让我们进一步验证。</p>
+<p>当你的应用收到一个POST请求时，它把请求的主体内容保存到本地一个文件中。发送一个POST请求到kubia-0pod的示例：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>你发送的数据现在已经保存到pod中，那让我们检查一下当你再次发送一个GET请求时，它是否返回存储的数据：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>挺好的，到目前为止都工作正常。现在让我们看看集群其他节点（kubia-1pod):<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>与期望的一致，每个节点拥有独自的状态。那这些状态是否是持久的呢？让我们进一步验证。</p>
 <p>删除一个有状态pod来检查重新调度的pod是否关联了相同的存储</p>
-<p>你将会删除kubia-0pod，等待它被重新调度，然后就可以检查它是否会返回与之前-致的数据：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<p>如果你列出当前pod，可以看到该pod正在终止运行：</p>
-<p>当它一旦成功终止，Statefulset会重新创建一个具有相同名称的新的pod：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<p>请记住，新的pod可能会被调度到集群中的任何一个节点，并不一定保持与旧的pod所在的节点一致。旧的pod的全部标记（名称、主机名和存储）实际上都会转移到新的pod上（如图10.11所示）。如果你在使用Minikube，你将看不到这些，因为它仅仅运行在单个节点上，但是对于多个节点的集群来说，可以看到新的pod会被调度到与之前pod不一样的节点上。</p>
+<p>你将会删除kubia-0pod，等待它被重新调度，然后就可以检查它是否会返回与之前-致的数据：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>如果你列出当前pod，可以看到该pod正在终止运行：</p>
+<p>当它一旦成功终止，Statefulset会重新创建一个具有相同名称的新的pod：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>请记住，新的pod可能会被调度到集群中的任何一个节点，并不一定保持与旧的pod所在的节点一致。旧的pod的全部标记（名称、主机名和存储）实际上都会转移到新的pod上（如图10.11所示）。如果你在使用Minikube，你将看不到这些，因为它仅仅运行在单个节点上，但是对于多个节点的集群来说，可以看到新的pod会被调度到与之前pod不一样的节点上。</p>
 <blockquote>
 <p>图10.11 一个有状态pod会被重新调度到新的节点，但会保留它的名称、主机名和存储</p>
 </blockquote>
-<img src="/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/11.png">
-<p>现在新的pod已经运行了，那让我们检查一下它是否拥有与之前的pod一样的标记。pod 的名称是一样的，那它的主机名和持久化数据呢？可以通过访问pod来确认：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<p>从pod返回的信息表明它的主机名和持久化数据与之前pod是完全一致的，所以可以确认Statefulset会使用一个完全一致的pod来替换被删除的pod。</p>
+<img src="/2022/10/01/10-StatefulSet%EF%BC%9A%E9%83%A8%E7%BD%B2%E6%9C%89%E5%A7%BF%E6%80%81%E7%9A%84%E5%A4%9A%E5%89%AF%E6%9C%AC%E5%BA%94%E7%94%A8/11.png" class="">
+<p>现在新的pod已经运行了，那让我们检查一下它是否拥有与之前的pod一样的标记。pod 的名称是一样的，那它的主机名和持久化数据呢？可以通过访问pod来确认：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>从pod返回的信息表明它的主机名和持久化数据与之前pod是完全一致的，所以可以确认Statefulset会使用一个完全一致的pod来替换被删除的pod。</p>
 <p>扩缩容Statefulset</p>
 <p>缩容一个Statefulset，然后在完成后再扩容它，与删除一个pod，后让Statefulset立马重新创建它的表现是没有区别的。需要记住的是，缩容一个Statefulset只会删除对应的pod，留下卸载后的持久卷声明。可以尝试缩容一个Statefulset来进行确认。</p>
 <p>需要明确的关键点是，缩容/扩容都是逐步进行的，与Statefulset最初被创建时会创建各自的pod一样。当缩容超过一个实例的时候，会首先删除拥有最高索引值的pod。只有当这个pod被完全终止后，才会开始删除拥有次高索引值的pod。</p>
@@ -753,30 +741,25 @@
 <blockquote>
 <p>代码清单10.7 一个用来访问有状态pod的常规Service：kubia-service-public.yaml</p>
 </blockquote>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 <p>因为它不是外部暴露的Service（它是一个常规的ClusterIPService，不是一个NodePort或LoadBalancer-typeService），只能在你的集群内部访问它。那是否需要一个pod来访问它呢？答案是不需要。</p>
 <p>通过API服务器访问集群内部的服务</p>
 <p>不通过额外的pod来访问集群内部的服务的话，与之前使用访问单独pod的方法一样，可以使用API服务器提供的相同代理属性来访问。</p>
-<p>代理请求到Service的URL路径格式如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/api/vl/namespaces/&lt;namespace&gt;/services/&lt;servicename&gt;/proxy/&lt;path&gt;</span><br></pre></td></tr></table></figure></p>
-<p>因此可以在本地机器上运行curl命令，通过kubectl代理来访问服务（之前启动过kubectlprcxy，现在它应该还在运行着）：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$cur1localhost</span>:8001/api/v1/namespaces/default/services/kubia-</span><br><span class="line">public/proxy/</span><br><span class="line">You<span class="string">'vehitkubia-1</span></span><br><span class="line"><span class="string">Datastoredonthispod:Nodatapostedyet</span></span><br></pre></td></tr></table></figure></p>
-<p>客户端（集群内部）同样可以通过kubia-public服务来存储或者读取你的集群中的数据。当然，每个请求会随机分配到一个集群节点上，所以每次都会随机获取一个节点上的数据。后面我们会改进它。</p>
+<p>代理请求到Service的URL路径格式如下：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/api/vl/namespaces/&lt;namespace&gt;/services/&lt;servicename&gt;/proxy/&lt;path&gt;</span><br></pre></td></tr></table></figure><br>因此可以在本地机器上运行curl命令，通过kubectl代理来访问服务（之前启动过kubectlprcxy，现在它应该还在运行着）：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$cur1localhost</span>:8001/api/v1/namespaces/default/services/kubia-</span><br><span class="line">public/proxy/</span><br><span class="line">You<span class="string">&#x27;vehitkubia-1</span></span><br><span class="line"><span class="string">Datastoredonthispod:Nodatapostedyet</span></span><br></pre></td></tr></table></figure><br>客户端（集群内部）同样可以通过kubia-public服务来存储或者读取你的集群中的数据。当然，每个请求会随机分配到一个集群节点上，所以每次都会随机获取一个节点上的数据。后面我们会改进它。</p>
 <h1 id="在Statefulset中发现伙伴节点"><a href="#在Statefulset中发现伙伴节点" class="headerlink" title="在Statefulset中发现伙伴节点"></a>在Statefulset中发现伙伴节点</h1><p>我们仍然需要弄清楚一件很重要的事情。集群应用中很重要的一个需求是伙伴节点彼此能发现一这样才可以找到集群中的其他成员。一个Statefulset中的成员需要很容易地找到其他的所有成员。当然它可以通过与API服务器通信来获取，但是Kubernetes的一个目标是设计功能来帮助应用完全感觉不到Kubemetes的存在。因此让应用与API服务器通信的设计是不允许的。</p>
 <p>那如何使得一个pod可以不通过API与其他伙伴通信呢？是否有已知的广泛存在的技术来帮助你达到目的呢？那使用域名系统（DNS）如何？这依赖于你对DNS系统有多熟悉，你可能理解什么是A、CNAME或MX记录的用处是什么。DNS记录里还有其他一些不是那么知名的类型，SRV记录就是其中的一个。</p>
 <p>介绍sRV记录</p>
 <p>SRV记录用来指向提供指定服务的服务器的主机名和端口号。Kubernetes通过一个headlessservice创建SRV记录来指向pod的主机名。</p>
-<p>可以在一个临时pod里运行DNS查询工具一dig命令，列出你的有状态pod的SRV记录。示例命令如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$kubectlrun</span>-itsrvlookup--image=tutum/dnsutils--rm</span><br><span class="line">--restart=Never--diqSRVkubia.default.svc.cluster.local</span><br></pre></td></tr></table></figure></p>
-<p>上面的命令运行一个名为srvlookup的一次性pod（—restart=Never），它会关联控制台（-it）并且在终止后立即删除（—rm）。这个pod依据tutum/dnsutils镜像启动单独的容器，然后运行下面的命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">digSRVkubia.default.svc.cluster.local</span><br></pre></td></tr></table></figure></p>
-<p>下面的代码清单显示了这个命令的输出结果。</p>
+<p>可以在一个临时pod里运行DNS查询工具一dig命令，列出你的有状态pod的SRV记录。示例命令如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$kubectlrun</span>-itsrvlookup--image=tutum/dnsutils--rm</span><br><span class="line">--restart=Never--diqSRVkubia.default.svc.cluster.local</span><br></pre></td></tr></table></figure><br>上面的命令运行一个名为srvlookup的一次性pod（—restart=Never），它会关联控制台（-it）并且在终止后立即删除（—rm）。这个pod依据tutum/dnsutils镜像启动单独的容器，然后运行下面的命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">digSRVkubia.default.svc.cluster.local</span><br></pre></td></tr></table></figure><br>下面的代码清单显示了这个命令的输出结果。</p>
 <blockquote>
 <p>代码清单10.8 列出你的headlessService的DNSSRV记录</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">;;ANSWERSECTION:</span><br><span class="line">k.d.s.c.l.30INSRV</span><br><span class="line">10330kubia-0.kubia.defaultsvc.cluster.local.</span><br><span class="line">k.d.s.c.l.30INSRV</span><br><span class="line">10330kubia-1.kubia.defaultsvc.cluster.local.</span><br><span class="line">;ADDITIONALSECTION:</span><br><span class="line">kubia-0.kubia.defaultsvc.cluster.local.30INA172.17.0.4</span><br><span class="line">kubia-1.kubiadefault.svc.cluster.local.30INA172.17.0.6</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">;;ANSWERSECTION:</span><br><span class="line">k.d.s.c.l.30INSRV</span><br><span class="line">10330kubia-0.kubia.defaultsvc.cluster.local.</span><br><span class="line">k.d.s.c.l.30INSRV</span><br><span class="line">10330kubia-1.kubia.defaultsvc.cluster.local.</span><br><span class="line">;ADDITIONALSECTION:</span><br><span class="line">kubia-0.kubia.defaultsvc.cluster.local.30INA172.17.0.4</span><br><span class="line">kubia-1.kubiadefault.svc.cluster.local.30INA172.17.0.6</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>注意为了让记录可以在一行里显示，对真实名称做了缩减，对应kubia.d.s.c.l.的全称是kubia.defaultsvc.cluster.local。</p>
 </blockquote>
 <p>上面的ANSWERSECTION显示了两条指向后台headlessservice的SRV记录。同时如ADDITIONALSECTION所示，每个pod都拥有独自的一条记录。</p>
-<p>当一个pod要获取一个Statefulset里的其他pod列表时，你需要做的就是触发一次SRVDNS查询。例如，在Node.is中查询命令为：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dns.resolveSrv(<span class="string">"kubia.defaultsvc.cluster.local"</span>,callBackFunction);</span><br></pre></td></tr></table></figure></p>
-<p>可以在你的应用中使用上述命令让每个pod发现它的伙伴pod。</p>
+<p>当一个pod要获取一个Statefulset里的其他pod列表时，你需要做的就是触发一次SRVDNS查询。例如，在Node.is中查询命令为：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dns.resolveSrv(<span class="string">&quot;kubia.defaultsvc.cluster.local&quot;</span>,callBackFunction);</span><br></pre></td></tr></table></figure><br>可以在你的应用中使用上述命令让每个pod发现它的伙伴pod。</p>
 <blockquote>
 <p>注意 返回的SRV记录顺序是随机的，因为它们拥有相同的优先级。所以不要期望总是看到kubia-0会排在kubia-1前面。</p>
 </blockquote>
@@ -787,16 +770,8 @@
 <blockquote>
 <p>代码清单10.9 在简单应用中发现伙伴节点:kubia-pet-peers-imagelapp.js</p>
 </blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="string">`</span></span><br></pre></td></tr></table></figure>
-<p>图10.12展示了一个GET请求到达你的应用后的处理过程。首先收到请求的服务器会触发一次headlesskubia服务的SRV记录查询，然后发送GET请求到服务背后的每一个pod（也会发送给自己，虽说没有必要，这里只是为了保证代码简单易懂），然后返回所有节点和它们的数据信息的列表。</p>
-<blockquote>
-<p>图10.12 简单的分布式数据存储服务的操作流程</p>
-</blockquote>
-<img src="/2022/10/01/10-StatefulSet：部署有姿态的多副本应用/12.png">
-<p>包含最新版本内容的应用对应的容器镜像链接为：docker.io/luksa/kubia-pet-peers。</p>
-<h2 id="更新Statefulset"><a href="#更新Statefulset" class="headerlink" title="更新Statefulset"></a>更新Statefulset</h2><p>现在你的Statefulset已经运行起来，那让我们看一下如何更新它的pod模板，让它使用新的镜像。同时你也会修改副本数为3。通常会使用kubectledit命令来更新Statefulset（另一个选择是patch命令）。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<p>上面的命令会使用默认的编辑器打开Statefulset的定义。在定义中，修改spec.replicas为3，修改spec.template.spec.containers.image属性指向新的镜像（使用luksa/kubia-pet-peers替换luksa/kubia-pet）。然后保存文件并退出，Statefulset就会更新。之前Statefulset有两个副本，现在应该可以看到一个新的名叫kubia-2的副本启动了。通过下面的代码列出pod来确认：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<p>新的pod实例会使用新的镜像运行，那已经存在的两个副本呢？通过它们的寿命可以看出它们并没有更新。这是符合预期的。因为，首先Statefulset更像ReplicaSet，而不是Deployment，所以在模板被修改后，它们不会重启更新。需要手动删除这些副本，然后Statefulset会依据新的模板重新调度启动它们。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="string">``</span><span class="string">``</span></span><br><span class="line">图<span class="number">10.12</span>展示了一个<span class="variable constant_">GET</span>请求到达你的应用后的处理过程。首先收到请求的服务器会触发一次headlesskubia服务的<span class="variable constant_">SRV</span>记录查询，然后发送<span class="variable constant_">GET</span>请求到服务背后的每一个pod（也会发送给自己，虽说没有必要，这里只是为了保证代码简单易懂），然后返回所有节点和它们的数据信息的列表。</span><br><span class="line"></span><br><span class="line">&gt; 图<span class="number">10.12</span> 简单的分布式数据存储服务的操作流程</span><br><span class="line"></span><br><span class="line">&#123;% asset_img <span class="number">12.</span>png %&#125;</span><br><span class="line"></span><br><span class="line">包含最新版本内容的应用对应的容器镜像链接为：docker.<span class="property">io</span>/luksa/kubia-pet-peers。</span><br><span class="line"></span><br><span class="line">## 更新<span class="title class_">Statefulset</span></span><br><span class="line"></span><br><span class="line">现在你的<span class="title class_">Statefulset</span>已经运行起来，那让我们看一下如何更新它的pod模板，让它使用新的镜像。同时你也会修改副本数为<span class="number">3</span>。通常会使用kubectledit命令来更新<span class="title class_">Statefulset</span>（另一个选择是patch命令）。</span><br><span class="line"><span class="string">``</span><span class="string">`bash</span></span><br><span class="line"><span class="string"></span></span><br></pre></td></tr></table></figure>
+<p>上面的命令会使用默认的编辑器打开Statefulset的定义。在定义中，修改spec.replicas为3，修改spec.template.spec.containers.image属性指向新的镜像（使用luksa/kubia-pet-peers替换luksa/kubia-pet）。然后保存文件并退出，Statefulset就会更新。之前Statefulset有两个副本，现在应该可以看到一个新的名叫kubia-2的副本启动了。通过下面的代码列出pod来确认：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>新的pod实例会使用新的镜像运行，那已经存在的两个副本呢？通过它们的寿命可以看出它们并没有更新。这是符合预期的。因为，首先Statefulset更像ReplicaSet，而不是Deployment，所以在模板被修改后，它们不会重启更新。需要手动删除这些副本，然后Statefulset会依据新的模板重新调度启动它们。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>注意 从Kubernetes1.7版本开始，Statefulset支持与Deployment和DaemonSet一样的滚动升级。通过kubectlexplain获取Statefulset的spec.updateStrategy相关文档来获取更多信息。</p>
 </blockquote>
@@ -804,12 +779,12 @@
 <blockquote>
 <p>代码清单10.10 通过service往集群数据存储中写入数据</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 <p>现在，读取存储的数据，如下面的代码清单所示。</p>
 <blockquote>
 <p>代码清单10.11 从数据存储中读取数据</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 <p>非常棒！当一个客户端请求到达集群中任意一个节点后，它会发现它的所有伙伴节点，然后通过它们收集数据，然后把收集到的所有数据返回给客户端。即使你扩容或缩容Statefulset，服务于客户端请求的pod都会找到所有的伙伴节点。</p>
 <p>这个应用本身也许没太多用处，但笔者希望你觉得这是一种有趣的方式，一个多副本Statefulset应用的实例如何发现它的伙伴，并且随需求做到横向扩展。</p>
 <h1 id="了解Statefulset如何处理节点失效"><a href="#了解Statefulset如何处理节点失效" class="headerlink" title="了解Statefulset如何处理节点失效"></a>了解Statefulset如何处理节点失效</h1><p>在10.2.4节中，我们阐述了Kubernetes必须完全保证：一个有状态pod在创建它的代替者之前已经不再运行，当一个节点突然失效，Kubernetes并不知道节点或者它上面的pod的状态。它并不知道这些pod是否还在运行，或者它们是否还存在，甚至是否还能被客户端访问到，或者仅仅是Kubelet停止向主节点上报本节点状态。</p>
@@ -818,21 +793,19 @@
 <p>作为这一章中的最后一个练习，你会看到当一个集群节点网络断开后，Statefulset和节点上的pod都会发生些什么。</p>
 <h2 id="模拟一个节点的网络断开"><a href="#模拟一个节点的网络断开" class="headerlink" title="模拟一个节点的网络断开"></a>模拟一个节点的网络断开</h2><p>与第4章中一致，可以通过关闭节点的eth0网络接口来模拟节点的网络断开。因为这个例子需要多个节点，所以不能在Minikube上运行，可以使用谷歌的Kubernetes引擎来运行。</p>
 <p>关闭节点的网络适配器</p>
-<p>为了关闭一个节点的网络接口，需要通过ssh登录一个节点：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<p>然后在节点内部运行如下命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<p>之后你的ssh链接就会中断，所以需要开启一个新的终端来继续执行。</p>
+<p>为了关闭一个节点的网络接口，需要通过ssh登录一个节点：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>然后在节点内部运行如下命令：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>之后你的ssh链接就会中断，所以需要开启一个新的终端来继续执行。</p>
 <p>通过Kubernetes管理节点检查节点的状态</p>
 <p>当这个节点的网络接口关闭以后，运行在这个节点上的Kubelet服务就无法与KubernetesAPI服务器通信，无法汇报本节点和上面的pod都在正常运行。</p>
 <p>过了一段时间后，控制台就会标记该节点状态为NotReady。如下面的代码清单所示，当列出节点时可以看到这些。</p>
 <blockquote>
 <p>代码清单10.12 观察到一个失效的节点状态变为NotReady</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 <p>因为控制台不会再收到该节点发送的状态更新，该节点上面的所有pod状态都会变为Unknown。如下面的代码清单所示，列举pod信息就可以看到。</p>
 <blockquote>
 <p>代码清单10.13 观察到节点变为NotReady后，其上的pod状态就会改变</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 <p>正如你看到的这样，kubia-0pod的状态不再已知，这是因为你关闭了这个pod之前运行（也许正在运行）的节点的网络接口。</p>
 <p>当一个pod状态为Unknow时会发生什么</p>
 <p>若该节点过段时间正常连通，并且重新汇报它上面的pod状态，那这个pod就会重新被标记为Runing。但如果这个pod的未知状态持续几分钟后（这个时间是可以配置的），这个pod就会自动从节点上驱逐。这是由主节点（Kubernetes的控制组件）处理的。它通过删除pod的资源来把它从节点上驱逐。</p>
@@ -841,14 +814,12 @@
 <blockquote>
 <p>代码清单10.14 显示未知状态的pod的详情</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 <p>可以看到这个pod的状态为Terminating，原因是NodeLost。在信息中说明的是节点不回应导致的不可达。</p>
 <p>注意这里展示的是控制组件看到的信息。实际上这个pod对应的容器并被没有被终止，还在正常运行。</p>
 <h2 id="手动删除pod"><a href="#手动删除pod" class="headerlink" title="手动删除pod"></a>手动删除pod</h2><p>你已经明确这个节点不会再回来，但是所有处理客户端请求的三个pod都必须是正常运行的。所以需要把kubia-0pod重新调度到一个健康的节点上。如之前提到的那样，需要手动删除整个节点或者这个pod。</p>
 <p>正常删除pod</p>
-<p>使用你一直使用的方式删除该pod：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<p>是不是所有的都做完了？删除pod后，Statefulset应该会立刻创建一个替换的pod，这个pod会被调度到剩下可用的节点上。再次列举pod信息来确认：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<p>非常奇怪，你刚刚删除了这个pod，kubectl也返回说它已经被删除。那为什么这个pod还在呢？</p>
+<p>使用你一直使用的方式删除该pod：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>是不是所有的都做完了？删除pod后，Statefulset应该会立刻创建一个替换的pod，这个pod会被调度到剩下可用的节点上。再次列举pod信息来确认：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>非常奇怪，你刚刚删除了这个pod，kubectl也返回说它已经被删除。那为什么这个pod还在呢？</p>
 <blockquote>
 <p>注意 列表中的kubia-0pod不是一个有相同名字的新pod，在从它的AGE列中就可以看出。如果它是一个新pod，它的“年龄”只会是几秒钟。</p>
 </blockquote>
@@ -856,10 +827,8 @@
 <p>在删除pod之前，这个pod已经被标记为删除。这是因为控制组件已经删除了它（把它从节点驱逐）。</p>
 <p>如果再次检查一下代码清单10.14，可以看出这个pod的状态是Terminating。这个pod之前已经被标记为删除，只要它所在节点上的Kubelet通知API服务器说这个pod的容器已经终止，那么它就会被清除掉。但是因为这个节点上的网络断开了，所以上述情况永远不会发生。</p>
 <p>强制删除pod</p>
-<p>现在你唯—可以做的是告诉API服务器不用等待kubelet来确认这个pod已经不再运行，而是直接删除它。可以按照下面所述执行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<p>你需要同时使用—force和—grace-period0两个选项。然后kubectl会对你做的事情发出警告信息。如果你再次列举pod，就可以看到一个新的kubia-0pod被创建出来：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-<p>警告除非你确认节点不再运行或者不会再可以访问（永远不会再可以访问），否则不要强制删除有状态的pod.</p>
-<p>在继续操作之前，你可能希望把之前断掉连接的节点恢复正常。可以通过GCEweb控制台或在一个终端上执行下面的命令来重启该节点：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<p>现在你唯—可以做的是告诉API服务器不用等待kubelet来确认这个pod已经不再运行，而是直接删除它。可以按照下面所述执行：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>你需要同时使用—force和—grace-period0两个选项。然后kubectl会对你做的事情发出警告信息。如果你再次列举pod，就可以看到一个新的kubia-0pod被创建出来：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>警告除非你确认节点不再运行或者不会再可以访问（永远不会再可以访问），否则不要强制删除有状态的pod.</p>
+<p>在继续操作之前，你可能希望把之前断掉连接的节点恢复正常。可以通过GCEweb控制台或在一个终端上执行下面的命令来重启该节点：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure></p>
 <h1 id="本章小结"><a href="#本章小结" class="headerlink" title="本章小结"></a>本章小结</h1><p>本章描述了如何使用Statefulset来部署有状态应用，具体有如下几点：</p>
 <ul>
 <li>给副本pod配置单独的存储</li>
@@ -907,7 +876,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2022/10/01/9-Deployment：声明式地升级应用/" rel="next" title="9-Deployment：声明式地升级应用">
+              <a href="/2022/10/01/9-Deployment%EF%BC%9A%E5%A3%B0%E6%98%8E%E5%BC%8F%E5%9C%B0%E5%8D%87%E7%BA%A7%E5%BA%94%E7%94%A8/" rel="next" title="9-Deployment：声明式地升级应用">
                 <i class="fa fa-chevron-left"></i> 9-Deployment：声明式地升级应用
               </a>
             
@@ -917,7 +886,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2022/10/01/11-了解Kubernetes机理/" rel="prev" title="11-了解Kubernetes机理">
+              <a href="/2022/10/01/11-%E4%BA%86%E8%A7%A3Kubernetes%E6%9C%BA%E7%90%86/" rel="prev" title="11-了解Kubernetes机理">
                 11-了解Kubernetes机理 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -977,7 +946,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -988,9 +959,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1002,26 +973,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -1093,7 +1048,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1268,115 +1223,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1407,23 +1254,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1449,7 +1296,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#复制有状态pod"><span class="nav-number">1.</span> <span class="nav-text">复制有状态pod</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#运行每个实例都有单独存储的多副本"><span class="nav-number">1.1.</span> <span class="nav-text">运行每个实例都有单独存储的多副本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#每个pod都提供稳定的标识"><span class="nav-number">1.2.</span> <span class="nav-text">每个pod都提供稳定的标识</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#了解Statefulset"><span class="nav-number">2.</span> <span class="nav-text">了解Statefulset</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对比Statefulset和ReplicaSet"><span class="nav-number">2.1.</span> <span class="nav-text">对比Statefulset和ReplicaSet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提供稳定的网络标识"><span class="nav-number">2.2.</span> <span class="nav-text">提供稳定的网络标识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为每个有状态实例提供稳定的专属存储"><span class="nav-number">2.3.</span> <span class="nav-text">为每个有状态实例提供稳定的专属存储</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Statefulset的保障"><span class="nav-number">2.4.</span> <span class="nav-text">Statefulset的保障</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用Statefulset"><span class="nav-number">3.</span> <span class="nav-text">使用Statefulset</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建应用和容器镜像"><span class="nav-number">3.1.</span> <span class="nav-text">创建应用和容器镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过Statefulset部署应用"><span class="nav-number">3.2.</span> <span class="nav-text">通过Statefulset部署应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用你的pod"><span class="nav-number">3.3.</span> <span class="nav-text">使用你的pod</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在Statefulset中发现伙伴节点"><span class="nav-number">4.</span> <span class="nav-text">在Statefulset中发现伙伴节点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#通过DNS实现伙伴间彼此发现"><span class="nav-number">4.1.</span> <span class="nav-text">通过DNS实现伙伴间彼此发现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新Statefulset"><span class="nav-number">4.2.</span> <span class="nav-text">更新Statefulset</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#尝试集群数据存储"><span class="nav-number">4.3.</span> <span class="nav-text">尝试集群数据存储</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#了解Statefulset如何处理节点失效"><span class="nav-number">5.</span> <span class="nav-text">了解Statefulset如何处理节点失效</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#模拟一个节点的网络断开"><span class="nav-number">5.1.</span> <span class="nav-text">模拟一个节点的网络断开</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#手动删除pod"><span class="nav-number">5.2.</span> <span class="nav-text">手动删除pod</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本章小结"><span class="nav-number">6.</span> <span class="nav-text">本章小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%8D%E5%88%B6%E6%9C%89%E7%8A%B6%E6%80%81pod"><span class="nav-number">1.</span> <span class="nav-text">复制有状态pod</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%AF%8F%E4%B8%AA%E5%AE%9E%E4%BE%8B%E9%83%BD%E6%9C%89%E5%8D%95%E7%8B%AC%E5%AD%98%E5%82%A8%E7%9A%84%E5%A4%9A%E5%89%AF%E6%9C%AC"><span class="nav-number">1.1.</span> <span class="nav-text">运行每个实例都有单独存储的多副本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%8F%E4%B8%AApod%E9%83%BD%E6%8F%90%E4%BE%9B%E7%A8%B3%E5%AE%9A%E7%9A%84%E6%A0%87%E8%AF%86"><span class="nav-number">1.2.</span> <span class="nav-text">每个pod都提供稳定的标识</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%86%E8%A7%A3Statefulset"><span class="nav-number">2.</span> <span class="nav-text">了解Statefulset</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%B9%E6%AF%94Statefulset%E5%92%8CReplicaSet"><span class="nav-number">2.1.</span> <span class="nav-text">对比Statefulset和ReplicaSet</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8F%90%E4%BE%9B%E7%A8%B3%E5%AE%9A%E7%9A%84%E7%BD%91%E7%BB%9C%E6%A0%87%E8%AF%86"><span class="nav-number">2.2.</span> <span class="nav-text">提供稳定的网络标识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E6%AF%8F%E4%B8%AA%E6%9C%89%E7%8A%B6%E6%80%81%E5%AE%9E%E4%BE%8B%E6%8F%90%E4%BE%9B%E7%A8%B3%E5%AE%9A%E7%9A%84%E4%B8%93%E5%B1%9E%E5%AD%98%E5%82%A8"><span class="nav-number">2.3.</span> <span class="nav-text">为每个有状态实例提供稳定的专属存储</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Statefulset%E7%9A%84%E4%BF%9D%E9%9A%9C"><span class="nav-number">2.4.</span> <span class="nav-text">Statefulset的保障</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Statefulset"><span class="nav-number">3.</span> <span class="nav-text">使用Statefulset</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%BA%94%E7%94%A8%E5%92%8C%E5%AE%B9%E5%99%A8%E9%95%9C%E5%83%8F"><span class="nav-number">3.1.</span> <span class="nav-text">创建应用和容器镜像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87Statefulset%E9%83%A8%E7%BD%B2%E5%BA%94%E7%94%A8"><span class="nav-number">3.2.</span> <span class="nav-text">通过Statefulset部署应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E4%BD%A0%E7%9A%84pod"><span class="nav-number">3.3.</span> <span class="nav-text">使用你的pod</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8Statefulset%E4%B8%AD%E5%8F%91%E7%8E%B0%E4%BC%99%E4%BC%B4%E8%8A%82%E7%82%B9"><span class="nav-number">4.</span> <span class="nav-text">在Statefulset中发现伙伴节点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E8%BF%87DNS%E5%AE%9E%E7%8E%B0%E4%BC%99%E4%BC%B4%E9%97%B4%E5%BD%BC%E6%AD%A4%E5%8F%91%E7%8E%B0"><span class="nav-number">4.1.</span> <span class="nav-text">通过DNS实现伙伴间彼此发现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%9D%E8%AF%95%E9%9B%86%E7%BE%A4%E6%95%B0%E6%8D%AE%E5%AD%98%E5%82%A8"><span class="nav-number">4.2.</span> <span class="nav-text">尝试集群数据存储</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%86%E8%A7%A3Statefulset%E5%A6%82%E4%BD%95%E5%A4%84%E7%90%86%E8%8A%82%E7%82%B9%E5%A4%B1%E6%95%88"><span class="nav-number">5.</span> <span class="nav-text">了解Statefulset如何处理节点失效</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%8B%9F%E4%B8%80%E4%B8%AA%E8%8A%82%E7%82%B9%E7%9A%84%E7%BD%91%E7%BB%9C%E6%96%AD%E5%BC%80"><span class="nav-number">5.1.</span> <span class="nav-text">模拟一个节点的网络断开</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%8B%E5%8A%A8%E5%88%A0%E9%99%A4pod"><span class="nav-number">5.2.</span> <span class="nav-text">手动删除pod</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%AC%E7%AB%A0%E5%B0%8F%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">本章小结</span></a></li></ol></div>
             
 
           </div>
@@ -1484,7 +1331,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1495,12 +1342,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1508,7 +1355,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 

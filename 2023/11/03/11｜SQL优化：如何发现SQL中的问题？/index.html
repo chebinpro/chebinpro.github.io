@@ -15,11 +15,11 @@
 
 
 <html class="theme-next pisces use-motion" lang="zh-CN">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
 
 
 
@@ -29,7 +29,7 @@
     
     
   <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
 
 
 
@@ -51,9 +51,9 @@
 
 
 
-<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
 
-<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
@@ -76,7 +76,7 @@
 <script id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Pisces',
     version: '7.0.1',
     sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
@@ -104,34 +104,34 @@
 
 
   <meta name="description" content="思考并回答以下问题：">
-<meta name="keywords" content="后端工程师进阶">
 <meta property="og:type" content="article">
 <meta property="og:title" content="11｜SQL优化：如何发现SQL中的问题？">
-<meta property="og:url" content="http://yoursite.com/2023/11/03/11｜SQL优化：如何发现SQL中的问题？/index.html">
+<meta property="og:url" content="http://yoursite.com/2023/11/03/11%EF%BD%9CSQL%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%8F%91%E7%8E%B0SQL%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
-<meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2023/11/03/11｜SQL优化：如何发现SQL中的问题？/1.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/03/11｜SQL优化：如何发现SQL中的问题？/2.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/03/11｜SQL优化：如何发现SQL中的问题？/3.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/03/11｜SQL优化：如何发现SQL中的问题？/4.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/03/11｜SQL优化：如何发现SQL中的问题？/5.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/03/11｜SQL优化：如何发现SQL中的问题？/6.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/03/11｜SQL优化：如何发现SQL中的问题？/7.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/03/11｜SQL优化：如何发现SQL中的问题？/8.webp">
-<meta property="og:image" content="http://yoursite.com/2023/11/03/11｜SQL优化：如何发现SQL中的问题？/9.webp">
-<meta property="og:updated_time" content="2023-11-10T06:27:48.291Z">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/11%EF%BD%9CSQL%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%8F%91%E7%8E%B0SQL%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/11%EF%BD%9CSQL%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%8F%91%E7%8E%B0SQL%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F/2.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/11%EF%BD%9CSQL%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%8F%91%E7%8E%B0SQL%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F/3.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/11%EF%BD%9CSQL%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%8F%91%E7%8E%B0SQL%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F/4.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/11%EF%BD%9CSQL%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%8F%91%E7%8E%B0SQL%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F/5.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/11%EF%BD%9CSQL%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%8F%91%E7%8E%B0SQL%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F/6.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/11%EF%BD%9CSQL%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%8F%91%E7%8E%B0SQL%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F/7.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/11%EF%BD%9CSQL%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%8F%91%E7%8E%B0SQL%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F/8.webp">
+<meta property="og:image" content="http://yoursite.com/2023/11/03/11%EF%BD%9CSQL%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%8F%91%E7%8E%B0SQL%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F/9.webp">
+<meta property="article:published_time" content="2023-11-03T06:20:56.000Z">
+<meta property="article:modified_time" content="2023-11-10T06:27:48.291Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="后端工程师进阶">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="11｜SQL优化：如何发现SQL中的问题？">
-<meta name="twitter:description" content="思考并回答以下问题：">
-<meta name="twitter:image" content="http://yoursite.com/2023/11/03/11｜SQL优化：如何发现SQL中的问题？/1.webp">
+<meta name="twitter:image" content="http://yoursite.com/2023/11/03/11%EF%BD%9CSQL%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%8F%91%E7%8E%B0SQL%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F/1.webp">
 
 
 
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2023/11/03/11｜SQL优化：如何发现SQL中的问题？/">
+  <link rel="canonical" href="http://yoursite.com/2023/11/03/11｜SQL优化：如何发现SQL中的问题？/"/>
 
 
 
@@ -180,7 +180,7 @@
   </style>
 </noscript>
 
-</head>
+<meta name="generator" content="Hexo 7.1.1"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
 
@@ -241,7 +241,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+    <a href="/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-home&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;首页</a>
 
   </li>
         
@@ -258,7 +258,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+    <a href="/about/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-user&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;关于</a>
 
   </li>
         
@@ -275,7 +275,7 @@
 
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+    <a href="/tags/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-tags&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;标签</a>
 
   </li>
         
@@ -292,7 +292,7 @@
 
     
 
-    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+    <a href="/categories/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-th&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;分类</a>
 
   </li>
         
@@ -309,7 +309,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+    <a href="/archives/" rel="section">&lt;i class&#x3D;&quot;menu-item-icon fa fa-fw fa-archive&quot;&gt;&lt;&#x2F;i&gt; &lt;br&#x2F;&gt;归档</a>
 
   </li>
 
@@ -320,7 +320,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
         </li>
       
     </ul>
@@ -340,7 +340,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -390,16 +392,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/03/11｜SQL优化：如何发现SQL中的问题？/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/11/03/11%EF%BD%9CSQL%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%8F%91%E7%8E%B0SQL%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin">
-      <meta itemprop="description" content="参与开源才是出路">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客">
+      <meta itemprop="name" content="车斌的技术博客"/>
     </span>
 
     
@@ -499,7 +501,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">6.6k</span>
+                <span title="本文字数">12k</span>
               
 
               
@@ -513,7 +515,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">6 分钟</span>
+                <span title="阅读时长">10 分钟</span>
               
             </div>
           
@@ -534,7 +536,7 @@
 
       
         <p>思考并回答以下问题：</p>
-<a id="more"></a>
+<span id="more"></span>
 <p>今天我们来聊一聊数据库中的SQL优化。</p>
 <p>一般而言，在面试过程中，我都是鼓励你尽可能为自己打造熟练掌握性能优化技巧的人设。高并发项目经验可遇不可求，但是高性能是可以勉强追求的，性能优化就是追求高性能的方法。和我在微服务里面讲到的高可用相结合，你在写简历、自我介绍和面试过程中，可以有意识地展示自己在高可用和高性能方面的知识和积累。</p>
 <p>而SQL优化是性能优化中最平易近人、最好准备的点。所以今天我们就来学习一下SQL优化的多种方案。</p>
@@ -545,14 +547,14 @@
 <li>服务器/引擎优化：也就是针对数据库软件本体进行优化，比如说调整事务隔离级别。在MySQL里面还可以针对不同的引擎做优化，比如说调整InnoDB引擎的日志刷盘时机。</li>
 <li>SQL优化：针对的就是SQL本身了。</li>
 </ul>
-<img src="/2023/11/03/11｜SQL优化：如何发现SQL中的问题？/1.webp">
+<img src="/2023/11/03/11%EF%BD%9CSQL%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%8F%91%E7%8E%B0SQL%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F/1.webp" class="">
 <p>如果站在数据库的角度，那么SQL优化就是为了达到两个目标。</p>
 <p>1，<strong>减少磁盘IO</strong>，这个又可以说是尽量避免全表扫描、尽量使用索引以及尽量使用覆盖索引。</p>
 <p>2，<strong>减少内存CPU消耗</strong>，这一部分主要是尽可能减少排序、分组、去重之类的操作。</p>
 <p>这部分知识你只需要有一个概念就可以，在面试的时候倒是不经常用到。SQL优化是一个实践为主的面试主题，很少讨论这种纯理论的内容。</p>
 <p>如果想要知道你优化后的效果，就需要掌握一个工具，就是EXPLAIN命令。</p>
 <h2 id="EXPLAIN命令"><a href="#EXPLAIN命令" class="headerlink" title="EXPLAIN命令"></a><span style="color:#00ACC1;">EXPLAIN命令</span></h2><p>应该说，每一个后端研发都应该掌握EXPLAIN命令。EXPALIN命令的大概用法是EXPLAIN your_sql，然后数据库就会返回一个执行计划。</p>
-<img src="/2023/11/03/11｜SQL优化：如何发现SQL中的问题？/2.webp">
+<img src="/2023/11/03/11%EF%BD%9CSQL%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%8F%91%E7%8E%B0SQL%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F/2.webp" class="">
 <p>执行计划有很多字段，我把最关键的地方列出来，你在面试的时候只需要记住这几个就可以了。</p>
 <p>1，<strong>type</strong>：指的是查询到所需行的方式，从好到坏依次是system &gt; const &gt; eq_ref &gt; ref &gt; range &gt; index &gt; ALL。</p>
 <ul>
@@ -568,7 +570,7 @@
 <p>5，<strong>filtered</strong>：查找到你所需的数据占rows的比例。</p>
 <p>在实践中，没有必要将这些东西都死记硬背下来。等你要解读EXPLAIN的返回结果的时候，再去搜索一下就行了。</p>
 <p>一般优化SQL都是在<strong>EXPLAIN查看执行计划、尝试优化</strong>两个步骤之间循环往复，直到发现SQL性能达标。</p>
-<img src="/2023/11/03/11｜SQL优化：如何发现SQL中的问题？/3.webp">
+<img src="/2023/11/03/11%EF%BD%9CSQL%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%8F%91%E7%8E%B0SQL%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F/3.webp" class="">
 <h2 id="选择索引列"><a href="#选择索引列" class="headerlink" title="选择索引列"></a><span style="color:#00ACC1;">选择索引列</span></h2><p>设计索引的时候，列的选择非常关键，但是目前来说并没有特别统一的说法。你可以参考以下规则。</p>
 <ul>
 <li><strong>外键</strong>，一般都会用于关联、过滤数据，所以正常来说都会为表的外键创建索引。</li>
@@ -580,12 +582,12 @@
 <h2 id="大表表定义变更"><a href="#大表表定义变更" class="headerlink" title="大表表定义变更"></a><span style="color:#00ACC1;">大表表定义变更</span></h2><p>优化SQL很多手段都是围绕索引来进行的。比如后面我给出的案例要么是修改已有的索引，要么是加索引。但在修改索引的时候，数据量大的表修改索引和数据量小的表修改索引，实施方案是完全不一样的。</p>
 <p>修改索引或者说表定义变更的核心问题是<strong>数据库会加表锁，直到修改完成</strong>。</p>
 <p>所以当你发现你的MySQL性能不行了，准备新加一个索引的时候，如果这个表的数据很多，那么在你执行加索引的命令的时候，整张表可能都会被锁住几分钟甚至几个小时。</p>
-<img src="/2023/11/03/11｜SQL优化：如何发现SQL中的问题？/4.webp">
+<img src="/2023/11/03/11%EF%BD%9CSQL%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%8F%91%E7%8E%B0SQL%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F/4.webp" class="">
 <p>可见大表表结构变更是一件很麻烦的事情，一般可以考虑的方案有3种。</p>
 <p>1，停机变更，就是把业务停下来，然后更新表结构。如果做得更加精细一点，那么就可以说只把和这个表有关的功能下线，但不需要将整个服务或者系统下线。</p>
 <p>2，在业务低谷变更，比停机更新好一点，但是业务依旧受到了影响。而且万一你以为在低谷能完成变更，结果并没有，那么你就面临着业务在高峰期也不能用的问题。</p>
 <p>3，创建新表，这是不停机又不想业务受到影响的方案。具体来说就是创建一张新表，这张新表就是你准备用的新的表定义。然后将旧表的数据迁移过去，我们在后面会专门讨论数据迁移方案。</p>
-<img src="/2023/11/03/11｜SQL优化：如何发现SQL中的问题？/5.webp">
+<img src="/2023/11/03/11%EF%BD%9CSQL%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%8F%91%E7%8E%B0SQL%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F/5.webp" class="">
 <h1 id="面试准备"><a href="#面试准备" class="headerlink" title="面试准备"></a><span style="color:#339AFF;">面试准备</span></h1><p>你需要准备很多个SQL优化的案例，这些案例可以体现你对SQL和数据库底层不同技术点的理解。为此你需要收集和整理好一些信息：</p>
 <ul>
 <li>你维护的业务的所有表结构定义（包含索引定义），每张表上执行最频繁的三个SQL是否用到了索引。</li>
@@ -633,7 +635,7 @@
 <p>我在公司优化过一个SQL，这个SQL非常简单，就是将某个人的数据搜索出来，然后按照数据的最后更新时间来排序。SQL大概是<code>SELECT * FROM xxx WHERE uid = 123 ORDER BY update_time</code>。<br>如果用户的数据比较多，那么这个语句执行的速度还是比较慢的。后来我们做了一个比较简单的优化，就是用uid和update_time创建一个新的索引。从数据库原理上说，在uid确认之后，索引内的update_time本身就是有序的，所以避免了数据库再次排序的消耗。这样一个优化之后，查询时间从秒级降到了数十毫秒。</p>
 </blockquote>
 <p>这种优化在现实中非常容易遇到。它的底层原理就是<strong>索引本身就是有序的</strong>。如果用表格来形容<code>&lt;uid, update_time&gt;</code>这个索引的数据组织形式，那么看起来大概是这样的。</p>
-<img src="/2023/11/03/11｜SQL优化：如何发现SQL中的问题？/6.webp">
+<img src="/2023/11/03/11%EF%BD%9CSQL%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%8F%91%E7%8E%B0SQL%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F/6.webp" class="">
 <p>所以在uid确定之后，数据库可以直接按照update_time在索引中的顺序来返回结果。在优化前，数据库就只能自己将对应uid的数据都读过来之后再次进行排序。优化后则是省了一次排序过程。</p>
 <p>最后你也可以总结一下。</p>
 <blockquote>
@@ -653,7 +655,7 @@
 <p>这本质上是一个分布式事务的问题。主要思路有两个：</p>
 <p>1，如果数据短时间不一致但是业务可以接受的话，那么就可以考虑异步刷新Redis上的总数。</p>
 <p>2，使用Canal之类的工具监听MySQL binlog，然后刷新Redis上的总数。</p>
-<img src="/2023/11/03/11｜SQL优化：如何发现SQL中的问题？/7.webp">
+<img src="/2023/11/03/11%EF%BD%9CSQL%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%8F%91%E7%8E%B0SQL%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F/7.webp" class="">
 <h2 id="索引提示优化"><a href="#索引提示优化" class="headerlink" title="索引提示优化"></a><span style="color:#00ACC1;">索引提示优化</span></h2><p>在上一节课我讲到了FORCE INDEX、USE INDEX和IGNORE INDEX三个索引提示，当然我也强调了这个不是什么好的实践，尽量少用。</p>
 <p>但是在实际工作中有些时候数据库的执行就很奇怪，要么不用索引，要么用了错误的索引，那么在这种情况下你就可以考虑使用这些索引提示来纠正数据库的行为。</p>
 <blockquote>
@@ -666,7 +668,7 @@
 <h2 id="用WHERE替换HAVING"><a href="#用WHERE替换HAVING" class="headerlink" title="用WHERE替换HAVING"></a><span style="color:#00ACC1;">用WHERE替换HAVING</span></h2><p>一般来说，数据库都是先根据WHERE条件找到候选的列，再根据HAVING条件进行二次过滤。</p>
 <p>那么你应该可以意识到，如果能够将HAVING中部分条件提前到WHERE里，那么就可以提前将不符合条件的数据过滤掉了。</p>
 <blockquote>
-<p>早期我们有一个历史系统，里面有一个SQL是很早以前的员工写的，比较随意。他将原本可以用在WHERE里面的普通的相等判断写到了HAVING里面。后来我将这个条件挪到了WHERE之后查询时间降低了40%。<br><img src="/2023/11/03/11｜SQL优化：如何发现SQL中的问题？/8.webp"></p>
+<p>早期我们有一个历史系统，里面有一个SQL是很早以前的员工写的，比较随意。他将原本可以用在WHERE里面的普通的相等判断写到了HAVING里面。后来我将这个条件挪到了WHERE之后查询时间降低了40%。<br><img src="/2023/11/03/11%EF%BD%9CSQL%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%8F%91%E7%8E%B0SQL%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F/8.webp" class=""></p>
 </blockquote>
 <p>然后你可以总结出一般的规律。</p>
 <blockquote>
@@ -686,7 +688,7 @@
 <h1 id="面试思路总结"><a href="#面试思路总结" class="headerlink" title="面试思路总结"></a><span style="color:#339AFF;">面试思路总结</span></h1><p>今天这节课我讲了SQL优化里面比较容易遇到的三个点：<strong>EXPLAIN命令、选择索引列和大表表结构变更</strong>，并提供了覆盖索引、优化ORDER BY、优化COUNT、优化索引提示、用WHERE替换HAVING、优化分页中的偏移量六个案例。</p>
 <p>此外还有一点你需要注意：<strong>花样繁多的东西，你并不需要全部掌握</strong>。比如说有很多SQL优化的手段可能我都没听过。因此在面试过程中你需要注意把控节奏，要掌握整个面试的主动权。或者说虽然看上去面试官还在频繁问你问题，但是他问的问题都是你心中有数的，所以实际上是你在暗中控制整个面试的过程。</p>
 <p>而如果你不能控制好这种节奏，面试官就会随便问，那么问到你不知道的也毫不意外了。</p>
-<img src="/2023/11/03/11｜SQL优化：如何发现SQL中的问题？/9.webp">
+<img src="/2023/11/03/11%EF%BD%9CSQL%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%8F%91%E7%8E%B0SQL%E4%B8%AD%E7%9A%84%E9%97%AE%E9%A2%98%EF%BC%9F/9.webp" class="">
 <h1 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a><span style="color:#339AFF;">思考题</span></h1><p>听我说了这么多，你有没有其他优化SQL的案例呢？欢迎你分享出来。另外在计算行数上，<code>SHOW TABLE STATUS</code>也能看到一个TABLE_ROWS列，代表表的行数，那么能不能用这个来优化<code>COUNT(*)</code>？</p>
 
       
@@ -711,7 +713,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/后端工程师进阶/" rel="tag"># 后端工程师进阶</a>
+            <a href="/tags/%E5%90%8E%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%9B%E9%98%B6/" rel="tag"># 后端工程师进阶</a>
           
         </div>
       
@@ -724,7 +726,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2023/11/03/10｜数据库索引：为什么MySQL用B-树而不用B树？/" rel="next" title="10｜数据库索引：为什么MySQL用B+树而不用B树？">
+              <a href="/2023/11/03/10%EF%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E7%B4%A2%E5%BC%95%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E7%94%A8B-%E6%A0%91%E8%80%8C%E4%B8%8D%E7%94%A8B%E6%A0%91%EF%BC%9F/" rel="next" title="10｜数据库索引：为什么MySQL用B+树而不用B树？">
                 <i class="fa fa-chevron-left"></i> 10｜数据库索引：为什么MySQL用B+树而不用B树？
               </a>
             
@@ -734,7 +736,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2023/11/03/12｜数据库锁：明明有行锁，怎么突然就加了表锁？/" rel="prev" title="12｜数据库锁：明明有行锁，怎么突然就加了表锁？">
+              <a href="/2023/11/03/12%EF%BD%9C%E6%95%B0%E6%8D%AE%E5%BA%93%E9%94%81%EF%BC%9A%E6%98%8E%E6%98%8E%E6%9C%89%E8%A1%8C%E9%94%81%EF%BC%8C%E6%80%8E%E4%B9%88%E7%AA%81%E7%84%B6%E5%B0%B1%E5%8A%A0%E4%BA%86%E8%A1%A8%E9%94%81%EF%BC%9F/" rel="prev" title="12｜数据库锁：明明有行锁，怎么突然就加了表锁？">
                 12｜数据库锁：明明有行锁，怎么突然就加了表锁？ <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -794,7 +796,9 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="CheBin">
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
             
               <p class="site-author-name" itemprop="name">CheBin</p>
               <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
@@ -805,9 +809,9 @@
               
                 <div class="site-state-item site-state-posts">
                 
-                  <a href="/archives/">
+                  <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1261</span>
+                    <span class="site-state-item-count">1235</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -819,26 +823,10 @@
                 <div class="site-state-item site-state-categories">
                   
                     
-                      <a href="/categories/">
+                      <a href="/categories/%20%7C%7C%20th">
                     
                   
                     
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
                     
                       
                     
@@ -910,7 +898,7 @@
                 <div class="site-state-item site-state-tags">
                   
                     
-                      <a href="/tags/">
+                      <a href="/tags/%20%7C%7C%20tags">
                     
                   
                     
@@ -1085,115 +1073,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">86</span>
+                    <span class="site-state-item-count">85</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -1224,23 +1104,23 @@
                 
                 
                   <li>
-                    <a href="/2024/02/05/第20章-编译与运行/" title="第20章 编译与运行" target="_blank">第20章 编译与运行</a>
+                    <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第19章-Go项目一网络编程应用/" title="第19章 Go项目一网络编程应用" target="_blank">第19章 Go项目一网络编程应用</a>
+                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第18章-Go项目——网络爬虫程序开发/" title="第18章 Go项目——网络爬虫程序开发" target="_blank">第18章 Go项目——网络爬虫程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第17章-Go项目——网页自动化测试程序开发/" title="第17章 Go项目——网页自动化测试程序开发" target="_blank">第17章 Go项目——网页自动化测试程序开发</a>
+                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/05/第16章-数据库编程/" title="第16章 数据库编程" target="_blank">第16章 数据库编程</a>
+                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
                   </li>
                 
               </ul>
@@ -1266,7 +1146,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前置知识"><span class="nav-number">1.</span> <span class="nav-text">前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#EXPLAIN命令"><span class="nav-number">1.1.</span> <span class="nav-text">EXPLAIN命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选择索引列"><span class="nav-number">1.2.</span> <span class="nav-text">选择索引列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#大表表定义变更"><span class="nav-number">1.3.</span> <span class="nav-text">大表表定义变更</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面试准备"><span class="nav-number">2.</span> <span class="nav-text">面试准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本思路"><span class="nav-number">3.</span> <span class="nav-text">基本思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优化案例"><span class="nav-number">4.</span> <span class="nav-text">优化案例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#覆盖索引"><span class="nav-number">4.1.</span> <span class="nav-text">覆盖索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化ORDER-BY"><span class="nav-number">4.2.</span> <span class="nav-text">优化ORDER BY</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优化COUNT"><span class="nav-number">5.</span> <span class="nav-text">优化COUNT</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#索引提示优化"><span class="nav-number">5.1.</span> <span class="nav-text">索引提示优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用WHERE替换HAVING"><span class="nav-number">5.2.</span> <span class="nav-text">用WHERE替换HAVING</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化分页中的偏移量"><span class="nav-number">5.3.</span> <span class="nav-text">优化分页中的偏移量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面试思路总结"><span class="nav-number">6.</span> <span class="nav-text">面试思路总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思考题"><span class="nav-number">7.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#EXPLAIN%E5%91%BD%E4%BB%A4"><span class="nav-number">1.1.</span> <span class="nav-text">EXPLAIN命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E7%B4%A2%E5%BC%95%E5%88%97"><span class="nav-number">1.2.</span> <span class="nav-text">选择索引列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%A7%E8%A1%A8%E8%A1%A8%E5%AE%9A%E4%B9%89%E5%8F%98%E6%9B%B4"><span class="nav-number">1.3.</span> <span class="nav-text">大表表定义变更</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">面试准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E8%B7%AF"><span class="nav-number">3.</span> <span class="nav-text">基本思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E6%A1%88%E4%BE%8B"><span class="nav-number">4.</span> <span class="nav-text">优化案例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A6%86%E7%9B%96%E7%B4%A2%E5%BC%95"><span class="nav-number">4.1.</span> <span class="nav-text">覆盖索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96ORDER-BY"><span class="nav-number">4.2.</span> <span class="nav-text">优化ORDER BY</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BC%98%E5%8C%96COUNT"><span class="nav-number">5.</span> <span class="nav-text">优化COUNT</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E6%8F%90%E7%A4%BA%E4%BC%98%E5%8C%96"><span class="nav-number">5.1.</span> <span class="nav-text">索引提示优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8WHERE%E6%9B%BF%E6%8D%A2HAVING"><span class="nav-number">5.2.</span> <span class="nav-text">用WHERE替换HAVING</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E5%88%86%E9%A1%B5%E4%B8%AD%E7%9A%84%E5%81%8F%E7%A7%BB%E9%87%8F"><span class="nav-number">5.3.</span> <span class="nav-text">优化分页中的偏移量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E6%80%9D%E8%B7%AF%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">面试思路总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">7.</span> <span class="nav-text">思考题</span></a></li></ol></div>
             
 
           </div>
@@ -1301,7 +1181,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">9.4m</span>
+    <span title="站点总字数">8.8m</span>
   
 
   
@@ -1312,12 +1192,12 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">141:55</span>
+    <span title="站点阅读时长">133:52</span>
   
 </div>
 
 
-  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
 
 
 
@@ -1325,7 +1205,7 @@
 
 
 
-  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+  <div class="theme-info">主题 – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
 
 
 
