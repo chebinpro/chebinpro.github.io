@@ -103,15 +103,15 @@
 
 
 
-  <meta name="description" content="思考并回答以下问题：  总结一下，这章作者最主要想表达什么观点？">
+  <meta name="description" content="思考并回答以下问题：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第31章 并发状态">
 <meta property="og:url" content="http://yoursite.com/2021/09/16/%E7%AC%AC31%E7%AB%A0-%E5%B9%B6%E5%8F%91%E7%8A%B6%E6%80%81/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
-<meta property="og:description" content="思考并回答以下问题：  总结一下，这章作者最主要想表达什么观点？">
+<meta property="og:description" content="思考并回答以下问题：">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-09-16T06:23:15.000Z">
-<meta property="article:modified_time" content="2021-11-02T02:52:28.605Z">
+<meta property="article:modified_time" content="2024-02-27T05:43:47.773Z">
 <meta property="article:author" content="CheBin">
 <meta property="article:tag" content="Go语言趣学指南">
 <meta name="twitter:card" content="summary">
@@ -231,7 +231,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-fa-home"></i> <br/>首页</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
 
   </li>
         
@@ -445,7 +445,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2021-11-02 10:52:28" itemprop="dateModified" datetime="2021-11-02T10:52:28+08:00">2021-11-02</time>
+                <time title="修改时间：2024-02-27 13:43:47" itemprop="dateModified" datetime="2024-02-27T13:43:47+08:00">2024-02-27</time>
               
             
           </span>
@@ -491,7 +491,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">20k</span>
+                <span title="本文字数">26k</span>
               
 
               
@@ -505,7 +505,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">18 分钟</span>
+                <span title="阅读时长">24 分钟</span>
               
             </div>
           
@@ -526,9 +526,6 @@
 
       
         <p>思考并回答以下问题：</p>
-<ul>
-<li>总结一下，这章作者最主要想表达什么观点？</li>
-</ul>
 <span id="more"></span>
 <p>【本章学习目标】</p>
 <ul>
@@ -541,7 +538,9 @@
 <p>Go程序中的共享值跟上面提到的共享电话有些相似，当有两个或者多个goroutine同时使用这个共享值的时候，程序有可能会出错。当然，如果两个goroutine碰巧从来都没有同时使用过同一个值，那么程序也可能照常运行，但这种潜在的出错风险仍然是存在的。</p>
 <p>电话里面同时说话的两只地鼠可能会把接电话的卖家弄糊涂，最终导致订错物品、弄错数量，或者把订单的其他方面搞错了。任何问题都有可能发生，谁都不知道结果会怎么样。</p>
 <p>这就是在Go程序中使用共享值可能会遇到的问题。除非我们明确知道问题中的某种值能够并发使用，否则我们应该假定它们是不能并发使用的。我们把这种多个goroutine争相使用值的情况称之为竞态条件。</p>
-<p>注意Go编译器包含尝试在代码里面发现竟态条件的功能。这个功能相当值得一试，并且如果它真的发现了竞态条件，那么你应该花些时间去修复它们。详情参见Go官方网站。</p>
+<blockquote>
+<p>注意 Go编译器包含尝试在代码里面发现竞态条件的功能。这个功能相当值得一试，并且如果它真的发现了竞态条件，那么你应该花些时间去修复它们。详情参见Go官方网站。</p>
+</blockquote>
 <blockquote>注意：两个goroutine同时读取相同的事物并不会产生竞态条件，但如果一个goroutine在写入事物的同时，另一个goroutine尝试写入或者读取相同的事物，那么后者的行为将是未定义的。</blockquote>
 <br/>
 <blockquote>请考虑这一点
@@ -561,16 +560,16 @@
 <figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;sync&quot;</span> <span class="comment">// 导入sync</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> mu sync.Mutex <span class="comment">// 声明互斥锁</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>  &#123;</span><br><span class="line">    mu.Lock() <span class="comment">// 对互斥锁执行上锁操作</span></span><br><span class="line">    <span class="keyword">defer</span> mu.Unlock() <span class="comment">// 在函数返回之前解锁互斥锁</span></span><br><span class="line">    <span class="comment">// 在函数返回之前，互斥锁始终处于锁定状态</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这个程序还使用了第28章介绍过的关键字defer。在defer的帮助下，即使函数包含大量代码，我们也能够将Unlock调用直接放在Lock调用之后。</p>
 <blockquote>
-<p>注意：defer语句在函数包含多个return语句时特别有用。如果没有defer，我们就需要在每个返回语句的前面都调用一次Unlock，而且说不定还会忘了其中的某一个。</p>
+<p>注意 defer语句在函数包含多个return语句时特别有用。如果没有defer，我们就需要在每个返回语句的前面都调用一次Unlock，而且说不定还会忘了其中的某一个。</p>
 </blockquote>
-<p>代码清单31-2展示了一种结构类型，网络爬虫可以使用它来统计已访问网页包含的链接数量。其中结构包含的映射负责存储统计数据，而结构中的互斥锁则负责保护统计数据。这种将sync.Mutex用作结构成员的做法是一种常见的模式。</p>
+<p>代码清单31-2展示了一种结构类型，网络爬虫可以使用它来统计已访问网页包含的链接数量。其中结构包含的映射负责存储统计数据，而结构中的互斥锁则负责保护统计数据。这种将<code>sync.Mutex</code>用作结构成员的做法是一种常见的模式。</p>
 <blockquote>提示：将互斥锁的定义放置在被保护的变量之上，并通过添加注释说明它们之间的关联，这是一种非常好的做法。</blockquote>
 <br/>
 <blockquote>代码清单31-2 页面引用映射：scrape.go</blockquote>
 
 <figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Visited用于记录网页是否被访问过</span></span><br><span class="line"><span class="comment">// 它的方法可以在多个goroutine中并发使用</span></span><br><span class="line"><span class="keyword">type</span> Visited <span class="keyword">struct</span> &#123;</span><br><span class="line">    <span class="comment">// mu用于保护visited映射</span></span><br><span class="line">    mu sync.Mutex <span class="comment">// 声明一个互斥锁</span></span><br><span class="line">    visited <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">int</span> <span class="comment">// 声明一个从网址（字符串）键指向整数值的映射</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>注意：正如代码清单31-2所示，在Go中，除非有文档显式地说明，否则我们应该假定所有方法在并发使用时都是不安全的。</p>
+<p>注意 正如代码清单31-2所示，在Go中，除非有文档显式地说明，否则我们应该假定所有方法在并发使用时都是不安全的。</p>
 </blockquote>
 <p>代码清单31-3定义了爬虫在遇到链接时调用的Visitlink方法，这个方法会返回给定链接之前出现过的次数。</p>
 <blockquote>
@@ -580,14 +579,18 @@
 <p>因为Go Playground会有意识地保持程序的确定性并消除可能出现的竞态条件，所以它并不是一个实验竞态条件的好地方，但我们还是可以通过在语句之间插入time.Sleep调用来进行实验。</p>
 <p>请使用第30章开头引入的技术，启动几个goroutine并让它们以不同的值调用VisitLink方法，然后在不同地方插入Sleep语句来模拟竞态条件。此外，请尝试删除代码清单31-3中的Lock调用和Unlock调用，看看会发生什么情况。</p>
 <p>互斥锁能够非常直观地为一部分小而明确的状态提供保护。如果你正在编写一些方法，并且希望它们能够同时被多个goroutine使用，那么互斥锁将是你必不可少的工具。</p>
+<blockquote>
 <p>速查31-1</p>
+</blockquote>
 <ul>
 <li>1，当两个goroutine同时修改同一个值的时候，会发生什么事情？ </li>
 <li>2，尝试对一个已被锁定的互斥锁执行锁定操作，会发生什么事情？ </li>
 <li>3，尝试对一个未被锁定的互斥锁执行解锁操作，会发生什么事情？ </li>
 <li>4，同时在多个不同的goroutine里面调用相同类型的方法是安全的吗？</li>
 </ul>
+<blockquote>
 <p>速查31-1答案</p>
+</blockquote>
 <ul>
 <li>1，结果是未定义的。程序可能会崩溃或者发生其他问题。</li>
 <li>2，执行锁定操作的goroutine将被阻塞，直到互斥锁解锁为止。</li>
@@ -602,22 +605,27 @@
 <li>对每一份共享状态只使用一个互斥锁。</li>
 </ul>
 <p>互斥锁很适合用来处理简单的共享状态，但是在面对更为复杂的共享状态时，我们将需要更强力的工具来保证并发安全。</p>
+<blockquote>
 <p>速查31-2</p>
+</blockquote>
 <ul>
 <li>尝试锁定一个互斥锁可能会引起哪两个问题？</li>
 </ul>
+<blockquote>
 <p>速查31-2答案</p>
+</blockquote>
 <ul>
 <li>首先，锁定操作可能会导致其他同样在尝试执行锁定操作的goroutine被阻塞；其次，锁定操作可能会引发死锁。</li>
 </ul>
 <h1 id="长时间运行的工作进程"><a href="#长时间运行的工作进程" class="headerlink" title="长时间运行的工作进程"></a><span style="color:#339AFF;">长时间运行的工作进程</span></h1><p>假设我们的任务是驱动一架在火星表面行走的探测器。好奇号火星探测器上的软件由一系列独立的模块组织而成，各个模块之间通过传递消息进行通信，这种做法与Go的goroutine非常相似。</p>
 <p>探测器的各个模块需要为探测器行为的不同方面负责。我们接下来要做的就是编写一些Go代码，并使用这些代码驱动一台（高度简化的）探测器在虚拟的火星上行进。因为我们没有实际的引擎可供驱动，所以作为替代，我们将对存储探测器坐标的变量进行更新。此外由于我们希望可以从地球上遥控探测器，因此它还需要对外部命令进行响应。</p>
 <blockquote>
-<p>注意：本节构建的代码结构适用于所有需要独立运行的长期任务，如网站的轮询器和硬件的设备控制器。</p>
+<p>注意 本节构建的代码结构适用于所有需要独立运行的长期任务，如网站的轮询器和硬件的设备控制器。</p>
 </blockquote>
 <p>作为驱动探测器的第一步，我们需要启动一个goroutine来负责控制探测器的位置。这个goroutine会随着探测器软件一同启动，然后持续运行直到它被关闭为止。我们把这种一直存在并且独立运行的goroutine称为工作进程（worker）。</p>
 <p>工作进程通常会被写成包含select语句的for循环。只要工作进程在运行，循环就会继续下去，而select则会等待某些有趣的事情发生。在这种情况下，“有趣的事情”也可能是一个来自外部的命令。别忘了，虽然工作进程能够独立运行，但我们还是希望能够对其进行控制。除此之外，我们还可以通过定时事件告知工作进程应该在何时移动探测器。</p>
-<p>以下是一个没有任何实际用途的工作进程的函数框架：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">worker</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        <span class="keyword">select</span> &#123;</span><br><span class="line">        <span class="comment">// 在此处等待通道</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>我们可以用前面例子中启动goroutine的方法来启动这个工作进程：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> worker()</span><br></pre></td></tr></table></figure></p>
+<p>以下是一个没有任何实际用途的工作进程的函数框架：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">worker</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        <span class="keyword">select</span> &#123;</span><br><span class="line">        <span class="comment">// 在此处等待通道</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><p>我们可以用前面例子中启动goroutine的方法来启动这个工作进程：</p><br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> worker()</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>事件循环和goroutine<br><br/>某些编程语言会使用名为事件循环的中心循环（central loop）来等待事件，并在事件发生时调用相应的已注册函数。Go通过提供goroutine作为核心概念，消除了对中心循环的需求。我们可以把任何工作进程goroutine都看作是独立运行的事件循环。</p>
 </blockquote>
@@ -628,7 +636,7 @@
 </blockquote>
 <figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">worker</span><span class="params">()</span></span>&#123;</span><br><span class="line">    n:=<span class="number">0</span></span><br><span class="line">    next:=time.After(time.Second) <span class="comment">// 创建初始计时器通道</span></span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        <span class="keyword">select</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> &lt;-next: <span class="comment">// 等待计时器击发</span></span><br><span class="line">            n++</span><br><span class="line">            fmt.Println(n) <span class="comment">// 打印数字</span></span><br><span class="line">            next = time.After(time.Second) <span class="comment">// 为下一次事件循环创建新的计时器通道</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>注意：严格来讲，这个例子并不需要用到select语句。只包含一个分支的select语句实际上跟直接执行通道操作的效果是一样的。这个例子之所以会使用select语句，是因为在本章稍后的内容中，我们将修改程序，让它同时等待不止一个计时器。否则，我们完全可以使用time.Sleep来代替这里的After调用。</p>
+<p>注意 严格来讲，这个例子并不需要用到select语句。只包含一个分支的select语句实际上跟直接执行通道操作的效果是一样的。这个例子之所以会使用select语句，是因为在本章稍后的内容中，我们将修改程序，让它同时等待不止一个计时器。否则，我们完全可以使用time.Sleep来代替这里的After调用。</p>
 </blockquote>
 <p>在有了一个能够自主行动的工作进程之后，我们可以通过让它更新位置信息而不是数字来使它变得更像一台探测器。Go的image包正好提供了能够表示探测器当前位置和方向的Point类型，这种类型的结构会通过相应的方法来存储点的x轴坐标和y轴坐标，例如，它的Add方法就可以将一个点与另一个点相加。</p>
 <p>具体来说，程序将使用x轴表示东西方向，y轴表示南北方向。为了使用Point类型，程序还需要导入image包：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;image&quot;</span></span><br></pre></td></tr></table></figure><br>正如代码清单31-5所示，每当程序从定时器通道那里接收值的时候，它会将表示当前方向的点与当前位置相加。目前，探测器始终从同一位置[10,10]开始并向东行进，稍后我们会做修改。</p>
@@ -641,34 +649,38 @@
 <blockquote>
 <p>代码清单31-6 RoverDriver类型：rover.go</p>
 </blockquote>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// RoverDriver 用于驱动一台在火星表面行进的探测器</span></span><br><span class="line"><span class="keyword">type</span> RoverDriver <span class="keyword">struct</span> &#123;</span><br><span class="line">    commandc <span class="keyword">chan</span> command</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>正如代码清单31-7所示，创建通道并启动工作进程的逻辑被包裹在了NewRoverDriver函数里面，而工作进程的具体实现逻辑则被定义在了drive方法中。虽然drive是一个方法，但它的功能和本章前面介绍过的worker函数是一样的，并且作为RoverDriver结构的方法，它将能够访问结构中的任何一个值。</p>
 <blockquote>
 <p>代码清单31-7 创建操作：rover.go</p>
 </blockquote>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">funcNewRoverDriver() *RoverDriver&#123; r:=&amp;RoverDriver&#123;</span><br><span class="line">commandc: <span class="built_in">make</span>(<span class="keyword">chan</span> command) &#125;</span><br><span class="line">gor.drive()</span><br><span class="line">returnr</span><br></pre></td></tr></table></figure>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewRoverDriver</span><span class="params">()</span></span> *RoverDriver &#123;</span><br><span class="line">    r := &amp;RoverDriver&#123;</span><br><span class="line">        commandc: <span class="built_in">make</span>(<span class="keyword">chan</span> command),</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">go</span> r.drive()</span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>接下来，我们还需要考虑应该向探测器发送何种命令。为了让示例保持简单，我们决定暂时只支持“左转900”和“右转900”两个命令，具体如代码清单31-8所示。</p>
 <blockquote>
 <p>代码清单31-8 命令类型：rover.go</p>
 </blockquote>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> command <span class="type">int</span></span><br><span class="line"><span class="keyword">const</span>(</span><br><span class="line">right = command(<span class="number">0</span>) left = command(<span class="number">1</span>)</span><br></pre></td></tr></table></figure>
-<p>注意这里使用简单的int作为命令类型只是为了展示需要，实际上Go的通道可以传递任何类型的值，并且我们也可以使用任意复杂的结构类型来表示命令。</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> command <span class="type">int</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    right = command(<span class="number">0</span>)</span><br><span class="line">    left  = command(<span class="number">1</span>)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意 这里使用简单的int作为命令类型只是为了展示需要，实际上Go的通道可以传递任何类型的值，并且我们也可以使用任意复杂的结构类型来表示命令。</p>
+</blockquote>
 <p>在定义了RoverDriver类型以及创建并实例化该类型的函数之后，我们接下来要实现的就是函数中提及的drive方法。代码清单31-9展示了这个方法的具体定义，这个控制探测器的工作进程跟我们之前看到过的更新位置的工作进程非常相似，唯一的区别在于，新工作进程除了需要更新位置，还需要等待命令通道传来的命令。当工作进程接收到命令的时候它将根据命令的值决定执行何种操作，并使用日志对此进行记录，以便我们观察探测器的一举一动。</p>
 <blockquote>
 <p>代码清单31-9 RoverDriver工作进程：rover.go</p>
 </blockquote>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// drive 负责驱动探测器。这个方法应该放在goroutine中运行</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *RoverDriver)</span></span> drive() &#123;</span><br><span class="line">    pos := image.Point&#123;X: <span class="number">0</span>, Y: <span class="number">0</span>&#125;</span><br><span class="line">    direction := image.Point&#123;X: <span class="number">1</span>, Y: <span class="number">0</span>&#125;</span><br><span class="line">    updateInterval := <span class="number">250</span> * time.Millisecond</span><br><span class="line">    nextMove := time.After(updateInterval)</span><br><span class="line">    speed := <span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        <span class="keyword">select</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> c := &lt;-r.commandc: <span class="comment">// 等待接收来自命令通道的命令</span></span><br><span class="line">            <span class="keyword">switch</span> c &#123;</span><br><span class="line">            <span class="keyword">case</span> right: <span class="comment">// 向右转</span></span><br><span class="line">                direction = image.Point&#123;</span><br><span class="line">                    X: -direction.Y,</span><br><span class="line">                    Y: direction.X,</span><br><span class="line">                &#125;</span><br><span class="line">            <span class="keyword">case</span> left: <span class="comment">// 向左转</span></span><br><span class="line">                direction = image.Point&#123;</span><br><span class="line">                    X: direction.Y,</span><br><span class="line">                    Y: -direction.X,</span><br><span class="line">                &#125;</span><br><span class="line">            log.Printf(<span class="string">&quot;new direction %v; speed %d&quot;</span>, direction, speed)</span><br><span class="line">        <span class="keyword">case</span> &lt;-nextMove:</span><br><span class="line">            pos = pos.Add(direction.Mul(speed))</span><br><span class="line">            log.Printf(<span class="string">&quot;moved to %v&quot;</span>, pos)</span><br><span class="line">            nextMove = time.After(updateInterval)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>现在，我们只需要给RoverDriver类型再加上一些控制探测器的方法，这个类型的定义就可以完成了。正如代码清单31-10所示，我们会为两个命令分别定义两个方法，而这两个方法都会向commandc通道发送相应的命令。例如，如果我们调用Left方法，那么该方法将向通道发送left命令值，而工作进程则会在通过通道接收到这个命令值之后改变探测器的方向。</p>
 <blockquote>
 <p>代码清单31-10 RoverDriver的方法：rover.go </p>
 </blockquote>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Left会将探测器转向左方（逆时针90°）</span></span><br><span class="line"><span class="function"><span class="keyword">func</span><span class="params">(r *RoverDriver)</span></span>Left()&#123;</span><br><span class="line">r.commandc &lt;- left</span><br><span class="line"><span class="comment">//Right会将探测器转向右方（顺时针90°） func (r *RoverDriver)Right()&#123; r.commandc &lt;- right</span></span><br></pre></td></tr></table></figure>
-<p>注意尽管上述方法都可以控制探测器的方向，但是因为它们没有直接访问方向值，并且也不会并发地修改方向值，所以不存在引发竞态条件的危险。此外，通道的存在使得其与探测器的goroutine可以在无须直接修改自身任何值的情况下实现通信，因此这个程序不需要用到互斥锁。</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Left会将探测器转向左方（逆时针90°）</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *RoverDriver)</span></span> Left() &#123;</span><br><span class="line">    r.commandc &lt;- left</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Right会将探测器转向右方（顺时针90°）</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(r *RoverDriver)</span></span> Right() &#123;</span><br><span class="line">    r.commandc &lt;- right</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意 尽管上述方法都可以控制探测器的方向，但是因为它们没有直接访问方向值，并且也不会并发地修改方向值，所以不存在引发竞态条件的危险。此外，通道的存在使得其与探测器的goroutine可以在无须直接修改自身任何值的情况下实现通信，因此这个程序不需要用到互斥锁。</p>
+</blockquote>
 <p>在有了功能完整的RoverDriver类型之后，我们就可以像代码清单31-11那样创建一台探测器并向它发送命令了。是时候让我们的探测器来一次火星漫游了！</p>
 <blockquote>
 <p>代码清单31-11 出发吧：rover.go</p>
 </blockquote>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    r := NewRoverDriver()</span><br><span class="line">    time.Sleep(<span class="number">3</span> * time.Second)</span><br><span class="line">    r.Left()</span><br><span class="line">    time.Sleep(<span class="number">3</span> * time.Second)</span><br><span class="line">    r.Right()</span><br><span class="line">    time.Sleep(<span class="number">3</span> * time.Second)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>你可以通过使用不同的休眠时间以及发送不同的命令来试验这个RoverDriver类型。尽管这个程序关注的是火星探测器，但是它展示的工作进程模式也适用于很多其他不同的场景。在这些场景中，程序不仅需要用一些长时间运行的goroutine来控制某些事物，与此同时还需要保留对外部控制的响应。</p>
 <p>速查31-3</p>
 <ul>
@@ -1201,7 +1213,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">133:52</span>
+    <span title="站点阅读时长">133:58</span>
   
 </div>
 
