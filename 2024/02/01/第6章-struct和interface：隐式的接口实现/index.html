@@ -103,15 +103,15 @@
 
 
 
-  <meta name="description" content="思考并回答以下问题：">
+  <meta name="description" content="思考并回答以下问题：  var _ UserSrv &#x3D; (*userService)(nil)是一个赋值语句，右边是*userService结构体指针类型的零值，赋值给左边的变量（UserSrv是接口类型），如果变量类型不match，编译器会报错。 type b int  c :&#x3D; (*b)(nil)  fmt.Println(c) &#x2F;&#x2F; &lt;nil&gt;。这个怎么理解？ x :&#x3D; inte">
 <meta property="og:type" content="article">
 <meta property="og:title" content="第6章 struct和interface：隐式的接口实现">
 <meta property="og:url" content="http://yoursite.com/2024/02/01/%E7%AC%AC6%E7%AB%A0-struct%E5%92%8Cinterface%EF%BC%9A%E9%9A%90%E5%BC%8F%E7%9A%84%E6%8E%A5%E5%8F%A3%E5%AE%9E%E7%8E%B0/index.html">
 <meta property="og:site_name" content="车斌的技术博客">
-<meta property="og:description" content="思考并回答以下问题：">
+<meta property="og:description" content="思考并回答以下问题：  var _ UserSrv &#x3D; (*userService)(nil)是一个赋值语句，右边是*userService结构体指针类型的零值，赋值给左边的变量（UserSrv是接口类型），如果变量类型不match，编译器会报错。 type b int  c :&#x3D; (*b)(nil)  fmt.Println(c) &#x2F;&#x2F; &lt;nil&gt;。这个怎么理解？ x :&#x3D; inte">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-02-01T04:19:22.000Z">
-<meta property="article:modified_time" content="2024-02-26T06:28:38.628Z">
+<meta property="article:modified_time" content="2024-02-29T03:34:16.503Z">
 <meta property="article:author" content="CheBin">
 <meta property="article:tag" content="打开Go语言之门：入门、实践与进阶">
 <meta name="twitter:card" content="summary">
@@ -445,7 +445,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2024-02-26 14:28:38" itemprop="dateModified" datetime="2024-02-26T14:28:38+08:00">2024-02-26</time>
+                <time title="修改时间：2024-02-29 11:34:16" itemprop="dateModified" datetime="2024-02-29T11:34:16+08:00">2024-02-29</time>
               
             
           </span>
@@ -491,7 +491,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">24k</span>
+                <span title="本文字数">25k</span>
               
 
               
@@ -505,7 +505,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">22 分钟</span>
+                <span title="阅读时长">23 分钟</span>
               
             </div>
           
@@ -526,6 +526,11 @@
 
       
         <p>思考并回答以下问题：</p>
+<ul>
+<li><code>var _ UserSrv = (*userService)(nil)</code>是一个赋值语句，右边是<code>*userService</code>结构体指针类型的零值，赋值给左边的变量（UserSrv是接口类型），如果变量类型不match，编译器会报错。</li>
+<li><code>type b int  c := (*b)(nil)  fmt.Println(c) // &lt;nil&gt;</code>。这个怎么理解？</li>
+<li><code>x := interface&#123;&#125;(nil)  d := (*int)(nil)</code>怎么理解？</li>
+</ul>
 <span id="more"></span>
 <p>第5章留了一个思考题：方法是否可以作为表达式赋值给一个变量？如果可以，要怎么调用它呢？答案是完全可以，方法赋值给变量称为方法表达式，如下面的代码所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">age := Age(<span class="number">25</span>)</span><br><span class="line"><span class="comment">// 方法赋值给变量，方法表达式</span></span><br><span class="line">sm := Age.String</span><br><span class="line"><span class="comment">// 通过变量调用方法时，要传一个接收者age</span></span><br><span class="line">sm(age)</span><br></pre></td></tr></table></figure><br>我们知道，方法String其实是没有参数的，但是通过方法表达式赋值给变量sm后，在调用的时候，必须要传一个接收者，这样sm才知道怎么调用。</p>
 <blockquote>
@@ -560,17 +565,17 @@
 <p>提示<br>Stringer是Go SDK的一个接口，属于fmt包。</p>
 </blockquote>
 <p>针对Stringer接口，它会告诉调用者可以通过它的String（）方法获取一个字符串，这就是接口的约定。至于这个字符串是怎么获得的、是什么样的，接口不关心，调用者也不用关心，因为这些是由接口实现者来做的。</p>
-<h2 id="接口的实现"><a href="#接口的实现" class="headerlink" title="接口的实现"></a><span style="color:#00ACC1;">接口的实现</span></h2><p>接口的实现者必须是一个具体的类型，继续以person结构体为例，让它来实现Stringer接口，如下面的代码所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>给结构体类型person定义一个方法，这个方法与接口里方法的签名（名称、参数和返回值）一样，这样结构体person就实现了Stringer接口。接口的实现并没有通过任何关键字（比如Java中的implements），所以Go语言的接口是隐式实现的。</p>
+<h2 id="接口的实现"><a href="#接口的实现" class="headerlink" title="接口的实现"></a><span style="color:#00ACC1;">接口的实现</span></h2><p>接口的实现者必须是一个具体的类型，继续以person结构体为例，让它来实现Stringer接口，如下面的代码所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p person)</span></span> String() <span class="type">string</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> fmt.Sprintf(<span class="string">&quot;the name is %s, age is %d&quot;</span>, p.name, p.age)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>给结构体类型person定义一个方法，这个方法与接口里方法的签名（名称、参数和返回值）一样，这样结构体person就实现了Stringer接口。接口的实现并没有通过任何关键字（比如Java中的implements），所以Go语言的接口是隐式实现的。</p>
 <blockquote>
 <p>注意<br>如果一个接口有多个方法，那么需要实现接口的每个方法才算是实现了这个接口。</p>
 </blockquote>
-<p>实现了Stringer接口后，就可以使用它了。我首先定义一个可以打印实现Stringer接口的函数，如下所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printString</span><span class="params">(s fmt .stringer)</span></span>&#123;</span><br><span class="line">    fmt.Println(s.String())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这个被定义的函数printString接收一个Stringer接口类型的参数，然后打印出Stringer接口的String方法返回的字符串。</p>
+<p>实现了Stringer接口后，就可以使用它了。我首先定义一个可以打印实现Stringer接口的函数，如下所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printString</span><span class="params">(s fmt.stringer)</span></span>&#123;</span><br><span class="line">    fmt.Println(s.String())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这个被定义的函数printString接收一个Stringer接口类型的参数，然后打印出Stringer接口的String方法返回的字符串。</p>
 <p>printString这个函数的优势在于它是面向接口编程的，只要一个类型实现了Stringer接口，就可以打印出对应的字符串，而不用考虑具体的类型实现。</p>
-<p>因为person实 现了Stringer接口，所以变量p可以作为函数printString的参数，可以用如下方式打印：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printString(D)</span><br></pre></td></tr></table></figure><br>结果为：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">the name is飞雪无情，age is 30</span><br></pre></td></tr></table></figure><br>现在让结构体address也实现Stringer接口，如下面的代码所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>因为结构体address也实现了Stringer接口，所以printString函数不用做任何改变，可以直接被使用，打印出地址，如下所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">printString(p.addr)</span><br><span class="line"><span class="comment">//输出：the adar is北京北京</span></span><br></pre></td></tr></table></figure><br>这就是面向接口的好处，只要定义和调用双方满足约定，就可以使用，而不用考虑具体实现。接口的实现者也可以更好地升级重构，而不会有任何影响，因为接口约定没有变。</p>
+<p>因为person实 现了Stringer接口，所以变量p可以作为函数printString的参数，可以用如下方式打印：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printString(p)</span><br></pre></td></tr></table></figure><br>结果为：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">the name is 飞雪无情, age is 30</span><br></pre></td></tr></table></figure><br>现在让结构体address也实现Stringer接口，如下面的代码所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(addr address)</span></span> String() <span class="type">string</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> fmt.Sprintf(<span class="string">&quot;the addr is %s%d&quot;</span>, addr.province, addr.city)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>因为结构体address也实现了Stringer接口，所以printString函数不用做任何改变，可以直接被使用，打印出地址，如下所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">printString(p.addr)</span><br><span class="line"><span class="comment">//输出：the adar is 北京北京</span></span><br></pre></td></tr></table></figure><br>这就是面向接口的好处，只要定义和调用双方满足约定，就可以使用，而不用考虑具体实现。接口的实现者也可以更好地升级重构，而不会有任何影响，因为接口约定没有变。</p>
 <h2 id="值和指针类型接收者"><a href="#值和指针类型接收者" class="headerlink" title="值和指针类型接收者"></a><span style="color:#00ACC1;">值和指针类型接收者</span></h2><p>我们已经知道，如果要实现一个接口，必须实现这个接口提供的所有方法，而且在上一章讲解方法的时候，我们也知道定义一个方法，有值类型接收者和指针类型接收者两种。二者都可以调用方法，因为Go语言编译器自动做了转换，所以值类型接收者和指针类型接收者是等价的。但是在接口的实现中，值类型接收者和指针类型接收者不一样，下面我会详细分析二者的区别。</p>
 <p>在上一小节中，已经验证了结构体类型实现了Stringer接口，那么结构体对应的指针是否也实现了该接口呢？我通过下面这个代码进行测试：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printString(&amp;p)</span><br></pre></td></tr></table></figure><br>测试后会发现，把变量p的指针作为实参传给printString函数也是可以的，编译运行都正常。这就证明了以值类型接收者实现接口的时候，不管是类型本身，还是该类型的指针类型，都实现了该接口。</p>
 <p>示例中值接收者（p person）实现了Stringer接口，那么类型person和它的指针类型<code>*person</code>就都实现了Stringer接口。</p>
-<p>现在，我把接收者改成指针类型，如下代码所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>修改成指针类型接收者后会发现，示例中这行printString（p）代码编译不通过，提示如下错误：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./main.go:17:13: cannot use p (type person) as type fmt.Stringer in argument to printString:</span><br><span class="line">person does not implement fmt.Stringer (String method has pointer receiver)</span><br></pre></td></tr></table></figure><br>意思就是类型person没有实现Stringer接口。这就证明了以指针类型接收者实现接口的时候，只有对应的指针类型才被认为实现了该接口。</p>
+<p>现在，我把接收者改成指针类型，如下代码所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(p *person)</span></span> String() <span class="type">string</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> fmt.Sprintf(<span class="string">&quot;the name is %s, age is %d&quot;</span>, p.name, p.age)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>修改成指针类型接收者后会发现，示例中这行printString（p）代码编译不通过，提示如下错误：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./main.go:17:13: cannot use p (type person) as type fmt.Stringer in argument to printString:</span><br><span class="line">person does not implement fmt.Stringer (String method has pointer receiver)</span><br></pre></td></tr></table></figure><br>意思就是类型person没有实现Stringer接口。这就证明了以指针类型接收者实现接口的时候，只有对应的指针类型才被认为实现了该接口。</p>
 <p>表6-1总结了这两种接收者类型的接口实现规则。</p>
 <blockquote>
 <p>表6-1值类型接收者和指针类型接收者的接口实现规则</p>
@@ -587,8 +592,8 @@
 <p>这就是面向接口的编程，假设重构代码，哪怕换一个其他结构体实现error接口，对调用者也没有影响，因为接口没变。</p>
 <h1 id="继承和组合"><a href="#继承和组合" class="headerlink" title="继承和组合"></a><span style="color:#339AFF;">继承和组合</span></h1><p>在Go语言中没有继承的概念，所以结构体、接口之间也没有父子关系，Go语言提倡的是组合，利用组合达到代码复用的目的，这也更灵活。</p>
 <p>我同样以Go语言io标准包自带的接口为例，讲解类型的组合（也可以称之为嵌套），如下代码所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Reader <span class="keyword">interface</span> &#123;</span><br><span class="line">    Read(p []<span class="type">byte</span>) (n <span class="type">int</span>, err <span class="type">error</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">type</span> Writer <span class="keyword">interface</span> &#123;</span><br><span class="line">    Write(p []<span class="type">byte</span>) (n <span class="type">int</span>, err <span class="type">error</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ReadWriter是Reader和Writer的组合</span></span><br><span class="line"><span class="keyword">type</span> ReadWriter <span class="keyword">interface</span> &#123;</span><br><span class="line">    Reader</span><br><span class="line">    Writer</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>ReadWriter接口就是Reader和Writer的组合，组合后，ReadWriter接口具有Reader和Writer中的所有方法，这样新接口ReadWriter就不用定义自己的方法了，组合Reader和Writer的就可以了。</p>
-<p>不止接口可以组合，结构体也可以组合，现在把address结构体组合到结构体person中，而不是当成一个字段，如下所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> &#123;</span><br><span class="line">    name <span class="type">string</span></span><br><span class="line">    age <span class="type">uint</span></span><br><span class="line"></span><br><span class="line">    address</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>直接把结构体类型放进来，就是组合，不需要字段名。组合后，被组合的address称为内部类型，person称为外部类型。修改了person结构体后，声明和使用也需要一起修改，如下所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">p := person&#123;</span><br><span class="line">    age:<span class="number">30</span>,</span><br><span class="line">    name:<span class="string">&quot;飞雪无情&quot;</span>,</span><br><span class="line">    address:address&#123;</span><br><span class="line">        province: <span class="string">&quot;北京&quot;</span>, </span><br><span class="line">        city:     <span class="string">&quot;北京&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//像使用自己的字段一样，直接使用</span></span><br><span class="line">fmt.Println(p.province)</span><br></pre></td></tr></table></figure><br>因为person组合了address，所以address的字段就像person自己的一样，可以直接使用。</p>
-<p>类型组合后，外部类型不仅可以使用内部类型的字段，也可以使用内部类型的方法，就像使用自己的方法一样。如果外部类型定义了与内部类型同样的方法，那么外部类型会覆盖内部类型，这就是方法的覆写。关于方法的覆写，这里不再进行举例，你可以自己试一下。</p>
+<p>不止接口可以组合，结构体也可以组合，现在把address结构体组合到结构体person中，而不是当成一个字段，如下所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> &#123;</span><br><span class="line">    name <span class="type">string</span></span><br><span class="line">    age <span class="type">uint</span></span><br><span class="line"></span><br><span class="line">    address</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>直接把结构体类型放进来，就是组合，不需要字段名。组合后，被组合的address称为内部类型，person称为外部类型。修改了person结构体后，声明和使用也需要一起修改，如下所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">p := person&#123;</span><br><span class="line">    age: <span class="number">30</span>,</span><br><span class="line">    name: <span class="string">&quot;飞雪无情&quot;</span>,</span><br><span class="line">    address: address&#123;</span><br><span class="line">        province: <span class="string">&quot;北京&quot;</span>, </span><br><span class="line">        city:     <span class="string">&quot;北京&quot;</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//像使用自己的字段一样，直接使用</span></span><br><span class="line">fmt.Println(p.province)</span><br></pre></td></tr></table></figure><br>因为person组合了address，所以address的字段就像person自己的一样，可以直接使用。</p>
+<p>类型组合后，外部类型不仅可以使用内部类型的字段，也可以使用内部类型的方法，就像使用自己的方法一样。如果外部类型定义了与内部类型同样的方法，那么外部类型会覆盖内部类型，这就是方法的覆写。</p>
 <blockquote>
 <p>提示<br>方法覆写不会影响内部类型的方法实现。</p>
 </blockquote>
@@ -721,7 +726,7 @@
                 
                   <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1235</span>
+                    <span class="site-state-item-count">1234</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1102,7 +1107,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">133:58</span>
+    <span title="站点阅读时长">133:34</span>
   
 </div>
 
