@@ -110,15 +110,11 @@
 <meta property="og:site_name" content="车斌的技术博客">
 <meta property="og:description" content="思考并回答以下问题：">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://yoursite.com/2021/08/19/%E7%AC%AC8%E7%AB%A0-%E6%A0%87%E5%87%86%E5%BA%93/1.png">
-<meta property="og:image" content="http://yoursite.com/2021/08/19/%E7%AC%AC8%E7%AB%A0-%E6%A0%87%E5%87%86%E5%BA%93/2.png">
-<meta property="og:image" content="http://yoursite.com/2021/08/19/%E7%AC%AC8%E7%AB%A0-%E6%A0%87%E5%87%86%E5%BA%93/3.png">
 <meta property="article:published_time" content="2021-08-19T09:41:56.000Z">
-<meta property="article:modified_time" content="2023-03-18T09:22:26.772Z">
+<meta property="article:modified_time" content="2024-03-08T10:08:16.347Z">
 <meta property="article:author" content="CheBin">
 <meta property="article:tag" content="Go语言实战">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2021/08/19/%E7%AC%AC8%E7%AB%A0-%E6%A0%87%E5%87%86%E5%BA%93/1.png">
 
 
 
@@ -449,7 +445,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2023-03-18 17:22:26" itemprop="dateModified" datetime="2023-03-18T17:22:26+08:00">2023-03-18</time>
+                <time title="修改时间：2024-03-08 18:08:16" itemprop="dateModified" datetime="2024-03-08T18:08:16+08:00">2024-03-08</time>
               
             
           </span>
@@ -495,7 +491,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">48k</span>
+                <span title="本文字数">55k</span>
               
 
               
@@ -509,7 +505,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">44 分钟</span>
+                <span title="阅读时长">50 分钟</span>
               
             </div>
           
@@ -531,67 +527,8 @@
       
         <p>思考并回答以下问题：</p>
 <span id="more"></span>
-<p>【本章主要内容】</p>
-<ul>
-<li>输出数据以及记录日志</li>
-<li>对JSON进行编码和解码</li>
-<li>处理输入/输出，并以流的方式处理数据</li>
-<li>让标准库里多个包协同工作</li>
-</ul>
-<p>什么是Go标准库？为什么这个库这么重要？Go标准库是一组核心包，用来扩展和增强语言的能力。这些包为语言增加了大量不同的类型。开发人员可以直接使用这些类型，而不用再写自己的包或者去下载其他人发布的第三方包。由于这些包和语言绑在一起发布，它们会得到以下特殊的保证：</p>
-<ul>
-<li>每次语言更新，哪怕是小更新，都会带有标准库；</li>
-<li>这些标准库会严格遵守向后兼容的承诺；</li>
-<li>标准库是Go语言开发、构建、发布过程的一部分；</li>
-<li>标准库由Go的构建者们维护和评审；</li>
-<li>每次Go语言发布新版本时，标准库都会被测试，并评估性能。</li>
-</ul>
-<p>这些保证让标准库变得很特殊，开发人员应该尽量利用这些标准库。使用标准库里的包可以使管理代码变得更容易，并且保证代码的稳定。不用担心程序无法兼容不同的Go语言版本，也不用管理第三方依赖。</p>
-<p>如果标准库包含的包不够好用，那么这些好处实际上没什么用。Go语言社区的开发者会比其他语言的开发者更依赖这些标准库里的包的原因是，标准库本身是经过良好设计的，并且比其他语言的标准库提供了更多的功能。社区里的Go开发者会依赖这些标准库里的包做更多其他语言中开发者无法做的事情，例如，网络、HTTP、图像处理、加密等。</p>
-<p>本章中我们会大致了解标准库的一部分包。之后，我们会更详细地探讨3个非常有用的包：log、json和io。这些包也展示了Go语言提供的重要且有用的机制。</p>
-<h1 id="文档与源代码"><a href="#文档与源代码" class="headerlink" title="文档与源代码"></a><span style="color:#339AFF;">文档与源代码</span></h1><p>标准库里包含众多的包，不可能在一章内把这些包都讲一遍。目前，标准库里总共有超过100个包，这些包被分到38个类别里，如代码清单8-1所示。</p>
-<blockquote>
-<p>代码清单8-1 标准库里的顶级目录和包</p>
-</blockquote>
-<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">archive   bufio      bytes    compress   container  crypto  database</span><br><span class="line">debug     encoding   errors   expvar     flag       fmt     go</span><br><span class="line">hash      html       image    index      io         log     math</span><br><span class="line">mime      net        os       path       reflect    regexp  runtime</span><br><span class="line">sort      strconv    strings  sync       syscall    testing text</span><br><span class="line">time      unicode    unsafe</span><br></pre></td></tr></table></figure>
-<p>代码清单8-1里列出的许多分类本身就是一个包。如果想了解所有包以及更详细的描述，Go语言团队在网站上维护了一个文档，参见<a href="https://pkg.go.dev/std"><code>https://pkg.go.dev/std</code></a>。</p>
-<p>golang网站的pkg页面提供了每个包的godoc文档。图8-1展示了golang网站上io包的文档。</p>
-<blockquote>
-<p>图8-1 <a href="https://pkg.go.dev/io@go1.20.2#Writer"><code>https://pkg.go.dev/io@go1.20.2#Writer</code></a></p>
-</blockquote>
-<img src="/2021/08/19/%E7%AC%AC8%E7%AB%A0-%E6%A0%87%E5%87%86%E5%BA%93/1.png" class="">
-<p>如果想以交互的方式浏览文档，Sourcegraph索引了所有标准库的代码，以及大部分包含Go代码的公开库。图8-2是Sourcegraph网站的一个例子，展示的是io包的文档。</p>
-<blockquote>
-<p>图8-2 <a href="https://sourcegraph.com/github.com/golang/go/-/blob/src/io/io.go"><code>https://sourcegraph.com/github.com/golang/go/-/blob/src/io/io.go</code></a></p>
-</blockquote>
-<img src="/2021/08/19/%E7%AC%AC8%E7%AB%A0-%E6%A0%87%E5%87%86%E5%BA%93/2.png" class="">
-<p>不管用什么方式安装Go，标准库的源代码都会安装在$GOROOT/src/pkg文件夹中。拥有标准库的源代码对Go工具正常工作非常重要。类似godoc、gocode甚至go build这些工具，都需要读取标准库的源代码才能完成其工作。如果源代码没有安装在以上文件夹中，或者无法通过$GOROOT变量访问，在试图编译程序时会产生错误。</p>
-<p>作为Go发布包的一部分，标准库的源代码是经过预编译的。这些预编译后的文件，称作归档文件（archive file），可以在$GOROOT/pkg文件夹中找到已经安装的各目标平台和操作系统的归档文件。在图8-3里，可以看到扩展名是.a的文件，这些就是归档文件。</p>
-<blockquote>
-<p>图8-3 pkg文件夹中的归档文件的文件夹的视图</p>
-</blockquote>
-<img src="/2021/08/19/%E7%AC%AC8%E7%AB%A0-%E6%A0%87%E5%87%86%E5%BA%93/3.png" class="">
-<p>这些文件是特殊的Go静态库文件，由Go的构建工具创建，并在编译和链接最终程序时被使用。归档文件可以让构建的速度更快。但是在构建的过程中，没办法指定这些文件，所以没办法与别人共享这些文件。Go工具链知道什么时候可以使用已有的.a文件，什么时候需要从机器上的源代码重新构建。</p>
-<p>有了这些背景知识，让我们看一下标准库里的几个包，看看如何用这些包来构建自己的程序。</p>
-<h1 id="记录日志"><a href="#记录日志" class="headerlink" title="记录日志"></a><span style="color:#339AFF;">记录日志</span></h1><p>即便没有表现出来，你的程序依旧可能有bug。这在软件开发里是很自然的事情。日志是一种找到这些bug，更好地了解程序工作状态的方法。日志是开发人员的眼睛和耳朵，可以用来跟踪、调试和分析代码。基于此，标准库提供了log包，可以对日志做一些最基本的配置。根据特殊需要，开发人员还可以自己定制日志记录器。</p>
-<p>在UNIX里，日志有很长的历史。这些积累下来的经验都体现在log包的设计里。传统的CLI（命令行界面）程序直接将输出写到名为stdout的设备上。所有的操作系统上都有这种设备，这种设备的默认目的地是标准文本输出。默认设置下，终端会显示这些写到stdout设备上的文本。这种单个目的地的输出用起来很方便，不过你总会碰到需要同时输出程序信息和输出执行细节的情况。这些执行细节被称作日志。当想要记录日志时，你希望能写到不同的目的地，这样就不会将程序的输出和日志混在一起了。</p>
-<p>为了解决这个问题，UNIX架构上增加了一个叫作stderr的设备。这个设备被创建为日志的默认目的地。这样开发人员就能将程序的输出和日志分离开来。如果想在程序运行时同时看到程序输出和日志，可以将终端配置为同时显示写到stdout和stderr的信息。不过，如果用户的程序只记录日志，没有程序输出，更常用的方式是将一般的日志信息写到stdout，将错误或者警告信息写到stderr。</p>
-<h2 id="log包"><a href="#log包" class="headerlink" title="log包"></a><span style="color:#00ACC1;">log包</span></h2><p>让我们从log包提供的最基本的功能开始，之后再学习如何创建定制的日志记录器。记录日志的目的是跟踪程序什么时候在什么位置做了什么。这就需要通过某些配置在每个日志项上要写的一些信息，如代码清单8-2所示。</p>
-<blockquote>
-<p>代码清单8-2 跟踪日志的样例</p>
-</blockquote>
+<h1 id="log包"><a href="#log包" class="headerlink" title="log包"></a><span style="color:#00ACC1;">log包</span></h1><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这个示例程序展示如何使用最基本的log包</span></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;log&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    log.SetPrefix(<span class="string">&quot;TRACE: &quot;</span>)</span><br><span class="line">    log.SetFlags(log.Ldate | log.Lmicroseconds | log.Llongfile)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// Println写到标准日志记录器</span></span><br><span class="line">    log.Println(<span class="string">&quot;message&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Fatalln 在调用 Println()之后会接着调用 os.Exit(1)</span></span><br><span class="line">    log.Fatalln(<span class="string">&quot;fatal message&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Panicln 在调用 Println()之后会接着调用 panic()</span></span><br><span class="line">    log.Panicln(<span class="string">&quot;panic message&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TRACE: 2009/11/10 23:00:00.000000 /tmpfs/gosandbox-/prog.go:14: message</span><br></pre></td></tr></table></figure>
-<p>在代码清单8-2中，可以看到一个由log包产生的日志项。这个日志项包含前缀、日期时间戳、该日志具体是由哪个源文件记录的、源文件记录日志所在行，最后是日志消息。让我们看一下如何配置log包来输出这样的日志项，如代码清单8-3所示。</p>
-<blockquote>
-<p>代码清单8-3 listing03.go</p>
-</blockquote>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这个示例程序展示如何使用最基本的log包</span></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;log&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    log.SetPrefix(<span class="string">&quot;TRACE: &quot;</span>)</span><br><span class="line">    log.SetFlags(log.Ldate | log.Lmicroseconds | log.Llongfile)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// Println写到标准日志记录器</span></span><br><span class="line">    log.Println(<span class="string">&quot;message&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Fatalln 在调用 Println()之后会接着调用 os.Exit(1)</span></span><br><span class="line">    log.Fatalln(<span class="string">&quot;fatal message&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Panicln 在调用 Println()之后会接着调用 panic()</span></span><br><span class="line">    log.Panicln(<span class="string">&quot;panic message&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果执行代码清单8-3中的程序，输出的结果会和代码清单8-2所示的输出类似。让我们分析一下代码清单8-4中的代码，看看它是如何工作的。</p>
-<blockquote>
-<p>代码清单8-4 listing03.go：第08行到第11行</p>
-</blockquote>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    log.SetPrefix(<span class="string">&quot;TRACE: &quot;</span>)</span><br><span class="line">    log.SetFlags(log.Ldate | log.Lmicroseconds | log.Llongfile)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在第08行到第11行，定义的函数名为init（）。这个函数会在运行main（）之前作为程序初始化的一部分执行。通常程序会在这个init（）函数里配置日志参数，这样程序一开始就能使用log包进行正确的输出。在这段程序的第9行，设置了一个字符串，作为每个日志项的前缀。这个字符串应该是能让用户从一般的程序输出中分辨出日志的字符串。传统上这个字符串的字符会全部大写。</p>
 <p>有几个和log包相关联的标志，这些标志用来控制可以写到每个日志项的其他信息。代码清单8-5展示了目前包含的所有标志。</p>
 <blockquote>
 <p>代码清单8-5 golang.org/src/log/log.go</p>
@@ -692,18 +629,16 @@
 <figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 <h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a><span style="color:#00ACC1;">结论</span></h2><p>log包的实现，是基于对记录日志这个需求长时间的实践和积累而形成的。将输出写到stdout，将日志记录到stderr，是很多基于命令行界面（CLI）的程序的惯常使用的方法。不过如果你的程序只输出日志，那么使用stdout、stderr和文件来记录日志是很好的做法。</p>
 <p>标准库的log包包含了记录日志需要的所有功能，推荐使用这个包。我们可以完全信任这个包的实现，不仅仅是因为它是标准库的一部分，而且社区也广泛使用它。</p>
-<h1 id="编码-解码"><a href="#编码-解码" class="headerlink" title="编码/解码"></a><span style="color:#339AFF;">编码/解码</span></h1><p>许多程序都需要处理或者发布数据，不管这个程序是要使用数据库，进行网络调用，还是与分布式系统打交道。如果程序需要处理XML或者JSON，可以使用标准库里名为xml和json的包，它们可以处理这些格式的数据。如果想实现自己的数据格式的编解码，可以将这些包的实现作为指导。</p>
-<p>在今天，JSON远比XML流行。这主要是因为与XML相比，使用JSON需要处理的标签更少。而这就意味着网络传输时每个消息的数据更少，从而提升整个系统的性能。而且，JSON可以转换为BSON（BinaryJavaScriptObjectNotation，二进制JavaScript对象标记），进一步缩小每个消息的数据长度。因此，我们会学习如何在Go应用程序里处理并发布JSON。处理XML的方法也很类似。</p>
-<h2 id="解码JSON"><a href="#解码JSON" class="headerlink" title="解码JSON"></a><span style="color:#00ACC1;">解码JSON</span></h2><p>我们要学习的处理JSON的第一个方面是，使用json包的NewDecoder函数以及Decode方法进行解码。如果要处理来自网络响应或者文件的JSON，那么一定会用到这个函数及方法。让我们来看一个处理Get请求响应的JSON的例子，这个例子使用http包获取Google搜索API返回的JSON。代码清单8-23展示了这个响应的内容。</p>
+<h1 id="编码-解码"><a href="#编码-解码" class="headerlink" title="编码/解码"></a><span style="color:#339AFF;">编码/解码</span></h1><h2 id="解码JSON"><a href="#解码JSON" class="headerlink" title="解码JSON"></a><span style="color:#00ACC1;">解码JSON</span></h2><p>我们要学习的处理JSON的第一个方面是，使用json包的NewDecoder函数以及Decode方法进行解码。如果要处理来自网络响应或者文件的JSON，那么一定会用到这个函数及方法。让我们来看一个处理Get请求响应的JSON的例子，这个例子使用http包获取API返回的JSON。代码清单8-23展示了这个响应的内容。</p>
 <blockquote>
-<p>代码清单8-23 Google搜索API的JSON响应例子</p>
+<p>代码清单8-23 API的JSON响应例子</p>
 </blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;net/http&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> json = <span class="string">`&#123;</span></span><br><span class="line"><span class="string">    &quot;responseData&quot;: &#123;</span></span><br><span class="line"><span class="string">        &quot;results&quot;: [</span></span><br><span class="line"><span class="string">            &#123;</span></span><br><span class="line"><span class="string">                &quot;GsearchResultClass&quot;: &quot;GwebSearch&quot;,</span></span><br><span class="line"><span class="string">                &quot;unescapedUrl&quot;: &quot;https://www.reddit.com/r/golang&quot;,</span></span><br><span class="line"><span class="string">                &quot;url&quot;: &quot;https://www.reddit.com/r/golang&quot;,</span></span><br><span class="line"><span class="string">                &quot;visibleUrl&quot;: &quot;www.reddit.com&quot;,</span></span><br><span class="line"><span class="string">                &quot;cacheUrl&quot;: &quot;http://www.google.com/search?q=cache:W...&quot;,</span></span><br><span class="line"><span class="string">                &quot;title&quot;: &quot;r/\u003cb\u003eGolang\u003c/b\u003e - Reddit&quot;,</span></span><br><span class="line"><span class="string">                &quot;titleNoFormatting&quot;: &quot;r/Golang - Reddit&quot;,</span></span><br><span class="line"><span class="string">                &quot;content&quot;: &quot;First Open Source...&quot;</span></span><br><span class="line"><span class="string">            &#125;,</span></span><br><span class="line"><span class="string">            &#123;</span></span><br><span class="line"><span class="string">                &quot;GsearchResultClass&quot;: &quot;GwebSearch&quot;,</span></span><br><span class="line"><span class="string">                &quot;unescapedUrl&quot;: &quot;http://tour.golang.org/&quot;,</span></span><br><span class="line"><span class="string">                &quot;url&quot;: &quot;http://tour.golang.org/&quot;,</span></span><br><span class="line"><span class="string">                &quot;visibleUrl&quot;: &quot;tour.golang.org&quot;,</span></span><br><span class="line"><span class="string">                &quot;cacheUrl&quot;: &quot;http://www.google.com/search?q=cache:0...&quot;,</span></span><br><span class="line"><span class="string">                &quot;title&quot;: &quot;A Tour of Go&quot;,</span></span><br><span class="line"><span class="string">                &quot;titleNoFormatting&quot;: &quot;A Tour of Go&quot;,</span></span><br><span class="line"><span class="string">                &quot;content&quot;: &quot;Welcome to a tour of the Go programming...&quot;</span></span><br><span class="line"><span class="string">            &#125;</span></span><br><span class="line"><span class="string">        ]</span></span><br><span class="line"><span class="string">    &#125;</span></span><br><span class="line"><span class="string">&#125;`</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    http.HandleFunc(<span class="string">&quot;/&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</span><br><span class="line">        w.Header().Set(<span class="string">&quot;Content-Type&quot;</span>, <span class="string">&quot;application/json&quot;</span>)</span><br><span class="line">        w.Write([]<span class="type">byte</span>(json))</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    http.ListenAndServe(<span class="string">&quot;:8080&quot;</span>, <span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>代码清单8-24给出的是如何获取响应并将其解码到一个结构类型里的例子。</p>
 <blockquote>
 <p>代码清单8-24 listing24.go</p>
 </blockquote>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// This sample program demonstrates how to decode a JSON response</span></span><br><span class="line"><span class="comment">// using the json package and NewDecoder function.</span></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;encoding/json&quot;</span></span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;log&quot;</span></span><br><span class="line">    <span class="string">&quot;net/http&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> (</span><br><span class="line">    <span class="comment">// gResult maps to the result document received from the search.</span></span><br><span class="line">    gResult <span class="keyword">struct</span> &#123;</span><br><span class="line">        GsearchResultClass <span class="type">string</span> <span class="string">`json:&quot;GsearchResultClass&quot;`</span></span><br><span class="line">        UnescapedURL       <span class="type">string</span> <span class="string">`json:&quot;unescapedUrl&quot;`</span></span><br><span class="line">        URL                <span class="type">string</span> <span class="string">`json:&quot;url&quot;`</span></span><br><span class="line">        VisibleURL         <span class="type">string</span> <span class="string">`json:&quot;visibleUrl&quot;`</span></span><br><span class="line">        CacheURL           <span class="type">string</span> <span class="string">`json:&quot;cacheUrl&quot;`</span></span><br><span class="line">        Title              <span class="type">string</span> <span class="string">`json:&quot;title&quot;`</span></span><br><span class="line">        TitleNoFormatting  <span class="type">string</span> <span class="string">`json:&quot;titleNoFormatting&quot;`</span></span><br><span class="line">        Content            <span class="type">string</span> <span class="string">`json:&quot;content&quot;`</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// gResponse contains the top level document.</span></span><br><span class="line">    gResponse <span class="keyword">struct</span> &#123;</span><br><span class="line">        ResponseData <span class="keyword">struct</span> &#123;</span><br><span class="line">            Results []gResult <span class="string">`json:&quot;results&quot;`</span></span><br><span class="line">        &#125; <span class="string">`json:&quot;responseData&quot;`</span></span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    uri := <span class="string">&quot;http://ajax.googleapis.com/ajax/services/search/web?v=1.0&amp;rsz=8&amp;q=golang&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Issue the search against Google.</span></span><br><span class="line">    resp, err := http.Get(uri)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Println(<span class="string">&quot;ERROR:&quot;</span>, err)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">defer</span> resp.Body.Close()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Decode the JSON response into our struct type.</span></span><br><span class="line">    <span class="keyword">var</span> gr gResponse</span><br><span class="line">    err = json.NewDecoder(resp.Body).Decode(&amp;gr)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Println(<span class="string">&quot;ERROR:&quot;</span>, err)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fmt.Println(gr)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Marshal the struct type into a pretty print</span></span><br><span class="line">    <span class="comment">// version of the JSON document.</span></span><br><span class="line">    pretty, err := json.MarshalIndent(gr, <span class="string">&quot;&quot;</span>, <span class="string">&quot;    &quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Println(<span class="string">&quot;ERROR:&quot;</span>, err)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fmt.Println(<span class="type">string</span>(pretty))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>代码清单8-24中代码的第37行，展示了程序做了一个HTTPGet调用，希望从Google得到一个JSON文档。之后，在第46行使用NewDecoder函数和Decode方法，将响应返回的JSON文档解码到第26行声明的一个结构类型的变量里。在第52行，将这个变量的值写到stdout。</p>
 <p>如果仔细看第26行和第14行的gResponse和gResult的类型声明，你会注意到每个字段最后使用单引号声明了一个字符串。这些字符串被称作标签（tag），是提供每个字段的元信息的一种机制，将JSON文档和结构类型里的字段一一映射起来。如果不存在标签，编码和解码过程会试图以大小写无关的方式，直接使用字段的名字进行匹配。如果无法匹配，对应的结构类型里的字段就包含其零值。</p>
 <p>执行HTTPGet调用和解码JSON到结构类型的具体技术细节都由标准库包办了。让我们看一下标准库里NewDecoder函数和Decode方法的声明，如代码清单8-25所示。</p>
@@ -712,13 +647,14 @@
 </blockquote>
 <figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
 <p>在代码清单8-25中可以看到NewDecoder函数接受一个实现了io.Reader接口类型的值作为参数。在下一节，我们会更详细地介绍io.Reader和io.Writer接口，现在只需要知道标准库里的许多不同类型，包括http包里的一些类型，都实现了这些接口就行。只要类型实现了这些接口，就可以自动获得许多功能的支持。</p>
-<p>函数NewDecoder返回一个指向Decoder类型的指针值。由于Go语言支持复合语句调用，可以直接调用从NewDecoder函数返回的值的Decode方法，而不用把这个返回值存入变量。在代码清单8-25里，可以看到Decode方法接受一个interface{}类型的值做参数，并返回一个error值。<br>在第5章中曾讨论过，任何类型都实现了一个空接口interface{}。这意味着Decode方法可以接受任意类型的值。使用反射，Decode方法会拿到传入值的类型信息。然后，在读取JSON响应的过程中，Decode方法会将对应的响应解码为这个类型的值。这意味着用户不需要创建对应的值，Decode会为用户做这件事情，如代码清单8-26所示。</p>
+<p>函数NewDecoder返回一个指向Decoder类型的指针值。由于Go语言支持复合语句调用，可以直接调用从NewDecoder函数返回的值的Decode方法，而不用把这个返回值存入变量。在代码清单8-25里，可以看到Decode方法接受一个interface{}类型的值做参数，并返回一个error值。</p>
+<p>在第5章中曾讨论过，任何类型都实现了一个空接口interface{}。这意味着Decode方法可以接受任意类型的值。使用反射，Decode方法会拿到传入值的类型信息。然后，在读取JSON响应的过程中，Decode方法会将对应的响应解码为这个类型的值。这意味着用户不需要创建对应的值，Decode会为用户做这件事情，如代码清单8-26所示。</p>
 <p>在代码清单8-26中，我们向Decode方法传入了指向gResponse类型的指针变量的地址，而这个地址的实际值为nil。该方法调用后，这个指针变量会被赋给一个gResponse类型的值，并根据解码后的JSON文档做初始化。</p>
 <blockquote>
 <p>代码清单8-26 使用Decode方法</p>
 </blockquote>
 <figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-<p>有时，需要处理的JSON文档会以string的形式存在。在这种情况下，需要将string转换为byte切片（[]byte），并使用json包的Unmarshal函数进行反序列化的处理，如代码清单8-27所示。</p>
+<p>有时，需要处理的JSON文档会以string的形式存在。在这种情况下，需要将string转换为byte切片（<code>[]byte</code>），并使用json包的Unmarshal函数进行反序列化的处理，如代码清单8-27所示。</p>
 <blockquote>
 <p>代码清单8-27 listing27.go</p>
 </blockquote>
@@ -743,8 +679,8 @@
 <blockquote>
 <p>代码清单8-31 listing31.go</p>
 </blockquote>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure>
-<p>将这个映射序列化到JSON字符串<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>代码清单8-31展示了如何使用json包的MarshalIndent函数将一个map值转换为JSON字符串。函数MarshalIndent返回一个byte切片，用来保存JSON字符串和一个error值。下面来看一下json包中MarshalIndent函数的声明，如代码清单8-32所示。</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>代码清单8-31展示了如何使用json包的MarshalIndent函数将一个map值转换为JSON字符串。函数MarshalIndent返回一个byte切片，用来保存JSON字符串和一个error值。下面来看一下json包中MarshalIndent函数的声明，如代码清单8-32所示。</p>
 <blockquote>
 <p>代码清单8-32 golang.org/src/encoding/json/encode.go</p>
 </blockquote>
@@ -970,7 +906,7 @@
                 
                   <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1234</span>
+                    <span class="site-state-item-count">1230</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -1045,7 +981,9 @@
                     
                       
                     
-                    <span class="site-state-item-count">29</span>
+                      
+                    
+                    <span class="site-state-item-count">30</span>
                     <span class="site-state-item-name">分类</span>
                   </a>
                 </div>
@@ -1305,7 +1243,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E4%B8%8E%E6%BA%90%E4%BB%A3%E7%A0%81"><span class="nav-number">1.</span> <span class="nav-text">文档与源代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%B0%E5%BD%95%E6%97%A5%E5%BF%97"><span class="nav-number">2.</span> <span class="nav-text">记录日志</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#log%E5%8C%85"><span class="nav-number">2.1.</span> <span class="nav-text">log包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E5%88%B6%E7%9A%84%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E5%99%A8"><span class="nav-number">2.2.</span> <span class="nav-text">定制的日志记录器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">2.3.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%96%E7%A0%81-%E8%A7%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">编码&#x2F;解码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E7%A0%81JSON"><span class="nav-number">3.1.</span> <span class="nav-text">解码JSON</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E7%A0%81JSON"><span class="nav-number">3.2.</span> <span class="nav-text">编码JSON</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-1"><span class="nav-number">3.3.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E5%92%8C%E8%BE%93%E5%87%BA"><span class="nav-number">4.</span> <span class="nav-text">输入和输出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Writer%E5%92%8CReader%E6%8E%A5%E5%8F%A3"><span class="nav-number">4.1.</span> <span class="nav-text">Writer和Reader接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E5%90%88%E5%B9%B6%E5%AE%8C%E6%88%90%E5%B7%A5%E4%BD%9C"><span class="nav-number">4.2.</span> <span class="nav-text">整合并完成工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E7%9A%84curl"><span class="nav-number">4.3.</span> <span class="nav-text">简单的curl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-2"><span class="nav-number">4.4.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#log%E5%8C%85"><span class="nav-number">1.</span> <span class="nav-text">log包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E5%88%B6%E7%9A%84%E6%97%A5%E5%BF%97%E8%AE%B0%E5%BD%95%E5%99%A8"><span class="nav-number">1.1.</span> <span class="nav-text">定制的日志记录器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA"><span class="nav-number">1.2.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%96%E7%A0%81-%E8%A7%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">编码&#x2F;解码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E7%A0%81JSON"><span class="nav-number">2.1.</span> <span class="nav-text">解码JSON</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E7%A0%81JSON"><span class="nav-number">2.2.</span> <span class="nav-text">编码JSON</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-1"><span class="nav-number">2.3.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E5%92%8C%E8%BE%93%E5%87%BA"><span class="nav-number">3.</span> <span class="nav-text">输入和输出</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Writer%E5%92%8CReader%E6%8E%A5%E5%8F%A3"><span class="nav-number">3.1.</span> <span class="nav-text">Writer和Reader接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B4%E5%90%88%E5%B9%B6%E5%AE%8C%E6%88%90%E5%B7%A5%E4%BD%9C"><span class="nav-number">3.2.</span> <span class="nav-text">整合并完成工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E7%9A%84curl"><span class="nav-number">3.3.</span> <span class="nav-text">简单的curl</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E8%AE%BA-2"><span class="nav-number">3.4.</span> <span class="nav-text">结论</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">小结</span></a></li></ol></div>
             
 
           </div>
@@ -1351,7 +1289,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">133:34</span>
+    <span title="站点阅读时长">132:51</span>
   
 </div>
 
