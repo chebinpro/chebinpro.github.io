@@ -381,7 +381,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/12/01-Mutex%EF%BC%9A%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E8%B5%84%E6%BA%90%E5%B9%B6%E5%8F%91%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98%EF%BC%9F/"/>
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/13/MySQL%E7%9A%84LIMIT%E8%BF%99%E4%B9%88%E5%B7%AE%E5%8A%B2%E7%9A%84%E5%90%97/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="CheBin"/>
@@ -401,7 +401,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2022/09/12/01-Mutex%EF%BC%9A%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E8%B5%84%E6%BA%90%E5%B9%B6%E5%8F%91%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98%EF%BC%9F/" class="post-title-link" itemprop="url">01 | Mutex：如何解决资源并发访问问题？</a>
+                <a href="/2022/06/13/MySQL%E7%9A%84LIMIT%E8%BF%99%E4%B9%88%E5%B7%AE%E5%8A%B2%E7%9A%84%E5%90%97/" class="post-title-link" itemprop="url">MySQL的LIMIT这么差劲的吗</a>
               
             
           </h1>
@@ -429,7 +429,7 @@
                 
               
 
-              <time title="创建时间：2022-09-12 16:05:11" itemprop="dateCreated datePublished" datetime="2022-09-12T16:05:11+08:00">2022-09-12</time>
+              <time title="创建时间：2022-06-13 10:40:06" itemprop="dateCreated datePublished" datetime="2022-06-13T10:40:06+08:00">2022-06-13</time>
             
 
             
@@ -446,883 +446,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2023-02-28 09:42:10" itemprop="dateModified" datetime="2023-02-28T09:42:10+08:00">2023-02-28</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">26k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">24 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>思考并回答以下问题：</p>
-<ul>
-<li>在并发编程中，如果程序中的一部分会被并发访问或修改，那么，为了避免并发访问导致的意想不到的结果，这部分程序需要被保护起来，这部分被保护起来的程序，就叫做临界区。怎么理解？</li>
-<li>互斥锁Mutex就提供两个方法Lock和Unlock：进入临界区之前调用Lock方法，退出临界区的时候调用Unlock方法。怎么使用？</li>
-<li>因为不是原子操作，就可能有并发的问题。怎么理解？</li>
-</ul>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2022/09/12/01-Mutex%EF%BC%9A%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3%E8%B5%84%E6%BA%90%E5%B9%B6%E5%8F%91%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98%EF%BC%9F/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/12/%E5%BC%80%E7%AF%87%E8%AF%8D-%E6%83%B3%E5%90%83%E9%80%8FGo%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%8C%E4%BD%A0%E5%BE%97%E8%BF%99%E6%A0%B7%E5%AD%A6%EF%BC%81/"/>
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin"/>
-      <meta itemprop="description" content="参与开源才是出路"/>
-      <meta itemprop="image" content="/images/avatar.jpg"/>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客"/>
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2022/09/12/%E5%BC%80%E7%AF%87%E8%AF%8D-%E6%83%B3%E5%90%83%E9%80%8FGo%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%8C%E4%BD%A0%E5%BE%97%E8%BF%99%E6%A0%B7%E5%AD%A6%EF%BC%81/" class="post-title-link" itemprop="url">开篇词 | 想吃透Go并发编程，你得这样学！</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2022-09-12 16:05:00" itemprop="dateCreated datePublished" datetime="2022-09-12T16:05:00+08:00">2022-09-12</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2022-12-31 11:26:34" itemprop="dateModified" datetime="2022-12-31T11:26:34+08:00">2022-12-31</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">4.1k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">4 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="并发编程，为什么选Go？"><a href="#并发编程，为什么选Go？" class="headerlink" title="并发编程，为什么选Go？"></a><span style="color:#339AFF;">并发编程，为什么选Go？</span></h1><p><a href="https://github.com/smallnest/rpcx">微服务框架rpcx</a>，它既有类似标准rpc库的易用特点，又包含了非常丰富的服务治理的功能。<a href="https://colobu.com/2020/01/21/benchmark-2019-spring-of-popular-rpc-frameworks/">benchmark测试</a>。</p>
-<p><a href="https://github.com/smallnest/dive-to-gosync-workshop/files/6732617/Go.pptx">Go并发编程PPT</a>，全面地介绍了Go并发编程的基础内容，包括基本并发原语、扩展并发原语和Channel等。</p>
-<p>结合我自己的开发经验，以及这些年的技术分享经历，我真切地感受到了这一点：<strong>Go并发编程的重要性不容置疑。只要是使用Go开发的大型应用程序，并发是必然要采用的技术。</strong></p>
-<h1 id="学习Go并发编程，有哪些困难？"><a href="#学习Go并发编程，有哪些困难？" class="headerlink" title="学习Go并发编程，有哪些困难？"></a><span style="color:#339AFF;">学习Go并发编程，有哪些困难？</span></h1><p>那学习Go并发会有哪些困难呢？我总结了一下，主要是有5大问题。</p>
-<p>1，在面对并发难题时，感觉无从下手，不知道<strong>该用什么并发原语来解决问题</strong>。</p>
-<p>2，如果多个并发原语都可以解决问题，那么，<strong>究竟哪个是最优解呢？</strong>比如说是用互斥锁，还是用Channel。</p>
-<p>3，<strong>不知道如何编排并发任务</strong>。并发编程不像是传统的串行编程，程序的运行存在着很大的不确定性。这个时候，就会面临一个问题，怎么才能让相应的任务按照你设想的流程运行呢？</p>
-<p>4，有时候，按照正常理解的并发方式去实现的程序，结果莫名其妙就panic或者死锁了，<strong>排查起来非常困难</strong>。</p>
-<p>5，<strong>已知的并发原语都不能解决并发问题</strong>，程序写起来异常复杂，而且代码混乱，容易出错。</p>
-<p>每一位刚入门Go的程序员，在深入学习Go语言的时候，尤其是面对Go并发编程的时候，都会遇到这些问题。那么，具体该怎么学呢？</p>
-<h1 id="怎么提升Go并发编程能力？"><a href="#怎么提升Go并发编程能力？" class="headerlink" title="怎么提升Go并发编程能力？"></a><span style="color:#339AFF;">怎么提升Go并发编程能力？</span></h1><p>学习这件事儿，最怕的就是不成体系，即使知识点之间是彼此独立的，也必定存在着联系。我们要做的，就是找出逻辑关系，拎出知识线。我认为，<strong>关于Go并发编程，有两条主线，分别是知识主线和学习主线</strong>。具体是啥意思呢？可以看下面的这张知识地图。</p>
-<img src="/2022/09/12/%E5%BC%80%E7%AF%87%E8%AF%8D-%E6%83%B3%E5%90%83%E9%80%8FGo%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%8C%E4%BD%A0%E5%BE%97%E8%BF%99%E6%A0%B7%E5%AD%A6%EF%BC%81/1.webp" class="">
-<p>从图中可以看到，在知识主线层面，这门课程的核心内容设计了5个模块：</p>
-<ul>
-<li><strong>基本并发原语</strong>：在这部分，我会介绍Mutex、RWMutex、Waitgroup、Cond、Pool、Context等标准库中的并发原语，这些都是传统的并发原语，在其它语言中也很常见，是我们在并发编程中常用的类型。</li>
-<li><strong>原子操作</strong>：在这部分，我会介绍Go标准库中提供的原子操作。原子操作是其它并发原语的基础，学会了你就可以自己创造新的并发原语。</li>
-<li><strong>Channel</strong>：Channel类型是Go语言独特的类型，因为比较新，所以难以掌握。但是别怕，我会带你全方位地学习Channel类型，你不仅能掌握它的基本用法，而且还能掌握它的处理场景和应用模式，避免踩坑。</li>
-<li><strong>扩展并发原语</strong>：目前来看，Go开发组不准备在标准库中扩充并发原语了，但是还有一些并发原语应用广泛，比如信号量、SingleFlight、循环栅栏、ErrGroup等。掌握了它们，就可以在处理一些并发问题时，取得事半功倍的效果。</li>
-<li><strong>分布式并发原语</strong>：分布式并发原语是应对大规模的应用程序中并发问题的并发类型。我主要会介绍使用etcd实现的一些分布式并发原语，比如Leader选举、分布式互斥锁、分布式读写锁、分布式队列等，在处理分布式场景的并发问题时，特别有用。</li>
-</ul>
-<img src="/2022/09/12/%E5%BC%80%E7%AF%87%E8%AF%8D-%E6%83%B3%E5%90%83%E9%80%8FGo%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%8C%E4%BD%A0%E5%BE%97%E8%BF%99%E6%A0%B7%E5%AD%A6%EF%BC%81/2.webp" class="">
-<p>沿着这条知识主线，我会带你<span style="color:red">建立起一个丰富的并发原语</span>。你可以把并发问题当成一个强大的敌人，而这些并发原语，就是我们的武器。每一种并发原语都有它的用处，你只有知道足够多的并发原语，才能灵活地应对各种场景。</p>
-<p>那具体怎么掌握这些武器呢？课程的每一个模块都是独立的，它们之间没有任何依赖问题，你可以结合自己的实际情况，有重点地进行学习。如果你对Channel类型不是太熟悉，就可以先看Channel这个模块的内容；如果你已经非常熟悉标准库的并发原语了，就可以看看扩展并发原语和分布式并发原语的内容。</p>
-<p>同时，在学习主线层面，主要是<strong>四大步骤，包括基础用法、实现原理、易错场景、知名项目中的Bug</strong>。每一个模块，我都会带着你按照这四个步骤来学习，目的就是带你<span style="color:red">熟知每一种并发原语的实现机制和适用场景</span>。</p>
-<p>Go中有一个大的方向，就是任务编排用Channel，共享资源保护用传统并发原语。在刚开始学习时，你可以基于这个原则去选择相应的并发原语，这是没错的。但是，如果你想要在Go并发编程的道路上向前走，就不能局限于这个原则。</p>
-<p>实际上，针对同一种场景，也许存在很多并发原语都适用的情况，但是一定是有最合适的那一个。所以，你必须非常清楚每种并发原语的实现机制和适用场景，千万不要被网上的一些文章误导，万事皆用Channel。</p>
-<p>而且，你还可以深入学习下Go并发原语的源代码。你会发现很多独到的设计，比如Mutex为了公平性考量的设计、<code>sync.Map</code>为提升性能做的设计，以及很多并发原语的异常状况的处理方式。尤其是这些异常状况，常常是并发编程中程序panic的原因。</p>
-<p>所以，如果你能深入了解这些并发原语的实现，不但会提高你的编程能力，还能让你避免在开发中踩并发问题的坑。这个时候，你就达到精通的程度了。</p>
-<p>如果没有做过大型并发项目，你可能还不太清楚并发原语的重要性。那么，我建议你先阅读一下课程中介绍的知名项目中犯的错，这也是这门课里我特别设计的一部分内容。通过理解这些Go大牛们犯的错误以及解决方案，你就可以积累一套避坑指南和应对之道。</p>
-<p>有了这两条线的学习，我们就从广度和深度上掌握了Go并发编程的知识点。这些是不是就足够了呢？我们还可以更进一步，<span style="color:red">你要有野心能够创造出自己需要的并发原语</span>。</p>
-<p>这里的创造有两层含义。第一层是对既有的并发原语进行组合，使用两个、三个或者更多的并发原语去解决问题。比如说，我们可以通过信号量和WaitGroup组合成一个新的并发原语，这个并发原语可以使用有限个goroutine并发处理子任务。第二层含义是“无中生有”，根据已经掌握的并发原语的设计经验，创造出合适的新的并发原语，以应对一些特殊的并发问题。比如说，标准库中并没有信号量，你可以自己创造出这个类型。</p>
-<p>达到了这一层，那就不得了了，可以说你对Go并发原语的掌握已经出神入化了。那想要达到这个程度是不是很难呢？确实不容易，不过我相信，如果你仔细学习了我们课程里的每一节课，心里牢牢地锚定3个目标：建立起一个丰富的并发原语库；熟知每一种并发原语的实现机制和适用场景；能够创造出自己需要的并发原语。达到了这3个目标，你就可以轻松地应对各种并发问题了。</p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/12/%E7%BB%93%E8%AF%BE%E6%B5%8B%E8%AF%95%EF%BD%9C%E8%BF%99%E4%BA%9BMySQL%E7%9F%A5%E8%AF%86%E4%BD%A0%E9%83%BD%E6%8E%8C%E6%8F%A1%E4%BA%86%E5%90%97%EF%BC%9F/"/>
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin"/>
-      <meta itemprop="description" content="参与开源才是出路"/>
-      <meta itemprop="image" content="/images/avatar.jpg"/>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客"/>
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2022/09/12/%E7%BB%93%E8%AF%BE%E6%B5%8B%E8%AF%95%EF%BD%9C%E8%BF%99%E4%BA%9BMySQL%E7%9F%A5%E8%AF%86%E4%BD%A0%E9%83%BD%E6%8E%8C%E6%8F%A1%E4%BA%86%E5%90%97%EF%BC%9F/" class="post-title-link" itemprop="url">结课测试｜这些MySQL知识你都掌握了吗？</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2022-09-12 10:01:56 / 修改时间：10:02:05" itemprop="dateCreated datePublished" datetime="2022-09-12T10:01:56+08:00">2022-09-12</time>
-            
-
-            
-              
-
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">82</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">1 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>思考并回答以下问题：</p>
-<ul>
-<li>总结一下，这章作者最主要想表达什么观点？</li>
-</ul>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2022/09/12/%E7%BB%93%E8%AF%BE%E6%B5%8B%E8%AF%95%EF%BD%9C%E8%BF%99%E4%BA%9BMySQL%E7%9F%A5%E8%AF%86%E4%BD%A0%E9%83%BD%E6%8E%8C%E6%8F%A1%E4%BA%86%E5%90%97%EF%BC%9F/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/11/%E8%AF%BE%E5%89%8D%E5%87%86%E5%A4%87%EF%BD%9C%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5%E6%89%8D%E6%98%AF%E6%9C%80%E5%A5%BD%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/"/>
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin"/>
-      <meta itemprop="description" content="参与开源才是出路"/>
-      <meta itemprop="image" content="/images/avatar.jpg"/>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客"/>
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2022/09/11/%E8%AF%BE%E5%89%8D%E5%87%86%E5%A4%87%EF%BD%9C%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5%E6%89%8D%E6%98%AF%E6%9C%80%E5%A5%BD%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/" class="post-title-link" itemprop="url">课前准备｜动手实践才是最好的学习方式</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2022-09-11 10:56:21" itemprop="dateCreated datePublished" datetime="2022-09-11T10:56:21+08:00">2022-09-11</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2023-08-26 14:27:59" itemprop="dateModified" datetime="2023-08-26T14:27:59+08:00">2023-08-26</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Kubernetes/" itemprop="url" rel="index"><span itemprop="name">Kubernetes</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">3.5k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">3 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <img src="/2022/09/11/%E8%AF%BE%E5%89%8D%E5%87%86%E5%A4%87%EF%BD%9C%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5%E6%89%8D%E6%98%AF%E6%9C%80%E5%A5%BD%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/0.webp" class="">
-<h1 id="如何配置虚拟机"><a href="#如何配置虚拟机" class="headerlink" title="如何配置虚拟机"></a><span style="color:#339AFF;">如何配置虚拟机</span></h1><p>准备好虚拟机软件<a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a>和<a href="https://ubuntu.com/download/desktop">Ubuntu</a>光盘镜像之后，我们就可以来安装虚拟机了。不过在安装之前，我们必须要把虚拟机适当地配置一下。</p>
-<p>由于Linux服务器大多数要以终端登录的方式使用，多台服务器还要联网，所以在网络方面我们还需要特别设置。</p>
-<p>对于VirtualBox，首先，你需要在“工具-网络”里创建一个“Host-only”的网络，IP地址段随意，比如这里就使用了它自动分配的“192.168.56.1/24”：</p>
-<img src="/2022/09/11/%E8%AF%BE%E5%89%8D%E5%87%86%E5%A4%87%EF%BD%9C%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5%E6%89%8D%E6%98%AF%E6%9C%80%E5%A5%BD%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/1.webp" class="">
-<p>然后，在虚拟机的配置里，你需要启用两个网卡。“网卡1”就设置成刚才创建的“Host-only”网络，它是我们在本地终端登录和联网时用的；而“网卡2”是“网络地址转换（NAT）”，用来上外网：</p>
-<img src="/2022/09/11/%E8%AF%BE%E5%89%8D%E5%87%86%E5%A4%87%EF%BD%9C%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5%E6%89%8D%E6%98%AF%E6%9C%80%E5%A5%BD%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/2.webp" class="">
-<h1 id="如何安装虚拟机"><a href="#如何安装虚拟机" class="headerlink" title="如何安装虚拟机"></a><span style="color:#339AFF;">如何安装虚拟机</span></h1><p>把CPU、内存、硬盘、网络都配置好之后，再加载上Ubuntu 22.04的光盘镜像，我们就可以开始安装Linux了。</p>
-<p>在安装的过程中，为了节约时间，建议选择“最小安装”，同时物理断网，避免下载升级包。</p>
-<p>安装完Linux系统之后，我们还要再做一些环境的初始化操作。</p>
-<p>首先我们需要用Ctrl+Alt+T打开命令行窗口，然后用apt从Ubuntu的官方软件仓库安装git、vim、curl等常用工具：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt update</span><br><span class="line">sudo apt install -y git vim curl jq</span><br></pre></td></tr></table></figure><br>Ubuntu桌面版默认是不支持远程登录的，所以为了让后续的实验更加便利，我们还需要安装“openssh-server”，再使用命令<code>ip addr</code>，查看虚拟机的IP地址，然后就可以在宿主机上使用ssh命令登录虚拟机：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install -y openssh-server</span><br><span class="line">ip addr</span><br></pre></td></tr></table></figure></p>
-<img src="/2022/09/11/%E8%AF%BE%E5%89%8D%E5%87%86%E5%A4%87%EF%BD%9C%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5%E6%89%8D%E6%98%AF%E6%9C%80%E5%A5%BD%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/3.png" class="">
-<p>从这个截图里可以看到，这台VirtualBox虚拟机有3个网卡，其中名字是“enp0s3”的网卡就是我们之前配置的“192.168.56.1/24”网段，IP地址是自动分配的“192.168.56.11”。如果你对自动分配的IP地址不是很满意，也可以在Ubuntu右上角的系统设置里修改网卡，把它从动态地址（DHCP）改成静态地址（Manual），具体的参数可以参考下面的截图，重启后新的IP地址就生效了。</p>
-<blockquote>
-<p>VirtualBox设置</p>
-</blockquote>
-<img src="/2022/09/11/%E8%AF%BE%E5%89%8D%E5%87%86%E5%A4%87%EF%BD%9C%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5%E6%89%8D%E6%98%AF%E6%9C%80%E5%A5%BD%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/4.webp" class="">
-<p>这些工作完成之后，我建议你再给虚拟机拍个快照，做好备份工作，这样万一后面有什么意外发生环境被弄乱了，也可以轻松回滚到拍快照时的正确状态。</p>
-<img src="/2022/09/11/%E8%AF%BE%E5%89%8D%E5%87%86%E5%A4%87%EF%BD%9C%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5%E6%89%8D%E6%98%AF%E6%9C%80%E5%A5%BD%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/6.webp" class="">
-<p>现在，让我们启动一个命令行终端，使用ssh，输入用户名、密码和IP地址，就能够登录创建好的虚拟机了。</p>
-<img src="/2022/09/11/%E8%AF%BE%E5%89%8D%E5%87%86%E5%A4%87%EF%BD%9C%E5%8A%A8%E6%89%8B%E5%AE%9E%E8%B7%B5%E6%89%8D%E6%98%AF%E6%9C%80%E5%A5%BD%E7%9A%84%E5%AD%A6%E4%B9%A0%E6%96%B9%E5%BC%8F/7.webp" class="">
-<p><a href="https://github.com/chronolaw/k8s_study">k8s_study</a></p>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/09/45-%E8%87%AA%E5%A2%9Eid%E7%94%A8%E5%AE%8C%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F/"/>
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin"/>
-      <meta itemprop="description" content="参与开源才是出路"/>
-      <meta itemprop="image" content="/images/avatar.jpg"/>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客"/>
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2022/09/09/45-%E8%87%AA%E5%A2%9Eid%E7%94%A8%E5%AE%8C%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F/" class="post-title-link" itemprop="url">45 | 自增id用完怎么办？</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2022-09-09 17:53:42" itemprop="dateCreated datePublished" datetime="2022-09-09T17:53:42+08:00">2022-09-09</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2023-11-24 16:54:48" itemprop="dateModified" datetime="2023-11-24T16:54:48+08:00">2023-11-24</time>
+                <time title="修改时间：2024-01-23 11:24:14" itemprop="dateModified" datetime="2024-01-23T11:24:14+08:00">2024-01-23</time>
               
             
           </span>
@@ -1407,7 +531,7 @@
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2022/09/09/45-%E8%87%AA%E5%A2%9Eid%E7%94%A8%E5%AE%8C%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F/#more" rel="contents">
+              <a class="btn" href="/2022/06/13/MySQL%E7%9A%84LIMIT%E8%BF%99%E4%B9%88%E5%B7%AE%E5%8A%B2%E7%9A%84%E5%90%97/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1467,7 +591,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/09/44-%E8%AF%B4%E4%B8%80%E8%AF%B4%E8%BF%99%E4%BA%9B%E5%A5%BD%E9%97%AE%E9%A2%98/"/>
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/13/MySQL%E7%9A%84COUNT%E8%AF%AD%E5%8F%A5%E6%98%AF%E6%80%8E%E4%B9%88%E6%89%A7%E8%A1%8C%E7%9A%84/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="CheBin"/>
@@ -1487,7 +611,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2022/09/09/44-%E8%AF%B4%E4%B8%80%E8%AF%B4%E8%BF%99%E4%BA%9B%E5%A5%BD%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">44 | 说一说这些好问题</a>
+                <a href="/2022/06/13/MySQL%E7%9A%84COUNT%E8%AF%AD%E5%8F%A5%E6%98%AF%E6%80%8E%E4%B9%88%E6%89%A7%E8%A1%8C%E7%9A%84/" class="post-title-link" itemprop="url">MySQL的COUNT语句是怎么执行的</a>
               
             
           </h1>
@@ -1515,7 +639,7 @@
                 
               
 
-              <time title="创建时间：2022-09-09 17:53:33" itemprop="dateCreated datePublished" datetime="2022-09-09T17:53:33+08:00">2022-09-09</time>
+              <time title="创建时间：2022-06-13 10:40:05" itemprop="dateCreated datePublished" datetime="2022-06-13T10:40:05+08:00">2022-06-13</time>
             
 
             
@@ -1532,7 +656,860 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2023-11-24 17:15:25" itemprop="dateModified" datetime="2023-11-24T17:15:25+08:00">2023-11-24</time>
+                <time title="修改时间：2022-08-26 16:41:43" itemprop="dateModified" datetime="2022-08-26T16:41:43+08:00">2022-08-26</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">16k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">15 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>思考并回答以下问题：</p>
+<ul>
+<li>COUNT函数的参数可以是任意表达式，该函数用于统计在符合搜索条件的记录中，指定的表达式不为NULL的行数有多少。怎么理解？</li>
+<li>每一条聚簇索引记录都可以在二级索引中找到唯一的一条二级索引记录与其相对应。怎么理解？</li>
+</ul>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2022/06/13/MySQL%E7%9A%84COUNT%E8%AF%AD%E5%8F%A5%E6%98%AF%E6%80%8E%E4%B9%88%E6%89%A7%E8%A1%8C%E7%9A%84/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/12/MySQL%E4%BD%BF%E7%94%A8%E7%B4%A2%E5%BC%95%E6%89%A7%E8%A1%8CIN%E5%AD%90%E5%8F%A5/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="车斌的技术博客"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2022/06/12/MySQL%E4%BD%BF%E7%94%A8%E7%B4%A2%E5%BC%95%E6%89%A7%E8%A1%8CIN%E5%AD%90%E5%8F%A5/" class="post-title-link" itemprop="url">MySQL使用索引执行IN子句</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2022-06-12 16:53:31" itemprop="dateCreated datePublished" datetime="2022-06-12T16:53:31+08:00">2022-06-12</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2024-01-24 16:33:25" itemprop="dateModified" datetime="2024-01-24T16:33:25+08:00">2024-01-24</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">12k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">11 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>思考并回答以下问题：</p>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2022/06/12/MySQL%E4%BD%BF%E7%94%A8%E7%B4%A2%E5%BC%95%E6%89%A7%E8%A1%8CIN%E5%AD%90%E5%8F%A5/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/11/%E8%AE%BE%E8%AE%A1MySQL%E7%9A%84%E5%A4%A7%E5%8F%94%E4%B8%BA%E4%BD%95%E5%81%8F%E7%88%B1ref/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="车斌的技术博客"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2022/06/11/%E8%AE%BE%E8%AE%A1MySQL%E7%9A%84%E5%A4%A7%E5%8F%94%E4%B8%BA%E4%BD%95%E5%81%8F%E7%88%B1ref/" class="post-title-link" itemprop="url">设计MySQL的大叔为何偏爱ref</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2022-06-11 17:28:26" itemprop="dateCreated datePublished" datetime="2022-06-11T17:28:26+08:00">2022-06-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2022-11-07 21:38:59" itemprop="dateModified" datetime="2022-11-07T21:38:59+08:00">2022-11-07</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">13k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">12 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>思考并回答以下问题：</p>
+<ul>
+<li>使用某个索引执行查询时，需要扫描的记录越少，就越可能使用这个索引来执行查询。怎么理解？</li>
+<li>B+树叶子节点中的记录是按照索引列的值从小到大排序的。怎么理解？</li>
+<li>对于所有key1列值等于<code>&#39;a&#39;</code>的二级索引记录，由于它们是按照id列的值排序的，所以我们很大可能通过顺序I/O的方式找到下一个数据页，回表操作带来的性能开销较小。怎么理解？</li>
+<li>由于需要扫描的二级索引记录对应的id值是无序的，所以执行回表操作时，需要访问的聚簇索引记录所在的数据页很大可能就是无序的，这样会造成很多随机I/O。怎么理解？</li>
+</ul>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2022/06/11/%E8%AE%BE%E8%AE%A1MySQL%E7%9A%84%E5%A4%A7%E5%8F%94%E4%B8%BA%E4%BD%95%E5%81%8F%E7%88%B1ref/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/11/%E5%90%AC%E8%AF%B4%E6%9C%89%E4%B8%80%E4%B8%AA%E6%9C%80%E5%B7%A6%E5%8E%9F%E5%88%99%EF%BC%9F%E8%BF%99%E5%9B%9E%E7%BB%88%E4%BA%8E%E8%AE%B2%E6%B8%85%E6%A5%9A%E4%BA%86/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="车斌的技术博客"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2022/06/11/%E5%90%AC%E8%AF%B4%E6%9C%89%E4%B8%80%E4%B8%AA%E6%9C%80%E5%B7%A6%E5%8E%9F%E5%88%99%EF%BC%9F%E8%BF%99%E5%9B%9E%E7%BB%88%E4%BA%8E%E8%AE%B2%E6%B8%85%E6%A5%9A%E4%BA%86/" class="post-title-link" itemprop="url">听说有一个最左原则？这回终于讲清楚了</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2022-06-11 09:59:46" itemprop="dateCreated datePublished" datetime="2022-06-11T09:59:46+08:00">2022-06-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2022-08-26 16:41:11" itemprop="dateModified" datetime="2022-08-26T16:41:11+08:00">2022-08-26</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">23k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">21 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>思考并回答以下问题：</p>
+<ul>
+<li>聚簇索引记录是按照主键值由小到大的顺序排序的。为什么？</li>
+</ul>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2022/06/11/%E5%90%AC%E8%AF%B4%E6%9C%89%E4%B8%80%E4%B8%AA%E6%9C%80%E5%B7%A6%E5%8E%9F%E5%88%99%EF%BC%9F%E8%BF%99%E5%9B%9E%E7%BB%88%E4%BA%8E%E8%AE%B2%E6%B8%85%E6%A5%9A%E4%BA%86/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="车斌的技术博客"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/" class="post-title-link" itemprop="url">MySQL查询成本和扫描区间(MySQL中IS NULL、IS NOT NULL、!=不能用索引？胡扯！)</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2022-06-10 11:20:37" itemprop="dateCreated datePublished" datetime="2022-06-10T11:20:37+08:00">2022-06-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2022-08-26 16:41:00" itemprop="dateModified" datetime="2022-08-26T16:41:00+08:00">2022-08-26</time>
               
             
           </span>
@@ -1614,10 +1591,13 @@
       
         
           <p>思考并回答以下问题：</p>
+<ul>
+<li>我们每多建立一个索引，就相当于多建立一棵B+树。怎么理解？</li>
+</ul>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2022/09/09/44-%E8%AF%B4%E4%B8%80%E8%AF%B4%E8%BF%99%E4%BA%9B%E5%A5%BD%E9%97%AE%E9%A2%98/#more" rel="contents">
+              <a class="btn" href="/2022/06/10/MySQL%E6%9F%A5%E8%AF%A2%E6%88%90%E6%9C%AC%E5%92%8C%E6%89%AB%E6%8F%8F%E5%8C%BA%E9%97%B4-MySQL%E4%B8%ADIS-NULL%E3%80%81IS-NOT-NULL%E3%80%81-%E4%B8%8D%E8%83%BD%E7%94%A8%E7%B4%A2%E5%BC%95%EF%BC%9F%E8%83%A1%E6%89%AF%EF%BC%81/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -1677,7 +1657,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/09/43-%E8%A6%81%E4%B8%8D%E8%A6%81%E4%BD%BF%E7%94%A8%E5%88%86%E5%8C%BA%E8%A1%A8%EF%BC%9F/"/>
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/09/MySQL%E7%9A%84server%E5%B1%82%E5%92%8C%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E5%B1%82%E6%98%AF%E5%A6%82%E4%BD%95%E4%BA%A4%E4%BA%92%E7%9A%84/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="CheBin"/>
@@ -1697,7 +1677,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2022/09/09/43-%E8%A6%81%E4%B8%8D%E8%A6%81%E4%BD%BF%E7%94%A8%E5%88%86%E5%8C%BA%E8%A1%A8%EF%BC%9F/" class="post-title-link" itemprop="url">43 | 要不要使用分区表？</a>
+                <a href="/2022/06/09/MySQL%E7%9A%84server%E5%B1%82%E5%92%8C%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E5%B1%82%E6%98%AF%E5%A6%82%E4%BD%95%E4%BA%A4%E4%BA%92%E7%9A%84/" class="post-title-link" itemprop="url">MySQL的server层和存储引擎层是如何交互的</a>
               
             
           </h1>
@@ -1725,7 +1705,7 @@
                 
               
 
-              <time title="创建时间：2022-09-09 17:53:17" itemprop="dateCreated datePublished" datetime="2022-09-09T17:53:17+08:00">2022-09-09</time>
+              <time title="创建时间：2022-06-09 19:35:21" itemprop="dateCreated datePublished" datetime="2022-06-09T19:35:21+08:00">2022-06-09</time>
             
 
             
@@ -1742,217 +1722,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2022-09-20 11:53:49" itemprop="dateModified" datetime="2022-09-20T11:53:49+08:00">2022-09-20</time>
-              
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a></span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-            
-          
-
-          
-          
-
-          
-
-          
-            <div class="post-symbolscount">
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">本文字数：</span>
-                
-                <span title="本文字数">9.4k</span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">9 分钟</span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>思考并回答以下问题：</p>
-          <!--noindex-->
-          
-            <div class="post-button text-center">
-              <a class="btn" href="/2022/09/09/43-%E8%A6%81%E4%B8%8D%E8%A6%81%E4%BD%BF%E7%94%A8%E5%88%86%E5%8C%BA%E8%A1%A8%EF%BC%9F/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/09/42-grant%E4%B9%8B%E5%90%8E%E8%A6%81%E8%B7%9F%E7%9D%80flush-privileges%E5%90%97%EF%BC%9F/"/>
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="CheBin"/>
-      <meta itemprop="description" content="参与开源才是出路"/>
-      <meta itemprop="image" content="/images/avatar.jpg"/>
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="车斌的技术博客"/>
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2022/09/09/42-grant%E4%B9%8B%E5%90%8E%E8%A6%81%E8%B7%9F%E7%9D%80flush-privileges%E5%90%97%EF%BC%9F/" class="post-title-link" itemprop="url">42 | grant之后要跟着flush privileges吗？</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-
-          
-
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2022-09-09 17:53:08" itemprop="dateCreated datePublished" datetime="2022-09-09T17:53:08+08:00">2022-09-09</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2022-10-31 12:15:02" itemprop="dateModified" datetime="2022-10-31T12:15:02+08:00">2022-10-31</time>
+                <time title="修改时间：2022-10-25 11:16:32" itemprop="dateModified" datetime="2022-10-25T11:16:32+08:00">2022-10-25</time>
               
             
           </span>
@@ -2034,10 +1804,15 @@
       
         
           <p>思考并回答以下问题：</p>
+<ul>
+<li>SQL和YAML都是声明式的语法。怎么理解？</li>
+<li>Extra列有一个<code>Using index condition</code>的提示，这表明会将有关idx_name二级索引的查询条件放在存储引擎层判断一下，这个特性就是所谓的索引条件下推（<code>Index Condition Pushdown</code>，简称ICP）。怎么理解？</li>
+<li>得到一条二级索引记录后立即去回表，而不是把所有的二级索引记录都拿到后统一去回表。怎么理解？</li>
+</ul>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2022/09/09/42-grant%E4%B9%8B%E5%90%8E%E8%A6%81%E8%B7%9F%E7%9D%80flush-privileges%E5%90%97%EF%BC%9F/#more" rel="contents">
+              <a class="btn" href="/2022/06/09/MySQL%E7%9A%84server%E5%B1%82%E5%92%8C%E5%AD%98%E5%82%A8%E5%BC%95%E6%93%8E%E5%B1%82%E6%98%AF%E5%A6%82%E4%BD%95%E4%BA%A4%E4%BA%92%E7%9A%84/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -2097,7 +1872,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/09/41-%E6%80%8E%E4%B9%88%E6%9C%80%E5%BF%AB%E5%9C%B0%E5%A4%8D%E5%88%B6%E4%B8%80%E5%BC%A0%E8%A1%A8%EF%BC%9F/"/>
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/08/undo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8B%EF%BC%89/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="CheBin"/>
@@ -2117,7 +1892,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2022/09/09/41-%E6%80%8E%E4%B9%88%E6%9C%80%E5%BF%AB%E5%9C%B0%E5%A4%8D%E5%88%B6%E4%B8%80%E5%BC%A0%E8%A1%A8%EF%BC%9F/" class="post-title-link" itemprop="url">41 | 怎么最快地复制一张表？</a>
+                <a href="/2022/06/08/undo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8B%EF%BC%89/" class="post-title-link" itemprop="url">undo日志（下）</a>
               
             
           </h1>
@@ -2145,7 +1920,7 @@
                 
               
 
-              <time title="创建时间：2022-09-09 17:52:59" itemprop="dateCreated datePublished" datetime="2022-09-09T17:52:59+08:00">2022-09-09</time>
+              <time title="创建时间：2022-06-08 16:50:35" itemprop="dateCreated datePublished" datetime="2022-06-08T16:50:35+08:00">2022-06-08</time>
             
 
             
@@ -2162,7 +1937,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2022-10-05 09:49:26" itemprop="dateModified" datetime="2022-10-05T09:49:26+08:00">2022-10-05</time>
+                <time title="修改时间：2022-10-25 09:39:13" itemprop="dateModified" datetime="2022-10-25T09:39:13+08:00">2022-10-25</time>
               
             
           </span>
@@ -2208,7 +1983,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">11k</span>
+                <span title="本文字数">19k</span>
               
 
               
@@ -2222,7 +1997,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">10 分钟</span>
+                <span title="阅读时长">18 分钟</span>
               
             </div>
           
@@ -2244,10 +2019,13 @@
       
         
           <p>思考并回答以下问题：</p>
+<ul>
+<li>总结一下，这章作者最主要想表达什么观点？</li>
+</ul>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2022/09/09/41-%E6%80%8E%E4%B9%88%E6%9C%80%E5%BF%AB%E5%9C%B0%E5%A4%8D%E5%88%B6%E4%B8%80%E5%BC%A0%E8%A1%A8%EF%BC%9F/#more" rel="contents">
+              <a class="btn" href="/2022/06/08/undo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8B%EF%BC%89/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -2307,7 +2085,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/09/09/40-insert%E8%AF%AD%E5%8F%A5%E7%9A%84%E9%94%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%B9%88%E5%A4%9A%EF%BC%9F/"/>
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/08/undo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/"/>
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="CheBin"/>
@@ -2327,7 +2105,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2022/09/09/40-insert%E8%AF%AD%E5%8F%A5%E7%9A%84%E9%94%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%B9%88%E5%A4%9A%EF%BC%9F/" class="post-title-link" itemprop="url">40 | insert语句的锁为什么这么多？</a>
+                <a href="/2022/06/08/undo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/" class="post-title-link" itemprop="url">undo日志（上）</a>
               
             
           </h1>
@@ -2355,7 +2133,7 @@
                 
               
 
-              <time title="创建时间：2022-09-09 17:52:58" itemprop="dateCreated datePublished" datetime="2022-09-09T17:52:58+08:00">2022-09-09</time>
+              <time title="创建时间：2022-06-08 15:50:29" itemprop="dateCreated datePublished" datetime="2022-06-08T15:50:29+08:00">2022-06-08</time>
             
 
             
@@ -2372,7 +2150,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2022-10-20 17:22:46" itemprop="dateModified" datetime="2022-10-20T17:22:46+08:00">2022-10-20</time>
+                <time title="修改时间：2022-10-24 11:50:43" itemprop="dateModified" datetime="2022-10-24T11:50:43+08:00">2022-10-24</time>
               
             
           </span>
@@ -2418,7 +2196,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">14k</span>
+                <span title="本文字数">21k</span>
               
 
               
@@ -2432,7 +2210,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">12 分钟</span>
+                <span title="阅读时长">19 分钟</span>
               
             </div>
           
@@ -2454,10 +2232,228 @@
       
         
           <p>思考并回答以下问题：</p>
+<ul>
+<li>事务的原子性是通过undo log来实现的。怎么理解？查询操作有undo log吗？</li>
+<li>通过<code>START TRANSACTION READ ONLY</code>语句开启一个只读事务。通过<code>START TRANSACTION READ WRITE</code>语句开启一个读写事务，使用<code>BEGIN</code>、<code>START TRANSACTION</code>语句开启的事务默认也算是读写事务。怎么理解？</li>
+<li>只有在事务对表中的记录做改动时才会为这个事务分配一个唯一的事务id。怎么理解？</li>
+</ul>
           <!--noindex-->
           
             <div class="post-button text-center">
-              <a class="btn" href="/2022/09/09/40-insert%E8%AF%AD%E5%8F%A5%E7%9A%84%E9%94%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%BF%99%E4%B9%88%E5%A4%9A%EF%BC%9F/#more" rel="contents">
+              <a class="btn" href="/2022/06/08/undo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8A%EF%BC%89/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8B%EF%BC%89/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="车斌的技术博客"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8B%EF%BC%89/" class="post-title-link" itemprop="url">redo日志（下）</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2022-06-08 14:49:48" itemprop="dateCreated datePublished" datetime="2022-06-08T14:49:48+08:00">2022-06-08</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2022-08-30 21:53:15" itemprop="dateModified" datetime="2022-08-30T21:53:15+08:00">2022-08-30</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">15k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">14 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>思考并回答以下问题：</p>
+<ul>
+<li>总结一下，这章作者最主要想表达什么观点？</li>
+</ul>
+          <!--noindex-->
+          
+            <div class="post-button text-center">
+              <a class="btn" href="/2022/06/08/redo%E6%97%A5%E5%BF%97%EF%BC%88%E4%B8%8B%EF%BC%89/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -2506,7 +2502,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/70/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/70/">70</a><span class="page-number current">71</span><a class="page-number" href="/page/72/">72</a><span class="space">&hellip;</span><a class="page-number" href="/page/123/">123</a><a class="extend next" rel="next" href="/page/72/">下一页</a>
+    <a class="extend prev" rel="prev" href="/page/70/">上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/70/">70</a><span class="page-number current">71</span><a class="page-number" href="/page/72/">72</a><span class="space">&hellip;</span><a class="page-number" href="/page/109/">109</a><a class="extend next" rel="next" href="/page/72/">下一页</a>
   </nav>
 
 
@@ -2552,7 +2548,7 @@
                 
                   <a href="/archives/%20%7C%7C%20archive">
                 
-                    <span class="site-state-item-count">1230</span>
+                    <span class="site-state-item-count">1086</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2804,19 +2800,7 @@
                     
                       
                     
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                      
-                    
-                    <span class="site-state-item-count">85</span>
+                    <span class="site-state-item-count">79</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -2847,23 +2831,23 @@
                 
                 
                   <li>
+                    <a href="/2024/04/27/go-zero/" title="go-zero" target="_blank">go-zero</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/04/12/iris-websocket/" title="iris websocket" target="_blank">iris websocket</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/04/07/go%E7%AE%80%E5%8E%86/" title="go简历" target="_blank">go简历</a>
+                  </li>
+                
+                  <li>
                     <a href="/2024/02/20/Gin/" title="Gin" target="_blank">Gin</a>
                   </li>
                 
                   <li>
-                    <a href="/2024/02/03/%E7%AC%AC24%E7%AB%A0-%E6%B7%B1%E5%85%A5%E6%B3%9B%E5%9E%8B%EF%BC%9A%E6%BC%AB%E8%B0%88%E6%B3%9B%E5%9E%8B%E8%AE%BE%E8%AE%A1/" title="第24章 深入泛型：漫谈泛型设计" target="_blank">第24章 深入泛型：漫谈泛型设计</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2024/02/03/%E7%AC%AC23%E7%AB%A0-%E5%88%9D%E8%AF%86%E6%B3%9B%E5%9E%8B%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B%E7%AE%80%E5%8C%96%E7%BC%96%E7%A8%8B/" title="第23章 初识泛型：使用泛型简化编程" target="_blank">第23章 初识泛型：使用泛型简化编程</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2024/02/03/%E7%AC%AC22%E7%AB%A0-%E5%8D%8F%E4%BD%9C%E5%BC%80%E5%8F%91%EF%BC%9A%E6%A8%A1%E5%9D%97%E5%8C%96%E7%AE%A1%E7%90%86/" title="第22章 协作开发：模块化管理" target="_blank">第22章 协作开发：模块化管理</a>
-                  </li>
-                
-                  <li>
-                    <a href="/2024/02/03/%E7%AC%AC21%E7%AB%A0-%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%EF%BC%9A%E5%A6%82%E4%BD%95%E5%86%99%E5%87%BA%E9%AB%98%E8%B4%A8%E9%87%8F%E7%9A%84%E4%BB%A3%E7%A0%81/" title="第21章 性能优化：如何写出高质量的代码" target="_blank">第21章 性能优化：如何写出高质量的代码</a>
+                    <a href="/2024/01/25/EasyGoAdmin-GoFrame-EleVue-3/" title="EasyGoAdmin_GoFrame_EleVue-3" target="_blank">EasyGoAdmin_GoFrame_EleVue-3</a>
                   </li>
                 
               </ul>
@@ -2907,7 +2891,7 @@
     
       <span class="post-meta-item-text">站点总字数：</span>
     
-    <span title="站点总字数">8.8m</span>
+    <span title="站点总字数">8.1m</span>
   
 
   
@@ -2918,7 +2902,7 @@
     
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
     
-    <span title="站点阅读时长">132:51</span>
+    <span title="站点阅读时长">123:11</span>
   
 </div>
 
