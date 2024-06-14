@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="思考并回答以下问题：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="第10章 微服务的容错处理与负载均衡">
+<meta property="og:url" content="http://yoursite.com/2024/05/21/%E7%AC%AC10%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AE%B9%E9%94%99%E5%A4%84%E7%90%86%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/index.html">
+<meta property="og:site_name" content="车斌的技术博客">
+<meta property="og:description" content="思考并回答以下问题：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2024/05/21/%E7%AC%AC10%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AE%B9%E9%94%99%E5%A4%84%E7%90%86%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/1.png">
+<meta property="og:image" content="http://yoursite.com/2024/05/21/%E7%AC%AC10%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AE%B9%E9%94%99%E5%A4%84%E7%90%86%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/2.png">
+<meta property="og:image" content="http://yoursite.com/2024/05/21/%E7%AC%AC10%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AE%B9%E9%94%99%E5%A4%84%E7%90%86%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/3.png">
+<meta property="og:image" content="http://yoursite.com/2024/05/21/%E7%AC%AC10%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AE%B9%E9%94%99%E5%A4%84%E7%90%86%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/4.png">
+<meta property="og:image" content="http://yoursite.com/2024/05/21/%E7%AC%AC10%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AE%B9%E9%94%99%E5%A4%84%E7%90%86%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/5.png">
+<meta property="og:image" content="http://yoursite.com/2024/05/21/%E7%AC%AC10%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AE%B9%E9%94%99%E5%A4%84%E7%90%86%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/7.png">
+<meta property="og:image" content="http://yoursite.com/2024/05/21/%E7%AC%AC10%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AE%B9%E9%94%99%E5%A4%84%E7%90%86%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/t-1-1.png">
+<meta property="og:image" content="http://yoursite.com/2024/05/21/%E7%AC%AC10%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AE%B9%E9%94%99%E5%A4%84%E7%90%86%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/t-1-2.png">
+<meta property="article:published_time" content="2024-05-21T08:04:27.000Z">
+<meta property="article:modified_time" content="2024-06-14T02:11:23.729Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Go语言高并发与微服务实战">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2024/05/21/%E7%AC%AC10%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AE%B9%E9%94%99%E5%A4%84%E7%90%86%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2024/05/21/第10章-微服务的容错处理与负载均衡/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>第10章 微服务的容错处理与负载均衡 | 车斌的技术博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">车斌的技术博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">微习惯，每天看1分钟</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br/>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2024/05/21/%E7%AC%AC10%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AE%B9%E9%94%99%E5%A4%84%E7%90%86%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源才是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="车斌的技术博客"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">第10章 微服务的容错处理与负载均衡
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2024-05-21 16:04:27" itemprop="dateCreated datePublished" datetime="2024-05-21T16:04:27+08:00">2024-05-21</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2024-06-14 10:11:23" itemprop="dateModified" datetime="2024-06-14T10:11:23+08:00">2024-06-14</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">88k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1:20</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>思考并回答以下问题：</p>
+<span id="more"></span>
+<p> 随着微服务的规模逐渐增长，各个微服务之间可能会存在错综复杂的调用关系；除此之外，整个微服务系统也可能对外部系统发起远程调用。鉴于网络的不可靠性和系统的运行意外，在微服务中发起的远程调用可能会得到失败的结果，比如网络连接缓慢或超时、提供服务方逻辑错误或者已经过载不可用等；同时为了应对更大的请求压力，各个微服务一般是多实例部署，如果各实例之间的负载不合理，就无法发挥服务器横向扩展的优势，提高系统的吞吐量。</p>
+<p>在请求失败后，健壮性服务一般会采用重试机制来发起请求，对于大多数的暂时性故障，比如网络短时停顿等，重试机制都能够得到良好的调用结果。但是对于一些长时间不可用的微服务持续性远程调用，重试机制可能会使得情况变得更加不堪，对此我们就需要服务熔断的机制，为微服务之间的调用提供强大的容错能力，保护服务调用方的服务稳定性。而对于多实例部署的微服务体系，我们需要使用合理的负载均衡策略，将请求合理地分配到各个服务实例中，保证集群中大多数服务器的负载保持在高效稳定的状态，提高系统的处理能力。</p>
+<p>在本章中，我们首先介绍服务熔断和负载均衡的相关原理，然后实现自定义的负载均衡器和借助Hystrix实现服务熔断器，并将它们应用到use-string-service服务对string-service服务的远程调用中，最后对Hystrix进行详解和实践在服务网关中添加服务熔断与负载均衡功能。</p>
+<h1 id="服务熔断"><a href="#服务熔断" class="headerlink" title="服务熔断"></a><span style="color:#339AFF;">服务熔断</span></h1><p>熔断的概念最先来自于电路工程中，在我们的家庭电路中，在电表和电路的火线上会接有一根保险丝为电路安全护航。保险丝一般由熔点较低的金属制成，当电路上的电流过大时，它就会因为过热被熔断，从而达到保护电表和电路的作用。</p>
+<p>在微服务架构中，服务之间的调用一般分为服务调用方和服务提供方。当下游服务因为过载或者故障不能用时，我们需要及时在上游的服务调用方暂时“熔断”调用方和提供方之间的调用链，避免服务雪崩现象的出现，从而保证服务调用方与系统整体的稳定性和可用性。</p>
+<h2 id="分布式系统中的服务雪崩"><a href="#分布式系统中的服务雪崩" class="headerlink" title="分布式系统中的服务雪崩"></a><span style="color:#00ACC1;">分布式系统中的服务雪崩</span></h2><p>在分布式系统中，由于业务上的划分，一次完整的请求可能需要不同服务协作完成，在微服务架构中就是多个服务实例协作完成。请求会在这些服务实例中传递，服务之间的调用会产生新的请求，它们共同组成一条服务调用链，关系如下（图10-1）时序图所示。</p>
+<blockquote>
+<p>图10-1 微服务调用链</p>
+</blockquote>
+<img src="/2024/05/21/%E7%AC%AC10%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AE%B9%E9%94%99%E5%A4%84%E7%90%86%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/1.png" class="">
+<p>客户端发起了一次请求Request1，网关在接受到请求后将它转发给service-A，由于这次请求涉及到了service-B中的数据，所以service-A又向service-B发起了一次请求Request1-1来获取对应的数据，在处理结束后将结果返回给网关，由网关将结果返回给客户端。上图10-1中Request1和Request1-1共同组成了这次调用的调用链。</p>
+<p>服务雪崩是指当调用链的某个环节（特别是服务提供方的服务）不可用时，导致了上游环节不可用，并最终将这种影响像雪崩一样扩大到整个系统中，导致了整个系统不可用的情况。</p>
+<p>服务雪崩的发生流程如下图10-2所示。</p>
+<blockquote>
+<p>图10-2 服务雪崩的发生流程</p>
+</blockquote>
+<img src="/2024/05/21/%E7%AC%AC10%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AE%B9%E9%94%99%E5%A4%84%E7%90%86%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/2.png" class="">
+<p>服务雪崩一般有3个阶段：</p>
+<p>（1）第一阶段是服务提供者不能用。</p>
+<p>在初始阶段，一切运行良好，网关、service-A和service-B响应着客户端的各种请求。在某一个时间节点，服务提供者service-B由于网络故障或者请求过载而不可用，无法及时响应各类请求。</p>
+<p>（2）第二阶段是服务调用者不可用。</p>
+<p>在服务提供者不可用之后，客户端可能会因为错误提示或者长时间的阻塞而不断发送相同的请求到网关中，网关再次将请求转发给service-A进行处理，service-A根据业务流程也会向service-B发起数据请求；同时上一阶段中service-A对service-B超时或者失败的请求可能会因为service-A中重试机制再次请求service-B。这些请求都无法从service-B中获取到有效的返回，最坏的结果是都被阻塞，无法及时响应。service-A也会因为发起了过多对service-B的请求而产生的等待线程耗尽了线程池中的资源，无法及时响应其他请求，导致了自身的不可用。</p>
+<p>（3）最后阶段是整个系统的不可用。</p>
+<p>service-A中等待请求同样阻塞了转发请求的网关。网关也因为大量等待请求将会产生大量的阻塞线程，使得网关没有足够的资源处理其他请求，导致了整个系统无法对外提供服务。</p>
+<h2 id="服务熔断保障系统可用性"><a href="#服务熔断保障系统可用性" class="headerlink" title="服务熔断保障系统可用性"></a><span style="color:#00ACC1;">服务熔断保障系统可用性</span></h2><p>为了避免服务雪崩现象的出现，我们需要及时“壮士断腕”，在必要的时候暂时切断对异常服务提供者的调用，保证部分服务的可用以及整体系统的稳定性。服务熔断机制如图10-3所示。</p>
+<blockquote>
+<p>图10-3 服务熔断机制</p>
+</blockquote>
+<img src="/2024/05/21/%E7%AC%AC10%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AE%B9%E9%94%99%E5%A4%84%E7%90%86%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/3.png" class="">
+<p>如图10-3，我们在service-A向service-B的请求中增加了一根“保险丝”，即断路器。它会<span style="color:red">统计</span>一段时间内service-A对service-B请求响应结果，在超时或者失败次数过多的情况下，阻断service-A对service-B的请求，直接返回相关的<span style="color:red">异常</span>处理结果，使得service-A中的请求线程能够及时返回，避免资源耗尽而不可用，从而保护了服务调用者，避免了服务级联失败。</p>
+<h2 id="断路器"><a href="#断路器" class="headerlink" title="断路器"></a><span style="color:#00ACC1;">断路器</span></h2><p>断路器能够很好地保护服务调用方的稳定性，它能够避免服务调用者频繁执行可能失败的服务提供者，防止服务调用者浪费CPU使用周期和线程资源。</p>
+<p>断路器设计模式借鉴了电路中的保险丝设计方案。<span style="color:red">断路器代理了服务调用方对提供方的请求，它监控了最近请求的失败和超时次数。</span>在下游服务因为过载或者故障无法提供正常响应时，断路器中的请求失败率就会大大提升，在超过一定阀值之后，断路器会打开，切断服务调用者和服务提供者之间的联系，此时服务调用者会执行失败逻辑或者返回异常，避免无效的线程等待。同时断路器中还提供<span style="color:red">检测恢复</span>机制，允许服务调用者尝试调用服务提供者以检测其是否恢复正常，若正常则关闭断路器，恢复正常调用。</p>
+<p>断路器中存在三种状态，分别是关闭、打开、半开，它们之间的状态转化如图10-4所示。</p>
+<blockquote>
+<p>图10-4 断路器状态转化</p>
+</blockquote>
+<img src="/2024/05/21/%E7%AC%AC10%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AE%B9%E9%94%99%E5%A4%84%E7%90%86%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/4.png" class="">
+<ul>
+<li>关闭状态：如果程序正常运行，那么断路器大多数时候都处于这个状态，此时服务调用者正常调用服务提供者。断路器会统计周期时间内的请求总次数和失败次数的比例。</li>
+<li>打开状态：如果最近失败频率超过预设的阀值之后，断路器就会进入打开的状态。服务调用者对服务提供者的调用将会立即失败，转而执行预设的失败逻辑或者返回异常。</li>
+<li>半开状态：断路器进入打开状态之后将启动一个超时定时器，在定时器到达时，它会进入到半开状态。此时断路器允许服务调用者尝试对服务提供者发起少量实际调用请求（检测恢复机制）。如果这些请求都成功执行，那么断路器就认为服务提供者已经恢复正常，进入关闭状态，失败计数器也同时复位。如果这些请求失败，断路器将返回到打开状态，并重新启动超时定数器，重复进行检测恢复。</li>
+</ul>
+<p><span style="color:red">关闭状态使用的失败计数器基于时间窗口计数，它会定期自动复位。</span>只有在窗口时间内发生的请求总次数和请求失败次数达到一定的阀值，断路器才会被打开。半打开状态使用成功计数器记录调用操作的成功尝试次数，在指定数量的连续操作调用成功后，断路器恢复到关闭状态。如果任何调用失败，断路器会立即进入断开状态，成功计数器将在下次进入半开状态时重新清零。半开状态仅允许有限的请求发生真正的调用，这有助于防止刚恢复的服务提供者突然被请求淹没而再次宕机。</p>
+<h1 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a><span style="color:#339AFF;">负载均衡</span></h1><p>负载均衡能够将大量的请求，根据负载均衡算法，分发到多台服务器上进行处理，使得所有服务器负载都维持在高效稳定的状态，以提高系统的吞吐量，保证可用性。</p>
+<h2 id="负载均衡类型"><a href="#负载均衡类型" class="headerlink" title="负载均衡类型"></a><span style="color:#00ACC1;">负载均衡类型</span></h2><p>负载均衡分为软件负载均衡和硬件负载均衡。软件负载均衡一般使用独立的负载均衡软件来实现请求的分发，它配置简单，使用成本低，能够满足基本的负载均衡要求，但是负载均衡软件的质量和所部署服务器的性能就有可能成为系统吞吐量的瓶颈；硬件负载均衡依赖于特殊的负载均衡设备，部署成本高，但相对于软件负载均衡，能够满足更多样化的需求。</p>
+<p>基于DNS负载均衡和反向代理负载均衡是我们常见的软件负载均衡。<span style="color:red">在DNS服务器中，会为同一个名称配置多个不同的IP地址，不同的DNS请求会解析到不同的IP地址</span>，从而达到不同请求访问不同服务器的目的；而反向代理负载均衡使用代理服务器，将请求按照一定的规则分发到下游的服务器集群进行处理，最常见的方式即服务网关。</p>
+<h2 id="负载均衡算法"><a href="#负载均衡算法" class="headerlink" title="负载均衡算法"></a><span style="color:#00ACC1;">负载均衡算法</span></h2><p>负载均衡算法定义了如何将请求分散到服务实例的规则，优秀的负载均衡算法能够有效提高系统的吞吐量，使服务集群中各服务的负载处于高效稳定的状态。常见的负载均衡算法有以下几种：</p>
+<p>（1）随机法</p>
+<p>随机从服务集群中选取一台服务分配请求。随机法实现简单明了，保证了请求的分散性，但是无法顾及请求分配是否合理和服务器的负载能力。</p>
+<p>（2）轮询法或者加权轮询法</p>
+<p>将请求轮流分配给现有服务集群中的每一台服务，适用于服务集群中各服务负载能力相当且请求处理差异不大的情况下。加权轮询会根据各服务的权重，额外分配更多的请求，例如服务A权重1，服务器B权重2，服务器C权重3，则分配的过程为A-B-B-C-C-C-A-B-B-C-C-C······</p>
+<p>（3）Hash法或者一致性Hash法</p>
+<p>使用Hash算法将请求分散到各个服务中。一致性Hash则基于虚拟节点，在某一个服务节点宕机后将请求平摊到其他服务节点，避免请求的剧烈变动。</p>
+<p>（4）最小连接数法</p>
+<p>将请求分配到当前服务集群中处理请求最少的服务中。<span style="color:red">该算法需要负载均衡服务器和服务之间存在信息交互，负载均衡服务器需要了解集群中各个服务的负载情况。</span></p>
+<h1 id="实践案例：服务熔断和负载均衡使用"><a href="#实践案例：服务熔断和负载均衡使用" class="headerlink" title="实践案例：服务熔断和负载均衡使用"></a><span style="color:#339AFF;">实践案例：服务熔断和负载均衡使用</span></h1><p>Hystrix是Netflix开源的一款优秀的服务间断路器，它能够在服务提供者出现故障时，隔离调用者和提供者，防止服务级联失败；同时提供失败回滚逻辑，使系统快速从异常中恢复。Hystrix完美地实现了断路器模式，同时还提供信号量和线程隔离的方式以保护服务调用者的线程资源，它对延迟和失败提供了强大的容错能力，为系统提供保护和控制。接下来我们将通过一个简单的实例项目来了解hystrix-go的使用方式。本例子的完整代码位于ch10-resiliency文件夹下。</p>
+<p>这个实例中，我们使用两个简单的Web项目string-service和use-string-service来演示在服务调用中如何使用服务熔断和负载均衡。项目结构按照Go-kit的transport-endpoint-service的方式进行组织。其中string-service是我们基本的演示项目，use-string-service将通过HTTP的方式调用string-service提供的字符串操作服务，并在调用的过程中使用Hystrix进行访问保护和负载均衡器进行调用分发。项目的调用逻辑图如下图10-5所示。</p>
+<blockquote>
+<p>图10-5 调用逻辑图</p>
+</blockquote>
+<img src="/2024/05/21/%E7%AC%AC10%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AE%B9%E9%94%99%E5%A4%84%E7%90%86%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/5.png" class="">
+<h2 id="负载均衡器"><a href="#负载均衡器" class="headerlink" title="负载均衡器"></a><span style="color:#00ACC1;">负载均衡器</span></h2><p>在进行项目编写之前，我们首先在common/loadbalance包下定义一个负载均衡算法的接口方法，它接收一组服务实例列表，然后根据具体的负载均衡算法选择特定的被调用服务实例信息返回。源码位于common/loadbalance/loadbalance.go下，代码如下所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 负载均衡器</span></span><br><span class="line"><span class="keyword">type</span> LoadBalance <span class="keyword">interface</span> &#123;</span><br><span class="line">    SelectService(service []*api.AgentService) (*api.AgentService, <span class="type">error</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>为了接下来的代码演示，我们还实现了一个随机法的负载均衡器RandomLoadBalance，代码如下所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ErrNoInstances = errors.New(<span class="string">&quot;service instances are not existed&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> RandomLoadBalance <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 随机负载均衡</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(loadBalance *RandomLoadBalance)</span></span> SelectService(services []*api.AgentService) (*api.AgentService, <span class="type">error</span>) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> services == <span class="literal">nil</span> || <span class="built_in">len</span>(services) == <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, ErrNoInstances</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> services[rand.Intn(<span class="built_in">len</span>(services))], <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="服务编写"><a href="#服务编写" class="headerlink" title="服务编写"></a><span style="color:#00ACC1;">服务编写</span></h2><p>string-service服务即我们的基本演示项目，代码位于ch10-resiliency/string-service中，我们在6.6小节中已经详细介绍过该项目的搭建。string-service服务将对外提供两个HTTP接口：<code>/health</code>接口用于进行健康检查；<code>/op/&#123;type&#125;/&#123;a&#125;/&#123;b&#125;</code>接口对外提供字符串操作。</p>
+<p>use-string-service服务作为服务调用方，会通过HTTP的方式调用string-service服务提供的<code>/op/&#123;type&#125;/&#123;a&#125;/&#123;b&#125;</code>接口。use-string-service服务使用Go-kit的项目结构进行组织，详细代码请求参阅ch10-resiliency/use-string-service目录。接下来我们将按照service层，endpoint层，transport层的顺序依次讲解use-string-service服务的构建。</p>
+<p>1，use-string-service的service层</p>
+<p>在use-string-service的service层中，我们定义了以下两个接口方法，源码位于ch10-resiliency/use-string-service/service/service.go，代码如下所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> service</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;encoding/json&quot;</span></span><br><span class="line">    <span class="string">&quot;errors&quot;</span></span><br><span class="line">    <span class="string">&quot;github.com/afex/hystrix-go/hystrix&quot;</span></span><br><span class="line">    <span class="string">&quot;github.com/hashicorp/consul/api&quot;</span></span><br><span class="line">    <span class="string">&quot;micro-go-book/ch10-resiliency/use-string-service/config&quot;</span></span><br><span class="line">    <span class="string">&quot;micro-go-book/common/discover&quot;</span></span><br><span class="line">    <span class="string">&quot;micro-go-book/common/loadbalance&quot;</span></span><br><span class="line">    <span class="string">&quot;net/http&quot;</span></span><br><span class="line">    <span class="string">&quot;net/url&quot;</span></span><br><span class="line">    <span class="string">&quot;strconv&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    StringServiceCommandName = <span class="string">&quot;String.string&quot;</span></span><br><span class="line">    StringService            = <span class="string">&quot;string&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> (</span><br><span class="line">    ErrHystrixFallbackExecute = errors.New(<span class="string">&quot;Hystrixfall back execute&quot;</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Service Define a service interface</span></span><br><span class="line"><span class="keyword">type</span> Service <span class="keyword">interface</span> &#123;</span><br><span class="line">    <span class="comment">// 远程调用 string-service 服务</span></span><br><span class="line">    UseStringService(operationType, a, b <span class="type">string</span>) (<span class="type">string</span>, <span class="type">error</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 健康检查</span></span><br><span class="line">    HealthCheck() <span class="type">bool</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ArithmeticService implement Service interface</span></span><br><span class="line"><span class="keyword">type</span> UseStringService <span class="keyword">struct</span> &#123;</span><br><span class="line">    <span class="comment">// 服务发现客户端</span></span><br><span class="line">    discoveryClient discover.DiscoveryClient <span class="comment">// 如何拿到服务的地址？</span></span><br><span class="line">    loadbalance     loadbalance.LoadBalance <span class="comment">// 多实例使用哪一个？怎么决定？</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewUseStringService</span><span class="params">(client discover.DiscoveryClient, lb loadbalance.LoadBalance)</span></span> Service &#123;</span><br><span class="line"></span><br><span class="line">    hystrix.ConfigureCommand(StringServiceCommandName, hystrix.CommandConfig&#123;</span><br><span class="line">        <span class="comment">// 设置触发最低请求阀值为 5，方便我们观察结果</span></span><br><span class="line">        RequestVolumeThreshold: <span class="number">5</span>,</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> &amp;UseStringService&#123;</span><br><span class="line">        discoveryClient: client,</span><br><span class="line">        loadbalance:     lb,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// StringResponse define response struct</span></span><br><span class="line"><span class="keyword">type</span> StringResponse <span class="keyword">struct</span> &#123;</span><br><span class="line">    Result <span class="type">string</span> <span class="string">`json:&quot;result&quot;`</span></span><br><span class="line">    Error  <span class="type">error</span>  <span class="string">`json:&quot;error&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s UseStringService)</span></span> UseStringService(operationType, a, b <span class="type">string</span>) (<span class="type">string</span>, <span class="type">error</span>) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> operationResult <span class="type">string</span></span><br><span class="line"></span><br><span class="line">    err := hystrix.Do(StringServiceCommandName, <span class="function"><span class="keyword">func</span><span class="params">()</span></span> <span class="type">error</span> &#123;</span><br><span class="line">        instances := s.discoveryClient.DiscoverServices(StringService, config.Logger)</span><br><span class="line">        <span class="comment">// 随机选取一个服务实例进行计算</span></span><br><span class="line">        instanceList := <span class="built_in">make</span>([]*api.AgentService, <span class="built_in">len</span>(instances))</span><br><span class="line">        <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(instances); i++ &#123;</span><br><span class="line">            instanceList[i] = instances[i].(*api.AgentService)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 使用负载均衡算法选取实例</span></span><br><span class="line">        selectInstance, err := s.loadbalance.SelectService(instanceList)</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">            config.Logger.Println(err.Error())</span><br><span class="line">            <span class="keyword">return</span> err</span><br><span class="line">        &#125;</span><br><span class="line">        config.Logger.Printf(<span class="string">&quot;current string-service ID is %s and address:port is %s:%s\n&quot;</span>, selectInstance.ID, selectInstance.Address, strconv.Itoa(selectInstance.Port))</span><br><span class="line">        requestUrl := url.URL&#123;</span><br><span class="line">            Scheme: <span class="string">&quot;http&quot;</span>,</span><br><span class="line">            Host:   selectInstance.Address + <span class="string">&quot;:&quot;</span> + strconv.Itoa(selectInstance.Port),</span><br><span class="line">            Path:   <span class="string">&quot;/op/&quot;</span> + operationType + <span class="string">&quot;/&quot;</span> + a + <span class="string">&quot;/&quot;</span> + b,</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        resp, err := http.Post(requestUrl.String(), <span class="string">&quot;&quot;</span>, <span class="literal">nil</span>)</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> err</span><br><span class="line">        &#125;</span><br><span class="line">        result := &amp;StringResponse&#123;&#125;</span><br><span class="line"></span><br><span class="line">        err = json.NewDecoder(resp.Body).Decode(result)</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> err</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> result.Error != <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> result.Error</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        operationResult = result.Result</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line"></span><br><span class="line">    &#125;, <span class="function"><span class="keyword">func</span><span class="params">(e <span class="type">error</span>)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> ErrHystrixFallbackExecute</span><br><span class="line">    &#125;)</span><br><span class="line">    <span class="keyword">return</span> operationResult, err</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// HealthCheck implement Service method</span></span><br><span class="line"><span class="comment">// 用于检查服务的健康状态，这里仅仅返回true。</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s UseStringService)</span></span> HealthCheck() <span class="type">bool</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>上述代码中，在UseStringService方法中封装了对string-service服务的HTTP调用。同时为了提供服务熔断能力，在对string-service进行HTTP调用时，我们使用了Hystrix对调用过程进行包装。对此，需要引入hystrix-go的相关依赖<code>https://github.com/afex/hystrix-go</code>。可以看到我们将服务发现和HTTP调用过程通过<code>hystrix.Do</code>函数包装为一个Hystrix命令来执行，<code>hystrix.Do</code>是一种同步命令调用方式，我们的调用结果将会同步返回。 除此之外，Hystrix还提供异步调用方式。</p>
+<p>对于每一种Hystrix命令，我们都需要为它们赋予不同的名称，标明它们是属于不同的远程调用，<span style="color:red">命令相同的Hystrix命令将会使用相同的断路器进行熔断保护</span>，在上述代码中，我们将该Hystrix命令命名为<code>String.string</code>，该名称下的Hystrix命令都会使用相同的断路器进行熔断保护和数据统计。</p>
+<p>在<code>hystrix.Do</code>包装方法中，我们首先通过“string”服务名从Consul中获取其服务实例列表；接着我们使用负载均衡器从服务实例列表选取一个合适的服务实例进行调用；最后服务调用结束后返回调用结果，如果调用过程中发生异常，则返回异常。</p>
+<p><code>hystrix.Do</code>还可以在最后对异常进行处理，对此需要定义一个失败回滚函数，可以使用它在服务调用失败时进行异常处理和回滚操作，如果不定义就直接返回异常。在上面的例子中，我们定义了一个简单的失败回滚函数，返回了特定的异常信息。注意，如果该名称的Hystrix断路器已经打开，那么<code>hystrix.Do</code>将<span style="color:red">直接执行失败回滚函数，跳过远程调用过程，进行服务熔断操作</span>。</p>
+<p>2，use-string-service的endpoint层</p>
+<p>在endpoint层中，我们需要创建UseStringEndpoint将UseStringService方法提供出去，源码位于ch10-resiliency/use-string-service/endpoint/endpoints.go，代码如下所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> endpoint</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;context&quot;</span></span><br><span class="line">    <span class="string">&quot;github.com/go-kit/kit/endpoint&quot;</span></span><br><span class="line">    <span class="string">&quot;micro-go-book/ch10-resiliency/use-string-service/service&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// CalculateEndpoint define endpoint</span></span><br><span class="line"><span class="keyword">type</span> UseStringEndpoints <span class="keyword">struct</span> &#123;</span><br><span class="line">    UseStringEndpoint   endpoint.Endpoint</span><br><span class="line">    HealthCheckEndpoint endpoint.Endpoint</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// StringRequest define request struct</span></span><br><span class="line"><span class="keyword">type</span> UseStringRequest <span class="keyword">struct</span> &#123;</span><br><span class="line">    RequestType <span class="type">string</span> <span class="string">`json:&quot;request_type&quot;`</span></span><br><span class="line">    A           <span class="type">string</span> <span class="string">`json:&quot;a&quot;`</span></span><br><span class="line">    B           <span class="type">string</span> <span class="string">`json:&quot;b&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// StringResponse define response struct</span></span><br><span class="line"><span class="keyword">type</span> UseStringResponse <span class="keyword">struct</span> &#123;</span><br><span class="line">    Result <span class="type">string</span> <span class="string">`json:&quot;result&quot;`</span></span><br><span class="line">    Error  <span class="type">string</span>  <span class="string">`json:&quot;error&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// MakeStringEndpoint make endpoint</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">MakeUseStringEndpoint</span><span class="params">(svc service.Service)</span></span> endpoint.Endpoint &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(ctx context.Context, request <span class="keyword">interface</span>&#123;&#125;)</span></span> (response <span class="keyword">interface</span>&#123;&#125;, err <span class="type">error</span>) &#123;</span><br><span class="line">        req := request.(UseStringRequest)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> (</span><br><span class="line">            res, a, b, opErrorString <span class="type">string</span></span><br><span class="line">            opError   <span class="type">error</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        a = req.A</span><br><span class="line">        b = req.B</span><br><span class="line"></span><br><span class="line">        res, opError = svc.UseStringService(req.RequestType, a, b)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> opError != <span class="literal">nil</span>&#123;</span><br><span class="line">            opErrorString = opError.Error()</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> UseStringResponse&#123;Result: res, Error: opErrorString&#125;, <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// HealthRequest 健康检查请求结构</span></span><br><span class="line"><span class="keyword">type</span> HealthRequest <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// HealthResponse 健康检查响应结构</span></span><br><span class="line"><span class="keyword">type</span> HealthResponse <span class="keyword">struct</span> &#123;</span><br><span class="line">    Status <span class="type">bool</span> <span class="string">`json:&quot;status&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// MakeHealthCheckEndpoint 创建健康检查Endpoint</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">MakeHealthCheckEndpoint</span><span class="params">(svc service.Service)</span></span> endpoint.Endpoint &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(ctx context.Context, request <span class="keyword">interface</span>&#123;&#125;)</span></span> (response <span class="keyword">interface</span>&#123;&#125;, err <span class="type">error</span>) &#123;</span><br><span class="line">        status := svc.HealthCheck()</span><br><span class="line">        <span class="keyword">return</span> HealthResponse&#123;status&#125;, <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>在上述代码中，我们使用MakeUseStringEndpoint方法构建了UseStringEndpoint，将<code>UseStringService.UseStringService</code>方法暴露了出去，以供transport层调用。</p>
+<p>3，use-string-service的transport层</p>
+<p>在transport层中，我们需要将UseStringEndpoint部署在use-string-service服务的<code>/op/&#123;type&#125;/&#123;a&#125;/&#123;b&#125;</code>路径下，这样子我们在调用use-string-service服务的<code>/op/&#123;type&#125;/&#123;a&#125;/&#123;b&#125;</code>接口时会把请求转发给string-service服务进行处理，以验证负载均衡和服务熔断的效果。源码位于ch10-resiliency/use-string-service/transport/http.go下，代码如下所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> transport</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;context&quot;</span></span><br><span class="line">    <span class="string">&quot;encoding/json&quot;</span></span><br><span class="line">    <span class="string">&quot;errors&quot;</span></span><br><span class="line">    <span class="string">&quot;github.com/afex/hystrix-go/hystrix&quot;</span></span><br><span class="line">    <span class="string">&quot;github.com/go-kit/kit/log&quot;</span></span><br><span class="line">    <span class="string">&quot;github.com/go-kit/kit/transport&quot;</span></span><br><span class="line">    kithttp <span class="string">&quot;github.com/go-kit/kit/transport/http&quot;</span></span><br><span class="line">    <span class="string">&quot;github.com/gorilla/mux&quot;</span></span><br><span class="line">    <span class="string">&quot;micro-go-book/ch10-resiliency/use-string-service/endpoint&quot;</span></span><br><span class="line">    <span class="string">&quot;github.com/prometheus/client_golang/prometheus/promhttp&quot;</span></span><br><span class="line">    <span class="string">&quot;net/http&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> (</span><br><span class="line">    ErrorBadRequest = errors.New(<span class="string">&quot;invalid request parameter&quot;</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">// MakeHttpHandler make http handler use mux</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">MakeHttpHandler</span><span class="params">(ctx context.Context, endpoints endpoint.UseStringEndpoints, logger log.Logger)</span></span> http.Handler &#123;</span><br><span class="line">    r := mux.NewRouter()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    options := []kithttp.ServerOption&#123;</span><br><span class="line">        kithttp.ServerErrorHandler(transport.NewLogErrorHandler(logger)),</span><br><span class="line">        kithttp.ServerErrorEncoder(encodeError),</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    r.Methods(<span class="string">&quot;POST&quot;</span>).Path(<span class="string">&quot;/op/&#123;type&#125;/&#123;a&#125;/&#123;b&#125;&quot;</span>).Handler(kithttp.NewServer(</span><br><span class="line">        endpoints.UseStringEndpoint,</span><br><span class="line">        decodeStringRequest,</span><br><span class="line">        encodeStringResponse,</span><br><span class="line">        options...,</span><br><span class="line">    ))</span><br><span class="line"></span><br><span class="line">    r.Path(<span class="string">&quot;/metrics&quot;</span>).Handler(promhttp.Handler())</span><br><span class="line"></span><br><span class="line">    <span class="comment">// create health check handler</span></span><br><span class="line">    r.Methods(<span class="string">&quot;GET&quot;</span>).Path(<span class="string">&quot;/health&quot;</span>).Handler(kithttp.NewServer(</span><br><span class="line">        endpoints.HealthCheckEndpoint,</span><br><span class="line">        decodeHealthCheckRequest,</span><br><span class="line">        encodeStringResponse,</span><br><span class="line">        options...,</span><br><span class="line">    ))</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 添加 hytrix 监控数据</span></span><br><span class="line">    hystrixStreamHandler := hystrix.NewStreamHandler()</span><br><span class="line">    hystrixStreamHandler.Start()</span><br><span class="line">    r.Handle(<span class="string">&quot;/hystrix/stream&quot;</span>, hystrixStreamHandler)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// decodeStringRequest decode request params to struct</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">decodeStringRequest</span><span class="params">(_ context.Context, r *http.Request)</span></span> (<span class="keyword">interface</span>&#123;&#125;, <span class="type">error</span>) &#123;</span><br><span class="line">    vars := mux.Vars(r)</span><br><span class="line">    requestType, ok := vars[<span class="string">&quot;type&quot;</span>]</span><br><span class="line">    <span class="keyword">if</span> !ok &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, ErrorBadRequest</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    pa, ok := vars[<span class="string">&quot;a&quot;</span>]</span><br><span class="line">    <span class="keyword">if</span> !ok &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, ErrorBadRequest</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    pb, ok := vars[<span class="string">&quot;b&quot;</span>]</span><br><span class="line">    <span class="keyword">if</span> !ok &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>, ErrorBadRequest</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> endpoint.UseStringRequest&#123;</span><br><span class="line">        RequestType: requestType,</span><br><span class="line">        A:           pa,</span><br><span class="line">        B:           pb,</span><br><span class="line">    &#125;, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// encodeStringResponse encode response to return</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">encodeStringResponse</span><span class="params">(ctx context.Context, w http.ResponseWriter, response <span class="keyword">interface</span>&#123;&#125;)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">    w.Header().Set(<span class="string">&quot;Content-Type&quot;</span>, <span class="string">&quot;application/json;charset=utf-8&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span> json.NewEncoder(w).Encode(response)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// decodeHealthCheckRequest decode request</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">decodeHealthCheckRequest</span><span class="params">(ctx context.Context, r *http.Request)</span></span> (<span class="keyword">interface</span>&#123;&#125;, <span class="type">error</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> endpoint.HealthRequest&#123;&#125;, <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">encodeError</span><span class="params">(_ context.Context, err <span class="type">error</span>, w http.ResponseWriter)</span></span> &#123;</span><br><span class="line">    w.Header().Set(<span class="string">&quot;Content-Type&quot;</span>, <span class="string">&quot;application/json; charset=utf-8&quot;</span>)</span><br><span class="line">    <span class="keyword">switch</span> err &#123;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        w.WriteHeader(http.StatusInternalServerError)</span><br><span class="line">    &#125;</span><br><span class="line">    json.NewEncoder(w).Encode(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;</span><br><span class="line">        <span class="string">&quot;error&quot;</span>: err.Error(),</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>在上述代码中，我们将UseStringEndpoint部署在use-string-service服务的<code>/op/&#123;type&#125;/&#123;a&#125;/&#123;b&#125;</code>路径下。接着我们使用decodeStringRequest方法将HTTP请求参数转化为<code>endpoint.UseStringRequest</code>传递给UseStringEndpoint，并使用encodeStringResponse将UseStringEndpoint返回的结果转化为JSON数据返回给调用客户端。</p>
+<p>use-string-service的main函数将完成服务注册并依次构建service层、endpoint层、transport层，然后将transport的HTTP服务部署在配置的端口下，具体实现参考文件ch10-resiliency/use-string-service/main.go：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;context&quot;</span></span><br><span class="line">    <span class="string">&quot;flag&quot;</span></span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;github.com/go-kit/kit/circuitbreaker&quot;</span></span><br><span class="line">    uuid <span class="string">&quot;github.com/satori/go.uuid&quot;</span></span><br><span class="line">    <span class="string">&quot;micro-go-book/ch10-resiliency/use-string-service/config&quot;</span></span><br><span class="line">    <span class="string">&quot;micro-go-book/ch10-resiliency/use-string-service/endpoint&quot;</span></span><br><span class="line">    <span class="string">&quot;micro-go-book/ch10-resiliency/use-string-service/service&quot;</span></span><br><span class="line">    <span class="string">&quot;micro-go-book/ch10-resiliency/use-string-service/transport&quot;</span></span><br><span class="line">    <span class="string">&quot;micro-go-book/common/discover&quot;</span></span><br><span class="line">    <span class="string">&quot;micro-go-book/common/loadbalance&quot;</span></span><br><span class="line">    <span class="string">&quot;net/http&quot;</span></span><br><span class="line">    <span class="string">&quot;os&quot;</span></span><br><span class="line">    <span class="string">&quot;os/signal&quot;</span></span><br><span class="line">    <span class="string">&quot;strconv&quot;</span></span><br><span class="line">    <span class="string">&quot;syscall&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> (</span><br><span class="line">        servicePort = flag.Int(<span class="string">&quot;service.port&quot;</span>, <span class="number">10086</span>, <span class="string">&quot;service port&quot;</span>)</span><br><span class="line">        serviceHost = flag.String(<span class="string">&quot;service.host&quot;</span>, <span class="string">&quot;127.0.0.1&quot;</span>, <span class="string">&quot;service host&quot;</span>)</span><br><span class="line">        consulPort  = flag.Int(<span class="string">&quot;consul.port&quot;</span>, <span class="number">8500</span>, <span class="string">&quot;consul port&quot;</span>)</span><br><span class="line">        consulHost  = flag.String(<span class="string">&quot;consul.host&quot;</span>, <span class="string">&quot;127.0.0.1&quot;</span>, <span class="string">&quot;consul host&quot;</span>)</span><br><span class="line">        serviceName = flag.String(<span class="string">&quot;service.name&quot;</span>, <span class="string">&quot;use-string&quot;</span>, <span class="string">&quot;service name&quot;</span>)</span><br><span class="line">    )</span><br><span class="line"></span><br><span class="line">    flag.Parse()</span><br><span class="line"></span><br><span class="line">    ctx := context.Background()</span><br><span class="line">    errChan := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="type">error</span>)</span><br><span class="line">    <span class="keyword">var</span> discoveryClient discover.DiscoveryClient</span><br><span class="line">    discoveryClient, err := discover.NewKitDiscoverClient(*consulHost, *consulPort)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        config.Logger.Println(<span class="string">&quot;Get Consul Client failed&quot;</span>)</span><br><span class="line">        os.Exit(<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> svc service.Service</span><br><span class="line">    svc = service.NewUseStringService(discoveryClient, &amp;loadbalance.RandomLoadBalance&#123;&#125;)</span><br><span class="line">    useStringEndpoint := endpoint.MakeUseStringEndpoint(svc)</span><br><span class="line">    useStringEndpoint = circuitbreaker.Hystrix(service.StringServiceCommandName)(useStringEndpoint)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建健康检查的Endpoint</span></span><br><span class="line">    healthEndpoint := endpoint.MakeHealthCheckEndpoint(svc)</span><br><span class="line"></span><br><span class="line">    <span class="comment">//把算术运算Endpoint和健康检查Endpoint封装至StringEndpoints</span></span><br><span class="line">    endpts := endpoint.UseStringEndpoints&#123;</span><br><span class="line">        UseStringEndpoint:   useStringEndpoint,</span><br><span class="line">        HealthCheckEndpoint: healthEndpoint,</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//创建http.Handler</span></span><br><span class="line">    r := transport.MakeHttpHandler(ctx, endpts, config.KitLogger)</span><br><span class="line"></span><br><span class="line">    instanceId := *serviceName + <span class="string">&quot;-&quot;</span> + uuid.NewV4().String()</span><br><span class="line"></span><br><span class="line">    <span class="comment">//http server</span></span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">        config.Logger.Println(<span class="string">&quot;Http Server start at port:&quot;</span> + strconv.Itoa(*servicePort))</span><br><span class="line">        <span class="comment">//启动前执行注册</span></span><br><span class="line">        <span class="keyword">if</span> !discoveryClient.Register(*serviceName, instanceId, <span class="string">&quot;/health&quot;</span>, *serviceHost, *servicePort, <span class="literal">nil</span>, config.Logger) &#123;</span><br><span class="line">            config.Logger.Printf(<span class="string">&quot;use-string-service for service %s failed.&quot;</span>, serviceName)</span><br><span class="line">            <span class="comment">// 注册失败，服务启动失败</span></span><br><span class="line">            os.Exit(<span class="number">-1</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        handler := r</span><br><span class="line">        errChan &lt;- http.ListenAndServe(<span class="string">&quot;:&quot;</span>+strconv.Itoa(*servicePort), handler)</span><br><span class="line">    &#125;()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        c := <span class="built_in">make</span>(<span class="keyword">chan</span> os.Signal, <span class="number">1</span>)</span><br><span class="line">        signal.Notify(c, syscall.SIGINT, syscall.SIGTERM)</span><br><span class="line">        errChan &lt;- fmt.Errorf(<span class="string">&quot;%s&quot;</span>, &lt;-c)</span><br><span class="line">    &#125;()</span><br><span class="line"></span><br><span class="line">    <span class="type">error</span> := &lt;-errChan</span><br><span class="line">    <span class="comment">//服务退出取消注册</span></span><br><span class="line">    discoveryClient.DeRegister(instanceId, config.Logger)</span><br><span class="line">    config.Logger.Println(<span class="type">error</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>接下来我们来验证两个组件的执行效果。</p>
+<p>4，负载均衡和服务熔断效果验证</p>
+<p>项目编写完成之后，我们需要检验它们的效果。我们首先启动Consul，启动命令如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">consul agent -dev</span><br></pre></td></tr></table></figure><br>接着在ch10-resiliency/string-service和ch10-resiliency/use-string-service目录分别启动string-service和use-string-service服务，启动命令如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go run main.go</span><br></pre></td></tr></table></figure><br>为了保证string-service存在多实例可调用，我们需要在启动string-service后再启动一个监听其他端口的新服务实例。我们将新的服务实例部署在10089端口下，在string-service目录下新开一个命令行，使用以下命令启动：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go run main.go -service.port 10089</span><br></pre></td></tr></table></figure><br>然后访问Consul的主页<code>http://localhost:8500/</code>，如图10-6所示。</p>
+<blockquote>
+<p>图10-6 Consul主页</p>
+</blockquote>
+
+<p>我们能够发现string-service和use-string-service服务都已经注册上去了，接着我们访问use-string-service服务的<code>/&#123;op&#125;/&#123;type&#125;/&#123;a&#125;/&#123;b&#125;</code>接口，通过use-string-service服务发起对string-service服务的远程调用。curl请求命令如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST http://localhost:10086/op/concat/11/12</span><br></pre></td></tr></table></figure><br>即可以得到正确的响应如下：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;result&quot;</span><span class="punctuation">:</span> <span class="number">1112</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;error&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure><br>并且在use-string-service服务的命令行下查看到以下日志：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2024/06/13 16:56:46 current string-service ID is string-13f0bba1-5815-4d6b-8cad-892ad125471e </span><br><span class="line">and address:port is 127.0.0.1:10085</span><br></pre></td></tr></table></figure><br>从日志中我们可以发现本次请求转发到端口10085的string-service服务实例中进行处理。多次发起curl请求命令，我们会从日志中发现请求被随机分发到端口10085和10089的string-service服务实例中处理，说明我们的随机负载均衡器发挥了随机分发请求的作用。多次请求后的日志可能结果如下所示：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">2024/06/13 16:59:10 current string-service ID is string-13f0bba1-5815-4d6b-8cad-892ad125471e </span><br><span class="line">and address:port is 127.0.0.1:10089</span><br><span class="line">2024/06/13 16:59:11 current string-service ID is string-afc426e0-7993-43d3-90eb-c85ed506e4fd </span><br><span class="line">and address:port is 127.0.0.1:10085</span><br><span class="line">2024/06/13 16:59:12 current string-service ID is string-13f0bba1-5815-4d6b-8cad-892ad125471e </span><br><span class="line">and address:port is 127.0.0.1:10089</span><br><span class="line">2024/06/13 16:59:13 current string-service ID is string-afc426e0-7993-43d3-90eb-c85ed506e4fd </span><br><span class="line">and address:port is 127.0.0.1:10085</span><br><span class="line">2024/06/13 16:59:14 current string-service ID is string-afc426e0-7993-43d3-90eb-c85ed506e4fd </span><br><span class="line">and address:port is 127.0.0.1:10085</span><br><span class="line">2024/06/13 16:59:15 current string-service ID is string-afc426e0-7993-43d3-90eb-c85ed506e4fd </span><br><span class="line">and address:port is 127.0.0.1:10085</span><br></pre></td></tr></table></figure><br>接着我们关闭所有string-service服务，继续使用curl请求结果，将会得到以下响应：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;result&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;error&quot;</span><span class="punctuation">:</span> <span class="string">&quot;fallback failed with &#x27;Hystrixfall back execute&#x27;. run error was &#x27;service instances are not existed&#x27;&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure><br>这个返回结果中包含了异常信息，同时日志中也会输出<code>service instances are not existed</code>，这说明了<code>hystrix.Do</code>中被包装的代码已经执行了。由于在创建UseStringService时我们设定了以<code>String.string</code>命名的断路器生效触发请求阀值为5次，连续使用curl接口请求失败5次之后继续访问将发现不再有先前的日志输出，返回的响应也变为以下异常：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;result&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;error&quot;</span><span class="punctuation">:</span> <span class="string">&quot;fallback failed with &#x27;Hystrixfall back execute&#x27;. run error was &#x27;hystrix: circuit open&#x27;&quot;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure><br>这说明此时断路器已经打开，直接执行了失败回滚函数返回异常结果。如果5秒之后我们重新使用curl访问接口，将会发现请求重新执行了<code>hystrix.Do</code>中的远程调用代码，这是因为断路器打开之后的超时时间已经结束（默认为5秒钟），断路器进入了半开状态，允许程序重新执行远程调用，试探下游服务是否恢复可用状态，因为此时string-service服务处于一直不可用的状态，所以请求失败后，断路器又回到了打开状态。</p>
+<h2 id="使用Go-kit-Hystrix中间件"><a href="#使用Go-kit-Hystrix中间件" class="headerlink" title="使用Go-kit Hystrix中间件"></a><span style="color:#00ACC1;">使用Go-kit Hystrix中间件</span></h2><p>Go-kit作为微服务工具集，围绕Endpoint提供了包括断路器、限流器、日志等多种中间件，它们都是以装饰者模式对原有的Endpoint进行行为包装，增加特定的组件行为。</p>
+<p>Go-kit中提供了服务熔断Hystrix的中间件，对此我们可以在endpoint层直接使用，无需在service中自行封装。接下来我们将在use-string-service的endpoint层中直接使用Hystrix中间件修饰UseStringEndpoint。</p>
+<p>【实例10-1】使用Go-kit Hystrix中间件修饰Endpoint</p>
+<p>首先将service层中UseStringService方法的Hystrix相关代码移除，修改代码如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s UseStringService)</span></span> UseStringService (operationType, a, b <span class="type">string</span>) (<span class="type">string</span>, <span class="type">error</span>) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> operationResult <span class="type">string</span></span><br><span class="line">    <span class="keyword">var</span> err <span class="type">error</span></span><br><span class="line"></span><br><span class="line">    instances := s.discoveryClient.DiscoverServices(StringService, config.Logger)</span><br><span class="line">    instanceList := <span class="built_in">make</span>([]*api.AgentService, <span class="built_in">len</span>(instances))</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(instances); i++ &#123;</span><br><span class="line">        instanceList[i] = instances[i].(*api.AgentService)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 使用负载均衡算法选取实例</span></span><br><span class="line">    selectInstance, err := s.loadbalance.SelectService(instanceList);</span><br><span class="line">    <span class="keyword">if</span> err == <span class="literal">nil</span> &#123;</span><br><span class="line">        config.Logger.Printf(<span class="string">&quot;current string-service ID is %s and address:port is %s:%s\n&quot;</span>, selectInstance.ID, selectInstance.Address, strconv.Itoa(selectInstance.Port))</span><br><span class="line">        requestUrl := url.URL&#123;</span><br><span class="line">            Scheme: <span class="string">&quot;http&quot;</span>,</span><br><span class="line">            Host:   selectInstance.Address + <span class="string">&quot;:&quot;</span> + strconv.Itoa(selectInstance.Port),</span><br><span class="line">            Path:   <span class="string">&quot;/op/&quot;</span> + operationType + <span class="string">&quot;/&quot;</span> + a + <span class="string">&quot;/&quot;</span> + b,</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        resp, err := http.Post(requestUrl.String(), <span class="string">&quot;&quot;</span>, <span class="literal">nil</span>)</span><br><span class="line">        <span class="keyword">if</span> err == <span class="literal">nil</span> &#123;</span><br><span class="line">            result := &amp;StringResponse&#123;&#125;</span><br><span class="line">            err = json.NewDecoder(resp.Body).Decode(result)</span><br><span class="line">            <span class="keyword">if</span> err == <span class="literal">nil</span> &amp;&amp; result.Error == <span class="literal">nil</span>&#123;</span><br><span class="line">                operationResult = result.Result</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> operationResult, err</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>构建在endpoint层的Hystrix需要以Endpoint中返回的error来统计调用失败次数，因此需要修改endpoint层的MakeUseStringEndpoint创建函数，代码如下所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">MakeUseStringEndpoint</span><span class="params">(svc service.Service)</span></span> endpoint.Endpoint &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(ctx context.Context, request <span class="keyword">interface</span>&#123;&#125;)</span></span> (response <span class="keyword">interface</span>&#123;&#125;, err <span class="type">error</span>) &#123;</span><br><span class="line">        req := request.(UseStringRequest)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> (</span><br><span class="line">            res, a, b <span class="type">string</span></span><br><span class="line">            opError   <span class="type">error</span></span><br><span class="line">        )</span><br><span class="line"></span><br><span class="line">        a = req.A</span><br><span class="line">        b = req.B</span><br><span class="line"></span><br><span class="line">        res, opError = svc.UseStringService(req.RequestType, a, b)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> UseStringResponse&#123;Result: res&#125;, opError</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>在上述代码中，我们不再将业务逻辑的错误封装到response中返回，而是直接通过Endpoint的err返回给transport层。最后我们修改main函数，在构建UseStringEndpoint时添加Go-kit Hystrix中间件，代码如下所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    ...</span><br><span class="line">    <span class="comment">// 引入中间件依赖</span></span><br><span class="line">    <span class="string">&quot;github.com/go-kit/kit/circuitbreaker&quot;</span></span><br><span class="line">    ...</span><br><span class="line">)</span><br><span class="line">...</span><br><span class="line"><span class="keyword">var</span> svc service.Service</span><br><span class="line">svc = service.NewUseStringService(discoveryClient, &amp;loadbalance.RandomLoadBalance&#123;&#125; )</span><br><span class="line">useStringEndpoint := endpoint.MakeUseStringEndpoint(svc)</span><br><span class="line">useStringEndpoint = circuitbreaker.Hystrix(service.StringServiceCommandName)(useStringEndpoint)</span><br></pre></td></tr></table></figure><br>如此即可以实现与我们自定义Hystrix命令相同的功能。查看<code>circuitbreaker.Hystrix</code>的实现逻辑，可以发现Go-kit也是使用<code>hystrix.Do</code>方法对Endpoint的调用方法进行包装。但是需要注意的是，如果使用Go-kit提供的Hystrix中间件，将无法定义相关的失败回滚函数，不利于远程调用失败后的恢复处理工作。</p>
+<h1 id="Hystrix详解"><a href="#Hystrix详解" class="headerlink" title="Hystrix详解"></a><span style="color:#339AFF;">Hystrix详解</span></h1><p>在上一小节中，我们通过一个实例演示了在如何在服务调用中使用Hystrix，通过Hystrix服务熔断能力为服务之间的安全调用保驾护航，在这一小节中我们将对Hystrix的详细使用和基本原理进行介绍。</p>
+<h2 id="Hystrix基本使用"><a href="#Hystrix基本使用" class="headerlink" title="Hystrix基本使用"></a><span style="color:#00ACC1;">Hystrix基本使用</span></h2><p>hystrix-go中总共提供了两种方式包装远程调用的方式，一种是在10.3小节中使用的Hystrix同步执行包装方式，另外一种是异步执行包装模式。无论是哪种方式，都需要为被包装的执行函数赋予对应的Hystrix命名，命名相同的Hystrix命令的执行过程会使用相同的断路器进行统计和控制。</p>
+<p>1，同步执行</p>
+<p>同步Hystrix的使用方式如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">err := hystrix.Do(<span class="string">&quot;test command&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">()</span></span> <span class="type">error</span> &#123;</span><br><span class="line">    <span class="comment">// 远程调用&amp;或者其他需要保护的方法</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;, <span class="function"><span class="keyword">func</span> <span class="params">(err <span class="type">error</span>)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">    <span class="comment">// 失败回滚方法</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><br>除了定义Hystrix命令的命名和具体的被包装函数外，我们还可选择定义失败回滚方法，这个方法在被包装的远程调用函数返回异常或者断路器被打开时执行，我们可以在失败回滚方法中定义一些本地处理流程、重试或者回滚操作，以保证调用流程的正常进行。</p>
+<p>2，异步执行</p>
+<p>异步Hystrix的使用方式如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">resultChan := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">interface</span>&#123;&#125;, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">errChan := hystrix.Go(<span class="string">&quot;test command&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">()</span></span> <span class="type">error</span> &#123; </span><br><span class="line">    <span class="comment">// 远程调用&amp;或者其他需要保护的方法</span></span><br><span class="line">    resultChan &lt;- <span class="string">&quot;success&quot;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;,  <span class="function"><span class="keyword">func</span> <span class="params">(e <span class="type">error</span>)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">    <span class="comment">// 失败回滚方法</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> &#123;</span><br><span class="line"><span class="keyword">case</span> err := &lt;- errChan:</span><br><span class="line">    <span class="comment">// 执行失败</span></span><br><span class="line"><span class="keyword">case</span> result := &lt;-resultChan</span><br><span class="line">    <span class="comment">// 执行成功</span></span><br><span class="line"><span class="keyword">case</span> &lt;-time.After(<span class="number">2</span> * time.Second): <span class="comment">// 超时设置</span></span><br><span class="line">    fmt.Println(<span class="string">&quot;Time out&quot;</span>)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>如上代码所述，通过<code>hystrix.Go</code>异步执行的远程调用将会在与当前goroutine不同的goroutine中执行，执行的异常是通过channel的方式返回给调用goroutine。对此，如果我们想要获取到远程调用的返回结果，需要定义一个返回处理结果的resultChan，在远程调用结束后将结果放入resultChan，调用goroutine就可以通过resultChan获取到调用结果。</p>
+<p>其实无论是同步调用还是异步调用，都是在一个新的goroutine中异步执行调用逻辑，只不过h<code>ystrix.Do</code>使用channel为我们将异步过程处理为同步调用。</p>
+<h2 id="运行流程"><a href="#运行流程" class="headerlink" title="运行流程"></a><span style="color:#00ACC1;">运行流程</span></h2><p>除了进行服务熔断，Hystix在执行过程中还为不同命名的远程调用提供goroutine隔离的能力。goroutine 隔离使得不同的远程调用方法在固定数量的goroutine 下执行，控制了每种远程调用的并发数量，从而进行流量控制；在某个Hystrix命令调用出现大量超时阻塞时也仅仅会影响到与自己命名相同的Hystrix命令，并不会影响其他Hystix命令以及系统其他请求的执行。在hystrix命令配置的goroutine执行数量被占满时，该Hystrix命令的执行将会直接进入到失败回滚逻辑中，进行服务降级，保护服务调用者的资源稳定。</p>
+<p>hystrix-go的整体调用流程如图10-7所示。</p>
+<blockquote>
+<p>图10-7 Hystrix-go整体调用流程</p>
+</blockquote>
+<img src="/2024/05/21/%E7%AC%AC10%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AE%B9%E9%94%99%E5%A4%84%E7%90%86%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/7.png" class="">
+<p>我们来详细分析一下这个调用流程：</p>
+<p>（1）每一个被Hystrix包装的远程调用逻辑都会封装为一个Hystrix命令，其内包含用户预置远程调用逻辑和失败回滚逻辑，根据Hystrix命名唯一确认一个Hystrix命令。</p>
+<p>（2）根据Hystrix命令的命名获取到对应的断路器，判断断路器是否打开。如果断路器打开，将直接执行失败回滚逻辑，不执行真正的远程调用逻辑，此时服务调用已经被熔断了。如果断路器关闭或者处于半开状态，将向执行池请求执行通行证。</p>
+<p>（3）Hystrix中每一种命令都限制了并发数量，当Hystrix命令的并发数量超过了执行池中设定的最大执行数量时，额外的请求就会被直接拒绝，进入到失败回滚逻辑中，避免服务过载。如果执行池中的最大执行数量未满，那么请求才会进入到执行远程调用的逻辑中。</p>
+<p>（4）在执行远程调用时，执行出现异常或者下游服务执行超时，那么Hystrix命令将会向Metrics控制器上传执行结果，并进入到失败回滚逻辑中。</p>
+<p>（5）Metrics控制器使用滑动窗口的方式统计一段时间的调用次数、失败次数、超时次数和被拒绝次数（执行池已满时请求被拒绝），如果该段时间内的错误频率（执行不成功的总次数占请求总次数）超过了断路器错误率阀值，那么断路器将会打开。在重试超时定时器到达之前的请求都会直接进入失败回滚逻辑，拒绝执行真正的远程调用。</p>
+<h2 id="常用参数配置"><a href="#常用参数配置" class="headerlink" title="常用参数配置"></a><span style="color:#00ACC1;">常用参数配置</span></h2><p>对于每一种命名的Hystrix命令，我们可以在命令执行之前对命令进行自定义配置，能够进行配置的参数主要有：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// CommandConfig is used to tune circuit settings at runtime</span></span><br><span class="line"><span class="keyword">type</span> CommandConfig <span class="keyword">struct</span> &#123;</span><br><span class="line">    Timeout                <span class="type">int</span> <span class="string">`json:&quot;timeout&quot;`</span></span><br><span class="line">    MaxConcurrentRequests  <span class="type">int</span> <span class="string">`json:&quot;max_concurrent_requests&quot;`</span></span><br><span class="line">    RequestVolumeThreshold <span class="type">int</span> <span class="string">`json:&quot;request_volume_threshold&quot;`</span></span><br><span class="line">    SleepWindow            <span class="type">int</span> <span class="string">`json:&quot;sleep_window&quot;`</span></span><br><span class="line">    ErrorPercentThreshold  <span class="type">int</span> <span class="string">`json:&quot;error_percent_threshold&quot;`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>Hystrix命令配置信息封装在CommandConfig结构体中，这些配置信息的具体说明如下表10-1所示。</p>
+<blockquote>
+<p>表10-1</p>
+</blockquote>
+<img src="/2024/05/21/%E7%AC%AC10%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AE%B9%E9%94%99%E5%A4%84%E7%90%86%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/t-1-1.png" class="">
+<img src="/2024/05/21/%E7%AC%AC10%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%AE%B9%E9%94%99%E5%A4%84%E7%90%86%E4%B8%8E%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1/t-1-2.png" class="">
+<p>在10.3小节的例子中，为了减少断路器生效的最小请求阀值，我们在NewUseStringService方法中将Hystrix的RequestVolumeThreshold设置为5。自定义Hystrix命令的配置如下所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hystrix.ConfigureCommand(<span class="string">&quot;test_command&quot;</span>, hystrix.CommandConfig&#123;</span><br><span class="line">    <span class="comment">//设置参数</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><br>具体工作实践中，可以根据我们的需要，对表10-1中的5个配置参数进行修改，使Hystrix的保护功能更好地与当前系统相结合。在hystrix.settings.go文件中有Hystrix命令的默认参数设置，如果不需要调整Hystrix执行配置，可以直接使用默认设置执行。</p>
+<h1 id="Hystrix监控面板"><a href="#Hystrix监控面板" class="headerlink" title="Hystrix监控面板"></a><span style="color:#339AFF;">Hystrix监控面板</span></h1><p>Hystrix中提供以HTTP的方式获取当前服务的Hystrix命令调用状态信息的能力，结合对应的Hystrix可视化面板，可以让开发人员对下游依赖服务运行状态有清晰地认知，有利于定位和排查微服务间的异常调用问题。</p>
+<h2 id="获取Hystrix命令调用信息"><a href="#获取Hystrix命令调用信息" class="headerlink" title="获取Hystrix命令调用信息"></a><span style="color:#00ACC1;">获取Hystrix命令调用信息</span></h2><p>对于每一种Hystrix命令，我们都可以在运行时获取到其对应的断路器对象CircuitBreaker，通过<code>CircuitBreaker.IsOpen</code>可以获取当前命令的断路器是否打开，调用能否正常进行，看下面这个小例子：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">circuit,L:= hystrixiGetcircuit (<span class="string">&quot;test command&quot;</span>)</span><br><span class="line">fmt:Printlni(<span class="string">&quot;command test command&#x27;s .cifcuit</span></span><br><span class="line"><span class="string">open</span></span><br><span class="line"><span class="string">strcony.FormatBool(circuit:IsOpen()))</span></span><br></pre></td></tr></table></figure><br>在上述实例代码中，我们使用<code>hystrix.GetCircuit</code>获取到了test_command命令的断路器对象，并通过它判断断路器是否打开。除此之外，我们还可以使用hystrixStreamHandler看到当前服务实例下所有Hystrix命令的调用状态。hystrixStreamHandler会把Metrics控制器收集的所有状态信息按每秒1次的频率向所有连接的HTTP客户端推送，以供开发人员对系统状态进行及时把控和调整。</p>
+<p>接下来我们将为use-string-service服务开启hystrixStreamHandler，修改<code>transport.MakeHttpHandler</code>方法如下所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>可以看到，在MakeHttpHandler方法的末尾，我们为HTTP添加了一个Hystrix信息的推送接口。</p>
+<p>在ch10-resiliency/use-string-service目录下启动use-string-service服务，启动命令如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go run main.go</span><br></pre></td></tr></table></figure><br>我们先调用一次curl，以保证Metrics控制器中已经收集到数据，命令如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST http://1ocalhost:10086/op/Concat/11/12</span><br></pre></td></tr></table></figure><br>接着访问<code>http://localhost:10086/hystrix/stream</code>接口，可以看到Metrics控制器中的Hystrix命令调用信息被持续通过流推送到浏览器中，如下所示：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>返回的信息主要包含近段时间内各种Hystrix命令的调用状态、结果以及它们对应的执行池和断路器的状态，通过它们就可以了解当前服务依赖的下游服务的状态，对异常的服务及时进行恢复处理。</p>
+<h2 id="使用HystrixDashboard可视化面板"><a href="#使用HystrixDashboard可视化面板" class="headerlink" title="使用HystrixDashboard可视化面板"></a><span style="color:#00ACC1;">使用HystrixDashboard可视化面板</span></h2><p>hystrixStreamHandler控制器中返回的数据过于杂乱，无法快速发现有用数据和定位问题，对此，我们可以结合Hystrix Dashboard对上述信息进行直观的查看。由于hystrix-go没有提供对应的可视化界面，我们采用开源的mlabouardy/hystrix-dashboard进行可视化查看。接下来我们演示docker版本的mlabouardy/hystrix-dashboard的使用，使用以下命令启动该可视化工具的docker镜像：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">docker run --name hystrix-dashboard -d -p 10087:8080 mlabouardy/hystrix-dashboard:latest</span></span><br></pre></td></tr></table></figure><br>接着我们访问Hystrix Dashoard的主界面，地址为<code>http://localhost:10087/hystrix</code>，如图10-8所示。</p>
+<blockquote>
+<p>图10-8 Hystrix Dashboard主界面</p>
+</blockquote>
+<p>在地址栏输入hystrixStreamHandler数据流的地址<code>http://10.93.244.130:10086/hystrix/stream</code>，因为Hystrix Dashboard运行在docker容器上，并且我们的容器是以桥接的网络模式启动，所以要把hystrixStreamHandler的host替换为本机地址，比如笔者的机器局域网地址为10.93.244.130。填入对应的信息后如下图10-9所示。</p>
+<blockquote>
+<p>图10-9 输入hystrixStreamHandler地址</p>
+</blockquote>
+<p>单击Monitor Stream进入到use-string-service服务的Hystrix Dashboard中，如图10-10所示。</p>
+<blockquote>
+<p>图10-10 Hystrix Dashboard监控页面</p>
+</blockquote>
+<p>从图10-10中可以看到，<code>String.string</code>Hystrix命令的执行失败率是100%，断路器已经打开，防止请求进入到真正的远程调用逻辑中。</p>
+<h1 id="实践案例：在网关中添加Hystrix熔断和负载均衡"><a href="#实践案例：在网关中添加Hystrix熔断和负载均衡" class="headerlink" title="实践案例：在网关中添加Hystrix熔断和负载均衡"></a><span style="color:#339AFF;">实践案例：在网关中添加Hystrix熔断和负载均衡</span></h1><p>在这个实践案例中，我们主要来改造第9章中手动实现的API网关，为API反向代理的微服务调用添加Hystrix的熔断保护和资源隔离功能以及负载均衡能力，以保护API网关的稳定运行。</p>
+<p>在第9章手动实现的API网关中，我们主要通过ReverseProxy实现了反向代理的功能，所以我们本实例的工作量主要集中在使用Hystrix包装整个反向代理逻辑和添加负载均衡器方面。</p>
+<p>首先定义HystrixHandler用于实现<code>http.Handler</code>接口，表明它可用于处理HTTP请求，结构体定义和构造函数如下代码所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>在 HystrixHandler结构体中我们定义了hystrixs用于记录当前注册的Hystrix命令，discoveryCiient变量用于服务发现，loadbalance变量用于负载均衡。</p>
+<p>接下来我们实现ServeHTTP接口，其主要逻辑是将反向代理的逻辑使用<code>hystrix.Do</code>包装起来，代码如下所示：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>在上述代码中，主要进行了以下工作：</p>
+<p>（1）根据请求路径中提供的服务名从hystrixHandler中查找该服务名的Hystrix命名是否已经配置过了。如果没有，对hystrix命令进行初始化配置。</p>
+<p>（2）在<code>hystrix.Do</code>的包装中执行3、4、5步骤。</p>
+<p>（3）根据请求路径中提供的服务名从discoveryClient中获取服务实例列表。</p>
+<p>（4）使用负载均衡器从服务实例列表中选取一个服务实例地址用于构造ReverseProxy；并定义errorHandler，用于从ReverseProxy获取执行失败后抛出的异常。</p>
+<p>（5）执行<code>ReverseProxy.ServeHTTP</code>进行代理转发，如果代理转发过程中出错将会反馈给 Hystrix。</p>
+<p>（6）如果<code>hystrix.Do</code>中执行的代理转发逻辑出错，向客户端返回服务端500的错误。</p>
+<p>最后我们将这个使用Hystrix包装过的反向代理注册到Web服务器中，修改gateway.go代码如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"></span><br></pre></td></tr></table></figure><br>这里，我们仅需要将原来生成反向代理的方法修改为我们定义的HystrixHandler即可。通过这样的方式，HystrixHandler会在下游服务器不可用时，切断网关对该服务器请求的转发，保护网关的线程资源，避免服务雪崩的发生。同时负载均衡器也能将请求分发服务集群的各个服务中，提高服务集群的处理能力。</p>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a><span style="color:#339AFF;">小结</span></h1><p>本章主要介绍了微服务架构中的服务熔断组件和负载均衡组件。我们首先了解了服务熔断的必要性，理解了下游服务的崩溃可能会引发服务雪崩而导致整个分布式系统的崩溃，同时也明白了在微服务体系中负载均衡组件发挥的强大横向扩展能力；接着介绍了断路器在服务调用中对服务调用者提供的强大保护能力，并对负载均衡的类别和几类负载均衡算法进行了了解；最后我们使用主流的hystrix-go 服务熔断组件结合自定义的负载均衡器，在微服务调用和网关转发中进行实践，实现了断路器对上游服务提供的保护作用以及负载均衡器请求分发的作用。</p>
+<p>在微服务架构中，原本的单体应用按照业务被划分为数量众多的微服务。由于业务依赖的关系，服务之间经常会发生远程调用。我们从服务注册与发现中心中获取的服务实例列表，需要借助负载均衡组件选取合适的服务实例才能发起远程调用。负载均衡组件能够有效地将请求均衡地分发到服务集群的各个服务实例中，提高服务集群的负载和吞吐量。服务熔断组件能够在下游服务出现异常时，及时切断服务调用者对服务提供者的请求，达到保护上游服务稳定性的目的。负载均衡组件和服务熔断组件是微服务架构的不可或缺的基础组件，它们为微服务之间的远程调用提供了有效的支持和保障。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Go%E8%AF%AD%E8%A8%80%E9%AB%98%E5%B9%B6%E5%8F%91%E4%B8%8E%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%AE%9E%E6%88%98/" rel="tag"># Go语言高并发与微服务实战</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2024/05/21/%E7%AC%AC9%E7%AB%A0-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3/" rel="next" title="第9章 微服务网关">
+                <i class="fa fa-chevron-left"></i> 第9章 微服务网关
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2024/05/21/%E7%AC%AC11%E7%AB%A0-%E7%BB%9F%E4%B8%80%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83/" rel="prev" title="第11章 统一认证与授权">
+                第11章 统一认证与授权 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
+            
+              <p class="site-author-name" itemprop="name">CheBin</p>
+              <div class="site-description motion-element" itemprop="description">参与开源才是出路</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/%20%7C%7C%20archive">
+                
+                    <span class="site-state-item-count">1128</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/%20%7C%7C%20th">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">30</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/%20%7C%7C%20tags">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">83</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history fa-" aria-hidden="true"></i>
+                近期文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li>
+                    <a href="/2024/05/30/%E7%AC%AC21%E7%AB%A0-%E5%9F%BA%E4%BA%8EZinx%E6%A1%86%E6%9E%B6%E7%9A%84%E5%BA%94%E7%94%A8%E9%A1%B9%E7%9B%AE%E6%A1%88%E4%BE%8B/" title="第21章 基于Zinx框架的应用项目案例" target="_blank">第21章 基于Zinx框架的应用项目案例</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/05/30/%E7%AC%AC20%E7%AB%A0-Zinx%E8%BF%9E%E6%8E%A5%E7%AE%A1%E7%90%86%E5%8F%8A%E5%B1%9E%E6%80%A7%E8%AE%BE%E7%BD%AE/" title="第20章 Zinx连接管理及属性设置" target="_blank">第20章 Zinx连接管理及属性设置</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/05/30/%E7%AC%AC19%E7%AB%A0-Zinx%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%92%8C%E4%BB%BB%E5%8A%A1%E5%B7%A5%E4%BD%9C%E6%B1%A0%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="第19章 Zinx消息队列和任务工作池设计与实现" target="_blank">第19章 Zinx消息队列和任务工作池设计与实现</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/05/30/%E7%AC%AC18%E7%AB%A0-Zinx%E8%AF%BB%E5%86%99%E5%88%86%E7%A6%BB%E6%A8%A1%E5%9E%8B%E6%9E%84%E5%BB%BA/" title="第18章 Zinx读写分离模型构建" target="_blank">第18章 Zinx读写分离模型构建</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/05/30/%E7%AC%AC17%E7%AB%A0-Zinx%E5%A4%9A%E8%B7%AF%E7%94%B1%E6%A8%A1%E5%BC%8F%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/" title="第17章 Zinx多路由模式设计与实现" target="_blank">第17章 Zinx多路由模式设计与实现</a>
+                  </li>
+                
+              </ul>
+            </div>
+        
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD"><span class="nav-number">1.</span> <span class="nav-text">服务熔断</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E6%9C%8D%E5%8A%A1%E9%9B%AA%E5%B4%A9"><span class="nav-number">1.1.</span> <span class="nav-text">分布式系统中的服务雪崩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD%E4%BF%9D%E9%9A%9C%E7%B3%BB%E7%BB%9F%E5%8F%AF%E7%94%A8%E6%80%A7"><span class="nav-number">1.2.</span> <span class="nav-text">服务熔断保障系统可用性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%AD%E8%B7%AF%E5%99%A8"><span class="nav-number">1.3.</span> <span class="nav-text">断路器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-number">2.</span> <span class="nav-text">负载均衡</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">负载均衡类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%AE%97%E6%B3%95"><span class="nav-number">2.2.</span> <span class="nav-text">负载均衡算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E8%B7%B5%E6%A1%88%E4%BE%8B%EF%BC%9A%E6%9C%8D%E5%8A%A1%E7%86%94%E6%96%AD%E5%92%8C%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E4%BD%BF%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">实践案例：服务熔断和负载均衡使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E5%99%A8"><span class="nav-number">3.1.</span> <span class="nav-text">负载均衡器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%8D%E5%8A%A1%E7%BC%96%E5%86%99"><span class="nav-number">3.2.</span> <span class="nav-text">服务编写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Go-kit-Hystrix%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="nav-number">3.3.</span> <span class="nav-text">使用Go-kit Hystrix中间件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hystrix%E8%AF%A6%E8%A7%A3"><span class="nav-number">4.</span> <span class="nav-text">Hystrix详解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Hystrix%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8"><span class="nav-number">4.1.</span> <span class="nav-text">Hystrix基本使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="nav-number">4.2.</span> <span class="nav-text">运行流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE"><span class="nav-number">4.3.</span> <span class="nav-text">常用参数配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hystrix%E7%9B%91%E6%8E%A7%E9%9D%A2%E6%9D%BF"><span class="nav-number">5.</span> <span class="nav-text">Hystrix监控面板</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96Hystrix%E5%91%BD%E4%BB%A4%E8%B0%83%E7%94%A8%E4%BF%A1%E6%81%AF"><span class="nav-number">5.1.</span> <span class="nav-text">获取Hystrix命令调用信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8HystrixDashboard%E5%8F%AF%E8%A7%86%E5%8C%96%E9%9D%A2%E6%9D%BF"><span class="nav-number">5.2.</span> <span class="nav-text">使用HystrixDashboard可视化面板</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E8%B7%B5%E6%A1%88%E4%BE%8B%EF%BC%9A%E5%9C%A8%E7%BD%91%E5%85%B3%E4%B8%AD%E6%B7%BB%E5%8A%A0Hystrix%E7%86%94%E6%96%AD%E5%92%8C%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1"><span class="nav-number">6.</span> <span class="nav-text">实践案例：在网关中添加Hystrix熔断和负载均衡</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CheBin</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">8.2m</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">124:32</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>
