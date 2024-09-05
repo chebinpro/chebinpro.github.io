@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Linux服务器配置建议使用CentOS 8.2，查看CentOS版本：12$ cat &#x2F;etc&#x2F;redhat-releaseCentOS Linux release 8.4.2105 第一步，用Root用户登录Linux系统，并创建普通用户。 123456# useradd going # 创建 going 用户，通过 going 用户登录开发机进行开发# passwd going # 设置密码">
+<meta property="og:type" content="article">
+<meta property="og:title" content="02丨环境准备：如何安装和配置一个基本的Go开发环境？">
+<meta property="og:url" content="http://yoursite.com/2021/11/24/02-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87%EF%BC%9A%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AA%E5%9F%BA%E6%9C%AC%E7%9A%84Go%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%EF%BC%9F/index.html">
+<meta property="og:site_name" content="车斌的技术博客">
+<meta property="og:description" content="Linux服务器配置建议使用CentOS 8.2，查看CentOS版本：12$ cat &#x2F;etc&#x2F;redhat-releaseCentOS Linux release 8.4.2105 第一步，用Root用户登录Linux系统，并创建普通用户。 123456# useradd going # 创建 going 用户，通过 going 用户登录开发机进行开发# passwd going # 设置密码">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2021/11/24/02-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87%EF%BC%9A%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AA%E5%9F%BA%E6%9C%AC%E7%9A%84Go%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%EF%BC%9F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2021/11/24/02-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87%EF%BC%9A%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AA%E5%9F%BA%E6%9C%AC%E7%9A%84Go%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%EF%BC%9F/2.webp">
+<meta property="article:published_time" content="2021-11-24T02:40:25.000Z">
+<meta property="article:modified_time" content="2024-09-02T06:16:43.809Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Go语言项目开发实战">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2021/11/24/02-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87%EF%BC%9A%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AA%E5%9F%BA%E6%9C%AC%E7%9A%84Go%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%EF%BC%9F/1.webp">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/11/24/02-环境准备：如何安装和配置一个基本的Go开发环境？/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>02丨环境准备：如何安装和配置一个基本的Go开发环境？ | 车斌的技术博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">车斌的技术博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">微习惯，每天看1分钟</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br/>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/24/02-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87%EF%BC%9A%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AA%E5%9F%BA%E6%9C%AC%E7%9A%84Go%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%EF%BC%9F/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源就是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="车斌的技术博客"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">02丨环境准备：如何安装和配置一个基本的Go开发环境？
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021-11-24 10:40:25" itemprop="dateCreated datePublished" datetime="2021-11-24T10:40:25+08:00">2021-11-24</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2024-09-02 14:16:43" itemprop="dateModified" datetime="2024-09-02T14:16:43+08:00">2024-09-02</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">23k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">21 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Linux服务器配置"><a href="#Linux服务器配置" class="headerlink" title="Linux服务器配置"></a><span style="color:#339AFF;">Linux服务器配置</span></h1><p>建议使用CentOS 8.2，查看CentOS版本：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cat</span> /etc/redhat-release</span></span><br><span class="line">CentOS Linux release 8.4.2105</span><br></pre></td></tr></table></figure></p>
+<p><strong>第一步，用Root用户登录Linux系统，并创建普通用户。</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">useradd going <span class="comment"># 创建 going 用户，通过 going 用户登录开发机进行开发</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">passwd going <span class="comment"># 设置密码</span></span></span><br><span class="line">Changing password for user going.</span><br><span class="line">New password:</span><br><span class="line">Retype new password:</span><br><span class="line">passwd: all authentication tokens updated successfully.</span><br></pre></td></tr></table></figure>
+<p><strong>第二步，添加sudoers。</strong></p>
+<p>将普通用户加入到sudoers中，这样普通用户就可以通过sudo命令来暂时获取Root的权限。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sed -i <span class="string">&#x27;/^root.*ALL=(ALL).*ALL/a\going\tALL=(ALL) \tALL&#x27;</span> /etc/sudoers</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cat</span> /etc/sudoers</span></span><br><span class="line">...</span><br><span class="line">root    ALL=(ALL)       ALL</span><br><span class="line">going   ALL=(ALL)       ALL</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p><strong>第三步，替换CentOS系统中自带的Yum源。</strong></p>
+<p>CentOS 8将停止维护，官方的Yum源已不可使用，所以需要切换官方的Yum源，这里选择阿里提供的Yum源。切换命令如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mv</span> /etc/yum.repos.d /etc/yum.repos.d.bak <span class="comment"># 先备份原有的 Yum 源</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> /etc/yum.repos.d</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.aliyun.com/repo/Centos-vault-8.5.2111.repo</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">yum clean all &amp;&amp; yum makecache</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>第四步，用新的用户名（going）和密码登录Linux服务器。</strong>这一步也可以验证普通用户是否创建成功。</p>
+<p><strong>第五步，配置<code>$HOME/.bashrc</code>文件。</strong></p>
+<p>我们登录新服务器后的第一步就是配置<code>$HOME/.bashrc</code>文件，以使Linux登录shell更加易用，例如配置LANG解决中文乱码，配置PS1可以避免整行都是文件路径，并将<code>$HOME/bin</code>加入到PATH路径中。配置后的内容如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># .bashrc</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># User specific aliases and functions</span></span><br><span class="line"> </span><br><span class="line"><span class="built_in">alias</span> <span class="built_in">rm</span>=<span class="string">&#x27;rm -i&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> <span class="built_in">cp</span>=<span class="string">&#x27;cp -i&#x27;</span></span><br><span class="line"><span class="built_in">alias</span> <span class="built_in">mv</span>=<span class="string">&#x27;mv -i&#x27;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Source global definitions</span></span><br><span class="line"><span class="keyword">if</span> [ -f /etc/bashrc ]; <span class="keyword">then</span></span><br><span class="line">        . /etc/bashrc</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># User specific environment</span></span><br><span class="line"><span class="comment"># Basic envs</span></span><br><span class="line"><span class="built_in">export</span> LANG=<span class="string">&quot;en_US.UTF-8&quot;</span> <span class="comment"># 设置系统语言为 en_US.UTF-8，避免终端出现中文乱码</span></span><br><span class="line"><span class="built_in">export</span> PS1=<span class="string">&#x27;[\u@dev \W]\$ &#x27;</span> <span class="comment"># 默认的 PS1 设置会展示全部的路径，为了防止过长，这里只展示：&quot;用户名@dev 最后的目录名&quot;</span></span><br><span class="line"><span class="built_in">export</span> WORKSPACE=<span class="string">&quot;<span class="variable">$HOME</span>/workspace&quot;</span> <span class="comment"># 设置工作目录</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$HOME</span>/bin:<span class="variable">$PATH</span> <span class="comment"># 将 $HOME/bin 目录加入到 PATH 变量中</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># Default entry folder</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$WORKSPACE</span> <span class="comment"># 登录系统，默认进入 workspace 目录</span></span><br></pre></td></tr></table></figure><br>有一点需要我们注意，在<code>export PATH</code>时，最好把<code>$PATH</code>放到最后，因为我们添加到目录中的命令是期望被优先搜索并使用的。配置完<code>$HOME/.bashrc</code>后，我们还需要创建工作目录workspace。将工作文件统一放在<code>$HOME/workspace</code>目录中，有几点好处。</p>
+<ul>
+<li>可以使我们的<code>$HOME</code>目录保持整洁，便于以后的文件查找和分类。</li>
+<li>如果哪一天<code>/</code>分区空间不足，可以将整个workspace目录<code>mv</code>到另一个分区中，并在<code>/</code>分区中保留软连接，例如：<code>/home/going/workspace -&gt; /data/workspace/</code>。</li>
+<li>如果哪天想备份所有的工作文件，可以直接备份workspace。</li>
+</ul>
+<p>具体的操作指令是<code>$ mkdir -p $HOME/workspace</code>。配置好<code>$HOME/.bashrc</code>文件后，我们就可以执行<code>bash</code>命令将配置加载到当前shell中了。</p>
+<h1 id="依赖安装和配置"><a href="#依赖安装和配置" class="headerlink" title="依赖安装和配置"></a><span style="color:#339AFF;">依赖安装和配置</span></h1><p><strong>第一步，安装依赖。</strong></p>
+<p>首先，我们在CentOS系统上通过yum命令来安装所需工具的依赖，安装命令如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo yum -y install make autoconf automake cmake perl-CPAN libcurl-devel libtool gcc gcc-c++ glibc-headers zlib-devel git-lfs telnet lrzsz jq expat-devel openssl-devel</span></span><br></pre></td></tr></table></figure><br>虽然有些CentOS 8.2系统已经默认安装这些依赖了，但是为了确保它们都能被安装，我仍然会尝试安装一遍。如果系统提示<code>Package xxx is already installed.</code>，说明已经安装好了，你直接忽略即可。</p>
+<p><strong>第二步，安装Git。</strong></p>
+<p>因为安装IAM系统、执行<code>go get</code>命令、安装protobuf工具等都是通过Git来操作的，所以接下来我们还需要安装Git。由于低版本的Git不支持<code>--unshallow</code>参数，而<code>go get</code>在安装Go包时会用到<code>git fetch --unshallow</code>命令，因此我们要确保安装一个高版本的Git，具体的安装方法如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> /tmp</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">wget --no-check-certificate https://mirrors.edge.kernel.org/pub/software/scm/git/git-2.36.1.tar.gz</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">tar -xvzf git-2.36.1.tar.gz</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> git-2.36.1/</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">./configure</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo make install</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git --version          <span class="comment"># 输出 git 版本号，说明安装成功</span></span></span><br><span class="line">git version 2.36.1</span><br></pre></td></tr></table></figure><br>注意啦，按照上面的步骤安装好之后，我们要把Git的二进制目录添加到PATH路径中，不然Git可能会因为找不到一些命令而报错。你可以通过执行以下命令添加目录：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">tee</span> -a <span class="variable">$HOME</span>/.bashrc &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Configure <span class="keyword">for</span> git</span></span><br><span class="line">export PATH=/usr/local/libexec/git-core:$PATH</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure></p>
+<p><strong>第三步，配置Git。</strong>我们直接执行如下命令配置Git：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --global user.name <span class="string">&quot;Lingfei Kong&quot;</span>    <span class="comment"># 用户名改成自己的</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --global user.email <span class="string">&quot;colin404@foxmail.com&quot;</span>    <span class="comment"># 邮箱改成自己的</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --global credential.helper store    <span class="comment"># 设置 Git，保存用户名和密码</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --global core.longpaths <span class="literal">true</span> <span class="comment"># 解决 Git 中 &#x27;Filename too long&#x27; 的错误</span></span></span><br></pre></td></tr></table></figure><br>除了按照上述步骤配置Git之外，我们还有几点需要注意。</p>
+<p>首先，在Git中，我们会把非ASCII字符叫做Unusual字符。这类字符在Git输出到终端的时候默认是用8进制转义字符输出的（以防乱码），但现在的终端多数都支持直接显示非ASCII字符，所以我们可以关闭掉这个特性，具体的命令如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git config --global core.quotepath off</span></span><br></pre></td></tr></table></figure><br>其次，GitHub限制最大只能克隆100M的单个文件，为了能够克隆大于100M的文件，我们还需要安装Git Large File Storage，安装方式如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git lfs install --skip-repo</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="Go编译环境安装和配置"><a href="#Go编译环境安装和配置" class="headerlink" title="Go编译环境安装和配置"></a><span style="color:#339AFF;">Go编译环境安装和配置</span></h1><p>首先，我们从Go语言官方网站下载对应的Go安装包以及源码包，这里我下载的是go 1.18.3版本：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">wget -P /tmp/ https://golang.google.cn/dl/go1.18.3.linux-amd64.tar.gz</span></span><br></pre></td></tr></table></figure><br>接着，我们完成解压和安装，命令如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> -p <span class="variable">$HOME</span>/go</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">tar -xvzf /tmp/go1.18.3.linux-amd64.tar.gz -C <span class="variable">$HOME</span>/go</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mv</span> <span class="variable">$HOME</span>/go/go <span class="variable">$HOME</span>/go/go1.18.3</span></span><br></pre></td></tr></table></figure><br>接着，我们执行以下命令，将下列环境变量追加到<code>$HOME/.bashrc</code>文件中。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">tee</span> -a <span class="variable">$HOME</span>/.bashrc &lt;&lt;<span class="string">&#x27;EOF&#x27;</span></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">Go envs</span></span><br><span class="line">export GOVERSION=go1.18.3 # Go 版本设置</span><br><span class="line">export GO_INSTALL_DIR=$HOME/go # Go 安装目录</span><br><span class="line">export GOROOT=$GO_INSTALL_DIR/$GOVERSION # GOROOT 设置</span><br><span class="line">export GOPATH=$WORKSPACE/golang # GOPATH 设置</span><br><span class="line">export PATH=$GOROOT/bin:$GOPATH/bin:$PATH # 将 Go 语言自带的和通过 go install 安装的二进制文件加入到 PATH 路径中</span><br><span class="line">export GO111MODULE=&quot;on&quot; # 开启 Go moudles 特性</span><br><span class="line">export GOPROXY=https://goproxy.cn,direct # 安装 Go 模块时，代理服务器设置</span><br><span class="line">export GOPRIVATE=</span><br><span class="line">export GOSUMDB=off # 关闭校验 Go 依赖包的哈希值</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure><br>为什么要增加这么多环境变量呢？这是因为，Go语言是通过一系列的环境变量来控制Go编译器行为的。因此，我们一定要理解每一个环境变量的含义。</p>
+<img src="/2021/11/24/02-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87%EF%BC%9A%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AA%E5%9F%BA%E6%9C%AC%E7%9A%84Go%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%EF%BC%9F/1.webp" class="">
+<p>因为Go以后会用Go modules来管理依赖，所以我建议你将GO111MODULE设置为on。</p>
+<p>在使用模块的时候，$GOPATH是无意义的，不过它还是会把下载的依赖储存在<code>$GOPATH/pkg/mod</code>目录中，也会把<code>go install</code>的二进制文件存放在<code>$GOPATH/bin</code>目录中。</p>
+<p>另外，我们还要将<code>$GOPATH/bin</code>、<code>$GOROOT/bin</code>加入到Linux可执行文件搜索路径中。这样一来，我们就可以直接在bash shell中执行go自带的命令，以及通过<code>go install</code>安装的命令。</p>
+<p>然后就是进行测试了，如果我们执行<code>go version</code>命令可以成功输出Go的版本，就说明Go编译环境安装成功。具体的命令如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">bash</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">go version</span></span><br><span class="line">go version go1.18.3 linux/amd64</span><br></pre></td></tr></table></figure><br>最后，初始化工作区。</p>
+<p>本专栏使用的Go版本为go 1.18.3，go 1.18.3支持多模块工作区，所以这里也需要初始化工作区。初始化命令如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> -p <span class="variable">$GOPATH</span> &amp;&amp; <span class="built_in">cd</span> <span class="variable">$GOPATH</span></span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">go work init</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">go <span class="built_in">env</span> GOWORK <span class="comment"># 执行此命令，查看 go.work 工作区文件路径</span></span></span><br><span class="line">/home/going/workspace/golang/go.work</span><br></pre></td></tr></table></figure></p>
+<h1 id="ProtoBuf编译环境安装"><a href="#ProtoBuf编译环境安装" class="headerlink" title="ProtoBuf编译环境安装"></a><span style="color:#339AFF;">ProtoBuf编译环境安装</span></h1><p>接着，我们再来安装protobuf的编译器protoc。protoc需要protoc-gen-go来完成Go语言的代码转换，因此我们需要安装protoc和protoc-gen-go这2个工具。它们的安装方法比较简单，你直接看我下面给出的代码和操作注释就可以了。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">第一步：安装 protobuf</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> /tmp/</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">clone</span> -b v3.21.1 --depth=1 https://github.com/protocolbuffers/protobuf</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">cd</span> protobuf</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">./autogen.sh</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">./configure</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">make</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">sudo make install</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">protoc --version <span class="comment"># 查看 protoc 版本，成功输出版本号，说明安装成功</span></span></span><br><span class="line">libprotoc 3.21.1</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">第二步：安装 protoc-gen-go</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">go install github.com/golang/protobuf/protoc-gen-go@v1.5.2</span></span><br></pre></td></tr></table></figure><br>当你第一次执行<code>go install</code>命令的时候，因为本地无缓存，所以需要下载所有的依赖模块。因此安装速度会比较慢，请你耐心等待。</p>
+<h1 id="Go开发IDE安装和配置"><a href="#Go开发IDE安装和配置" class="headerlink" title="Go开发IDE安装和配置"></a><span style="color:#339AFF;">Go开发IDE安装和配置</span></h1><p><strong>第一步，安装vim-go。</strong></p>
+<p>安装命令如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">rm</span> -f <span class="variable">$HOME</span>/.vim; <span class="built_in">mkdir</span> -p ~/.vim/pack/plugins/start/</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">git <span class="built_in">clone</span> --depth=1 https://github.com/fatih/vim-go.git ~/.vim/pack/plugins/start/vim-go</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>第二步，Go工具安装。</strong></p>
+<p>vim-go会用到一些Go工具，比如在函数跳转时会用到guru、godef工具，在格式化时会用到goimports，所以你也需要安装这些工具。安装方式如下：执行<code>vi /tmp/test.go</code>，然后输入<code>:GoInstallBinaries</code>安装vim-go需要的工具。</p>
+<p>安装后的Go IDE常用操作的按键映射如下表所示：</p>
+<img src="/2021/11/24/02-%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87%EF%BC%9A%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE%E4%B8%80%E4%B8%AA%E5%9F%BA%E6%9C%AC%E7%9A%84Go%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%EF%BC%9F/2.webp" class="">
+<h1 id="课后练习"><a href="#课后练习" class="headerlink" title="课后练习"></a><span style="color:#339AFF;">课后练习</span></h1><p>试着编写一个main.go，代码如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    fmt.Println(<span class="string">&quot;Hello World&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将鼠标放在Println上，键入Enter键跳转到函数定义处，键入Ctrl+I返回到跳转点。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Go%E8%AF%AD%E8%A8%80%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98/" rel="tag"># Go语言项目开发实战</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/11/24/01-IAM%E7%B3%BB%E7%BB%9F%E6%A6%82%E8%BF%B0%EF%BC%9A%E6%88%91%E4%BB%AC%E8%A6%81%E5%AE%9E%E7%8E%B0%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84Go%E9%A1%B9%E7%9B%AE%EF%BC%9F/" rel="next" title="01丨IAM系统概述：我们要实现什么样的Go项目？">
+                <i class="fa fa-chevron-left"></i> 01丨IAM系统概述：我们要实现什么样的Go项目？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/11/24/03-%E9%A1%B9%E7%9B%AE%E9%83%A8%E7%BD%B2%EF%BC%9A%E5%A6%82%E4%BD%95%E5%BF%AB%E9%80%9F%E9%83%A8%E7%BD%B2IAM%E7%B3%BB%E7%BB%9F%EF%BC%9F/" rel="prev" title="03丨项目部署：如何快速部署IAM系统？">
+                03丨项目部署：如何快速部署IAM系统？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
+            
+              <p class="site-author-name" itemprop="name">CheBin</p>
+              <div class="site-description motion-element" itemprop="description">参与开源就是出路</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/%20%7C%7C%20archive">
+                
+                    <span class="site-state-item-count">561</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/%20%7C%7C%20th">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/%20%7C%7C%20tags">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history fa-" aria-hidden="true"></i>
+                近期文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li>
+                    <a href="/2024/07/31/%E6%A3%8B%E7%89%8C%E6%B8%B8%E6%88%8F-1/" title="棋牌游戏-1" target="_blank">棋牌游戏-1</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/07/31/%E7%AC%AC11%E7%AB%A0-%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%BC%8F%EF%BC%9A%E6%8B%BF%E6%9D%A5%E5%8D%B3%E7%94%A8%E7%9A%84%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93/" title="第11章 并发模式：拿来即用的经验总结" target="_blank">第11章 并发模式：拿来即用的经验总结</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/07/31/go%E5%B9%B6%E5%8F%91%E4%B9%8B%E7%BE%8E%EF%BC%9A%E5%A4%9A%E4%B8%AAchannel%E5%90%88%E5%B9%B6-%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E6%B5%81%E5%90%88%E5%B9%B6/" title="go并发之美：多个channel合并/多个数据流合并" target="_blank">go并发之美：多个channel合并/多个数据流合并</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/05/21/%E7%AC%AC12%E7%AB%A0-%E5%88%86%E5%B8%83%E5%BC%8F%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" title="第12章 分布式链路追踪" target="_blank">第12章 分布式链路追踪</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/05/21/%E7%AC%AC11%E7%AB%A0-%E7%BB%9F%E4%B8%80%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83/" title="第11章 统一认证与授权" target="_blank">第11章 统一认证与授权</a>
+                  </li>
+                
+              </ul>
+            </div>
+        
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux%E6%9C%8D%E5%8A%A1%E5%99%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">Linux服务器配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BE%9D%E8%B5%96%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">依赖安装和配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Go%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE"><span class="nav-number">3.</span> <span class="nav-text">Go编译环境安装和配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ProtoBuf%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83%E5%AE%89%E8%A3%85"><span class="nav-number">4.</span> <span class="nav-text">ProtoBuf编译环境安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Go%E5%BC%80%E5%8F%91IDE%E5%AE%89%E8%A3%85%E5%92%8C%E9%85%8D%E7%BD%AE"><span class="nav-number">5.</span> <span class="nav-text">Go开发IDE安装和配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0"><span class="nav-number">6.</span> <span class="nav-text">课后练习</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CheBin</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">4m</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">60:19</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>

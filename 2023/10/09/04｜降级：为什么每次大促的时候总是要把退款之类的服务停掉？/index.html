@@ -1,0 +1,1595 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="思考并回答以下问题：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="04｜降级：为什么每次大促的时候总是要把退款之类的服务停掉？">
+<meta property="og:url" content="http://yoursite.com/2023/10/09/04%EF%BD%9C%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89%EF%BC%9F/index.html">
+<meta property="og:site_name" content="车斌的技术博客">
+<meta property="og:description" content="思考并回答以下问题：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2023/10/09/04%EF%BD%9C%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89%EF%BC%9F/1.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/09/04%EF%BD%9C%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89%EF%BC%9F/2.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/09/04%EF%BD%9C%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89%EF%BC%9F/3.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/09/04%EF%BD%9C%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89%EF%BC%9F/4.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/09/04%EF%BD%9C%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89%EF%BC%9F/5.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/09/04%EF%BD%9C%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89%EF%BC%9F/6.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/09/04%EF%BD%9C%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89%EF%BC%9F/7.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/09/04%EF%BD%9C%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89%EF%BC%9F/8.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/09/04%EF%BD%9C%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89%EF%BC%9F/9.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/09/04%EF%BD%9C%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89%EF%BC%9F/10.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/09/04%EF%BD%9C%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89%EF%BC%9F/11.webp">
+<meta property="og:image" content="http://yoursite.com/2023/10/09/04%EF%BD%9C%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89%EF%BC%9F/12.webp">
+<meta property="article:published_time" content="2023-10-09T14:31:06.000Z">
+<meta property="article:modified_time" content="2024-09-02T06:16:44.124Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="后端工程师进阶">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2023/10/09/04%EF%BD%9C%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89%EF%BC%9F/1.webp">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2023/10/09/04｜降级：为什么每次大促的时候总是要把退款之类的服务停掉？/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>04｜降级：为什么每次大促的时候总是要把退款之类的服务停掉？ | 车斌的技术博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">车斌的技术博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">微习惯，每天看1分钟</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br/>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2023/10/09/04%EF%BD%9C%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89%EF%BC%9F/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源就是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="车斌的技术博客"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">04｜降级：为什么每次大促的时候总是要把退款之类的服务停掉？
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2023-10-09 22:31:06" itemprop="dateCreated datePublished" datetime="2023-10-09T22:31:06+08:00">2023-10-09</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2024-09-02 14:16:44" itemprop="dateModified" datetime="2024-09-02T14:16:44+08:00">2024-09-02</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1/" itemprop="url" rel="index"><span itemprop="name">微服务</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">12k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">11 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>思考并回答以下问题：</p>
+<span id="more"></span>
+<p>今天我们来聊一聊微服务架构下的降级功能。</p>
+<p>上节课我们讨论熔断的时候，我就提到过熔断、降级、限流是三个经常合并在一起讨论的<strong>可用性</strong>保障措施。所以如果你想要掌握高可用微服务架构，那么降级也是其中必不可少的一环。</p>
+<p>可惜的是，大部分人在聊起降级的时候只是简单讲一下概念，选择的降级案例也不够精巧，所以很难给面试官留下深刻的印象。那么这节课我就带你来深入讨论降级的各个方面，同时我也会给出具体的亮点的方案。我们还是从降级的基本概念讲起。</p>
+<h1 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a><span style="color:#339AFF;">前置知识</span></h1><p>如果用一句俏皮话来形容降级，那就是“<strong>凑合过呗，还能离咋的</strong>。”就比如在双十一之类的大促高峰，平台是会关闭一些服务的，比如退款服务。</p>
+<p>这就是降级的典型应用，不过它是一种手动的跨服务降级。你可能会觉得困惑，这为什么也算是降级呢？这是因为对于整个系统来说，它提供了一部分服务，但是没有提供另外一部分服务，所以它在整个系统层面上是降级的。</p>
+<p>这种降级的好处有两方面。一方面是腾出了服务器资源，可以给订单服务或者支付服务；另外一方面是减少了对公共组件的压力，比如说减少了对数据库的写入压力。</p>
+<img src="/2023/10/09/04%EF%BD%9C%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89%EF%BC%9F/1.webp" class="">
+<p>不过如果仅仅是针对退款服务而言，那么你也可以认为退款服务是整个熔断了。</p>
+<h2 id="降级与熔断"><a href="#降级与熔断" class="headerlink" title="降级与熔断"></a><span style="color:#00ACC1;">降级与熔断</span></h2><p>事实上，降级和熔断非常像。熔断重点讨论的两个点，降级也有讨论。</p>
+<ul>
+<li>如何判定服务健康，在降级中则是判定一个服务要不要降级。</li>
+<li>降级之后怎么恢复，也是要考虑抖动的问题。</li>
+</ul>
+<p>所以在一些场景下，你既可以用熔断，也可以用降级。比如说在响应时间超过阈值之后，你可以考虑选择熔断，完全不提供服务；你也可以考虑降级，提供有损服务。</p>
+<p>原则上来说，是应该优先考虑使用降级的。然而有些服务是无法降级的，尤其是写服务。例如你从前端接收数据，然后写到数据库，这种场景是无法降级的。另外，如果你希望系统负载尽快降低，那么熔断要优于降级。</p>
+<img src="/2023/10/09/04%EF%BD%9C%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89%EF%BC%9F/2.webp" class="">
+<p>从具体实践上来说，降级可以玩出的花样要比熔断多很多。毕竟熔断是彻底不提供服务，而降级则是尽量提供服务。所以<strong>怎么降</strong>就有很多千奇百怪的做法了。</p>
+<h2 id="如何降级？"><a href="#如何降级？" class="headerlink" title="如何降级？"></a><span style="color:#00ACC1;">如何降级？</span></h2><p>怎么降这个问题的答案又可以分成两大类。</p>
+<ul>
+<li><strong>跨服务降级</strong>，当资源不够的时候可以暂停某些服务，将腾出来的资源给其他更加重要、更加核心的服务使用。我这里提到的大促暂停退款服务就是跨服务降级的例子。这种策略的要点是必须知道一个服务比另外一个服务更有业务价值，或者更加重要。</li>
+<li><strong>本服务提供有损服务</strong>，例如各大App的首页都会有降级的策略。在没有触发降级的时候，App首页是针对你个人用户画像的个性化推荐。而在触发了降级之后，则可能是使用榜单数据，或者使用一个运营提前配置好的静态页面。这种策略的要点是你得知道你的服务调用者能够接受什么程度的有损。</li>
+</ul>
+<img src="/2023/10/09/04%EF%BD%9C%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89%EF%BC%9F/3.webp" class="">
+<p>跨服务降级的措施是很粗暴的，常见的做法有三个。</p>
+<ul>
+<li>整个服务停掉，例如前面提到的停掉退款服务。</li>
+<li>停掉服务的部分节点，例如十个节点，停掉其中五个节点，这五个节点被挪作他用。</li>
+<li>停止访问某些资源。例如日志中心压力很大的时候，发信号给某些不重要的服务，让它们停止上传日志，只在本地保存日志。</li>
+</ul>
+<img src="/2023/10/09/04%EF%BD%9C%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89%EF%BC%9F/4.webp" class="">
+<p>而针对服务本身，也有一些常见的降级思路。</p>
+<ul>
+<li>返回默认值，这算是最简单的一种状况。</li>
+<li>禁用可观测性组件，正常来说在业务里面都充斥了各种各样的埋点。这些埋点本身其实是会带来消耗的，所以在性能达到瓶颈的时候，就可以考虑停用，或者降低采样率。</li>
+<li>同步转异步，即正常情况下，服务收到请求之后会立刻处理。但是在降级的情况下，服务在收到请求之后只会返回一个代表“已接收”的响应。后续服务会异步地开启线程来处理，或者依赖于定时任务来处理。</li>
+<li>简化流程，如果你处理一个请求需要很多步骤，后续如果有一些步骤不关键的话，可以考虑不执行，或者异步执行。例如在内容生产平台，一般新内容要被推送到推荐系统里面。那么在降级的情况下你可以不推，而后可以考虑异步推送过去，也可以考虑等系统恢复之后再推送过去。</li>
+</ul>
+<img src="/2023/10/09/04%EF%BD%9C%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89%EF%BC%9F/5.webp" class="">
+<h1 id="面试准备"><a href="#面试准备" class="headerlink" title="面试准备"></a><span style="color:#339AFF;">面试准备</span></h1><p>在面试前，你需要了解清楚你所在公司使用降级的情况。</p>
+<ul>
+<li>如果你所在公司有App、网站之类的产品，那么去了解一下在首页、核心页面有没有采取降级措施。如果采用了降级，那么降级前后的逻辑是什么样的。</li>
+<li>提前了解你所在公司有没有使用降级来保护系统。如果有，那么你需要了解清楚什么情况下会触发降级，降级后的逻辑是怎样的，以及怎样从降级中恢复过来。</li>
+</ul>
+<p>这些降级的东西可能你没做过，不过你只需要了解清楚每一种降级的前因后果即可。</p>
+<p>如果你维护的服务没有使用任何降级措施，那么你可以考虑为这些服务接入降级措施。这样做不仅可以给你的KPI或者OKR添上一笔，还能让你在实践过程中加深对降级的理解，掌握更多的细节。</p>
+<p>你的最佳面试策略是把降级作为构建高可用微服务架构的一个措施，例如在项目介绍中说：</p>
+<blockquote>
+<p>A系统是我们公司的核心系统，而我的主要职责是保障该系统的高可用。为了达到这一个目标，我综合运用了熔断、降级、隔离等措施。</p>
+</blockquote>
+<p>等面试官询问某个具体措施的时候再详细解答。</p>
+<p>知己知彼，方能百战不殆。当面试官问哪些问题时我们可以用降级来回答呢？</p>
+<ul>
+<li>你是否了解服务治理？</li>
+<li>如何提高系统的可用性？</li>
+<li>如果系统负载很高该怎么办？</li>
+<li>依赖的下游服务或者下游中间件崩溃了怎么办？</li>
+</ul>
+<p>这些问题是不是很熟悉，其实我们已经在熔断里面聊过了。就像我上节课说的，这些知识之间是相通的，任何优秀的方案都是这些内容的完美整合。所以这些问题你同样可以用降级来回答。</p>
+<p>同时为了展示亮点，你需要记住后面我给出的两个方案：读写服务降级写服务和快慢路径降级慢路径。我非常建议你参考这两个方案的思路，基于自己的实际业务情况设计自己独有的降级面试案例。</p>
+<h1 id="基本思路"><a href="#基本思路" class="headerlink" title="基本思路"></a><span style="color:#339AFF;">基本思路</span></h1><p>如果面试官问到了降级，或者说你将话题引导到了降级，那么你可以先介绍降级的基本概念，同时可以举前面我们提到的大促和App首页的例子。如果你之前没有和面试官聊过熔断，那么你可以在这里补充熔断里面讨论判断服务健康的要点，然后结合自己公司内部使用降级的例子，或者即便不是自己亲手落地但是自己也了解详情的案例。</p>
+<blockquote>
+<p>我在公司也用了降级来保护我维护的服务。举例来说，正常情况下我的服务都会全量采集各种监控指标。那么在系统触及性能瓶颈的时候，我就会调整采集的比率。甚至在关键的时候，我会直接停用掉所有的指标采集，将资源集中在提供服务上。</p>
+</blockquote>
+<p>我在这里给你的示例比较简单，你可以考虑换成我在前面提到的其他降级思路。当然，如果你在公司内部本身就使用了降级的话，那么使用自己的案例会更好。讲完一个案例之后，你可以进一步总结常规的降级思路，也就是我在前置知识里面列举出来的。套路是一样的，这里我就不再赘述了。</p>
+<p>我前面列举出来的这些措施你不一定都用过，那么万一面试官问到其中一个，你不了解细节的话，你可以大方承认这就是听说过的措施，并没有实际落地。毕竟，技术行业乱七八糟、千奇百怪的解决思路数不胜数，不一定非得都亲手实践过。</p>
+<p>紧接着，还有一个关键问题——<strong>抖动</strong>，千万别忘记参考熔断中的话术提一下。而后你可以将熔断与降级结合，总结升华一下。</p>
+<blockquote>
+<p>总的来说，在任何的故障处理里面，都要考虑恢复策略会不会引起抖动问题。</p>
+</blockquote>
+<p>总结是必不可少的，任何总结都代表你对问题更加抽象、更加深层次的认知。</p>
+<h1 id="亮点方案"><a href="#亮点方案" class="headerlink" title="亮点方案"></a><span style="color:#339AFF;">亮点方案</span></h1><p>到这一步，从理论上来说你基本上已经答得很好，唯一美中不足的就是案例过于简单。所以这里我给你准备了两个比较好的案例，你可以参考。这两个案例你都可以根据你所在公司的实际情况进行调整，用真实的服务来替代我这里使用的服务。</p>
+<h2 id="读写服务降级写服务"><a href="#读写服务降级写服务" class="headerlink" title="读写服务降级写服务"></a><span style="color:#00ACC1;">读写服务降级写服务</span></h2><p>这个案例的基本思路是如果你的某个服务是同时提供了读服务和写服务，并且读服务明显比写服务更加重要，那么这时候你就可以考虑降级写服务。</p>
+<p>假如说现在我有一个针对商家的服务，商家调用这些API来录入一些数据，比如他们门店的基本信息，上传一些门店图片等。同时我还有一个针对C端普通用户的服务，这个服务就是把商家录入的数据展示在商家门店的首页上。所以你可以看到在这个场景下，<strong>读服务QPS更高，也更加重要</strong>。</p>
+<p>那么如果这两个服务是一起部署的，在需要降级的时候，就可以考虑将针对商家的写服务停掉，将资源都腾出来给针对C端用户的读服务。</p>
+<p>所以你可以介绍这个方案，关键词是<strong>降级写服务</strong>。</p>
+<blockquote>
+<p>我在公司维护了一个服务，它的接口可以分成两类：一类是给B端商家使用的录入数据的接口，另外一类是给C端用户展示这些录入的数据。所以从重要性上来说，读服务要比写服务重要得多，而且读服务也是一个高并发的服务。<br><br/>于是我接入了一个跨服务的降级策略。当我发现读服务的响应时间超过了阈值的时候，或者响应时间开始显著上升的时候，我就会将针对B端商家用户的服务临时停掉，腾出来的资源都给C端用户使用。对于B端用户来说，他们这个阶段是没有办法修改已经录入的数据的。但是这并不是一个特别大的问题。当C端接口的响应时间恢复正常之后，会自动恢复B端商家接口，商家又可以修改或者录入数据了。</p>
+</blockquote>
+<p>同时你可以考虑从对数据库性能影响的角度来进一步解释降级写服务的优点。</p>
+<blockquote>
+<p>虽然整体来说写服务QPS占比很低，但是对于数据库来说，一次写请求对性能的压力要远比一次读请求大。所以暂停了写服务之后，数据库的负载能够减轻不少。</p>
+</blockquote>
+<img src="/2023/10/09/04%EF%BD%9C%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89%EF%BC%9F/6.webp" class="">
+<p>除了这种B端录入C端查询的场景，还有很多类似的场景也适用。</p>
+<ul>
+<li>在内容生产平台，作者生产内容，C端用户查看生产的内容。那么在资源不足的情况下可以考虑停掉内容生产端的服务，只保留C端用户查看内容的功能。</li>
+<li>如果你的用户分成普通用户和VIP用户，那么你也可以考虑停掉给普通用户的服务。甚至，如果一个服务既提供给普通用户，也提供给VIP用户，你可以考虑将普通用户请求拒绝掉，只服务VIP用户。</li>
+</ul>
+<p>如果你负责的业务也有其他类似的场景，那么你可以将里面的商家服务和C端服务换成你自己的服务。</p>
+<p>在讲完这一个方案之后，你要稍微总结一下，在理论层面上拔高一下。</p>
+<blockquote>
+<p>这个方案就是典型的跨服务降级。跨服务降级可以在大部分合并部署的服务里面使用，一般的原则就是B、C端合并部署降级B端；付费服务和非付费服务降级非付费服务。当然也可以根据自己的业务价值，将这些部署在同一个节点上的服务分成三六九等。而后在触发降级的时候从不重要的服务开始降级，将资源调配给重要服务。</p>
+</blockquote>
+<img src="/2023/10/09/04%EF%BD%9C%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89%EF%BC%9F/7.webp" class="">
+<p>有时候面试官可能会问怎么确定一个服务的业务价值，又或者你可以自己引出这个话题，关键词就是<strong>赚钱</strong>。</p>
+<blockquote>
+<p>判断一个服务的业务价值最简单的方法就是问产品经理，产品经理自然是清楚什么东西带来了多少业务价值。又或者根据公司的主要营收来源确定服务的业务价值，越是能赚钱的就越重要。唯一的例外是跟合规相关的。比如说内容审核，它不仅不赚钱，还是一块巨大的成本支出。但是不管怎么降级，内容审核是绝对不敢降级的，不然就等着被请去喝茶交代问题吧。</p>
+</blockquote>
+<p>这里我们还可以进一步展示亮点，让人感觉你对微服务框架有很深研究。关键词就是<strong>跨节点</strong>。</p>
+<blockquote>
+<p>不过这种跨服务降级都是只能降级处在同一个节点的不同服务。而如果服务本身就分布在不同节点上的话，是比较难设计这种降级方案的。比如说大促时关闭退款服务这种，就需要人手工介入。<br><br/>从理论上来说，网关其实是可以考虑支持这种跨节点的服务降级的。假如说我们有A、B两个服务，A比B更加有业务价值。那么在A服务所需资源不足的时候，网关可以考虑停掉B的一部分节点，而后在这些节点上部署A服务。对于B服务来说，它只剩下一部分节点，所以也算是被降级了。很可惜，大部分网关的降级设计都没考虑过这种跨服务降级的功能。<br><br/>微服务框架做得就更差了。大部分微服务框架提供的降级功能都是针对本服务的，比如说在触发降级的时候返回一个默认值。</p>
+</blockquote>
+<img src="/2023/10/09/04%EF%BD%9C%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89%EF%BC%9F/8.webp" class="">
+<p>最后对网关的评价可能会让面试官将话题引向网关，所以你要在对面试网关内容有把握的情况下再说。</p>
+<h2 id="快慢路径降级慢路径"><a href="#快慢路径降级慢路径" class="headerlink" title="快慢路径降级慢路径"></a><span style="color:#00ACC1;">快慢路径降级慢路径</span></h2><p>我在熔断里面提到了一个例子，即如果Redis崩溃了，那么就可以直接触发熔断。这种做法主要是为了保护数据库，防止Redis崩溃把所有的请求都直接落到数据库上，把数据库打崩。</p>
+<p>你也可以考虑使用降级来保护这个缓存-数据库结构。正常来说，你使用缓存基本上都是先从缓存里面读数据，如果缓存里面没有数据，就从数据库中读取。</p>
+<p>那么在触发降级的情况下，你可以考虑只从缓存里面读取。如果缓存里面没有数据，那么就直接返回，而不会再去数据库里读取。这样可以保证在缓存里面有数据的那部分请求可以得到正常处理，也就是提供了有损服务。</p>
+<img src="/2023/10/09/04%EF%BD%9C%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89%EF%BC%9F/9.webp" class="">
+<p>这种降级方案背后的逻辑也很简单。如果完全不考虑从数据库里取数据，那么你的性能瓶颈就完全取决于缓存或者说Redis，那么服务能够撑住的QPS会非常高。</p>
+<p>但是，如果缓存不命中的时候要去数据库取数据，那么服务的性能会衰退得非常快，即极少数缓存未命中的请求会占据大部分的系统资源。</p>
+<img src="/2023/10/09/04%EF%BD%9C%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89%EF%BC%9F/10.webp" class="">
+<p>所以你可以这样回答，关键词是<strong>只查缓存</strong>。</p>
+<blockquote>
+<p>我还用过另外一个降级方案。正常来说在我的业务里面，就是查询缓存，如果缓存有数据，那么就直接返回。如果缓存没有，那么就需要去数据库查询。如果此时系统的并发非常高，那么我就会采取降级策略，将请求标记为降级请求。降级请求只会查询缓存，而不会查询数据库。如果缓存没有，那就直接返回错误。这样能够有效防止因为少部分请求缓存未命中而占据大量系统资源，导致系统吞吐量下降和响应时间显著升高。</p>
+</blockquote>
+<p>同样地，你也需要总结拔高一下，关键词是<strong>快慢路径</strong>。</p>
+<blockquote>
+<p>这种思路其实可以在很多微服务里面应用。如果一个服务可以分成快路径和慢路径两种逻辑，那么在降级之前就可以先走快路径，再走慢路径。而触发了降级之后，就只允许走快路径。在前面的例子里面，从缓存里加载数据就是快路径，从数据库里面加载数据就是慢路径。<br><br/>慢路径还可以是发起服务调用或者复杂计算。比如说一个服务快路径是直接查询缓存，而慢路径可能是发起很多微服务调用，拿到所有响应之后一起计算，算出来一个结果并缓存起来。那么在降级的时候，可以有效提高吞吐量。不过这种吞吐量是有损的，毕竟部分请求如果没有在缓存中找到数据，那么就会直接返回失败响应。</p>
+</blockquote>
+<img src="/2023/10/09/04%EF%BD%9C%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89%EF%BC%9F/11.webp" class="">
+<p>很自然地，你的关键服务都应该有类似的降级措施。当任何下游崩溃，或者第三方中间件崩溃，你都可以不再调用这些崩溃的下游服务或中间件，以确保提供有损服务。</p>
+<p>如果你选择这个作为亮点方案的话，那么自然就可以将话题引导到缓存的使用上来，你就可以使用课程后面缓存相关的内容来阐述了。</p>
+<h1 id="面试思路总结"><a href="#面试思路总结" class="headerlink" title="面试思路总结"></a><span style="color:#339AFF;">面试思路总结</span></h1><p>这一节课我们已经讨论清楚了降级的基本概念、常见做法。</p>
+<p>降级和熔断是很像的，它也要考虑判定服务健康，如何恢复以及怎么降级。你需要记住的是从系统整体上看，你可以考虑<strong>跨服务降级</strong>，例如大促的时候关闭退款服务。针对单一服务，也可以考虑<strong>提供有损服务</strong>。</p>
+<p>那么不管是跨服务降级还是提供有损服务，根源都在于你要识别出来，一部分比另外一部分更加重要。这样你就可以牺牲不那么重要的部分来保障更加重要的部分。</p>
+<p>最后我给出了两个亮点方案：<strong>读写服务降级写服务，快慢路径降级慢路径</strong>。你可以把这两个方案记下来，也可以根据自己的业务特征来设计类似的降级方案。</p>
+<p>我再强调一点，我提供的这些方案本身都是可以在公司内部落地的。所以即便没有机会也应该创造机会在公司内部实践一下。</p>
+<p>同样地，这是本节内容的思维导图，你可以参考。</p>
+<img src="/2023/10/09/04%EF%BD%9C%E9%99%8D%E7%BA%A7%EF%BC%9A%E4%B8%BA%E4%BB%80%E4%B9%88%E6%AF%8F%E6%AC%A1%E5%A4%A7%E4%BF%83%E7%9A%84%E6%97%B6%E5%80%99%E6%80%BB%E6%98%AF%E8%A6%81%E6%8A%8A%E9%80%80%E6%AC%BE%E4%B9%8B%E7%B1%BB%E7%9A%84%E6%9C%8D%E5%8A%A1%E5%81%9C%E6%8E%89%EF%BC%9F/12.webp" class="">
+<h1 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a><span style="color:#339AFF;">思考题</span></h1><ul>
+<li>我在前面讲了一个读写服务降级写服务的例子，那么你觉得写服务内部可以考虑降级吗？比如说我的写服务是写多个数据源，那我可以降级为只写一个数据源吗？</li>
+<li>这节课我还解释了一下熔断和降级的联系和区别，那么你是怎么看待这两者的关系的？你能举一些可以降级或者只能熔断的服务的例子吗？</li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%90%8E%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88%E8%BF%9B%E9%98%B6/" rel="tag"># 后端工程师进阶</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2023/10/09/03%EF%BD%9C%E7%86%94%E6%96%AD%EF%BC%9A%E7%86%94%E6%96%AD-%E6%81%A2%E5%A4%8D-%E7%86%94%E6%96%AD-%E6%81%A2%E5%A4%8D%EF%BC%8C%E6%8A%96%E6%9D%A5%E6%8A%96%E5%8E%BB%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F/" rel="next" title="03｜熔断：熔断-恢复-熔断-恢复，抖来抖去怎么办？">
+                <i class="fa fa-chevron-left"></i> 03｜熔断：熔断-恢复-熔断-恢复，抖来抖去怎么办？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2023/10/10/05%EF%BD%9C%E9%99%90%E6%B5%81%EF%BC%9A%E5%88%AB%E8%AF%B4%E7%AE%97%E6%B3%95%E4%BA%86%EF%BC%8C%E5%B0%B1%E9%97%AE%E4%BD%A0%E2%80%9C%E9%98%88%E5%80%BC%E2%80%9D%E6%80%8E%E4%B9%88%E7%AE%97%EF%BC%9F/" rel="prev" title="05｜限流：别说算法了，就问你“阈值”怎么算？">
+                05｜限流：别说算法了，就问你“阈值”怎么算？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
+            
+              <p class="site-author-name" itemprop="name">CheBin</p>
+              <div class="site-description motion-element" itemprop="description">参与开源就是出路</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/%20%7C%7C%20archive">
+                
+                    <span class="site-state-item-count">561</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/%20%7C%7C%20th">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/%20%7C%7C%20tags">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history fa-" aria-hidden="true"></i>
+                近期文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li>
+                    <a href="/2024/07/31/%E6%A3%8B%E7%89%8C%E6%B8%B8%E6%88%8F-1/" title="棋牌游戏-1" target="_blank">棋牌游戏-1</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/07/31/%E7%AC%AC11%E7%AB%A0-%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%BC%8F%EF%BC%9A%E6%8B%BF%E6%9D%A5%E5%8D%B3%E7%94%A8%E7%9A%84%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93/" title="第11章 并发模式：拿来即用的经验总结" target="_blank">第11章 并发模式：拿来即用的经验总结</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/07/31/go%E5%B9%B6%E5%8F%91%E4%B9%8B%E7%BE%8E%EF%BC%9A%E5%A4%9A%E4%B8%AAchannel%E5%90%88%E5%B9%B6-%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E6%B5%81%E5%90%88%E5%B9%B6/" title="go并发之美：多个channel合并/多个数据流合并" target="_blank">go并发之美：多个channel合并/多个数据流合并</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/05/21/%E7%AC%AC12%E7%AB%A0-%E5%88%86%E5%B8%83%E5%BC%8F%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" title="第12章 分布式链路追踪" target="_blank">第12章 分布式链路追踪</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/05/21/%E7%AC%AC11%E7%AB%A0-%E7%BB%9F%E4%B8%80%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83/" title="第11章 统一认证与授权" target="_blank">第11章 统一认证与授权</a>
+                  </li>
+                
+              </ul>
+            </div>
+        
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E7%BD%AE%E7%9F%A5%E8%AF%86"><span class="nav-number">1.</span> <span class="nav-text">前置知识</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%99%8D%E7%BA%A7%E4%B8%8E%E7%86%94%E6%96%AD"><span class="nav-number">1.1.</span> <span class="nav-text">降级与熔断</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E9%99%8D%E7%BA%A7%EF%BC%9F"><span class="nav-number">1.2.</span> <span class="nav-text">如何降级？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text">面试准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E6%80%9D%E8%B7%AF"><span class="nav-number">3.</span> <span class="nav-text">基本思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%AE%E7%82%B9%E6%96%B9%E6%A1%88"><span class="nav-number">4.</span> <span class="nav-text">亮点方案</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E5%86%99%E6%9C%8D%E5%8A%A1%E9%99%8D%E7%BA%A7%E5%86%99%E6%9C%8D%E5%8A%A1"><span class="nav-number">4.1.</span> <span class="nav-text">读写服务降级写服务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%AB%E6%85%A2%E8%B7%AF%E5%BE%84%E9%99%8D%E7%BA%A7%E6%85%A2%E8%B7%AF%E5%BE%84"><span class="nav-number">4.2.</span> <span class="nav-text">快慢路径降级慢路径</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%9D%A2%E8%AF%95%E6%80%9D%E8%B7%AF%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">面试思路总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">6.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CheBin</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">4m</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">60:19</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>

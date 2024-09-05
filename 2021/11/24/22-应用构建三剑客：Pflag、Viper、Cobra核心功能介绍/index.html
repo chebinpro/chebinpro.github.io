@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="思考并回答以下问题：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="22 | 应用构建三剑客：Pflag、Viper、Cobra核心功能介绍">
+<meta property="og:url" content="http://yoursite.com/2021/11/24/22-%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9APflag%E3%80%81Viper%E3%80%81Cobra%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D/index.html">
+<meta property="og:site_name" content="车斌的技术博客">
+<meta property="og:description" content="思考并回答以下问题：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2021/11/24/22-%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9APflag%E3%80%81Viper%E3%80%81Cobra%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D/1.png">
+<meta property="article:published_time" content="2021-11-24T03:08:50.000Z">
+<meta property="article:modified_time" content="2024-09-02T06:16:45.966Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="Go语言项目开发实战">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2021/11/24/22-%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9APflag%E3%80%81Viper%E3%80%81Cobra%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D/1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/11/24/22-应用构建三剑客：Pflag、Viper、Cobra核心功能介绍/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>22 | 应用构建三剑客：Pflag、Viper、Cobra核心功能介绍 | 车斌的技术博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">车斌的技术博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">微习惯，每天看1分钟</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br/>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/11/24/22-%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9APflag%E3%80%81Viper%E3%80%81Cobra%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源就是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="车斌的技术博客"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">22 | 应用构建三剑客：Pflag、Viper、Cobra核心功能介绍
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021-11-24 11:08:50" itemprop="dateCreated datePublished" datetime="2021-11-24T11:08:50+08:00">2021-11-24</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2024-09-02 14:16:45" itemprop="dateModified" datetime="2024-09-02T14:16:45+08:00">2024-09-02</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">69k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">1:03</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>思考并回答以下问题：</p>
+<span id="more"></span>
+<p>IAM项目使用了Pflag、Viper和Cobra包来构建IAM的应用框架。</p>
+<h1 id="如何构建应用框架"><a href="#如何构建应用框架" class="headerlink" title="如何构建应用框架"></a><span style="color:#339AFF;">如何构建应用框架</span></h1><p>命令行参数通过<a href="https://github.com/spf13/pflag">Pflag</a>来解析，配置文件通过<a href="https://github.com/spf13/viper">Viper</a>来解析，应用的命令行框架则通过<a href="https://github.com/spf13/cobra">Cobra</a>来实现。</p>
+<h1 id="命令行参数解析工具：Pflag使用介绍"><a href="#命令行参数解析工具：Pflag使用介绍" class="headerlink" title="命令行参数解析工具：Pflag使用介绍"></a><span style="color:#339AFF;">命令行参数解析工具：Pflag使用介绍</span></h1><p>Pflag主要是通过创建Flag和FlagSet来使用的。</p>
+<h2 id="Pflag包Flag定义"><a href="#Pflag包Flag定义" class="headerlink" title="Pflag包Flag定义"></a><span style="color:#00ACC1;">Pflag包Flag定义</span></h2><p>Pflag可以对命令行参数进行处理，一个命令行参数在Pflag包中会解析为一个Flag类型的变量。Flag是一个结构体，定义如下：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Flag <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name                <span class="type">string</span> <span class="comment">// flag长选项的名称</span></span><br><span class="line">    Shorthand           <span class="type">string</span> <span class="comment">// flag短选项的名称，一个缩写的字符</span></span><br><span class="line">    Usage               <span class="type">string</span> <span class="comment">// flag的使用文本</span></span><br><span class="line">    Value               Value  <span class="comment">// flag的值</span></span><br><span class="line">    DefValue            <span class="type">string</span> <span class="comment">// flag的默认值</span></span><br><span class="line">    Changed             <span class="type">bool</span> <span class="comment">// 记录flag的值是否有被设置过</span></span><br><span class="line">    NoOptDefVal         <span class="type">string</span> <span class="comment">// 当flag出现在命令行，但是没有指定选项值时的默认值</span></span><br><span class="line">    Deprecated          <span class="type">string</span> <span class="comment">// 记录该flag是否被放弃</span></span><br><span class="line">    Hidden              <span class="type">bool</span> <span class="comment">// 如果值为true，则从help/usage输出信息中隐藏该flag</span></span><br><span class="line">    ShorthandDeprecated <span class="type">string</span> <span class="comment">// 如果flag的短选项被废弃，当使用flag的短选项时打印该信息</span></span><br><span class="line">    Annotations         <span class="keyword">map</span>[<span class="type">string</span>][]<span class="type">string</span> <span class="comment">// 给flag设置注解</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>Flag的值是一个Value类型的接口，Value定义如下：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Value <span class="keyword">interface</span> &#123;</span><br><span class="line">    String() <span class="type">string</span> <span class="comment">// 将flag类型的值转换为string类型的值，并返回string的内容</span></span><br><span class="line">    Set(<span class="type">string</span>) <span class="type">error</span> <span class="comment">// 将string类型的值转换为flag类型的值，转换失败报错</span></span><br><span class="line">    Type() <span class="type">string</span> <span class="comment">// 返回flag的类型，例如：string、int、ip等</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>通过将Flag的值抽象成一个interface接口，我们就可以自定义Flag的类型了。只要实现了Value接口的结构体，就是一个新类型。</p>
+<h2 id="Pflag包FlagSet定义"><a href="#Pflag包FlagSet定义" class="headerlink" title="Pflag包FlagSet定义"></a><span style="color:#00ACC1;">Pflag包FlagSet定义</span></h2><p>Pflag除了支持单个的Flag之外，还支持FlagSet。FlagSet是一些预先定义好的Flag的集合，几乎所有的Pflag操作，都需要借助FlagSet提供的方法来完成。在实际开发中，我们可以使用两种方法来获取并使用FlagSet：</p>
+<ul>
+<li>方法一，调用NewFlagSet创建一个FlagSet。</li>
+<li>方法二，使用Pflag包定义的全局FlagSet：CommandLine。实际上CommandLine也是由NewFlagSet函数创建的。</li>
+</ul>
+<p>先来看下第一种方法，自定义FlagSet。下面是一个自定义FlagSet的示例：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> version <span class="type">bool</span></span><br><span class="line">flagSet := pflag.NewFlagSet(<span class="string">&quot;test&quot;</span>, pflag.ContinueOnError)</span><br><span class="line">flagSet.BoolVar(&amp;version, <span class="string">&quot;version&quot;</span>, <span class="literal">true</span>, <span class="string">&quot;Print version information and quit.&quot;</span>)</span><br></pre></td></tr></table></figure><br>我们可以通过定义一个新的FlagSet来定义命令及其子命令的Flag。</p>
+<p>再来看下第二种方法，使用全局FlagSet。下面是一个使用全局FlagSet的示例：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;github.com/spf13/pflag&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">pflag.BoolVarP(&amp;version, <span class="string">&quot;version&quot;</span>, <span class="string">&quot;v&quot;</span>, <span class="literal">true</span>, <span class="string">&quot;Print version information and quit.&quot;</span>)</span><br></pre></td></tr></table></figure><br>这其中，<code>pflag.BoolVarP</code>函数定义如下：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">BoolVarP</span><span class="params">(p *<span class="type">bool</span>, name, shorthand <span class="type">string</span>, value <span class="type">bool</span>, usage <span class="type">string</span>)</span></span> &#123;</span><br><span class="line">    flag := CommandLine.VarPF(newBoolValue(value, p), name, shorthand, usage)</span><br><span class="line">    flag.NoOptDefVal = <span class="string">&quot;true&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>可以看到<code>pflag.BoolVarP</code>最终调用了CommandLine，CommandLine是一个包级别的变量，定义为：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// CommandLine is the default set of command-line flags, parsed from os.Args.</span></span><br><span class="line"><span class="keyword">var</span> CommandLine = NewFlagSet(os.Args[<span class="number">0</span>], ExitOnError)</span><br></pre></td></tr></table></figure><br>在一些不需要定义子命令的命令行工具中，我们可以直接使用全局的FlagSet，更加简单方便。</p>
+<h2 id="Pflag使用方法"><a href="#Pflag使用方法" class="headerlink" title="Pflag使用方法"></a><span style="color:#00ACC1;">Pflag使用方法</span></h2><p>Pflag有7个常见的使用方法。</p>
+<p>1，支持多种命令行参数定义方式。</p>
+<p>Pflag支持以下4种命令行参数定义方式：</p>
+<ul>
+<li>支持长选项、默认值和使用文本，并将标志的值存储在指针中。</li>
+</ul>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = pflag.String(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;colin&quot;</span>, <span class="string">&quot;Input Your Name&quot;</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>支持长选项、短选项、默认值和使用文本，并将标志的值存储在指针中。</li>
+</ul>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = pflag.StringP(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;n&quot;</span>, <span class="string">&quot;colin&quot;</span>, <span class="string">&quot;Input Your Name&quot;</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>支持长选项、默认值和使用文本，并将标志的值绑定到变量。</li>
+</ul>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name <span class="type">string</span></span><br><span class="line">pflag.StringVar(&amp;name, <span class="string">&quot;name&quot;</span>, <span class="string">&quot;colin&quot;</span>, <span class="string">&quot;Input Your Name&quot;</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>支持长选项、短选项、默认值和使用文本，并将标志的值绑定到变量</li>
+</ul>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name <span class="type">string</span></span><br><span class="line">pflag.StringVarP(&amp;name, <span class="string">&quot;name&quot;</span>, <span class="string">&quot;n&quot;</span>,<span class="string">&quot;colin&quot;</span>, <span class="string">&quot;Input Your Name&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>上面的函数命名是有规则的：</p>
+<ul>
+<li>函数名带Var说明是将标志的值绑定到变量，否则是将标志的值存储在指针中。</li>
+<li>函数名带P说明支持短选项，否则不支持短选项。</li>
+</ul>
+<p>2，使用<code>Get&lt;Type&gt;</code>获取参数的值。</p>
+<p>可以使用<code>Get&lt;Type&gt;</code>来获取标志的值，<code>&lt;Type&gt;</code>代表Pflag所支持的类型。例如：有一个<code>pflag.FlagSet</code>，带有一个名为flagname的int类型的标志，可以使用<code>GetInt()</code>来获取int值。需要注意flagname必须存在且必须是int，例如：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i, err := flagset.GetInt(<span class="string">&quot;flagname&quot;</span>)</span><br></pre></td></tr></table></figure></p>
+<p>3，获取非选项参数。</p>
+<p>代码示例如下：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;github.com/spf13/pflag&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> (</span><br><span class="line">    flagvar = pflag.Int(<span class="string">&quot;flagname&quot;</span>, <span class="number">1234</span>, <span class="string">&quot;help message for flagname&quot;</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    pflag.Parse()</span><br><span class="line"></span><br><span class="line">    fmt.Printf(<span class="string">&quot;argument number is: %v\n&quot;</span>, pflag.NArg())</span><br><span class="line">    fmt.Printf(<span class="string">&quot;argument list is: %v\n&quot;</span>, pflag.Args())</span><br><span class="line">    fmt.Printf(<span class="string">&quot;the first argument is: %v\n&quot;</span>, pflag.Arg(<span class="number">0</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>执行上述代码，输出如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ go run example1.go arg1 arg2</span><br><span class="line">argument number is: 2</span><br><span class="line">argument list is: [arg1 arg2]</span><br><span class="line">the first argument is: arg1</span><br></pre></td></tr></table></figure><br>在定义完标志之后，可以调用<code>pflag.Parse()</code>来解析定义的标志。解析后，可通过<code>pflag.Args()</code>返回所有的非选项参数，通过<code>pflag.Arg(i)</code>返回第i个非选项参数。参数下标0到<code>pflag.NArg()</code>-1。</p>
+<p>4，指定了选项但是没有指定选项值时的默认值。</p>
+<p>创建一个Flag后，可以为这个Flag设置<code>pflag.NoOptDefVal</code>。如果一个Flag具有NoOptDefVal，并且该Flag在命令行上没有设置这个Flag的值，则该标志将设置为NoOptDefVal指定的值。例如：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ip = pflag.IntP(<span class="string">&quot;flagname&quot;</span>, <span class="string">&quot;f&quot;</span>, <span class="number">1234</span>, <span class="string">&quot;help message&quot;</span>)</span><br><span class="line">pflag.Lookup(<span class="string">&quot;flagname&quot;</span>).NoOptDefVal = <span class="string">&quot;4321&quot;</span></span><br></pre></td></tr></table></figure><br>上面的代码会产生结果，具体你可以参照下表：</p>
+<img src="/2021/11/24/22-%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E4%B8%89%E5%89%91%E5%AE%A2%EF%BC%9APflag%E3%80%81Viper%E3%80%81Cobra%E6%A0%B8%E5%BF%83%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D/1.png" class="">
+<p>5，弃用标志或者标志的简写。</p>
+<p>Pflag可以弃用标志或者标志的简写。弃用的标志或标志简写在帮助文本中会被隐藏，并在使用不推荐的标志或简写时打印正确的用法提示。例如，弃用名为logmode的标志，并告知用户应该使用哪个标志代替：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// deprecate a flag by specifying its name and a usage message</span></span><br><span class="line">pflag.CommandLine.MarkDeprecated(<span class="string">&quot;logmode&quot;</span>, <span class="string">&quot;please use --log-mode instead&quot;</span>)</span><br></pre></td></tr></table></figure><br>这样隐藏了帮助文本中的logmode，并且当使用logmode时，打印了<code>Flag --logmode has been deprecated, please use --log-mode instead</code>。</p>
+<p>6，保留名为port的标志，但是弃用它的简写形式。</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">pflag.IntVarP(&amp;port, <span class="string">&quot;port&quot;</span>, <span class="string">&quot;P&quot;</span>, <span class="number">3306</span>, <span class="string">&quot;MySQL service host port.&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// deprecate a flag shorthand by specifying its flag name and a usage message</span></span><br><span class="line">pflag.CommandLine.MarkShorthandDeprecated(<span class="string">&quot;port&quot;</span>, <span class="string">&quot;please use --port only&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>这样隐藏了帮助文本中的简写P，并且当使用简写P时，打印了<code>Flag shorthand -P has been deprecated, please use --port only</code>。usage message在此处必不可少，并且不应为空。</p>
+<p>7，隐藏标志。</p>
+<p>可以将Flag标记为隐藏的，这意味着它仍将正常运行，但不会显示在usage/help文本中。例如：隐藏名为secretFlag的标志，只在内部使用，并且不希望它显示在帮助文本或者使用文本中。代码如下：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// hide a flag by specifying its name</span></span><br><span class="line">pflag.CommandLine.MarkHidden(<span class="string">&quot;secretFlag&quot;</span>)</span><br></pre></td></tr></table></figure><br>至此，我们介绍了Pflag包的重要用法。接下来，我们再来看下如何解析配置文件。</p>
+<h1 id="配置解析神器：Viper使用介绍"><a href="#配置解析神器：Viper使用介绍" class="headerlink" title="配置解析神器：Viper使用介绍"></a><span style="color:#339AFF;">配置解析神器：Viper使用介绍</h1><p>Viper可以从不同的位置读取配置，不同位置的配置具有不同的优先级，高优先级的配置会覆盖低优先级相同的配置，按优先级从高到低排列如下：</p>
+<p>1，通过<code>viper.Set</code>函数显式设置的配置</p>
+<p>2，命令行参数</p>
+<p>3，环境变量</p>
+<p>4，配置文件</p>
+<p>5，Key/Value存储</p>
+<p>6，默认值</p>
+<p>这里需要注意，Viper配置键不区分大小写。</p>
+<p>Viper有很多功能，最重要的两类功能是读入配置和读取配置，Viper提供不同的方式来实现这两类功能。</p>
+<h2 id="读入配置"><a href="#读入配置" class="headerlink" title="读入配置"></a><span style="color:#00ACC1;">读入配置</span></h2><p>读入配置，就是将配置读入到Viper中，有如下读入方式：</p>
+<ul>
+<li>设置默认的配置文件名。</li>
+<li>读取配置文件。</li>
+<li>监听和重新读取配置文件。</li>
+<li>从<code>io.Reader</code>读取配置。</li>
+<li>从环境变量读取。</li>
+<li>从命令行标志读取。</li>
+<li>从远程Key/Value存储读取。</li>
+</ul>
+<p>这几个方法的具体读入方式，你可以看下面的展示。</p>
+<p>1，设置默认值。</p>
+<p>一个好的配置系统应该支持默认值。Viper支持对key设置默认值，当没有通过配置文件、环境变量、远程配置或命令行标志设置key时，设置默认值通常是很有用的，可以让程序在没有明确指定配置时也能够正常运行。例如：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">viper.SetDefault(<span class="string">&quot;ContentDir&quot;</span>, <span class="string">&quot;content&quot;</span>)</span><br><span class="line">viper.SetDefault(<span class="string">&quot;LayoutDir&quot;</span>, <span class="string">&quot;layouts&quot;</span>)</span><br><span class="line">viper.SetDefault(<span class="string">&quot;Taxonomies&quot;</span>, <span class="keyword">map</span>[<span class="type">string</span>]<span class="type">string</span>&#123;<span class="string">&quot;tag&quot;</span>: <span class="string">&quot;tags&quot;</span>, <span class="string">&quot;category&quot;</span>: <span class="string">&quot;categories&quot;</span>&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>2，读取配置文件。</p>
+<p>Viper可以读取配置文件来解析配置，支持JSON、TOML、YAML、YML、Properties、Props、Prop、HCL、Dotenv、Env格式的配置文件。Viper支持搜索多个路径，并且默认不配置任何搜索路径，将默认决策留给应用程序。</p>
+<p>以下是如何使用Viper搜索和读取配置文件的示例：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;github.com/spf13/pflag&quot;</span></span><br><span class="line">    <span class="string">&quot;github.com/spf13/viper&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> (</span><br><span class="line">    cfg  = pflag.StringP(<span class="string">&quot;config&quot;</span>, <span class="string">&quot;c&quot;</span>, <span class="string">&quot;&quot;</span>, <span class="string">&quot;Configuration file.&quot;</span>)</span><br><span class="line">    help = pflag.BoolP(<span class="string">&quot;help&quot;</span>, <span class="string">&quot;h&quot;</span>, <span class="literal">false</span>, <span class="string">&quot;Show this help message.&quot;</span>)</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    pflag.Parse()</span><br><span class="line">    <span class="keyword">if</span> *help &#123;</span><br><span class="line">        pflag.Usage()</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从配置文件中读取配置</span></span><br><span class="line">    <span class="keyword">if</span> *cfg != <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">        viper.SetConfigFile(*cfg)   <span class="comment">// 指定配置文件名</span></span><br><span class="line">        viper.SetConfigType(<span class="string">&quot;yaml&quot;</span>) <span class="comment">// 如果配置文件名中没有文件扩展名，则需要指定配置文件的格式，告诉viper以何种格式解析文件</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        viper.AddConfigPath(<span class="string">&quot;.&quot;</span>)          <span class="comment">// 把当前目录加入到配置文件的搜索路径中</span></span><br><span class="line">        viper.AddConfigPath(<span class="string">&quot;$HOME/.iam&quot;</span>) <span class="comment">// 配置文件搜索路径，可以设置多个配置文件搜索路径</span></span><br><span class="line">        viper.SetConfigName(<span class="string">&quot;config&quot;</span>)     <span class="comment">// 配置文件名称（没有文件扩展名）</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> err := viper.ReadInConfig(); err != <span class="literal">nil</span> &#123; <span class="comment">// 读取配置文件。如果指定了配置文件名，则使用指定的配置文件，否则在注册的搜索路径中搜索</span></span><br><span class="line">        <span class="built_in">panic</span>(fmt.Errorf(<span class="string">&quot;Fatal error config file: %s \n&quot;</span>, err))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    fmt.Printf(<span class="string">&quot;Used configuration file is: %s\n&quot;</span>, viper.ConfigFileUsed())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>Viper支持设置多个配置文件搜索路径，需要注意添加搜索路径的顺序，Viper会根据添加的路径顺序搜索配置文件，如果找到则停止搜索。如果调用SetConfigFile直接指定了配置文件名，并且配置文件名没有文件扩展名时，需要显式指定配置文件的格式，以使Viper能够正确解析配置文件。</p>
+<p>如果通过搜索的方式查找配置文件，则需要注意，SetConfigName设置的配置文件名是不带扩展名的，在搜索时Viper会在文件名之后追加文件扩展名，并尝试搜索所有支持的扩展类型。</p>
+<p>3，监听和重新读取配置文件。</p>
+<p>Viper支持在运行时让应用程序实时读取配置文件，也就是热加载配置。可以通过WatchConfig函数热加载配置。在调用WatchConfig函数之前，需要确保已经添加了配置文件的搜索路径。另外，还可以为Viper提供一个回调函数，以便在每次发生更改时运行。这里我也给你个示例：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">viper.WatchConfig()</span><br><span class="line">viper.OnConfigChange(<span class="function"><span class="keyword">func</span><span class="params">(e fsnotify.Event)</span></span> &#123;</span><br><span class="line">    <span class="comment">// 配置文件发生变更之后会调用的回调函数</span></span><br><span class="line">    fmt.Println(<span class="string">&quot;Config file changed:&quot;</span>, e.Name)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><br>我不建议在实际开发中使用热加载功能，因为即使配置热加载了，程序中的代码也不一定会热加载。例如：修改了服务监听端口，但是服务没有重启，这时候服务还是监听在老的端口上，会造成不一致。</p>
+<p>4，设置配置值。</p>
+<p>我们可以通过<code>viper.Set()</code>函数来显式设置配置：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">viper.Set(<span class="string">&quot;user.username&quot;</span>, <span class="string">&quot;colin&quot;</span>)</span><br></pre></td></tr></table></figure></p>
+<p>5，使用环境变量。</p>
+<p>Viper还支持环境变量，通过如下5个函数来支持环境变量：</p>
+<ul>
+<li><code>AutomaticEnv()</code></li>
+<li><code>BindEnv(input …string) error</code></li>
+<li><code>SetEnvPrefix(in string)</code></li>
+<li><code>SetEnvKeyReplacer(r *strings.Replacer)</code></li>
+<li><code>AllowEmptyEnv(allowEmptyEnv bool)</code></li>
+</ul>
+<p>这里要注意：Viper读取环境变量是区分大小写的。Viper提供了一种机制来确保Env变量是唯一的。通过使用SetEnvPrefix，可以告诉Viper在读取环境变量时使用前缀。BindEnv和AutomaticEnv都将使用此前缀。比如，我们设置了<code>viper.SetEnvPrefix(&quot;VIPER&quot;)</code>，当使用<code>viper.Get(&quot;apiversion&quot;)</code>时，实际读取的环境变量是VIPER_APIVERSION。</p>
+<p>BindEnv需要一个或两个参数。第一个参数是键名，第二个是环境变量的名称，环境变量的名称区分大小写。如果未提供Env变量名，则Viper将假定Env变量名为：环境变量前缀_键名全大写。例如：前缀为VIPER，key为username，则Env变量名为VIPER_USERNAME。当显示提供Env变量名（第二个参数）时，它不会自动添加前缀。例如，如果第二个参数是ID，Viper将查找环境变量ID。</p>
+<p>在使用Env变量时，需要注意的一件重要事情是：每次访问该值时都将读取它。Viper在调用BindEnv时不固定该值。</p>
+<p>还有一个魔法函数SetEnvKeyReplacer，SetEnvKeyReplacer允许你使用<code>strings.Replacer</code>对象来重写Env键。如果你想在Get()调用中使用<code>-</code>或者<code>.</code>，但希望你的环境变量使用<code>_</code>分隔符，可以通过SetEnvKeyReplacer来实现。比如，我们设置了环境变量<code>USER_SECRET_KEY=bVix2WBv0VPfrDrvlLWrhEdzjLpPCNYb</code>，但我们想用<code>viper.Get(&quot;user.secret-key&quot;)</code>，那我们就调用函数：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">viper.SetEnvKeyReplacer(strings.NewReplacer(<span class="string">&quot;.&quot;</span>, <span class="string">&quot;_&quot;</span>, <span class="string">&quot;-&quot;</span>, <span class="string">&quot;_&quot;</span>))</span><br></pre></td></tr></table></figure><br>上面的代码，在调用<code>viper.Get()</code>函数时，会用<code>_</code>替换<code>.</code>和<code>-</code>。默认情况下，空环境变量被认为是未设置的，并将返回到下一个配置源。若要将空环境变量视为已设置，可以使用AllowEmptyEnv方法。使用环境变量示例如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用环境变量</span></span><br><span class="line">os.Setenv(<span class="string">&quot;VIPER_USER_SECRET_ID&quot;</span>, <span class="string">&quot;QLdywI2MrmDVjSSv6e95weNRvmteRjfKAuNV&quot;</span>)</span><br><span class="line">os.Setenv(<span class="string">&quot;VIPER_USER_SECRET_KEY&quot;</span>, <span class="string">&quot;bVix2WBv0VPfrDrvlLWrhEdzjLpPCNYb&quot;</span>)</span><br><span class="line"></span><br><span class="line">viper.AutomaticEnv()                                             <span class="comment">// 读取环境变量</span></span><br><span class="line">viper.SetEnvPrefix(<span class="string">&quot;VIPER&quot;</span>)                                      <span class="comment">// 设置环境变量前缀：VIPER_，如果是viper，将自动转变为大写。</span></span><br><span class="line">viper.SetEnvKeyReplacer(strings.NewReplacer(<span class="string">&quot;.&quot;</span>, <span class="string">&quot;_&quot;</span>, <span class="string">&quot;-&quot;</span>, <span class="string">&quot;_&quot;</span>)) <span class="comment">// 将viper.Get(key) key字符串中&#x27;.&#x27;和&#x27;-&#x27;替换为&#x27;_&#x27;</span></span><br><span class="line">viper.BindEnv(<span class="string">&quot;user.secret-key&quot;</span>)</span><br><span class="line">viper.BindEnv(<span class="string">&quot;user.secret-id&quot;</span>, <span class="string">&quot;USER_SECRET_ID&quot;</span>) <span class="comment">// 绑定环境变量名到key</span></span><br></pre></td></tr></table></figure></p>
+<p>6，使用标志。</p>
+<p>Viper支持Pflag包，能够绑定key到Flag。与BindEnv类似，在调用绑定方法时，不会设置该值，但在访问它时会设置。对于单个标志，可以调用BindPFlag()进行绑定：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">viper.BindPFlag(<span class="string">&quot;token&quot;</span>, pflag.Lookup(<span class="string">&quot;token&quot;</span>)) <span class="comment">// 绑定单个标志</span></span><br></pre></td></tr></table></figure><br>还可以绑定一组现有的pflags（<code>pflag.FlagSet</code>）：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">viper.BindPFlags(pflag.CommandLine) <span class="comment">//绑定标志集</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="读取配置"><a href="#读取配置" class="headerlink" title="读取配置"></a><span style="color:#00ACC1;">读取配置</span></h2><p>Viper提供了如下方法来读取配置：</p>
+<ul>
+<li><code>Get(key string) interface&#123;&#125;</code></li>
+<li><code>Get&lt;Type&gt;(key string) &lt;Type&gt;</code></li>
+<li><code>AllSettings() map[string]interface&#123;&#125;</code></li>
+<li><code>IsSet(key string) bool</code></li>
+</ul>
+<p>每一个Get方法在找不到值的时候都会返回零值。为了检查给定的键是否存在，可以使用<code>IsSet()</code>方法。<code>&lt;Type&gt;</code>可以是Viper支持的类型，首字母大写：Bool、Float64、Int、IntSlice、String、StringMap、StringMapString、StringSlice、Time、Duration。例如：GetInt()。</p>
+<p>常见的读取配置方法有以下几种。</p>
+<p>1，访问嵌套的键。</p>
+<p>例如，加载下面的JSON文件：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;host&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;address&quot;</span><span class="punctuation">:</span> <span class="string">&quot;localhost&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;port&quot;</span><span class="punctuation">:</span> <span class="number">5799</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;datastore&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;metric&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;host&quot;</span><span class="punctuation">:</span> <span class="string">&quot;127.0.0.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;port&quot;</span><span class="punctuation">:</span> <span class="number">3099</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;warehouse&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;host&quot;</span><span class="punctuation">:</span> <span class="string">&quot;198.0.0.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;port&quot;</span><span class="punctuation">:</span> <span class="number">2112</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure><br>Viper可以通过传入<code>.</code>分隔的路径来访问嵌套字段<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">viper.GetString(<span class="string">&quot;datastore.metric.host&quot;</span>) <span class="comment">// (返回 &quot;127.0.0.1&quot;)</span></span><br></pre></td></tr></table></figure><br>如果<code>datastore.metric</code>被直接赋值覆盖（被Flag、环境变量、set()方法等等），那么<code>datastore.metric</code>的所有子键都将变为未定义状态，它们被高优先级配置级别覆盖了。</p>
+<p>如果存在与分隔的键路径匹配的键，则直接返回其值。例如：<br><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;datastore.metric.host&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.0.0.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;host&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;address&quot;</span><span class="punctuation">:</span> <span class="string">&quot;localhost&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;port&quot;</span><span class="punctuation">:</span> <span class="number">5799</span></span><br><span class="line">    <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;datastore&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;metric&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;host&quot;</span><span class="punctuation">:</span> <span class="string">&quot;127.0.0.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;port&quot;</span><span class="punctuation">:</span> <span class="number">3099</span></span><br><span class="line">        <span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="attr">&quot;warehouse&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;host&quot;</span><span class="punctuation">:</span> <span class="string">&quot;198.0.0.1&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;port&quot;</span><span class="punctuation">:</span> <span class="number">2112</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure><br>通过<code>viper.GetString</code>获取值：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">viper.GetString(<span class="string">&quot;datastore.metric.host&quot;</span>) <span class="comment">// 返回 &quot;0.0.0.0&quot;</span></span><br></pre></td></tr></table></figure></p>
+<p>2，反序列化。</p>
+<p>Viper可以支持将所有或特定的值解析到结构体、map等。可以通过两个函数来实现：</p>
+<ul>
+<li><code>Unmarshal(rawVal interface&#123;&#125;) error</code></li>
+<li><code>UnmarshalKey(key string,rawVal interface&#123;&#125;) error</code></li>
+</ul>
+<p>一个示例：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> config <span class="keyword">struct</span> &#123;</span><br><span class="line">    Port <span class="type">int</span></span><br><span class="line">    Name <span class="type">string</span></span><br><span class="line">    PathMap <span class="type">string</span> <span class="string">`mapstructure:&quot;path_map&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> C config</span><br><span class="line"></span><br><span class="line">err := viper.Unmarshal(&amp;C)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    t.Fatalf(<span class="string">&quot;unable to decode into struct, %v&quot;</span>, err)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>如果想要解析那些键本身就包含<code>.</code>(默认的键分隔符）的配置，则需要修改分隔符：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">v := viper.NewWithOptions(viper.KeyDelimiter(<span class="string">&quot;::&quot;</span>))</span><br><span class="line"></span><br><span class="line">v.SetDefault(<span class="string">&quot;chart::values&quot;</span>, <span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;</span><br><span class="line">    <span class="string">&quot;ingress&quot;</span>: <span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;</span><br><span class="line">        <span class="string">&quot;annotations&quot;</span>: <span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;</span><br><span class="line">            <span class="string">&quot;traefik.frontend.rule.type&quot;</span>:                 <span class="string">&quot;PathPrefix&quot;</span>,</span><br><span class="line">            <span class="string">&quot;traefik.ingress.kubernetes.io/ssl-redirect&quot;</span>: <span class="string">&quot;true&quot;</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> config <span class="keyword">struct</span> &#123;</span><br><span class="line">    Chart <span class="keyword">struct</span>&#123;</span><br><span class="line">        Values <span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> C config</span><br><span class="line"></span><br><span class="line">v.Unmarshal(&amp;C)</span><br></pre></td></tr></table></figure><br>Viper在后台使用github.com/mitchellh/mapstructure来解析值，其默认情况下使用mapstructure tags。当我们需要将Viper读取的配置反序列到我们定义的结构体变量中时，一定要使用mapstructure tags。</p>
+<p>3，序列化成字符串。</p>
+<p>有时候我们需要将Viper中保存的所有设置序列化到一个字符串中，而不是将它们写入到一个文件中，示例如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    yaml <span class="string">&quot;gopkg.in/yaml.v2&quot;</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">yamlStringSettings</span><span class="params">()</span></span> <span class="type">string</span> &#123;</span><br><span class="line">    c := viper.AllSettings()</span><br><span class="line">    bs, err := yaml.Marshal(c)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        log.Fatalf(<span class="string">&quot;unable to marshal config to YAML: %v&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">string</span>(bs)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="现代化的命令行框架：Cobra全解"><a href="#现代化的命令行框架：Cobra全解" class="headerlink" title="现代化的命令行框架：Cobra全解"></a><span style="color:#339AFF;">现代化的命令行框架：Cobra全解</span></h1><p>Cobra既是一个可以创建强大的现代CLI应用程序的库，也是一个可以生成应用和命令文件的程序。</p>
+<p>Cobra建立在commands、arguments和flags结构之上。commands代表命令，arguments代表非选项参数，flags代表选项参数（也叫标志）。一个好的应用程序应该是易懂的，用户可以清晰地知道如何去使用这个应用程序。应用程序通常遵循如下模式：<code>APPNAME VERB NOUN --ADJECTIVE</code>或者<code>APPNAME COMMAND ARG --FLAG</code>，例如：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone URL --bare # clone 是一个命令，URL是一个非选项参数，bare是一个选项参数</span><br></pre></td></tr></table></figure><br>这里，VERB代表动词，NOUN代表名词，ADJECTIVE代表形容词。</p>
+<p>Cobra提供了两种方式来创建命令：Cobra命令和Cobra库。Cobra命令可以生成一个Cobra命令模板，而命令模板也是通过引用Cobra库来构建命令的。所以，这里我直接介绍如何使用Cobra库来创建命令。</p>
+<h2 id="使用Cobra库创建命令"><a href="#使用Cobra库创建命令" class="headerlink" title="使用Cobra库创建命令"></a><span style="color:#00ACC1;">使用Cobra库创建命令</span></h2><p>如果要用Cobra库编码实现一个应用程序，需要首先创建一个空的main.go文件和一个rootCmd文件，之后可以根据需要添加其他命令。具体步骤如下：</p>
+<p>1，创建rootCmd。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash"><span class="built_in">mkdir</span> -p newApp2 &amp;&amp; <span class="built_in">cd</span> newApp2</span></span><br></pre></td></tr></table></figure>
+<p>通常情况下，我们会将rootCmd放在文件cmd/root.go中。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> rootCmd = &amp;cobra.Command&#123;</span><br><span class="line">    Use:   <span class="string">&quot;hugo&quot;</span>,</span><br><span class="line">    Short: <span class="string">&quot;Hugo is a very fast static site generator&quot;</span>,</span><br><span class="line">    Long: <span class="string">`A Fast and Flexible Static Site Generator built with</span></span><br><span class="line"><span class="string">                love by spf13 and friends in Go.</span></span><br><span class="line"><span class="string">                Complete documentation is available at http://hugo.spf13.com`</span>,</span><br><span class="line">    Run: <span class="function"><span class="keyword">func</span><span class="params">(cmd *cobra.Command, args []<span class="type">string</span>)</span></span> &#123;</span><br><span class="line">    <span class="comment">// Do Stuff Here</span></span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Execute</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> err := rootCmd.Execute(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(err)</span><br><span class="line">        os.Exit(<span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>还可以在init()函数中定义标志和处理配置，例如cmd/root.go。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;os&quot;</span></span><br><span class="line"></span><br><span class="line">    homedir <span class="string">&quot;github.com/mitchellh/go-homedir&quot;</span></span><br><span class="line">    <span class="string">&quot;github.com/spf13/cobra&quot;</span></span><br><span class="line">    <span class="string">&quot;github.com/spf13/viper&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> (</span><br><span class="line">    cfgFile     <span class="type">string</span></span><br><span class="line">    projectBase <span class="type">string</span></span><br><span class="line">    userLicense <span class="type">string</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    cobra.OnInitialize(initConfig)</span><br><span class="line">    rootCmd.PersistentFlags().StringVar(&amp;cfgFile, <span class="string">&quot;config&quot;</span>, <span class="string">&quot;&quot;</span>, <span class="string">&quot;config file (default is $HOME/.cobra.yaml)&quot;</span>)</span><br><span class="line">    rootCmd.PersistentFlags().StringVarP(&amp;projectBase, <span class="string">&quot;projectbase&quot;</span>, <span class="string">&quot;b&quot;</span>, <span class="string">&quot;&quot;</span>, <span class="string">&quot;base project directory eg. github.com/spf13/&quot;</span>)</span><br><span class="line">    rootCmd.PersistentFlags().StringP(<span class="string">&quot;author&quot;</span>, <span class="string">&quot;a&quot;</span>, <span class="string">&quot;YOUR NAME&quot;</span>, <span class="string">&quot;Author name for copyright attribution&quot;</span>)</span><br><span class="line">    rootCmd.PersistentFlags().StringVarP(&amp;userLicense, <span class="string">&quot;license&quot;</span>, <span class="string">&quot;l&quot;</span>, <span class="string">&quot;&quot;</span>, <span class="string">&quot;Name of license for the project (can provide `licensetext` in config)&quot;</span>)</span><br><span class="line">    rootCmd.PersistentFlags().Bool(<span class="string">&quot;viper&quot;</span>, <span class="literal">true</span>, <span class="string">&quot;Use Viper for configuration&quot;</span>)</span><br><span class="line">    viper.BindPFlag(<span class="string">&quot;author&quot;</span>, rootCmd.PersistentFlags().Lookup(<span class="string">&quot;author&quot;</span>))</span><br><span class="line">    viper.BindPFlag(<span class="string">&quot;projectbase&quot;</span>, rootCmd.PersistentFlags().Lookup(<span class="string">&quot;projectbase&quot;</span>))</span><br><span class="line">    viper.BindPFlag(<span class="string">&quot;useViper&quot;</span>, rootCmd.PersistentFlags().Lookup(<span class="string">&quot;viper&quot;</span>))</span><br><span class="line">    viper.SetDefault(<span class="string">&quot;author&quot;</span>, <span class="string">&quot;NAME HERE &lt;EMAIL ADDRESS&gt;&quot;</span>)</span><br><span class="line">    viper.SetDefault(<span class="string">&quot;license&quot;</span>, <span class="string">&quot;apache&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">initConfig</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// Don&#x27;t forget to read config either from cfgFile or from home directory!</span></span><br><span class="line">    <span class="keyword">if</span> cfgFile != <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">        <span class="comment">// Use config file from the flag.</span></span><br><span class="line">        viper.SetConfigFile(cfgFile)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// Find home directory.</span></span><br><span class="line">        home, err := homedir.Dir()</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">            fmt.Println(err)</span><br><span class="line">            os.Exit(<span class="number">1</span>)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Search config in home directory with name &quot;.cobra&quot; (without extension).</span></span><br><span class="line">        viper.AddConfigPath(home)</span><br><span class="line">        viper.SetConfigName(<span class="string">&quot;.cobra&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> err := viper.ReadInConfig(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;Can&#x27;t read config:&quot;</span>, err)</span><br><span class="line">        os.Exit(<span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>2，创建main.go。</p>
+<p>我们还需要一个main函数来调用rootCmd，通常我们会创建一个main.go文件，在main.go中调用rootCmd.Execute()来执行命令：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;&#123;pathToYourApp&#125;/cmd&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    cmd.Execute()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>需要注意，main.go中不建议放很多代码，通常只需要调用cmd.Execute()即可。</p>
+<p>3，添加命令。</p>
+<p>除了rootCmd，我们还可以调用AddCommand添加其他命令，通常情况下，我们会把其他命令的源码文件放在cmd/目录下，例如，我们添加一个version命令，可以创建cmd/version.go文件，内容为：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cmd</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;github.com/spf13/cobra&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    rootCmd.AddCommand(versionCmd)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> versionCmd = &amp;cobra.Command&#123;</span><br><span class="line">    Use:   <span class="string">&quot;version&quot;</span>,</span><br><span class="line">    Short: <span class="string">&quot;Print the version number of Hugo&quot;</span>,</span><br><span class="line">    Long:  <span class="string">`All software has versions. This is Hugo&#x27;s`</span>,</span><br><span class="line">    Run: <span class="function"><span class="keyword">func</span><span class="params">(cmd *cobra.Command, args []<span class="type">string</span>)</span></span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;Hugo Static Site Generator v0.9 -- HEAD&quot;</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>本示例中，我们通过调用rootCmd.AddCommand(versionCmd)给rootCmd命令添加了一个versionCmd命令。</p>
+<p>4，编译并运行。</p>
+<p>将main.go中{pathToYourApp}替换为对应的路径，例如本示例中pathToYourApp为github.com/marmotedu/gopractise-demo/cobra/newApp2。<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">go mod init github.com/marmotedu/gopractise-demo/cobra/newApp2</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">go build -v .</span></span><br><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">./newApp2 -h</span></span><br><span class="line">A Fast and Flexible Static Site Generator built with</span><br><span class="line">love by spf13 and friends in Go.</span><br><span class="line">Complete documentation is available at http://hugo.spf13.com</span><br><span class="line"> </span><br><span class="line">Usage:</span><br><span class="line">hugo [flags]</span><br><span class="line">hugo [command]</span><br><span class="line"> </span><br><span class="line">Available Commands:</span><br><span class="line">help Help about any command</span><br><span class="line">version Print the version number of Hugo</span><br><span class="line"> </span><br><span class="line">Flags:</span><br><span class="line">-a, --author string Author name for copyright attribution (default &quot;YOUR NAME&quot;)</span><br><span class="line">--config string config file (default is $HOME/.cobra.yaml)</span><br><span class="line">-h, --help help for hugo</span><br><span class="line">-l, --license licensetext Name of license for the project (can provide licensetext in config)</span><br><span class="line">-b, --projectbase string base project directory eg. github.com/spf13/</span><br><span class="line">--viper Use Viper for configuration (default true)</span><br><span class="line"> </span><br><span class="line">Use &quot;hugo [command] --help&quot; for more information about a command.</span><br></pre></td></tr></table></figure><br>通过步骤一、步骤二、步骤三，我们就成功创建和添加了Cobra应用程序及其命令。</p>
+<p>接下来，我再来详细介绍下Cobra的核心特性。</p>
+<h2 id="使用标志"><a href="#使用标志" class="headerlink" title="使用标志"></a><span style="color:#00ACC1;">使用标志</span></h2><p>Cobra可以跟Pflag结合使用，实现强大的标志功能。使用步骤如下：</p>
+<p>1，使用持久化的标志。</p>
+<p>标志可以是“持久的”，这意味着该标志可用于它所分配的命令以及该命令下的每个子命令。可以在rootCmd上定义持久标志：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rootCmd.PersistentFlags().BoolVarP(&amp;Verbose, <span class="string">&quot;verbose&quot;</span>, <span class="string">&quot;v&quot;</span>, <span class="literal">false</span>, <span class="string">&quot;verbose output&quot;</span>)</span><br></pre></td></tr></table></figure></p>
+<p>2，使用本地标志。</p>
+<p>也可以分配一个本地标志，本地标志只能在它所绑定的命令上使用：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rootCmd.Flags().StringVarP(&amp;Source, <span class="string">&quot;source&quot;</span>, <span class="string">&quot;s&quot;</span>, <span class="string">&quot;&quot;</span>, <span class="string">&quot;Source directory to read from&quot;</span>)</span><br></pre></td></tr></table></figure><br>—source标志只能在rootCmd上引用，而不能在rootCmd的子命令上引用。</p>
+<p>3，将标志绑定到Viper。</p>
+<p>我们可以将标志绑定到Viper，这样就可以使用viper.Get()获取标志的值。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> author <span class="type">string</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span> &#123;</span><br><span class="line">    rootCmd.PersistentFlags().StringVar(&amp;author, <span class="string">&quot;author&quot;</span>, <span class="string">&quot;YOUR NAME&quot;</span>, <span class="string">&quot;Author name for copyright attribution&quot;</span>)</span><br><span class="line">    viper.BindPFlag(<span class="string">&quot;author&quot;</span>, rootCmd.PersistentFlags().Lookup(<span class="string">&quot;author&quot;</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>4，设置标志为必选。</p>
+<p>默认情况下，标志是可选的，我们也可以设置标志为必选，当设置标志为必选，但是没有提供标志时，Cobra会报错。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rootCmd.Flags().StringVarP(&amp;Region, <span class="string">&quot;region&quot;</span>, <span class="string">&quot;r&quot;</span>, <span class="string">&quot;&quot;</span>, <span class="string">&quot;AWS region (required)&quot;</span>)</span><br><span class="line">rootCmd.MarkFlagRequired(<span class="string">&quot;region&quot;</span>)</span><br></pre></td></tr></table></figure></p>
+<h2 id="非选项参数验证"><a href="#非选项参数验证" class="headerlink" title="非选项参数验证"></a><span style="color:#00ACC1;">非选项参数验证</span></h2><p>在命令的过程中，经常会传入非选项参数，并且需要对这些非选项参数进行验证，Cobra提供了机制来对非选项参数进行验证。可以使用Command的Args字段来验证非选项参数。Cobra也内置了一些验证函数：</p>
+<ul>
+<li>NoArgs：如果存在任何非选项参数，该命令将报错。</li>
+<li>ArbitraryArgs：该命令将接受任何非选项参数。</li>
+<li>OnlyValidArgs：如果有任何非选项参数不在Command的ValidArgs字段中，该命令将报错。</li>
+<li>MinimumNArgs(int)：如果没有至少N个非选项参数，该命令将报错。</li>
+<li>MaximumNArgs(int)：如果有多于N个非选项参数，该命令将报错。</li>
+<li>ExactArgs(int)：如果非选项参数个数不为N，该命令将报错。</li>
+<li>ExactValidArgs(int)：如果非选项参数的个数不为N，或者非选项参数不在Command的ValidArgs字段中，该命令将报错。</li>
+<li>RangeArgs(min,max)：如果非选项参数的个数不在min和max之间，该命令将报错。</li>
+</ul>
+<p>使用预定义验证函数，示例如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cmd = &amp;cobra.Command&#123;</span><br><span class="line">    Short: <span class="string">&quot;hello&quot;</span>,</span><br><span class="line">    Args: cobra.MinimumNArgs(<span class="number">1</span>), <span class="comment">// 使用内置的验证函数</span></span><br><span class="line">    Run: <span class="function"><span class="keyword">func</span><span class="params">(cmd *cobra.Command, args []<span class="type">string</span>)</span></span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;Hello, World!&quot;</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>当然你也可以自定义验证函数，示例如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> cmd = &amp;cobra.Command&#123;</span><br><span class="line">    Short: <span class="string">&quot;hello&quot;</span>,</span><br><span class="line">    <span class="comment">// Args: cobra.MinimumNArgs(10), // 使用内置的验证函数</span></span><br><span class="line">    Args: <span class="function"><span class="keyword">func</span><span class="params">(cmd *cobra.Command, args []<span class="type">string</span>)</span></span> <span class="type">error</span> &#123; <span class="comment">// 自定义验证函数</span></span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">len</span>(args) &lt; <span class="number">1</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> errors.New(<span class="string">&quot;requires at least one arg&quot;</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> myapp.IsValidColor(args[<span class="number">0</span>]) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> fmt.Errorf(<span class="string">&quot;invalid color specified: %s&quot;</span>, args[<span class="number">0</span>])</span><br><span class="line">    &#125;,</span><br><span class="line">    Run: <span class="function"><span class="keyword">func</span><span class="params">(cmd *cobra.Command, args []<span class="type">string</span>)</span></span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;Hello, World!&quot;</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="PreRunandPostRunHooks"><a href="#PreRunandPostRunHooks" class="headerlink" title="PreRunandPostRunHooks"></a><span style="color:#00ACC1;">PreRunandPostRunHooks</span></h2><p>在运行Run函数时，我们可以运行一些钩子函数，比如PersistentPreRun和PreRun函数在Run函数之前执行，PersistentPostRun和PostRun在Run函数之后执行。如果子命令没有指定Persistent<em>Run函数，则子命令将会继承父命令的Persistent</em>Run函数。这些函数的运行顺序如下：</p>
+<p>1，PersistentPreRun</p>
+<p>2，PreRun</p>
+<p>3，Run</p>
+<p>4，PostRun</p>
+<p>5，PersistentPostRun</p>
+<p>注意，父级的PreRun只会在父级命令运行时调用，子命令是不会调用的。</p>
+<p>Cobra还支持很多其他有用的特性，比如：自定义Help命令；可以自动添加—version标志，输出程序版本信息；当用户提供无效标志或无效命令时，Cobra可以打印出usage信息；当我们输入的命令有误时，Cobra会根据注册的命令，推算出可能的命令，等等。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><span style="color:#339AFF;">总结</span></h1><p>在开发Go项目时，我们可以通过Pflag来解析命令行参数，通过Viper来解析配置文件，用Cobra来实现命令行框架。你可以通过pflag.String()、pflag.StringP()、pflag.StringVar()、pflag.StringVarP()方法来设置命令行参数，并使用Get来获取参数的值。</p>
+<p>同时，你也可以使用Viper从命令行参数、环境变量、配置文件等位置读取配置项。最常用的是从配置文件中读取，可以通过viper.AddConfigPath来设置配置文件搜索路径，通过viper.SetConfigFile和viper.SetConfigType来设置配置文件名，通过viper.ReadInConfig来读取配置文件。读取完配置文件，然后在程序中使用Get/Get来读取配置项的值。</p>
+<p>最后，你可以使用Cobra来构建一个命令行框架，Cobra可以很好地集成Pflag和Viper。</p>
+<h1 id="课后练习"><a href="#课后练习" class="headerlink" title="课后练习"></a><span style="color:#339AFF;">课后练习</span></h1><p>1，研究下Cobra的代码，看下Cobra是如何跟Pflag和Viper进行集成的。</p>
+<p>2，思考下，除了Pflag、Viper、Cobra，你在开发过程中还遇到哪些优秀的包，来处理命令行参数、配置文件和启动命令行框架的呢？</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Go%E8%AF%AD%E8%A8%80%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E5%AE%9E%E6%88%98/" rel="tag"># Go语言项目开发实战</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/11/24/21-%E6%97%A5%E5%BF%97%E5%A4%84%E7%90%86%EF%BC%88%E4%B8%8B%EF%BC%89%EF%BC%9A%E6%89%8B%E6%8A%8A%E6%89%8B%E6%95%99%E4%BD%A0%E4%BB%8E0%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E6%97%A5%E5%BF%97%E5%8C%85/" rel="next" title="21 | 日志处理（下）：手把手教你从0编写一个日志包">
+                <i class="fa fa-chevron-left"></i> 21 | 日志处理（下）：手把手教你从0编写一个日志包
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/11/24/23-%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E5%AE%9E%E6%88%98%EF%BC%9A%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E4%B8%80%E4%B8%AA%E4%BC%98%E7%A7%80%E7%9A%84%E4%BC%81%E4%B8%9A%E5%BA%94%E7%94%A8%E6%A1%86%E6%9E%B6%EF%BC%9F/" rel="prev" title="23丨应用构建实战：如何构建一个优秀的企业应用框架？">
+                23丨应用构建实战：如何构建一个优秀的企业应用框架？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
+            
+              <p class="site-author-name" itemprop="name">CheBin</p>
+              <div class="site-description motion-element" itemprop="description">参与开源就是出路</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/%20%7C%7C%20archive">
+                
+                    <span class="site-state-item-count">561</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/%20%7C%7C%20th">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/%20%7C%7C%20tags">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history fa-" aria-hidden="true"></i>
+                近期文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li>
+                    <a href="/2024/07/31/%E6%A3%8B%E7%89%8C%E6%B8%B8%E6%88%8F-1/" title="棋牌游戏-1" target="_blank">棋牌游戏-1</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/07/31/%E7%AC%AC11%E7%AB%A0-%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%BC%8F%EF%BC%9A%E6%8B%BF%E6%9D%A5%E5%8D%B3%E7%94%A8%E7%9A%84%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93/" title="第11章 并发模式：拿来即用的经验总结" target="_blank">第11章 并发模式：拿来即用的经验总结</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/07/31/go%E5%B9%B6%E5%8F%91%E4%B9%8B%E7%BE%8E%EF%BC%9A%E5%A4%9A%E4%B8%AAchannel%E5%90%88%E5%B9%B6-%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E6%B5%81%E5%90%88%E5%B9%B6/" title="go并发之美：多个channel合并/多个数据流合并" target="_blank">go并发之美：多个channel合并/多个数据流合并</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/05/21/%E7%AC%AC12%E7%AB%A0-%E5%88%86%E5%B8%83%E5%BC%8F%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" title="第12章 分布式链路追踪" target="_blank">第12章 分布式链路追踪</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/05/21/%E7%AC%AC11%E7%AB%A0-%E7%BB%9F%E4%B8%80%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83/" title="第11章 统一认证与授权" target="_blank">第11章 统一认证与授权</a>
+                  </li>
+                
+              </ul>
+            </div>
+        
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%9E%84%E5%BB%BA%E5%BA%94%E7%94%A8%E6%A1%86%E6%9E%B6"><span class="nav-number">1.</span> <span class="nav-text">如何构建应用框架</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%8F%82%E6%95%B0%E8%A7%A3%E6%9E%90%E5%B7%A5%E5%85%B7%EF%BC%9APflag%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">命令行参数解析工具：Pflag使用介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Pflag%E5%8C%85Flag%E5%AE%9A%E4%B9%89"><span class="nav-number">2.1.</span> <span class="nav-text">Pflag包Flag定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pflag%E5%8C%85FlagSet%E5%AE%9A%E4%B9%89"><span class="nav-number">2.2.</span> <span class="nav-text">Pflag包FlagSet定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pflag%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">2.3.</span> <span class="nav-text">Pflag使用方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E8%A7%A3%E6%9E%90%E7%A5%9E%E5%99%A8%EF%BC%9AViper%E4%BD%BF%E7%94%A8%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.</span> <span class="nav-text">配置解析神器：Viper使用介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E5%85%A5%E9%85%8D%E7%BD%AE"><span class="nav-number">3.1.</span> <span class="nav-text">读入配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE"><span class="nav-number">3.2.</span> <span class="nav-text">读取配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%8E%B0%E4%BB%A3%E5%8C%96%E7%9A%84%E5%91%BD%E4%BB%A4%E8%A1%8C%E6%A1%86%E6%9E%B6%EF%BC%9ACobra%E5%85%A8%E8%A7%A3"><span class="nav-number">4.</span> <span class="nav-text">现代化的命令行框架：Cobra全解</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8Cobra%E5%BA%93%E5%88%9B%E5%BB%BA%E5%91%BD%E4%BB%A4"><span class="nav-number">4.1.</span> <span class="nav-text">使用Cobra库创建命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%A0%87%E5%BF%97"><span class="nav-number">4.2.</span> <span class="nav-text">使用标志</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9E%E9%80%89%E9%A1%B9%E5%8F%82%E6%95%B0%E9%AA%8C%E8%AF%81"><span class="nav-number">4.3.</span> <span class="nav-text">非选项参数验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PreRunandPostRunHooks"><span class="nav-number">4.4.</span> <span class="nav-text">PreRunandPostRunHooks</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AF%BE%E5%90%8E%E7%BB%83%E4%B9%A0"><span class="nav-number">6.</span> <span class="nav-text">课后练习</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CheBin</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">4m</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">60:19</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>

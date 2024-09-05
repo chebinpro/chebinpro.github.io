@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222"/>
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2"/>
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1"/>
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '',
+    scheme: 'Pisces',
+    version: '7.0.1',
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: false,
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="思考并回答以下问题：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="01｜net&#x2F;http：使用标准库搭建Server并不是那么简单">
+<meta property="og:url" content="http://yoursite.com/2021/12/20/01%EF%BD%9Cnet-http%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%A0%87%E5%87%86%E5%BA%93%E6%90%AD%E5%BB%BAServer%E5%B9%B6%E4%B8%8D%E6%98%AF%E9%82%A3%E4%B9%88%E7%AE%80%E5%8D%95/index.html">
+<meta property="og:site_name" content="车斌的技术博客">
+<meta property="og:description" content="思考并回答以下问题：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://yoursite.com/2021/12/20/01%EF%BD%9Cnet-http%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%A0%87%E5%87%86%E5%BA%93%E6%90%AD%E5%BB%BAServer%E5%B9%B6%E4%B8%8D%E6%98%AF%E9%82%A3%E4%B9%88%E7%AE%80%E5%8D%95/7.webp">
+<meta property="og:image" content="http://yoursite.com/2021/12/20/01%EF%BD%9Cnet-http%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%A0%87%E5%87%86%E5%BA%93%E6%90%AD%E5%BB%BAServer%E5%B9%B6%E4%B8%8D%E6%98%AF%E9%82%A3%E4%B9%88%E7%AE%80%E5%8D%95/3.webp">
+<meta property="og:image" content="http://yoursite.com/2021/12/20/01%EF%BD%9Cnet-http%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%A0%87%E5%87%86%E5%BA%93%E6%90%AD%E5%BB%BAServer%E5%B9%B6%E4%B8%8D%E6%98%AF%E9%82%A3%E4%B9%88%E7%AE%80%E5%8D%95/4.webp">
+<meta property="og:image" content="http://yoursite.com/2021/12/20/01%EF%BD%9Cnet-http%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%A0%87%E5%87%86%E5%BA%93%E6%90%AD%E5%BB%BAServer%E5%B9%B6%E4%B8%8D%E6%98%AF%E9%82%A3%E4%B9%88%E7%AE%80%E5%8D%95/5.webp">
+<meta property="og:image" content="http://yoursite.com/2021/12/20/01%EF%BD%9Cnet-http%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%A0%87%E5%87%86%E5%BA%93%E6%90%AD%E5%BB%BAServer%E5%B9%B6%E4%B8%8D%E6%98%AF%E9%82%A3%E4%B9%88%E7%AE%80%E5%8D%95/6.webp">
+<meta property="article:published_time" content="2021-12-20T03:04:18.000Z">
+<meta property="article:modified_time" content="2024-09-02T06:16:43.676Z">
+<meta property="article:author" content="CheBin">
+<meta property="article:tag" content="手把手带你写一个Web框架">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2021/12/20/01%EF%BD%9Cnet-http%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%A0%87%E5%87%86%E5%BA%93%E6%90%AD%E5%BB%BAServer%E5%B9%B6%E4%B8%8D%E6%98%AF%E9%82%A3%E4%B9%88%E7%AE%80%E5%8D%95/7.webp">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2021/12/20/01｜net-http：使用标准库搭建Server并不是那么简单/"/>
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>01｜net/http：使用标准库搭建Server并不是那么简单 | 车斌的技术博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<meta name="generator" content="Hexo 7.1.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">车斌的技术博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">微习惯，每天看1分钟</p>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br/>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br/>关于</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br/>标签</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br/>分类</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br/>归档</a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br/>搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2021/12/20/01%EF%BD%9Cnet-http%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%A0%87%E5%87%86%E5%BA%93%E6%90%AD%E5%BB%BAServer%E5%B9%B6%E4%B8%8D%E6%98%AF%E9%82%A3%E4%B9%88%E7%AE%80%E5%8D%95/"/>
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="CheBin"/>
+      <meta itemprop="description" content="参与开源就是出路"/>
+      <meta itemprop="image" content="/images/avatar.jpg"/>
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="车斌的技术博客"/>
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">01｜net/http：使用标准库搭建Server并不是那么简单
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+
+          
+
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2021-12-20 11:04:18" itemprop="dateCreated datePublished" datetime="2021-12-20T11:04:18+08:00">2021-12-20</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2024-09-02 14:16:43" itemprop="dateModified" datetime="2024-09-02T14:16:43+08:00">2024-09-02</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">23k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">21 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>思考并回答以下问题：</p>
+<span id="more"></span>
+<p><a href="https://github.com/gohade/hade">框架地址</a><br><a href="http://hade.funaio.cn/">说明文档</a></p>
+<p><a href="https://www.jianshu.com/p/e5df57bd6740">https://www.jianshu.com/p/e5df57bd6740</a></p>
+<h1 id="标准库"><a href="#标准库" class="headerlink" title="标准库"></a><span style="color:#339AFF;">标准库</span></h1><p>对Web Server来说，Golang提供了net库和net/http库，分别对应OSI的TCP层和HTTP层，它们两个负责的就是HTTP的接收和解析。</p>
+<p>用net/http来创建一个HTTP服务很简单。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;html&quot;</span></span><br><span class="line">    <span class="string">&quot;log&quot;</span></span><br><span class="line">    <span class="string">&quot;net/http&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Hello <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(hello Hello)</span></span> ServeHTTP(w http.ResponseWriter, r *http.Request)  &#123;</span><br><span class="line">    w.Write([]<span class="type">byte</span>(<span class="string">&quot;Hello World!&quot;</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>  &#123;</span><br><span class="line">    http.Handle(<span class="string">&quot;/&quot;</span>, Hello&#123;&#125;)</span><br><span class="line"></span><br><span class="line">    http.HandleFunc(<span class="string">&quot;/bar&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(w http.ResponseWriter, r *http.Request)</span></span> &#123;</span><br><span class="line">        fmt.Fprintf(w, <span class="string">&quot;Hello, %q&quot;</span>, html.EscapeString(r.URL.Path))</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    log.Fatal(http.ListenAndServe(<span class="string">&quot;:8080&quot;</span>, <span class="literal">nil</span>))</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><br><strong>这几行代码做了什么，为什么就能启动一个HTTP服务，具体的逻辑是什么样的？</strong></p>
+<h1 id="创建框架的Server结构"><a href="#创建框架的Server结构" class="headerlink" title="创建框架的Server结构"></a><span style="color:#339AFF;">创建框架的Server结构</span></h1><p><a href="https://github.com/gohade/coredemo/tree/geekbang/01">geekbang/01</a></p>
+<blockquote>
+<p>代码结构图</p>
+</blockquote>
+<img src="/2021/12/20/01%EF%BD%9Cnet-http%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%A0%87%E5%87%86%E5%BA%93%E6%90%AD%E5%BB%BAServer%E5%B9%B6%E4%B8%8D%E6%98%AF%E9%82%A3%E4%B9%88%E7%AE%80%E5%8D%95/7.webp" class="">
+<p>第一层的关键结论就是：net/http标准库创建服务，实质上就是通过创建Server数据结构来完成的。所以接下来，我们就来创建一个Server数据结构。</p>
+<p>通过<code>go doc net/http.Server</code>我们可以看到Server的结构：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Server <span class="keyword">struct</span> &#123;</span><br><span class="line">    <span class="comment">// 请求监听地址</span></span><br><span class="line">    Addr <span class="type">string</span></span><br><span class="line">    <span class="comment">// 请求核心处理函数</span></span><br><span class="line">    Handler Handler </span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>其中最核心的是Handler这个字段，从主流程中我们知道（第六层关键结论），当Handler这个字段设置为空的时候，它会默认使用DefaultServerMux这个路由器来填充这个值，但是我们一般都会使用自己定义的路由来替换这个默认路由。</p>
+<p>所以在框架代码中，我们要创建一个自己的核心路由结构，实现Handler。</p>
+<p><strong>所有的框架代码都存放在framework文件夹中，而所有的示例业务代码都存放在framework文件夹之外。</strong>framework文件夹是框架文件夹，而把外层称为业务文件夹。</p>
+<p>在一个新的业务中，如果要使用到我们自己写好的框架，可以直接通过引用“import 项目地址/framework”来引入。</p>
+<p>创建一个framework文件夹，新建core.go。<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> framework</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="string">&quot;net/http&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 框架核心结构</span></span><br><span class="line"><span class="keyword">type</span> Core <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化框架核心结构</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewCore</span><span class="params">()</span></span> *Core &#123;</span><br><span class="line">    <span class="keyword">return</span> &amp;Core&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 框架核心结构实现Handler接口</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *Core)</span></span> ServeHTTP(response http.ResponseWriter, request *http.Request) &#123;</span><br><span class="line">    <span class="comment">// TODO</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure><br>而在业务文件夹中创建main.go：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    server := &amp;http.Server&#123;</span><br><span class="line">        <span class="comment">// 自定义的请求核心处理函数</span></span><br><span class="line">        Handler: framework.NewCore(),</span><br><span class="line">        <span class="comment">// 请求监听地址</span></span><br><span class="line">        Addr:    <span class="string">&quot;:8080&quot;</span>,</span><br><span class="line">    &#125;</span><br><span class="line">    server.ListenAndServe()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>我们通过自己创建了Server数据结构，并且在数据结构中创建了自定义的Handler（Core数据结构）和监听地址，实现了一个HTTP服务。这个服务的具体业务逻辑都集中在我们自定义的Core结构中，后续我们要做的事情就是不断丰富这个Core数据结构的功能逻辑。</p>
+<h1 id="net-http标准库怎么学"><a href="#net-http标准库怎么学" class="headerlink" title="net/http标准库怎么学"></a><span style="color:#339AFF;">net/http标准库怎么学</span></h1><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">go doc net/http | grep &quot;^func&quot;</span><br><span class="line">go doc net/http | grep &quot;^type&quot;|grep struct</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>代码分析图</p>
+</blockquote>
+<img src="/2021/12/20/01%EF%BD%9Cnet-http%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%A0%87%E5%87%86%E5%BA%93%E6%90%AD%E5%BB%BAServer%E5%B9%B6%E4%B8%8D%E6%98%AF%E9%82%A3%E4%B9%88%E7%AE%80%E5%8D%95/3.webp" class="">
+<p>先顺着<code>http.ListenAndServe</code>的脉络读。</p>
+<p><strong>第一层</strong>，<code>http.ListenAndServe</code>本质是通过创建一个Server数据结构，调用<code>server.ListenAndServe</code>对外提供服务，这一层完全是比较简单的封装，目的是，将Server结构创建服务的方法ListenAndServe，直接作为库函数对外提供，增加库的易用性。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">ListenAndServe</span><span class="params">(addr <span class="type">string</span>, handler Handler)</span></span> <span class="type">error</span> &#123;</span><br><span class="line">    server := &amp;Server&#123;Addr: addr, Handler: handler&#125;</span><br><span class="line">    <span class="keyword">return</span> server.ListenAndServe()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<img src="/2021/12/20/01%EF%BD%9Cnet-http%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%A0%87%E5%87%86%E5%BA%93%E6%90%AD%E5%BB%BAServer%E5%B9%B6%E4%B8%8D%E6%98%AF%E9%82%A3%E4%B9%88%E7%AE%80%E5%8D%95/4.webp" class="">
+<p>进入到<strong>第二层</strong>，创建服务的方法ListenAndServe先定义了监听信息<code>net.Listen</code>，然后调用Serve函数。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(srv *Server)</span></span> ListenAndServe() <span class="type">error</span> &#123;</span><br><span class="line">    ln, err := net.Listen(<span class="string">&quot;tcp&quot;</span>, addr)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> err</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> srv.Serve(ln)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>而在<strong>第三层</strong>Serve函数中，用了一个for循环，通过<code>l.Accept</code>不断接收从客户端传进来的请求连接。当接收到了一个新的请求连接的时候，通过<code>srv.newConn</code>创建了一个连接结构（<code>http.conn</code>），并创建一个Goroutine为这个请求连接对应服务（<code>c.serve</code>）。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(srv *Server)</span></span> Serve(l net.Listener) <span class="type">error</span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        rw, err := l.Accept()</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">        c := srv.newConn(rw)</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">go</span> c.serve(connCtx)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>从第四层开始，后面就是单个连接的服务逻辑了。</p>
+<img src="/2021/12/20/01%EF%BD%9Cnet-http%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%A0%87%E5%87%86%E5%BA%93%E6%90%AD%E5%BB%BAServer%E5%B9%B6%E4%B8%8D%E6%98%AF%E9%82%A3%E4%B9%88%E7%AE%80%E5%8D%95/5.webp" class="">
+<p>在<strong>第四层</strong>，<code>c.serve</code>函数先判断本次HTTP请求是否需要升级为HTTPs，接着创建读文本的reader和写文本的buffer，再进一步读取本次请求数据，然后<strong>第五层</strong>调用最关键的方法<code>serverHandler&#123;c.server&#125;.ServeHTTP(w,w.req)</code>，来处理这次请求。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(c *conn)</span></span> serve(ctx context.Context) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">if</span> tlsConn, ok := c.rwc.(*tls.Conn); ok &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// HTTP/1.x from here on.</span></span><br><span class="line">    c.r = &amp;connReader&#123;conn: c&#125;</span><br><span class="line">    c.bufr = newBufioReader(c.r)</span><br><span class="line">    c.bufw = newBufioWriterSize(checkConnErrorWriter&#123;c&#125;, <span class="number">4</span>&lt;&lt;<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        w, err := c.readRequest(ctx)</span><br><span class="line">        <span class="comment">// Expect 100 Continue support</span></span><br><span class="line">        req := w.req</span><br><span class="line">       </span><br><span class="line">        serverHandler&#123;c.server&#125;.ServeHTTP(w, w.req) <span class="comment">// 第五层</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这个关键方法是为了实现自定义的路由和业务逻辑，调用写法是比较有意思的：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">serverHandler&#123;c.server&#125;.ServeHTTP(w, w.req)</span><br></pre></td></tr></table></figure><br>serverHandler结构体，是标准库封装的，代表“请求对应的处理逻辑”，它只包含了一个指向总入口服务server的指针。</p>
+<p>这个结构将总入口的服务结构Server和每个连接的处理逻辑巧妙联系在一起了，你可以看接着的<strong>第六层</strong>逻辑：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// serverHandler 结构代表请求对应的处理逻辑</span></span><br><span class="line"><span class="keyword">type</span> serverHandler <span class="keyword">struct</span> &#123;</span><br><span class="line">    srv *Server</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 具体处理逻辑的处理函数</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(sh serverHandler)</span></span> ServeHTTP(rw ResponseWriter, req *Request) &#123;</span><br><span class="line">    handler := sh.srv.Handler</span><br><span class="line">    <span class="keyword">if</span> handler == <span class="literal">nil</span> &#123;</span><br><span class="line">        handler = DefaultServeMux</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">    handler.ServeHTTP(rw, req)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>如果入口服务server结构已经设置了Handler，就调用这个Handler来处理此次请求，反之则使用库自带的DefaultServerMux。</p>
+<p>这里的serverHandler设计，能同时保证这个库的扩展性和易用性：你可以很方便使用默认方法处理请求，但是一旦有需求，也能自己扩展出方法处理请求。</p>
+<p>那么DefaultServeMux是怎么寻找Handler的呢，这就是思维导图的最后一部分<strong>第七层</strong>。</p>
+<img src="/2021/12/20/01%EF%BD%9Cnet-http%EF%BC%9A%E4%BD%BF%E7%94%A8%E6%A0%87%E5%87%86%E5%BA%93%E6%90%AD%E5%BB%BAServer%E5%B9%B6%E4%B8%8D%E6%98%AF%E9%82%A3%E4%B9%88%E7%AE%80%E5%8D%95/6.webp" class="">
+<p><code>DefaultServeMux.Handle</code>是一个非常简单的map实现，key是路径（pattern），value是这个pattern对应的处理函数（handler）。它是通过<code>mux.match(path)</code>寻找对应Handler，也就是从DefaultServeMux内部的map中直接根据key寻找到value的。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> DefaultServeMux = &amp;defaultServeMux</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> defaultServeMux ServeMux</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> ServeMux <span class="keyword">struct</span> &#123;</span><br><span class="line">    mu    sync.RWMutex</span><br><span class="line">    m     <span class="keyword">map</span>[<span class="type">string</span>]muxEntry</span><br><span class="line">    es    []muxEntry <span class="comment">// slice of entries sorted from longest to shortest.</span></span><br><span class="line">    hosts <span class="type">bool</span>       <span class="comment">// whether any patterns contain hostnames</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> muxEntry <span class="keyword">struct</span> &#123;</span><br><span class="line">    h       Handler</span><br><span class="line">    pattern <span class="type">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(mux *ServeMux)</span></span> handler(host, path <span class="type">string</span>) (h Handler, pattern <span class="type">string</span>) &#123;</span><br><span class="line">    mux.mu.RLock()</span><br><span class="line">    <span class="keyword">defer</span> mux.mu.RUnlock()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Host-specific pattern takes precedence over generic ones</span></span><br><span class="line">    <span class="keyword">if</span> mux.hosts &#123;</span><br><span class="line">        h, pattern = mux.match(host + path)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> h == <span class="literal">nil</span> &#123;</span><br><span class="line">        h, pattern = mux.match(path)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> h == <span class="literal">nil</span> &#123;</span><br><span class="line">        h, pattern = NotFoundHandler(), <span class="string">&quot;&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>这种根据map直接查找路由的方式是不是可以满足我们的路由需求呢？我们会在第三讲路由中详细解说。</p>
+<p>好，HTTP库Server的代码流程我们就梳理完成了，整个逻辑线大致是：<br><figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">创建服务 -&gt; 监听请求 -&gt; 创建连接 -&gt; 处理请求</span><br></pre></td></tr></table></figure></p>
+<ul>
+<li>第一层，标准库创建HTTP服务是通过创建一个Server数据结构完成的；</li>
+<li>第二层，Server数据结构在for循环中不断监听每一个连接；</li>
+<li>第三层，每个连接默认开启一个Goroutine为其服务；</li>
+<li>第四、五层，serverHandler结构代表请求对应的处理逻辑，并且通过这个结构进行具体业务逻辑处理；</li>
+<li>第六层，Server数据结构如果没有设置处理函数Handler，默认使用DefaultServerMux处理请求；</li>
+<li>第七层，DefaultServerMux是使用map结构来存储和查找路由规则。</li>
+</ul>
+<h1 id="思考题"><a href="#思考题" class="headerlink" title="思考题"></a><span style="color:#339AFF;">思考题</span></h1><p>HTTP库提供FileServer来封装对文件读取的HTTP服务。实现代码也非常简单：<br><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fs := http.FileServer(http.Dir(<span class="string">&quot;/home/bob/static&quot;</span>))</span><br><span class="line">http.Handle(<span class="string">&quot;/static/&quot;</span>, http.StripPrefix(<span class="string">&quot;/static&quot;</span>, fs))</span><br></pre></td></tr></table></figure><br>请问它的主流程逻辑是什么？你认为其中最关键的节点是什么？</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%89%8B%E6%8A%8A%E6%89%8B%E5%B8%A6%E4%BD%A0%E5%86%99%E4%B8%80%E4%B8%AAWeb%E6%A1%86%E6%9E%B6/" rel="tag"># 手把手带你写一个Web框架</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/11/24/%E7%89%B9%E5%88%AB%E6%94%BE%E9%80%81-Go-Modules%E5%AE%9E%E6%88%98/" rel="next" title="特别放送|Go Modules实战">
+                <i class="fa fa-chevron-left"></i> 特别放送|Go Modules实战
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/12/20/02%EF%BD%9CContext%EF%BC%9A%E8%AF%B7%E6%B1%82%E6%8E%A7%E5%88%B6%E5%99%A8%EF%BC%8C%E8%AE%A9%E6%AF%8F%E4%B8%AA%E8%AF%B7%E6%B1%82%E9%83%BD%E5%9C%A8%E6%8E%8C%E6%8E%A7%E4%B9%8B%E4%B8%AD/" rel="prev" title="02｜Context：请求控制器，让每个请求都在掌控之中">
+                02｜Context：请求控制器，让每个请求都在掌控之中 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="CheBin"/>
+            
+              <p class="site-author-name" itemprop="name">CheBin</p>
+              <div class="site-description motion-element" itemprop="description">参与开源就是出路</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/%20%7C%7C%20archive">
+                
+                    <span class="site-state-item-count">561</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/%20%7C%7C%20th">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/%20%7C%7C%20tags">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <!-- modify icon to fire by szw -->
+                <i class="fa fa-history fa-" aria-hidden="true"></i>
+                近期文章
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                
+                  <li>
+                    <a href="/2024/07/31/%E6%A3%8B%E7%89%8C%E6%B8%B8%E6%88%8F-1/" title="棋牌游戏-1" target="_blank">棋牌游戏-1</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/07/31/%E7%AC%AC11%E7%AB%A0-%E5%B9%B6%E5%8F%91%E6%A8%A1%E5%BC%8F%EF%BC%9A%E6%8B%BF%E6%9D%A5%E5%8D%B3%E7%94%A8%E7%9A%84%E7%BB%8F%E9%AA%8C%E6%80%BB%E7%BB%93/" title="第11章 并发模式：拿来即用的经验总结" target="_blank">第11章 并发模式：拿来即用的经验总结</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/07/31/go%E5%B9%B6%E5%8F%91%E4%B9%8B%E7%BE%8E%EF%BC%9A%E5%A4%9A%E4%B8%AAchannel%E5%90%88%E5%B9%B6-%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E6%B5%81%E5%90%88%E5%B9%B6/" title="go并发之美：多个channel合并/多个数据流合并" target="_blank">go并发之美：多个channel合并/多个数据流合并</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/05/21/%E7%AC%AC12%E7%AB%A0-%E5%88%86%E5%B8%83%E5%BC%8F%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" title="第12章 分布式链路追踪" target="_blank">第12章 分布式链路追踪</a>
+                  </li>
+                
+                  <li>
+                    <a href="/2024/05/21/%E7%AC%AC11%E7%AB%A0-%E7%BB%9F%E4%B8%80%E8%AE%A4%E8%AF%81%E4%B8%8E%E6%8E%88%E6%9D%83/" title="第11章 统一认证与授权" target="_blank">第11章 统一认证与授权</a>
+                  </li>
+                
+              </ul>
+            </div>
+        
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E5%BA%93"><span class="nav-number">1.</span> <span class="nav-text">标准库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%A1%86%E6%9E%B6%E7%9A%84Server%E7%BB%93%E6%9E%84"><span class="nav-number">2.</span> <span class="nav-text">创建框架的Server结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#net-http%E6%A0%87%E5%87%86%E5%BA%93%E6%80%8E%E4%B9%88%E5%AD%A6"><span class="nav-number">3.</span> <span class="nav-text">net&#x2F;http标准库怎么学</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">4.</span> <span class="nav-text">思考题</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 – <span itemprop="copyrightYear">2024</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">CheBin</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点总字数：</span>
+    
+    <span title="站点总字数">4m</span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    
+    <span title="站点阅读时长">60:19</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('复制').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('复制成功');
+        else $(this).text('复制失败');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('复制');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+  
+
+  
+
+</body>
+</html>
